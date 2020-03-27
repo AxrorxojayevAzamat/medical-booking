@@ -24,22 +24,39 @@ services:
     networks:
       - internal
   db:
-    image: mysql:5.7
-    container_name: medical-booking-db
+    container_name: medical-booking-db-pg
     ports:
-      - 3306:3306
+      - 5432:5432
+    image: postgres:10.1
+    restart: always
     volumes:
       - ./:/var/www/html/
-      - ./mail.sql:/docker-entrypoint-initdb.d/init.sql
-
+      # - ./dump.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
-      MYSQL_DATABASE: medical_booking
-      MYSQL_USER: root
-      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
-      MYSQL_PASSWORD:
-      MYSQL_ROOT_PASSWORD:
+      - POSTGRES_DB=medical_booking
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=
     networks:
       - internal
+  
+
+      # db:
+  #   image: mysql:5.7
+  #   container_name: medical-booking-db
+  #   ports:
+  #     - 5432:5432
+  #   volumes:
+  #     - ./:/var/www/html/
+  #     #- ./mail.sql:/docker-entrypoint-initdb.d/init.sql
+
+  #   environment:
+  #     MYSQL_DATABASE: medical_booking
+  #     MYSQL_USER: root
+  #     MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+  #     MYSQL_PASSWORD:
+  #     MYSQL_ROOT_PASSWORD:
+  #   networks:
+  #     - internal
 
   redis:
     image: redis
