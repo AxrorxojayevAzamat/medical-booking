@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Post;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -24,7 +25,15 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        $this->registerPostPolicies();
 
         //
+    }
+
+    public function registerPostPolicies()
+    {
+        Gate::define('user-manage', function ($user) {
+            return $user->hasAccess(['user-manage']);
+        });
     }
 }

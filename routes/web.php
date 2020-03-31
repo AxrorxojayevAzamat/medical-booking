@@ -18,3 +18,9 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+//Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
+Route::group([ 'prefix' => 'admin', 'as' => 'admin.'], function () {
+Route::resource('users', 'Admin\UserController')
+                             ->middleware('can:user-manage');
+
+});
