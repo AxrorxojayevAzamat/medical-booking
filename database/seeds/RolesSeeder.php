@@ -20,7 +20,7 @@ class RolesSeeder extends Seeder
             ]
         ]);
 
-        $admin = Role::create([
+        $user = Role::create([
             'name' => 'User',
             'slug' => 'user',
             'permissions' => [

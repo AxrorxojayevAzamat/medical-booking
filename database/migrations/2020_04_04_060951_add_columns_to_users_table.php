@@ -27,7 +27,7 @@ class AddColumnsToUsersTable extends Migration
 
             $table->string('name_ru')->after('name_uz')->nullable();
             $table->string('lastname_ru')->after('lastname_uz')->nullable();
-            $table->string('patronymic_ru')->after('patronymic_uz')->nullable()->change();
+            $table->string('patronymic_ru')->after('patronymic_uz')->nullable();
         });
     }
 
