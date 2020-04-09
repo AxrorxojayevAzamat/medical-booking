@@ -26,5 +26,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group([ 'prefix' => 'admin', 'as' => 'admin.'], function () {
 Route::resource('users', 'Admin\UserController')
                              ->middleware('can:user-manage');
+Route::resource('specializations', 'Admin\SpecializationController')
+                             ->middleware('can:user-manage');
 
 });

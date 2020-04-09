@@ -13,13 +13,12 @@ class UserSeed extends Seeder
     public function run()
     {
         $user = User::create([
-            'name_ru' => 'Admin',
-            'name_uz' => 'Admin_uz',
-            'lastname_ru' => 'Adminov',
-            'lastname_uz' => 'Adminov_uz',
-            'patronymic_ru' => 'Adminovich',
-            'patronymic_uz' => 'Adminovich_uz',
+            'name' => 'Admin',
+            'lastname' => 'Adminov',
+            'patronymic' => 'Adminovich',
             'phone' => '998991234567',
+            'birth_date' => '1988-04-09 00:00:00',
+            'gender' => '0',
             'email' => 'admin@admin.com',
             'email_verified_at' => '2020-03-31 06:12:15',
             'password' => bcrypt('12'),
@@ -27,13 +26,12 @@ class UserSeed extends Seeder
         $user->roles()->attach(1);
         
         $user1 = User::create([
-            'name_ru' => 'User',
-            'name_uz' => 'User_uz',
-            'lastname_ru' => 'Userov',
-            'lastname_uz' => 'Userov_uz',
-            'patronymic_ru' => 'Userovich',
-            'patronymic_uz' => 'Userovich_uz',
+            'name' => 'User',
+            'lastname' => 'Userov',
+            'patronymic' => 'Userovich',
             'phone' => '998991234567',
+            'birth_date' => '1988-04-09 00:00:00',
+            'gender' => '0',
             'email' => 'user@user.com',
             'email_verified_at' => '2020-03-31 06:14:15',
             'password' => bcrypt('12'),

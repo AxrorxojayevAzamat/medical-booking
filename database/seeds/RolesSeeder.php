@@ -27,5 +27,31 @@ class RolesSeeder extends Seeder
                 'user-profile' => true,
             ]
         ]);
+                
+        $adminCallCenter = Role::create([
+            'name' => 'Admin Call Center',
+            'slug' => 'admin_call_center',
+            'permissions' => [
+                'admin_call_center' => true,
+            ]
+        ]);
+        
+                
+        $adminClinic = Role::create([
+            'name' => 'Admin Clinic',
+            'slug' => 'admin_clinic',
+            'permissions' => [
+                'admin_clinic' => true,
+            ]
+        ]);
+        
+        $doctor = Role::create([
+            'name' => 'Doctor',
+            'slug' => 'doctor',
+            'permissions' => [
+                'doctor' => true,
+            ]
+        ]);
+ 
     }
 }

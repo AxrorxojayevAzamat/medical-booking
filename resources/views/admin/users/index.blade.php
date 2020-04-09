@@ -24,11 +24,13 @@
     <thead>
         <tr>
           <td>ID</td>
-          <td>Name</td>
-          <td>Lastname</td>
-          <td>Patronymic</td>
-          <td>Phone</td>
-          <td>Email</td>
+          <td>Имя</td>
+          <td>Фамилия</td>
+          <td>Отчество</td>
+          <td>Телефон</td>
+          <td>Дата рождения</td>
+          <td>Пол</td>
+          <td>Адрес электронной почты</td>
           <td colspan="2">Action</td>
         </tr>
     </thead>
@@ -40,6 +42,8 @@
             <td>{{$user->lastname}}</td>
             <td>{{$user->patronymic}}</td>
             <td>{{$user->phone}}</td>
+            <td>{{$user->birth_date}}</td>
+            <td>{{$user->gender}}</td>
             <td>{{$user->email}}</td>
             <td><a href="{{ route('admin.users.edit',$user->id)}}" class="btn btn-primary">Edit</a></td>
             <td><a href="{{ route('admin.users.show',$user->id)}}" class="btn btn-success">Show</a></td>
