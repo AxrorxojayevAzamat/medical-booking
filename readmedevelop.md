@@ -1,17 +1,21 @@
-admin
+USERS
+
+admin #Superadmin
     email :     admin@admin.com
     password :  12
-user
+
+user #Simple User
     email   :   user@user.com
     password :  12
 
+adminCallCenter #Admin Call Center
+    email :     admin.call@admin.com
+    password :  12
 
-1. copy .env file 
-    configure:
-        database
-        mail
-2. docker up
-3. composer install 
-4. key:generate
-5. clear cache
-6. migrate seed
+adminClinic #Admin Clinic
+    email :     admin.clinic@admin.com
+    password :  12
+
+doctor #Doctor
+    email :     doctor@doctor.com
+    password :  12
