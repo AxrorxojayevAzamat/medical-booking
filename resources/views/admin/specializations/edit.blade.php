@@ -8,8 +8,9 @@
                 <div class="card-header">{{ __('Редактировать специализацию') }}</div>
 
                 <div class="card-body">
-                    <form method="PATCH" action="{{ route("admin.specializations.update", [$specialization->id]) }}" >
+                    <form method="POST" action="{{ route("admin.specializations.update", [$specialization->id]) }}" >
                         @csrf
+                        @method('PUT')
                         <div class="form-group row">
                             <label for="name_ru" class="col-md-4 col-form-label text-md-right">{{ __('Наименование(ru)') }}</label>
 

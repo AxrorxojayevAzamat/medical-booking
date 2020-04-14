@@ -39,8 +39,8 @@ class SpecializationController extends Controller {
         Specialization::create($request->all());
         return redirect()->route('admin.specializations.index');
     }
-
-    /**
+    
+        /**
      * Display the specified resource.
      *
      * @param  \App\Specialization  $specialization
@@ -68,7 +68,7 @@ class SpecializationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Specialization $specialization) {
-        $company->update($request->all());
+        $specialization->update($request->all());
 
         return redirect()->route('admin.specializations.index');
     }
@@ -80,7 +80,7 @@ class SpecializationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Specialization $specialization) {
-        $company->delete();
+        $specialization->delete();
 
         return redirect()->route('admin.specializations.index');
     }

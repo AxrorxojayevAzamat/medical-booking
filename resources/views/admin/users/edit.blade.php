@@ -8,8 +8,9 @@
                 <div class="card-header">{{ __('Редактировать пользователя') }}</div>
 
                 <div class="card-body">
-                    <form method="PATCH" action="{{ route("admin.users.update", [$user->id]) }}" >
+                    <form method="POST" action="{{ route("admin.users.update", [$user->id]) }}" >
                         @csrf
+                        @method('PUT')
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Имя') }}</label>
 
@@ -23,7 +24,6 @@
                                 @enderror -->
                             </div>
                         </div>
-
                         <div class="form-group row">
                             <label for="lastname" class="col-md-4 col-form-label text-md-right">{{ __('Фамилия') }}</label>
 

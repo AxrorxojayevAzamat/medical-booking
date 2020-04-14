@@ -45,6 +45,7 @@
             <td>{{$user->birth_date}}</td>
             <td>{{$user->gender}}</td>
             <td>{{$user->email}}</td>
+            <td><a href="{{ route('admin.users.edit',$user->id)}}" class="btn btn-primary">Add Clinic</a></td>
             <td><a href="{{ route('admin.users.edit',$user->id)}}" class="btn btn-primary">Edit</a></td>
             <td><a href="{{ route('admin.users.show',$user->id)}}" class="btn btn-success">Show</a></td>
             <td>
