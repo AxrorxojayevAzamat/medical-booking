@@ -1,11 +1,18 @@
 @extends('layouts.region')
 
 @section('content')
-    <form action="{{ route('regions.update',['id'=>$regions->id]) }}"method="post" enctype="multipart/form-data">
-        @csrf
-        @method('PATCH')
+    <p></p>
+    <div class=" container card-header "><h3 >Редактирование</h3></div>
+    <div class="container card-header">
+        <div class=" container" align='center'>
+            <form action="{{ route('region.update',['id'=>$regions->id]) }}" method="post"
+                  enctype="multipart/form-data">
+                @csrf
+                @method('PATCH')
 
-        @include('regions.forms.forms')
-        <input type="submit" value="Редактировать" class="btn btn-primary">
-    </form>
+                @include('regions.forms.editForms')
+                <br>
+
+            </form>
+        </div>
 @endsection

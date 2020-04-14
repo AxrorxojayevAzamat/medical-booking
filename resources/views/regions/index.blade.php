@@ -1,86 +1,76 @@
 @extends('layouts.region')
 @section('content')
 
-    <div class="row">
-        @foreach($regions as $region)
-            <div class="col-6">
+    <br>
+    <div class="container ">
+        <div class="row">
+            <div class="col-12">
                 <div class="card">
-                    <div class="card-header"><h2>Регионы</h2></div>
-                    <div class="card-body">
-                        <div class="card"><b>Название</b> <i>{{ $region->name_uz }}</i></div>
-                        <div class="card"><b>Название</b> <i>{{ $region->name_ru }}</i></div>
-                        <a href="{{ route('$regions.show',['id'=>$region->id]) }}" class="btn btn-primary">Посмотреть</a>
+                    <div class="card-header">
+                        <h3 class="card-title">Регионы, города и районы</h3>
+                        <div class="row">
+                            <form class="form-inline " action="{{route('region.index')}}">
+                                <input class="form-control mr-sm-2" name="search" type="search" placeholder="поиск..."
+                                       aria-label="Search">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary my-2 my-sm-0" type="submit"><b><font color="black">Поиск</font></b>
+                                    </button>
+                                </div>
+                            </form>
+                            <form class="ml-5 " action="{{ route('region.create') }}">
+                                <div class="input-group-append">
+                                    <button class="btn btn-success my-2 my-sm-0" type="submit"><b><font color="black">Создать
+                                                новый регион</font></b></button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0" style="height: 500px;">
+                        <table class="table table-bordered table-hover ">
+                            <thead>
+                            <tr align="center">
+                                <th>ID</th>
+                                <th>Название(узбекский)</th>
+                                <th>Название(русский)</th>
+                                <th>Родительский регион</th>
+                                <th>Действия</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($regions as $region)
+                                <tr>
+                                    <td>{{$region->id}}</td>
+                                    <td>{{$region->name_uz}}</td>
+                                    <td>{{$region->name_ru}}</td>
+                                    <td>{{$region->parent_id}}</td>
+                                    <td class="text-center py-1 ">
+                                        <div class="btn-group">
+                                            <a href="{{ route('region.edit',['id'=>$region->id]) }}"
+                                               class="btn btn-success">Редактировать</a>
+                                            <form action="{{ route('region.destroy',['id'=>$region->id]) }}" method="post"
+                                                  onsubmit="if(confirm('Точно удалить?')){return true} else {return false}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input type="submit" class="btn btn-danger" value="Удалить">
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
                 </div>
+                <!-- /.card -->
             </div>
-        @endforeach
+        </div>
     </div>
 
+
+    @if(!isset($_GET['search']))
+        {{$regions->links()}}
+    @endif
 @endsection
-
-
-
-
-
-{{--<form action="{{ route('regions.store') }}"method="post" enctype="multipart/form-data">--}}
-{{--    @csrf--}}
-
-{{--    <div class="col-md-12" >--}}
-{{--        <div class="card card" >--}}
-{{--            <div class="card-header">--}}
-{{--                <h3 class="card-title"><p align="center">Поиск</p></h3>--}}
-{{--            </div>--}}
-
-{{--            <form role="form">--}}
-{{--                <div class="card card-group" >--}}
-{{--                <div class="col-sm-2">--}}
-{{--                    <!-- select -->--}}
-{{--                    <div class="form-group">--}}
-{{--                        <label>Регионы</label>--}}
-{{--                        <select class="form-control">--}}
-{{--                            <option>Ташкентская область</option>--}}
-{{--                            <option>Самаркандская область</option>--}}
-{{--                            <option>Андижанская область</option>--}}
-{{--                            <option>Бухарская область</option>--}}
-{{--                            <option>Хивинская область</option>--}}
-{{--                        </select>--}}
-
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <div class="col-sm-2">--}}
-{{--                    <!-- select -->--}}
-{{--                    <div class="form-group">--}}
-{{--                        <label>Города</label>--}}
-{{--                        <select class="form-control">--}}
-{{--                            <option>Ташкент</option>--}}
-{{--                            <option>Самарканд</option>--}}
-{{--                            <option>Андижан</option>--}}
-{{--                            <option>Бухара</option>--}}
-{{--                            <option>Хива</option>--}}
-{{--                        </select>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <div class="col-sm-2">--}}
-{{--                    <!-- select -->--}}
-{{--                    <div class="form-group">--}}
-{{--                        <label>Районы</label>--}}
-{{--                        <select class="form-control">--}}
-{{--                            <option>Чиланзарский</option>--}}
-{{--                            <option>Мирабадский</option>--}}
-{{--                            <option>Учтепинский</option>--}}
-{{--                            <option>Алмазарский</option>--}}
-{{--                            <option>Яшнабадский</option>--}}
-{{--                        </select>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                </div>--}}
-{{--                <div>--}}
-{{--                    <button type="submit" class="btn btn-primary">Поиск</button>--}}
-{{--                </div>--}}
-{{--            </form>--}}
-
-{{--        </div>--}}
-{{--    </div>--}}
-
-{{--</form>--}}
 
