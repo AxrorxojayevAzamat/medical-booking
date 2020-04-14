@@ -1,5 +1,4 @@
-@extends('layouts.region')
-
+@extends('adminlte::page')
 @section('content')
     <p></p>
     <div class=" container card-header "><h3 >Редактирование</h3></div>

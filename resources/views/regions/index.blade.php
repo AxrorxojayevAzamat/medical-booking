@@ -1,4 +1,4 @@
-@extends('layouts.region')
+@extends('adminlte::page')
 @section('content')
 
     <br>
@@ -9,7 +9,7 @@
                     <div class="card-header">
                         <h3 class="card-title">Регионы, города и районы</h3>
                         <div class="row">
-                            <form class="form-inline " action="{{route('region.index')}}">
+                            <form class="form-inline ml-5" action="{{route('region.index')}}">
                                 <input class="form-control mr-sm-2" name="search" type="search" placeholder="поиск..."
                                        aria-label="Search">
                                 <div class="input-group-append">
