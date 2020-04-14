@@ -12,5 +12,5 @@ npm-debug.log
 yarn-error.log
 /Makefile
 /nbproject
-/.idea
+/.idea/
 storage/debugbar/
