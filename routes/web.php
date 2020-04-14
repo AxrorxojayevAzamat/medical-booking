@@ -1,4 +1,5 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,12 +25,19 @@ Route::patch('region/show/{id}', 'RegionController@update')->name('region.update
 Route::delete('region/{id}', 'RegionController@destroy')->name('region.destroy');
 
 
+Route::get('/test', function () {
+    return view('test');
+});
+
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 //Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-    Route::resource('users', 'Admin\UserController')->middleware('can:user-manage');
+Route::group([ 'prefix' => 'admin', 'as' => 'admin.'], function () {
+Route::resource('users', 'Admin\UserController')
+                             ->middleware('can:user-manage');
+Route::resource('specializations', 'Admin\SpecializationController')
+                             ->middleware('can:user-manage');
 
 });
 

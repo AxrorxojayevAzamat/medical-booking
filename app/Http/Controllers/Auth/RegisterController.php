@@ -51,14 +51,11 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name_ru' => ['required', 'string', 'max:255'],
-            'name_uz' => ['required', 'string', 'max:255'],
-            'lastname_ru' => ['required', 'string', 'max:255'],
-            'lastname_uz' => ['required', 'string', 'max:255'],
-            'patronymic_ru' => ['required', 'string', 'max:255'],
-            'patronymic_uz' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
+            'lastname' => ['required', 'string', 'max:255'],
+            'patronymic' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:12'],
-            'date_of_birth' => ['required', 'date'],
+            'birth_date' => ['required', 'date'],
             'gender' => ['required', 'integer', 'min:0','max:1'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:2', 'confirmed'],
@@ -74,14 +71,11 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $user = User::create([
-            'name_ru' => $data['name_ru'],
-            'name_uz' => $data['name_uz'],
-            'lastname_ru' => $data['lastname_ru'],
-            'lastname_uz' => $data['lastname_uz'],
-            'patronymic_ru' => $data['patronymic_ru'],
-            'patronymic_uz' => $data['patronymic_uz'],
+            'name' => $data['name'],
+            'lastname' => $data['lastname'],
+            'patronymic' => $data['patronymic'],
             'phone' => $data['phone'],
-            'date_of_birth' => $data['date_of_birth'],
+            'birth_date' => $data['birth_date'],
             'gender' => $data['gender'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
