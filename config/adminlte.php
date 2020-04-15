@@ -218,7 +218,7 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
-       
+
         // [
         //     'text'        => 'pages',
         //     'url'         => 'admin/pages',
@@ -226,9 +226,9 @@ return [
         //     'label'       => 4,
         //     'label_color' => 'success',
         // ],
-        
-        
-        
+
+
+
         // ['header' => 'account_settings'],
         // [
         //     'text' => 'profile',
@@ -245,17 +245,14 @@ return [
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'Список регионов',
+                    'url'  => 'region/',
                 ],
                 [
-                    'text'    => 'level_one',
-                    'url'     => '#',
+                    'text'    => 'Создание нового региона',
+                    'url'     => 'region/create',
                 ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
+
             ],
         ],
         [
@@ -320,7 +317,7 @@ return [
                     'text' => 'Добавить пользователя',
                     'url'  => '#',
                 ],
-               
+
                 [
                     'text' => 'level_one',
                     'url'  => '#',
@@ -466,7 +463,7 @@ return [
                     'asset' => true,
                     'location' => '/vendor/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js',
                 ],
-               
+
             ],
         ],
         [
@@ -478,7 +475,7 @@ return [
                     'asset' => true,
                     'location' => '/vendor/moment/moment.min.js',
                 ],
-               
+
             ],
         ],
         [
@@ -490,7 +487,7 @@ return [
                     'asset' => true,
                     'location' => '/vendor/inputmask/min/jquery.inputmask.bundle.min.js',
                 ],
-               
+
             ],
         ],
         [
@@ -507,7 +504,7 @@ return [
                     'asset' => true,
                     'location' => '/vendor/daterangepicker/daterangepicker.js',
                 ],
-               
+
             ],
         ],
         [
@@ -524,7 +521,7 @@ return [
                     'asset' => true,
                     'location' => '/vendor/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js',
                 ],
-               
+
             ],
         ],
         [
@@ -536,7 +533,7 @@ return [
                     'asset' => true,
                     'location' => '/vendor/bootstrap-switch/js/bootstrap-switch.min.js',
                 ],
-               
+
             ],
         ],
         [
@@ -564,7 +561,7 @@ return [
                     'asset' => true,
                     'location' => '/vendor/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js',
                 ],
-               
+
             ],
         ],
         [
@@ -576,12 +573,12 @@ return [
                     'asset' => true,
                     'location' => '/js/custom.js',
                 ],
-               
+
             ],
         ],
-        
-        
-        
-        
+
+
+
+
     ],
 ];
