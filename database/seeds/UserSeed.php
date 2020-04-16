@@ -21,6 +21,7 @@ class UserSeed extends Seeder {
                     'email' => 'admin@admin.com',
                     'email_verified_at' => '2020-03-31 06:12:15',
                     'password' => bcrypt('12'),
+                    'status' => '1',
         ]);
         $admin->roles()->attach(1);
 
@@ -34,9 +35,10 @@ class UserSeed extends Seeder {
                     'email' => 'user@user.com',
                     'email_verified_at' => '2020-03-31 06:14:15',
                     'password' => bcrypt('12'),
+                    'status' => '1',
         ]);
         $user->roles()->attach(2);
-       
+
         $adminCallCenter = User::create([
                     'name' => 'AdminCallCenter',
                     'lastname' => 'AdminovCallCenter',
@@ -47,6 +49,7 @@ class UserSeed extends Seeder {
                     'email' => 'admin.call@admin.com',
                     'email_verified_at' => '2020-03-31 06:12:15',
                     'password' => bcrypt('12'),
+                    'status' => '1',
         ]);
         $adminCallCenter->roles()->attach(3);
         $adminClinic = User::create([
@@ -59,6 +62,7 @@ class UserSeed extends Seeder {
                     'email' => 'admin.clinic@admin.com',
                     'email_verified_at' => '2020-03-31 06:12:15',
                     'password' => bcrypt('12'),
+                    'status' => '1',
         ]);
         $adminCallCenter->roles()->attach(4);
         $doctor = User::create([
@@ -71,6 +75,7 @@ class UserSeed extends Seeder {
                     'email' => 'doctor@doctor.com',
                     'email_verified_at' => '2020-03-31 06:12:15',
                     'password' => bcrypt('12'),
+                    'status' => '1',
         ]);
         $doctor->roles()->attach(5);
     }

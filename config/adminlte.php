@@ -279,20 +279,21 @@ return [
         [
             'text'    => 'Специализации',
             'icon'    => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-                [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-            ],
+            'url'     => 'admin/specializations',
+//            'submenu' => [
+//                [
+//                    'text' => 'level_one',
+//                    'url'  => '#',
+//                ],
+//                [
+//                    'text'    => 'level_one',
+//                    'url'     => '#',
+//                ],
+//                [
+//                    'text' => 'level_one',
+//                    'url'  => '#',
+//                ],
+//            ],
         ],
         [
             'text'    => 'Клиники',
@@ -315,17 +316,18 @@ return [
         [
             'text'    => 'Пользователи',
             'icon'    => 'fas fa-fw fa-user',
-            'submenu' => [
-                [
-                    'text' => 'Добавить пользователя',
-                    'url'  => '#',
-                ],
-               
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-            ],
+            'url'     => 'admin/users',
+//            'submenu' => [
+//                [
+//                    'text' => 'Пользователи',
+//                    'url'  => 'admin/users',
+//                ],
+//               
+//                [
+//                    'text' => 'level_one',
+//                    'url'  => '#',
+//                ],
+//            ],
         ],
         [
             'text'    => 'multilevel',
