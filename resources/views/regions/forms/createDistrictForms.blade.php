@@ -4,11 +4,9 @@
         <!-- select -->
         <div class="form-group">
             <select class="form-control">
-                <option>Ташкентская область</option>
-                <option>Самаркандская область</option>
-                <option>Андижанская область</option>
-                <option>Бухарская область</option>
-                <option>Хивинская область</option>
+                @foreach($regions as $region)
+                    <option>{{$region->name_ru}}</option>
+                @endforeach
             </select>
             <label>Родительский регион</label>
         </div>

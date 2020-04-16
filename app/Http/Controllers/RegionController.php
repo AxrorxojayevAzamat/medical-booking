@@ -45,11 +45,15 @@ class RegionController extends Controller
     }
     public function createCity()
     {
-        return view('regions.createCity');
+        $regions = Region::all()->where('parent_id', 'like', '%' . 0 . '%');
+        return view('regions.createCity',compact('regions'));
     }
     public function createDistrict()
     {
-        return view('regions.createDistrict');
+        $regions = Region::all()->where('parent_id', 'like', '%' . 0 . '%');
+        $cities = Region::all()->where('parent_id', 'like', '%' . 0 . '%');
+
+        return view('regions.createDistrict',compact('regions','cities'));
     }
 
     /**
@@ -66,17 +70,17 @@ class RegionController extends Controller
         $regions->name_ru = $request->region_ru;
         $regions->save();
 
-        $cities = new Region();
-        $cities->parent_id = $regions->id;
-        $cities->name_uz = $request->city_uz;
-        $cities->name_ru = $request->city_ru;
-        $cities->save();
-
-        $districts = new Region();
-        $districts->parent_id = $cities->id;
-        $districts->name_uz = $request->district_uz;
-        $districts->name_ru = $request->district_ru;
-        $districts->save();
+//        $cities = new Region();
+//        $cities->parent_id = $regions->id;
+//        $cities->name_uz = $request->city_uz;
+//        $cities->name_ru = $request->city_ru;
+//        $cities->save();
+//
+//        $districts = new Region();
+//        $districts->parent_id = $cities->id;
+//        $districts->name_uz = $request->district_uz;
+//        $districts->name_ru = $request->district_ru;
+//        $districts->save();
 
         return redirect()->route('region.index')->with('success', 'Успешно!');
     }
@@ -105,8 +109,8 @@ class RegionController extends Controller
     {
 
         $regions = Region::find($id);
-        $regions->name_uz = $request->name_uz;
-        $regions->name_ru = $request->name_ru;
+        $regions->name_uz = $request->region_uz;
+        $regions->name_ru = $request->region_ru;
         $regions->update();
         $id = $regions->id;
 

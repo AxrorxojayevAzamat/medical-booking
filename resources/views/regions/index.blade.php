@@ -54,18 +54,28 @@
                             <tbody>
                             @foreach($regions as $region)
                                 <tr>
-                                    <td>{{$region->id}}</td>
-                                    <td>{{$region->name_uz}}</td>
-                                    <td>{{$region->name_ru}}</td>
-                                    <td>{{$region->parent_id}}</td>
+                                    <td class="text-center py-1 ">{{$region->id}}</td>
+                                    <td class="text-center py-1 ">{{$region->name_uz}}</td>
+                                    <td class="text-center py-1 ">{{$region->name_ru}}</td>
+                                    <td class="text-center py-1 ">
+                                        @if($region->parent_id==0)
+                                            Нету
+                                        @endif
+                                        @if($region->parent_id!=0)
+                                            {{$region->name_ru}}
+                                        @endif
+                                    </td>
                                     <td class="text-center py-1 ">
                                         <div class="btn-group">
-                                            <a href="{{ route('region.edit',['id'=>$region->id]) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                            <form action="{{ route('region.destroy',['id'=>$region->id]) }}" method="post"
+                                            <a href="{{ route('region.edit',['id'=>$region->id]) }}"
+                                               class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                            <form action="{{ route('region.destroy',['id'=>$region->id]) }}"
+                                                  method="post"
                                                   onsubmit="if(confirm('Точно удалить?')){return true} else {return false}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                                <button type="submit" class="btn btn-danger"><i
+                                                        class="fas fa-trash"></i></button>
                                             </form>
                                         </div>
                                     </td>
