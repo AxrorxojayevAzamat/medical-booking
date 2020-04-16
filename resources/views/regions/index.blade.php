@@ -1,6 +1,26 @@
 @extends('adminlte::page')
 @section('content')
 
+    @if($errors->any())
+        @foreach($errors->all() as $error)
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ $error }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endforeach
+    @endif
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+    @endif
+
     <br>
     <div class="container ">
         <div class="row">
@@ -15,12 +35,6 @@
                                 <div class="input-group-append">
                                     <button class="btn btn-primary my-2 my-sm-0" type="submit"><b><font color="black">Поиск</font></b>
                                     </button>
-                                </div>
-                            </form>
-                            <form class="ml-5 " action="{{ route('region.create') }}">
-                                <div class="input-group-append">
-                                    <button class="btn btn-success my-2 my-sm-0" type="submit"><b><font color="black">Создать
-                                                новый регион</font></b></button>
                                 </div>
                             </form>
                         </div>
@@ -46,13 +60,12 @@
                                     <td>{{$region->parent_id}}</td>
                                     <td class="text-center py-1 ">
                                         <div class="btn-group">
-                                            <a href="{{ route('region.edit',['id'=>$region->id]) }}"
-                                               class="btn btn-success">Редактировать</a>
+                                            <a href="{{ route('region.edit',['id'=>$region->id]) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
                                             <form action="{{ route('region.destroy',['id'=>$region->id]) }}" method="post"
                                                   onsubmit="if(confirm('Точно удалить?')){return true} else {return false}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <input type="submit" class="btn btn-danger" value="Удалить">
+                                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                             </form>
                                         </div>
                                     </td>
@@ -67,6 +80,7 @@
             </div>
         </div>
     </div>
+
 
 
     @if(!isset($_GET['search']))

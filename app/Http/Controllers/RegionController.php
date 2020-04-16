@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegionRequest;
 use App\Region;
 use Illuminate\Http\Request;
 
@@ -18,8 +19,8 @@ class RegionController extends Controller
     {
         if ($request->search) {
 
-            $regions = Region::where('name_uz', 'like', '%' . $request->search . '%')
-                ->orWhere('name_ru', 'like', '%' . $request->search . '%')
+            $regions = Region::where('name_uz', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('name_ru', 'LIKE', '%' . $request->search . '%')
                 ->orderBy('regions.id', 'asc')
                 ->get();
             return view('regions.index', compact('regions'));
@@ -42,6 +43,14 @@ class RegionController extends Controller
     {
         return view('regions.create');
     }
+    public function createCity()
+    {
+        return view('regions.createCity');
+    }
+    public function createDistrict()
+    {
+        return view('regions.createDistrict');
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -49,7 +58,7 @@ class RegionController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(RegionRequest $request)
     {
         $regions = new Region();
         $regions->parent_id = 0;
@@ -69,7 +78,7 @@ class RegionController extends Controller
         $districts->name_ru = $request->district_ru;
         $districts->save();
 
-        return redirect()->route('region.index');
+        return redirect()->route('region.index')->with('success', 'Успешно!');
     }
 
 
@@ -92,7 +101,7 @@ class RegionController extends Controller
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(RegionRequest $request, $id)
     {
 
         $regions = Region::find($id);
@@ -101,7 +110,7 @@ class RegionController extends Controller
         $regions->update();
         $id = $regions->id;
 
-        return redirect()->route('region.index', compact('id'));
+        return redirect()->route('region.index', compact('id'))->with('success', 'Отредактировано!');
     }
 
     /**
@@ -114,6 +123,6 @@ class RegionController extends Controller
     {
         $regions = Region::find($id);
         $regions->delete();
-        return redirect()->route('region.index')->with('success', 'Регион удален!');
+        return redirect()->route('region.index')->with('success',  'Удалено!');
     }
 }

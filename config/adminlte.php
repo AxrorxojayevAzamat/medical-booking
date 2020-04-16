@@ -249,8 +249,16 @@ return [
                     'url'  => 'region/',
                 ],
                 [
-                    'text'    => 'Создание нового региона',
+                    'text'    => 'Новый Регион',
                     'url'     => 'region/create',
+                ],
+                [
+                    'text'    => 'Новый Город',
+                    'url'     => 'region/createCity',
+                ],
+                [
+                    'text'    => 'Новый Район',
+                    'url'     => 'region/createDistrict',
                 ],
 
             ],

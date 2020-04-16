@@ -23,12 +23,12 @@
 
     <p></p>
     <div class="card">
-        <div class=" container card-header "><h3>Новый регион</h3></div>
+        <div class=" container card-header "><h3>Новый район</h3></div>
         <div class="container card-header">
             <div class=" container" align='center'>
                 <form action="{{ route('region.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
-                    @include('regions.forms.createForms')
+                    @include('regions.forms.createDistrictForms')
                     <input type="submit" value="Создать" class="btn btn-primary">
                     <a href="{{ route('region.index') }}" class="btn btn-success">Назад</a>
                 </form>
