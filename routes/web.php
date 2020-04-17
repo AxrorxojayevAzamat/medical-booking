@@ -12,15 +12,20 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('/timetables/create');
 });
 
+Route::get('/time', 'TimeController@show');
+Route::get('/time', 'TimeController@show')->name('time.show');
+Route::get('/timetables/time', 'TimeController@store');
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 //Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
 Route::group([ 'prefix' => 'admin', 'as' => 'admin.'], function () {
-Route::resource('users', 'Admin\UserController')
-                             ->middleware('can:user-manage');
+    Route::resource('users', 'Admin\UserController')
+        ->middleware('can:user-manage');
+
+
 
 });
