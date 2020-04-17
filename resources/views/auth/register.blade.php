@@ -1,189 +1,185 @@
-@extends('layouts.app')
+@extends('adminlte::master')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+@section('adminlte_css')
+    @stack('css')
+    @yield('css')
+@stop
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+@section('classes_body', 'register-page')
 
-                        <div class="form-group row">
-                            <label for="name_ru" class="col-md-4 col-form-label text-md-right">{{ __('Name_ru') }}</label>
+@php( $login_url = View::getSection('login_url') ?? config('adminlte.login_url', 'login') )
+@php( $register_url = View::getSection('register_url') ?? config('adminlte.register_url', 'register') )
+@php( $dashboard_url = View::getSection('dashboard_url') ?? config('adminlte.dashboard_url', 'home') )
 
-                            <div class="col-md-6">
-                                <input id="name_ru" type="text" class="form-control @error('name_ru') is-invalid @enderror" name="name_ru" value="{{ old('name_ru') }}" required autocomplete="name_ru" autofocus>
+@if (config('adminlte.use_route_url', false))
+    @php( $login_url = $login_url ? route($login_url) : '' )
+    @php( $register_url = $register_url ? route($register_url) : '' )
+    @php( $dashboard_url = $dashboard_url ? route($dashboard_url) : '' )
+@else
+    @php( $login_url = $login_url ? url($login_url) : '' )
+    @php( $register_url = $register_url ? url($register_url) : '' )
+    @php( $dashboard_url = $dashboard_url ? url($dashboard_url) : '' )
+@endif
 
-                                @error('name_ru')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                        
-                        <div class="form-group row">
-                            <label for="name_uz" class="col-md-4 col-form-label text-md-right">{{ __('Name_uz') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name_uz" type="text" class="form-control @error('name_uz') is-invalid @enderror" name="name_uz" value="{{ old('name_uz') }}" required autocomplete="name_uz" autofocus>
-
-                                @error('name_uz')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="lastname_ru" class="col-md-4 col-form-label text-md-right">{{ __('Lastname_ru') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="lastname_ru" type="text" class="form-control @error('lastname_ru') is-invalid @enderror" name="lastname_ru" value="{{ old('lastname_ru') }}" required autocomplete="lastname_ru" autofocus>
-
-                                @error('lastname_ru')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                        
-                        <div class="form-group row">
-                            <label for="lastname_uz" class="col-md-4 col-form-label text-md-right">{{ __('Lastname_uz') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="lastname_uz" type="text" class="form-control @error('lastname_uz') is-invalid @enderror" name="lastname_uz" value="{{ old('lastname_uz') }}" required autocomplete="lastname_uz" autofocus>
-
-                                @error('lastname_uz')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="patronymic_ru" class="col-md-4 col-form-label text-md-right">{{ __('Patronymic_ru') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="patronymic_ru" type="text" class="form-control @error('patronymic_ru') is-invalid @enderror" name="patronymic_ru" value="{{ old('patronymic_ru') }}" required autocomplete="patronymic_ru" autofocus>
-
-                                @error('patronymic_ru')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                        
-                        <div class="form-group row">
-                            <label for="patronymic_uz" class="col-md-4 col-form-label text-md-right">{{ __('Patronymic_uz') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="patronymic_uz" type="text" class="form-control @error('patronymic_uz') is-invalid @enderror" name="patronymic_uz" value="{{ old('patronymic_uz') }}" required autocomplete="patronymic_uz" autofocus>
-
-                                @error('patronymic_uz')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
-
-                                @error('phone')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                        
-                        <div class="form-group row">
-                            <label for="date_of_birth" class="col-md-4 col-form-label text-md-right">{{ __('Date of Birth') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="date_of_birth" type="date" class="form-control @error('date_of_birth') is-invalid @enderror" name="date_of_birth" value="{{ old('date_of_birth') }}" required autocomplete="date_of_birth" autofocus>
-
-                                @error('date_of_birth')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="gender" type="number" class="form-control @error('gender') is-invalid @enderror" min="0" max="1" name="gender" value="{{ old('gender') }}" required autocomplete="gender" autofocus>
-
-                                @error('gender')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                        
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+@section('body')
+    <div class="register-box">
+        <div class="register-logo">
+            <a href="{{ $dashboard_url }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
         </div>
-    </div>
-</div>
-@endsection
+        <div class="card">
+            <div class="card-body register-card-body">
+                <p class="login-box-msg">{{ __('adminlte::adminlte.register_message') }}</p>
+                <form action="{{ $register_url }}" method="post">
+                    {{ csrf_field() }}
+
+                    <div class="input-group mb-3">
+                        <input type="text" name="name" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" value="{{ old('name') }}"
+                               placeholder="{{ __('Имя') }}" autofocus>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+
+                        @if ($errors->has('name'))
+                            <div class="invalid-feedback">
+                                <strong>{{ $errors->first('name') }}</strong>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="lastname" class="form-control {{ $errors->has('lastname') ? 'is-invalid' : '' }}" value="{{ old('lastname') }}"
+                               placeholder="{{ __('Фамилия') }}" autofocus>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+
+                        @if ($errors->has('lastname'))
+                            <div class="invalid-feedback">
+                                <strong>{{ $errors->first('lastname') }}</strong>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="patronymic" class="form-control {{ $errors->has('patronymic') ? 'is-invalid' : '' }}" value="{{ old('patronymic') }}"
+                               placeholder="{{ __('Отчество') }}" autofocus>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+
+                        @if ($errors->has('patronymic'))
+                            <div class="invalid-feedback">
+                                <strong>{{ $errors->first('patronymic') }}</strong>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="phone" class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}" value="{{ old('phone') }}"
+                               placeholder="{{ __('Телефон') }}" autofocus>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+
+                        @if ($errors->has('phone'))
+                            <div class="invalid-feedback">
+                                <strong>{{ $errors->first('phone') }}</strong>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="date" name="birth_date" class="form-control {{ $errors->has('birth_date') ? 'is-invalid' : '' }}" value="{{ old('birth_date') }}"
+                               placeholder="{{ __('Дата рождения') }}" autofocus>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+
+                        @if ($errors->has('birth_date'))
+                            <div class="invalid-feedback">
+                                <strong>{{ $errors->first('birth_date') }}</strong>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="number" name="gender" min="0" max="1" class="form-control {{ $errors->has('gender') ? 'is-invalid' : '' }}" value="{{ old('gender') }}"
+                               placeholder="{{ __('Пол') }}" autofocus>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+
+                        @if ($errors->has('gender'))
+                            <div class="invalid-feedback">
+                                <strong>{{ $errors->first('gender') }}</strong>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" value="{{ old('email') }}"
+                               placeholder="{{ __('Адрес электронной почты') }}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                        @if ($errors->has('email'))
+                            <div class="invalid-feedback">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
+                               placeholder="{{ __('Пароль') }}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                        @if ($errors->has('password'))
+                            <div class="invalid-feedback">
+                                <strong>{{ $errors->first('password') }}</strong>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" name="password_confirmation" class="form-control {{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}"
+                               placeholder="{{ __('Подтвердите пароль') }}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                        @if ($errors->has('password_confirmation'))
+                            <div class="invalid-feedback">
+                                <strong>{{ $errors->first('password_confirmation') }}</strong>
+                            </div>
+                        @endif
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">
+                        {{ __('adminlte::adminlte.register') }}
+                    </button>
+                </form>
+                <p class="mt-2 mb-1">
+                    <a href="{{ $login_url }}">
+                        {{ __('adminlte::adminlte.i_already_have_a_membership') }}
+                    </a>
+                </p>
+            </div>
+            <!-- /.form-box -->
+        </div><!-- /.register-box -->
+        @stop
+
+        @section('adminlte_js')
+            <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
+    @stack('js')
+    @yield('js')
+@stop

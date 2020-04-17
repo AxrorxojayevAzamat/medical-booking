@@ -24,21 +24,21 @@ services:
     networks:
       - internal
   db:
+    image: postgres:12.2-alpine
     container_name: medical-booking-db-pg
+    restart: unless-stopped
     ports:
-      - 5432:5432
-    image: postgres:10.1
-    restart: always
+      - 54321:5432
     volumes:
       - ./:/var/www/html/
-      # - ./dump.sql:/docker-entrypoint-initdb.d/init.sql
+      #- ./storage/docker/psql:/var/lib/postgresql/data:cached
     environment:
       - POSTGRES_DB=medical_booking
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=booking123
     networks:
       - internal
-  
+
 
       # db:
   #   image: mysql:5.7
