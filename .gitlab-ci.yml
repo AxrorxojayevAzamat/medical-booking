@@ -1,0 +1,22 @@
+stages:
+  - deploy
+deploy_development:
+  stage: deploy
+  script:
+  - rsync -avzP * /var/www/dev.medbron.uz/ --no-perms --no-owner --no-group
+  - cd /var/www/dev.medbron.uz/
+  environment:
+    name: development
+    url: https://dev.medbron.uz
+  only:
+  - develop
+deploy_production:
+  stage: deploy
+  script:
+  - rsync -avzP * /var/www/prod.medbron.uz/ --no-perms --no-owner --no-group
+  - cd /var/www/prod.medbron.uz/
+  environment:
+    name: production
+    url: https://prod.medbron.uz/
+  only:
+  - master
