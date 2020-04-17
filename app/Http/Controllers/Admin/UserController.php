@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Admin\StoreUserRequest;
-use App\Http\Requests\Admin\UpdateUserRequest;
 use App\Http\Controllers\Controller;
 use App\Role;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -40,13 +39,13 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUserRequest $request)
+    public function store(Request $request)
     {
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
 
         $user = User::create($input);
-
+        
         $user->roles()->attach($request['role']);
 
         return redirect()->route('admin.users.index');
@@ -86,17 +85,17 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(Request $request, User $user)
     {
-        // $input = $request->all();
-        // if(!empty($input['password'])){ 
-        //     $input['password'] = Hash::make($input['password']);
-        // }else{
-        //     $input = array_except($input,array('password'));    
-        // }
-
-        // $user = User::find($id);
-        // $user->update($input);
+//        $input = $request->all();
+//        if(!empty($input['password'])){ 
+//             $input['password'] = Hash::make($input['password']);
+//         }else{
+//             $input = array_except($input,array('password'));    
+//         }
+//
+//         $user = User::find($id);
+//         $user->update($input);
         $user->update($request->all());
 
 
