@@ -3,7 +3,7 @@ stages:
 deploy_development:
   stage: deploy
   script:
-  - rsync -avzP * /var/www/dev.medbron.uz/ --no-perms --no-owner --no-group
+  - rsync -av * /var/www/dev.medbron.uz/ --no-perms --no-owner --no-group
   - cd /var/www/dev.medbron.uz/
   - composer update --no-dev
   environment:
@@ -14,7 +14,7 @@ deploy_development:
 deploy_production:
   stage: deploy
   script:
-  - rsync -avzP * /var/www/prod.medbron.uz/ --no-perms --no-owner --no-group
+  - rsync -av * /var/www/prod.medbron.uz/ --no-perms --no-owner --no-group
   - cd /var/www/prod.medbron.uz/
   - composer install
   environment:
