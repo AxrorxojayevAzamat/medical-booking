@@ -5,6 +5,7 @@ deploy_development:
   script:
   - rsync -avzP * /var/www/dev.medbron.uz/ --no-perms --no-owner --no-group
   - cd /var/www/dev.medbron.uz/
+  - composer install
   environment:
     name: development
     url: https://dev.medbron.uz
@@ -15,6 +16,7 @@ deploy_production:
   script:
   - rsync -avzP * /var/www/prod.medbron.uz/ --no-perms --no-owner --no-group
   - cd /var/www/prod.medbron.uz/
+  - composer install
   environment:
     name: production
     url: https://prod.medbron.uz/
