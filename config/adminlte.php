@@ -292,16 +292,6 @@ return [
 //                    'url'  => '#',
 //                ],
 //            ],
-            'submenu' => [
-                [
-                    'text' => 'Добавить пользователя',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-            ],
         ],
         [
             'text' => 'multilevel',
