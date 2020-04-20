@@ -8,15 +8,14 @@ use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
-{
+class UserController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         $users = User::all();
 
         return view('admin.users.index', compact('users'));
@@ -27,8 +26,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         $roles = Role::orderBy('name')->pluck('name', 'id');
         return view('admin.users.create', compact(['roles']));
     }
@@ -39,13 +37,12 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
 
         $user = User::create($input);
-        
+
         $user->roles()->attach($request['role']);
 
         return redirect()->route('admin.users.index');
@@ -57,8 +54,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
-    {
+    public function show(User $user) {
         $user->load('roles');
 
         return view('admin.users.show', compact('user'));
@@ -70,8 +66,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
-    {
+    public function edit(User $user) {
         $roles = Role::orderBy('name')->pluck('name', 'id');
         //$user = User::findOrFail($id);
 
@@ -85,22 +80,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
-    {
-//        $input = $request->all();
-//        if(!empty($input['password'])){ 
-//             $input['password'] = Hash::make($input['password']);
-//         }else{
-//             $input = array_except($input,array('password'));    
-//         }
-//
-//         $user = User::find($id);
-//         $user->update($input);
-        $user->update($request->all());
+    public function update(Request $request, User $user) {
+        $user->update($request->except(['role']));
 
 
-        $user->roles()->attach($request['role']);
-        
+//        $user->roles()->attach($request['role']);
+
         return redirect()->route('admin.users.index');
     }
 
@@ -110,10 +95,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
-    {
+    public function destroy(User $user) {
         $user->delete();
 
         return redirect()->route('admin.users.index');
     }
+
 }
