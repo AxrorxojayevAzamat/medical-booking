@@ -13,13 +13,15 @@
 
 
 Route::get('/', function () {
-    return view('/timetables/create');
+    return view('/timetables/show');
 });
 
 
-Route::get('/time', 'TimeController@show');
-Route::get('/time', 'TimeController@show')->name('time.show');
-Route::get('/timetables/time', 'TimeController@store');
+
+Route::get('/timetables/show', 'TimeTableController@show');
+Route::get('/timetables/show', 'TimeTableController@show')->name('timetables.show');
+Route::get('/timetables/create', 'TimeTableController@create')->name('timetables.create');
+Route::post('/timetables/show', 'TimeTableController@store')->name('timetables.store');
 
 Route::get('region/', 'RegionController@index');
 Route::get('region/', 'RegionController@index')->name('region.index');

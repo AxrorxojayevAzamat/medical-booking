@@ -242,7 +242,7 @@ return [
         ],
         [
             'text' => 'Специализации',
-            'icon' => 'fas fa-fw fa-share',
+            'icon0' => 'fas fa-fw fa-share',
             'url' => 'admin/specializations',
 //            'submenu' => [
 //                [
@@ -278,6 +278,24 @@ return [
             ],
         ],
         [
+            'text' => 'Расписание',
+            'icon' => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text' => 'Добавить',
+                    'url' => 'timetables/create',
+                ],
+                [
+                    'text' => 'Изменить',
+                    'url' => 'timetables/edit',
+                ],                [
+                    'text' => 'Показать',
+                    'url' => 'timetables/show',
+                ],
+
+            ],
+        ],
+        [
             'text' => 'Пользователи',
             'icon' => 'fas fa-fw fa-user',
             'url' => 'admin/users',
@@ -286,7 +304,7 @@ return [
 //                    'text' => 'Пользователи',
 //                    'url'  => 'admin/users',
 //                ],
-//               
+//
 //                [
 //                    'text' => 'level_one',
 //                    'url'  => '#',
