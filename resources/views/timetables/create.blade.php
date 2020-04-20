@@ -156,7 +156,7 @@
 {{--</body>--}}
 {{--</html>--}}
 
-    <!doctype html>
+{{-- <!doctype html>
 <html lang="ru">
 
 <head>
@@ -168,7 +168,10 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 
-<body>
+<body> --}}
+@extends('adminlte::page')
+@section('content')
+
 
 <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #d6dee1">
     <div class="collapse navbar-collapse" id="navbarSupportedContent"  >
@@ -350,6 +353,7 @@
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -412,7 +416,8 @@
     </div>
 </div>
 
-
+{{-- 
 </body>
-</html>
+</html> --}}
 
+@endsection
