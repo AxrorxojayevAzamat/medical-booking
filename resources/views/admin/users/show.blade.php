@@ -74,9 +74,8 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-phone"></i></span>
                         </div>
-                        <input type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;(999) 99 999-9999&quot;" data-mask="" im-insert="true" disabled>
+                        <input type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;(999) 99 999-9999&quot;" data-mask="" im-insert="true" value="{{ old('birth_date', isset($user) ? $user->phone : '') }}" disabled>
                     </div>
-                    <!--<input id="phone" type="text" class="form-control" name="phone" value="{{ $user->phone }}"-->
 
                 </div>
                 <div class="form-group">
@@ -85,30 +84,30 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                         </div>
-                        <input id="birth_date "type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" im-insert="false" name="birth_date" value="{{ old('birth_date', isset($user) ? $user->birth_date : '') }}" disabled>
+                        <input id="birth_date "type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="birth_date" value="{{ old('birth_date', isset($user) ? $user->birth_date : '') }}" disabled>
                     </div>
                           <!--<input id="birth_date" type="date" class="form-control" name="birth_date" value="{{$user->birth_date}}"-->
                 </div>
                 <div class="form-group">
                     <label for="gender" class="col-form-label text-md-left">{{ __('Пол') }}</label>
-                    <select id="gender" class="form-control" name="gender" value="{{ old('gender', isset($user) ? $user->gender : '') }}" disabled>
+                    <select id="gender" class="form-control" name="gender" disabled>
                         <option value="" selected=""></option>>
-                        <option value="0">Женский</option>>
-                        <option value="1">Мужской</option>>
+                        <option value="0" {{$user->gender === 0 ? 'selected' : ''}} >Женский</option>>
+                        <option value="1" {{$user->gender === 1 ? 'selected' : ''}} >Мужской</option>>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="patronymic" class="col-form-label text-md-left">{{ __('Роль пользователя') }}</label>
                     @foreach($user->roles()->pluck('name') as $role)
                     <input id="role" type="text" class="form-control" name="role" value="{{$role}}" disabled>
-                    @endforeach  
+                    @endforeach 
                 </div>
                 <div class="form-group">
                     <label for="status" class="col-form-label text-md-left">{{ __('Статус') }}</label>
                     <select id="status" class="form-control" name="status" value="{{$user->status==1 ?'selected':'' }}" disabled>
                         <option value="" selected=""></option>>
-                        <option value="0">Aктивный</option>>
-                        <option value="1">Неактивный</option>>
+                        <option value="0" {{$user->status === 0 ? 'selected' : ''}}>Aктивный</option>>
+                        <option value="1" {{$user->status === 1 ? 'selected' : ''}}>Неактивный</option>>
                     </select>
                 </div>
 

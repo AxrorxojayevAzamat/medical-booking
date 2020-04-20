@@ -128,9 +128,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                             </div>
-                            <input id="birth_date "type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" data-mask="" im-insert="false" name="birth_date" value="{{ old('birth_date', isset($user) ? $user->birth_date : '') }}" required>
+                            <input id="birth_date "type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="birth_date" value="{{ old('birth_date', isset($user) ? $user->birth_date : '') }}" required>
                         </div>
-                              <!--<input id="birth_date" type="date" class="form-control @error('birth_date') is-invalid @enderror" name="birth_date" value="{{ old('birth_date', isset($user) ? $user->birth_date : '') }}" required autocomplete="birth_date" autofocus>-->
 
                         @error('birth_date')
                         <span class="invalid-feedback" role="alert">
@@ -142,8 +141,8 @@
                         <label for="gender" class="col-form-label text-md-left">{{ __('Пол') }}</label>
                         <select id="gender" class="form-control @error('gender') is-invalid @enderror" name="gender" value="{{ old('gender', isset($user) && $user->gender== 1 ? 'selected' : '') }}" required autocomplete="gender" autofocus>
                             <option value="" selected=""></option>>
-                            <option value="0">Женский</option>>
-                            <option value="1">Мужской</option>>
+                            <option value="0" {{$user->gender === 0 ? 'selected' : ''}} >Женский</option>>
+                            <option value="1" {{$user->gender === 1 ? 'selected' : ''}} >Мужской</option>>
                         </select>
 
                         @error('gender')
@@ -170,8 +169,8 @@
                         <label for="status" class="col-form-label text-md-left">{{ __('Статус') }}</label>
                         <select id="status" class="form-control @error('status') is-invalid @enderror" name="status" value="{{ old('status') }}" required autocomplete="status" autofocus>
                             <option value="" selected=""></option>>
-                            <option value="0">Aктивный</option>>
-                            <option value="1">Неактивный</option>>
+                            <option value="1" {{$user->status === 1 ? 'selected' : ''}}>Aктивный</option>>
+                            <option value="0" {{$user->status === 0 ? 'selected' : ''}}>Неактивный</option>>
                         </select>
 
                         @error('status')
