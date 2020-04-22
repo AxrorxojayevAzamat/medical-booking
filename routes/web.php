@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Support\Facades\Auth;
+use \Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,11 +40,8 @@ Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@index')->name('home');
 //Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
 Route::group([ 'prefix' => 'admin', 'as' => 'admin.'], function () {
-Route::resource('users', 'Admin\UserController')
+    Route::resource('users', 'Admin\UserController')
                              ->middleware('can:user-manage');
-Route::resource('specializations', 'Admin\SpecializationController')
+    Route::resource('specializations', 'Admin\SpecializationController')
                              ->middleware('can:user-manage');
-
 });
-
-

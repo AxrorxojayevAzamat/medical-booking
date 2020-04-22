@@ -67,5 +67,27 @@ $(function () {
 
     })
 
-
-
+//////////// for adding region
+    $(document).ready(function () {
+      $('select[name="reg"]').on('change',function () {
+          let region_id= $(this).val();
+          if(region_id){
+             $.ajax({
+                 url:'/region/findCity/'+region_id,
+                 type:'GET',
+                 dataType:'json',
+                 
+                 success:function (data) {
+                     $('select[name="region"]').empty();
+                     $.each(data,function (key,value) {
+                         $('select[name="region"]').append('<option value="'+key+'">'+value+'</option>');
+                     });
+                 }
+             });
+          }
+          else{
+              $('select[name="region"]').empty();
+          }
+      });
+  });
+//////////// for adding region
