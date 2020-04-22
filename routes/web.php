@@ -13,7 +13,7 @@
 
 
 Route::get('/', function () {
-    return view('/timetables/show');
+    return view('/test');
 });
 
 
