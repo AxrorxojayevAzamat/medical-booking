@@ -217,7 +217,6 @@ return [
                     'url' => 'region/',
                 ],
                 [
-
                     'text'    => 'Новый Регион',
                     'url'     => 'region/create',
                 ],
