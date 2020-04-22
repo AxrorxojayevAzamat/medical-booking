@@ -1,19 +1,19 @@
 $(function () {
       //Initialize Select2 Elements
       $('.select2').select2()
-  
+
       //Initialize Select2 Elements
       $('.select2bs4').select2({
         theme: 'bootstrap4'
       })
-  
+
       //Datemask dd/mm/yyyy
       $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
       //Datemask2 mm/dd/yyyy
       $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
       //Money Euro
       $('[data-mask]').inputmask()
-  
+
       //Date range picker
       $('#reservation').daterangepicker()
       //Date range picker with time picker
@@ -42,28 +42,30 @@ $(function () {
           $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
         }
       )
-  
+
       //Timepicker
       $('#timepicker').datetimepicker({
         use24hours: true,
         format: 'HH:mm'
       })
-      
+
       //Bootstrap Duallistbox
       $('.duallistbox').bootstrapDualListbox()
-  
+
       //Colorpicker
       $('.my-colorpicker1').colorpicker()
       //color picker with addon
       $('.my-colorpicker2').colorpicker()
-  
+
       $('.my-colorpicker2').on('colorpickerChange', function(event) {
         $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
       });
-  
+
       $("input[data-bootstrap-switch]").each(function(){
         $(this).bootstrapSwitch('state', $(this).prop('checked'));
       });
-  
+
     })
- 
+
+
+

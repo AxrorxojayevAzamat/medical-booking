@@ -21,6 +21,16 @@
 
     @endif
 
+    @if(session('dangerous'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('dangerous') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+    @endif
+
     <br>
     <div class="container ">
         <div class="row">
@@ -29,14 +39,17 @@
                     <div class="card-header">
                         <h3 class="card-title">Регионы, города и районы</h3>
                         <div class="row">
-                            <form class="form-inline ml-5" action="{{route('region.index')}}">
-                                <input class="form-control mr-sm-2" name="search" type="search" placeholder="поиск..."
+
+                            <form class="form-inline ml-3" action="{{route('region.index')}}">
+                                <input class="form-control " name="search" type="search" placeholder="Поиск по имени..."
                                        aria-label="Search">
                                 <div class="input-group-append">
-                                    <button class="btn btn-primary my-2 my-sm-0" type="submit"><b><font color="black">Поиск</font></b>
+                                    <button class="btn btn-secondary " type="submit"><i class="fas fa-search"></i>
                                     </button>
                                 </div>
                             </form>
+
+
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -59,23 +72,39 @@
                                     <td class="text-center py-1 ">{{$region->name_ru}}</td>
                                     <td class="text-center py-1 ">
                                         @if($region->parent_id==0)
-                                            Нету
+                                            Нет
                                         @endif
-                                        @if($region->parent_id!=0)
-                                            {{$region->name_ru}}
+                                        @if(($region->parent_id!=0))
+
+                                            @foreach($categories as $cat)
+                                                @if($cat->id==$region->parent_id)
+                                                    <option >{{$cat->name_ru}}</option>
+                                                @endif
+                                            @endforeach
+
+                                            @foreach($categories as $cat)
+                                                @foreach($cat->children($cat->id) as $item)
+                                                            @if($item->id==$region->parent_id)
+                                                        <option value="{{$item->id}}">{{$item->name_ru}}</option>
+                                                            @endif
+                                                @endforeach
+                                            @endforeach
+
                                         @endif
                                     </td>
                                     <td class="text-center py-1 ">
-                                        <div class="btn-group">
+                                        <div class="btn-group ml-2 ">
                                             <a href="{{ route('region.edit',['id'=>$region->id]) }}"
-                                               class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                               class="btn btn-info btn-sm"> <i class="fas fa-pencil-alt"></i></a>
+                                        </div>
+                                        <div class="btn-group ">
                                             <form action="{{ route('region.destroy',['id'=>$region->id]) }}"
                                                   method="post"
                                                   onsubmit="if(confirm('Точно удалить?')){return true} else {return false}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger"><i
-                                                        class="fas fa-trash"></i></button>
+                                                <button type="submit" class="btn btn-danger btn-sm"><i
+                                                        class="fas fa-trash-alt"></i></button>
                                             </form>
                                         </div>
                                     </td>
@@ -95,6 +124,8 @@
 
     @if(!isset($_GET['search']))
         {{$regions->links()}}
+
     @endif
+
 @endsection
 

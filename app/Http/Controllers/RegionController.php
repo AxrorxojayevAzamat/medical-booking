@@ -18,18 +18,20 @@ class RegionController extends Controller
     public function index(Request $request)
     {
         if ($request->search) {
-
-            $regions = Region::where('name_uz', 'LIKE', '%' . $request->search . '%')
-                ->orWhere('name_ru', 'LIKE', '%' . $request->search . '%')
-                ->orderBy('regions.id', 'asc')
+            $categories=Region::children(null);
+            $regions = Region::orderBy('id', 'DESC')
+            ->where('name_uz', 'ILIKE', '%' . $request->search . '%')
+                ->orWhere('name_ru', 'ILIKE', '%' . $request->search . '%')
                 ->get();
-            return view('regions.index', compact('regions'));
+            return view('regions.index', compact('regions','categories'));
 
         }
 
+
+        $categories=Region::children(null);
         $regions = Region::orderBy('regions.id', 'asc')
             ->paginate(1000000);
-        return view('regions.index', compact('regions'));
+        return view('regions.index', compact('regions','categories'));
 
 
     }
@@ -45,16 +47,23 @@ class RegionController extends Controller
     }
     public function createCity()
     {
-        $regions = Region::all()->where('parent_id', 'like', '%' . 0 . '%');
-        return view('regions.createCity',compact('regions'));
+        $categories=Region::children(null);
+        return view('regions.createCity',compact('categories'));
     }
     public function createDistrict()
     {
-        $regions = Region::all()->where('parent_id', 'like', '%' . 0 . '%');
-        $cities = Region::all()->where('parent_id', 'like', '%' . 0 . '%');
 
-        return view('regions.createDistrict',compact('regions','cities'));
+        $categories=Region::children(null);
+        return view('regions.createDistrict',compact('categories'));
     }
+
+
+    public function findCity($id){
+
+        $city=Region::where('parent_id',$id)->pluck('name_ru','id');
+        return json_encode($city);
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -65,22 +74,10 @@ class RegionController extends Controller
     public function store(RegionRequest $request)
     {
         $regions = new Region();
-        $regions->parent_id = 0;
+        $regions->parent_id = $request->region;
         $regions->name_uz = $request->region_uz;
         $regions->name_ru = $request->region_ru;
         $regions->save();
-
-//        $cities = new Region();
-//        $cities->parent_id = $regions->id;
-//        $cities->name_uz = $request->city_uz;
-//        $cities->name_ru = $request->city_ru;
-//        $cities->save();
-//
-//        $districts = new Region();
-//        $districts->parent_id = $cities->id;
-//        $districts->name_uz = $request->district_uz;
-//        $districts->name_ru = $request->district_ru;
-//        $districts->save();
 
         return redirect()->route('region.index')->with('success', 'Успешно!');
     }
@@ -126,7 +123,14 @@ class RegionController extends Controller
     public function destroy($id)
     {
         $regions = Region::find($id);
+        $all=Region::all();
+        foreach ($all as $a)
+        {
+            if ($regions->id == $a->parent_id)
+                return redirect()->route('region.index')->with('dangerous', 'Нельзя удалить!');
+        }
+
         $regions->delete();
-        return redirect()->route('region.index')->with('success',  'Удалено!');
+        return redirect()->route('region.index')->with('success', 'Удалено!');
     }
 }
