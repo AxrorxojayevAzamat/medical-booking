@@ -42,8 +42,8 @@ class TimeTableController extends Controller
     {
         $time = new Time();
 
-        $time->doctor_id = $request->doctor_id;
-        $time->clinic_id = $request->clinic_id;
+        $time->doctor_id =0; //$request->doctor_id;
+        $time->clinic_id =1; //$request->clinic_id;
         $time->scheduleType = $request->scheduleType;
         $time->interval = $request->interval;
         $time->monday_start = $request->monday_start;
