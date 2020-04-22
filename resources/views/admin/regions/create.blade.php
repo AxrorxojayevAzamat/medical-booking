@@ -21,15 +21,14 @@
 
     @endif
 
-
     <p></p>
     <div class="card">
-        <div class=" container card-header "><h3>Новый Город</h3></div>
+        <div class=" container card-header "><h3>Новый регион</h3></div>
         <div class="container card-header">
             <div class=" container" align='center'>
                 <form action="{{ route('region.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
-                    @include('regions.forms.createCityForms')
+                    @include('admin.regions.forms.createForms')
                     <input type="submit" value="Создать" class="btn btn-success">
                     <a href="{{ route('region.index') }}" class="btn btn-default">Назад</a>
                 </form>

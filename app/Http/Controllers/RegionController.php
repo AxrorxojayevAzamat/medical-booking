@@ -23,7 +23,7 @@ class RegionController extends Controller
             ->where('name_uz', 'ILIKE', '%' . $request->search . '%')
                 ->orWhere('name_ru', 'ILIKE', '%' . $request->search . '%')
                 ->get();
-            return view('regions.index', compact('regions','categories'));
+            return view('admin.regions.index', compact('regions','categories'));
 
         }
 
@@ -31,7 +31,7 @@ class RegionController extends Controller
         $categories=Region::children(null);
         $regions = Region::orderBy('regions.id', 'asc')
             ->paginate(1000000);
-        return view('regions.index', compact('regions','categories'));
+        return view('admin.regions.index', compact('regions','categories'));
 
 
     }
@@ -43,18 +43,18 @@ class RegionController extends Controller
      */
     public function create()
     {
-        return view('regions.create');
+        return view('admin.regions.create');
     }
     public function createCity()
     {
         $categories=Region::children(null);
-        return view('regions.createCity',compact('categories'));
+        return view('admin.regions.createCity',compact('categories'));
     }
     public function createDistrict()
     {
 
         $categories=Region::children(null);
-        return view('regions.createDistrict',compact('categories'));
+        return view('admin.regions.createDistrict',compact('categories'));
     }
 
 
@@ -92,7 +92,7 @@ class RegionController extends Controller
     public function edit($id)
     {
         $regions = Region::find($id);
-        return view('regions.edit', compact('regions'));
+        return view('admin.regions.edit', compact('regions'));
     }
 
     /**
@@ -127,7 +127,7 @@ class RegionController extends Controller
         foreach ($all as $a)
         {
             if ($regions->id == $a->parent_id)
-                return redirect()->route('region.index')->with('dangerous', 'Нельзя удалить!');
+                return redirect()->route('admin.region.index')->with('dangerous', 'Нельзя удалить!');
         }
 
         $regions->delete();
