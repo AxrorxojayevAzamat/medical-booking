@@ -228,12 +228,6 @@ return [
                     'text'    => 'Новый Район',
                     'url'     => 'region/createDistrict',
                 ],
-
-
-                    'text' => 'Создание нового региона',
-                    'url' => 'region/create',
-                ],
-
             ],
         ],
         [
