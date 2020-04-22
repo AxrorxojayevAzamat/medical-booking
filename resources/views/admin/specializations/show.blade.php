@@ -1,34 +1,52 @@
-@extends('layouts.app')
-
+@extends('adminlte::page')
+@section('title', 'Специализации')
+@section('content_header')
+<div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-sm-6">
+            <h1>Показать специализацию</h1>
+        </div>
+        <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="{{ route("home") }}">Home</a></li>
+                <li class="breadcrumb-item active">Specializations</li>
+            </ol>
+        </div>
+    </div>
+</div><!-- /.container-fluid -->
+@stop
 @section('content')
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card">
-        <div class="card-header">{{ __('Показать специализацию') }}</div>
-
-        <div class="card-body">
-          @csrf
-
-          <div class="form-group row">
-            <label for="name_ru" class="col-md-4 col-form-label text-md-right">{{ __('Наименование(ru)') }}</label>
-
-            <div class="col-md-6">
-              <input id="name_ru" type="text" readonly class="form-control" name="name_ru" value="{{$specialization->name_ru}}">
+<div class="row">
+    <div class="col-md-6">
+        <div class="card primary">
+            <div class="card-header">
+                {{ __('Показать специализацию') }}
             </div>
-          </div>
-          <div class="form-group row">
-            <label for="name_uz" class="col-md-4 col-form-label text-md-right">{{ __('Наименование(uz)') }}</label>
+            <!-- /.card-header -->
 
-            <div class="col-md-6">
-              <input id="name_uz" type="text" readonly class="form-control" name="name_uz" value="{{$specialization->name_uz}}">
+
+            <div class="card-body">
+                <div class="form-group">
+
+                    <label for="name_ru" class="col-form-label text-md-left">{{ __('Наименование(ru)') }}</label>
+                    <input id="name_ru" type="text" class="form-control" name="name_ru" value="{{$specialization->name_ru}}" disabled>
+                </div>
+                <div class="form-group">
+
+                    <label for="name_uz" class="col-form-label text-md-left">{{ __('Наименование(uz)') }}</label>
+                    <input id="name_uz" type="text" class="form-control" value="{{$specialization->name_uz}}" disabled>
+                </div>
+
             </div>
-          </div>
-
+            <!-- /.card-body -->
+            <div class="card-footer">
+            </div>
+            <!-- /.card-footer -->
 
         </div>
-      </div>
+        <!-- /.card primary-->
     </div>
-  </div>
+    <!-- /.col-md -6 -->
 </div>
-@endsection
+<!-- /.row -->
+@stop
