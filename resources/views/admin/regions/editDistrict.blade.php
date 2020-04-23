@@ -21,16 +21,15 @@
 
     @endif
 
-    <p></p>
     <div class="card">
-        <div class="  container card-header row "><h3>Редактирование</h3></div>
+        <div class="  container card-header row "><h3>Редактирование района</h3></div>
         <div class="container card-header">
             <div class=" container" align='center'>
                 <form action="{{ route('region.update',['id'=>$regions->id]) }}" method="post"
                       enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
-                    @include('admin.regions.forms.editForms')
+                    @include('admin.regions.forms.editDistrictForms')
                     <div class="form-group " align='center'>
                         <input type="submit" value="Сохранить" class="btn btn-success">
                         <a href="{{ route('region.index') }}" class="btn btn-default ">Назад</a></div>

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\RegionRequest;
 use App\Region;
 use Illuminate\Http\Request;
@@ -91,8 +92,23 @@ class RegionController extends Controller
      */
     public function edit($id)
     {
+        $categories=Region::children(null);
         $regions = Region::find($id);
-        return view('admin.regions.edit', compact('regions'));
+        return view('admin.regions.edit', compact('regions','categories'));
+    }
+
+    public function editCity($id)
+    {
+        $categories=Region::children(null);
+        $regions = Region::find($id);
+        return view('admin.regions.editCity', compact('regions','categories'));
+    }
+
+    public function editDistrict($id)
+    {
+        $categories=Region::children(null);
+        $regions = Region::find($id);
+        return view('admin.regions.editDistrict', compact('regions','categories'));
     }
 
     /**
@@ -106,11 +122,20 @@ class RegionController extends Controller
     {
 
         $regions = Region::find($id);
-        $regions->name_uz = $request->region_uz;
-        $regions->name_ru = $request->region_ru;
-        $regions->update();
-        $id = $regions->id;
-
+        if($regions->parent_id!=null)
+        {
+            $regions->parent_id = $request->region;
+            $regions->name_uz = $request->region_uz;
+            $regions->name_ru = $request->region_ru;
+            $regions->update();
+            $id = $regions->id;
+        }
+        else{
+            $regions->name_uz = $request->region_uz;
+            $regions->name_ru = $request->region_ru;
+            $regions->update();
+            $id = $regions->id;
+        }
         return redirect()->route('region.index', compact('id'))->with('success', 'Отредактировано!');
     }
 
@@ -127,7 +152,7 @@ class RegionController extends Controller
         foreach ($all as $a)
         {
             if ($regions->id == $a->parent_id)
-                return redirect()->route('admin.region.index')->with('dangerous', 'Нельзя удалить!');
+                return redirect()->route('region.index')->with('dangerous', 'Нельзя удалить!');
         }
 
         $regions->delete();

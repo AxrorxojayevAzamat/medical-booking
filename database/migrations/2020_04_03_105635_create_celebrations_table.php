@@ -16,6 +16,8 @@ class CreateCelebrationsTable extends Migration
         Schema::create('celebrations', function (Blueprint $table) {
             $table->increments('id');
             $table->date('date')->nullable();
+            $table->tinyInteger('quantity')->default(1);
+            $table->string('name');
             $table->timestamps();
         });
     }

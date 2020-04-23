@@ -31,7 +31,6 @@
 
     @endif
 
-    <br>
     <div class="container ">
         <div class="row">
             <div class="col-12">
@@ -78,25 +77,52 @@
 
                                             @foreach($categories as $cat)
                                                 @if($cat->id==$region->parent_id)
-                                                    <option >{{$cat->name_ru}}</option>
+                                                    <option>{{$cat->name_ru}}</option>
                                                 @endif
                                             @endforeach
 
                                             @foreach($categories as $cat)
                                                 @foreach($cat->children($cat->id) as $item)
-                                                            @if($item->id==$region->parent_id)
+                                                    @if($item->id==$region->parent_id)
                                                         <option value="{{$item->id}}">{{$item->name_ru}}</option>
-                                                            @endif
+                                                    @endif
                                                 @endforeach
                                             @endforeach
 
                                         @endif
                                     </td>
                                     <td class="text-center py-1 ">
-                                        <div class="btn-group ml-2 ">
-                                            <a href="{{ route('region.edit',['id'=>$region->id]) }}"
-                                               class="btn btn-info btn-sm"> <i class="fas fa-pencil-alt"></i></a>
-                                        </div>
+                                        @if(($region->parent_id==0))
+                                            <div class="btn-group ml-2 ">
+                                                <a href="{{ route('region.edit',['id'=>$region->id]) }}"
+                                                   class="btn btn-info btn-sm"> <i class="fas fa-pencil-alt"></i></a>
+                                            </div>
+                                        @endif
+                                        @if(($region->parent_id!=0))
+                                            @foreach($categories as $cat)
+                                                @if($cat->id==$region->parent_id)
+                                                    <div class="btn-group ml-2 ">
+                                                        <a href="{{ route('region.editCity',['id'=>$region->id]) }}"
+                                                           class="btn btn-info btn-sm"> <i
+                                                                class="fas fa-pencil-alt"></i></a>
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        @endif
+
+                                        @if(($region->parent_id!=0))
+                                            @foreach($categories as $cat)
+                                                @foreach($cat->children($cat->id) as $item)
+                                                    @if($item->id==$region->parent_id)
+                                                        <div class="btn-group ml-2 ">
+                                                            <a href="{{ route('region.editDistrict',['id'=>$region->id]) }}"
+                                                               class="btn btn-info btn-sm"> <i
+                                                                    class="fas fa-pencil-alt"></i></a>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            @endforeach
+                                        @endif
                                         <div class="btn-group ">
                                             <form action="{{ route('region.destroy',['id'=>$region->id]) }}"
                                                   method="post"

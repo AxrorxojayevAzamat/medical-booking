@@ -13,7 +13,7 @@ class CelebrationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class CelebrationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'date'=>'required|min:1|max:50|date',
+            'celebration_name'=>'required|min:1|max:20|string',
+            'quantity'=>'required|min:1|max:10|int',
         ];
     }
 }

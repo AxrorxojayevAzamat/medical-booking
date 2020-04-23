@@ -339,6 +339,20 @@ return [
                 ],
             ],
         ],
+        [
+            'text' => 'Праздничные дни',
+            'icon' => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text' => 'Список праздников',
+                    'url' => 'celebration/',
+                ],
+                [
+                    'text'    => 'Новый праздник',
+                    'url'     => 'celebration/create',
+                ],
+            ],
+        ],
         // ['header' => 'labels'],
         // [
         //     'text'       => 'important',
