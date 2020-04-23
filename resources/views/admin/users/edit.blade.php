@@ -4,12 +4,14 @@
 <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1>Редактировать пользователя</h1>
+            <h1>{{ __('Редактировать пользователя')}}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route("home") }}">Home</a></li>
-                <li class="breadcrumb-item active">Users</li>
+                <li class="breadcrumb-item"><a href="{{ route("home") }}">{{ __('Главная')}} </a></li>
+                <li class="breadcrumb-item"><a href="{{ route("admin.users.index") }}">{{ __('Пользователи')}}</a></li>
+                <li class="breadcrumb-item active">{{ $user->email }}</li>
+                <li class="breadcrumb-item active">{{ __('Редактирование')}}</li>
             </ol>
         </div>
     </div>

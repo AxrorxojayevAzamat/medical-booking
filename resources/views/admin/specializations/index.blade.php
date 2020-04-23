@@ -4,12 +4,12 @@
 <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1>Специализации</h1>
+            <h1>{{ __('Специализации') }}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route("home") }}">Home</a></li>
-                <li class="breadcrumb-item active">Specializations</li>
+                <li class="breadcrumb-item"><a href="{{ route("home") }}">{{ __('Главная')}} </a></li>
+                <li class="breadcrumb-item active">{{ __('Специализации') }}</li>
             </ol>
         </div>
     </div>
@@ -22,7 +22,7 @@
             <div class="card-header">
                 <div class="col-lg-1">
                     <a class="btn btn-block btn-success" href="{{ route("admin.specializations.create") }}">
-                        Добавить
+                        {{ __('Добавить') }}
                     </a>
                 </div>
             </div>
@@ -31,9 +31,9 @@
                 <table id="laravel_datatable" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <td>Наименование(ru)</td>
-                            <td>Наименование(uz)</td> 
+                            <th>{{ __('ID') }}</th>
+                            <td>{{ __('Наименование(ru)') }}</td>
+                            <td>{{ __('Наименование(uz)') }}</td> 
                             <th style="width: 25%"></th>
                         </tr>
                     </thead>
@@ -47,20 +47,20 @@
                                 <a class="btn btn-primary btn-sm" href="{{ route('admin.specializations.show',$specialization->id)}}">
                                     <i class="fas fa-folder">
                                     </i>
-                                    Посмотреть    
+                                    {{ __('Посмотреть') }}    
                                 </a>
                                 <a class="btn btn-info btn-sm" href="{{ route('admin.specializations.edit',$specialization->id)}}">
                                     <i class="fas fa-pencil-alt">
                                     </i>
-                                    Редактировать   
+                                    {{ __('Редактировать') }}   
                                 </a>
                                 <a class="btn">
                                     <form action="{{ route('admin.specializations.destroy', $specialization->id)}}" method="post">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-danger btn-sm" type="submit">
+                                        <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Вы уверены?')">
                                             <i class="fas fa-trash">
-                                            </i>Удалить
+                                            </i>{{ __('Удалить') }}
                                         </button>
                                     </form>   
                                 </a>
@@ -80,10 +80,3 @@
 </div>
 <!-- /.row -->
 @stop
-<!--@section('js')
-<script>
-    $(document).ready(function () {
-        $('#laravel_datatable').DataTable();
-    });
-</script>
-@stop-->
