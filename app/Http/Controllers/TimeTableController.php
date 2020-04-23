@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Time;
+use App\Timetable;
 use Illuminate\Http\Request;
 
 class TimeTableController extends Controller
@@ -11,13 +11,12 @@ class TimeTableController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
+
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show()
     {
-        $times = Time::all();
+        $times = Timetable::all();
         return view('/timetables/show', compact('times'));
 
     }
@@ -40,11 +39,11 @@ class TimeTableController extends Controller
      */
     public function store(Request $request)
     {
-        $time = new Time();
+        $time = new Timetable();
 
         $time->doctor_id =0; //$request->doctor_id;
         $time->clinic_id =1; //$request->clinic_id;
-        $time->scheduleType = $request->scheduleType;
+        $time->scheduleType= $request->scheduleType;
         $time->interval = $request->interval;
         $time->monday_start = $request->monday_start;
         $time->monday_end = $request->monday_end;
@@ -66,8 +65,8 @@ class TimeTableController extends Controller
         $time->even_end = $request->even_end;
         $time->day_off_start = $request->day_off_start;
         $time->day_off_end = $request->day_off_end;
-        //$time->created_by = $request->id;
-        //$time->update_by = $request->id;
+        $time->created_by = 13;
+        $time->updated_by = 13;
         $time->save();
         return redirect()->route('timetables.show')->with('success', 'Успешно!');
     }
@@ -92,8 +91,8 @@ class TimeTableController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        $time = new Time();
+    {/*
+        $time = new Timetable();
         $time->doctor_id = $request->id;
         $time->clinic_id = $request->clinic_id;
         $time->scheduleType = $request->scheduleType;
@@ -122,7 +121,7 @@ class TimeTableController extends Controller
         //$time->update_by = $request->id;
         $time->update();
         return view('show');
-    }
+    */}
 
     /**
      * Remove the specified resource from storage.

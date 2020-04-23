@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Time extends Model
+class Timetable extends Model
 {
     protected $primaryKey = 'id';
     protected $fillable = ['scheduleType',

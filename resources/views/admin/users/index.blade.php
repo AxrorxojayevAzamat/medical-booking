@@ -1,15 +1,15 @@
 @extends('adminlte::page')
-@section('title', 'Пользователи')
+@section('title','Пользователи')
 @section('content_header')
 <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1>Пользователи</h1>
+            <h1>{{ __('Пользователи') }}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route("home") }}">Home</a></li>
-                <li class="breadcrumb-item active">Users</li>
+                <li class="breadcrumb-item"><a href="{{ route("home") }}">{{ __('Главная') }} </a></li>
+                <li class="breadcrumb-item active">{{ __('Пользователи') }}</li>
             </ol>
         </div>
     </div>
@@ -22,7 +22,7 @@
             <div class="card-header">
                 <div class="col-lg-1">
                     <a class="btn btn-block btn-success" href="{{ route("admin.users.create") }}">
-                        Добавить
+                        {{ __('Добавить') }}
                     </a>
                 </div>
             </div>
@@ -31,15 +31,14 @@
                 <table id="laravel_datatable" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Имя</th>
-                            <th>Фамилия</th>
-                            <th>Отчество</th>
-                            <th>Телефон</th>
-                            <th>Дата рождения</th>
-                            <th>Пол</th>
-                            <th>Адрес электронной почты</th>
-                            <th>Статус</th>
+                            <th>{{ __('ID') }}</th>
+                            <th>{{ __('Имя') }}</th>
+                            <th>{{ __('Фамилия') }}</th>
+                            <th>{{ __('Телефон') }}</th>
+                            <th>{{ __('Дата рождения') }}</th>
+                            <th>{{ __('Адрес электронной почты') }}</th>
+                            <th>{{ __('Роль пользователя') }}</th>
+                            <th>{{ __('Статус') }}</th>
                             <th style="width: 25%"></th>
                         </tr>
                     </thead>
@@ -49,11 +48,12 @@
                             <td>{{$user->id}}</td>
                             <td>{{$user->name}}</td>
                             <td>{{$user->lastname}}</td>
-                            <td>{{$user->patronymic}}</td>
                             <td>{{$user->phone}}</td>
                             <td>{{$user->birth_date}}</td>
-                            <td>{{$user->gender}}</td>
                             <td>{{$user->email}}</td>
+                            <td>@foreach($user->roles()->pluck('name') as $role)
+                                {{$role}}
+                                @endforeach </td>
                             <td class="project-state">
                                 <span class="badge badge-success">{{$user->status==1 ? 'Aктивный' : 'Неактивный'}}</span>
                             </td>
@@ -61,26 +61,24 @@
                                 <a class="btn btn-primary btn-sm" href="{{ route('admin.users.show',$user->id)}}">
                                     <i class="fas fa-folder">
                                     </i>
-                                    Посмотреть    
+                                    {{ __('Посмотреть') }}    
                                 </a>
                                 <a class="btn btn-info btn-sm" href="{{ route('admin.users.edit',$user->id)}}">
                                     <i class="fas fa-pencil-alt">
                                     </i>
-                                    Редактировать   
+                                    {{ __('Редактировать') }}   
                                 </a>
                                 <a class="btn">
                                     <form action="{{ route('admin.users.destroy', $user->id)}}" method="post">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-danger btn-sm" type="submit">
+                                        <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Вы уверены?')">
                                             <i class="fas fa-trash">
-                                            </i>Удалить
+                                            </i>{{ __('Удалить') }}
                                         </button>
                                     </form>   
-                                </a>
+                                </a> 
 
-
-                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -95,10 +93,3 @@
 </div>
 <!-- /.row -->
 @stop
-<!--@section('js')
-<script>
-    $(document).ready(function () {
-        $('#laravel_datatable').DataTable();
-    });
-</script>
-@stop-->

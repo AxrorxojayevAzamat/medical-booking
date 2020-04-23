@@ -96,7 +96,7 @@
                         </tr>
                         <div class="bootstrap-timepicker">
                             <div class="form-group">
-                                <label>Time picker:</label>
+                                <label>Timetable picker:</label>
 
                                 <div class="input-group date" id="timepicker" data-target-input="nearest">
                                     <input type="time" class="form-control datetimepicker-input" data-target="#timepicker">
@@ -226,7 +226,7 @@
         <div class="block-left">
             <div class="radio">
                 <label>
-                    <input type="radio" name="scheduleType" id="scheduleType1" value="1">
+                    <input type="radio" name="scheduleTypescheduleTypescheduleType" id="scheduleType1" value="1">
                     Неделя
                 </label>
             </div>
@@ -501,16 +501,17 @@
                     <!-- /.form group -->
                 </div>
 
-                <div class="form-group">
-                    <label>Введите отпуск:</label>
-
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="far fa-clock"></i></span>
-                        </div>
-                        <input type="text" class="form-control float-right" id="reservationtime">
+                <div class="form-group col-5" align='center'>
+                    <div class="form-group">
+                        <input name="day_off_start" type="date" class="form-control" value="{{ old('date')?? $celebrations->date ??''}}" >
+                        <label>Введите начало отпуска:</label>
                     </div>
-                    <!-- /.input group -->
+                </div>
+                <div class="form-group col-5" align='center'>
+                    <div class="form-group">
+                        <input name="day_off_end" type="date" class="form-control" value="{{ old('date')?? $celebrations->date ??''}}" >
+                        <label>Введите конец отпуска:</label>
+                    </div>
                 </div>
                 <br><br><br><br>
                 <input type="submit" value="Отправить"  class="btn btn-primary">
