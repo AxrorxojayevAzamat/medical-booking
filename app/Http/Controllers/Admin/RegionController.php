@@ -75,10 +75,19 @@ class RegionController extends Controller
     public function store(RegionRequest $request)
     {
         $regions = new Region();
-        $regions->parent_id = $request->region;
-        $regions->name_uz = $request->region_uz;
-        $regions->name_ru = $request->region_ru;
-        $regions->save();
+        if($regions->parent_id!=null){
+
+            $regions->parent_id = $request->region;
+            $regions->name_uz = $request->region_uz;
+            $regions->name_ru = $request->region_ru;
+            $regions->save();
+        }
+        else{
+            $regions->name_uz = $request->region_uz;
+            $regions->name_ru = $request->region_ru;
+            $regions->save();
+        }
+
 
         return redirect()->route('region.index')->with('success', 'Успешно!');
     }
