@@ -4,12 +4,13 @@
 <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1>Добавить пользователя</h1>
+            <h1>{{ __('Добавить пользователя') }}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route("home") }}">Home</a></li>
-                <li class="breadcrumb-item active">Users</li>
+                <li class="breadcrumb-item"><a href="{{ route("home") }}">{{ __('Главная') }} </a></li>
+                <li class="breadcrumb-item"><a href="{{ route("admin.users.index") }}">{{ __('Пользователи') }}</a></li>
+                <li class="breadcrumb-item active">{{ __('Добавить пользователя') }}</li>
             </ol>
         </div>
     </div>
@@ -106,7 +107,7 @@
                 </div>
                 <!-- /.card-header -->
 
-                <div class="card-body">
+                <div class="card-body">                  
                     <div class="form-group">
                         <label for="patronymic" class="col-form-label text-md-left">{{ __('Телефон') }}</label>
                         <div class="input-group">
