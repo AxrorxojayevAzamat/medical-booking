@@ -12,7 +12,7 @@ class User extends Authenticatable implements MustVerifyEmail {
     use Notifiable;
 
     protected $fillable = [
-        'name', 'lastname', 'patronymic', 'phone', 'birth_date', 'gender', 'email', 'password', 'status',
+        'name', 'lastname', 'patronymic', 'phone', 'birth_date', 'gender', 'email', 'password', 'role', 'status',
     ];
     protected $hidden = [
         'password', 'remember_token',
@@ -21,26 +21,32 @@ class User extends Authenticatable implements MustVerifyEmail {
         'email_verified_at' => 'datetime',
     ];
 
-    public function roles() {
-        return $this->belongsToMany(Role::class, 'role_users');
+    public function role() {
+        return $this->belongsTo('App\Role','role');
     }
 
     public function hasAccess(array $permissions): bool {
-        // check if the permission is available in any role
-        foreach ($this->roles as $role) {
-            if ($role->hasAccess($permissions)) {
+        foreach ($permissions as $permission) {
+            if ($this->role($permission))
                 return true;
-            }
         }
         return false;
     }
 
     public function inRole(string $roleSlug) {
-        return $this->roles()->where('slug', $roleSlug)->count() == 1;
+        return $this->role()->where('slug', $roleSlug)->count() == 1;
     }
 
     public function sendPasswordResetNotification($token) {
         $this->notify(new ResetPasswordNotification($token));
+    }
+
+    public static function adminlte_image() {
+        return 'https://picsum.photos/300/300';
+    }
+
+    public static function adminlte_desc() {
+        return 'That\'s a nice guy';
     }
 
 }

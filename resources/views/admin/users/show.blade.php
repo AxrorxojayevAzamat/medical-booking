@@ -99,14 +99,16 @@
                 </div>
                 <div class="form-group">
                     <label for="patronymic" class="col-form-label text-md-left">{{ __('Роль пользователя') }}</label>
-                    @foreach($user->roles()->pluck('name') as $role)
-                    <input id="role" type="text" class="form-control" name="role" value="{{$role}}" disabled>
-                    @endforeach 
+                    <select id="role" class="form-control @error('roles') is-invalid @enderror" name="role" disabled>
+                        @foreach($roles as $value => $label)
+                        <option value="{{ $value }}"{{ $value === $user->role ? ' selected' : '' }}>{{ $label }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="status" class="col-form-label text-md-left">{{ __('Статус') }}</label>
                     <select id="status" class="form-control" name="status" value="{{$user->status==1 ?'selected':'' }}" disabled>
-                        <option value="" selected=""></option>>
+                        <option value="" selected=""></option>
                         <option value="0" {{$user->status === 0 ? 'selected' : ''}}>{{ __('Aктивный') }}</option>
                         <option value="1" {{$user->status === 1 ? 'selected' : ''}}>{{ __('Неактивный') }}</option>
                     </select>

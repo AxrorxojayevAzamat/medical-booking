@@ -128,7 +128,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                             </div>
-                            <input id="birth_date "type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="birth_date" value="{{ old('birth_date') }}" required>
+                            <input id="birth_date "type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="birth_date" value="{{ old('birth_date') }}" required>
                         </div>
                         @error('birth_date')
                         <span class="invalid-feedback" role="alert">
@@ -153,8 +153,9 @@
                     <div class="form-group">
                         <label for="patronymic" class="col-form-label text-md-left">{{ __('Роль пользователя') }}</label>
                         <select id="role" class="form-control @error('roles') is-invalid @enderror" name="role" required>
-                            @foreach($roles as $id => $role)
-                            <option value="{{ $id }}" {{ (in_array($id, old('roles', [])) || isset($user) && $user->roles->contains($id)) ? 'selected' : '' }}>{{ $role }}</option>
+                            @foreach($roles as $value => $label)
+                            <option value="" selected=""></option>
+                            <option value="{{ $value }}" {{ (in_array($value, old('role', [])) || isset($user) && $user->role->contains($id)) ? 'selected' : '' }}>{{ $label }}</option>
                             @endforeach
                         </select>
 
@@ -167,7 +168,7 @@
                     <div class="form-group">
                         <label for="status" class="col-form-label text-md-left">{{ __('Статус') }}</label>
                         <select id="status" class="form-control @error('status') is-invalid @enderror" name="status" value="{{ old('status') }}" required autocomplete="status" autofocus>
-                            <option value="" selected=""></option>>
+                            <option value="" selected=""></option>
                             <option value="0">Неактивный</option>>
                             <option value="1">Aктивный</option>>
                         </select>

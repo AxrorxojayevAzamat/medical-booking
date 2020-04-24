@@ -10,16 +10,45 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index() {
-        $users = User::all();
+    public function index(Request $request) {
+        $query = User::orderByDesc('id');
 
-        $roles = Role::orderBy('name')->pluck('name', 'id');
-        return view('admin.users.index', compact('users', 'roles'));
+        if (!empty($value = $request->get('id'))) {
+            $query->where('id', $value);
+        }
+
+        if (!empty($value = $request->get('name'))) {
+            $query->where('name', 'ilike', '%' . $value . '%');
+        }
+
+        if (!empty($value = $request->get('lastname'))) {
+            $query->where('lastname', 'ilike', '%' . $value . '%');
+        }
+
+        if (!empty($value = $request->get('phone'))) {
+            $query->where('phone', 'ilike', '%' . $value . '%');
+        }
+
+        if (!empty($value = $request->get('birth_date'))) {
+            $query->where('birth_date', $value);
+        }
+
+        if (!empty($value = $request->get('email'))) {
+            $query->where('email', 'ilike', '%' . $value . '%');
+        }
+
+        if (!empty($value = $request->get('role'))) {
+            $query->where('role', $value);
+        }
+
+        if (!empty($value = $request->get('status'))) {
+            $query->where('status', $value);
+        }
+
+        $users = $query->paginate(20);
+
+        $roles = Role::orderBy('id')->pluck('name', 'id');
+        return view('admin.users.index', compact(['users', 'roles']));
     }
 
     /**
@@ -44,7 +73,6 @@ class UserController extends Controller {
 
         $user = User::create($input);
 
-        $user->roles()->attach($request['role']);
 
         return redirect()->route('admin.users.index');
     }
@@ -56,9 +84,9 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(User $user) {
-        $user->load('roles');
+        $roles = Role::orderBy('name')->pluck('name', 'id');
 
-        return view('admin.users.show', compact('user'));
+        return view('admin.users.show', compact(['user', 'roles']));
     }
 
     /**
