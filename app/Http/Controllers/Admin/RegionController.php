@@ -128,18 +128,13 @@ class RegionController extends Controller
     {
 
         $regions = Region::find($id);
-        if ($regions->parent_id != null) {
-            $regions->parent_id = $request->region;
-            $regions->name_uz = $request->region_uz;
-            $regions->name_ru = $request->region_ru;
-            $regions->update();
-            $id = $regions->id;
-        } else {
-            $regions->name_uz = $request->region_uz;
-            $regions->name_ru = $request->region_ru;
-            $regions->update();
-            $id = $regions->id;
-        }
+
+        $regions->parent_id = $request->region;
+        $regions->name_uz = $request->region_uz;
+        $regions->name_ru = $request->region_ru;
+        $regions->update();
+        $id = $regions->id;
+
         return redirect()->route('region.index', compact('id'))->with('success', 'Отредактировано!');
     }
 

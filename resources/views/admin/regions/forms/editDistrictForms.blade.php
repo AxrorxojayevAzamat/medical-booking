@@ -6,7 +6,7 @@
                 <option disabled selected>Выберете регион</option>
                 @foreach($categories as $cat)
 
-                    <option value="{{$cat->id}}">{{$cat->name_ru}}</option>
+                    <option value="{{$cat->id}}">{{($cat->name_ru)}}</option>
 
                 @endforeach
             </select>

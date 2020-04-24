@@ -29,7 +29,7 @@
                     @csrf
                     @method('PATCH')
                     @include('admin.celebrations.forms.Forms')
-                    <input type="submit" value="Создать" class="btn btn-success">
+                    <input type="submit" value="Сохранить" class="btn btn-success">
                     <a href="{{ route('celebration.index') }}" class="btn btn-default">Назад</a>
                 </form>
             </div>

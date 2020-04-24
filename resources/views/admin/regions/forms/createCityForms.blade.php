@@ -4,7 +4,7 @@
         <!-- select -->
         <div class="form-group">
             <select class="form-control" name="region" id="region">
-                <option disabled selected>Выберете регион</option>
+               <option disabled selected>Выберете регион</option>
                 @foreach($categories as $cat)
                     <option value="{{$cat->id}}">{{$cat->name_ru}}</option>
                 @endforeach

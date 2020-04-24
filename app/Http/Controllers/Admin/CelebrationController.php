@@ -17,7 +17,8 @@ class CelebrationController extends Controller
      */
     public function index()
     {
-        $celebrations=Celebration::all();
+        $celebrations = Celebration::orderBy('id', 'asc')
+            ->paginate(1000000);
         return view('admin.celebrations.index',compact('celebrations'));
 
     }
