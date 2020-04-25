@@ -226,7 +226,7 @@
         <div class="block-left">
             <div class="radio">
                 <label>
-                    <input type="radio" name="scheduleTypescheduleTypescheduleType" id="scheduleType1" value="1">
+                    <input type="radio" name="scheduleType" id="scheduleType1" value="1">
                     Неделя
                 </label>
             </div>
