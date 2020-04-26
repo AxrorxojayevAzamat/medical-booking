@@ -42,7 +42,7 @@
                     <label for="patronymic" class="col-form-label text-md-left">{{ __('Отчество') }}</label>
                     <input id="patronymic" type="text" class="form-control" name="patronymic" value="{{ old('patronymic', isset($user) ? $user->patronymic : '') }}" disabled>
 
-                </div>     
+                </div>
 
                 <div class="form-group">
                     <label for="email" class="col-form-label text-md-left">{{ __('Адрес электронной почты') }}</label>
@@ -101,7 +101,7 @@
                     <label for="patronymic" class="col-form-label text-md-left">{{ __('Роль пользователя') }}</label>
                     @foreach($user->roles()->pluck('name') as $role)
                     <input id="role" type="text" class="form-control" name="role" value="{{$role}}" disabled>
-                    @endforeach 
+                    @endforeach
                 </div>
                 <div class="form-group">
                     <label for="status" class="col-form-label text-md-left">{{ __('Статус') }}</label>
@@ -156,6 +156,37 @@
         </div>
         <!-- /.card primary-->
     </div>
+
+    <div class="col-md-6">
+        <div class="card primary">
+            <div class="card-header">
+                {{ __('Расписание') }}
+            </div>
+            <!-- /.card-header -->
+
+            <div class="card-body">
+                <a class="btn btn-primary btn-sm" href="{{ route('timetables.create',$user->id)}}">
+                    <i class="fas fa-folder">
+                    </i>
+                    {{ __('Создать') }}
+                </a>
+                <a class="btn btn-info btn-sm" href="{{ route('timetables.edit',$user->id)}}">
+                    <i class="fas fa-pencil-alt">
+                    </i>
+                    {{ __('Редактировать') }}
+                </a>
+
+
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+            </div>
+            <!-- /.card-footer -->
+
+        </div>
+        <!-- /.card primary-->
+    </div>
+
     <!-- /.col-md -6.3 -->
 </div>
 <!-- /.row -->

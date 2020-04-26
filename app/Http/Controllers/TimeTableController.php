@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Timetable;
+use App\User;
 use Illuminate\Http\Request;
 
 class TimeTableController extends Controller
@@ -41,7 +42,7 @@ class TimeTableController extends Controller
     {
         $time = new Timetable();
 
-        $time->doctor_id =0; //$request->doctor_id;
+        $time->doctor_id = $_GET;
         $time->clinic_id =1; //$request->clinic_id;
         $time->scheduleType= $request->scheduleType;
         $time->interval = $request->interval;

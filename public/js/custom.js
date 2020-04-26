@@ -1,19 +1,19 @@
 $(function () {
       //Initialize Select2 Elements
       $('.select2').select2()
-  
+
       //Initialize Select2 Elements
       $('.select2bs4').select2({
         theme: 'bootstrap4'
       })
-  
+
       //Datemask dd/mm/yyyy
       $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
       //Datemask2 mm/dd/yyyy
       $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
       //Money Euro
       $('[data-mask]').inputmask()
-  
+
       //Date range picker
       $('#reservation').daterangepicker()
       //Date range picker with time picker
@@ -42,28 +42,100 @@ $(function () {
           $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
         }
       )
-  
+
       //Timepicker
-      $('#timepicker').datetimepicker({
+      $('#timepicker1').datetimepicker({
         use24hours: true,
         format: 'HH:mm'
       })
-      
+    $('#timepicker2').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker3').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker4').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker5').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker6').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker7').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker8').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker9').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker10').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker11').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker12').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker13').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker14').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker15').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker16').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker17').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker18').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+
+
       //Bootstrap Duallistbox
       $('.duallistbox').bootstrapDualListbox()
-  
+
       //Colorpicker
       $('.my-colorpicker1').colorpicker()
       //color picker with addon
       $('.my-colorpicker2').colorpicker()
-  
+
       $('.my-colorpicker2').on('colorpickerChange', function(event) {
         $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
       });
-  
+
       $("input[data-bootstrap-switch]").each(function(){
         $(this).bootstrapSwitch('state', $(this).prop('checked'));
       });
-  
+
     })
- 
