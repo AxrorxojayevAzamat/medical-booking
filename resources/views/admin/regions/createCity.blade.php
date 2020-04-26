@@ -22,7 +22,6 @@
     @endif
 
 
-    <p></p>
     <div class="card">
         <div class=" container card-header "><h3>Новый Город</h3></div>
         <div class="container card-header">

@@ -1,8 +1,8 @@
 <div class="row">
     <div class="col-3">
         <div class="form-group">
-            <select class="form-control" name="reg" id="reg">
-                <option disabled selected>Выберете регион</option>
+            <select class="form-control" name="reg" id="reg" required>
+                <option hidden></option>
                 @foreach($categories as $cat)
 
                     <option value="{{$cat->id}}">{{$cat->name_ru}}</option>
@@ -16,8 +16,8 @@
 
     <div class="col-3">
         <div class="form-group">
-            <select class="form-control" name="region" id="reg">
-                <option disabled selected>Выберете город</option>
+            <select class="form-control" name="region" id="reg" required>
+                <option disabled>Выберете регион сначала</option>
 
             </select>
             <label>Родительский город</label>

@@ -2,11 +2,12 @@
     <div class="col-4">
         <!-- select -->
         <div class="form-group">
-            <select class="form-control" name="region" id="region">
-                <option disabled selected>Выберете регион</option>
+            <select class="form-control" name="region" id="region" >
+
                 @foreach($categories as $cat)
-                    <option value="{{$cat->id}}">{{$cat->name_ru}}</option>
+                    <option value="{{ $cat->id }}" {{ (collect(old('region'))->contains($cat->id)) ? 'selected':'' }}>{{ $cat->name_ru }}</option>
                 @endforeach
+
             </select>
             <label>Родительский регион</label>
         </div>
