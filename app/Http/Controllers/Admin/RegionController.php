@@ -8,6 +8,7 @@ use App\Region;
 use Illuminate\Http\Request;
 
 
+
 class RegionController extends Controller
 {
     /**
@@ -73,7 +74,7 @@ class RegionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function store(RegionRequest $request)
     {
@@ -105,7 +106,7 @@ class RegionController extends Controller
 
     public function editCity($id)
     {
-        $categories = Region::children(null);
+        $categories = Region::find($id)->children(null);
         $regions = Region::find($id);
         return view('admin.regions.editCity', compact('regions', 'categories'));
     }

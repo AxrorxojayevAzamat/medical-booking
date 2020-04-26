@@ -23,6 +23,17 @@ Route::get('/test', function () {
 });
 
 
+//Маршруты для Клиник
+Route::get('clinic/', 'Admin\ClinicController@index');
+Route::get('clinic/', 'Admin\ClinicController@index')->name('clinic.index');
+Route::get('clinic/create', 'Admin\ClinicController@create')->name('clinic.create');
+Route::post('clinic/', 'Admin\ClinicController@store')->name('clinic.store');
+Route::get('clinic/edit/{id}', 'Admin\ClinicController@edit')->name('clinic.edit');
+Route::patch('clinic/show/{id}', 'Admin\ClinicController@update')->name('clinic.update');
+Route::delete('clinic/{id}', 'Admin\ClinicController@destroy')->name('clinic.destroy');
+
+
+
 //Маршруты для Праздников
 Route::get('celebration/', 'Admin\CelebrationController@index');
 Route::get('celebration/', 'Admin\CelebrationController@index')->name('celebration.index');

@@ -272,16 +272,12 @@ return [
             'icon' => 'fas fa-fw fa-share',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url' => '#',
+                    'text' => 'Список Клиник',
+                    'url' => 'clinic/',
                 ],
                 [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
+                    'text' => 'Новая клиника',
+                    'url' => 'clinic/create',
                 ],
             ],
         ],
