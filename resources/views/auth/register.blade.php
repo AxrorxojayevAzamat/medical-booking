@@ -23,6 +23,7 @@
 
 @section('body')
 <<<<<<< HEAD
+<<<<<<< HEAD
     <div class="register-box">
         <div class="register-logo">
             <a href="{{ $dashboard_url }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
@@ -179,6 +180,9 @@
         </div><!-- /.register-box -->
         @stop
 =======
+=======
+
+>>>>>>> f114d1c5058e7aefae33c7a017b576c2db5afcc7
 <div class="register-box">
     <div class="register-logo">
         <a href="{{ $dashboard_url }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
@@ -292,7 +296,11 @@
         <!-- /.form-box -->
     </div><!-- /.register-box -->
     @stop
+<<<<<<< HEAD
 >>>>>>> 313b2d78cc24a4b639c9c9159b2d61ccd88db5bc
+=======
+
+>>>>>>> f114d1c5058e7aefae33c7a017b576c2db5afcc7
 
         @section('adminlte_js')
             <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
