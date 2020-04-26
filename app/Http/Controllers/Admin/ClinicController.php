@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Clinic;
 use App\Http\Requests\ClinicRequest;
+use App\Region;
 use Illuminate\Http\Request;
 
 class ClinicController extends Controller
@@ -32,9 +33,10 @@ class ClinicController extends Controller
      */
     public function create()
     {
-        return view('admin.clinics.create');
-    }
+        $regions = Region::all();
+        return view('admin.clinics.create', compact('regions'));
 
+    }
 
 
     /**
@@ -46,8 +48,6 @@ class ClinicController extends Controller
     public function store(ClinicRequest $request)
     {
         $clinics = new Clinic();
-
-
         $clinics->name_uz = $request->name_uz;
         $clinics->name_ru = $request->name_ru;
         $clinics->region_id = $request->region_id;
@@ -60,7 +60,6 @@ class ClinicController extends Controller
         $clinics->work_time = $request->work_time;
         $clinics->location = $request->location;
         $clinics->save();
-
 
         return redirect()->route('clinic.index')->with('success', 'Успешно!');
     }
@@ -75,9 +74,9 @@ class ClinicController extends Controller
     public function edit($id)
     {
         $clinics = Clinic::find($id);
-        return view('admin.clinics.edit', compact('clinics'));
+        $regions=Region::all();
+        return view('admin.clinics.edit', compact('clinics','regions'));
     }
-
 
 
     /**
