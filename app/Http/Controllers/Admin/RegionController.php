@@ -106,7 +106,7 @@ class RegionController extends Controller
 
     public function editCity($id)
     {
-        $categories = Region::find($id)->children(null);
+        $categories = Region::children(null);
         $regions = Region::find($id);
         return view('admin.regions.editCity', compact('regions', 'categories'));
     }
