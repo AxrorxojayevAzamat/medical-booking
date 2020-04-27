@@ -15,64 +15,69 @@ class UserSeed extends Seeder {
                     'name' => 'Admin',
                     'lastname' => 'Adminov',
                     'patronymic' => 'Adminovich',
-                    'phone' => '998991234567',
-                    'birth_date' => '1988-04-09 00:00:00',
+                    'phone' => '(998) 99 123-4561',
+                    'birth_date' => '1988-04-21 00:00:00',
                     'gender' => '1',
                     'email' => 'admin@admin.com',
-                    'email_verified_at' => '2020-03-31 06:12:15',
+                    'email_verified_at' => '2020-04-21 00:00:00',
                     'password' => bcrypt('12'),
+                    'status' => '1',
+                    'role' => '1',
         ]);
-        $admin->roles()->attach(1);
 
         $user = User::create([
                     'name' => 'User',
                     'lastname' => 'Userov',
                     'patronymic' => 'Userovich',
-                    'phone' => '998991234567',
-                    'birth_date' => '1988-04-09 00:00:00',
+                    'phone' => '(998) 99 123-4562',
+                    'birth_date' => '1988-04-22 00:00:00',
                     'gender' => '1',
                     'email' => 'user@user.com',
-                    'email_verified_at' => '2020-03-31 06:14:15',
+                    'email_verified_at' => '2020-04-22 00:00:00',
                     'password' => bcrypt('12'),
+                    'status' => '1',
+                    'role' => '2',
         ]);
-        $user->roles()->attach(2);
-       
+
         $adminCallCenter = User::create([
                     'name' => 'AdminCallCenter',
                     'lastname' => 'AdminovCallCenter',
                     'patronymic' => 'AdminovichCallCenter',
-                    'phone' => '998991234567',
-                    'birth_date' => '1988-04-09 00:00:00',
+                    'phone' => '(998) 99 123-4563',
+                    'birth_date' => '1988-04-23 00:00:00',
                     'gender' => '1',
                     'email' => 'admin.call@admin.com',
-                    'email_verified_at' => '2020-03-31 06:12:15',
+                    'email_verified_at' => '2020-04-23 00:00:00',
                     'password' => bcrypt('12'),
+                    'status' => '1',
+                    'role' => '3',
         ]);
-        $adminCallCenter->roles()->attach(3);
         $adminClinic = User::create([
                     'name' => 'AdminClinic',
                     'lastname' => 'AdminovClinic',
                     'patronymic' => 'AdminovichClinic',
-                    'phone' => '998991234567',
-                    'birth_date' => '1988-04-09 00:00:00',
+                    'phone' => '(998) 99 123-4564',
+                    'birth_date' => '1988-04-24 00:00:00',
                     'gender' => '1',
                     'email' => 'admin.clinic@admin.com',
-                    'email_verified_at' => '2020-03-31 06:12:15',
+                    'email_verified_at' => '2020-04-24 00:00:00',
                     'password' => bcrypt('12'),
+                    'status' => '1',
+                    'role' => '4',
         ]);
-        $adminCallCenter->roles()->attach(4);
         $doctor = User::create([
                     'name' => 'Doctor',
                     'lastname' => 'Doctorov',
                     'patronymic' => 'Doctorovich',
-                    'phone' => '998991234567',
-                    'birth_date' => '1988-04-09 00:00:00',
+                    'phone' => '(998) 99 123-4565',
+                    'birth_date' => '1988-04-25 00:00:00',
                     'gender' => '1',
                     'email' => 'doctor@doctor.com',
-                    'email_verified_at' => '2020-03-31 06:12:15',
+                    'email_verified_at' => '2020-04-25 00:00:00',
                     'password' => bcrypt('12'),
+                    'status' => '1',
+                    'role' => '5',
         ]);
-        $doctor->roles()->attach(5);
     }
 
 }

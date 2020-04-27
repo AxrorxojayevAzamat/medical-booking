@@ -1,52 +1,82 @@
-
-@extends('layouts.app')
-
-@section('content')
-<style>
-  .uper {
-    margin-top: 40px;
-  }
-</style>
-<div class="uper">
-  @if(session()->get('success'))
-    <div class="alert alert-success">
-      {{ session()->get('success') }}  
-    </div><br />
-  @endif
-  <div style="margin-bottom: 10px;" class="row">
-    <div class="col-lg-12">
-        <a class="btn btn-success" href="{{ route("admin.specializations.create") }}">
-          Add Specializations
-        </a>
+@extends('adminlte::page')
+@section('title', 'Специализации')
+@section('content_header')
+<div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-sm-6">
+            <h1>{{ __('Специализации') }}</h1>
+        </div>
+        <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="{{ route("home") }}">{{ __('Главная')}} </a></li>
+                <li class="breadcrumb-item active">{{ __('Специализации') }}</li>
+            </ol>
+        </div>
     </div>
+</div><!-- /.container-fluid -->
+@stop
+@section('content')
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="col-lg-1">
+                    <a class="btn btn-block btn-success" href="{{ route("admin.specializations.create") }}">
+                        {{ __('Добавить') }}
+                    </a>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+                <table id="laravel_datatable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>{{ __('ID') }}</th>
+                            <td>{{ __('Наименование(ru)') }}</td>
+                            <td>{{ __('Наименование(uz)') }}</td> 
+                            <th style="width: 25%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($specializations as $specialization)
+                        <tr>
+                            <td>{{$specialization->id}}</td>
+                            <td>{{$specialization->name_ru}}</td>
+                            <td>{{$specialization->name_uz}}</td>
+                            <td class="project-actions text-right">
+                                <a class="btn btn-primary btn-sm" href="{{ route('admin.specializations.show',$specialization->id)}}">
+                                    <i class="fas fa-folder">
+                                    </i>
+                                    {{ __('Посмотреть') }}    
+                                </a>
+                                <a class="btn btn-info btn-sm" href="{{ route('admin.specializations.edit',$specialization->id)}}">
+                                    <i class="fas fa-pencil-alt">
+                                    </i>
+                                    {{ __('Редактировать') }}   
+                                </a>
+                                <a class="btn">
+                                    <form action="{{ route('admin.specializations.destroy', $specialization->id)}}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Вы уверены?')">
+                                            <i class="fas fa-trash">
+                                            </i>{{ __('Удалить') }}
+                                        </button>
+                                    </form>   
+                                </a>
+
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
 </div>
-  <table class="table table-striped">
-    <thead>
-        <tr>
-          <td>ID</td>
-          <td>Наименование(ru)</td>
-          <td>Наименование(uz)</td>
-          <td colspan="2">Action</td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($specializations as $specialization)
-        <tr>
-            <td>{{$specialization->id}}</td>
-            <td>{{$specialization->name_ru}}</td>
-            <td>{{$specialization->name_uz}}</td>
-            <td><a href="{{ route('admin.specializations.edit',$specialization->id)}}" class="btn btn-primary">Edit</a></td>
-            <td><a href="{{ route('admin.specializations.show',$specialization->id)}}" class="btn btn-success">Show</a></td>
-            <td>
-                <form action="{{ route('admin.specializations.destroy', $specialization->id)}}" method="post">
-                  @csrf
-                  @method('DELETE')
-                  <button class="btn btn-danger" type="submit">Delete</button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-  </table>
-<div>
-@endsection
+<!-- /.row -->
+@stop

@@ -30,10 +30,11 @@ services:
     ports:
       - 54321:5432
     volumes:
-      - ./storage/docker/psql:/var/lib/postgresql/data:cached
+      - ./:/var/www/html/
+      #- ./storage/docker/psql:/var/lib/postgresql/data:cached
     environment:
       - POSTGRES_DB=medical_booking
-      - POSTGRES_USER=root
+      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=booking123
     networks:
       - internal
