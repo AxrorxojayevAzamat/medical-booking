@@ -34,7 +34,6 @@
                         <table class=" table table-bordered table-hover ">
                             <thead>
                             <tr align="center">
-                                <th>ID</th>
                                 <th>Дата</th>
                                 <th>Дней</th>
                                 <th>Название праздника</th>
@@ -44,7 +43,6 @@
                             <tbody>
                             @foreach($celebrations as $celebration)
                                 <tr>
-                                    <td class="text-center py-1 ">{{$celebration->id}}</td>
                                     <td class="text-center py-1 ">{{$celebration->date}}</td>
                                     <td class="text-center py-1 ">{{$celebration->quantity}}</td>
                                     <td class="text-center py-1 ">{{$celebration->name}}</td>
