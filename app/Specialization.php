@@ -10,4 +10,8 @@ class Specialization extends Model {
         'name_uz', 'name_ru',
     ];
 
+    public function users() {
+        return $this->belongsToMany(User::class , 'specialization_user');
+    }
+
 }

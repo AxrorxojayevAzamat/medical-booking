@@ -99,14 +99,16 @@
                 </div>
                 <div class="form-group">
                     <label for="patronymic" class="col-form-label text-md-left">{{ __('Роль пользователя') }}</label>
-                    @foreach($user->roles()->pluck('name') as $role)
-                    <input id="role" type="text" class="form-control" name="role" value="{{$role}}" disabled>
-                    @endforeach 
+                    <select id="role" class="form-control @error('roles') is-invalid @enderror" name="role" disabled>
+                        @foreach($roles as $value => $label)
+                        <option value="{{ $value }}"{{ $value === $user->role ? ' selected' : '' }}>{{ $label }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="status" class="col-form-label text-md-left">{{ __('Статус') }}</label>
                     <select id="status" class="form-control" name="status" value="{{$user->status==1 ?'selected':'' }}" disabled>
-                        <option value="" selected=""></option>>
+                        <option value="" selected=""></option>
                         <option value="0" {{$user->status === 0 ? 'selected' : ''}}>{{ __('Aктивный') }}</option>
                         <option value="1" {{$user->status === 1 ? 'selected' : ''}}>{{ __('Неактивный') }}</option>
                     </select>
@@ -131,20 +133,60 @@
             <!-- /.card-header -->
 
             <div class="card-body">
-                <div class="form-group">
+                <div class="col-sm-12">
+                    <form method="POST" action="{{ route("admin.users.specialization", [$user->id]) }}">
+                        @csrf
+                       {{-- @method('PUT')--}}
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
 
-                    <label for="specialization" class="col-form-label text-md-left">{{ __('Добавить специализации') }}</label>
-                    <!--<select class="select2" multiple="multiple" data-placeholder="специализации" style="width: 100%;">-->
-                    <select class="select2 select2-hidden-accessible" multiple="multiple" data-placeholder="специализации" style="width: 100%;">
-                        <option>Spec1</option>
-                        <option>Spec2</option>
-                    </select>
+                                    <label for="specialization" class="col-form-label text-md-left">{{ __('Добавить специализации') }}</label>
+                                    <select class="select2 select2-hidden-accessible" name="bla[]" multiple="multiple" data-placeholder="{{ __('Специализации') }}" style="width: 100%;">
+                                        <option value=""></option>
+                                        @foreach($specializations as $value => $label)
+                                        <option value="{{ $value }}"{{ $value === request('role') ? ' selected' : '' }}>{{ $label }}</option>
+                                        @endforeach
+                                    </select>
 
-                    @error('specialization')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
+                                    @error('specialization')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-success float-right">{{ __('Добавить') }}</button>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                        </div>
+
+                    </form>
+                </div>
+                <div class="col-sm-12">
+                    <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                        <thead>
+                            <tr role="row">
+                                <th>{{ __('ID') }}</th>
+                                <th>{{ __('Name_uz') }}</th>
+                                <th>{{ __('Name_ru') }}</th>
+                                <th style="width: 25%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($doctorlist->specializations as $spec)
+                            <tr>
+                                <td>{{$spec->id}}</td>
+                                <td>{{$spec->name_uz}}</td>
+                                <td>{{$spec->name_ru}}</td>
+                            </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
