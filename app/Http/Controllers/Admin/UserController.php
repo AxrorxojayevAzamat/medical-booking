@@ -63,7 +63,6 @@ class UserController extends Controller {
 
         $user = User::create($input);
 
-
         return redirect()->route('admin.users.show', $user);
     }
 
@@ -71,7 +70,6 @@ class UserController extends Controller {
         $roles = Role::orderBy('name')->pluck('name', 'id');
         $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
         $doctorlist = User::find($user->id);
-
 
         return view('admin.users.show', compact('user', 'roles', 'specializations', 'doctorlist'));
     }
@@ -85,7 +83,6 @@ class UserController extends Controller {
 
     public function update(Request $request, User $user) {
         $user->update($request->except(['role']));
-
 
 //        $user->roles()->attach($request['role']);
 
