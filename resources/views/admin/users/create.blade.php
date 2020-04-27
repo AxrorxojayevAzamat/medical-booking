@@ -153,8 +153,8 @@
                     <div class="form-group">
                         <label for="patronymic" class="col-form-label text-md-left">{{ __('Роль пользователя') }}</label>
                         <select id="role" class="form-control @error('roles') is-invalid @enderror" name="role" required>
-                            @foreach($roles as $value => $label)
                             <option value="" selected=""></option>
+                            @foreach($roles as $value => $label)
                             <option value="{{ $value }}" {{ (in_array($value, old('role', [])) || isset($user) && $user->role->contains($id)) ? 'selected' : '' }}>{{ $label }}</option>
                             @endforeach
                         </select>
