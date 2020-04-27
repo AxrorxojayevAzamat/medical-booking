@@ -35,12 +35,9 @@
                             <tr align="center">
                                 <th>ID</th>
                                 <th>Название</th>
-                                <th>Регион</th>
-                                <th>Тип</th>
                                 <th>Описание</th>
+                                <th>Адресс</th>
                                 <th>Телефон</th>
-                                <th>Время работы</th>
-                                <th>Локация</th>
                                 <th>Действия</th>
                             </tr>
                             </thead>
@@ -48,14 +45,10 @@
                             @foreach($clinics as $clinic)
                                 <tr>
                                     <td class="text-center py-1 ">{{$clinic->id}}</td>
-                                    <td class="text-center py-1 ">{{$clinic->name_uz}}/{{$clinic->name_ru}}</td>
-                                    <td class="text-center py-1 ">{{$clinic->region_id}}</td>
-                                    <td class="text-center py-1 ">{{$clinic->type}}</td>
-                                    <td class="text-center py-1 ">{{$clinic->description_uz}}/{{$clinic->description_ru}}</td>
+                                    <td class="text-center py-1 ">{{$clinic->name_ru}}</td>
+                                    <td class="text-center py-1 ">{{$clinic->description_ru}}</td>
+                                    <td class="text-center py-1 ">{{$clinic->adress_ru}}</td>
                                     <td class="text-center py-1 ">{{$clinic->phone_numbers}}</td>
-                                    <td class="text-center py-1 ">{{$clinic->adress_uz}}/{{$clinic->adress_ru}}</td>
-                                    <td class="text-center py-1 ">{{$clinic->work_time}}</td>
-                                    <td class="text-center py-1 ">{{$clinic->location}}</td>
                                     <td class="text-center py-1 ">
                                         <div class="btn-group ml-2 ">
                                             <a href="{{ route('clinic.edit',['id'=>$clinic->id]) }}"
