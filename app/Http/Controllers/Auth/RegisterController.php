@@ -66,6 +66,7 @@ use RegistersUsers;
      * @return \App\User
      */
     protected function create(array $data) {
+        $role = Role::where('slug', 'user')->first();
         $user = User::create([
                     'name' => $data['name'],
                     'lastname' => $data['lastname'],
@@ -75,9 +76,8 @@ use RegistersUsers;
                     'gender' => $data['gender'],
                     'email' => $data['email'],
                     'password' => Hash::make($data['password']),
+                    'role' => $role->id,
         ]);
-        $role = Role::where('slug', 'user')->first();
-        $user->roles()->attach($role['id']);
 
         return $user;
     }

@@ -27,9 +27,15 @@ class CreateUsersTable extends Migration
             $table->text('about_uz')->nullable();
             $table->text('about_ru')->nullable();
             $table->string('password');
-            $table->tinyInteger('role')->nullable();
+            $table->unsignedBigInteger('role')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            
+            $table->foreign('role')
+            ->references('id')
+            ->on('roles')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
         });
     }
 

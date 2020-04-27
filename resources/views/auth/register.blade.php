@@ -70,7 +70,6 @@
                 </div>
                 <div class="form-group">
                     <input type="date" name="birth_date" class="form-control {{ $errors->has('birth_date') ? 'is-invalid' : '' }}" value="{{ old('birth_date') }}" placeholder="{{ __('Дата рождения') }}" autofocus>
-
                     @if ($errors->has('birth_date'))
                     <div class="invalid-feedback">
                         <strong>{{ $errors->first('birth_date') }}</strong>
