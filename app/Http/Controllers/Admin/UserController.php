@@ -71,7 +71,7 @@ class UserController extends Controller {
         $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
         $doctorList = User::find($user->id);
 
-        return view('admin.users.show', compact('user', 'roles', 'specializations', 'doctorlist'));
+        return view('admin.users.show', compact('user', 'roles', 'specializations', 'doctorList'));
     }
 
     public function edit(User $user) {
