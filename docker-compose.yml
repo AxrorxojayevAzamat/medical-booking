@@ -1,28 +1,33 @@
 version: '3'
 services:
   nginx:
-    build: docker/nginx
+    image: nginx:1.17-alpine
     container_name: medical-booking-nginx
+    restart: unless-stopped
+    working_dir: /var/www/html
     ports:
       - 8081:80
     volumes:
-      - ./:/var/www/html/
+      - ./:/var/www/html:cached
+      - ./docker/nginx:/etc/nginx/conf.d:cached
     links:
       - php-fpm
     networks:
-      - internal
+      - medical-booking
+
   php-fpm:
     build: docker/php-fpm
     container_name: medical-booking-php
     ports:
       - 9000:9000
     volumes:
-      - ./:/var/www/html/
+      - ./:/var/www/html:cached
     links:
       - db
       - redis
     networks:
-      - internal
+      - medical-booking
+
   db:
     image: postgres:12.2-alpine
     container_name: medical-booking-db-pg
@@ -30,33 +35,13 @@ services:
     ports:
       - 54321:5432
     volumes:
-      - ./:/var/www/html/
-      #- ./storage/docker/psql:/var/lib/postgresql/data:cached
+      - ./storage/docker/psql:/var/lib/postgresql/data:cached
     environment:
       - POSTGRES_DB=medical_booking
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=booking123
     networks:
-      - internal
-
-
-      # db:
-  #   image: mysql:5.7
-  #   container_name: medical-booking-db
-  #   ports:
-  #     - 5432:5432
-  #   volumes:
-  #     - ./:/var/www/html/
-  #     #- ./mail.sql:/docker-entrypoint-initdb.d/init.sql
-
-  #   environment:
-  #     MYSQL_DATABASE: medical_booking
-  #     MYSQL_USER: root
-  #     MYSQL_ALLOW_EMPTY_PASSWORD: "true"
-  #     MYSQL_PASSWORD:
-  #     MYSQL_ROOT_PASSWORD:
-  #   networks:
-  #     - internal
+      - medical-booking
 
   redis:
     image: redis
@@ -66,13 +51,14 @@ services:
     ports:
       - 6379:6379
     volumes:
-      - ./:/var/www/html/
+      - ./:/var/www/html:cached
     networks:
-      - internal
+      - medical-booking
+
 networks:
-  internal:
+  medical-booking:
     driver: bridge
     ipam:
       driver: default
       config:
-        - subnet: 192.168.221.0/28
+        - subnet: 192.168.219.0/28

@@ -12,9 +12,24 @@ class SpecializationSeed extends Seeder {
      */
     public function run() {
 
-        $specialization = Specialization::create([
+        $dentist = Specialization::create([
                     'name_ru' => 'Стоматолог',
                     'name_uz' => 'Stomatolog',
+        ]);
+
+        $surgeaon = Specialization::create([
+                    'name_ru' => 'Хирург',
+                    'name_uz' => 'Jarroh',
+        ]);
+
+        $therapeutic = Specialization::create([
+                    'name_ru' => 'Терапевт',
+                    'name_uz' => 'Terapevt',
+        ]);
+
+        $immunologist = Specialization::create([
+                    'name_ru' => 'Иммунолог',
+                    'name_uz' => 'Immunolog',
         ]);
     }
 

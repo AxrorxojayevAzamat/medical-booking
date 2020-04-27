@@ -1,6 +1,4 @@
 <?php
-use Illuminate\Support\Facades\Auth;
-use \Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,4 +65,9 @@ Route::group([ 'prefix' => 'admin', 'as' => 'admin.'], function () {
                              ->middleware('can:user-manage');
     Route::resource('specializations', 'Admin\SpecializationController')
                              ->middleware('can:user-manage');
+Route::post('users', 'Admin\UserController@specialization')->name('users.specialization')
+                             ->middleware('can:user-manage');
+
 });
+
+
