@@ -70,24 +70,20 @@ class UserController extends Controller {
     public function show(User $user) {
         $roles = Role::orderBy('name')->pluck('name', 'id');
         $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
-        $doctorlist = User::find($user->id);
+        $doctorList = User::find($user->id);
 
 
-        return view('admin.users.show', compact('user', 'roles', 'specializations', 'doctorlist'));
+        return view('admin.users.show', compact('user', 'roles', 'specializations', 'doctorList'));
     }
 
     public function edit(User $user) {
         $roles = Role::orderBy('name')->pluck('name', 'id');
-        //$user = User::findOrFail($id);
 
         return view('admin.users.edit', compact('user', 'roles'));
     }
 
     public function update(Request $request, User $user) {
         $user->update($request->except(['role']));
-
-
-//        $user->roles()->attach($request['role']);
 
         return redirect()->route('admin.users.index');
     }
@@ -99,10 +95,9 @@ class UserController extends Controller {
     }
 
     public function specialization(Request $request, User $user) {
-        $user1 = User::find(2);
-        $user1->specializations()->attach([1]);
-//        $user1->specializations()->sync(1,true);
-        return redirect()->route('admin.users.show', $user1);
+        $user->specializations()->sync($request['specializationUser']);
+
+        return redirect()->route('admin.users.show', $user);
     }
 
 }
