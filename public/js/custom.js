@@ -44,83 +44,98 @@ $(function () {
       )
 
       //Timepicker
+      $('#timepicker').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+      })
+      //Timepicker1
       $('#timepicker1').datetimepicker({
         use24hours: true,
         format: 'HH:mm'
       })
-    $('#timepicker2').datetimepicker({
+      //Timepicker2
+      $('#timepicker2').datetimepicker({
         use24hours: true,
         format: 'HH:mm'
-    })
-    $('#timepicker3').datetimepicker({
+      })
+      //Timepicker3
+      $('#timepicker3 ').datetimepicker({
         use24hours: true,
         format: 'HH:mm'
-    })
+      })
+
+    //Timepicker4
     $('#timepicker4').datetimepicker({
         use24hours: true,
         format: 'HH:mm'
     })
+    //Timepicker5
     $('#timepicker5').datetimepicker({
         use24hours: true,
         format: 'HH:mm'
     })
+    //Timepicker6
     $('#timepicker6').datetimepicker({
         use24hours: true,
         format: 'HH:mm'
     })
-    $('#timepicker7').datetimepicker({
-        use24hours: true,
-        format: 'HH:mm'
-    })
-    $('#timepicker8').datetimepicker({
-        use24hours: true,
-        format: 'HH:mm'
-    })
-    $('#timepicker9').datetimepicker({
-        use24hours: true,
-        format: 'HH:mm'
-    })
-    $('#timepicker10').datetimepicker({
-        use24hours: true,
-        format: 'HH:mm'
-    })
-    $('#timepicker11').datetimepicker({
-        use24hours: true,
-        format: 'HH:mm'
-    })
-    $('#timepicker12').datetimepicker({
-        use24hours: true,
-        format: 'HH:mm'
-    })
-    $('#timepicker13').datetimepicker({
-        use24hours: true,
-        format: 'HH:mm'
-    })
-    $('#timepicker14').datetimepicker({
-        use24hours: true,
-        format: 'HH:mm'
-    })
-    $('#timepicker15').datetimepicker({
-        use24hours: true,
-        format: 'HH:mm'
-    })
-    $('#timepicker16').datetimepicker({
-        use24hours: true,
-        format: 'HH:mm'
-    })
-    $('#timepicker17').datetimepicker({
-        use24hours: true,
-        format: 'HH:mm'
-    })
-    $('#timepicker18').datetimepicker({
-        use24hours: true,
-        format: 'HH:mm'
-    })
-    $('#timepicker').datetimepicker({
+    //Timepicker7
+    $('#timepicker7 ').datetimepicker({
         use24hours: true,
         format: 'HH:mm'
     })
 
+    //Timepicker8
+    $('#timepicker8').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    //Timepicker9
+    $('#timepicker9').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    //Timepicker10
+    $('#timepicker10').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    //Timepicker11
+    $('#timepicker11 ').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+
+    //Timepicker12
+    $('#timepicker12').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    //Timepicker13
+    $('#timepicker13').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    //Timepicker14
+    $('#timepicker14').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    //Timepicker15
+    $('#timepicker15 ').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    //Timepicker16
+    $('#timepicker16').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    //Timepicker17
+    $('#timepicker17 ').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
 
       //Bootstrap Duallistbox
       $('.duallistbox').bootstrapDualListbox()

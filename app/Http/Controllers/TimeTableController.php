@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Timetable;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TimeTableController extends Controller
 {
@@ -41,8 +42,8 @@ class TimeTableController extends Controller
     public function store(Request $request)
     {
         $time = new Timetable();
-
-        $time->doctor_id = $_GET;
+        $id = Auth::user()->id;
+        $time->doctor_id = $request->id;
         $time->clinic_id =1; //$request->clinic_id;
         $time->scheduleType= $request->scheduleType;
         $time->interval = $request->interval;
@@ -66,8 +67,8 @@ class TimeTableController extends Controller
         $time->even_end = $request->even_end;
         $time->day_off_start = $request->day_off_start;
         $time->day_off_end = $request->day_off_end;
-        $time->created_by = 13;
-        $time->updated_by = 13;
+        $time->created_by = $id;
+        $time->updated_by = $id;
         $time->save();
         return redirect()->route('timetables.show')->with('success', 'Успешно!');
     }
@@ -77,11 +78,15 @@ class TimeTableController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function edit($id)
     {
-        //
+        $time = Timetable::find($id);
+        if (!$time) {
+            return redirect()->route('user.show')->withErrors('Такого расписания  нет на сайте');
+        }
+        return view('timetables.edit', compact('time'));
     }
 
     /**
@@ -92,37 +97,37 @@ class TimeTableController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {/*
+    {
         $time = new Timetable();
         $time->doctor_id = $request->id;
         $time->clinic_id = $request->clinic_id;
         $time->scheduleType = $request->scheduleType;
-        $time->monday_start = $request->monday_start->default(null);
-        $time->monday_end = $request->monday_end->default(null);
-        $time->tuesday_start = $request->tuesday_start->default(null);
-        $time->tuesday_end = $request->tuesday_end->default(null);
-        $time->wednesday_start = $request->wednesday_start->default(null);
-        $time->wednesday_end = $request->wednesday_end->default(null);
-        $time->thursday_start = $request->thursday_start->default(null);
-        $time->thursday_end = $request->thursday_end->default(null);
-        $time->friday_start = $request->friday_start->default(null);
-        $time->friday_end = $request->friday_end->default(null);
-        $time->saturday_start = $request->saturday_start->default(null);
-        $time->saturday_end = $request->saturday_end->default(null);
-        $time->sunday_start = $request->sunday_start->default(null);
-        $time->sunday_end = $request->sunday_end->default(null);
-        $time->odd_start = $request->odd_start->default(null);
-        $time->odd_end = $request->odd_end->default(null);
-        $time->even_start = $request->even_start->default(null);
-        $time->even_end = $request->even_end->default(null);
-        $time->day_off_start = $request->day_off_start->default(null);
-        $time->day_off_end = $request->day_off_end->default(null);
+        $time->monday_start = $request->monday_start;
+        $time->monday_end = $request->monday_end;
+        $time->tuesday_start = $request->tuesday_start;
+        $time->tuesday_end = $request->tuesday_end;
+        $time->wednesday_start = $request->wednesday_start;
+        $time->wednesday_end = $request->wednesday_end;
+        $time->thursday_start = $request->thursday_start;
+        $time->thursday_end = $request->thursday_end;
+        $time->friday_start = $request->friday_start;
+        $time->friday_end = $request->friday_end;
+        $time->saturday_start = $request->saturday_start;
+        $time->saturday_end = $request->saturday_end;
+        $time->sunday_start = $request->sunday_start;
+        $time->sunday_end = $request->sunday_end;
+        $time->odd_start = $request->odd_start;
+        $time->odd_end = $request->odd_end;
+        $time->even_start = $request->even_start;
+        $time->even_end = $request->even_end;
+        $time->day_off_start = $request->day_off_start;
+        $time->day_off_end = $request->day_off_end;
         $time->interval = $request->interval;
         //$time->created_by = $request->id;
         //$time->update_by = $request->id;
         $time->update();
-        return view('show');
-    */}
+         return redirect()->route('timetables.show', compact('id'))->with('success', 'Hfcgbcfybt jnhtlfrnbhjdfyj!');
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -132,6 +137,15 @@ class TimeTableController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $time = Timetable::find($id);
+        if (!$time) {
+            return redirect()->route('user.show')->withErrors('Такой страницы нет на сайте');
+        }
+
+        $time->delete();
+        return redirect()->route('user.show')->with('success', 'Расписание удалено!');
+
+
+
     }
 }
