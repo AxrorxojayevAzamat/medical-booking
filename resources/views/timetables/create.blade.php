@@ -509,7 +509,7 @@
                         <label>Введите конец отпуска:</label>
                     </div>
                 </div>
-                <br><br><br><br>
+                <br><br>
                 <input type="submit" value="Отправить"  class="btn btn-primary">
             </div>
         </div>

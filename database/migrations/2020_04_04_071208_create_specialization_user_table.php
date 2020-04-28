@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDoctorsAndSpecializationsTable extends Migration
+class CreateSpecializationUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateDoctorsAndSpecializationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('doctors_and_specializations', function (Blueprint $table) {
-            $table->unsignedInteger('doctor_id');
+        Schema::create('specialization_user', function (Blueprint $table) {
+            $table->unsignedInteger('user_id');
             $table->unsignedInteger('specialization_id');
-        });
        
-        Schema::table('doctors_and_specializations', function (Blueprint $table) {
-            $table->foreign('doctor_id')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
             $table->foreign('specialization_id')->references('id')->on('specializations')->onDelete('restrict');
         });
     }
@@ -31,6 +29,6 @@ class CreateDoctorsAndSpecializationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('doctors_and_specializations');
+        Schema::dropIfExists('specialization_user');
     }
 }

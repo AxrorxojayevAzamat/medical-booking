@@ -520,6 +520,42 @@ return [
             ],
         ],
         [
+            'name' => 'datatables',
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '/vendor/almasaeed2010/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/vendor/almasaeed2010/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '/vendor/almasaeed2010/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/vendor/almasaeed2010/adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/vendor/almasaeed2010/adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/vendor/almasaeed2010/adminlte/plugins/datatables/jquery.dataTables.min.js',
+                ],
+            ],
+        ],
+        [
             'name' => 'custom',
             'active' => true,
             'files' => [

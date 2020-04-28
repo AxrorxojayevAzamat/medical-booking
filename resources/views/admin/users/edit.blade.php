@@ -130,7 +130,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                             </div>
-                            <input id="birth_date "type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="birth_date" value="{{ old('birth_date', isset($user) ? $user->birth_date : '') }}" required>
+                            <input id="birth_date "type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="birth_date" value="{{ old('birth_date', isset($user) ? $user->birth_date : '') }}" required>
                         </div>
 
                         @error('birth_date')
@@ -156,8 +156,8 @@
                     <div class="form-group">
                         <label for="patronymic" class="col-form-label text-md-left">{{ __('Роль пользователя') }}</label>
                         <select id="role" class="form-control @error('roles') is-invalid @enderror" name="role" required>
-                            @foreach($roles as $id => $role)
-                            <option value="{{ $id }}" {{ (in_array($id, old('roles', [])) || isset($user) && $user->roles->contains($id)) ? 'selected' : '' }}>{{ $role }}</option>
+                            @foreach($roles as $value => $label)
+                            <option value="{{ $value }}"{{ $value === $user->role ? ' selected' : '' }}>{{ $label }}</option>
                             @endforeach
                         </select>
 
