@@ -18,13 +18,28 @@
     </div><!-- /.container-fluid -->
 @stop
 @section('content')
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card primary">
-                <div class="card-header">
-                    {{ __('Показать пользователя') }}
-                </div>
-                <!-- /.card-header -->
+<div class="row">
+    <div class="col-12">
+        <a class="btn">
+            <form action="{{ route('admin.users.destroy', $user->id)}}" method="post">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger float-left" type="submit" onclick="return confirm('Вы уверены?')">
+                    {{ __('Удалить') }}
+                </button>
+            </form> 
+        </a>
+        <a class="btn btn-secondary float-right" href="{{ route('admin.users.edit',$user->id)}}">{{ __('Редактировать') }}</a>
+    </div>
+</div>
+<!-- /.row -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card primary">
+            <div class="card-header">
+                {{ __('Показать пользователя') }}
+            </div>
+            <!-- /.card-header -->
 
 
                 <div class="card-body">
@@ -116,23 +131,46 @@
 
 
                 </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
+                <div class="form-group">
+                    <label for="gender" class="col-form-label text-md-left">{{ __('Пол') }}</label>
+                    <select id="gender" class="form-control" name="gender" disabled>
+                        <option value="" selected=""></option>>
+                        <option value="0" {{$user->gender === 0 ? 'selected' : ''}} >{{ __('Женский') }}</option>
+                        <option value="1" {{$user->gender === 1 ? 'selected' : ''}} >{{ __('Мужской') }}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="patronymic" class="col-form-label text-md-left">{{ __('Роль пользователя') }}</label>
+                    <select id="role" class="form-control @error('roles') is-invalid @enderror" name="role" disabled>
+                        @foreach($roles as $value => $label)
+                        <option value="{{ $value }}"{{ $value === $user->role ? ' selected' : '' }}>{{ $label }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="status" class="col-form-label text-md-left">{{ __('Статус') }}</label>
+                    <select id="status" class="form-control" name="status" value="{{$user->status==1 ?'selected':'' }}" disabled>
+                        @foreach ($statuses as $value => $label)
+                        <option value="{{ $value }}"{{ $value === $user->status ? ' selected' : '' }}>{{ $label }}</option>
+                        @endforeach;
+                    </select>
                 </div>
                 <!-- /.card-footer -->
 
             </div>
             <!-- /.card primary-->
         </div>
-        <!-- /.col-md -6.2 -->
-        @if($user->inRole('doctor'))
-            <div class="col-md-6">
-                <div class="card primary">
-                    <div class="card-header">
-                        {{ __('Специализации доктора') }}
-                        <a class="btn btn-secondary float-right" href="{{ route('admin.users.additional',$user) }}">{{ __('Обновить') }}</a>
-                    </div>
-                    <!-- /.card-header -->
+        <!-- /.card primary-->
+    </div>
+    <!-- /.col-md -6.2 -->
+    @if($user->inRole('doctor'))
+    <div class="col-md-6">
+        <div class="card primary">
+            <div class="card-header">
+                {{ __('Специализации доктора') }}
+                <a class="btn btn-secondary float-right" href="{{ route('admin.users.additional',$user) }}">{{ __('Изменить/Добавить') }}</a>
+            </div>
+            <!-- /.card-header -->
 
                     <div class="card-body">
                         <div class="col-sm-12">

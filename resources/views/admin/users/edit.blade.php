@@ -76,7 +76,7 @@
                     </div>
                     <div class="form-group">
                         <label for="password" class="col-form-label text-md-left">{{ __('Пароль') }}</label>
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password">
 
                         @error('password')
                         <span class="invalid-feedback" role="alert">
@@ -87,7 +87,7 @@
                     </div>
                     <div class="form-group">
                         <label for="password-confirm" class="col-form-label text-md-left">{{ __('Подтвердите пароль') }}</label>
-                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
                     </div>
 
 
@@ -170,9 +170,9 @@
                     <div class="form-group">
                         <label for="status" class="col-form-label text-md-left">{{ __('Статус') }}</label>
                         <select id="status" class="form-control @error('status') is-invalid @enderror" name="status" value="{{ old('status') }}" required autocomplete="status" autofocus>
-                            <option value="" selected=""></option>>
-                            <option value="1" {{$user->status === 1 ? 'selected' : ''}}>Aктивный</option>>
-                            <option value="0" {{$user->status === 0 ? 'selected' : ''}}>Неактивный</option>>
+                            @foreach ($statuses as $value => $label)
+                            <option value="{{ $value }}"{{ $value === $user->status ? ' selected' : '' }}>{{ $label }}</option>
+                            @endforeach;
                         </select>
 
                         @error('status')
@@ -193,6 +193,41 @@
             <!-- /.card primary-->
         </div>
         <!-- /.col-md -6 -->
+        @if($user->inRole('doctor'))
+        <div class="col-md-6">
+            <div class="card primary">
+                <div class="card-header">
+                    {{ __('Специализации доктора') }}
+                    <a class="btn btn-secondary float-right" href="{{ route('admin.users.additional',$user) }}">{{ __('Изменить/Добавить') }}</a>
+                </div>
+                <!-- /.card-header -->
+
+                <div class="card-body">
+                    <div class="col-sm-12">
+
+                        <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                            <tbody>
+                                @foreach($doctorList->specializations as $spec)
+                                <tr>
+                                    <td>{{$spec->name_ru}}</td>
+                                </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                </div>
+                <!-- /.card-footer -->
+
+            </div>
+            <!-- /.card primary-->
+        </div>
+        <!-- /.col-md -6.3 -->
+        @endif
     </div>
     <!-- /.row -->
     <div class="row">
