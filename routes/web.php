@@ -35,6 +35,7 @@ Route::group(
     [
         'middleware' => ['auth','can:user-manage'],
         'prefix' => 'admin',
+        'namespace' => 'Admin',
         'as' => 'admin.',
     ],
     function () {
