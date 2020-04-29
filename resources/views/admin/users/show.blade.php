@@ -125,6 +125,7 @@
         <!-- /.card primary-->
     </div>
     <!-- /.col-md -6.2 -->
+    @if($user->inRole('doctor'))
     <div class="col-md-6">
         <div class="card primary">
             <div class="card-header">
@@ -158,6 +159,7 @@
         <!-- /.card primary-->
     </div>
     <!-- /.col-md -6.3 -->
+    @endif
 </div>
 <!-- /.row -->
 

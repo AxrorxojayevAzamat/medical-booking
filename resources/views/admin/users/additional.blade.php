@@ -30,7 +30,6 @@
                 <div class="col-sm-12">
                     <form method="POST" action="{{ route("admin.users.specialization", $user) }}">
                         @csrf
-                        {{--@method('PUT')--}}
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
