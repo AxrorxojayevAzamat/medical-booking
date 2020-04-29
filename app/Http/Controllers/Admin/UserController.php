@@ -9,9 +9,10 @@ use App\Specialization;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
-class UserController extends Controller {
-
-    public function index(Request $request) {
+class UserController extends Controller
+{
+    public function index(Request $request)
+    {
         $query = User::orderByDesc('id');
 
         if (!empty($value = $request->get('id'))) {
@@ -52,12 +53,14 @@ class UserController extends Controller {
         return view('admin.users.index', compact('users', 'roles'));
     }
 
-    public function create() {
+    public function create()
+    {
         $roles = Role::orderBy('name')->pluck('name', 'id');
         return view('admin.users.create', compact('roles'));
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
 
@@ -66,7 +69,8 @@ class UserController extends Controller {
         return redirect()->route('admin.users.show', $user);
     }
 
-    public function show(User $user) {
+    public function show(User $user)
+    {
         $roles = Role::orderBy('name')->pluck('name', 'id');
         $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
         $doctorList = User::find($user->id);
@@ -74,13 +78,15 @@ class UserController extends Controller {
         return view('admin.users.show', compact('user', 'roles', 'specializations', 'doctorList'));
     }
 
-    public function edit(User $user) {
+    public function edit(User $user)
+    {
         $roles = Role::orderBy('name')->pluck('name', 'id');
 
         return view('admin.users.edit', compact('user', 'roles'));
     }
 
-    public function update(Request $request, User $user) {
+    public function update(Request $request, User $user)
+    {
         $user->update($request->except(['role']));
 
 //        $user->roles()->attach($request['role']);
@@ -88,22 +94,24 @@ class UserController extends Controller {
         return redirect()->route('admin.users.index');
     }
 
-    public function destroy(User $user) {
+    public function destroy(User $user)
+    {
         $user->delete();
 
         return redirect()->route('admin.users.index');
     }
 
-    public function specialization(Request $request, User $user) {
+    public function specialization(Request $request, User $user)
+    {
         $user->specializations()->sync($request['specializationUser']);
 
         return redirect()->route('admin.users.show', $user);
     }
 
-    public function additional(User $user) {
+    public function additional(User $user)
+    {
         $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
 
         return view('admin.users.additional', compact('user', 'specializations'));
     }
-
 }

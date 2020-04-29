@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Timetable extends Model
 {
-    protected $primaryKey = 'id';
-    protected $fillable = ['scheduleType',
+    protected $table = 'timetables';
+    
+    protected $fillable = [
+        'scheduleType',
         'interval',
         'monday_start',
         'monday_end',
@@ -31,4 +33,4 @@ class Timetable extends Model
         'day_off_end',
         'created_by',
         'updated_by',];
-    }
+}

@@ -20,17 +20,15 @@ class TimeTableController extends Controller
     {
         $times = Timetable::all();
         return view('/timetables/show', compact('times'));
-
     }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('timetables/create');
-
+        return view('timetables.create', compact('request'));
     }
 
     /**
@@ -39,11 +37,12 @@ class TimeTableController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, $doctor_id, $clinic_id)
+    public function store(Request $request)
     {
+        
         $time = new Timetable();
-        $time->doctor_id = $doctor_id;
-        $time->clinic_id =$clinic_id;
+        $time->doctor_id = $request->input('id');
+        $time->clinic_id = $request->input('clinic_id');
         $time->scheduleType= $request->scheduleType;
         $time->interval = $request->interval;
         $time->monday_start = $request->monday_start;
@@ -68,6 +67,7 @@ class TimeTableController extends Controller
         $time->day_off_end = $request->day_off_end;
         $time->created_by = Auth::user()->id;
         $time->updated_by = Auth::user()->id;
+        
         $time->save();
         return redirect()->route('timetables.show')->with('success', 'Успешно!');
     }
@@ -125,7 +125,7 @@ class TimeTableController extends Controller
         //$time->created_by = $request->id;
         //$time->update_by = $request->id;
         $time->update();
-         return redirect()->route('timetables.show', compact('id'))->with('success', 'Hfcgbcfybt jnhtlfrnbhjdfyj!');
+        return redirect()->route('timetables.show', compact('id'))->with('success', 'Hfcgbcfybt jnhtlfrnbhjdfyj!');
     }
 
     /**
@@ -143,8 +143,5 @@ class TimeTableController extends Controller
 
         $time->delete();
         return redirect()->route('user.show')->with('success', 'Расписание удалено!');
-
-
-
     }
 }

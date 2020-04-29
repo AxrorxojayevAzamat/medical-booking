@@ -155,7 +155,7 @@
                     </div>
                     <!-- /.card-footer -->
                     <div class="card-body">
-                        <a class="btn btn-primary btn-sm" href="{{ route('timetables.create',$user->id, 1)}}">
+                        <a class="btn btn-primary btn-sm" href="{!! route('timetables.create',['id'=>$user->id, 'clinic_id'=>1])!!}">
                             <i class="fas fa-folder">
                             </i>
                             {{ __('Создать') }}

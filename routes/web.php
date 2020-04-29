@@ -25,7 +25,7 @@ Route::get('/timetables/show', 'TimeTableController@show');
 Route::get('/timetables/show', 'TimeTableController@show')->name('timetables.show');
 Route::get('/timetables/create', 'TimeTableController@create')->name('timetables.create');
 Route::get('/timetables/edit', 'TimeTableController@edit')->name('timetables.edit');
-Route::post('/timetables/show', 'TimeTableController@store')->name('timetables.store');
+Route::post('/timetables/store', 'TimeTableController@store')->name('timetables.store');
 Route::delete('/timetable/delete{id}', 'TimeTableController@destroy')->name('timetables.destroy');
 
 Route::get('region/', 'RegionController@index');

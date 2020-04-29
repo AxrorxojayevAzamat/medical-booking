@@ -1,211 +1,8 @@
 @extends('adminlte::page')
 @section('content')
-
-
-
-    {{--
-    <button type="button" class="btn btn-primary" name="off_day" data-toggle="modal" data-target="#exampleModal3" data-whatever="@fat">Отпуск</button>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Неделя</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <table>
-                        <tr>
-                            <td>
-                                <h6 align='center'>ПН</h6>
-                            </td>
-                            <td>
-                                <input type="time" name="monday_start">
-                            </td>
-                            <td>
-                                <input type="time" name="monday_end">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h6 align='center'>ВТ</h6>
-                            </td>
-                            <td>
-                                <input type="time" name="tuesday_start">
-                            </td>
-                            <td>
-                                <input type="time" name="tuesday_end">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h6 align='center'>СР</h6>
-                            </td>
-                            <td>
-                                <input type="time" name="wednesday_start">
-                            </td>
-                            <td>
-                                <input type="time" name="wednesday_end">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h6 align='center'>ЧТ</h6>
-                            </td>
-                            <td>
-                                <input type="time" name="thursday_start">
-                            </td>
-                            <td>
-                                <input type="time" name="thursday_end">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h6 align='center'>ПТ</h6>
-                            </td>
-                            <td>
-                                <input type="time" name="friday_start">
-                            </td>
-                            <td>
-                                <input type="time" name="friday_end">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h6 align='center'>СБ</h6>
-                            </td>
-                            <td>
-                                <input type="time" name="saturday_start">
-                            </td>
-                            <td>
-                                <input type="time" name="saturday_end">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h6 align='center'>ВС</h6>
-                            </td>
-                            <td>
-                                <input type="time" name="sunday_start">
-                            </td>
-                            <td>
-                                <input type="time" name="sunday_end">
-                            </td>
-                        </tr>
-                        <div class="bootstrap-timepicker">
-                            <div class="form-group">
-                                <label>Timetable picker:</label>
-
-                                <div class="input-group date" id="timepicker" data-target-input="nearest">
-                                    <input type="time" class="form-control datetimepicker-input" data-target="#timepicker">
-                                    <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="far fa-clock"></i></div>
-                                    </div>
-                                </div>
-                                <!-- /.input group -->
-                            </div>
-                            <!-- /.form group -->
-                        </div>
-                    </table>
-
-                    <div>
-                        Интервал <input type="number" name="interval">
-                    </div>
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                    <button type="button" class="btn btn-primary">Отправить</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Месяц</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
-                                Четные дни месяца
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                Нечетные дни месяца
-                            </label>
-                        </div>
-
-                    </div>
-                    <div class = "time">
-
-                        <input type="time" name="odd_start"> Начало рабочего дня
-                        <br>
-                        <input type="time" name="odd_end"> Конец рабочего дня
-                    </div>
-                    <div class = "time">
-
-                        <input type="time" name="even_start"> Начало рабочего дня
-                        <br>
-                        <input type="time" name="even_end"> Конец рабочего дня
-
-                        <div>
-                            Интервал<input type="number" name="interval">
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                    <button type="button" class="btn btn-primary">Отправить</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Отпуск</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <div>
-                        <p>
-                            <label for="date">Введите начало отпуска </label>
-                            <input type="date" id="date" name="day_off_start"/>
-                        </p>
-                        <p>
-                            <label for="date">Введите конец отпуска   </label>
-                            <input type="date" id="date" name="day_off_end"/>
-                        </p>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                    <button type="button" class="btn btn-primary">ОТправить</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    --}}
+{{-- @php
+var_dump($clinic_id);
+@endphp      --}}
     <style>
         .block-left {
             width: 50%;
@@ -220,9 +17,10 @@
             overflow: auto;
         }
     </style>
-
-    <form action="{{route('timetables.store')}}" method="post" enctype="multipart/form-data">
+    
+    <form action="{{route('timetables.store',['id'=>$request->id,'clinic_id'=>$request->clinic_id])}}" method="post", enctype="multipart/form-data">
         @csrf
+       
         <div class="block-left">
             <div class="radio">
                 <label>
@@ -230,7 +28,6 @@
                     Неделя
                 </label>
             </div>
-
             <div class="bootstrap-timepicker">
                 <div class="form-group">
                     <label>Понедельник</label>
