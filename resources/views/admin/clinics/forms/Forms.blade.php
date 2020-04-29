@@ -88,7 +88,8 @@
         <div class="form-group row">
             <label for="inputEmail3" class=" col-sm-5 col-form-label ">Рабочее время клиники </label>
             <div class="col-sm-6 ">
-                <input name="work_time" type="text" class="form-control" placeholder="..."
+                <input name="work_time" type="text" class="form-control"
+                       data-inputmask="&quot;mask&quot;: &quot;99-99  99-99&quot;" data-mask="" im-insert="true"
                        value="{{ old('work_time')?? $clinics->work_time ??''}}" required>
             </div>
         </div>
