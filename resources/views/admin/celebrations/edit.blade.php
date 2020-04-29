@@ -29,8 +29,10 @@
                     @csrf
                     @method('PATCH')
                     @include('admin.celebrations.forms.Forms')
-                    <input type="submit" value="Сохранить" class="btn btn-success">
-                    <a href="{{ route('celebration.index') }}" class="btn btn-default">Назад</a>
+                    <button type="submit" class="btn btn-success btn-sm ml-1"><i
+                            class="fas fa-check"></i></button>
+                    <a href="{{ route('celebration.index') }}" class="btn btn-default btn-sm ml-1"><i
+                            class="fas fa-arrow-left"></i></a>
                 </form>
             </div>
         </div>

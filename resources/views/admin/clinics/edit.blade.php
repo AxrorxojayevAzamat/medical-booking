@@ -29,9 +29,11 @@
                 <form action="{{ route('clinic.update',['id'=>$clinics->id]) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
-                    @include('admin.clinics.forms.Forms')
-                    <input type="submit" value="Сохранить" class="btn btn-success">
-                    <a href="{{ route('clinic.index') }}" class="btn btn-default">Назад</a>
+                    @include('admin.clinics.forms.editForms')
+                    <button type="submit" class="btn btn-success btn-sm ml-1"><i
+                            class="fas fa-check"></i></button>
+                    <a href="{{ route('clinic.index') }}" class="btn btn-default btn-sm ml-1"><i
+                            class="fas fa-arrow-left"></i></a>
                 </form>
             </div>
         </div>

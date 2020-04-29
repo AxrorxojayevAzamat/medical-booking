@@ -25,8 +25,8 @@
         <div class="row">
             <div class="col-12 ">
                 <div class="card">
-                    <div class="card-header" align="center">
-                        <h3 >Клиники и поликлиники</h3>
+                    <div class="card-header" >
+                        <h3 class="card-title">Клиники и поликлиники</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0" style="height: 500px;">
@@ -35,8 +35,7 @@
                             <tr align="center">
                                 <th>ID</th>
                                 <th>Название</th>
-                                <th>Описание</th>
-                                <th>Адресс</th>
+                                <th>Тип клиники</th>
                                 <th>Телефон</th>
                                 <th>Действия</th>
                             </tr>
@@ -45,12 +44,23 @@
                             @foreach($clinics as $clinic)
                                 <tr>
                                     <td class="text-center py-1 ">{{$clinic->id}}</td>
-                                    <td class="text-center py-1 ">{{$clinic->name_ru}}</td>
-                                    <td class="text-center py-1 ">{{$clinic->description_ru}}</td>
-                                    <td class="text-center py-1 ">{{$clinic->adress_ru}}</td>
+                                    <td class="text-center py-1 ">{{$clinic->name_ru}} </td>
+                                    <td class="text-center py-1 ">
+                                        @if($clinic->type==0)
+                                            Частная клиника
+                                            @endif
+                                            @if($clinic->type==1)
+                                                Горударственная поликлиника
+                                            @endif
+                                    </td>
                                     <td class="text-center py-1 ">{{$clinic->phone_numbers}}</td>
                                     <td class="text-center py-1 ">
-                                        <div class="btn-group ml-2 ">
+
+                                        <div class="btn-group  ">
+                                            <a href="{{ route('clinic.show',['id'=>$clinic->id]) }}"
+                                               class="btn btn-success btn-sm"> <i class="fas fa-eye"></i></a>
+                                        </div>
+                                        <div class="btn-group  ">
                                             <a href="{{ route('clinic.edit',['id'=>$clinic->id]) }}"
                                                class="btn btn-info btn-sm"> <i class="fas fa-pencil-alt"></i></a>
                                         </div>

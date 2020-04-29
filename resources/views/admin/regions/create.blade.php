@@ -22,14 +22,16 @@
     @endif
 
     <div class="card">
-        <div class=" container card-header "><h3>Новый регион</h3></div>
+        <div class=" container card-header " align='center' ><h3>Новый регион</h3></div>
         <div class="container card-header">
             <div class=" container" align='center'>
                 <form action="{{ route('region.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @include('admin.regions.forms.createForms')
-                    <input type="submit" value="Создать" class="btn btn-success">
-                    <a href="{{ route('region.index') }}" class="btn btn-default">Назад</a>
+                    <button type="submit" class="btn btn-success btn-sm ml-1"><i
+                            class="fas fa-check"></i></button>
+                    <a href="{{ route('region.index') }}" class="btn btn-default btn-sm ml-1"><i
+                            class="fas fa-arrow-left"></i></a>
                 </form>
             </div>
         </div>

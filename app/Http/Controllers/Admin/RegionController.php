@@ -113,9 +113,10 @@ class RegionController extends Controller
 
     public function editDistrict($id)
     {
+        $reg=Region::all();
         $categories = Region::children(null);
         $regions = Region::find($id);
-        return view('admin.regions.editDistrict', compact('regions', 'categories'));
+        return view('admin.regions.editDistrict', compact('regions', 'categories','reg'));
     }
 
     /**

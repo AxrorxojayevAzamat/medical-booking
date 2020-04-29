@@ -65,6 +65,14 @@ class ClinicController extends Controller
     }
 
 
+    public function show($id)
+    {
+        $clinic = Clinic::find($id);
+        $regions=Region::all();
+        return view('admin.clinics.show', compact('clinic','regions'));
+    }
+
+
     /**
      * Show the form for editing the specified resource.
      *

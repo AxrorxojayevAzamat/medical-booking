@@ -31,8 +31,10 @@
                     @method('PATCH')
                     @include('admin.regions.forms.editForms')
                     <div class="form-group " align='center'>
-                        <input type="submit" value="Сохранить" class="btn btn-success">
-                        <a href="{{ route('region.index') }}" class="btn btn-default ">Назад</a></div>
+                        <button type="submit" class="btn btn-success btn-sm ml-1"><i
+                                class="fas fa-check"></i></button>
+                        <a href="{{ route('region.index') }}" class="btn btn-default btn-sm ml-1"><i
+                                class="fas fa-arrow-left"></i></a></div>
                 </form>
             </div>
         </div>

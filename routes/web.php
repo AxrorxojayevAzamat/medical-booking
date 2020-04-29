@@ -24,6 +24,7 @@ Route::get('/test', function () {
 //Маршруты для Клиник
 Route::get('clinic/', 'Admin\ClinicController@index');
 Route::get('clinic/', 'Admin\ClinicController@index')->name('clinic.index');
+Route::get('clinic/show/{id}','Admin\ClinicController@show')->name('clinic.show');
 Route::get('clinic/create', 'Admin\ClinicController@create')->name('clinic.create');
 Route::post('clinic/', 'Admin\ClinicController@store')->name('clinic.store');
 Route::get('clinic/edit/{id}', 'Admin\ClinicController@edit')->name('clinic.edit');

@@ -26,8 +26,8 @@
         <div class="row">
             <div class="col-10 offset-md-1">
                 <div class="card">
-                    <div class="card-header" align="center">
-                        <h3 >Праздничные дни</h3>
+                    <div class="card-header" >
+                        <h3 class="card-title" >Праздничные дни</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0" style="height: 500px;">

@@ -23,7 +23,7 @@
                 <select class="form-control" name="region_id" id="region_id" required>
                     <option hidden></option>
                     @foreach($regions as $region)
-                        <option value="{{$region->id}}">{{$region->name_ru}}</option>
+                        <option value="{{$region->id}}"@if ($clinics->region_id == $region->id) selected="selected" @endif>{{$region->name_ru}}</option>
                     @endforeach
                 </select>
             </div>
@@ -51,8 +51,8 @@
             <div class="col-sm-6 ">
                 <select class="form-control" name="type" id="type" required>
                     <option hidden></option>
-                    <option value="0" >Частная клиника</option>
-                    <option value="1" >Государственная поликлиника</option>
+                    <option value="0" @if ($clinics->type == '0') selected="selected" @endif>Частная клиника</option>
+                    <option value="1" @if ($clinics->type == '1') selected="selected" @endif>Государственная поликлиника</option>
                 </select>
             </div>
         </div>
