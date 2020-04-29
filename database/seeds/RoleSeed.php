@@ -1,6 +1,7 @@
 <?php
 
 use App\Role;
+use App\User;
 use Illuminate\Database\Seeder;
 
 class RoleSeed extends Seeder
@@ -14,7 +15,7 @@ class RoleSeed extends Seeder
     {
         $admin = Role::create([
             'name' => 'Admin',
-            'slug' => 'admin',
+            'slug' => User::ROLE_ADMIN,
             'permissions' => [
                 'user-manage' => true,
             ]
@@ -22,7 +23,7 @@ class RoleSeed extends Seeder
 
         $user = Role::create([
             'name' => 'User',
-            'slug' => 'user',
+            'slug' => User::ROLE_USER,
             'permissions' => [
                 'user-profile' => true,
             ]
@@ -30,7 +31,7 @@ class RoleSeed extends Seeder
                 
         $adminCallCenter = Role::create([
             'name' => 'Admin Call Center',
-            'slug' => 'admin_call_center',
+            'slug' => User::ROLE_CALL_CENTER,
             'permissions' => [
                 'admin_call_center' => true,
             ]
@@ -39,7 +40,7 @@ class RoleSeed extends Seeder
                 
         $adminClinic = Role::create([
             'name' => 'Admin Clinic',
-            'slug' => 'admin_clinic',
+            'slug' => User::ROLE_CLINIC,
             'permissions' => [
                 'admin_clinic' => true,
             ]
@@ -47,7 +48,7 @@ class RoleSeed extends Seeder
         
         $doctor = Role::create([
             'name' => 'Doctor',
-            'slug' => 'doctor',
+            'slug' => User::ROLE_DOCTOR,
             'permissions' => [
                 'doctor' => true,
             ]
