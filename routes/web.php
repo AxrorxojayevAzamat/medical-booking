@@ -39,7 +39,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             ->middleware('can:user-manage');
     Route::resource('specializations', 'Admin\SpecializationController')
             ->middleware('can:user-manage');
-    Route::post('/users/{user}/specialization', 'Admin\UserController@specialization')->name('users.specialization')
+    Route::post('/users/{user}', 'Admin\UserController@specialization')->name('users.specialization')
+            ->middleware('can:user-manage');
+    Route::get('/users/{user}/additional', 'Admin\UserController@additional')->name('users.additional')
             ->middleware('can:user-manage');
 });
 

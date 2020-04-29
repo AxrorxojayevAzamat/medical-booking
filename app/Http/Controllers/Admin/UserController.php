@@ -100,4 +100,10 @@ class UserController extends Controller {
         return redirect()->route('admin.users.show', $user);
     }
 
+    public function additional(User $user) {
+        $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
+
+        return view('admin.users.additional', compact('user', 'specializations'));
+    }
+
 }
