@@ -22,6 +22,7 @@ class CreateCelebrationsTable extends Migration
         });
     }
 
+
     /**
      * Reverse the migrations.
      *

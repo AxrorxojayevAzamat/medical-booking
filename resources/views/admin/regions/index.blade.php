@@ -38,7 +38,6 @@
                     <div class="card-header">
                         <h3 class="card-title">Регионы, города и районы</h3>
                         <div class="row">
-
                             <form class="form-inline ml-3" action="{{route('region.index')}}">
                                 <input class="form-control " name="search" type="search" placeholder="Поиск по имени..."
                                        aria-label="Search">
