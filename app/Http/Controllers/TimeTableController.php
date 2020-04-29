@@ -39,12 +39,11 @@ class TimeTableController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request, $doctor_id, $clinic_id)
     {
         $time = new Timetable();
-        $id = Auth::user()->id;
-        $time->doctor_id = $request->id;
-        $time->clinic_id =1; //$request->clinic_id;
+        $time->doctor_id = $doctor_id;
+        $time->clinic_id =$clinic_id;
         $time->scheduleType= $request->scheduleType;
         $time->interval = $request->interval;
         $time->monday_start = $request->monday_start;
@@ -67,8 +66,8 @@ class TimeTableController extends Controller
         $time->even_end = $request->even_end;
         $time->day_off_start = $request->day_off_start;
         $time->day_off_end = $request->day_off_end;
-        $time->created_by = $id;
-        $time->updated_by = $id;
+        $time->created_by = Auth::user()->id;
+        $time->updated_by = Auth::user()->id;
         $time->save();
         return redirect()->route('timetables.show')->with('success', 'Успешно!');
     }
