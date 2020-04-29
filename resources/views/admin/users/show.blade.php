@@ -19,6 +19,21 @@
 @stop
 @section('content')
 <div class="row">
+    <div class="col-12">
+        <a class="btn">
+            <form action="{{ route('admin.users.destroy', $user->id)}}" method="post">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger float-left" type="submit" onclick="return confirm('Вы уверены?')">
+                    {{ __('Удалить') }}
+                </button>
+            </form> 
+        </a>
+        <a class="btn btn-secondary float-right" href="{{ route('admin.users.edit',$user->id)}}">{{ __('Редактировать') }}</a>
+    </div>
+</div>
+<!-- /.row -->
+<div class="row">
     <div class="col-md-6">
         <div class="card primary">
             <div class="card-header">
@@ -108,9 +123,9 @@
                 <div class="form-group">
                     <label for="status" class="col-form-label text-md-left">{{ __('Статус') }}</label>
                     <select id="status" class="form-control" name="status" value="{{$user->status==1 ?'selected':'' }}" disabled>
-                        <option value="" selected=""></option>
-                        <option value="0" {{$user->status === 0 ? 'selected' : ''}}>{{ __('Aктивный') }}</option>
-                        <option value="1" {{$user->status === 1 ? 'selected' : ''}}>{{ __('Неактивный') }}</option>
+                        @foreach ($statuses as $value => $label)
+                        <option value="{{ $value }}"{{ $value === $user->status ? ' selected' : '' }}>{{ $label }}</option>
+                        @endforeach;
                     </select>
                 </div>
 
@@ -130,7 +145,7 @@
         <div class="card primary">
             <div class="card-header">
                 {{ __('Специализации доктора') }}
-                <a class="btn btn-secondary float-right" href="{{ route('admin.users.additional',$user) }}">{{ __('Обновить') }}</a>
+                <a class="btn btn-secondary float-right" href="{{ route('admin.users.additional',$user) }}">{{ __('Изменить/Добавить') }}</a>
             </div>
             <!-- /.card-header -->
 
