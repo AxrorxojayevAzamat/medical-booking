@@ -56,6 +56,7 @@ Route::delete('region/{id}', 'Admin\RegionController@destroy')->name('region.des
 
 Auth::routes(['verify' => true]);
 
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::group(
     [
