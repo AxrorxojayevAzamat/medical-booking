@@ -4,15 +4,6 @@
         <div class="form-group">
             <select class="form-control" name="region" id="region">
 
-{{--                @foreach($categories as $cat)--}}
-{{--                    @if($regions->parent_id==$cat->id)--}}
-{{--                        <option value="{{ $cat->id }}" selected>{{ $cat->name_ru }} </option>--}}
-{{--                    @endif--}}
-{{--                        @if($regions->parent_id!=$cat->id)--}}
-{{--                        <option value="{{ $cat->id }}" >{{ $cat->name_ru }} </option>--}}
-{{--                        @endif--}}
-{{--                @endforeach--}}
-
                     @foreach($categories as $cat)
                             <option value="{{ $cat->id }}" @if ($regions->parent_id == $cat->id) selected="selected" @endif>{{ $cat->name_ru }} </option>
                     @endforeach

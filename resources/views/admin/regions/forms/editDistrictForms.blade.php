@@ -3,12 +3,24 @@
     <div class="col-3">
         <div class="form-group">
             <select class="form-control" name="reg" id="reg">
+
                 @foreach($categories as $cat)
                     @foreach($cat->children($cat->id) as $item)
-                        <option value="{{ $cat->id }}"
-                                @if ($regions->parent_id == $item->id) selected="selected" hidden @endif  >{{ $cat->name_ru }} </option>
+                        @if($regions->parent_id==$item->id)
+                            <option value="{{ $cat->id }}" selected >{{ $cat->name_ru }} </option>
+                        @endif
+                        @if($regions->parent_id!=$item->id)
+                            <option value="{{ $cat->id }}">{{ $cat->name_ru }} </option>
+                        @endif
                     @endforeach
                 @endforeach
+
+                {{--                @foreach($categories as $cat)--}}
+                {{--                    @foreach($cat->children($cat->id) as $item)--}}
+                {{--                        <option value="{{ $cat->id }}"--}}
+                {{--                                @if ($regions->parent_id == $item->id) selected="selected" hidden @endif  >{{ $cat->name_ru }} </option>--}}
+                {{--                    @endforeach--}}
+                {{--                @endforeach--}}
             </select>
             <label>Родительский регион</label>
         </div>
@@ -19,7 +31,8 @@
             <select class="form-control" name="region" id="reg" required>
                 @foreach($categories as $cat)
                     @foreach($cat->children($cat->id) as $item)
-                            <option value="{{$item->id}}" @if ($regions->parent_id == $item->id) selected="selected" @endif  >{{$item->name_ru}}</option>
+                        <option value="{{$item->id}}"
+                                @if ($regions->parent_id == $item->id) selected="selected" @endif >{{$item->name_ru}}</option>
                     @endforeach
                 @endforeach
             </select>

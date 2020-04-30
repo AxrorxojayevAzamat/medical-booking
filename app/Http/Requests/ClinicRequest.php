@@ -26,8 +26,6 @@ class ClinicRequest extends FormRequest
         return [
             'name_uz'=>'required|min:2|max:100|string',
             'name_ru'=>'required|min:2|max:100|string',
-            'description_uz'=>'required|min:2|max:1000|string',
-            'description_ru'=>'required|min:2|max:1000|string',
             'phone_numbers'=>'required|min:2|max:20|string',
             'adress_uz'=>'required|min:2|max:200|string',
             'adress_ru'=>'required|min:2|max:200|string',

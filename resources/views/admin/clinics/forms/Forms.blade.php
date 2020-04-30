@@ -61,7 +61,7 @@
             <label for="inputEmail3" class="col-sm-5 col-form-label">Описание клиники(узбекское)</label>
             <div class="col-sm-6">
                 <textarea name="description_uz" rows="3" type="text" class="form-control"
-                          placeholder="..." required >{{ old('description_uz')?? $clinics->description_uz ??''}}</textarea>
+                          placeholder="..."  >{{ old('description_uz')?? $clinics->description_uz ??''}}</textarea>
             </div>
         </div>
 
@@ -69,7 +69,7 @@
             <label for="inputEmail3" class=" col-sm-5 col-form-label ">Описание клиники(русское) </label>
             <div class="col-sm-6 ">
                 <textarea name="description_ru" rows="3" type="text" class="form-control"
-                          placeholder="..." required>{{ old('description_ru')?? $clinics->description_ru ??''}}</textarea>
+                          placeholder="...">{{ old('description_ru')?? $clinics->description_ru ??''}}</textarea>
             </div>
         </div>
 

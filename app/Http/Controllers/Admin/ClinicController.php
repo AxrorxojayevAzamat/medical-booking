@@ -16,10 +16,20 @@ class ClinicController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
 
-        $clinics = Clinic::orderBy('clinics.id', 'asc')
+        if ($request->searchclinic) {
+
+            $clinics = Clinic::orderBy('type', 'ASC')
+                ->where('name_uz', 'ILIKE', '%' . $request->searchclinic . '%')
+                ->orWhere('name_ru', 'ILIKE', '%' . $request->searchclinic . '%')
+                ->get();
+            return view('admin.clinics.index', compact('clinics'));
+
+        }
+
+        $clinics = Clinic::orderBy('clinics.type', 'asc')
             ->paginate(1000000);
         return view('admin.clinics.index', compact('clinics'));
 

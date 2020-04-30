@@ -20,7 +20,24 @@
         </div>
 
     @endif
-
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Регионы</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="http://localhost:8081/home">Главная </a></li>
+                            <li class="breadcrumb-item"><a href="http://localhost:8081/region">Список регионов </a></li>
+                            <li class="breadcrumb-item active">Новый регион</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </div>
+    </div>
     <div class="card">
         <div class=" container card-header " align='center' ><h3>Новый регион</h3></div>
         <div class="container card-header">
@@ -31,7 +48,7 @@
                     <button type="submit" class="btn btn-success btn-sm ml-1"><i
                             class="fas fa-check"></i></button>
                     <a href="{{ route('region.index') }}" class="btn btn-default btn-sm ml-1"><i
-                            class="fas fa-arrow-left"></i></a>
+                            class="fas fa-arrow-left"></i> Назад</a>
                 </form>
             </div>
         </div>
