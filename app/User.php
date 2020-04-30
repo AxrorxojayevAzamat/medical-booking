@@ -21,8 +21,16 @@ class User extends Authenticatable implements MustVerifyEmail {
         'email_verified_at' => 'datetime',
     ];
 
+    public const STATUS_ACTIVE = 10;
+    public const STATUS_INACTIVE = 11;
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_USER = 'user';
+    public const ROLE_CALL_CENTER = 'admin_call_center';
+    public const ROLE_CLINIC = 'admin_clinic';
+    public const ROLE_DOCTOR = 'doctor';
+
     public function role() {
-        return $this->belongsTo('App\Role','role');
+        return $this->belongsTo('App\Role', 'role');
     }
 
     public function hasAccess(array $permissions): bool {
@@ -50,6 +58,22 @@ class User extends Authenticatable implements MustVerifyEmail {
     }
 
     public function specializations() {
-        return $this->belongsToMany(Specialization::class , 'specialization_user');
+        return $this->belongsToMany(Specialization::class, 'specialization_user');
     }
+
+    public function isActive(): bool {
+        return $this->status === self::STATUS_ACTIVE;
+    }
+
+    public function isInactive(): bool {
+        return $this->status === self::STATUS_INACTIVE;
+    }
+
+    public static function statusList(): array {
+        return [
+            User::STATUS_ACTIVE => 'Aктивный',
+            User::STATUS_INACTIVE => 'Неактивный',
+        ];
+    }
+
 }

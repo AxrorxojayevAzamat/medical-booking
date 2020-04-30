@@ -9,15 +9,13 @@ use App\Specialization;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
-{
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    public function index(Request $request)
-    {
+class UserController extends Controller {
+
+    public function index(Request $request) {
         $query = User::orderByDesc('id');
+        $this->validate($request, [
+            'id' => ['integer', 'nullable'],
+        ]);
 
         if (!empty($value = $request->get('id'))) {
             $query->where('id', $value);
@@ -35,10 +33,6 @@ class UserController extends Controller
             $query->where('phone', 'ilike', '%' . $value . '%');
         }
 
-        if (!empty($value = $request->get('birth_date'))) {
-            $query->where('birth_date', $value);
-        }
-
         if (!empty($value = $request->get('email'))) {
             $query->where('email', 'ilike', '%' . $value . '%');
         }
@@ -54,17 +48,19 @@ class UserController extends Controller
         $users = $query->paginate(20);
 
         $roles = Role::orderBy('id')->pluck('name', 'id');
-        return view('admin.users.index', compact('users', 'roles'));
+
+        $statuses = User::statusList();
+
+        return view('admin.users.index', compact('users', 'roles', 'statuses'));
     }
 
-    public function create()
-    {
+    public function create() {
         $roles = Role::orderBy('name')->pluck('name', 'id');
-        return view('admin.users.create', compact('roles'));
+        $statuses = User::statusList();
+        return view('admin.users.create', compact('roles', 'statuses'));
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
 
@@ -73,42 +69,55 @@ class UserController extends Controller
         return redirect()->route('admin.users.show', $user);
     }
 
-    public function show(User $user)
-    {
+    public function show(User $user) {
         $roles = Role::orderBy('name')->pluck('name', 'id');
         $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
         $doctorList = User::find($user->id);
+        $statuses = User::statusList();
 
-        return view('admin.users.show', compact('user', 'roles', 'specializations', 'doctorList'));
+        return view('admin.users.show', compact('user', 'roles', 'specializations', 'doctorList', 'statuses'));
     }
 
-    public function edit(User $user)
-    {
+    public function edit(User $user) {
         $roles = Role::orderBy('name')->pluck('name', 'id');
+        $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
+        $doctorList = User::find($user->id);
+        $statuses = User::statusList();
 
-        return view('admin.users.edit', compact('user', 'roles'));
+        return view('admin.users.edit', compact('user', 'roles', 'specializations', 'doctorList', 'statuses'));
     }
 
-    public function update(Request $request, User $user)
-    {
-        $user->update($request->except(['role']));
+    public function update(Request $request, User $user) {
 
-//        $user->roles()->attach($request['role']);
+        if (!empty($request['password'])) {
+            $input = $request->all();
+            $input['password'] = Hash::make($input['password']);
+
+            $user->update($input);
+        } else {
+
+            $user->update($request->except(['password']));
+        }
 
         return redirect()->route('admin.users.index');
     }
 
-    public function destroy(User $user)
-    {
+    public function destroy(User $user) {
         $user->delete();
 
         return redirect()->route('admin.users.index');
     }
 
-    public function specialization(Request $request, User $user)
-    {
+    public function specialization(Request $request, User $user) {
         $user->specializations()->sync($request['specializationUser']);
 
         return redirect()->route('admin.users.show', $user);
     }
+
+    public function additional(User $user) {
+        $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
+
+        return view('admin.users.additional', compact('user', 'specializations'));
+    }
+
 }

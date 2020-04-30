@@ -19,6 +19,21 @@
 @stop
 @section('content')
 <div class="row">
+    <div class="col-12">
+        <a class="btn">
+            <form action="{{ route('admin.users.destroy', $user->id)}}" method="post">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger float-left" type="submit" onclick="return confirm('Вы уверены?')">
+                    {{ __('Удалить') }}
+                </button>
+            </form> 
+        </a>
+        <a class="btn btn-secondary float-right" href="{{ route('admin.users.edit',$user->id)}}">{{ __('Редактировать') }}</a>
+    </div>
+</div>
+<!-- /.row -->
+<div class="row">
     <div class="col-md-6">
         <div class="card primary">
             <div class="card-header">
@@ -108,9 +123,9 @@
                 <div class="form-group">
                     <label for="status" class="col-form-label text-md-left">{{ __('Статус') }}</label>
                     <select id="status" class="form-control" name="status" value="{{$user->status==1 ?'selected':'' }}" disabled>
-                        <option value="" selected=""></option>
-                        <option value="0" {{$user->status === 0 ? 'selected' : ''}}>{{ __('Aктивный') }}</option>
-                        <option value="1" {{$user->status === 1 ? 'selected' : ''}}>{{ __('Неактивный') }}</option>
+                        @foreach ($statuses as $value => $label)
+                        <option value="{{ $value }}"{{ $value === $user->status ? ' selected' : '' }}>{{ $label }}</option>
+                        @endforeach;
                     </select>
                 </div>
 
@@ -125,63 +140,22 @@
         <!-- /.card primary-->
     </div>
     <!-- /.col-md -6.2 -->
+    @if($user->inRole('doctor'))
     <div class="col-md-6">
         <div class="card primary">
             <div class="card-header">
-                {{ __('Добавить дополнения') }}
+                {{ __('Специализации доктора') }}
+                <a class="btn btn-secondary float-right" href="{{ route('admin.users.additional',$user) }}">{{ __('Изменить/Добавить') }}</a>
             </div>
             <!-- /.card-header -->
 
             <div class="card-body">
                 <div class="col-sm-12">
-                    <form method="POST" action="{{ route("admin.users.specialization", $user) }}">
-                        @csrf
-                        {{--@method('PUT')--}}
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
 
-                                    <label for="specialization" class="col-form-label text-md-left">{{ __('Добавить специализации') }}</label>
-                                    <select class="select2 select2-hidden-accessible" name="specializationUser[]" multiple="multiple" data-placeholder="{{ __('Специализации') }}" style="width: 100%;">
-                                        <option value=""></option>
-                                        @foreach($specializations as $value => $label)
-                                        <option value="{{ $value }}"{{ $value === request('role') ? ' selected' : '' }}>{{ $label }}</option>
-                                        @endforeach
-                                    </select>
-
-                                    @error('specialization')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <input type="hidden" name="userId" value="{{$user->id}}">
-
-                                <button type="submit" class="btn btn-success float-right">{{ __('Добавить') }}</button>
-                            </div>
-                        </div>
-                        <div class="row">
-
-                        </div>
-
-                    </form>
-                </div>
-                <div class="col-sm-12">
                     <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
-                        <thead>
-                            <tr role="row">
-                                <th>{{ __('ID') }}</th>
-                                <th>{{ __('Name_uz') }}</th>
-                                <th>{{ __('Name_ru') }}</th>
-                            </tr>
-                        </thead>
                         <tbody>
                             @foreach($doctorList->specializations as $spec)
                             <tr>
-                                <td>{{$spec->id}}</td>
-                                <td>{{$spec->name_uz}}</td>
                                 <td>{{$spec->name_ru}}</td>
                             </tr>
                             @endforeach
@@ -200,6 +174,7 @@
         <!-- /.card primary-->
     </div>
     <!-- /.col-md -6.3 -->
+    @endif
 </div>
 <!-- /.row -->
 
