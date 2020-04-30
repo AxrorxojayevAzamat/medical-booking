@@ -21,13 +21,15 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <div class="col-lg-1">
-                        <a class="btn btn-block btn-success" href="{{ route("admin.users.create") }}">
-                            {{ __('Добавить') }}
-                        </a>
-                    </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary" href="{{ route("admin.users.create") }}">{{ __('Добавить') }}</button>
                 </div>
+
+
+                {{-- <div class="card-footer">
+                    <a class="btn btn-block btn-success" href="{{ route("admin.users.create") }}">{{ __('Добавить') }} </a> 
+                </div>
+                 --}}
                 <!-- /.card-header -->
                 <div class="card-body">
                     <div class="card-body">
@@ -65,13 +67,13 @@
                                 </div>                    
                                 <div class="col-sm-2">
                                     <div class="form-group">
-                                        <label for="email" class="col-form-label">{{ __('Адрес электронной почты') }}</label>
+                                        <label for="email" class="col-form-label">{{ __('Email') }}</label>
                                         <input id="email" class="form-control" name="email" value="{{ request('email') }}">
                                     </div>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-1">
                                     <div class="form-group">
-                                        <label for="role" class="col-form-label">{{ __('Роль пользователя') }}</label>
+                                        <label for="role" class="col-form-label">{{ __('Роль') }}</label>
                                         <select id="role" class="form-control" name="role">
                                             <option value=""></option>
                                             @foreach ($roles as $value => $label)
@@ -80,7 +82,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-1">
                                     <div class="form-group">
                                         <label for="status" class="col-form-label">{{ __('Статус') }}</label>
                                         <select id="status" class="form-control" name="status">
@@ -91,10 +93,10 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-1">
                                     <div class="form-group">
                                         <label class="col-form-label">&nbsp;</label><br />
-                                        <button type="submit" class="btn btn-primary">Search</button>
+                                        <button type="submit" class="btn btn-primary">Поиск</button>
                                     </div>
                                 </div>
                             </div>
@@ -108,10 +110,10 @@
                                 <th>{{ __('Имя') }}</th>
                                 <th>{{ __('Фамилия') }}</th>
                                 <th>{{ __('Телефон') }}</th>
-                                <th>{{ __('Адрес электронной почты') }}</th>
-                                <th>{{ __('Роль пользователя') }}</th>
+                                <th>{{ __('Email') }}</th>
+                                <th>{{ __('Роль') }}</th>
                                 <th>{{ __('Статус') }}</th>
-                                <th style="width: 15%"></th>
+                                <th style="width: 10%"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -124,41 +126,41 @@
                                 <td>{{$user->email}}</td>
                                 <td>
                                     @foreach ($roles as $value => $label)
-                                    @if ($value === $user->role)
-                                    {{$label}}
-                                    @endif
+                                        @if ($value === $user->role)
+                                            {{$label}}
+                                        @endif
                                     @endforeach
-
                                 </td>
                                 <td class="project-state">
                                     <span class="badge badge-success">
                                         @foreach ($statuses as $value => $label)
-                                        @if ($value === $user->status)
-                                        {{ $label }}
-                                        @endif
+                                            @if ($value === $user->status)
+                                                 {{ $label }}
+                                             @endif
                                         @endforeach
                                     </span>
                                 </td>
                                 <td class="project-actions text-right">
                                     <a class="btn btn-primary btn-sm" href="{{ route('admin.users.show',$user->id)}}">
-                                        <i class="fas fa-folder">
+                                        <i class="fas fa-eye">
                                         </i>
+                                       
                                     </a>
                                     <a class="btn btn-info btn-sm" href="{{ route('admin.users.edit',$user->id)}}">
                                         <i class="fas fa-pencil-alt">
                                         </i>
+                                    
                                     </a>
-                                    <a class="btn">
+                                    <a class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Вы уверены?')">
+                                        <i class="fas fa-trash">
+                                        </i>
                                         <form action="{{ route('admin.users.destroy', $user->id)}}" method="post">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Вы уверены?')">
-                                                <i class="fas fa-trash">
-                                                </i>
-                                            </button>
-                                        </form>   
-                                    </a> 
-
+                                           
+                                        </form> 
+                                       
+                                    </a>
                             </tr>
                             @endforeach
                         </tbody>
