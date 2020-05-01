@@ -8,6 +8,8 @@ use App\User;
 use App\Specialization;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Auth;
+use Intervention\Image\Facades\Image;
 
 class UserController extends Controller {
 
@@ -118,6 +120,26 @@ class UserController extends Controller {
         $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
 
         return view('admin.users.additional', compact('user', 'specializations'));
+    }
+    public function profile() {
+        return view('admin.users.profile', array('user' => Auth::user()));
+    }
+
+    public function update_avatar(Request $request, User $user) {
+
+        // Handle the user upload of avatar
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $filename = time() . '.' . $avatar->getClientOriginalExtension();
+            Image::make($avatar)->resize(300, 300)->save(public_path('/uploads/avatars/' . $filename));
+
+//            $user = Auth::user();
+            $user1 = User::findOrFail($user->id);
+            $user->avatar = $filename;
+            $user->save();
+        }
+
+        return view('admin.users.show', $user);
     }
 
 }
