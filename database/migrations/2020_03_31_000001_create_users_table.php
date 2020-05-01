@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->text('about_ru')->nullable();
             $table->string('password');
             $table->unsignedBigInteger('role')->nullable();
+            $table->string('avatar')->default('default.jpg');
             $table->rememberToken();
             $table->timestamps();
             
