@@ -35,6 +35,8 @@ Route::get('region/edit/{id}', 'RegionController@edit')->name('region.edit');
 Route::post('region/', 'RegionController@store')->name('region.store');
 Route::patch('region/show/{id}', 'RegionController@update')->name('region.update');
 Route::delete('region/{id}', 'RegionController@destroy')->name('region.destroy');
+Route::get('profile', 'ProfileController@profile')->name('profile');
+Route::post('profile', 'ProfileController@update_avatar')->name('profile');
 
 
 Auth::routes(['verify' => true]);
@@ -49,8 +51,10 @@ Route::group(
     ],
     function () {
         Route::resource('users', 'UserController');
-        Route::post('/users/{user}', 'UserController@specialization')->name('users.specialization');
-        Route::get('/users/{user}/additional', 'UserController@additional')->name('users.additional');
+        Route::post('users/{user}', 'UserController@specialization')->name('users.specialization');
+        Route::get('users/{user}/additional', 'UserController@additional')->name('users.additional');
         Route::resource('specializations', 'SpecializationController');
+        
+
     }
 );
