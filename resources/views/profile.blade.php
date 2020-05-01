@@ -16,7 +16,7 @@
 
         <h3 class="profile-username text-center">{{ $user->lastname }} {{ $user->name }}</h3>
 
-        <form enctype="multipart/form-data" action="{{ route("admin.users.update_avatar") }}" method="POST">
+        <form enctype="multipart/form-data" action="{{ route("profile") }}" method="POST">
             <label>Update Profile Image</label>
             <input type="file" name="avatar">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">

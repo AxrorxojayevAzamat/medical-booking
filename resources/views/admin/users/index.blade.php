@@ -22,14 +22,9 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary" href="{{ route("admin.users.create") }}">{{ __('Добавить') }}</button>
+                    <a class="btn btn-primary" href="{{ route("admin.users.create") }}">{{ __('Добавить') }} </a> 
                 </div>
 
-
-                {{-- <div class="card-footer">
-                    <a class="btn btn-block btn-success" href="{{ route("admin.users.create") }}">{{ __('Добавить') }} </a> 
-                </div>
-                 --}}
                 <!-- /.card-header -->
                 <div class="card-body">
                     <div class="card-body">
@@ -126,17 +121,17 @@
                                 <td>{{$user->email}}</td>
                                 <td>
                                     @foreach ($roles as $value => $label)
-                                        @if ($value === $user->role)
-                                            {{$label}}
-                                        @endif
+                                    @if ($value === $user->role)
+                                    {{$label}}
+                                    @endif
                                     @endforeach
                                 </td>
                                 <td class="project-state">
                                     <span class="badge badge-success">
                                         @foreach ($statuses as $value => $label)
-                                            @if ($value === $user->status)
-                                                 {{ $label }}
-                                             @endif
+                                        @if ($value === $user->status)
+                                        {{ $label }}
+                                        @endif
                                         @endforeach
                                     </span>
                                 </td>
@@ -144,12 +139,12 @@
                                     <a class="btn btn-primary btn-sm" href="{{ route('admin.users.show',$user->id)}}">
                                         <i class="fas fa-eye">
                                         </i>
-                                       
+
                                     </a>
                                     <a class="btn btn-info btn-sm" href="{{ route('admin.users.edit',$user->id)}}">
                                         <i class="fas fa-pencil-alt">
                                         </i>
-                                    
+
                                     </a>
                                     <a class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Вы уверены?')">
                                         <i class="fas fa-trash">
@@ -157,9 +152,9 @@
                                         <form action="{{ route('admin.users.destroy', $user->id)}}" method="post">
                                             @csrf
                                             @method('DELETE')
-                                           
+
                                         </form> 
-                                       
+
                                     </a>
                             </tr>
                             @endforeach

@@ -228,6 +228,8 @@
         </div>
         <!-- /.col-md -6.3 -->
         @endif
+        {{--
+        
         <div class="col-md-6">
             <div class="card primary">
                 <div class="card-header">
@@ -272,7 +274,7 @@
         </div>
         <!-- /.col-md -6.4 -->
 
-
+--}}
 
 
 
