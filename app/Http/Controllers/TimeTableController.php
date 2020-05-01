@@ -39,7 +39,7 @@ class TimeTableController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $time = new Timetable();
         $time->doctor_id = $request->input('id');
         $time->clinic_id = $request->input('clinic_id');
@@ -67,9 +67,9 @@ class TimeTableController extends Controller
         $time->day_off_end = $request->day_off_end;
         $time->created_by = Auth::user()->id;
         $time->updated_by = Auth::user()->id;
-        
+
         $time->save();
-        return redirect()->route('timetables.show')->with('success', 'Успешно!');
+        return redirect()->route('admin.users.show')->with('success', 'Успешно!');
     }
 
 
@@ -93,13 +93,13 @@ class TimeTableController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
         $time = new Timetable();
-        $time->doctor_id = $request->id;
-        $time->clinic_id = $request->clinic_id;
+        $time->doctor_id = $request->input('id');
+        $time->clinic_id = $request->input('clinic_id');
         $time->scheduleType = $request->scheduleType;
         $time->monday_start = $request->monday_start;
         $time->monday_end = $request->monday_end;
@@ -125,7 +125,7 @@ class TimeTableController extends Controller
         //$time->created_by = $request->id;
         //$time->update_by = $request->id;
         $time->update();
-        return redirect()->route('timetables.show', compact('id'))->with('success', 'Hfcgbcfybt jnhtlfrnbhjdfyj!');
+        return redirect()->route('timetables.show', compact('id'))->with('success', 'Расписание обновлено');
     }
 
     /**

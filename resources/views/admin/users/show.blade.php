@@ -27,7 +27,7 @@
                 <button class="btn btn-danger float-left" type="submit" onclick="return confirm('Вы уверены?')">
                     {{ __('Удалить') }}
                 </button>
-            </form> 
+            </form>
         </a>
         <a class="btn btn-secondary float-right" href="{{ route('admin.users.edit',$user->id)}}">{{ __('Редактировать') }}</a>
     </div>
@@ -192,30 +192,7 @@
                     <div class="card-footer">
                     </div>
                     <!-- /.card-footer -->
-                    <div class="card-body">
-                        <a class="btn btn-primary btn-sm" href="{!! route('timetables.create',['id'=>$user->id, 'clinic_id'=>1])!!}">
-                            <i class="fas fa-folder">
-                            </i>
-                            {{ __('Создать') }}
-                        </a>
-                        <a class="btn btn-info btn-sm" href="{{ route('timetables.edit',$user->id, 1)}}">
-                            <i class="fas fa-pencil-alt">
-                            </i>
-                            {{ __('Редактировать') }}
-                        </a>
-                        <a class="btn">
-                            <form action="{{ route('timetables.destroy', $user->id, 1)}}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Вы уверены?')">
-                                    <i class="fas fa-trash">
-                                    </i>{{ __('Удалить') }}
-                                </button>
-                            </form>
-                        </a>
 
-
-                    </div>
 
                 </div>
                 <!-- /.card primary-->

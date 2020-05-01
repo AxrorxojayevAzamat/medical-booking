@@ -20,7 +20,7 @@
 @section('content')
 <form method="POST" action="{{ route("admin.users.update", [$user->id]) }}">
     @csrf
-    @method('PUT') 
+    @method('PUT')
     <div class="row">
         <div class="col-md-6">
             <div class="card primary">
@@ -61,7 +61,7 @@
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
-                    </div>     
+                    </div>
 
                     <div class="form-group">
                         <label for="email" class="col-form-label text-md-left">{{ __('Адрес электронной почты') }}</label>
@@ -226,6 +226,38 @@
             </div>
             <!-- /.card primary-->
         </div>
+            <div class="col-md-6">
+                <div class="card primary">
+                    <div class="card-header">
+                        {{ __('Расписание доктора') }}
+                        <a class="btn btn-secondary float-right" href="{!! route('timetables.create',['id'=>$user->id, 'clinic_id'=>1])!!}">{{ __('Изменить/Добавить') }}</a>
+                    </div>
+                    <!-- /.card-header -->
+
+                    <div class="card-body">
+                        <div class="col-sm-12">
+
+                            <div class ="container table">
+                                <table>
+                                    <thead>
+                                    <th>Name</th>
+                                    <th>Значение</th>
+
+                                    </thead>
+                                </table>
+                            Здесь будет показываться таблица
+
+                        </div>
+
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                    </div>
+                    <!-- /.card-footer -->
+
+                </div>
+                <!-- /.card primary-->
+            </div>
         <!-- /.col-md -6.3 -->
         @endif
     </div>
@@ -237,5 +269,29 @@
         </div>
     </div>
     <!-- /.row -->
+{{--    <div class="card-body">--}}
+{{--        <a class="btn btn-primary btn-sm" href="{!! route('timetables.create',['id'=>$user->id, 'clinic_id'=>1])!!}">--}}
+{{--            <i class="fas fa-folder">--}}
+{{--            </i>--}}
+{{--            {{ __('Создать') }}--}}
+{{--        </a>--}}
+{{--        <a class="btn btn-info btn-sm" href="{!! route('timetables.create',['id'=>$user->id, 'clinic_id'=>1])!!}">--}}
+{{--            <i class="fas fa-pencil-alt">--}}
+{{--            </i>--}}
+{{--            {{ __('Редактировать') }}--}}
+{{--        </a>--}}
+{{--        <a class="btn">--}}
+{{--            <form action="{{ route('timetables.destroy', $user->id, 1)}}" method="post">--}}
+{{--                @csrf--}}
+{{--                @method('DELETE')--}}
+{{--                <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Вы уверены?')">--}}
+{{--                    <i class="fas fa-trash">--}}
+{{--                    </i>{{ __('Удалить') }}--}}
+{{--                </button>--}}
+{{--            </form>--}}
+{{--        </a>--}}
+
+
+{{--    </div>--}}
 </form>
 @stop
