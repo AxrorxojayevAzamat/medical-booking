@@ -63,10 +63,22 @@ class UserController extends Controller {
     }
 
     public function store(Request $request) {
-        $input = $request->all();
-        $input['password'] = Hash::make($input['password']);
-
-        $user = User::create($input);
+        $data = $request->all();
+        $user = User::create([
+                    'name' => $data['name'],
+                    'lastname' => $data['lastname'],
+                    'patronymic' => $data['patronymic'],
+                    'phone' => $data['phone'],
+                    'birth_date' => $data['birth_date'],
+                    'gender' => $data['gender'],
+                    'email' => $data['email'],
+                    'password' => Hash::make($data['password']),
+                    'status' => User::STATUS_ACTIVE,
+                    'role' => $data['role'],
+        ]);
+        if ($request->hasFile('avatar')) {
+            User::avatar($request, $user);
+        }
 
         return redirect()->route('admin.users.show', $user);
     }
@@ -101,7 +113,11 @@ class UserController extends Controller {
             $user->update($request->except(['password']));
         }
 
-        return redirect()->route('admin.users.index');
+        if ($request->hasFile('avatar')) {
+            User::avatar($request, $user);
+        }
+
+        return redirect()->route('admin.users.show', $user);
     }
 
     public function destroy(User $user) {
@@ -120,26 +136,6 @@ class UserController extends Controller {
         $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
 
         return view('admin.users.additional', compact('user', 'specializations'));
-    }
-    public function profile() {
-        return view('admin.users.profile', array('user' => Auth::user()));
-    }
-
-    public function update_avatar(Request $request, User $user) {
-
-        // Handle the user upload of avatar
-        if ($request->hasFile('avatar')) {
-            $avatar = $request->file('avatar');
-            $filename = time() . '.' . $avatar->getClientOriginalExtension();
-            Image::make($avatar)->resize(300, 300)->save(public_path('/uploads/avatars/' . $filename));
-
-//            $user = Auth::user();
-            $user1 = User::findOrFail($user->id);
-            $user->avatar = $filename;
-            $user->save();
-        }
-
-        return view('admin.users.show', $user);
     }
 
 }

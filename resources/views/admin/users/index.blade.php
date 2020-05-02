@@ -108,7 +108,7 @@
                                 <th>{{ __('Email') }}</th>
                                 <th>{{ __('Роль') }}</th>
                                 <th>{{ __('Статус') }}</th>
-                                <th style="width: 10%"></th>
+                                <th style="width: 15%"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -146,15 +146,15 @@
                                         </i>
 
                                     </a>
-                                    <a class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Вы уверены?')">
-                                        <i class="fas fa-trash">
-                                        </i>
+                                    <a class="btn">
                                         <form action="{{ route('admin.users.destroy', $user->id)}}" method="post">
                                             @csrf
                                             @method('DELETE')
-
+                                            <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Вы уверены?')">
+                                                <i class="fas fa-trash">
+                                                </i>
+                                            </button>
                                         </form> 
-
                                     </a>
                             </tr>
                             @endforeach
