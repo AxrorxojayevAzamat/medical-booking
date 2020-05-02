@@ -29,7 +29,7 @@ class ClinicRequest extends FormRequest
             'phone_numbers'=>'required|min:2|max:20|string',
             'adress_uz'=>'required|min:2|max:200|string',
             'adress_ru'=>'required|min:2|max:200|string',
-            'work_time'=>'required|min:2|max:20|string',
+            'work_time' => 'date_format:h:i-h:i|required|string',
             'location'=>'required|min:2|max:50|string',
         ];
     }

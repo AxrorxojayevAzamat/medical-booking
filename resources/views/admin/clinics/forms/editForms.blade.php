@@ -51,8 +51,8 @@
             <div class="col-sm-6 ">
                 <select class="form-control" name="type" id="type" required>
                     <option hidden></option>
-                    <option value="0" @if ($clinics->type == '0') selected="selected" @endif>Частная клиника</option>
-                    <option value="1" @if ($clinics->type == '1') selected="selected" @endif>Государственная поликлиника</option>
+                    <option value="1" @if ($clinics->type == '1') selected="selected" @endif>Частная клиника</option>
+                    <option value="2" @if ($clinics->type == '2') selected="selected" @endif>Государственная поликлиника</option>
                 </select>
             </div>
         </div>
@@ -89,6 +89,7 @@
             <label for="inputEmail3" class=" col-sm-5 col-form-label ">Рабочее время клиники </label>
             <div class="col-sm-6 ">
                 <input name="work_time" type="text" class="form-control" placeholder="..."
+                       data-inputmask="&quot;mask&quot;: &quot;99:99-99:99&quot;" data-mask="" im-insert="true"
                        value="{{ old('work_time')?? $clinics->work_time ??''}}" required>
             </div>
         </div>

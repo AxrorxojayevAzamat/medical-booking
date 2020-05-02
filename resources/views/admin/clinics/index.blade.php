@@ -1,4 +1,22 @@
 @extends('adminlte::page')
+@section('title','Клиники')
+@section('content_header')
+    <div class="container-fluid">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Клиники</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="http://localhost:8081/home">Главная </a></li>
+                        <li class="breadcrumb-item active">Список клиник</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </div>
+@stop
 @section('content')
 
     @if($errors->any())
@@ -21,23 +39,6 @@
 
     @endif
 
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Клиники</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="http://localhost:8081/home">Главная </a></li>
-                            <li class="breadcrumb-item active">Список клиник</li>
-                        </ol>
-                    </div>
-                </div>
-            </div><!-- /.container-fluid -->
-        </div>
-    </div>
 
     <div class="container ">
         <div class="row">
@@ -47,14 +48,23 @@
                         <h3 class="card-title">Список клиник и поликлиник</h3>
                         <div class="row">
                             <form class="form-inline ml-3" action="{{route('clinic.index')}}">
-                                <input class="form-control " name="searchclinic" type="search"
+                                <div class="col-3-sm-2 ml-3">
+                                    <select id="typeClinic" class="form-control" name="typeClinic">
+                                        <option hidden value="">Выберете тип</option>
+                                        <option value="1" >Частная клиника</option>
+                                        <option value="2">Государственная поликлиника</option>
+                                    </select>
+                                </div>
+                                <input class="form-control ml-4" name="searchclinic" type="search"
                                        placeholder="Поиск по имени..."
                                        aria-label="Search">
                                 <div class="input-group-append">
                                     <button class="btn btn-secondary " type="submit"><i class="fas fa-search"></i>
                                     </button>
                                 </div>
+
                             </form>
+
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -75,10 +85,10 @@
                                     <td class="text-center py-1 ">{{$clinic->id}}</td>
                                     <td class="text-center py-1 ">{{$clinic->name_ru}} </td>
                                     <td class="text-center py-1 ">
-                                        @if($clinic->type==0)
+                                        @if($clinic->type==1)
                                             Частная клиника
                                         @endif
-                                        @if($clinic->type==1)
+                                        @if($clinic->type==2)
                                             Горударственная поликлиника
                                         @endif
                                     </td>

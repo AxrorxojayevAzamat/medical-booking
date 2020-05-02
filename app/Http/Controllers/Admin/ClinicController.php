@@ -18,21 +18,23 @@ class ClinicController extends Controller
      */
     public function index(Request $request)
     {
+        $query = Clinic::orderBy('id');
 
-        if ($request->searchclinic) {
+        $this->validate($request, [
+            'id' => ['integer', 'nullable'],
+        ]);
 
-            $clinics = Clinic::orderBy('type', 'ASC')
-                ->where('name_uz', 'ILIKE', '%' . $request->searchclinic . '%')
-                ->orWhere('name_ru', 'ILIKE', '%' . $request->searchclinic . '%')
-                ->get();
-            return view('admin.clinics.index', compact('clinics'));
+        if (!empty($value = $request->get('searchclinic'))) {
+            $query->where('name_uz', 'ILIKE', '%' . $value . '%')
+                ->orWhere('name_ru', 'ILIKE', '%' . $value . '%');
 
         }
 
-        $clinics = Clinic::orderBy('clinics.type', 'asc')
-            ->paginate(1000000);
+        if (!empty($value = $request->get('typeClinic'))) {
+            $query->where('type', $value);
+        }
+        $clinics = $query->paginate(1000);
         return view('admin.clinics.index', compact('clinics'));
-
 
     }
 
