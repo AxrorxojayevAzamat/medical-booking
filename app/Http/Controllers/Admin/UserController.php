@@ -8,6 +8,8 @@ use App\User;
 use App\Specialization;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Auth;
+use Intervention\Image\Facades\Image;
 
 class UserController extends Controller {
 
@@ -61,10 +63,22 @@ class UserController extends Controller {
     }
 
     public function store(Request $request) {
-        $input = $request->all();
-        $input['password'] = Hash::make($input['password']);
-
-        $user = User::create($input);
+        $data = $request->all();
+        $user = User::create([
+                    'name' => $data['name'],
+                    'lastname' => $data['lastname'],
+                    'patronymic' => $data['patronymic'],
+                    'phone' => $data['phone'],
+                    'birth_date' => $data['birth_date'],
+                    'gender' => $data['gender'],
+                    'email' => $data['email'],
+                    'password' => Hash::make($data['password']),
+                    'status' => User::STATUS_ACTIVE,
+                    'role' => $data['role'],
+        ]);
+        if ($request->hasFile('avatar')) {
+            User::avatar($request, $user);
+        }
 
         return redirect()->route('admin.users.show', $user);
     }
@@ -99,7 +113,11 @@ class UserController extends Controller {
             $user->update($request->except(['password']));
         }
 
-        return redirect()->route('admin.users.index');
+        if ($request->hasFile('avatar')) {
+            User::avatar($request, $user);
+        }
+
+        return redirect()->route('admin.users.show', $user);
     }
 
     public function destroy(User $user) {

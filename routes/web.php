@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 /*
   |--------------------------------------------------------------------------
   | Web Routes
@@ -56,7 +59,6 @@ Route::delete('region/{id}', 'Admin\RegionController@destroy')->name('region.des
 
 Auth::routes(['verify' => true]);
 
-
 Route::get('/home', 'HomeController@index')->name('home');
 Route::group(
     [
@@ -67,8 +69,10 @@ Route::group(
     ],
     function () {
         Route::resource('users', 'UserController');
-        Route::post('/users/{user}', 'UserController@specialization')->name('users.specialization');
-        Route::get('/users/{user}/additional', 'UserController@additional')->name('users.additional');
+        Route::post('users/{user}', 'UserController@specialization')->name('users.specialization');
+        Route::get('users/{user}/additional', 'UserController@additional')->name('users.additional');
         Route::resource('specializations', 'SpecializationController');
+
+
     }
 );

@@ -6,6 +6,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPassword as ResetPasswordNotification;
+use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class User extends Authenticatable implements MustVerifyEmail {
 
@@ -74,6 +76,16 @@ class User extends Authenticatable implements MustVerifyEmail {
             User::STATUS_ACTIVE => 'Aктивный',
             User::STATUS_INACTIVE => 'Неактивный',
         ];
+    }
+
+    public static function avatar(Request $request, User $user) {
+
+        $avatar = $request->file('avatar');
+        $filename = time() . '.' . $avatar->getClientOriginalExtension();
+        Image::make($avatar)->resize(30, 30)->save(public_path('/uploads/avatars/' . $filename));
+
+        $user->avatar = $filename;
+        $user->save();
     }
 
 }

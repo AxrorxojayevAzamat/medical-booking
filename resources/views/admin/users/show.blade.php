@@ -128,7 +128,13 @@
                         @endforeach;
                     </select>
                 </div>
-
+                <div class="form-group">
+                    <div class="text-center">
+                        <img class="profile-user-img img-fluid img-circle"
+                             src="/uploads/avatars/{{ $user->avatar }}"
+                             alt="Фотография пользователя">
+                    </div>
+                </div>
 
             </div>
             <!-- /.card-body -->
@@ -145,7 +151,7 @@
         <div class="card primary">
             <div class="card-header">
                 {{ __('Специализации доктора') }}
-                <a class="btn btn-secondary float-right" href="{{ route('admin.users.additional',$user) }}">{{ __('Изменить/Добавить') }}</a>
+                <a class="btn btn-secondary float-right" href="{{ route('admin.users.additional',$user) }}" disabled>{{ __('Изменить/Добавить') }}</a>
             </div>
             <!-- /.card-header -->
 

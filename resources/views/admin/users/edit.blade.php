@@ -18,7 +18,7 @@
 </div><!-- /.container-fluid -->
 @stop
 @section('content')
-<form method="POST" action="{{ route("admin.users.update", [$user->id]) }}">
+<form method="POST" action="{{ route("admin.users.update", [$user->id]) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT') 
     <div class="row">
@@ -180,6 +180,23 @@
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="avatar" class="col-form-label text-md-left">{{ __('Фото') }}</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" id="avater" class="custom-file-input" name="avatar" >
+                                <label class="custom-file-label" for="avatar">{{ __('Выберите файл') }}</label>
+                            </div>
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="">{{ __('Загрузить') }}</span>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <img class="profile-user-img img-fluid img-circle"
+                                 src="/uploads/avatars/{{ $user->avatar }}"
+                                 alt="Фотография пользователя">
+                        </div>
                     </div>
 
 
