@@ -151,9 +151,16 @@
 
 
                     <div class="form-group row">
-                        <label for="inputEmail3" class=" col-sm-5 col-form-label ">Рабочее время клиники </label>
+                        <label for="inputEmail3" class=" col-sm-5 col-form-label ">Начало работы клиники </label>
                         <div class="col-sm-6 form-control">
-                            {{  $clinic->work_time }}
+                            {{  $clinic->work_time_start }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="inputEmail3" class=" col-sm-5 col-form-label ">Конец работы клиники </label>
+                        <div class="col-sm-6 form-control">
+                            {{  $clinic->work_time_end }}
                         </div>
                     </div>
 

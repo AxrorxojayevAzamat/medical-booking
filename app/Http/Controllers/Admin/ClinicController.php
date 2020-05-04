@@ -69,7 +69,8 @@ class ClinicController extends Controller
         $clinics->phone_numbers = $request->phone_numbers;
         $clinics->adress_uz = $request->adress_uz;
         $clinics->adress_ru = $request->adress_ru;
-        $clinics->work_time = $request->work_time;
+        $clinics->work_time_start = $request->work_time_start;
+        $clinics->work_time_end = $request->work_time_end;
         $clinics->location = $request->location;
         $clinics->save();
 
@@ -120,7 +121,8 @@ class ClinicController extends Controller
         $clinics->phone_numbers = $request->phone_numbers;
         $clinics->adress_uz = $request->adress_uz;
         $clinics->adress_ru = $request->adress_ru;
-        $clinics->work_time = $request->work_time;
+        $clinics->work_time_start = $request->work_time_start;
+        $clinics->work_time_end = $request->work_time_end;
         $clinics->location = $request->location;
         $clinics->update();
         $id = $clinics->id;

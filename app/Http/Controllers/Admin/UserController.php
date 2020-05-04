@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Clinic;
 use App\Http\Controllers\Controller;
 use App\Role;
 use App\User;
@@ -93,19 +94,21 @@ class UserController extends Controller {
     public function show(User $user) {
         $roles = Role::orderBy('name')->pluck('name', 'id');
         $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
+        $clinics = Clinic::orderBy('name_ru')->pluck('name_ru', 'id');
         $doctorList = User::find($user->id);
         $statuses = User::statusList();
 
-        return view('admin.users.show', compact('user', 'roles', 'specializations', 'doctorList', 'statuses'));
+        return view('admin.users.show', compact('user', 'roles', 'specializations', 'doctorList', 'statuses','clinics'));
     }
 
     public function edit(User $user) {
         $roles = Role::orderBy('name')->pluck('name', 'id');
         $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
+        $clinics = Clinic::orderBy('name_ru')->pluck('name_ru', 'id');
         $doctorList = User::find($user->id);
         $statuses = User::statusList();
 
-        return view('admin.users.edit', compact('user', 'roles', 'specializations', 'doctorList', 'statuses'));
+        return view('admin.users.edit', compact('user', 'roles', 'specializations', 'doctorList', 'statuses','clinics'));
     }
 
     public function update(Request $request, User $user) {
@@ -152,4 +155,17 @@ class UserController extends Controller {
         return view('admin.users.additional', compact('user', 'specializations'));
     }
 
+
+    //////for clinic
+    public function clinic(Request $request, User $user) {
+        $user->clinics()->sync($request['clinicUser']);
+
+        return redirect()->route('admin.users.show', $user);
+    }
+
+    public function additionalForClinic(User $user) {
+        $clinics = Clinic::orderBy('name_ru')->pluck('name_ru', 'id');
+        return view('admin.users.additionalForClinic', compact('user', 'clinics'));
+    }
+     ///////for clinic
 }

@@ -83,16 +83,32 @@
         </div>
 
 
-
-
         <div class="form-group row">
-            <label for="inputEmail3" class=" col-sm-5 col-form-label ">Рабочее время клиники </label>
-            <div class="col-sm-6 ">
-                <input name="work_time" type="text" class="form-control" placeholder="..."
-                       data-inputmask="&quot;mask&quot;: &quot;99:99-99:99&quot;" data-mask="" im-insert="true"
-                       value="{{ old('work_time')?? $clinics->work_time ??''}}" required>
+            <label for="inputEmail3" class=" col-sm-5 col-form-label ">Начало работы клиники </label>
+            <div class="col-sm-6 input-group date" id="timepicker" data-target-input="nearest">
+                <input name="work_time_start" id="timepickerstart" type="text" class="form-control timepicker"
+                       data-inputmask="&quot;mask&quot;: &quot;99:99&quot;" data-mask="" im-insert="true"
+                       value="{{ old('work_time_start')?? $clinics->work_time_start ??''}}" required>
+                <div class="input-group-append" data-target="#timepickerstart" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="far fa-clock"></i></div>
+                </div>
             </div>
         </div>
+
+        <div class="form-group row">
+            <label for="inputEmail3" class=" col-sm-5 col-form-label ">Конец работы клиники </label>
+            <div class="col-sm-6 input-group date" id="timepicker" data-target-input="nearest">
+                <input name="work_time_end" id="timepickerend" type="text" class="form-control timepicker"
+                       data-inputmask="&quot;mask&quot;: &quot;99:99&quot;" data-mask="" im-insert="true"
+                       value="{{ old('work_time_end')?? $clinics->work_time_end ??''}}" required>
+                <div class="input-group-append" data-target="#timepickerend" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="far fa-clock"></i></div>
+                </div>
+            </div>
+        </div>
+
+
+
 
         <div class="form-group row">
             <label for="inputEmail3" class=" col-sm-5 col-form-label ">Локация </label>
@@ -104,5 +120,9 @@
 
     </div>
 </div>
+
+
+
+
 
 

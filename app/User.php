@@ -63,6 +63,15 @@ class User extends Authenticatable implements MustVerifyEmail {
         return $this->belongsToMany(Specialization::class, 'specialization_user');
     }
 
+
+    ////////for clinics
+    public function clinics() {
+        return $this->belongsToMany(Clinic::class, 'doctors_and_clinics');
+    }
+    ///////for clinics
+
+
+
     public function isActive(): bool {
         return $this->status === self::STATUS_ACTIVE;
     }
