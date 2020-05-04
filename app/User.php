@@ -77,15 +77,4 @@ class User extends Authenticatable implements MustVerifyEmail {
             User::STATUS_INACTIVE => 'Неактивный',
         ];
     }
-
-    public static function avatar(Request $request, User $user) {
-
-        $avatar = $request->file('avatar');
-        $filename = time() . '.' . $avatar->getClientOriginalExtension();
-        Image::make($avatar)->resize(30, 30)->save(public_path('/uploads/avatars/' . $filename));
-
-        $user->avatar = $filename;
-        $user->save();
-    }
-
 }
