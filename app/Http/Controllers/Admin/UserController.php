@@ -77,7 +77,14 @@ class UserController extends Controller {
                     'role' => $data['role'],
         ]);
         if ($request->hasFile('avatar')) {
-            User::avatar($request, $user);
+            $avatar = $request->file('avatar');
+            $filename = time() . '.' . $avatar->getClientOriginalExtension();
+            Image::make($avatar)->resize(30, 30)->save(public_path('/uploads/avatars/' . $filename));
+
+//            $user = Auth::user();
+//            $user1 = User::findOrFail($user->id);
+            $user->avatar = $filename;
+            $user->save();
         }
 
         return redirect()->route('admin.users.show', $user);
@@ -114,7 +121,14 @@ class UserController extends Controller {
         }
 
         if ($request->hasFile('avatar')) {
-            User::avatar($request, $user);
+            $avatar = $request->file('avatar');
+            $filename = time() . '.' . $avatar->getClientOriginalExtension();
+            Image::make($avatar)->resize(30, 30)->save(public_path('/uploads/avatars/' . $filename));
+
+//            $user = Auth::user();
+//            $user1 = User::findOrFail($user->id);
+            $user->avatar = $filename;
+            $user->save();
         }
 
         return redirect()->route('admin.users.show', $user);
