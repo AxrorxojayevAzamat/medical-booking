@@ -10,8 +10,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Auth;
 use Intervention\Image\Facades\Image;
+use App\Traits\UploadTrait;
+use Illuminate\Support\Str;
 
 class UserController extends Controller {
+
+    use UploadTrait;
 
     public function index(Request $request) {
         $query = User::orderByDesc('id');
@@ -76,16 +80,18 @@ class UserController extends Controller {
                     'status' => User::STATUS_ACTIVE,
                     'role' => $data['role'],
         ]);
-        if ($request->hasFile('avatar')) {
-            $avatar = $request->file('avatar');
-            $filename = time() . '.' . $avatar->getClientOriginalExtension();
-            Image::make($avatar)->resize(30, 30)->save(public_path('/uploads/avatars/' . $filename));
 
-//            $user = Auth::user();
-//            $user1 = User::findOrFail($user->id);
-            $user->avatar = $filename;
-            $user->save();
+        $folder = User::USER_PROFILE;
+        $avatar = $request->file('avatar');
+        if ($request->hasFile('avatar')) {
+            $this->deleteOne($folder, 'public', $user->avatar);
+            $filename = Str::slug($user->name) . '_' . time();
+            $this->uploadOne($avatar, $folder, 'public', $filename);
+            $filePath = $filename . '.' . $avatar->getClientOriginalExtension();
+
+            $user->avatar = $filePath;
         }
+        $user->save();
 
         return redirect()->route('admin.users.show', $user);
     }
@@ -120,16 +126,17 @@ class UserController extends Controller {
             $user->update($request->except(['password']));
         }
 
+        $folder = User::USER_PROFILE;
+        $avatar = $request->file('avatar');
         if ($request->hasFile('avatar')) {
-            $avatar = $request->file('avatar');
-            $filename = time() . '.' . $avatar->getClientOriginalExtension();
-            Image::make($avatar)->resize(30, 30)->save(public_path('/uploads/avatars/' . $filename));
+            $this->deleteOne($folder, 'public', $user->avatar);
+            $filename = Str::slug($user->name) . '_' . time();
+            $this->uploadOne($avatar, $folder, 'public', $filename);
+            $filePath = $filename . '.' . $avatar->getClientOriginalExtension();
 
-//            $user = Auth::user();
-//            $user1 = User::findOrFail($user->id);
-            $user->avatar = $filename;
-            $user->save();
+            $user->avatar = $filePath;
         }
+        $user->save();
 
         return redirect()->route('admin.users.show', $user);
     }
