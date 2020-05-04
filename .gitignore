@@ -14,3 +14,4 @@ yarn-error.log
 /nbproject
 /.idea
 storage/debugbar/
+/public/uploads/
