@@ -104,7 +104,7 @@
 
                                         <div class="btn-group  ">
                                             <a href="{{ route('clinic.show',['id'=>$clinic->id]) }}"
-                                               class="btn btn-success btn-sm"> <i class="fas fa-eye"></i></a>
+                                               class="btn btn-primary btn-sm"> <i class="fas fa-eye"></i></a>
                                         </div>
                                         <div class="btn-group  ">
                                             <a href="{{ route('clinic.edit',['id'=>$clinic->id]) }}"
