@@ -17,6 +17,21 @@
 </div><!-- /.container-fluid -->
 @stop
 @section('content')
+<div class="row no-print">
+    <div class="col-12">
+        <a class="btn btn-primary btn-lg float-right" href="{{ route('admin.specializations.edit',$specialization->id)}}">{{ __('Редактировать') }}</a>
+        <a class="btn btn-danger btn-sm float-right" style="margin-right: 5px;">
+            <form action="{{ route('admin.specializations.destroy', $specialization->id)}}" method="post">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger float-right" type="submit" onclick="return confirm('Вы уверены?')">
+                    {{ __('Удалить') }}
+                </button>
+            </form> 
+        </a>
+    </div>
+</div>
+<!-- /.row -->
 <div class="row">
     <div class="col-md-6">
         <div class="card primary">
