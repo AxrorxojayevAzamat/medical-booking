@@ -247,10 +247,10 @@
         @endif
     </div>
     <!-- /.row -->
-    <div class="row">
-        <div class="col-12">
-            <a class="btn btn-secondary" href="{{ route("admin.users.index") }}">{{ __('Отменить') }}</a>
+    <div class="row no-print">
+        <div class="col-12 ">
             <button type="submit" class="btn btn-success float-right">{{ __('Сохранять') }}</button>
+            <a class="btn btn-secondary float-right" style="margin-right: 5px; href="{{ route("admin.users.index") }}">{{ __('Отменить') }}</a>
         </div>
     </div>
     <!-- /.row -->
