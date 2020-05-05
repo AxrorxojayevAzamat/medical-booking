@@ -270,17 +270,18 @@ return [
         [
             'text' => 'Клиники',
             'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'Список Клиник',
-                    'url' => 'clinic/',
-
-                ],
-                [
-                    'text' => 'Новая клиника',
-                    'url' => 'clinic/create',
-                ],
-            ],
+            'url' => 'clinic/',
+//            'submenu' => [
+//                [
+//                    'text' => 'Список Клиник',
+//                    'url' => 'clinic/',
+//
+//                ],
+//                [
+//                    'text' => 'Новая клиника',
+//                    'url' => 'clinic/create',
+//                ],
+//            ],
         ],
         [
             'text' => 'Пользователи',
@@ -339,16 +340,17 @@ return [
         [
             'text' => 'Праздничные дни',
             'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'Список праздников',
-                    'url' => 'celebration/',
-                ],
-                [
-                    'text'    => 'Новый праздник',
-                    'url'     => 'celebration/create',
-                ],
-            ],
+            'url' => 'celebration/',
+//            'submenu' => [
+//                [
+//                    'text' => 'Список праздников',
+//                    'url' => 'celebration/',
+//                ],
+//                [
+//                    'text'    => 'Новый праздник',
+//                    'url'     => 'celebration/create',
+//                ],
+//            ],
         ],
         // ['header' => 'labels'],
         // [

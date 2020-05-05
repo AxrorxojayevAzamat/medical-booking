@@ -44,8 +44,9 @@
         <div class="row">
             <div class="col-12 ">
                 <div class="card">
-                    <div class="card-header" >
-                        <h3 class="card-title" >Список праздничные дней</h3>
+                    <div class="card-header">
+                        <h3 class="card-title">Список праздничных дней</h3>
+                        <a href="{{ route('celebration.create') }}" class="btn btn-success btn-sm ml-5">Добавить</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0" style="height: 500px;">

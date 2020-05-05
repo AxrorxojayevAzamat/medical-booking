@@ -47,6 +47,11 @@
                     <div class="card-header">
                         <h3 class="card-title">Список клиник и поликлиник</h3>
                         <div class="row">
+                            <div class="card-tools ml-3"style="width:200px" >
+                                <div class="input-group input-group "  >
+                                    <a href="{{ route('clinic.create') }}" class="btn btn-success btn-sm ml-1">Добавить</a>
+                                </div>
+                            </div>
                             <form class="form-inline ml-3" action="{{route('clinic.index')}}">
                                 <div class="col-3-sm-2 ml-3">
                                     <select id="typeClinic" class="form-control" name="typeClinic">
@@ -64,6 +69,8 @@
                                 </div>
 
                             </form>
+
+
 
                         </div>
                     </div>

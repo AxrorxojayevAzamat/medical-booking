@@ -69,12 +69,13 @@ Route::group(
     ],
     function () {
         Route::resource('users', 'UserController');
-        Route::post('users/{user}', 'UserController@specialization')->name('users.specialization');
-        Route::post('users/{user}', 'UserController@clinic')->name('users.clinic');
+        Route::post('users/{user}/specialization', 'UserController@specialization')->name('users.specialization');
+        Route::post('users/{user}/clinic', 'UserController@clinic')->name('users.clinic');
         Route::get('users/{user}/additional', 'UserController@additional')->name('users.additional');
         Route::get('users/{user}/additionalForClinic', 'UserController@additionalForClinic')->name('users.additionalForClinic');
         Route::resource('specializations', 'SpecializationController');
         Route::resource('clinics', 'ClinicController');
+
 
     }
 );
