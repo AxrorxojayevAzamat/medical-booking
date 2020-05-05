@@ -42,17 +42,21 @@
                             <td>{{$specialization->name_ru}}</td>
                             <td>{{$specialization->name_uz}}</td>
                             <td class="project-actions text-right">
-                                <a class="btn btn-default btn-sm" href="{{ route('admin.specializations.show',$specialization->id)}}">
-                                    <i class="fas fa-eye">
-                                    </i>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary btn-sm" href="{{ route('admin.specializations.show',$specialization->id)}}">
+                                        <i class="fas fa-eye">
+                                        </i>
 
-                                </a>
-                                <a class="btn btn-primary btn-sm" href="{{ route('admin.specializations.edit',$specialization->id)}}">
-                                    <i class="fas fa-pencil-alt">
-                                    </i>
+                                    </a>
+                                </div>
+                                <div class="btn-group">
+                                    <a class="btn btn-info btn-sm" href="{{ route('admin.specializations.edit',$specialization->id)}}">
+                                        <i class="fas fa-pencil-alt">
+                                        </i>
 
-                                </a>
-                                <a class="btn">
+                                    </a>
+                                </div>
+                                <div class="btn-group">
                                     <form action="{{ route('admin.specializations.destroy', $specialization->id)}}" method="post">
                                         @csrf
                                         @method('DELETE')
@@ -61,7 +65,7 @@
                                             </i>
                                         </button>
                                     </form> 
-                                </a>
+                                </div>
                             </td>
                         </tr>
                         @endforeach
