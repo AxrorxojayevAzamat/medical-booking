@@ -69,7 +69,7 @@ class TimeTableController extends Controller
         $time->updated_by = Auth::user()->id;
 
         $time->save();
-        return redirect()->route('admin.users.show')->with('success', 'Успешно!');
+        return redirect()->route('admin.users.show', $time->doctor_id)->with('success', 'Успешно!');
     }
 
 
