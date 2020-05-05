@@ -127,26 +127,33 @@
                                     @endforeach
                                 </td>
                                 <td class="project-state">
-                                    <span class="badge badge-success">
-                                        @foreach ($statuses as $value => $label)
-                                        @if ($value === $user->status)
-                                        {{ $label }}
-                                        @endif
-                                        @endforeach
-                                    </span>
+                                    @foreach ($statuses as $value => $label)
+                                    @if ($value === $user->status)
+                                    @if ($user->isInactive())
+                                    <span class="badge badge-secondary">{{ $label }}</span>
+                                    @endif
+                                    @if ($user->isActive())
+                                    <span class="badge badge-success">{{ $label }}</span>
+                                    @endif
+                                    @endif
+                                    @endforeach
                                 </td>
                                 <td class="project-actions text-right">
-                                    <a class="btn btn-default btn-sm" href="{{ route('admin.users.show',$user->id)}}">
-                                        <i class="fas fa-eye">
-                                        </i>
+                                    <div class="btn-group">
+                                        <a class="btn btn-primary btn-sm" href="{{ route('admin.users.show',$user->id)}}">
+                                            <i class="fas fa-eye">
+                                            </i>
 
-                                    </a>
-                                    <a class="btn btn-primary btn-sm" href="{{ route('admin.users.edit',$user->id)}}">
-                                        <i class="fas fa-pencil-alt">
-                                        </i>
+                                        </a>
+                                    </div>
+                                    <div class="btn-group">
+                                        <a class="btn btn-info btn-sm" href="{{ route('admin.users.edit',$user->id)}}">
+                                            <i class="fas fa-pencil-alt">
+                                            </i>
 
-                                    </a>
-                                    <a class="btn">
+                                        </a>
+                                    </div>
+                                    <div class="btn-group">
                                         <form action="{{ route('admin.users.destroy', $user->id)}}" method="post">
                                             @csrf
                                             @method('DELETE')
@@ -155,7 +162,7 @@
                                                 </i>
                                             </button>
                                         </form> 
-                                    </a>
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach

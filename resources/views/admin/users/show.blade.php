@@ -18,26 +18,10 @@
 </div><!-- /.container-fluid -->
 @stop
 @section('content')
-<div class="row no-print">
-    <div class="col-12">
-        <a class="btn btn-primary btn-lg float-right" href="{{ route('admin.users.edit',$user->id)}}">{{ __('Редактировать') }}</a>
-        <a class="btn btn-danger btn-sm float-right" style="margin-right: 5px;">
-            <form action="{{ route('admin.users.destroy', $user->id)}}" method="post">
-                @csrf
-                @method('DELETE')
-                <button class="btn btn-danger float-right" type="submit" onclick="return confirm('Вы уверены?')">
-            {{ __('Удалить') }}
-                </button>
-            </form>
-        </a>
-    </div>
-</div>
-<!-- /.row -->
 <div class="row">
     <div class="col-md-6">
-        <div class="card primary">
+        <div class="card card-danger">
             <div class="card-header">
-                {{ __('Показать пользователя') }}
             </div>
             <!-- /.card-header -->
 
@@ -78,9 +62,8 @@
     </div>
     <!-- /.col-md -6.1 -->
     <div class="col-md-6">
-        <div class="card primary">
+        <div class="card card-info">
             <div class="card-header">
-                {{ __('Показать пользователя2') }}
             </div>
             <!-- /.card-header -->
 
@@ -129,11 +112,13 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    @if( !empty($user->avatar))
                     <div class="text-center">
                         <img class="profile-user-img img-fluid img-circle"
                              src="/uploads/avatars/{{ $user->avatar }}"
                              alt="Фотография пользователя">
                     </div>
+                    @endif
                 </div>
 
             </div>
@@ -221,6 +206,23 @@
         <!-- /.col-md -6.3 -->
     @endif
 
+</div>
+<!-- /.row -->
+<div class="row no-print">
+    <div class="col-sm-12">
+        <div class="btn-group">
+            <a class="btn btn-primary btn-sm" href="{{ route('admin.users.edit',$user->id)}}">{{ __('Редактировать') }}</a>
+        </div>
+        <div class="btn-group">
+            <form action="{{ route('admin.users.destroy', $user->id)}}" method="post">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Вы уверены?')">
+                    {{ __('Удалить') }}
+                </button>
+            </form>
+        </div>
+    </div>
 </div>
 <!-- /.row -->
 

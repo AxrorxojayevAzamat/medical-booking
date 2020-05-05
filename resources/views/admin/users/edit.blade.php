@@ -23,9 +23,8 @@
     @method('PUT')
     <div class="row">
         <div class="col-md-6">
-            <div class="card primary">
+            <div class="card card-danger">
                 <div class="card-header">
-                    {{ __('Редактировать пользователя') }}
                 </div>
                 <!-- /.card-header -->
 
@@ -103,9 +102,8 @@
         </div>
         <!-- /.col-md -6 -->
         <div class="col-md-6">
-            <div class="card primary">
+            <div class="card card-info">
                 <div class="card-header">
-                    {{ __('Редактировать пользователя2') }}
                 </div>
                 <!-- /.card-header -->
 
@@ -187,18 +185,18 @@
                             <div class="custom-file">
                                 <input type="file" id="avater" class="custom-file-input" name="avatar" >
                                 <label class="custom-file-label" for="avatar">{{ __('Выберите файл') }}</label>
-                            </div>
-                            <div class="input-group-append">
-                                <span class="input-group-text" id="">{{ __('Загрузить') }}</span>
-                            </div>
+                            </div>                            
                         </div>
+                    </div>
+                    <div class="form-group">
+                        @if( !empty($user->avatar))
                         <div class="text-center">
                             <img class="profile-user-img img-fluid img-circle"
                                  src="/uploads/avatars/{{ $user->avatar }}"
                                  alt="Фотография пользователя">
                         </div>
+                        @endif
                     </div>
-
 
                 </div>
                 <!-- /.card-body -->
@@ -286,8 +284,8 @@
     <!-- /.row -->
     <div class="row no-print">
         <div class="col-12 ">
-            <button type="submit" class="btn btn-success float-right">{{ __('Сохранять') }}</button>
-            <a class="btn btn-secondary float-right" style="margin-right: 5px; href="{{ route("admin.users.index") }}">{{ __('Отменить') }}</a>
+            <button type="submit" class="btn btn-success btn-sm float-right">{{ __('Сохранять') }}</button>
+            <a class="btn btn-secondary btn-sm float-right" style="margin-right: 5px; href="{{ route("admin.users.index") }}">{{ __('Отменить') }}</a>
         </div>
     </div>
     <!-- /.row -->
