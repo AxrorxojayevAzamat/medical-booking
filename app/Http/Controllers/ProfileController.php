@@ -5,27 +5,42 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use Intervention\Image\Facades\Image;
+use App\Traits\UploadTrait;
+use App\User;
+use Illuminate\Support\Str;
 
 class ProfileController extends Controller {
+
+    use UploadTrait;
+
+    public function __construct() {
+        $this->middleware('auth');
+    }
 
     public function profile() {
         return view('profile', array('user' => Auth::user()));
     }
 
-    public function update_avatar(Request $request) {
+    public function updateAvatar(Request $request) {
 
-        // Handle the user upload of avatar
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+        $user = Auth::user();
+        $folder = User::USER_PROFILE;
+        $avatar = $request->file('avatar');
         if ($request->hasFile('avatar')) {
-            $avatar = $request->file('avatar');
-            $filename = time() . '.' . $avatar->getClientOriginalExtension();
-            Image::make($avatar)->resize(300, 300)->save(public_path('/uploads/avatars/' . $filename));
+            $this->deleteOne($folder,'public', $user->avatar);
+            $filename = Str::slug($user->name) . '_' . time();
+            $this->uploadOne($avatar, $folder, 'public', $filename);
+            $filePath = $filename . '.' . $avatar->getClientOriginalExtension();
 
-            $user = Auth::user();
-            $user->avatar = $filename;
-            $user->save();
+            $user->avatar = $filePath;
         }
+        $user->save();
 
-        return view('profile', array('user' => Auth::user()));
+
+        return redirect()->back()->with(['status' => 'Фотография пользователя обновлен.']);
     }
 
 }

@@ -18,14 +18,13 @@
 </div><!-- /.container-fluid -->
 @stop
 @section('content')
-<form method="POST" action="{{ route("admin.users.update", [$user->id]) }}">
+<form method="POST" action="{{ route("admin.users.update", [$user->id]) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="row">
         <div class="col-md-6">
-            <div class="card primary">
+            <div class="card card-danger">
                 <div class="card-header">
-                    {{ __('Редактировать пользователя') }}
                 </div>
                 <!-- /.card-header -->
 
@@ -103,9 +102,8 @@
         </div>
         <!-- /.col-md -6 -->
         <div class="col-md-6">
-            <div class="card primary">
+            <div class="card card-info">
                 <div class="card-header">
-                    {{ __('Редактировать пользователя2') }}
                 </div>
                 <!-- /.card-header -->
 
@@ -181,7 +179,24 @@
                         </span>
                         @enderror
                     </div>
-
+                    <div class="form-group">
+                        <label for="avatar" class="col-form-label text-md-left">{{ __('Фото') }}</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" id="avater" class="custom-file-input" name="avatar" >
+                                <label class="custom-file-label" for="avatar">{{ __('Выберите файл') }}</label>
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @if( !empty($user->avatar))
+                        <div class="text-center">
+                            <img class="profile-user-img img-fluid img-circle"
+                                 src="/uploads/avatars/{{ $user->avatar }}"
+                                 alt="Фотография пользователя">
+                        </div>
+                        @endif
+                    </div>
 
                 </div>
                 <!-- /.card-body -->
@@ -260,62 +275,12 @@
             </div>
         <!-- /.col-md -6.3 -->
         @endif
-        {{--
-        
-        <div class="col-md-6">
-            <div class="card primary">
-                <div class="card-header">
-                    {{ __('Профиль пользователя') }}
-                </div>
-                <!-- /.card-header -->
-
-                <div class="card-body">
-                    <div class="col-sm-12">
-                        <div class="card card-primary card-outline">
-                            <div class="card-body box-profile">
-                                <div class="text-center">
-                                    <img class="profile-user-img img-fluid img-circle"
-                                         src="/uploads/avatars/{{ $user->avatar }}"
-                                         alt="User profile picture">
-                                </div>
-
-                                <h3 class="profile-username text-center">{{ $user->lastname }} {{ $user->name }}</h3>
-
-
-                                <form method="POST" action="{{ route("admin.users.update_avatar",$user) }}" enctype="multipart/form-data">
-
-                                    <label>Update Profile Image</label>
-                                    <input type="file" name="avatar">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    <input type="submit" class="pull-right btn btn-sm btn-primary">
-                                </form>
-
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                    </div>
-
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                </div>
-                <!-- /.card-footer -->
-
-            </div>
-            <!-- /.card primary-->
-        </div>
-        <!-- /.col-md -6.4 -->
-
---}}
-
-
-
     </div>
     <!-- /.row -->
-    <div class="row">
-        <div class="col-12">
-            <a class="btn btn-secondary" href="{{ route("admin.users.index") }}">{{ __('Отменить') }}</a>
-            <button type="submit" class="btn btn-success float-right">{{ __('Сохранять') }}</button>
+    <div class="row no-print">
+        <div class="col-12 ">
+            <button type="submit" class="btn btn-success btn-sm float-right">{{ __('Сохранять') }}</button>
+            <a class="btn btn-secondary btn-sm float-right" style="margin-right: 5px; href="{{ route("admin.users.index") }}">{{ __('Отменить') }}</a>
         </div>
     </div>
     <!-- /.row -->

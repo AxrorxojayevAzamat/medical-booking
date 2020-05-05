@@ -10,8 +10,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Auth;
 use Intervention\Image\Facades\Image;
+use App\Traits\UploadTrait;
+use Illuminate\Support\Str;
 
 class UserController extends Controller {
+
+    use UploadTrait;
 
     public function index(Request $request) {
         $query = User::orderByDesc('id');
@@ -63,10 +67,31 @@ class UserController extends Controller {
     }
 
     public function store(Request $request) {
-        $input = $request->all();
-        $input['password'] = Hash::make($input['password']);
+        $data = $request->all();
+        $user = User::create([
+                    'name' => $data['name'],
+                    'lastname' => $data['lastname'],
+                    'patronymic' => $data['patronymic'],
+                    'phone' => $data['phone'],
+                    'birth_date' => $data['birth_date'],
+                    'gender' => $data['gender'],
+                    'email' => $data['email'],
+                    'password' => Hash::make($data['password']),
+                    'status' => User::STATUS_ACTIVE,
+                    'role' => $data['role'],
+        ]);
 
-        $user = User::create($input);
+        $folder = User::USER_PROFILE;
+        $avatar = $request->file('avatar');
+        if ($request->hasFile('avatar')) {
+            $this->deleteOne($folder, 'public', $user->avatar);
+            $filename = Str::slug($user->name) . '_' . time();
+            $this->uploadOne($avatar, $folder, 'public', $filename);
+            $filePath = $filename . '.' . $avatar->getClientOriginalExtension();
+
+            $user->avatar = $filePath;
+        }
+        $user->save();
 
         return redirect()->route('admin.users.show', $user);
     }
@@ -101,7 +126,19 @@ class UserController extends Controller {
             $user->update($request->except(['password']));
         }
 
-        return redirect()->route('admin.users.index');
+        $folder = User::USER_PROFILE;
+        $avatar = $request->file('avatar');
+        if ($request->hasFile('avatar')) {
+            $this->deleteOne($folder, 'public', $user->avatar);
+            $filename = Str::slug($user->name) . '_' . time();
+            $this->uploadOne($avatar, $folder, 'public', $filename);
+            $filePath = $filename . '.' . $avatar->getClientOriginalExtension();
+
+            $user->avatar = $filePath;
+        }
+        $user->save();
+
+        return redirect()->route('admin.users.show', $user);
     }
 
     public function destroy(User $user) {
@@ -120,26 +157,6 @@ class UserController extends Controller {
         $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
 
         return view('admin.users.additional', compact('user', 'specializations'));
-    }
-    public function profile() {
-        return view('admin.users.profile', array('user' => Auth::user()));
-    }
-
-    public function update_avatar(Request $request, User $user) {
-
-        // Handle the user upload of avatar
-        if ($request->hasFile('avatar')) {
-            $avatar = $request->file('avatar');
-            $filename = time() . '.' . $avatar->getClientOriginalExtension();
-            Image::make($avatar)->resize(300, 300)->save(public_path('/uploads/avatars/' . $filename));
-
-//            $user = Auth::user();
-            $user1 = User::findOrFail($user->id);
-            $user->avatar = $filename;
-            $user->save();
-        }
-
-        return view('admin.users.show', $user);
     }
 
 }

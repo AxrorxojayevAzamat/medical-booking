@@ -6,13 +6,15 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPassword as ResetPasswordNotification;
+use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class User extends Authenticatable implements MustVerifyEmail {
 
     use Notifiable;
 
     protected $fillable = [
-        'name', 'lastname', 'patronymic', 'phone', 'birth_date', 'gender', 'email', 'password', 'role', 'status',
+        'name', 'lastname', 'patronymic', 'phone', 'birth_date', 'gender', 'email', 'password', 'role', 'status', 'avatar',
     ];
     protected $hidden = [
         'password', 'remember_token',
@@ -28,6 +30,7 @@ class User extends Authenticatable implements MustVerifyEmail {
     public const ROLE_CALL_CENTER = 'admin_call_center';
     public const ROLE_CLINIC = 'admin_clinic';
     public const ROLE_DOCTOR = 'doctor';
+    public const USER_PROFILE = '/uploads/avatars/';
 
     public function role() {
         return $this->belongsTo('App\Role', 'role');
@@ -74,6 +77,10 @@ class User extends Authenticatable implements MustVerifyEmail {
             User::STATUS_ACTIVE => 'Aктивный',
             User::STATUS_INACTIVE => 'Неактивный',
         ];
+    }
+
+    public function getImageAttribute() {
+        return $this->avatar;
     }
 
 }

@@ -76,6 +76,7 @@ use RegistersUsers;
                     'gender' => $data['gender'],
                     'email' => $data['email'],
                     'password' => Hash::make($data['password']),
+                    'status' => User::STATUS_ACTIVE,
                     'role' => $role->id,
         ]);
 

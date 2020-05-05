@@ -35,8 +35,8 @@ Route::get('region/edit/{id}', 'RegionController@edit')->name('region.edit');
 Route::post('region/', 'RegionController@store')->name('region.store');
 Route::patch('region/show/{id}', 'RegionController@update')->name('region.update');
 Route::delete('region/{id}', 'RegionController@destroy')->name('region.destroy');
-Route::get('profile', 'ProfileController@profile')->name('profile');
-Route::post('profile', 'ProfileController@update_avatar')->name('profile');
+Route::get('/profile', 'ProfileController@profile')->name('profile');
+Route::post('/profile/update', 'ProfileController@updateAvatar')->name('profile.update');
 
 
 Auth::routes(['verify' => true]);

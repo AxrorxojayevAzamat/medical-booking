@@ -22,7 +22,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-footer">
-                    <a class="btn btn-primary" href="{{ route("admin.users.create") }}">{{ __('Добавить') }} </a> 
+                    <a class="btn btn-success" href="{{ route("admin.users.create") }}">{{ __('Добавить') }} </a> 
                 </div>
 
                 <!-- /.card-header -->
@@ -108,7 +108,7 @@
                                 <th>{{ __('Email') }}</th>
                                 <th>{{ __('Роль') }}</th>
                                 <th>{{ __('Статус') }}</th>
-                                <th style="width: 10%"></th>
+                                <th style="width: 15%"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -127,35 +127,43 @@
                                     @endforeach
                                 </td>
                                 <td class="project-state">
-                                    <span class="badge badge-success">
-                                        @foreach ($statuses as $value => $label)
-                                        @if ($value === $user->status)
-                                        {{ $label }}
-                                        @endif
-                                        @endforeach
-                                    </span>
+                                    @foreach ($statuses as $value => $label)
+                                    @if ($value === $user->status)
+                                    @if ($user->isInactive())
+                                    <span class="badge badge-secondary">{{ $label }}</span>
+                                    @endif
+                                    @if ($user->isActive())
+                                    <span class="badge badge-success">{{ $label }}</span>
+                                    @endif
+                                    @endif
+                                    @endforeach
                                 </td>
                                 <td class="project-actions text-right">
-                                    <a class="btn btn-primary btn-sm" href="{{ route('admin.users.show',$user->id)}}">
-                                        <i class="fas fa-eye">
-                                        </i>
+                                    <div class="btn-group">
+                                        <a class="btn btn-primary btn-sm" href="{{ route('admin.users.show',$user->id)}}">
+                                            <i class="fas fa-eye">
+                                            </i>
 
-                                    </a>
-                                    <a class="btn btn-info btn-sm" href="{{ route('admin.users.edit',$user->id)}}">
-                                        <i class="fas fa-pencil-alt">
-                                        </i>
+                                        </a>
+                                    </div>
+                                    <div class="btn-group">
+                                        <a class="btn btn-info btn-sm" href="{{ route('admin.users.edit',$user->id)}}">
+                                            <i class="fas fa-pencil-alt">
+                                            </i>
 
-                                    </a>
-                                    <a class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Вы уверены?')">
-                                        <i class="fas fa-trash">
-                                        </i>
+                                        </a>
+                                    </div>
+                                    <div class="btn-group">
                                         <form action="{{ route('admin.users.destroy', $user->id)}}" method="post">
                                             @csrf
                                             @method('DELETE')
-
+                                            <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Вы уверены?')">
+                                                <i class="fas fa-trash">
+                                                </i>
+                                            </button>
                                         </form> 
-
-                                    </a>
+                                    </div>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

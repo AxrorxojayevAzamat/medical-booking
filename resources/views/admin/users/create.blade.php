@@ -17,7 +17,7 @@
 </div><!-- /.container-fluid -->
 @stop
 @section('content')
-<form method="POST" action="{{ route("admin.users.store") }}">
+<form method="POST" action="{{ route("admin.users.store") }}" enctype="multipart/form-data">
     @csrf
     <div class="row">
         <div class="col-md-6">
@@ -169,8 +169,9 @@
                         <label for="status" class="col-form-label text-md-left">{{ __('Статус') }}</label>
                         <select id="status" class="form-control @error('status') is-invalid @enderror" name="status" value="{{ old('status') }}" required autocomplete="status" autofocus>
                             <option value="" selected=""></option>
-                            <option value="0">Неактивный</option>>
-                            <option value="1">Aктивный</option>>
+                            @foreach ($statuses as $value => $label)
+                            <option value="{{ $value }}"{{ $value === request('status') ? ' selected' : '' }}>{{ $label }}</option>
+                            @endforeach;
                         </select>
 
                         @error('status')
@@ -178,6 +179,18 @@
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="avatar" class="col-form-label text-md-left">{{ __('Фото') }}</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" id="avater" class="custom-file-input" name="avatar" >
+                                <label class="custom-file-label" for="avatar">{{ __('Выберите файл') }}</label>
+                            </div>
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="">{{ __('Загрузить') }}</span>
+                            </div>
+                        </div>
                     </div>
 
 
