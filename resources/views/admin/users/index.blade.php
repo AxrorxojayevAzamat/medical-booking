@@ -22,7 +22,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-footer">
-                    <a class="btn btn-primary" href="{{ route("admin.users.create") }}">{{ __('Добавить') }} </a> 
+                    <a class="btn btn-success" href="{{ route("admin.users.create") }}">{{ __('Добавить') }} </a> 
                 </div>
 
                 <!-- /.card-header -->
@@ -136,12 +136,12 @@
                                     </span>
                                 </td>
                                 <td class="project-actions text-right">
-                                    <a class="btn btn-primary btn-sm" href="{{ route('admin.users.show',$user->id)}}">
+                                    <a class="btn btn-default btn-sm" href="{{ route('admin.users.show',$user->id)}}">
                                         <i class="fas fa-eye">
                                         </i>
 
                                     </a>
-                                    <a class="btn btn-info btn-sm" href="{{ route('admin.users.edit',$user->id)}}">
+                                    <a class="btn btn-primary btn-sm" href="{{ route('admin.users.edit',$user->id)}}">
                                         <i class="fas fa-pencil-alt">
                                         </i>
 
@@ -156,6 +156,7 @@
                                             </button>
                                         </form> 
                                     </a>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

@@ -65,10 +65,10 @@
         <!-- /.col-md -6 -->
     </div>
     <!-- /.row -->
-    <div class="row">
+    <div class="row no-print">
         <div class="col-12">
-            <a class="btn btn-secondary" href="{{ route("admin.specializations.index") }}">{{ __('Отменить') }}</a>
             <button type="submit" class="btn btn-success float-right">{{ __('Сохранять') }}</button>
+            <a class="btn btn-secondary float-right" style="margin-right: 5px; href="{{ route("admin.specializations.index") }}">{{ __('Отменить') }}</a>
         </div>
     </div>
     <!-- /.row -->

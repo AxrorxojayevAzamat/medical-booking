@@ -80,8 +80,8 @@
                     <!--<input type="number" name="gender" min="0" max="1" class="form-control {{ $errors->has('gender') ? 'is-invalid' : '' }}" value="{{ old('gender') }}" placeholder="{{ __('Пол') }}" autofocus>-->
                     <select id="gender" class="form-control {{ $errors->has('gender') ? 'is-invalid' : '' }}" name="gender" value="{{ old('gender') }}" required autocomplete="gender" autofocus>
                         <option value="" selected="">{{ __('Пол') }}</option>>
-                        <option value="0">Женский</option>>
-                        <option value="1">Мужской</option>>
+                        <option value="0" @if (old('gender') == '0') selected="selected" @endif>Женский</option>>
+                        <option value="1"@if (old('gender') == '1') selected="selected" @endif>Мужской</option>>
                     </select>
 
                     @if ($errors->has('gender'))

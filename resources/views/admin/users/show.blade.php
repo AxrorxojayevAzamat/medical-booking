@@ -18,18 +18,18 @@
 </div><!-- /.container-fluid -->
 @stop
 @section('content')
-<div class="row">
+<div class="row no-print">
     <div class="col-12">
-        <a class="btn">
+        <a class="btn btn-primary btn-lg float-right" href="{{ route('admin.users.edit',$user->id)}}">{{ __('Редактировать') }}</a>
+        <a class="btn btn-danger btn-sm float-right" style="margin-right: 5px;">
             <form action="{{ route('admin.users.destroy', $user->id)}}" method="post">
                 @csrf
                 @method('DELETE')
-                <button class="btn btn-danger float-left" type="submit" onclick="return confirm('Вы уверены?')">
-                    {{ __('Удалить') }}
+                <button class="btn btn-danger float-right" type="submit" onclick="return confirm('Вы уверены?')">
+            {{ __('Удалить') }}
                 </button>
             </form>
         </a>
-        <a class="btn btn-secondary float-right" href="{{ route('admin.users.edit',$user->id)}}">{{ __('Редактировать') }}</a>
     </div>
 </div>
 <!-- /.row -->
