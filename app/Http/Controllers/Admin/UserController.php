@@ -163,7 +163,6 @@ class UserController extends Controller {
     }
 
 
-    //////for clinic
     public function clinic(Request $request, User $user) {
         $user->clinics()->sync($request['clinicUser']);
 
@@ -174,5 +173,5 @@ class UserController extends Controller {
         $clinics = Clinic::orderBy('name_ru')->pluck('name_ru', 'id');
         return view('admin.users.additionalForClinic', compact('user', 'clinics'));
     }
-     ///////for clinic
+
 }

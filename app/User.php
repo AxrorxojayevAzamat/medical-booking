@@ -65,11 +65,11 @@ class User extends Authenticatable implements MustVerifyEmail {
     }
 
 
-    ////////for clinics
+
     public function clinics() {
         return $this->belongsToMany(Clinic::class, 'doctors_and_clinics');
     }
-    ///////for clinics
+
 
 
 
