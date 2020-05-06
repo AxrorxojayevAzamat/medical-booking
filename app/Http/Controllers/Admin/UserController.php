@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Clinic;
 use App\Http\Controllers\Controller;
 use App\Role;
-use App\Timetable;
 use App\User;
 use App\Specialization;
-
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Auth;
@@ -15,7 +14,7 @@ use Intervention\Image\Facades\Image;
 use App\Traits\UploadTrait;
 use Illuminate\Support\Str;
 
-class  UserController extends Controller {
+class UserController extends Controller {
 
     use UploadTrait;
 
@@ -95,27 +94,27 @@ class  UserController extends Controller {
         }
         $user->save();
 
-        return redirect()->route('admin.users.show', $user, $time);
+        return redirect()->route('admin.users.show', $user);
     }
 
     public function show(User $user) {
         $roles = Role::orderBy('name')->pluck('name', 'id');
         $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
+        $clinics = Clinic::orderBy('name_ru')->pluck('name_ru', 'id');
         $doctorList = User::find($user->id);
         $statuses = User::statusList();
-        $time = Timetable::find($user->id);
 
-        return view('admin.users.show', compact('user', 'roles', 'specializations', 'doctorList', 'statuses', 'time'));
+        return view('admin.users.show', compact('user', 'roles', 'specializations', 'doctorList', 'statuses','clinics'));
     }
 
     public function edit(User $user) {
         $roles = Role::orderBy('name')->pluck('name', 'id');
         $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
+        $clinics = Clinic::orderBy('name_ru')->pluck('name_ru', 'id');
         $doctorList = User::find($user->id);
         $statuses = User::statusList();
-        $time = Timetable::find($user->id);
 
-        return view('admin.users.edit', compact('user', 'roles', 'specializations', 'doctorList', 'statuses', 'time'));
+        return view('admin.users.edit', compact('user', 'roles', 'specializations', 'doctorList', 'statuses','clinics'));
     }
 
     public function update(Request $request, User $user) {
@@ -161,6 +160,18 @@ class  UserController extends Controller {
         $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
 
         return view('admin.users.additional', compact('user', 'specializations'));
+    }
+
+
+    public function clinic(Request $request, User $user) {
+        $user->clinics()->sync($request['clinicUser']);
+
+        return redirect()->route('admin.users.show', $user);
+    }
+
+    public function additionalForClinic(User $user) {
+        $clinics = Clinic::orderBy('name_ru')->pluck('name_ru', 'id');
+        return view('admin.users.additionalForClinic', compact('user', 'clinics'));
     }
 
 }

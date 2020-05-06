@@ -307,6 +307,46 @@
 
             <!-- /.col-md -6.3 -->
     @endif
+
+
+
+
+    @if($user->inRole('doctor'))
+        <div class="col-md-6">
+            <div class="card primary">
+                <div class="card-header">
+                    {{ __('Клиники для доктора') }}
+                    <a class="btn btn-secondary float-right" href="{{ route('admin.users.additionalForClinic',$user) }}" disabled>{{ __('Изменить/Добавить') }}</a>
+                </div>
+                <!-- /.card-header -->
+
+                <div class="card-body">
+                    <div class="col-sm-12">
+
+                        <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                            <tbody>
+                            @foreach($doctorList->clinics as $clinic)
+                                <tr>
+                                    <td>{{$clinic->name_ru}}</td>
+                                </tr>
+                            @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                </div>
+                <!-- /.card-footer -->
+
+            </div>
+            <!-- /.card primary-->
+        </div>
+        <!-- /.col-md -6.3 -->
+    @endif
+
 </div>
 <!-- /.row -->
 <div class="row no-print">

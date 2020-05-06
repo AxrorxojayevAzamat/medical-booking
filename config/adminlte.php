@@ -214,11 +214,19 @@ return [
             'submenu' => [
                 [
                     'text' => 'Список регионов',
-                    'url' => 'region/',
+                    'url' => 'admin/region/',
                 ],
                 [
-                    'text' => 'Создание нового региона',
-                    'url' => 'region/create',
+                    'text'    => 'Новый Регион',
+                    'url'     => 'admin/region/create',
+                ],
+                [
+                    'text'    => 'Новый Город',
+                    'url'     => 'admin/region/createCity',
+                ],
+                [
+                    'text'    => 'Новый Район',
+                    'url'     => 'admin/region/createDistrict',
                 ],
             ],
         ],
@@ -262,20 +270,18 @@ return [
         [
             'text' => 'Клиники',
             'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-            ],
+            'url' => 'admin/clinic/',
+//            'submenu' => [
+//                [
+//                    'text' => 'Список Клиник',
+//                    'url' => 'clinic/',
+//
+//                ],
+//                [
+//                    'text' => 'Новая клиника',
+//                    'url' => 'clinic/create',
+//                ],
+//            ],
         ],
         [
             'text' => 'Расписание',
@@ -349,19 +355,34 @@ return [
                 ],
             ],
         ],
-    // ['header' => 'labels'],
-    // [
-    //     'text'       => 'important',
-    //     'icon_color' => 'red',
-    // ],
-    // [
-    //     'text'       => 'warning',
-    //     'icon_color' => 'yellow',
-    // ],
-    // [
-    //     'text'       => 'information',
-    //     'icon_color' => 'aqua',
-    // ],
+        [
+            'text' => 'Праздничные дни',
+            'icon' => 'fas fa-fw fa-share',
+            'url' => 'admin/celebration/',
+//            'submenu' => [
+//                [
+//                    'text' => 'Список праздников',
+//                    'url' => 'celebration/',
+//                ],
+//                [
+//                    'text'    => 'Новый праздник',
+//                    'url'     => 'celebration/create',
+//                ],
+//            ],
+        ],
+        // ['header' => 'labels'],
+        // [
+        //     'text'       => 'important',
+        //     'icon_color' => 'red',
+        // ],
+        // [
+        //     'text'       => 'warning',
+        //     'icon_color' => 'yellow',
+        // ],
+        // [
+        //     'text'       => 'information',
+        //     'icon_color' => 'aqua',
+        // ],
     ],
     /*
       |--------------------------------------------------------------------------
