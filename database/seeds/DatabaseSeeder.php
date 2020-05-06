@@ -13,6 +13,9 @@ class DatabaseSeeder extends Seeder {
         $this->call(RoleSeed::class);
         $this->call(UserSeed::class);
         $this->call(SpecializationSeed::class);
+        $this->call(CelebrationSeed::class);
+        $this->call(RegionSeed::class);
+        $this->call(ClinicSeed::class);
     }
 
 }

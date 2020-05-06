@@ -24,7 +24,8 @@ class CreateClinicsTable extends Migration
             $table->string('phone_numbers')->nullable();
             $table->string('adress_uz')->nullable();
             $table->string('adress_ru')->nullable();
-            $table->string('work_time')->nullable();
+            $table->string('work_time_start')->nullable();
+            $table->string('work_time_end')->nullable();
             $table->string('location')->nullable();
             $table->timestamps();
         });
