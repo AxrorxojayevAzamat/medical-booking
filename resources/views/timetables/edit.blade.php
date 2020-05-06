@@ -235,19 +235,19 @@
                 <div class="form-group">
                     <label>Понедельник</label>
 
-                    <div class="input-group date" id="timepicker" data-target-input="nearest">
+                    <div class="input-group date" id="timepicker1" data-target-input="nearest">
                         <input type="time" name="monday_start" class="form-control datetimepicker-input"
-                               data-target="#timepicker">
-                        <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                               data-target="#timepicker1">
+                        <div class="input-group-append" data-target="#timepicker1" data-toggle="datetimepicker">
                             <div class="input-group-text">
                                 <i class="far fa-clock"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="input-group date" id="timepicker" data-target-input="nearest">
+                    <div class="input-group date" id="timepicker2" data-target-input="nearest">
                         <input type="time" name="monday_end" class="form-control datetimepicker-input"
-                               data-target="#timepicker">
-                        <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                               data-target="#timepicker2">
+                        <div class="input-group-append" data-target="#timepicker2" data-toggle="datetimepicker">
                             <div class="input-group-text">
                                 <i class="far fa-clock"></i>
                             </div>
@@ -262,19 +262,19 @@
                 <div class="form-group">
                     <label>Вторник</label>
 
-                    <div class="input-group date" id="timepicker" data-target-input="nearest">
+                    <div class="input-group date" id="timepicker3" data-target-input="nearest">
                         <input type="time" name="tuesday_start" class="form-control datetimepicker-input"
-                               data-target="#timepicker">
-                        <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                               data-target="#timepicker3">
+                        <div class="input-group-append" data-target="#timepicker3" data-toggle="datetimepicker">
                             <div class="input-group-text">
                                 <i class="far fa-clock"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="input-group date" id="timepicker" data-target-input="nearest">
+                    <div class="input-group date" id="timepicker4" data-target-input="nearest">
                         <input type="time" name="tuesday_end" class="form-control datetimepicker-input"
-                               data-target="#timepicker">
-                        <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                               data-target="#timepicker4">
+                        <div class="input-group-append" data-target="#timepicker4" data-toggle="datetimepicker">
                             <div class="input-group-text">
                                 <i class="far fa-clock"></i>
                             </div>
@@ -288,19 +288,19 @@
                 <div class="form-group">
                     <label>Среда</label>
 
-                    <div class="input-group date" id="timepicker" data-target-input="nearest">
+                    <div class="input-group date" id="timepicker5" data-target-input="nearest">
                         <input type="time" name="wednesday_start" class="form-control datetimepicker-input"
-                               data-target="#timepicker">
-                        <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                               data-target="#timepicker5">
+                        <div class="input-group-append" data-target="#timepicker5" data-toggle="datetimepicker">
                             <div class="input-group-text">
                                 <i class="far fa-clock"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="input-group date" id="timepicker" data-target-input="nearest">
+                    <div class="input-group date" id="timepicker6" data-target-input="nearest">
                         <input type="time" name="wednesday_end" class="form-control datetimepicker-input"
-                               data-target="#timepicker">
-                        <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                               data-target="#timepicker6">
+                        <div class="input-group-append" data-target="#timepicker6" data-toggle="datetimepicker">
                             <div class="input-group-text">
                                 <i class="far fa-clock"></i>
                             </div>
@@ -315,19 +315,19 @@
                 <div class="form-group">
                     <label>Четверг</label>
 
-                    <div class="input-group date" id="timepicker" data-target-input="nearest">
+                    <div class="input-group date" id="timepicker7" data-target-input="nearest">
                         <input type="time" name="thursday_start" class="form-control datetimepicker-input"
-                               data-target="#timepicker">
-                        <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                               data-target="#timepicker7">
+                        <div class="input-group-append" data-target="#timepicker7" data-toggle="datetimepicker">
                             <div class="input-group-text">
                                 <i class="far fa-clock"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="input-group date" id="timepicker" data-target-input="nearest">
+                    <div class="input-group date" id="timepicker8" data-target-input="nearest">
                         <input type="time" name="thursday_end" class="form-control datetimepicker-input"
-                               data-target="#timepicker">
-                        <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                               data-target="#timepicker8">
+                        <div class="input-group-append" data-target="#timepicker8" data-toggle="datetimepicker">
                             <div class="input-group-text">
                                 <i class="far fa-clock"></i>
                             </div>
@@ -341,19 +341,19 @@
                 <div class="form-group">
                     <label>Пятница</label>
 
-                    <div class="input-group date" id="timepicker" data-target-input="nearest">
+                    <div class="input-group date" id="timepicker9" data-target-input="nearest">
                         <input type="time" name="friday_start" class="form-control datetimepicker-input"
-                               data-target="#timepicker">
-                        <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                               data-target="#timepicker9">
+                        <div class="input-group-append" data-target="#timepicker9" data-toggle="datetimepicker">
                             <div class="input-group-text">
                                 <i class="far fa-clock"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="input-group date" id="timepicker" data-target-input="nearest">
+                    <div class="input-group date" id="timepicker10" data-target-input="nearest">
                         <input type="time" name="friday_end" class="form-control datetimepicker-input"
-                               data-target="#timepicker">
-                        <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                               data-target="#timepicker10">
+                        <div class="input-group-append" data-target="#timepicker10" data-toggle="datetimepicker">
                             <div class="input-group-text">
                                 <i class="far fa-clock"></i>
                             </div>
@@ -367,19 +367,19 @@
                 <div class="form-group">
                     <label>Суббота</label>
 
-                    <div class="input-group date" id="timepicker" data-target-input="nearest">
+                    <div class="input-group date" id="timepicker11" data-target-input="nearest">
                         <input type="time" name="saturday_start" class="form-control datetimepicker-input"
-                               data-target="#timepicker">
-                        <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                               data-target="#timepicker11">
+                        <div class="input-group-append" data-target="#timepicker11" data-toggle="datetimepicker">
                             <div class="input-group-text">
                                 <i class="far fa-clock"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="input-group date" id="timepicker" data-target-input="nearest">
+                    <div class="input-group date" id="timepicker12" data-target-input="nearest">
                         <input type="time" name="saturday_end" class="form-control datetimepicker-input"
-                               data-target="#timepicker">
-                        <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                               data-target="#timepicker12">
+                        <div class="input-group-append" data-target="#timepicker12" data-toggle="datetimepicker">
                             <div class="input-group-text">
                                 <i class="far fa-clock"></i>
                             </div>
@@ -394,19 +394,19 @@
                 <div class="form-group">
                     <label>Воскресенье</label>
 
-                    <div class="input-group date" id="timepicker" data-target-input="nearest">
+                    <div class="input-group date" id="timepicker13" data-target-input="nearest">
                         <input type="time" name="sunday_start" class="form-control datetimepicker-input"
-                               data-target="#timepicker">
-                        <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                               data-target="#timepicker13">
+                        <div class="input-group-append" data-target="#timepicker13" data-toggle="datetimepicker">
                             <div class="input-group-text">
                                 <i class="far fa-clock"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="input-group date" id="timepicker" data-target-input="nearest">
+                    <div class="input-group date" id="timepicker14" data-target-input="nearest">
                         <input type="time" name="sunday_end" class="form-control datetimepicker-input"
-                               data-target="#timepicker">
-                        <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                               data-target="#timepicker14">
+                        <div class="input-group-append" data-target="#timepicker14" data-toggle="datetimepicker">
                             <div class="input-group-text">
                                 <i class="far fa-clock"></i>
                             </div>
@@ -439,19 +439,19 @@
                     <div class="form-group">
                         <label>Начало и конец рабочего дня для четных дней</label>
 
-                        <div class="input-group date" id="timepicker" data-target-input="nearest">
+                        <div class="input-group date" id="timepicker15" data-target-input="nearest">
                             <input type="time" name="even_start" class="form-control datetimepicker-input"
-                                   data-target="#timepicker">
-                            <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                                   data-target="#timepicker15">
+                            <div class="input-group-append" data-target="#timepicker15" data-toggle="datetimepicker">
                                 <div class="input-group-text">
                                     <i class="far fa-clock"></i>
                                 </div>
                             </div>
                         </div>
-                        <div class="input-group date" id="timepicker" data-target-input="nearest">
+                        <div class="input-group date" id="timepicker16" data-target-input="nearest">
                             <input type="time" name="even_end" class="form-control datetimepicker-input"
-                                   data-target="#timepicker">
-                            <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                                   data-target="#timepicker16">
+                            <div class="input-group-append" data-target="#timepicker16" data-toggle="datetimepicker">
                                 <div class="input-group-text">
                                     <i class="far fa-clock"></i>
                                 </div>
@@ -465,19 +465,19 @@
                     <div class="form-group">
                         <label>Начало и конец рабочего дня для нечетных дней</label>
 
-                        <div class="input-group date" id="timepicker" data-target-input="nearest">
+                        <div class="input-group date" id="timepicker17" data-target-input="nearest">
                             <input type="time" name="odd_start" class="form-control datetimepicker-input"
-                                   data-target="#timepicker">
-                            <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                                   data-target="#timepicker17">
+                            <div class="input-group-append" data-target="#timepicker17" data-toggle="datetimepicker">
                                 <div class="input-group-text">
                                     <i class="far fa-clock"></i>
                                 </div>
                             </div>
                         </div>
-                        <div class="input-group date" id="timepicker" data-target-input="nearest">
+                        <div class="input-group date" id="timepicker18" data-target-input="nearest">
                             <input type="time" name="odd_end" class="form-control datetimepicker-input"
-                                   data-target="#timepicker">
-                            <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                                   data-target="#timepicker18">
+                            <div class="input-group-append" data-target="#timepicker18" data-toggle="datetimepicker">
                                 <div class="input-group-text">
                                     <i class="far fa-clock"></i>
                                 </div>

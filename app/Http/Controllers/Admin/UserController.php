@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Clinic;
 use App\Http\Controllers\Controller;
 use App\Role;
+use App\Timetable;
 use App\User;
 use App\Specialization;
 use Illuminate\Support\Facades\Hash;
@@ -103,8 +104,9 @@ class UserController extends Controller {
         $clinics = Clinic::orderBy('name_ru')->pluck('name_ru', 'id');
         $doctorList = User::find($user->id);
         $statuses = User::statusList();
+        $time = Timetable::find($user->id);
 
-        return view('admin.users.show', compact('user', 'roles', 'specializations', 'doctorList', 'statuses','clinics'));
+        return view('admin.users.show', compact('user', 'roles', 'specializations', 'doctorList', 'statuses','clinics', 'time'));
     }
 
     public function edit(User $user) {
@@ -113,8 +115,8 @@ class UserController extends Controller {
         $clinics = Clinic::orderBy('name_ru')->pluck('name_ru', 'id');
         $doctorList = User::find($user->id);
         $statuses = User::statusList();
-
-        return view('admin.users.edit', compact('user', 'roles', 'specializations', 'doctorList', 'statuses','clinics'));
+        $time = Timetable::find($user->id);
+        return view('admin.users.edit', compact('user', 'roles', 'specializations', 'doctorList', 'statuses','clinics', 'time'));
     }
 
     public function update(Request $request, User $user) {

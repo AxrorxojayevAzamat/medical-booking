@@ -48,12 +48,85 @@ $(function () {
       )
 
       //Timepicker
-      $('#timepicker').datetimepicker({
+      $('#timepicker1').datetimepicker({
         use24hours: true,
         format: 'HH:mm'
       })
+    $('#timepicker2').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker3').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker4').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker5').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker6').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker7').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker8').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker9').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker10').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker11').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker12').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker13').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker14').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker15').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker16').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker17').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker18').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
 
-      //Bootstrap Duallistbox
+
+    //Bootstrap Duallistbox
       $('.duallistbox').bootstrapDualListbox()
 
       //Colorpicker
