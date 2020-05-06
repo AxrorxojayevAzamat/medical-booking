@@ -44,14 +44,14 @@
         <div class="  container card-header row "><h3>Редактирование района</h3></div>
         <div class="container card-header">
             <div class=" container" align='center'>
-                <form action="{{ route('region.update',['id'=>$regions->id]) }}" method="post"
+                <form action="{{ route('admin.region.update',['id'=>$regions->id]) }}" method="post"
                       enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
                     @include('admin.regions.forms.editDistrictForms')
                     <div class="form-group " align='center'>
                         <button type="submit" class="btn btn-success btn-sm ml-1">Сохранить</button>
-                        <a href="{{ route('region.index') }}" class="btn btn-default btn-sm ml-1">Назад</a></div>
+                        <a href="{{ route('admin.region.index') }}" class="btn btn-default btn-sm ml-1">Назад</a></div>
                 </form>
             </div>
         </div>

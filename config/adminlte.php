@@ -214,19 +214,19 @@ return [
             'submenu' => [
                 [
                     'text' => 'Список регионов',
-                    'url' => 'region/',
+                    'url' => 'admin/region/',
                 ],
                 [
                     'text'    => 'Новый Регион',
-                    'url'     => 'region/create',
+                    'url'     => 'admin/region/create',
                 ],
                 [
                     'text'    => 'Новый Город',
-                    'url'     => 'region/createCity',
+                    'url'     => 'admin/region/createCity',
                 ],
                 [
                     'text'    => 'Новый Район',
-                    'url'     => 'region/createDistrict',
+                    'url'     => 'admin/region/createDistrict',
                 ],
             ],
         ],
@@ -270,7 +270,7 @@ return [
         [
             'text' => 'Клиники',
             'icon' => 'fas fa-fw fa-share',
-            'url' => 'clinic/',
+            'url' => 'admin/clinic/',
 //            'submenu' => [
 //                [
 //                    'text' => 'Список Клиник',
@@ -340,7 +340,7 @@ return [
         [
             'text' => 'Праздничные дни',
             'icon' => 'fas fa-fw fa-share',
-            'url' => 'celebration/',
+            'url' => 'admin/celebration/',
 //            'submenu' => [
 //                [
 //                    'text' => 'Список праздников',

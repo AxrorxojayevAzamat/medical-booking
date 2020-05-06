@@ -45,7 +45,7 @@
             <div class="col-12 ">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('celebration.create') }}" class="btn btn-success btn-sm ">Добавить</a>
+                        <a href="{{ route('admin.celebration.create') }}" class="btn btn-success btn-sm ">Добавить</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0" style="height: 500px;">
@@ -66,11 +66,11 @@
                                     <td class="text-center py-1 ">{{$celebration->name}}</td>
                                     <td class="text-center py-1 ">
                                         <div class="btn-group ml-2 ">
-                                            <a href="{{ route('celebration.edit',['id'=>$celebration->id]) }}"
+                                            <a href="{{ route('admin.celebration.edit',['id'=>$celebration->id]) }}"
                                                class="btn btn-info btn-sm"> <i class="fas fa-pencil-alt"></i></a>
                                         </div>
                                         <div class="btn-group ">
-                                            <form action="{{ route('celebration.destroy',['id'=>$celebration->id]) }}"
+                                            <form action="{{ route('admin.celebration.destroy',['id'=>$celebration->id]) }}"
                                                   method="post"
                                                   onsubmit="if(confirm('Точно удалить?')){return true} else {return false}">
                                                 @csrf

@@ -56,7 +56,7 @@
                     <div class="card-header">
                         <h3 class="card-title">Таблица регионов, городов и районов</h3>
                         <div class="row">
-                            <form class="form-inline ml-3" action="{{route('region.index')}}">
+                            <form class="form-inline ml-3" action="{{route('admin.region.index')}}">
                                 <input class="form-control " name="search" type="search" placeholder="Поиск по имени..."
                                        aria-label="Search">
                                 <div class="input-group-append">
@@ -109,7 +109,7 @@
                                     <td class="text-center py-1 ">
                                         @if(($region->parent_id==0))
                                             <div class="btn-group ml-2 ">
-                                                <a href="{{ route('region.edit',['id'=>$region->id]) }}"
+                                                <a href="{{ route('admin.region.edit',['id'=>$region->id]) }}"
                                                    class="btn btn-info btn-sm"> <i class="fas fa-pencil-alt"></i></a>
                                             </div>
                                         @endif
@@ -117,7 +117,7 @@
                                             @foreach($categories as $cat)
                                                 @if($cat->id==$region->parent_id)
                                                     <div class="btn-group ml-2 ">
-                                                        <a href="{{ route('region.editCity',['id'=>$region->id]) }}"
+                                                        <a href="{{ route('admin.region.editCity',['id'=>$region->id]) }}"
                                                            class="btn btn-info btn-sm"> <i
                                                                 class="fas fa-pencil-alt"></i></a>
                                                     </div>
@@ -130,7 +130,7 @@
                                                 @foreach($cat->children($cat->id) as $item)
                                                     @if($item->id==$region->parent_id)
                                                         <div class="btn-group ml-2 ">
-                                                            <a href="{{ route('region.editDistrict',['id'=>$region->id]) }}"
+                                                            <a href="{{ route('admin.region.editDistrict',['id'=>$region->id]) }}"
                                                                class="btn btn-info btn-sm"> <i
                                                                     class="fas fa-pencil-alt"></i></a>
                                                         </div>
@@ -139,7 +139,7 @@
                                             @endforeach
                                         @endif
                                         <div class="btn-group ">
-                                            <form action="{{ route('region.destroy',['id'=>$region->id]) }}"
+                                            <form action="{{ route('admin.region.destroy',['id'=>$region->id]) }}"
                                                   method="post"
                                                   onsubmit="if(confirm('Точно удалить?')){return true} else {return false}">
                                                 @csrf

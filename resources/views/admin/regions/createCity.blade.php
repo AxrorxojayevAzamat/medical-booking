@@ -44,11 +44,11 @@
         <div class=" container card-header " align='center'><h3>Новый Город</h3></div>
         <div class="container card-header">
             <div class=" container" align='center'>
-                <form action="{{ route('region.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('admin.region.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @include('admin.regions.forms.createCityForms')
                     <button type="submit" class="btn btn-success btn-sm ml-1">Сохранить</button>
-                    <a href="{{ route('region.index') }}" class="btn btn-default btn-sm ml-1">Назад</a>
+                    <a href="{{ route('admin.region.index') }}" class="btn btn-default btn-sm ml-1">Назад</a>
                 </form>
             </div>
         </div>

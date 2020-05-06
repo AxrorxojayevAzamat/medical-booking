@@ -48,10 +48,10 @@
                         <div class="row">
                             <div class="card-tools "style="width:200px" >
                                 <div class="input-group input-group "  >
-                                    <a href="{{ route('clinic.create') }}" class="btn btn-success btn-sm ml-1">Добавить</a>
+                                    <a href="{{ route('admin.clinic.create') }}" class="btn btn-success btn-sm ml-1">Добавить</a>
                                 </div>
                             </div>
-                            <form class="form-inline " action="{{route('clinic.index')}}">
+                            <form class="form-inline " action="{{route('admin.clinic.index')}}">
                                 <div class="col-3-sm-2 ">
                                     <select id="typeClinic" class="form-control" name="typeClinic">
                                         <option hidden value="">Выберете тип</option>
@@ -102,15 +102,15 @@
                                     <td class="text-center py-1 ">
 
                                         <div class="btn-group  ">
-                                            <a href="{{ route('clinic.show',['id'=>$clinic->id]) }}"
+                                            <a href="{{ route('admin.clinic.show',['id'=>$clinic->id]) }}"
                                                class="btn btn-primary btn-sm"> <i class="fas fa-eye"></i></a>
                                         </div>
                                         <div class="btn-group  ">
-                                            <a href="{{ route('clinic.edit',['id'=>$clinic->id]) }}"
+                                            <a href="{{ route('admin.clinic.edit',['id'=>$clinic->id]) }}"
                                                class="btn btn-info btn-sm"> <i class="fas fa-pencil-alt"></i></a>
                                         </div>
                                         <div class="btn-group ">
-                                            <form action="{{ route('clinic.destroy',['id'=>$clinic->id]) }}"
+                                            <form action="{{ route('admin.clinic.destroy',['id'=>$clinic->id]) }}"
                                                   method="post"
                                                   onsubmit="if(confirm('Точно удалить?')){return true} else {return false}">
                                                 @csrf

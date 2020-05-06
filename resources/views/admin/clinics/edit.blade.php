@@ -44,12 +44,12 @@
         <div class="  card-header " align="center"><h3>Редактирование Клиники</h3></div>
         <div class=" card-header">
             <div  align='center'>
-                <form action="{{ route('clinic.update',['id'=>$clinics->id]) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('admin.clinic.update',['id'=>$clinics->id]) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
                     @include('admin.clinics.forms.editForms')
                     <button type="submit" class="btn btn-success btn-sm ml-1">Сохранить</button>
-                    <a href="{{ route('clinic.index') }}" class="btn btn-default btn-sm ml-1">Назад</a>
+                    <a href="{{ route('admin.clinic.index') }}" class="btn btn-default btn-sm ml-1">Назад</a>
                 </form>
             </div>
         </div>

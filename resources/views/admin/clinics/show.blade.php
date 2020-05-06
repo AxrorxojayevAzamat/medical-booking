@@ -45,11 +45,11 @@
 
                 <h3 class="card-title">Просмотр клиники</h3>
                 <div class="btn-group ml-3 ">
-                    <a href="{{ route('clinic.edit',['id'=>$clinic->id]) }}"
+                    <a href="{{ route('admin.clinic.edit',['id'=>$clinic->id]) }}"
                        class="btn btn-info btn-sm "><i class="fas fa-pencil-alt"></i></a>
                 </div>
                 <div class="btn-group ml-1">
-                    <form action="{{ route('clinic.destroy',['id'=>$clinic->id]) }}"
+                    <form action="{{ route('admin.clinic.destroy',['id'=>$clinic->id]) }}"
                           method="post"
                           onsubmit="if(confirm('Точно удалить?')){return true} else {return false}">
                         @csrf
@@ -60,7 +60,7 @@
                 </div>
                 <div class="card-tools">
                     <div class="input-group input-group" style="width: 80px; top: 6px " >
-                        <a href="{{ route('clinic.index') }}" class="btn btn-default btn-sm ml-1">Назад</a>
+                        <a href="{{ route('admin.clinic.index') }}" class="btn btn-default btn-sm ml-1">Назад</a>
                     </div>
                 </div>
         </div>

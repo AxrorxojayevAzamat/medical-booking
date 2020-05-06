@@ -44,11 +44,11 @@
         <div class="  card-header " align="center"><h3>Добавление праздничного дня</h3></div>
         <div class=" container card-header">
             <div class=" container" align='center'>
-                <form action="{{ route('celebration.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('admin.celebration.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @include('admin.celebrations.forms.Forms')
                     <button type="submit" class="btn btn-success btn-sm ml-1">Сохранить</button>
-                    <a href="{{ route('celebration.index') }}" class="btn btn-default btn-sm ml-1">Назад</a>
+                    <a href="{{ route('admin.celebration.index') }}" class="btn btn-default btn-sm ml-1">Назад</a>
                 </form>
             </div>
         </div>
