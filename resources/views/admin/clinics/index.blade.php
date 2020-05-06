@@ -52,19 +52,20 @@
                                 </div>
                             </div>
                             <form class="form-inline " action="{{route('admin.clinic.index')}}">
-                                <div class="col-3-sm-2 ">
-                                    <select id="typeClinic" class="form-control" name="typeClinic">
-                                        <option hidden value="">Выберете тип</option>
-                                        <option value="1" >Частная клиника</option>
-                                        <option value="2">Государственная поликлиника</option>
-                                    </select>
-                                </div>
-                                <input class="form-control ml-4" name="searchclinic" type="search"
+
+                                <input class="form-control " name="searchclinic" type="search"
                                        placeholder="Поиск по имени..."
                                        aria-label="Search">
                                 <div class="input-group-append">
                                     <button class="btn btn-secondary " type="submit"><i class="fas fa-search"></i>
                                     </button>
+                                </div>
+                                <div class="col-3-sm-2 ml-4">
+                                    <select id="typeClinic" class="form-control" name="typeClinic">
+                                        <option hidden value="">Выберете тип</option>
+                                        <option value="1" >Частная клиника</option>
+                                        <option value="2">Государственная поликлиника</option>
+                                    </select>
                                 </div>
 
                             </form>
