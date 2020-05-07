@@ -43,26 +43,26 @@
     <div class=" card col-md-10 offset-md-1">
         <div class="card-header ">
 
-                <h3 class="card-title">Просмотр клиники</h3>
-                <div class="btn-group ml-3 ">
-                    <a href="{{ route('admin.clinic.edit',['id'=>$clinic->id]) }}"
-                       class="btn btn-info btn-sm "><i class="fas fa-pencil-alt"></i></a>
+            <h3 class="card-title">Просмотр клиники</h3>
+            <div class="btn-group ml-3 ">
+                <a href="{{ route('admin.clinic.edit',['id'=>$clinic->id]) }}"
+                   class="btn btn-info btn-sm "><i class="fas fa-pencil-alt"></i></a>
+            </div>
+            <div class="btn-group ml-1">
+                <form action="{{ route('admin.clinic.destroy',['id'=>$clinic->id]) }}"
+                      method="post"
+                      onsubmit="if(confirm('Точно удалить?')){return true} else {return false}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm "><i
+                            class="fas fa-trash-alt"></i></button>
+                </form>
+            </div>
+            <div class="card-tools">
+                <div class="input-group input-group" style="width: 80px; top: 6px ">
+                    <a href="{{ route('admin.clinic.index') }}" class="btn btn-default btn-sm ml-1">Назад</a>
                 </div>
-                <div class="btn-group ml-1">
-                    <form action="{{ route('admin.clinic.destroy',['id'=>$clinic->id]) }}"
-                          method="post"
-                          onsubmit="if(confirm('Точно удалить?')){return true} else {return false}">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm "><i
-                                class="fas fa-trash-alt"></i></button>
-                    </form>
-                </div>
-                <div class="card-tools">
-                    <div class="input-group input-group" style="width: 80px; top: 6px " >
-                        <a href="{{ route('admin.clinic.index') }}" class="btn btn-default btn-sm ml-1">Назад</a>
-                    </div>
-                </div>
+            </div>
         </div>
 
         <div align='center'>
@@ -169,6 +169,17 @@
                         <div class="col-sm-6 form-control">
                             {{  $clinic->location}}
                         </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="inputEmail3" class=" col-sm-5 col-form-label ">Фотография клиники </label>
+                        @if( !empty($clinic->photo))
+                            <div class="text-center">
+                                    <img class="card-img-top"
+                                         src="/uploads/photo_clinics/{{ $clinic->photo }}"
+                                         alt="Фотография клиники">
+                            </div>
+                        @endif
                     </div>
 
                 </div>

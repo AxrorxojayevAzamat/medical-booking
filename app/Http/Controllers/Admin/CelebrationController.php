@@ -49,7 +49,7 @@ class CelebrationController extends Controller
         $celebrations->name = $request->celebration_name;
         $celebrations->save();
 
-        return redirect()->route('celebration.index')->with('success', 'Успешно!');
+        return redirect()->route('admin.celebration.index')->with('success', 'Успешно!');
     }
 
 
@@ -81,7 +81,7 @@ class CelebrationController extends Controller
         $celebrations->update();
         $id = $celebrations->id;
 
-        return redirect()->route('celebration.index', compact('id'))->with('success', 'Отредактировано!');
+        return redirect()->route('admin.celebration.index', compact('id'))->with('success', 'Отредактировано!');
     }
 
     /**
@@ -94,6 +94,6 @@ class CelebrationController extends Controller
     {
         $celebrations = Celebration::find($id);
         $celebrations->delete();
-        return redirect()->route('celebration.index')->with('success', 'Удалено!');
+        return redirect()->route('admin.celebration.index')->with('success', 'Удалено!');
     }
 }

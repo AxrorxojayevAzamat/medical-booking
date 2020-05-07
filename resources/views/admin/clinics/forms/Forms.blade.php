@@ -116,10 +116,22 @@
             </div>
         </div>
 
+
+        <div class="form-group row">
+            <label for="inputEmail3" class=" col-sm-5 col-form-label ">Фотография клиники </label>
+            <div class="input-group col-sm-6">
+                <div class="custom-file ">
+                    <input type="file"  class="custom-file-input" name="images[]" accept=".jpg, .jpeg, .png" multiple>
+                    <label class="custom-file-label" for="images[]">{{ __('Выберите файл') }}</label>
+                </div>
+                <div class="input-group-append">
+                    <span class="input-group-text" id="">{{ __('Загрузить') }}</span>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </div>
 
-{{--                <input name="work_time" id="work_time" type="text" class="form-control timepicker"--}}
-{{--                       data-inputmask="&quot;mask&quot;: &quot;99:99-99:99&quot;" data-mask="" im-insert="true"--}}
-{{--                       value="{{ old('work_time')?? $clinics->work_time ??''}}" required>--}}
+

@@ -46,7 +46,7 @@
         <div class="  card-header " align="center"><h3>Добавление Новой Клиники</h3></div>
         <div class=" card-header">
             <div  align='center'>
-                <form action="{{ route('admin.clinic.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('admin.clinic.store') }}" method="post" enctype="multipart/form-data" id="upload">
                     @csrf
                     @include('admin.clinics.forms.Forms')
                     <button type="submit" class="btn btn-success btn-sm ml-1">Сохранить</button>

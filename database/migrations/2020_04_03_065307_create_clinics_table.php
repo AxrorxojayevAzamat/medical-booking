@@ -27,6 +27,8 @@ class CreateClinicsTable extends Migration
             $table->string('work_time_start')->nullable();
             $table->string('work_time_end')->nullable();
             $table->string('location')->nullable();
+            $table->string('photo')->nullable();
+
             $table->timestamps();
         });
         Schema::table('clinics', function (Blueprint $table) {

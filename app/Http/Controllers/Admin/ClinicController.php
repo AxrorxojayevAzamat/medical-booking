@@ -7,9 +7,14 @@ use App\Clinic;
 use App\Http\Requests\ClinicRequest;
 use App\Region;
 use Illuminate\Http\Request;
+use App\Traits\UploadTrait;
+use Illuminate\Support\Str;
 
 class ClinicController extends Controller
 {
+
+    use UploadTrait;
+
     /**
      * Show the form for indexing a new resource.
      *
@@ -35,7 +40,6 @@ class ClinicController extends Controller
         }
         $clinics = $query->paginate(1000);
         return view('admin.clinics.index', compact('clinics'));
-
     }
 
     /**
@@ -47,7 +51,6 @@ class ClinicController extends Controller
     {
         $regions = Region::all();
         return view('admin.clinics.create', compact('regions'));
-
     }
 
 
@@ -72,17 +75,31 @@ class ClinicController extends Controller
         $clinics->work_time_start = $request->work_time_start;
         $clinics->work_time_end = $request->work_time_end;
         $clinics->location = $request->location;
+
+
+        $folder = Clinic::CLINIC_PROFILE;
+        $photo = $request->file('photo');
+        if ($request->hasfile('photo')) {
+            $this->deleteOne($folder, 'public', $clinics->photo);
+            $filename = Str::slug($clinics->name_ru) . '_' . time();
+            $this->uploadOne($photo, $folder, 'public', $filename);
+            $filePath = $filename . '.' . $photo->getClientOriginalExtension();
+
+            $clinics->photo = $filePath;
+        }
+
         $clinics->save();
 
-        return redirect()->route('clinic.index')->with('success', 'Успешно!');
+        return redirect()->route('admin.clinic.index')->with('success', 'Успешно!');
     }
 
 
     public function show($id)
     {
         $clinic = Clinic::find($id);
-        $regions=Region::all();
-        return view('admin.clinics.show', compact('clinic','regions'));
+        $clinics = Clinic::all();
+        $regions = Region::all();
+        return view('admin.clinics.show', compact('clinic', 'regions', 'clinics'));
     }
 
 
@@ -95,8 +112,8 @@ class ClinicController extends Controller
     public function edit($id)
     {
         $clinics = Clinic::find($id);
-        $regions=Region::all();
-        return view('admin.clinics.edit', compact('clinics','regions'));
+        $regions = Region::all();
+        return view('admin.clinics.edit', compact('clinics', 'regions'));
     }
 
 
@@ -124,10 +141,38 @@ class ClinicController extends Controller
         $clinics->work_time_start = $request->work_time_start;
         $clinics->work_time_end = $request->work_time_end;
         $clinics->location = $request->location;
+
+
+//        if ($request->hasfile('photo')) {
+//
+//            foreach ($request->file('photo') as $p) {
+//
+//                $filename = Str::slug($clinics->name_ru) . '_' . time();
+//                $p->move(public_path() . '/uploads/photo_clinics', $filename);
+//                $filePath = $filename . '.' . $p->getClientOriginalExtension();
+//                $clinics->photo = json_encode($filePath);
+//            }
+//        }
+
+        $folder = Clinic::CLINIC_PROFILE;
+        $images = $request->file('images');
+        if ($request->hasfile('images')) {
+
+            foreach ($images as $image) {
+
+                $filename = Str::slug($clinics->name_ru) . '_' . time();
+                $this->uploadOne($image, $folder, 'public', $filename);
+                $filePath[] = $filename . '.' . $image->getClientOriginalExtension();
+
+            }
+            $clinics->photo = json_encode($filePath);
+        }
+
+
         $clinics->update();
         $id = $clinics->id;
 
-        return redirect()->route('clinic.index', compact('id'))->with('success', 'Отредактировано!');
+        return redirect()->route('admin.clinic.index', compact('id'))->with('success', 'Отредактировано!');
     }
 
     /**
@@ -140,6 +185,6 @@ class ClinicController extends Controller
     {
         $clinics = Clinic::find($id);
         $clinics->delete();
-        return redirect()->route('clinic.index')->with('success', 'Удалено!');
+        return redirect()->route('admin.clinic.index')->with('success', 'Удалено!');
     }
 }

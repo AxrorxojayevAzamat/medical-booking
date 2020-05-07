@@ -87,7 +87,7 @@ class RegionController extends Controller
         $regions->save();
 
 
-        return redirect()->route('region.index')->with('success', 'Успешно!');
+        return redirect()->route('admin.region.index')->with('success', 'Успешно!');
     }
 
 
@@ -137,7 +137,7 @@ class RegionController extends Controller
         $regions->update();
         $id = $regions->id;
 
-        return redirect()->route('region.index', compact('id'))->with('success', 'Отредактировано!');
+        return redirect()->route('admin.region.index', compact('id'))->with('success', 'Отредактировано!');
     }
 
     /**
@@ -152,10 +152,10 @@ class RegionController extends Controller
         $all = Region::all();
         foreach ($all as $a) {
             if ($regions->id == $a->parent_id)
-                return redirect()->route('region.index')->with('dangerous', 'Нельзя удалить!');
+                return redirect()->route('admin.region.index')->with('dangerous', 'Нельзя удалить!');
         }
 
         $regions->delete();
-        return redirect()->route('region.index')->with('success', 'Удалено!');
+        return redirect()->route('admin.region.index')->with('success', 'Удалено!');
     }
 }
