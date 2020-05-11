@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Celebration;
+
 class CelebrationSeed extends Seeder
 {
     /**
