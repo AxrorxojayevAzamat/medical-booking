@@ -120,15 +120,15 @@
         <div class="form-group row">
             <label for="inputEmail3" class=" col-sm-5 col-form-label ">Фотография клиники </label>
             <div class="input-group col-sm-6">
-                <div class="custom-file ">
-                    <input type="file"  class="custom-file-input" name="images[]" accept=".jpg, .jpeg, .png" multiple>
-                    <label class="custom-file-label" for="images[]">{{ __('Выберите файл') }}</label>
+                    <?php foreach (json_decode($clinics->photo)as $picture) { ?>
+                        <img src="/uploads/photo_clinics/{{$picture }}"/>
+                    <?php } ?>
+                    
+                    <div class="file-loading">
+                        <input id="input-id" type="file" class="file" multiple data-preview-file-type="text" name = "images[]" data-show-upload="false" accept="jpg|jpeg|pdf|png" data-allowed-file-extensions='["jpg", "jpeg","pdf", "png"]'>
                 </div>
-                <div class="input-group-append">
-                    <span class="input-group-text" id="">{{ __('Загрузить') }}</span>
                 </div>
             </div>
-        </div>
 
     </div>
 </div>

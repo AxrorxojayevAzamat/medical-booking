@@ -10,8 +10,7 @@ use Illuminate\Http\Request;
 use App\Traits\UploadTrait;
 use Illuminate\Support\Str;
 
-class ClinicController extends Controller
-{
+class ClinicController extends Controller {
 
     use UploadTrait;
 
@@ -21,8 +20,7 @@ class ClinicController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         $query = Clinic::orderBy('id');
 
         $this->validate($request, [
@@ -31,8 +29,7 @@ class ClinicController extends Controller
 
         if (!empty($value = $request->get('searchclinic'))) {
             $query->where('name_uz', 'ILIKE', '%' . $value . '%')
-                ->orWhere('name_ru', 'ILIKE', '%' . $value . '%');
-
+                    ->orWhere('name_ru', 'ILIKE', '%' . $value . '%');
         }
 
         if (!empty($value = $request->get('typeClinic'))) {
@@ -47,12 +44,10 @@ class ClinicController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
-    {
+    public function create() {
         $regions = Region::all();
         return view('admin.clinics.create', compact('regions'));
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -60,8 +55,7 @@ class ClinicController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function store(ClinicRequest $request)
-    {
+    public function store(ClinicRequest $request) {
         $clinics = new Clinic();
         $clinics->name_uz = $request->name_uz;
         $clinics->name_ru = $request->name_ru;
@@ -78,30 +72,28 @@ class ClinicController extends Controller
 
 
         $folder = Clinic::CLINIC_PROFILE;
-        $photo = $request->file('photo');
-        if ($request->hasfile('photo')) {
-            $this->deleteOne($folder, 'public', $clinics->photo);
-            $filename = Str::slug($clinics->name_ru) . '_' . time();
-            $this->uploadOne($photo, $folder, 'public', $filename);
-            $filePath = $filename . '.' . $photo->getClientOriginalExtension();
-
-            $clinics->photo = $filePath;
+        $photos = $request->file('images');
+        if ($request->hasFile('images')) {
+            foreach ($photos as $photo) {
+                $this->deleteOne($folder, 'public', $clinics->photo);
+                $filename = uniqid() . '_' . trim($photo->getClientOriginalName());
+                $this->uploadOne($photo, $folder, 'public', $filename);
+                $filePath = $filename;
+                $data[] = $filePath;
+            }
         }
-
+        $clinics->photo = json_encode($data);
         $clinics->save();
 
         return redirect()->route('admin.clinic.index')->with('success', 'Успешно!');
     }
 
-
-    public function show($id)
-    {
+    public function show($id) {
         $clinic = Clinic::find($id);
         $clinics = Clinic::all();
         $regions = Region::all();
         return view('admin.clinics.show', compact('clinic', 'regions', 'clinics'));
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -109,13 +101,11 @@ class ClinicController extends Controller
      * @param int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $clinics = Clinic::find($id);
         $regions = Region::all();
         return view('admin.clinics.edit', compact('clinics', 'regions'));
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -124,8 +114,7 @@ class ClinicController extends Controller
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(ClinicRequest $request, $id)
-    {
+    public function update(ClinicRequest $request, $id) {
 
         $clinics = Clinic::find($id);
 
@@ -163,7 +152,6 @@ class ClinicController extends Controller
                 $filename = Str::slug($clinics->name_ru) . '_' . time();
                 $this->uploadOne($image, $folder, 'public', $filename);
                 $filePath[] = $filename . '.' . $image->getClientOriginalExtension();
-
             }
             $clinics->photo = json_encode($filePath);
         }
@@ -181,10 +169,16 @@ class ClinicController extends Controller
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
+        $folder = Clinic::CLINIC_PROFILE;
         $clinics = Clinic::find($id);
+        $photos = json_decode($clinics->photo);
+        foreach ($photos as $photo) {
+            $this->deleteOne($folder, 'public', $photo);
+        }
         $clinics->delete();
+
         return redirect()->route('admin.clinic.index')->with('success', 'Удалено!');
     }
+
 }

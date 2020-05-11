@@ -175,9 +175,9 @@
                         <label for="inputEmail3" class=" col-sm-5 col-form-label ">Фотография клиники </label>
                         @if( !empty($clinic->photo))
                             <div class="text-center">
-                                    <img class="card-img-top"
-                                         src="/uploads/photo_clinics/{{ $clinic->photo }}"
-                                         alt="Фотография клиники">
+                                <?php foreach (json_decode($clinic->photo)as $picture) { ?>
+                                    <img src="/uploads/photo_clinics/{{$picture }}"/>
+                                <?php } ?>
                             </div>
                         @endif
                     </div>
