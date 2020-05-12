@@ -13,7 +13,7 @@ class TimeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class TimeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+           'scheduleType'=>'required|in:1,2,3|numeric',
+           'monday_start'=>'bail|required',
         ];
     }
 }

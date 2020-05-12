@@ -194,8 +194,10 @@
 
                             <div class="container table">
                                 clinic
-                                @if ($time != null)
-                                    @if($time->scheduleType == 1)
+                                @if ($timetable)
+                                @foreach($timetable as $time)
+                                @endforeach
+                                @if($time->scheduleType == 1)
                                         <table class="table table-hover text-nowrap">
                                             <thead>
                                             <tr>

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Timetable;
 use App\User;
+use App\Timetable;
 use Illuminate\Http\Request;
+use App\Http\Requests\TimeRequest;
 use Illuminate\Support\Facades\Auth;
 
 class TimeTableController extends Controller
@@ -39,7 +40,6 @@ class TimeTableController extends Controller
      */
     public function store(Request $request)
     {
-
         $time = new Timetable();
         $time->doctor_id = $request->input('id');
         $time->clinic_id = $request->input('clinic_id');
@@ -47,6 +47,7 @@ class TimeTableController extends Controller
         $time->interval = $request->interval;
         $time->monday_start = $request->monday_start;
         $time->monday_end = $request->monday_end;
+        
         $time->tuesday_start = $request->tuesday_start;
         $time->tuesday_end = $request->tuesday_end;
         $time->wednesday_start = $request->wednesday_start;
