@@ -7,8 +7,6 @@ use App\Http\Requests\RegionRequest;
 use App\Region;
 use Illuminate\Http\Request;
 
-
-
 class RegionController extends Controller
 {
     /**
@@ -26,7 +24,6 @@ class RegionController extends Controller
                 ->orWhere('name_ru', 'ILIKE', '%' . $request->search . '%')
                 ->get();
             return view('admin.regions.index', compact('regions', 'categories'));
-
         }
 
 
@@ -34,8 +31,6 @@ class RegionController extends Controller
         $regions = Region::orderBy('regions.id', 'asc')
             ->paginate(1000000);
         return view('admin.regions.index', compact('regions', 'categories'));
-
-
     }
 
     /**
@@ -56,7 +51,6 @@ class RegionController extends Controller
 
     public function createDistrict()
     {
-
         $categories = Region::children(null);
         return view('admin.regions.createDistrict', compact('categories'));
     }
@@ -64,7 +58,6 @@ class RegionController extends Controller
 
     public function findCity($id)
     {
-
         $city = Region::where('parent_id', $id)->pluck('name_ru', 'id');
         return json_encode($city);
     }
@@ -87,7 +80,7 @@ class RegionController extends Controller
         $regions->save();
 
 
-        return redirect()->route('region.index')->with('success', 'Успешно!');
+        return redirect()->route('admin.region.index')->with('success', 'Успешно!');
     }
 
 
@@ -116,7 +109,7 @@ class RegionController extends Controller
         $reg=Region::all();
         $categories = Region::children(null);
         $regions = Region::find($id);
-        return view('admin.regions.editDistrict', compact('regions', 'categories','reg'));
+        return view('admin.regions.editDistrict', compact('regions', 'categories', 'reg'));
     }
 
     /**
@@ -128,7 +121,6 @@ class RegionController extends Controller
      */
     public function update(RegionRequest $request, $id)
     {
-
         $regions = Region::find($id);
 
         $regions->parent_id = $request->region;
@@ -137,7 +129,7 @@ class RegionController extends Controller
         $regions->update();
         $id = $regions->id;
 
-        return redirect()->route('region.index', compact('id'))->with('success', 'Отредактировано!');
+        return redirect()->route('admin.region.index', compact('id'))->with('success', 'Отредактировано!');
     }
 
     /**
@@ -151,11 +143,12 @@ class RegionController extends Controller
         $regions = Region::find($id);
         $all = Region::all();
         foreach ($all as $a) {
-            if ($regions->id == $a->parent_id)
-                return redirect()->route('region.index')->with('dangerous', 'Нельзя удалить!');
+            if ($regions->id == $a->parent_id) {
+                return redirect()->route('admin.region.index')->with('dangerous', 'Нельзя удалить!');
+            }
         }
 
         $regions->delete();
-        return redirect()->route('region.index')->with('success', 'Удалено!');
+        return redirect()->route('admin.region.index')->with('success', 'Удалено!');
     }
 }
