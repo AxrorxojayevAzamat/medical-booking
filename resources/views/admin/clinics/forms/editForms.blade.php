@@ -116,7 +116,11 @@
             </div>
         </div>
 
-
+        <label for="input-24">Planets and Satellites</label>
+        <div class="file-loading">
+            <input id="input-24" name="input24[]" type="file" multiple>
+        </div>
+       
         <div class="form-group row">
             <label for="inputEmail3" class=" col-sm-5 col-form-label ">Фотография клиники </label>
             <div class="input-group col-sm-6">

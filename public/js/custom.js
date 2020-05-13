@@ -100,11 +100,28 @@ $(document).ready(function () {
 $('#timepickerstart').datetimepicker({
     use24hours: true,
     format: 'HH:mm'
-})
+});
 
 $('#timepickerend').datetimepicker({
     use24hours: true,
     format: 'HH:mm'
-})
+});
 
 ///////////  for validation time
+
+$(document).ready(function() {
+  var url1 = 'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/631px-FullMoon2010.jpg',
+      url2 = 'http://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Earth_Eastern_Hemisphere.jpg/600px-Earth_Eastern_Hemisphere.jpg';
+  $("#input-24").fileinput({
+      initialPreview: [url1, url2],
+      initialPreviewAsData: true,
+      initialPreviewConfig: [
+          {caption: "Moon.jpg", downloadUrl: url1, size: 930321, width: "120px", key: 1},
+          {caption: "Earth.jpg", downloadUrl: url2, size: 1218822, width: "120px", key: 2}
+      ],
+      deleteUrl: "/site/file-delete",
+      overwriteInitial: false,
+      maxFileSize: 100,
+      initialCaption: "The Moon and the Earth"
+  });
+});
