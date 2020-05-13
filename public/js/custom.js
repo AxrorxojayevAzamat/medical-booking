@@ -7,10 +7,6 @@ $(function () {
         theme: 'bootstrap4'
       })
 
-      $(document).ready(function () {
-        bsCustomFileInput.init();
-      });
-
       //Datemask dd/mm/yyyy
       $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
       //Datemask2 mm/dd/yyyy
@@ -56,10 +52,10 @@ $(function () {
       //Bootstrap Duallistbox
       $('.duallistbox').bootstrapDualListbox()
 
-      //Colorpicker
-      $('.my-colorpicker1').colorpicker()
-      //color picker with addon
-      $('.my-colorpicker2').colorpicker()
+//      //Colorpicker
+//      $('.my-colorpicker1').colorpicker()
+//      //color picker with addon
+//      $('.my-colorpicker2').colorpicker()
 
       $('.my-colorpicker2').on('colorpickerChange', function(event) {
         $('.my-colorpicker2 .fa-square').css('color', event.color.toString());

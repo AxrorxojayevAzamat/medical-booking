@@ -25,6 +25,8 @@ Route::get('/test', function () {
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('admin/callcenter/', 'Admin\CallCenter\CallCenterController@index')->name('admin.callcenter.index');
+Route::post('admin/callcenter/fetch', 'Admin\CallCenter\CallCenterController@index')->name('admin.callcenter.fetch');
 Route::group(
     [
         'middleware' => ['auth', 'can:user-manage'],
