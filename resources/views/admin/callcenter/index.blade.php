@@ -1,15 +1,15 @@
 @extends('adminlte::page')
-@section('title','Пользователи')
+@section('title','AdminCallCenter')
 @section('content_header')
 <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1>{{ __('Пользователи') }}</h1>
+            <h1>{{ __('AdminCallCenter') }}</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route("home") }}">{{ __('Главная') }} </a></li>
-                <li class="breadcrumb-item active">{{ __('Пользователи') }}</li>
+                <li class="breadcrumb-item active">{{ __('AdminCallCenter') }}</li>
             </ol>
         </div>
     </div>
@@ -21,33 +21,54 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-footer">
-                    <a class="btn btn-success" href="{{ route("admin.users.create") }}">{{ __('Добавить') }} </a> 
-                </div>
-
                 <!-- /.card-header -->
                 <div class="card-body">
                     <div class="card-body">
                         <form action="?" method="GET">
                             <div class="row">
-                                <div class="col-sm-1">
+                                <div class="col-2">
                                     <div class="form-group">
-                                        <label for="city" class="col-form-label">{{ __('Город') }}</label>
-                                        <select name="city" id="city" class="form-control input-lg dynamic" data-dependant='city' >
-                                            <option value="">Shaxarni Tanla</option>
-                                            @foreach ($cities as $value)
-                                            <option value="{{ $value->name_ru}}">{{ $value->name_ru }}</option>
+                                        <label for="type" class="col-form-label">{{ __('Регион') }}</label>
+                                        <select class="form-control" name="reg1" id="reg1" required>
+                                            <option></option>
+                                            @foreach($categories as $cat)
+                                            <option value="{{$cat->id}}">{{$cat->name_ru}}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    </br>
+                                </div>
+
+
+                                <div class="col-2">
                                     <div class="form-group">
-                                        <label for="district" class="col-form-label">{{ __('Tuman') }}</label>
-                                        <select name="district" id="district" class="form-control input-lg dynamic" data-dependant='district' >
-                                            <option value="">Tumanni Tanla</option>
+                                        <label for="district" class="col-form-label">{{ __('Город') }}</label>
+                                        <select class="form-control" name="region" id="reg1" required>
+                                            <option disabled>{{ __('Выберете регион сначала') }}</option>
+                                        </select>
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="type" class="col-form-label">{{ __('Тип клиники ') }}</label>
+                                        <select id="type" class="form-control @error('status') is-invalid @enderror" name="type" value="{{ old('status') }}" required autocomplete="type" autofocus>
+                                            <option value="" selected=""></option>
+                                            @foreach ($clinicTypeList as $value => $label)
+                                            <option value="{{ $value }}"{{ $value === request('type') ? ' selected' : '' }}>{{ $label }}</option>
+                                            @endforeach;
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="clinic" class="col-form-label">{{ __('Название ЧК/ГП') }}</label>
+                                        <select class="form-control" name="clinic" id="type" required>
+                                            <option disabled>{{ __('Выберете Тип клиники сначала') }}</option>
+                                        </select>
+                                        <label></label>
+                                    </div>
+                                </div>                         
+
                                 <div class="col-sm-1">
                                     <div class="form-group">
                                         <label class="col-form-label">&nbsp;</label><br />
@@ -56,56 +77,28 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
+                    </div>  
 
                     <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                         <thead>
                             <tr role="row">
-                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending";>{{ __('ID') }}</th>
-                                <th>{{ __('Имя') }}</th>
-                                <th>{{ __('Фамилия') }}</th>
-                                <th>{{ __('Телефон') }}</th>
-                                <th>{{ __('Email') }}</th>
-                                <th>{{ __('Роль') }}</th>
-                                <th>{{ __('Статус') }}</th>
-                                <th style="width: 15%"></th>
+                                <th>{{ __('Направление') }}</th>
+                                <th>{{ __('Врач') }}</th>
+                                <th>{{ __('Клиника') }}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
+                            @foreach ($clinics as $clinic)
+                            @foreach ($clinic->users as $user)
+                            @foreach ($user->specializations as $spec)
                             <tr>
-                                <td>{{$user->id}}</td>
+                                <td>{{$spec->name_ru}}</td>
+                                <td>{{$clinic->name_uz}}</td>
                                 <td>{{$user->name}}</td>
-                                <td>{{$user->lastname}}</td>
-                                <td>{{$user->phone}}</td>
-                                <td>{{$user->email}}</td>
-                                <td class="project-actions text-right">
-                                    <div class="btn-group">
-                                        <a class="btn btn-primary btn-sm" href="{{ route('admin.users.show',$user->id)}}">
-                                            <i class="fas fa-eye">
-                                            </i>
 
-                                        </a>
-                                    </div>
-                                    <div class="btn-group">
-                                        <a class="btn btn-info btn-sm" href="{{ route('admin.users.edit',$user->id)}}">
-                                            <i class="fas fa-pencil-alt">
-                                            </i>
-
-                                        </a>
-                                    </div>
-                                    <div class="btn-group">
-                                        <form action="{{ route('admin.users.destroy', $user->id)}}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Вы уверены?')">
-                                                <i class="fas fa-trash">
-                                                </i>
-                                            </button>
-                                        </form> 
-                                    </div>
-                                </td>
                             </tr>
+                            @endforeach
+                            @endforeach
                             @endforeach
                         </tbody>
                     </table>
@@ -118,23 +111,4 @@
         <!-- /.col -->
     </div>
     <!-- /.row -->
-    @stop
-    @section('script')
-    $('dynamic').change(function(){
-        if($(this).val() != ''){
-        var select = $(this).attr("id");
-        var value = $(this).val();
-        var dependent = $(this).data('dependent');
-        var_token = $('input[name="_token"]').val();
-        $.ajax({
-            url:"{{ route('admin.callcenter.fetch') }}",
-            method:"POST",
-            data:{select:select,value:value,_token:_token,dependent:dependent},
-            success:function(result){
-                $('#'+dependent).html(result);
-            }
-        })
-        }
-    }    )
-    
-    @stop
+    @stop  
