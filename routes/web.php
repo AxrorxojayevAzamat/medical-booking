@@ -3,35 +3,22 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/*
-  |--------------------------------------------------------------------------
-  | Web Routes
-  |--------------------------------------------------------------------------
-  |
-  | Here is where you can register web routes for your application. These
-  | routes are loaded by the RouteServiceProvider within a group which
-  | contains the "web" middleware group. Now create something great!
-  |
- */
-
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', function () {
-    return view('test');
-});
-
-Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('admin/callcenter/', 'Admin\CallCenter\CallCenterController@index')->name('admin.callcenter.index');
+//Route::post('admin/callcenter/fetch', 'Admin\CallCenter\CallCenterController@index')->name('admin.callcenter.fetch');
+
 Route::group(
     [
-        'middleware' => ['auth', 'can:user-manage'],
-        'prefix' => 'admin',
-        'namespace' => 'Admin',
-        'as' => 'admin.',
-    ],
+            'middleware' => ['auth', 'can:user-manage'],
+            'prefix' => 'admin',
+            'namespace' => 'Admin',
+            'as' => 'admin.',
+        ],
     function () {
         Route::resource('users', 'UserController');
         Route::post('users/{user}/specialization', 'UserController@specialization')->name('users.specialization');
@@ -40,17 +27,16 @@ Route::group(
         Route::get('users/{user}/additionalForClinic', 'UserController@additionalForClinic')->name('users.additionalForClinic');
         Route::resource('specializations', 'SpecializationController');
         Route::resource('clinics', 'ClinicController');
-
     }
 );
 
 Route::group(
     [
-        'middleware' => ['auth'],
-        'namespace' => 'Admin',
-        'prefix' => 'admin',
-        'as' => 'admin.',
-    ],
+            'middleware' => ['auth'],
+            'namespace' => 'Admin',
+            'prefix' => 'admin',
+            'as' => 'admin.',
+        ],
     function () {
         Route::get('celebration/', 'CelebrationController@index');
         Route::get('celebration/', 'CelebrationController@index')->name('celebration.index');
@@ -64,11 +50,11 @@ Route::group(
 
 Route::group(
     [
-        'middleware' => ['auth'],
-        'namespace' => 'Admin',
-        'prefix' => 'admin',
-        'as' => 'admin.',
-    ],
+            'middleware' => ['auth'],
+            'namespace' => 'Admin',
+            'prefix' => 'admin',
+            'as' => 'admin.',
+        ],
     function () {
         Route::get('region/', 'RegionController@index');
         Route::get('region/', 'RegionController@index')->name('region.index');
@@ -87,19 +73,25 @@ Route::group(
 
 Route::group(
     [
-        'middleware' => ['auth'],
-        'namespace' => 'Admin',
-        'prefix' => 'admin',
-        'as' => 'admin.',
-    ],
+            'middleware' => ['auth'],
+            'namespace' => 'Admin',
+            'prefix' => 'admin',
+            'as' => 'admin.clinic',
+        ],
     function () {
-        Route::get('clinic/', 'ClinicController@index');
-        Route::get('clinic/', 'ClinicController@index')->name('clinic.index');
-        Route::get('clinic/show/{id}', 'ClinicController@show')->name('clinic.show');
-        Route::get('clinic/create', 'ClinicController@create')->name('clinic.create');
-        Route::post('clinic/', 'ClinicController@store')->name('clinic.store');
-        Route::get('clinic/edit/{id}', 'ClinicController@edit')->name('clinic.edit');
-        Route::patch('clinic/show/{id}', 'ClinicController@update')->name('clinic.update');
-        Route::delete('clinic/{id}', 'ClinicController@destroy')->name('clinic.destroy');
+        //Route::get('clinic/', 'ClinicController@index');
+        Route::get('clinic/', 'ClinicController@index')->name('index');
+        Route::get('clinic/show/{id}', 'ClinicController@show')->name('show');
+        Route::get('clinic/create', 'ClinicController@create')->name('create');
+        Route::post('clinic/', 'ClinicController@store')->name('store');
+        Route::get('clinic/edit/{id}', 'ClinicController@edit')->name('edit');
+        Route::patch('clinic/show/{id}', 'ClinicController@update')->name('update');
+        Route::delete('clinic/{id}', 'ClinicController@destroy')->name('destroy');
+        
+        Route::get('main-photo', 'ClinicController@mainPhoto')->name('main-photo');
+        Route::get('add-main-photo', 'ClinicController@addMainPhoto')->name('add-main-photo');
     }
 );
+
+Route::get('admin/callcenter/findCity1/{id}', 'Admin\CallCenter\CallCenterController@findCity1');
+Route::get('admin/callcenter/findClinicByType/{id}/{region_id}', 'Admin\CallCenter\CallCenterController@findClinicByType');

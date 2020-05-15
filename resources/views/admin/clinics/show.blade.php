@@ -70,7 +70,6 @@
                             {{ $clinic->name_uz }}
                         </div>
                     </div>
-`
                     <div class="form-group row">
                         <label for="inputEmail3" class=" col-sm-5 col-form-label ">Название
                             клиники(русское) </label>
