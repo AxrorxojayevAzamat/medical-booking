@@ -7,8 +7,8 @@
                 <div class="col-sm-6">
                     <h1>Клиники</h1>
                 </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
+                <div class="col-12">
+                    <ol class="breadcrumb float-sm-left">
                         <li class="breadcrumb-item"><a href="http://localhost:8081/home">Главная </a></li>
                         <li class="breadcrumb-item"><a href="http://localhost:8081/clinic">Список клиник</a></li>
                         <li class="breadcrumb-item active">Просмотр</li>
@@ -39,29 +39,22 @@
         </div>
 
     @endif
+    
+
 
     <div class=" card col-md-10 offset-md-1">
         <div class="card-header ">
-
-            <h3 class="card-title">Просмотр клиники</h3>
-            <div class="btn-group ml-3 ">
-                <a href="{{ route('admin.clinic.edit',['id'=>$clinic->id]) }}"
-                   class="btn btn-info btn-sm "><i class="fas fa-pencil-alt"></i></a>
-            </div>
-            <div class="btn-group ml-1">
-                <form action="{{ route('admin.clinic.destroy',['id'=>$clinic->id]) }}"
-                      method="post"
-                      onsubmit="if(confirm('Точно удалить?')){return true} else {return false}">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm "><i
-                            class="fas fa-trash-alt"></i></button>
+            <div class="d-flex flex-row mb-3">
+                <a href="{{ route('admin.clinic.edit',['id'=>$clinic->id]) }}" class="btn btn-primary mr-1">Редактировать</a>
+                
+                <a href="" class="btn btn-dark mr-1">Добавить фотографии</a>
+                
+                <form action="{{ route('admin.clinic.destroy',['id'=>$clinic->id]) }}" method="post">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="btn btn-danger" onclick="return confirm('Хотите удалить?')" >Удалить</button>
                 </form>
-            </div>
-            <div class="card-tools">
-                <div class="input-group input-group" style="width: 80px; top: 6px ">
-                    <a href="{{ route('admin.clinic.index') }}" class="btn btn-default btn-sm ml-1">Назад</a>
-                </div>
+
             </div>
         </div>
 
@@ -77,7 +70,7 @@
                             {{ $clinic->name_uz }}
                         </div>
                     </div>
-
+`
                     <div class="form-group row">
                         <label for="inputEmail3" class=" col-sm-5 col-form-label ">Название
                             клиники(русское) </label>
