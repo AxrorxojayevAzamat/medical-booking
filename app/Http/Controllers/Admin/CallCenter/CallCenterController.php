@@ -15,7 +15,8 @@ use Illuminate\Http\Request;
 class CallCenterController extends Controller {
 
     public function index(Request $request) {
-        $query = Clinic::orderBy('id');
+//        $query = Clinic::orderBy('id');
+        $query = Clinic::with(['users', 'users.specializations']);
 
 
         $categories = Region::children(null);
@@ -26,14 +27,12 @@ class CallCenterController extends Controller {
 
 
         if (!empty($value = $request->get('region'))) {
-            $query->where('region_id', $value)->pluck('id')->toArray();
+            $query->where('region_id', $value);
         }
         if (!empty($value = $request->get('type'))) {
-            $query->where('type', $value)->pluck('id')->toArray();
+            $query->where('type', $value);
         }
-
-
-        $query = Clinic::with(['users', 'users.specializations'])->whereIn('id', $query->pluck('id')->toArray());
+        
         $clinics = $query->paginate(20);
 
         return view('admin.callcenter.index', compact('clinics', 'regions', 'categories', 'clinicTypeList', 'specList'));
@@ -44,9 +43,18 @@ class CallCenterController extends Controller {
         return json_encode($city);
     }
 
-    public function findClinicByType($id) {
+    public function findClinicByType(Request $request) {
+        $query = Clinic::orderBy('id');
 
-            $clinic = Clinic::where(['region_id', $id])->pluck('id');
+        if (!empty($value = $request->get('type_id'))) {
+            $query->where('type', $value);
+        }
+
+        if (!empty($value = $request->get('region_id'))) {
+            $query->where('region_id', $value);
+        }
+
+        $clinic = $query->pluck('name_ru', 'id');
         return json_encode($clinic);
     }
 
