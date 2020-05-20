@@ -107,4 +107,4 @@ Route::group(
 );
 
 Route::get('admin/callcenter/findCity1/{id}', 'Admin\CallCenter\CallCenterController@findCity1');
-Route::get('admin/callcenter/findClinicByType/{id}/{region_id}', 'Admin\CallCenter\CallCenterController@findClinicByType');
+Route::get('admin/callcenter/findClinicByType/{id}', 'Admin\CallCenter\CallCenterController@findClinicByType');

@@ -30,7 +30,7 @@ class ClinicSeed extends Seeder {
             1 => array(
                 'name_ru' => 'Мед клиника2',
                 'name_uz' => 'Med Clinic2',
-                'region_id' => '15',
+                'region_id' => '16',
                 'type' => '1',
                 'description_uz' => 'Med Clinic is good',
                 'description_ru' => 'Мед клиника хорошая',
@@ -44,7 +44,7 @@ class ClinicSeed extends Seeder {
             2 => array(
                 'name_ru' => 'Мед клиника3',
                 'name_uz' => 'Med Clinic3',
-                'region_id' => '16',
+                'region_id' => '17',
                 'type' => '1',
                 'description_uz' => 'Med Clinic is good',
                 'description_ru' => 'Мед клиника хорошая',
@@ -58,7 +58,7 @@ class ClinicSeed extends Seeder {
             3 => array(
                 'name_ru' => 'Городская клиника1',
                 'name_uz' => 'City Clinic1',
-                'region_id' => '15',
+                'region_id' => '18',
                 'type' => '2',
                 'description_uz' => 'City Clinic is good',
                 'description_ru' => 'Городская клиника хорошая',
@@ -72,7 +72,7 @@ class ClinicSeed extends Seeder {
             4 => array(
                 'name_ru' => 'Городская клиника2',
                 'name_uz' => 'City Clinic2',
-                'region_id' => '16',
+                'region_id' => '19',
                 'type' => '2',
                 'description_uz' => 'City Clinic is good',
                 'description_ru' => 'Городская клиника хорошая',
@@ -86,7 +86,7 @@ class ClinicSeed extends Seeder {
             5 => array(
                 'name_ru' => 'Городская клиника3',
                 'name_uz' => 'City Clinic3',
-                'region_id' => '16',
+                'region_id' => '15',
                 'type' => '2',
                 'description_uz' => 'City Clinic is good',
                 'description_ru' => 'Городская клиника хорошая',

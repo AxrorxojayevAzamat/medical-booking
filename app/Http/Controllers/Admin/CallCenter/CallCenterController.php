@@ -8,13 +8,15 @@ use App\Region;
 use App\Clinic;
 use App\Specialization;
 use App\CallCenterDoctor;
+use App\DoctorClinic;
+use App\SpecializationUser;
 use Illuminate\Http\Request;
 
 class CallCenterController extends Controller {
 
     public function index(Request $request) {
+        $query = Clinic::orderBy('id');
 
-        $clinics = Clinic::with(['users.specializations'])->where('id', $request->get('clinic'))->get();
 
         $categories = Region::children(null);
         $regions = Region::orderBy('regions.id', 'asc')
@@ -22,7 +24,19 @@ class CallCenterController extends Controller {
         $clinicTypeList = Clinic::clinicTypeList();
         $specList = Specialization::all()->pluck('name_ru', 'id');
 
-        return view('admin.callcenter.index', compact('temps', 'clinics', 'regions', 'categories', 'clinicTypeList', 'specList'));
+
+        if (!empty($value = $request->get('region'))) {
+            $query->where('region_id', $value)->pluck('id')->toArray();
+        }
+        if (!empty($value = $request->get('type'))) {
+            $query->where('type', $value)->pluck('id')->toArray();
+        }
+
+
+        $query = Clinic::with(['users', 'users.specializations'])->whereIn('id', $query->pluck('id')->toArray());
+        $clinics = $query->paginate(20);
+
+        return view('admin.callcenter.index', compact('clinics', 'regions', 'categories', 'clinicTypeList', 'specList'));
     }
 
     public function findCity1($id) {
@@ -30,8 +44,9 @@ class CallCenterController extends Controller {
         return json_encode($city);
     }
 
-    public function findClinicByType($id, $region_id) {
-        $clinic = Clinic::where([['type', $id], ['region_id', $region_id]])->pluck('name_ru', 'id');
+    public function findClinicByType($id) {
+
+            $clinic = Clinic::where(['region_id', $id])->pluck('id');
         return json_encode($clinic);
     }
 

@@ -92,9 +92,9 @@ class UserSeed extends Seeder {
                     'role' => '5',
         ]);
         $doctor->specializations()->attach([1,2]);
-        $doctor->clinics()->attach([1,4]);
-        $doctor2->specializations()->attach([1,4]);
-        $doctor2->clinics()->attach([3,6]);
+        $doctor->clinics()->attach([1,6]);
+        $doctor2->specializations()->attach([4]);
+        $doctor2->clinics()->attach([3]);
     }
 
 }

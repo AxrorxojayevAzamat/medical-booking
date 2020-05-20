@@ -124,10 +124,10 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('select[name="type"]').on('change', function () {
         let type_id = $(this).val();
-        let region_id = $('select[name="region"]').val();
+//        let region_id = $('select[name="region"]').val();
         if (type_id) {
             $.ajax({
-                url: 'callcenter/findClinicByType/' + type_id + '/' + region_id,
+                url: 'callcenter/findClinicByType/' + type_id,
                 type: 'GET',
                 dataType: 'json',
 
@@ -139,7 +139,7 @@ $(document).ready(function () {
                 }
             });
         } else {
-            $('select[name="region"]').empty();
+            $('select[name="clinic"]').empty();
         }
     });
 });

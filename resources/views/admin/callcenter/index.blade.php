@@ -28,8 +28,8 @@
                             <div class="row">
                                 <div class="col-2">
                                     <div class="form-group">
-                                        <label for="type" class="col-form-label">{{ __('Регион') }}</label>
-                                        <select class="form-control" name="reg1" id="reg1" required>
+                                        <label for="reg1" class="col-form-label">{{ __('Регион') }}</label>
+                                        <select class="form-control" name="reg1" id="reg1">
                                             <option></option>
                                             @foreach($categories as $cat)
                                             <option value="{{$cat->id}}">{{$cat->name_ru}}</option>
@@ -41,8 +41,8 @@
 
                                 <div class="col-2">
                                     <div class="form-group">
-                                        <label for="district" class="col-form-label">{{ __('Город') }}</label>
-                                        <select class="form-control" name="region" id="reg1" required>
+                                        <label for="region" class="col-form-label">{{ __('Город') }}</label>
+                                        <select class="form-control" name="region" id="reg1">
                                             <option disabled>{{ __('Выберете регион сначала') }}</option>
                                         </select>
                                         <label></label>
@@ -51,7 +51,7 @@
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label for="type" class="col-form-label">{{ __('Тип клиники ') }}</label>
-                                        <select id="type" class="form-control @error('status') is-invalid @enderror" name="type" value="{{ old('status') }}" required autocomplete="type" autofocus>
+                                        <select id="type" class="form-control @error('status') is-invalid @enderror" name="type" value="{{ old('type') }}" autocomplete="type" autofocus>
                                             <option value="" selected=""></option>
                                             @foreach ($clinicTypeList as $value => $label)
                                             <option value="{{ $value }}"{{ $value === request('type') ? ' selected' : '' }}>{{ $label }}</option>
@@ -62,7 +62,7 @@
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label for="clinic" class="col-form-label">{{ __('Название ЧК/ГП') }}</label>
-                                        <select class="form-control" name="clinic" id="type" required>
+                                        <select class="form-control" name="clinic" id="clinic">
                                             <option disabled>{{ __('Выберете Тип клиники сначала') }}</option>
                                         </select>
                                         <label></label>
@@ -95,7 +95,6 @@
                                 <td>{{$spec->name_ru}}</td>
                                 <td>{{$clinic->name_uz}}</td>
                                 <td>{{$user->name}}</td>
-
                             </tr>
                             @endforeach
                             @endforeach
