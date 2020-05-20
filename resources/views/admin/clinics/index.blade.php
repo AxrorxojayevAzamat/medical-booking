@@ -103,15 +103,15 @@
                                     <td class="text-center py-1 ">
 
                                         <div class="btn-group  ">
-                                            <a href="{{ route('admin.clinic.show',['id'=>$clinic->id]) }}"
+                                            <a href="{{ route('admin.clinic.show',$clinic) }}"
                                                class="btn btn-primary btn-sm"> <i class="fas fa-eye"></i></a>
                                         </div>
                                         <div class="btn-group  ">
-                                            <a href="{{ route('admin.clinic.edit',['id'=>$clinic->id]) }}"
+                                            <a href="{{ route('admin.clinic.edit',$clinic) }}"
                                                class="btn btn-info btn-sm"> <i class="fas fa-pencil-alt"></i></a>
                                         </div>
                                         <div class="btn-group ">
-                                            <form action="{{ route('admin.clinic.destroy',['id'=>$clinic->id]) }}"
+                                            <form action="{{ route('admin.clinic.destroy',$clinic) }}"
                                                   method="post"
                                                   onsubmit="if(confirm('Точно удалить?')){return true} else {return false}">
                                                 @csrf

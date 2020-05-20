@@ -45,11 +45,11 @@
     <div class=" card col-md-10 offset-md-1">
         <div class="card-header ">
             <div class="d-flex flex-row mb-3">
-                <a href="{{ route('admin.clinic.edit',['id'=>$clinic->id]) }}" class="btn btn-primary mr-1">Редактировать</a>
+                <a href="{{ route('admin.clinic.edit', $clinic)}}" class="btn btn-primary mr-1">Редактировать</a>
                 
-                <a href="" class="btn btn-dark mr-1">Добавить фотографии</a>
+                <a href="{{route('admin.clinic.main-photo', $clinic )}}" class="btn btn-dark mr-1">Добавить фотографии</a>
                 
-                <form action="{{ route('admin.clinic.destroy',['id'=>$clinic->id]) }}" method="post">
+                <form action="{{ route('admin.clinic.destroy',$clinic) }}" method="post">
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="btn btn-danger" onclick="return confirm('Хотите удалить?')" >Удалить</button>

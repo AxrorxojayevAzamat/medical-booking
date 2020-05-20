@@ -44,7 +44,7 @@
         <div class="  card-header " align="center"><h3>Редактирование праздничного дня</h3></div>
         <div class="container card-header">
             <div class=" container" align='center'>
-                <form action="{{ route('admin.celebration.update',['id'=>$celebrations->id]) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('admin.celebration.update', $celebrations) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
                     @include('admin.celebrations.forms.Forms')

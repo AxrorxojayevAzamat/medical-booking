@@ -66,11 +66,11 @@
                                     <td class="text-center py-1 ">{{$celebration->name}}</td>
                                     <td class="text-center py-1 ">
                                         <div class="btn-group ml-2 ">
-                                            <a href="{{ route('admin.celebration.edit',['id'=>$celebration->id]) }}"
+                                            <a href="{{ route('admin.celebration.edit', $celebration) }}"
                                                class="btn btn-info btn-sm"> <i class="fas fa-pencil-alt"></i></a>
                                         </div>
                                         <div class="btn-group ">
-                                            <form action="{{ route('admin.celebration.destroy',['id'=>$celebration->id]) }}"
+                                            <form action="{{ route('admin.celebration.destroy',$celebration) }}"
                                                   method="post"
                                                   onsubmit="if(confirm('Точно удалить?')){return true} else {return false}">
                                                 @csrf

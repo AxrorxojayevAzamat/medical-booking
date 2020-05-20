@@ -10,10 +10,10 @@ use App\Specialization;
 use App\CallCenterDoctor;
 use Illuminate\Http\Request;
 
-class CallCenterController extends Controller {
-
-    public function index(Request $request) {
-
+class CallCenterController extends Controller
+{
+    public function index(Request $request)
+    {
         $clinics = Clinic::with(['users.specializations'])->where('id', $request->get('clinic'))->get();
 
         $categories = Region::children(null);
@@ -25,14 +25,15 @@ class CallCenterController extends Controller {
         return view('admin.callcenter.index', compact('temps', 'clinics', 'regions', 'categories', 'clinicTypeList', 'specList'));
     }
 
-    public function findCity1($id) {
+    public function findCity1($id)
+    {
         $city = Region::where('parent_id', $id)->pluck('name_ru', 'id');
         return json_encode($city);
     }
 
-    public function findClinicByType($id, $region_id) {
+    public function findClinicByType($id, $region_id)
+    {
         $clinic = Clinic::where([['type', $id], ['region_id', $region_id]])->pluck('name_ru', 'id');
         return json_encode($clinic);
     }
-
 }

@@ -71,7 +71,7 @@ $(function () {
 
 })
 
-//////////// for adding region
+//adding region
 $(document).ready(function () {
     $('select[name="reg"]').on('change', function () {
         let region_id = $(this).val();
@@ -93,9 +93,9 @@ $(document).ready(function () {
         }
     });
 });
-//////////// for adding region
 
-//////////// for region adminCallCenter
+
+//region adminCallCenter
 $(document).ready(function () {
     $('select[name="reg1"]').on('change', function () {
         let region_id = $(this).val();
@@ -117,10 +117,10 @@ $(document).ready(function () {
         }
     });
 });
-//////////// for region adminCallCenter
 
 
-//////////// for region adminCallCenter
+
+// region adminCallCenter
 $(document).ready(function () {
     $('select[name="type"]').on('change', function () {
         let type_id = $(this).val();
@@ -143,10 +143,8 @@ $(document).ready(function () {
         }
     });
 });
-//////////// for region adminCallCenter
 
-///////////  for validation time
-//Time  range picker
+// validation time
 $('#timepickerstart').datetimepicker({
     use24hours: true,
     format: 'HH:mm'
@@ -157,7 +155,6 @@ $('#timepickerend').datetimepicker({
     format: 'HH:mm'
 })
 
-///////////  for validation time
 
 $(document).ready(function() {
   var url1 = 'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/631px-FullMoon2010.jpg',

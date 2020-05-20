@@ -184,4 +184,9 @@ class ClinicController extends Controller
 
         return redirect()->route('admin.clinic.index')->with('success', 'Удалено!');
     }
+
+    public function mainPhoto(Clinic $clinic)
+    {
+        return view('admin.clinics.add-main-photo', compact('clinic'));
+    }
 }
