@@ -56,6 +56,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     
     Route::get('callcenter/', 'CallCenter\CallCenterController@index')->name('admin.callcenter.index');
     Route::get('callcenter/findCity1/{id}', 'CallCenter\CallCenterController@findCity1');
-    Route::get('callcenter/findClinicByType/{id}/{region_id}', 'CallCenter\CallCenterController@findClinicByType');
+    Route::get('callcenter/findClinicByType/{id}', 'CallCenter\CallCenterController@findClinicByType');
     //Route::post('admin/callcenter/fetch', 'Admin\CallCenter\CallCenterController@index')->name('admin.callcenter.fetch');
 });

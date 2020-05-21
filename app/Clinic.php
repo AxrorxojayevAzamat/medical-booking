@@ -13,7 +13,7 @@ class Clinic extends Model
     public const CLINIC_TYPE_GOVERMENT = 2;
 
 
-    protected $fillable =['name_uz','name_uz','region_id','type','description_uz','description_ru','phone_numbers'
+    protected $fillable =['name_uz','name_ru','region_id','type','description_uz','description_ru','phone_numbers'
         ,'adress_uz','adress_ru','work_time_start','work_time_end','location'];
 
     public function users() {
