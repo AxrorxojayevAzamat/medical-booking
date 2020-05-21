@@ -54,7 +54,7 @@
                                         <select id="type" class="form-control @error('status') is-invalid @enderror" name="type" value="{{ old('type') }}" autocomplete="type" autofocus>
                                             <option value="" selected=""></option>
                                             @foreach ($clinicTypeList as $value => $label)
-                                            <option value="{{ $value }}"{{ $value === request('type') ? ' selected' : '' }}>{{ $label }}</option>
+                                            <option value="{{ $value }}"{{ $value == request('type') ? ' selected' : '' }}>{{ $label }}</option>
                                             @endforeach;
                                         </select>
                                     </div>
@@ -63,7 +63,22 @@
                                     <div class="form-group">
                                         <label for="clinic" class="col-form-label">{{ __('Название') }}</label>
                                         <select class="form-control" name="clinic" id="clinic">
-                                            <option disabled>{{ __('Выберете Тип клиники сначала') }}</option>
+                                            <option></option>
+                                            @foreach ($clinicList as $value => $label)
+                                            <option value="{{ $value }}"{{ $value == request('clinic') ? ' selected' : '' }}>{{ $label }}</option>
+                                            @endforeach;
+                                        </select>
+                                        <label></label>
+                                    </div>
+                                </div>                         
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="spec" class="col-form-label">{{ __('Направление') }}</label>
+                                        <select class="form-control" name="spec" id="spec">
+                                            <option></option>
+                                            @foreach ($specList as $value => $label)
+                                            <option value="{{ $value }}"{{ $value == request('spec') ? ' selected' : '' }}>{{ $label }}</option>
+                                            @endforeach;
                                         </select>
                                         <label></label>
                                     </div>
