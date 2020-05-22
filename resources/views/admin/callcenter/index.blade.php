@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="col-2">
                                     <div class="form-group">
-                                        <label for="clinic" class="col-form-label">{{ __('Название ЧК/ГП') }}</label>
+                                        <label for="clinic" class="col-form-label">{{ __('Название') }}</label>
                                         <select class="form-control" name="clinic" id="clinic">
                                             <option disabled>{{ __('Выберете Тип клиники сначала') }}</option>
                                         </select>

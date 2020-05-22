@@ -116,12 +116,15 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('select[name="type"]').on('change', function () {
         let type_id = $(this).val();
-
-        if (type_id) {
-            //console.log(type_id);
+        let region_id = $('select[name="region"]').val();
+        if (type_id || region_id) {
             $.ajax({
-                url: 'callcenter/findClinicByType/' + type_id,
+                url: 'callcenter/findClinicByType/',
                 type: 'GET',
+                data: {
+                    type_id: type_id,
+                    region_id: region_id
+                },
                 dataType: 'json',
 
                 success: function (data) {
