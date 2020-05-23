@@ -12,11 +12,10 @@ use App\DoctorClinic;
 use App\SpecializationUser;
 use Illuminate\Http\Request;
 
-class CallCenterController extends Controller
-{
-    public function index(Request $request)
-    {
-//        $query = Clinic::orderBy('id');
+class CallCenterController extends Controller {
+
+    public function index(Request $request) {
+
         $query = Clinic::with(['users', 'users.specializations']);
 
 
@@ -25,6 +24,7 @@ class CallCenterController extends Controller
                 ->paginate(1000000);
         $clinicTypeList = Clinic::clinicTypeList();
         $specList = Specialization::all()->pluck('name_ru', 'id');
+        $clinicList = Clinic::all()->pluck('name_ru', 'id');
 
 
         if (!empty($value = $request->get('region'))) {
@@ -33,10 +33,21 @@ class CallCenterController extends Controller
         if (!empty($value = $request->get('type'))) {
             $query->where('type', $value);
         }
+
+        if (!empty($value = $request->get('clinic'))) {
+            $query->where('id', $value);
+        }
+        if (!empty($value = $request->get('spec'))) {
+            $query->whereHas('users.specializations', function ($query) use ($value) {
+            $query->where('id', $value);
+            });
+        }
         
+//        $('select[name="region"]').append('<option value="' + key + '" key==request(\'region\') ? \' selected\' : \'\'>' + value + '</option>');
+
         $clinics = $query->paginate(20);
 
-        return view('admin.callcenter.index', compact('clinics', 'regions', 'categories', 'clinicTypeList', 'specList'));
+        return view('admin.callcenter.index', compact('clinics', 'regions', 'categories', 'clinicTypeList', 'specList', 'clinicList'));
     }
 
     public function findCity1($id)
