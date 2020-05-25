@@ -49,6 +49,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::group(
         ['prefix' => 'clinics/{clinic}','as' => 'clinic.'],
         function () {
+<<<<<<< HEAD
             Route::get('main-photo', 'ClinicController@mainPhoto')->name('main-photo');
             Route::get('add-main-photo', 'ClinicController@addMainPhoto')->name('add-main-photo');
         }
@@ -59,3 +60,17 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('callcenter/findClinicByType', 'CallCenter\CallCenterController@findClinicByType');
     //Route::post('admin/callcenter/fetch', 'Admin\CallCenter\CallCenterController@index')->name('admin.callcenter.fetch');
 });
+=======
+    Route::get('clinic/', 'ClinicController@index');
+    Route::get('clinic/', 'ClinicController@index')->name('clinic.index');
+    Route::get('clinic/show/{id}', 'ClinicController@show')->name('clinic.show');
+    Route::get('clinic/create', 'ClinicController@create')->name('clinic.create');
+    Route::post('clinic/', 'ClinicController@store')->name('clinic.store');
+    Route::get('clinic/edit/{id}', 'ClinicController@edit')->name('clinic.edit');
+    Route::patch('clinic/show/{id}', 'ClinicController@update')->name('clinic.update');
+    Route::delete('clinic/{id}', 'ClinicController@destroy')->name('clinic.destroy');
+}
+);
+
+Route::get('admin/callcenter/findDoctor', 'Admin\CallCenter\CallCenterController@findDoctor');
+>>>>>>> f39e9ea90df6ce7c23d000e6e9d8daa5f97501fb
