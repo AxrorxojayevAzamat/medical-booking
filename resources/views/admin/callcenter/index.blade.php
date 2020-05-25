@@ -25,7 +25,7 @@
                 <div class="card-body">
                     <div class="card-body">
                         <form action="?" method="GET">
-                            <div class="row">
+                            <div class="row">                                
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label for="region" class="col-form-label">{{ __('Регион') }}</label>
@@ -43,7 +43,10 @@
                                     <div class="form-group">
                                         <label for="city" class="col-form-label">{{ __('Город') }}</label>
                                         <select class="form-control" name="city" id="city">
-                                            <option disabled>{{ __('Выберете регион сначала') }}</option>
+                                            <option value="" selected=""></option>
+                                            @foreach ($cityList as $value => $label)
+                                            <option value="{{ $value }}"{{ $value == request('city') ? ' selected' : '' }}>{{ $label }}</option>
+                                            @endforeach;
                                         </select>
                                         <label></label>
                                     </div>
@@ -93,7 +96,7 @@
                                 </div>
                             </div>
                         </form>
-                    </div>  
+                    </div> 
 
                     <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                         <thead>

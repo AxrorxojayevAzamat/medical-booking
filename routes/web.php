@@ -106,4 +106,5 @@ Route::group(
 }
 );
 
-Route::get('admin/callcenter/findDoctor', 'Admin\CallCenter\CallCenterController@findDoctor');
+Route::get('admin/callcenter/findDoctorByRegion', 'Admin\CallCenter\CallCenterController@findDoctorByRegion');
+Route::get('admin/callcenter/findDoctorByType', 'Admin\CallCenter\CallCenterController@findDoctorByType');

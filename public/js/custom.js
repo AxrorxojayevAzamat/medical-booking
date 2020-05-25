@@ -99,26 +99,48 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#region').on('change', function () {
         let region_id = $(this).val();
-        if (region_id) {
-            $.ajax({
-                url: 'callcenter/findDoctor/?',
-                type: 'GET',
-                data: {
-                    region_id: region_id
-                },
-                dataType: 'json',
+        $.ajax({
+            url: 'callcenter/findDoctorByRegion/?',
+            type: 'GET',
+            data: {
+                region: region_id
+            },
+            dataType: 'json',
 
-                success: function (data) {
-                    $('#city').empty();
-//                    $('select[name="city"]').append('<option selected></option>');
-                    $.each(data, function (key, value) {
-                        $('#city').append('<option value="' + key + '">' + value + '</option>');
-                    });
-                }
-            });
-        } else {
-            $('city').empty();
-        }
+            success: function (data) {
+                $('#city').empty();
+                $('#city').append('<option></option>');
+                $.each(data, function (key, value) {
+                    $('#city').append('<option value="' + key + '">' + value + '</option>');
+                });
+            }
+        });
+    });
+});
+
+//////////// for adminCallCenter findDoctor
+$(document).ready(function () {
+    $('#city').on('change', function () {
+        let type_id = $('#type').val();
+        let city_id = $('#city').val();
+        $.ajax({
+            url: 'callcenter/findDoctorByType/?',
+            type: 'GET',
+            data: {
+                type: type_id,
+                city: city_id
+            },
+            dataType: 'json',
+
+            success: function (data) {
+                $('#clinic').empty();
+                $('#clinic').append('<option></option>');
+                $.each(data, function (key, value) {
+                    $('#clinic').append('<option value="' + key + '">' + value + '</option>');
+                });
+            }
+        });
+
     });
 });
 
@@ -128,11 +150,11 @@ $(document).ready(function () {
         let type_id = $(this).val();
         let city_id = $('#city').val();
         $.ajax({
-            url: 'callcenter/findDoctor/?',
+            url: 'callcenter/findDoctorByType/?',
             type: 'GET',
             data: {
-                type_id: type_id,
-                city_id: city_id
+                type: type_id,
+                city: city_id
             },
             dataType: 'json',
 
