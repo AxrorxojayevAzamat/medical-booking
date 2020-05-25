@@ -95,58 +95,58 @@ $(document).ready(function () {
 });
 //////////// for adding region
 
-//////////// for region adminCallCenter
+//////////// for adminCallCenter findDoctorByCity
 $(document).ready(function () {
-    $('select[name="reg1"]').on('change', function () {
+    $('#region').on('change', function () {
         let region_id = $(this).val();
         if (region_id) {
             $.ajax({
-                url: 'callcenter/findCity1/' + region_id,
+                url: 'callcenter/findDoctor/?',
                 type: 'GET',
+                data: {
+                    region_id: region_id
+                },
                 dataType: 'json',
 
                 success: function (data) {
-                    $('select[name="region"]').empty();
+                    $('#city').empty();
+//                    $('select[name="city"]').append('<option selected></option>');
                     $.each(data, function (key, value) {
-                        $('select[name="region"]').append('<option value="' + key + '">' + value + '</option>');
+                        $('#city').append('<option value="' + key + '">' + value + '</option>');
                     });
                 }
             });
         } else {
-            $('select[name="region"]').empty();
+            $('city').empty();
         }
     });
 });
-//////////// for region adminCallCenter
 
-
-//////////// for region adminCallCenter
+//////////// for adminCallCenter findDoctor
 $(document).ready(function () {
-    $('select[name="type"]').on('change', function () {
+    $('#type').on('change', function () {
         let type_id = $(this).val();
-        let region_id = $('select[name="region"]').val();
+        let city_id = $('#city').val();
         $.ajax({
-            url: 'callcenter/findClinicByType/?',
+            url: 'callcenter/findDoctor/?',
             type: 'GET',
             data: {
                 type_id: type_id,
-                region_id: region_id
+                city_id: city_id
             },
             dataType: 'json',
 
             success: function (data) {
-                $('select[name="clinic"]').empty();
-                $('select[name="clinic"]').append('<option></option>');
+                $('#clinic').empty();
+                $('#clinic').append('<option></option>');
                 $.each(data, function (key, value) {
-                    $('select[name="clinic"]').append('<option value="' + key + '">' + value + '</option>');
+                    $('#clinic').append('<option value="' + key + '">' + value + '</option>');
                 });
             }
         });
 
     });
 });
-//////////// for region adminCallCenter
-
 ///////////  for validation time
 //Time  range picker
 $('#timepickerstart').datetimepicker({

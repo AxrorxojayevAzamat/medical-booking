@@ -28,11 +28,11 @@
                             <div class="row">
                                 <div class="col-2">
                                     <div class="form-group">
-                                        <label for="reg1" class="col-form-label">{{ __('Регион') }}</label>
-                                        <select class="form-control" name="reg1" id="reg1">
-                                            <option></option>
-                                            @foreach($categories as $cat)
-                                            <option value="{{$cat->id}}">{{$cat->name_ru}}</option>
+                                        <label for="region" class="col-form-label">{{ __('Регион') }}</label>
+                                        <select class="form-control" name="region" id="region">
+                                            <option ></option>
+                                            @foreach($regionList as $value => $label)
+                                            <option value="{{ $value }}"{{ $value == request('region') ? ' selected' : '' }}>{{ $label }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -41,8 +41,8 @@
 
                                 <div class="col-2">
                                     <div class="form-group">
-                                        <label for="region" class="col-form-label">{{ __('Город') }}</label>
-                                        <select class="form-control" name="region" id="reg1">
+                                        <label for="city" class="col-form-label">{{ __('Город') }}</label>
+                                        <select class="form-control" name="city" id="city">
                                             <option disabled>{{ __('Выберете регион сначала') }}</option>
                                         </select>
                                         <label></label>
@@ -75,7 +75,7 @@
                                     <div class="form-group">
                                         <label for="spec" class="col-form-label">{{ __('Направление') }}</label>
                                         <select class="form-control" name="spec" id="spec">
-                                            <option></option>
+                                            <option selected></option>
                                             @foreach ($specList as $value => $label)
                                             <option value="{{ $value }}"{{ $value == request('spec') ? ' selected' : '' }}>{{ $label }}</option>
                                             @endforeach;
@@ -84,10 +84,11 @@
                                     </div>
                                 </div>                         
 
-                                <div class="col-sm-1">
+                                <div class="col-sm-2">
                                     <div class="form-group">
                                         <label class="col-form-label">&nbsp;</label><br />
-                                        <button type="submit" class="btn btn-primary">Поиск</button>
+                                        <button type="submit" class="btn btn-primary">{{ __('Поиск') }}</button>
+                                        <a href="?" class="btn btn-outline-secondary">{{ __('Очистить') }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -108,8 +109,8 @@
                             @foreach ($user->specializations as $spec)
                             <tr>
                                 <td>{{$spec->name_ru}}</td>
-                                <td>{{$clinic->name_uz}}</td>
                                 <td>{{$user->name}}</td>
+                                <td>{{$clinic->name_ru}}</td>
                             </tr>
                             @endforeach
                             @endforeach
