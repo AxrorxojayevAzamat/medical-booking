@@ -65,15 +65,17 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
+           
             @if (Route::has('login'))
                 <div class="top-right links">
+                     
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
+                        <a href="{{ route('login', app()->getLocale() ) }}">Login</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
+                            <a href="{{ route('register', app()->getLocale() ) }}">Register</a>
                         @endif
                     @endauth
                 </div>
@@ -81,7 +83,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Med Booking
+                  {{ __('msg.wlcm') }}
                 </div>
 
                 <div class="links">
