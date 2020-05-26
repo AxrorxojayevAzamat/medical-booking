@@ -57,7 +57,7 @@ class CallCenterController extends Controller
     public function findDoctorByRegion(Request $request)
     {
         $region_id = $request->get('region');
-        $result = $this->findDoctorByRegion($region_id);
+        $result = $this->findCityByRegion($region_id);
 
         return json_encode($result);
     }
