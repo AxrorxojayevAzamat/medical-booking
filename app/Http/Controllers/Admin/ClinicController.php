@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Clinic;
 use App\Http\Requests\ClinicRequest;
 use App\Region;
+use App\Services\ClinicService;
 use Illuminate\Http\Request;
 use App\Traits\UploadTrait;
 use Illuminate\Support\Str;
@@ -14,6 +15,12 @@ class ClinicController extends Controller
 {
     use UploadTrait;
 
+    private $service;
+
+    public function __construct(ClinicService $service)
+    {
+        $this->service = $service;
+    }
     /**
      * Show the form for indexing a new resource.
      *
@@ -59,6 +66,12 @@ class ClinicController extends Controller
      */
     public function store(ClinicRequest $request)
     {
+        try {
+            $clinics = $this->service->create($request);
+            return redirect()->route('admin.clinic.index')->with('success', 'Успешно!');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
         $clinics = new Clinic();
         $clinics->name_uz = $request->name_uz;
         $clinics->name_ru = $request->name_ru;
@@ -74,21 +87,21 @@ class ClinicController extends Controller
         $clinics->location = $request->location;
 
 
-        $folder = Clinic::CLINIC_PROFILE;
-        $photos = $request->file('images');
-        if ($request->hasFile('images')) {
-            foreach ($photos as $photo) {
-                $this->deleteOne($folder, 'public', $clinics->photo);
-                $filename = uniqid() . '_' . trim($photo->getClientOriginalName());
-                $this->uploadOne($photo, $folder, 'public', $filename);
-                $filePath = $filename;
-                $data[] = $filePath;
-            }
-        }
-        $clinics->photo = json_encode($data);
+        // $folder = Clinic::CLINIC_PROFILE;
+        // $photos = $request->file('images');
+        // if ($request->hasFile('images')) {
+        //     foreach ($photos as $photo) {
+        //         $this->deleteOne($folder, 'public', $clinics->photo);
+        //         $filename = uniqid() . '_' . trim($photo->getClientOriginalName());
+        //         $this->uploadOne($photo, $folder, 'public', $filename);
+        //         $filePath = $filename;
+        //         $data[] = $filePath;
+        //     }
+        // }
+        // $clinics->photo = json_encode($data);
         $clinics->save();
 
-        return redirect()->route('admin.clinic.index')->with('success', 'Успешно!');
+        
     }
 
     public function show($id)

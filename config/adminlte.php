@@ -501,47 +501,47 @@ return [
                 ],
             ],
         ],
-        // [
-        //     'name' => 'kartik-v',
-        //     'active' => true,
-        //     'files' => [
-        //         [
-        //             'type' => 'css',
-        //             'asset' => true,
-        //             'location' => '/vendor/kartik-v/bootstrap-fileinput/css/fileinput.css',
-        //         ],
-        //         [
-        //             'type' => 'css',
-        //             'asset' => true,
-        //             'location' => '/vendor/kartik-v/bootstrap-fileinput/css/fileinput-rtl.css',
-        //         ],
-        //         [
-        //             'type' => 'js',
-        //             'asset' => true,
-        //             'location' => '//vendor/kartik-v/bootstrap-fileinput/js/plugins/piexif.js',
-        //         ],
-        //         [
-        //             'type' => 'js',
-        //             'asset' => true,
-        //             'location' => '//vendor/kartik-v/bootstrap-fileinput/js/plugins/sortable.js',
-        //         ],
-        //         [
-        //             'type' => 'js',
-        //             'asset' => true,
-        //             'location' => '//vendor/kartik-v/bootstrap-fileinput/js/plugins/purify.js',
-        //         ],
-        //         [
-        //             'type' => 'js',
-        //             'asset' => true,
-        //             'location' => '/vendor/kartik-v/bootstrap-fileinput/js/fileinput.js',
-        //         ],
-        //         [
-        //             'type' => 'js',
-        //             'asset' => true,
-        //             'location' => '/vendor/kartik-v/bootstrap-fileinput./themes/fas/theme.js',
-        //         ],
+        [
+            'name' => 'kartik-v',
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '/vendor/kartik-v/bootstrap-fileinput/css/fileinput.css',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '/vendor/kartik-v/bootstrap-fileinput/css/fileinput-rtl.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '//vendor/kartik-v/bootstrap-fileinput/js/plugins/piexif.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '//vendor/kartik-v/bootstrap-fileinput/js/plugins/sortable.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '//vendor/kartik-v/bootstrap-fileinput/js/plugins/purify.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/vendor/kartik-v/bootstrap-fileinput/js/fileinput.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/vendor/kartik-v/bootstrap-fileinput./themes/fas/theme.js',
+                ],
                 
-        //     ],
-        // ],
+            ],
+        ],
     ],
 ];

@@ -8,7 +8,7 @@
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route("home") }}">{{ __('Главная') }} </a></li>
+                <li class="breadcrumb-item"><a href="{{ route("admin") }}">{{ __('Главная') }} </a></li>
                 <li class="breadcrumb-item"><a href="{{ route("admin.users.index") }}">{{ __('Пользователи') }}</a></li>
                 <li class="breadcrumb-item active">{{ $user->email }}</li>
                 <li class="breadcrumb-item active">{{ __('Добавить специализации') }}</li>
