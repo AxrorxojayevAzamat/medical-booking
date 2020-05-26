@@ -96,7 +96,36 @@ class ClinicSeed extends Seeder {
                 'work_time_start' => '08:00',
                 'work_time_end' => '16:00',
                 'location' => 'Ташкент',
-        )));
+            ),
+            6 => array(
+                'name_ru' => 'Городская клиника4',
+                'name_uz' => 'City Clinic4',
+                'region_id' => '26',
+                'type' => '2',
+                'description_uz' => 'City Clinic is good',
+                'description_ru' => 'Городская клиника хорошая',
+                'phone_numbers' => '(998) 99 123-8866',
+                'adress_uz' => 'Uzbekistan,Andijon',
+                'adress_ru' => 'Uzbekistan,Andijon',
+                'work_time_start' => '08:00',
+                'work_time_end' => '16:00',
+                'location' => 'Ташкент',
+            ),
+            7 => array(
+                'name_ru' => 'Городская клиника5',
+                'name_uz' => 'City Clinic5',
+                'region_id' => '27',
+                'type' => '2',
+                'description_uz' => 'City Clinic is good',
+                'description_ru' => 'Городская клиника хорошая',
+                'phone_numbers' => '(998) 99 123-8866',
+                'adress_uz' => 'Uzbekistan,Andijon',
+                'adress_ru' => 'Uzbekistan,Andijon',
+                'work_time_start' => '08:00',
+                'work_time_end' => '16:00',
+                'location' => 'Ташкент',
+            )
+        ));
     }
 
 }
