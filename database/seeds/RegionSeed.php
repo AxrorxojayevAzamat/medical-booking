@@ -162,6 +162,18 @@ class RegionSeed extends Seeder {
                 'name_uz' => 'Yunusabad tumani',
                 'parent_id' => '1',
                 'created_at' => now(),
+            ),
+            25 => array(
+                'name_ru' => 'город Андижан',
+                'name_uz' => 'Andijon shahari',
+                'parent_id' => '2',
+                'created_at' => now(),
+            ),
+            26 => array(
+                'name_ru' => 'город Ханабад',
+                'name_uz' => 'Xonabod shahri',
+                'parent_id' => '2',
+                'created_at' => now(),
             )
         ));
     }

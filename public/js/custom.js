@@ -112,8 +112,14 @@ $(document).ready(function () {
                 console.log(data)
                 $('#city').empty();
                 $('#city').append('<option></option>');
-                $.each(data, function (key, value) {
+                $.each(data.cities, function (key, value) {
                     $('#city').append('<option value="' + key + '">' + value + '</option>');
+                });
+
+                $('#clinic').empty();
+                $('#clinic').append('<option></option>');
+                $.each(data.clinics, function (key, value) {
+                    $('#clinic').append('<option value="' + key + '">' + value + '</option>');
                 });
             }
         });
@@ -123,12 +129,14 @@ $(document).ready(function () {
 //////////// for adminCallCenter findDoctor
 $(document).ready(function () {
     $('#city').on('change', function () {
+        let region_id = $('#region').val();
         let type_id = $('#type').val();
         let city_id = $('#city').val();
         $.ajax({
             url: 'callcenter/findDoctorByType/?',
             type: 'GET',
             data: {
+                region: region_id,
                 type: type_id,
                 city: city_id
             },
@@ -149,12 +157,14 @@ $(document).ready(function () {
 //////////// for adminCallCenter findDoctor
 $(document).ready(function () {
     $('#type').on('change', function () {
+        let region_id = $('#region').val();
         let type_id = $(this).val();
         let city_id = $('#city').val();
         $.ajax({
             url: 'callcenter/findDoctorByType/?',
             type: 'GET',
             data: {
+                region: region_id,
                 type: type_id,
                 city: city_id
             },

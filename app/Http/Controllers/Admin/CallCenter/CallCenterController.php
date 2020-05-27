@@ -28,14 +28,18 @@ class CallCenterController extends Controller
 
         $clinicTypeList = Clinic::clinicTypeList();
         $specList = Specialization::all()->pluck('name_ru', 'id');
-        $clinicList = $this->findClinicByType($type_id, $city_id);
+        $clinicList = $this->findClinicByType($type_id, $city_id, $region_id);
 
 
-        if (!empty($value = $request->get('region'))) {
-            $query->where('region_id', $value);
+        if (!empty($region_id)) {
+            $childrens = Region::where('parent_id', $region_id)->pluck('id')->toArray();
+            $query->whereIn('region_id', $childrens);
         }
-        if (!empty($value = $request->get('type'))) {
-            $query->where('type', $value);
+        if (!empty($city_id)) {
+            $query->where('region_id', $city_id);
+        }
+        if (!empty($type_id)) {
+            $query->where('type', $type_id);
         }
 
         if (!empty($value = $request->get('clinic'))) {
@@ -47,27 +51,30 @@ class CallCenterController extends Controller
             });
         }
 
-        $bla = $request->get('region');
-
         $clinics = $query->paginate(20);
 
-        return view('admin.callcenter.index', compact('clinics', 'regionList', 'cityList', 'clinicTypeList', 'specList', 'clinicList', 'bla'));
+        return view('admin.callcenter.index', compact('clinics', 'regionList', 'cityList', 'clinicTypeList', 'specList', 'clinicList'));
     }
 
     public function findDoctorByRegion(Request $request)
     {
         $region_id = $request->get('region');
         $result = $this->findCityByRegion($region_id);
+        $clinics = $this->findClinicByRegion($region_id);
 
-        return json_encode($result);
+        $data = ['cities' => $result, 'clinics' => $clinics];
+
+
+        return json_encode($data);
     }
 
     public function findDoctorByType(Request $request)
     {
+        $region_id = $request->get('region');
         $city_id = $request->get('city');
         $type_id = $request->get('type');
 
-        $result = $this->findClinicByType($type_id, $city_id);
+        $result = $this->findClinicByType($type_id, $city_id, $region_id);
 
         return json_encode($result);
     }
@@ -85,9 +92,18 @@ class CallCenterController extends Controller
         return $result;
     }
 
-    public function findClinicByType($type_id, $city_id)
+    public function findClinicByType($type_id, $city_id, $region_id)
     {
         $query = Clinic::orderBy('id');
+
+        if (!empty($region_id)) {
+            $regionList = Region::where('parent_id', $region_id)->pluck('id')->toArray();
+            $query->whereIn('region_id', $regionList);
+        }
+        if (!empty($region_id) && empty($city_id)) {
+            $regionList = Region::where('parent_id', $region_id)->pluck('id')->toArray();
+            $query->whereIn('region_id', $regionList);
+        }
 
         if (!empty($city_id)) {
             $query->where('region_id', $city_id);
@@ -95,6 +111,20 @@ class CallCenterController extends Controller
 
         if (!empty($type_id)) {
             $query->where('type', $type_id);
+        }
+
+        $result = $query->pluck('name_ru', 'id');
+
+        return $result;
+    }
+
+    public function findClinicByRegion($region_id)
+    {
+        $query = Clinic::orderBy('id');
+
+        if (!empty($region_id)) {
+            $regionList = Region::where('parent_id', $region_id)->pluck('id')->toArray();
+            $query->whereIn('region_id', $regionList);
         }
 
         $result = $query->pluck('name_ru', 'id');

@@ -91,10 +91,40 @@ class UserSeed extends Seeder {
                     'status' => User::STATUS_ACTIVE,
                     'role' => '5',
         ]);
-        $doctor->specializations()->attach([1,2]);
-        $doctor->clinics()->attach([1,6]);
+        $doctor3 = User::create([
+                    'name' => 'Doctor3',
+                    'lastname' => 'Doctorov3',
+                    'patronymic' => 'Doctorovich3',
+                    'phone' => '(998) 99 123-4566',
+                    'birth_date' => '1988-04-26 00:00:00',
+                    'gender' => '1',
+                    'email' => 'doctor3@doctor.com',
+                    'email_verified_at' => '2020-04-26 00:00:00',
+                    'password' => bcrypt('12'),
+                    'status' => User::STATUS_ACTIVE,
+                    'role' => '5',
+        ]);
+        $doctor4 = User::create([
+                    'name' => 'Doctor4',
+                    'lastname' => 'Doctorov4',
+                    'patronymic' => 'Doctorovich4',
+                    'phone' => '(998) 99 123-4567',
+                    'birth_date' => '1988-04-26 00:00:00',
+                    'gender' => '1',
+                    'email' => 'doctor4@doctor.com',
+                    'email_verified_at' => '2020-04-27 00:00:00',
+                    'password' => bcrypt('12'),
+                    'status' => User::STATUS_ACTIVE,
+                    'role' => '5',
+        ]);
+        $doctor->specializations()->attach([1, 2]);
+        $doctor->clinics()->attach([1, 6]);
         $doctor2->specializations()->attach([4]);
         $doctor2->clinics()->attach([3]);
+        $doctor3->specializations()->attach([1]);
+        $doctor3->clinics()->attach([7]);
+        $doctor4->specializations()->attach([2, 3]);
+        $doctor4->clinics()->attach([8]);
     }
 
 }
