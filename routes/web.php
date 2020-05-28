@@ -92,11 +92,11 @@ Route::group([], function () {
 
     Route::group(
         [
-            'middleware' => ['auth'],
-            'namespace' => 'Admin',
-            'prefix' => 'admin',
-            'as' => 'admin.',
-        ],
+        'middleware' => ['auth'],
+        'namespace' => 'Admin',
+        'prefix' => 'admin',
+        'as' => 'admin.',
+    ],
         function () {
             Route::get('clinic/', 'ClinicController@index');
             Route::get('clinic/', 'ClinicController@index')->name('clinic.index');
@@ -108,4 +108,11 @@ Route::group([], function () {
             Route::delete('clinic/{id}', 'ClinicController@destroy')->name('clinic.destroy');
         }
     );
+
+    Route::get('/timetables/show', 'TimeTableController@show');
+    Route::get('/timetables/show', 'TimeTableController@show')->name('timetables.show');
+    Route::get('/timetables/create', 'TimeTableController@create')->name('timetables.create');
+    Route::get('/timetables/edit', 'TimeTableController@edit')->name('timetables.edit');
+    Route::post('/timetables/store', 'TimeTableController@store')->name('timetables.store');
+    Route::delete('/timetable/delete{id}', 'TimeTableController@destroy')->name('timetables.destroy');
 });

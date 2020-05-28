@@ -164,7 +164,7 @@ var DateTimePicker = function ($, moment) {
             incrementSecond: 'Increment Second',
             decrementSecond: 'Decrement Second',
             togglePeriod: 'Toggle Period',
-            selectTime: 'Select Time',
+            selectTime: 'Select Timetable',
             selectDate: 'Select Date'
         },
         useStrict: false,
