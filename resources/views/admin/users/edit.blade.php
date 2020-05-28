@@ -185,7 +185,7 @@
                             <div class="custom-file">
                                 <input type="file" id="avater" class="custom-file-input" name="avatar" >
                                 <label class="custom-file-label" for="avatar">{{ __('Выберите файл') }}</label>
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -243,6 +243,155 @@
         </div>
         <!-- /.col-md -6.3 -->
         @endif
+
+        @if($user->inRole('doctor'))
+            <div class="col-md-6">
+                <div class="card primary">
+                    <div class="card-header">
+                        {{ __('Расписание доктора') }}
+                        <a class="btn btn-secondary float-right" href="{!! route('timetables.create',['id'=>$user->id, 'clinic_id'=>1])!!}">{{ __('Изменить/Добавить') }}</a>
+                    </div>
+                    <!-- /.card-header -->
+
+
+
+                    <div class="container table">
+                        @if ($time != null)
+                            @if($time->scheduleType == 1)
+                                <table class="table table-hover text-nowrap">
+                                    <thead>
+                                    <tr>
+                                        <th>{{$time->scheduleType}}</th>
+                                        <th>Clinic_name</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @if ($time->monday_start!= null)
+                                        <tr>
+                                            <td>Понедельник</td>
+                                            <td>{{$time->monday_start}}</td>
+                                            <td>{{$time->monday_end}}</td>
+                                        </tr>
+                                    @endif
+                                    @if ($time->tuesday_start!= null)
+                                        <tr>
+                                            <td>Вторник</td>
+                                            <td>{{$time->tuesday_start}}</td>
+                                            <td>{{$time->tuesday_end}}</td>
+                                        </tr>
+                                    @endif
+                                    @if ($time->wednesday_start!= null)
+                                        <tr>
+                                            <td>Среда</td>
+                                            <td>{{$time->wednesday_start}}</td>
+                                            <td>{{$time->wednesday_end}}</td>
+                                        </tr>
+                                    @endif
+                                    @if ($time->thursday_start!= null)
+                                        <tr>
+                                            <td>Четверг</td>
+                                            <td>{{$time->thursday_start}}</td>
+                                            <td>{{$time->thursday_end}}</td>
+                                        </tr>
+                                    @endif
+                                    @if ($time->friday_start!= null)
+                                        <tr>
+                                            <td>Пятница</td>
+                                            <td>{{$time->frisday_start}}</td>
+                                            <td>{{$time->frirsday_end}}</td>
+                                        </tr>
+                                    @endif
+                                    @if ($time->saturday_start!= null)
+                                        <tr>
+                                            <td>Суббота</td>
+                                            <td>{{$time->satursday_start}}</td>
+                                            <td>{{$time->satursday_end}}</td>
+                                        </tr>
+                                    @endif
+                                    @if ($time->sunday_start!= null)
+                                        <tr>
+                                            <td>Воскресенье</td>
+                                            <td>{{$time->sunday_start}}</td>
+                                            <td>{{$time->sunsday_end}}</td>
+                                        </tr>
+                                    @endif
+                                    @if ($time->day_off_start!= null)
+                                        <tr>
+                                            <td>Отпуск</td>
+                                            <td>{{$time->day_off_start}}</td>
+                                            <td>{{$time->day_off_end}}</td>
+                                        </tr>
+                                    @endif
+                                    </tbody>
+                                </table>
+                            @elseif ($time->scheduleType == 2)
+                                <table class="table table-hover text-nowrap">
+                                    <thead>
+                                    <tr>
+                                        <th>Clini_id</th>
+                                        <th>Clinic_name</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Дни месяца</td>
+                                        <td>{{$time->even_start}}</td>
+                                        <td>{{$time->even_end}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Отпуск</td>
+                                        <td>{{$time->day_off_start}}</td>
+                                        <td>{{$time->day_off_end}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            @else
+                                <table class="table table-hover text-nowrap">
+                                    <thead>
+                                    <tr>
+                                        <th>Clini_id</th>
+                                        <th>Clinic_name</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Дни месяца</td>
+                                        <td>{{$time->odd_start}}</td>
+                                        <td>{{$time->odd_end}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Отпуск</td>
+                                        <td>{{$time->day_off_start}}</td>
+                                        <td>{{$time->day_off_end}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            @endif
+                        @endif
+                    </div>
+
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                        </div>
+                        <!-- /.card-footer -->
+
+                    </div>
+
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                    </div>
+                    <!-- /.card-footer -->
+
+                </div>
+                <!-- /.card primary-->
+            </div>
+            <!-- /.col-md -6.3 -->
+        @endif
+
+
 
         @if($user->inRole('doctor'))
             <div class="col-md-6">
