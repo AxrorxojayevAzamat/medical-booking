@@ -45,10 +45,15 @@ class CallCenterController extends Controller
         if (!empty($value = $request->get('clinic'))) {
             $query->where('id', $value);
         }
-        if (!empty($value = $request->get('spec'))) {
-            $query->whereHas('users.specializations', function ($query) use ($value) {
-                $query->where('id', $value);
-            });
+        if (!empty($value = $request->get('name'))) {
+            $query->whereHas('users', function ($query1) use ($value) {
+                        $query1->where('name', 'ilike', '%' . $value . '%')
+                        ->orWhere('lastname', 'ilike', '%' . $value . '%');
+                    })
+                    ->orWhereHas('users.specializations', function ($query2) use ($value) {
+                        $query2->where('name_ru', 'ilike', '%' . $value . '%')
+                        ->orWhere('name_uz', 'ilike', '%' . $value . '%');
+                    });
         }
 
         $clinics = $query->paginate(20);

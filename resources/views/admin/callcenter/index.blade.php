@@ -76,16 +76,10 @@
                                 </div>                         
                                 <div class="col-2">
                                     <div class="form-group">
-                                        <label for="spec" class="col-form-label">{{ __('Направление') }}</label>
-                                        <select class="form-control" name="spec" id="spec">
-                                            <option selected></option>
-                                            @foreach ($specList as $value => $label)
-                                            <option value="{{ $value }}"{{ $value == request('spec') ? ' selected' : '' }}>{{ $label }}</option>
-                                            @endforeach;
-                                        </select>
-                                        <label></label>
+                                        <label for="name" class="col-form-label">{{ __('Имя,Фамилия,Направление') }}</label>
+                                        <input name="name" type="text" class="form-control"  value="{{ request('name') }}" placeholder="Имя,Фамилия,Направление ...">
                                     </div>
-                                </div>                         
+                                </div>
 
                                 <div class="col-sm-2">
                                     <div class="form-group">
