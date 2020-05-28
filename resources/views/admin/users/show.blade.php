@@ -193,10 +193,9 @@
                         <div class="col-sm-12">
 
                             <div class="container table">
-                                clinic
-                                @if ($timetable)
+                                @if (!empty($timetable))
                                 @foreach($timetable as $time)
-                                @endforeach
+                                
                                 @if($time->scheduleType == 1)
                                         <table class="table table-hover text-nowrap">
                                             <thead>
@@ -310,24 +309,18 @@
                                             </tbody>
                                         </table>
                                     @endif
+                                    @endforeach
                                 @endif
-
-
                             </div>
-
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
                         </div>
                         <!-- /.card-footer -->
-
                     </div>
                     <!-- /.card primary-->
                 </div>
             </div>
-
-
-
                 <!-- /.col-md -6.3 -->
                 @endif
 
