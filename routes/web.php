@@ -13,20 +13,24 @@ use Illuminate\Support\Facades\Route;
   | contains the "web" middleware group. Now create something great!
   |
  */
-Route::redirect('/', '/ru');
-Route::group(['prefix' => '{language}'], function (){
+//'prefix' => '{language}'
+//Route::redirect('/', '/ru');
 
+Route::group([], function () {
     Route::get('/', function () {
-        return view('welcome');
+        return view('home');
     });
-
-    Route::get('/test', function () {
-        return view('test');
+    
+    Route::get('doctors-list', function () {
+        return view('doctors/list');
+    });
+    Route::get('/dashboard', function () {
+        return view('admin/dashboard');
     });
 
     Auth::routes(['verify' => true]);
 
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/admin', 'HomeController@index')->name('dahboard');
     Route::group(
         [
             'middleware' => ['auth', 'can:user-manage'],
@@ -42,7 +46,6 @@ Route::group(['prefix' => '{language}'], function (){
             Route::get('users/{user}/additionalForClinic', 'UserController@additionalForClinic')->name('users.additionalForClinic');
             Route::resource('specializations', 'SpecializationController');
             Route::resource('clinics', 'ClinicController');
-
         }
     );
 
@@ -105,6 +108,4 @@ Route::group(['prefix' => '{language}'], function (){
             Route::delete('clinic/{id}', 'ClinicController@destroy')->name('clinic.destroy');
         }
     );
-
-
 });
