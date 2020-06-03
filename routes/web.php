@@ -13,12 +13,17 @@ use Illuminate\Support\Facades\Route;
   | contains the "web" middleware group. Now create something great!
   |
  */
-Route::redirect('/', '/ru');
-Route::group(['prefix' => '{language}'], function (){
+
 
     Route::get('/', function () {
         return view('welcome');
     });
+
+Route::get("locale/{locale}" , function($locale){
+    Session::put('locale',$locale);
+
+    return redirect()->back();
+});
 
     Route::get('/test', function () {
         return view('test');
@@ -107,4 +112,4 @@ Route::group(['prefix' => '{language}'], function (){
     );
 
 
-});
+
