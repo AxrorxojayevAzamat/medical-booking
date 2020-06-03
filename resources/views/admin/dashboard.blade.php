@@ -1,4 +1,5 @@
 @extends('adminlte::page')
+@section('breadcrumbs', '')
 
 @section('content_header')
     <h1>Dashboard</h1>

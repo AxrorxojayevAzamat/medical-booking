@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 @section('title', 'Специализации')
-@section('content_header')
+{{-- @section('content_header')
 <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
@@ -8,14 +8,15 @@
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route("home") }}">{{ __('Главная')}} </a></li>
+                <li class="breadcrumb-item"><a href="{{ route("admin") }}">{{ __('Главная')}} </a></li>
                 <li class="breadcrumb-item"><a href="{{ route("admin.specializations.index") }}">{{ __('Специализации')}}</a></li>
                 <li class="breadcrumb-item active">{{ __('Показать специализацию')}}</li>
             </ol>
         </div>
     </div>
 </div><!-- /.container-fluid -->
-@stop
+@stop --}}
+
 @section('content')
 <div class="row no-print">
     <div class="col-12">

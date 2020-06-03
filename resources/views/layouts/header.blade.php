@@ -53,7 +53,9 @@
                     @if (Route::has('login'))
                         <div class="top-right links">
                             @auth
-                                <a href="{{ url('/admin') }}">Home</a>
+								{{-- <a href="{{ url('admin') }}">Dashboard</a> --}}
+								{{-- <li><a href="{{ url('admin') }}"><i class="pe-7s-user"></i></a></li> --}}
+								<li><a href="{{ url('admin') }}"><i class="pe-7s-user"></i></a></li>
                             @else
                                 {{-- <a href="{{ route('login', app()->getLocale() ) }}">Login</a> --}}
                                 <li><a href="{{ route('login', app()->getLocale() ) }}"><i class="pe-7s-user"></i></a></li>
@@ -137,4 +139,7 @@
 		</div>
 		<!-- /container -->
 	</header>
+
 	<!-- /header --> 
+
+    

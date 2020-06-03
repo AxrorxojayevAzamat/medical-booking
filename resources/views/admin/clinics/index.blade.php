@@ -1,22 +1,5 @@
 @extends('adminlte::page')
-@section('title','Клиники')
-@section('content_header')
-    <div class="container-fluid">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Клиники</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="http://localhost:8081/home">Главная </a></li>
-                        <li class="breadcrumb-item active">Список клиник</li>
-                    </ol>
-                </div>
-            </div>
-        </div><!-- /.container-fluid -->
-    </div>
-@stop
+
 @section('content')
 
     @if($errors->any())

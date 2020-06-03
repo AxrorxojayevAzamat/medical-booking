@@ -6,12 +6,12 @@
         <div class="col-sm-6">
             <h1>{{ __('Пользователи') }}</h1>
         </div>
-        <div class="col-sm-6">
+        {{-- <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('admin') }}">{{ __('Главная') }} </a></li>
                 <li class="breadcrumb-item active">{{ __('Пользователи') }}</li>
             </ol>
-        </div>
+        </div> --}}
     </div>
 </div><!-- /.container-fluid -->
 @stop

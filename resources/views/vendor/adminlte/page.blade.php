@@ -211,9 +211,12 @@
 
             <div class="content">
                 <div class="{{config('adminlte.classes_content', 'container-fluid')}}">
+                    @section('breadcrumbs', Breadcrumbs::render())
+                    @yield('breadcrumbs')
                     @yield('content')
                 </div>
             </div>
+
             @if(config('adminlte.layout_topnav') || View::getSection('layout_topnav'))
             </div>
             @endif

@@ -5,13 +5,11 @@ use Illuminate\Support\Facades\Route;
 
 //'prefix' => '{language}'
 //Route::redirect('/', '/ru');
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', 'HomeController@index')->name('home');
 
 
 Auth::routes(['verify' => true]);
-Route::get('admin', 'HomeController@index')->name('admin');
+//Route::get('admin', 'HomeController@index')->name('admin');
 
 Route::get('doctors-list', function () {
     return view('doctors/list');
@@ -19,10 +17,8 @@ Route::get('doctors-list', function () {
 
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
-    Route::get('', function () {
-        return view('admin/dashboard');
-    });
-    
+    Route::get('/', 'DashboardController@index')->name('home');
+
     Route::resource('users', 'UserController');
     Route::resource('specializations', 'SpecializationController');
     Route::resource('clinic', 'ClinicController');
@@ -31,10 +27,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::group(
         [ 'prefix' => 'users', 'as' => 'users.' ],
         function () {
-            Route::post('{user}/specialization', 'UserController@specialization')->name('specialization');
-            Route::post('{user}/clinic', 'UserController@clinic')->name('clinic');
-            Route::get('{user}/additional', 'UserController@additional')->name('additional');
-            Route::get('{user}/additionalForClinic', 'UserController@additionalForClinic')->name('additionalForClinic');
+            Route::post('{user}/store-specializations', 'UserController@storeSpecializations')->name('store-specializations');
+            Route::get('{user}/specializations', 'UserController@specializations')->name('specializations');
+            
+            Route::post('{user}/store-clinics', 'UserController@storeClinics')->name('store-clinics');
+            Route::get('{user}/user-clinics', 'UserController@userClinics')->name('user-clinics');
         }
     );
 
@@ -48,13 +45,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
             Route::get('createDistrict', 'RegionController@createDistrict')->name('createDistrict');
             Route::get('findCity/{id}', 'RegionController@findCity');
     
-            Route::get('edit/{id}', 'RegionController@edit')->name('edit');
-            Route::get('editCity/{id}', 'RegionController@editCity')->name('editCity');
-            Route::get('editDistrict/{id}', 'RegionController@editDistrict')->name('editDistrict');
+            Route::get('edit/{region}', 'RegionController@edit')->name('edit');
+            Route::get('editCity/{region}', 'RegionController@editCity')->name('editCity');
+            Route::get('editDistrict/{region}', 'RegionController@editDistrict')->name('editDistrict');
     
             Route::post('/', 'RegionController@store')->name('store');
-            Route::patch('show/{id}', 'RegionController@update')->name('update');
-            Route::delete('{id}', 'RegionController@destroy')->name('destroy');
+            Route::patch('show/{region}', 'RegionController@update')->name('update');
+            Route::delete('{region}', 'RegionController@destroy')->name('destroy');
         }
     );
 

@@ -25,7 +25,7 @@
     @endforeach
     @endif
 
-    <form action="{{route('timetables.store',['id'=>$request->id,'clinic_id'=>$request->clinic_id])}}" method="post", enctype="multipart/form-data">
+    <form action="{{route('admin.timetables.store',['id'=>$request->id,'clinic_id'=>$request->clinic_id])}}" method="post", enctype="multipart/form-data">
         @csrf
        
         <div class="block-left">
