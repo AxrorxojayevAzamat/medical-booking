@@ -117,6 +117,33 @@ class UserSeed extends Seeder {
                     'status' => User::STATUS_ACTIVE,
                     'role' => '5',
         ]);
+
+        $user2 = User::create([
+                    'name' => 'User2',
+                    'lastname' => 'Userov2',
+                    'patronymic' => 'Userovich2',
+                    'phone' => '(998) 99 123-4569   ',
+                    'birth_date' => '1988-04-22 00:00:00',
+                    'gender' => '1',
+                    'email' => 'user2@user.com',
+                    'email_verified_at' => '2020-04-29 00:00:00',
+                    'password' => bcrypt('12'),
+                    'status' => User::STATUS_ACTIVE,
+                    'role' => '2',
+        ]);
+        $user3 = User::create([
+                    'name' => 'User3',
+                    'lastname' => 'Userov3',
+                    'patronymic' => 'Userovich3',
+                    'phone' => '(998) 99 123-4570   ',
+                    'birth_date' => '1988-04-22 00:00:00',
+                    'gender' => '1',
+                    'email' => 'user3@user.com',
+                    'email_verified_at' => '2020-04-30 00:00:00',
+                    'password' => bcrypt('12'),
+                    'status' => User::STATUS_ACTIVE,
+                    'role' => '2',
+        ]);
         $doctor->specializations()->attach([1, 2]);
         $doctor->clinics()->attach([1, 6]);
         $doctor2->specializations()->attach([4]);

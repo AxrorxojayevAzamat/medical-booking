@@ -108,14 +108,14 @@
                                 <th>{{ __('Email') }}</th>
                                 <th>{{ __('Роль') }}</th>
                                 <th>{{ __('Статус') }}</th>
-                                <th style="width: 15%"></th>
+{{--                                <th style="width: 15%"></th> --}}
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($users as $user)
                             <tr>
                                 <td>{{$user->id}}</td>
-                                <td>{{$user->name}}</td>
+                                <td><a href="{{ route('admin.users.show', $user->id) }}">{{ $user->name }}</td>
                                 <td>{{$user->lastname}}</td>
                                 <td>{{$user->phone}}</td>
                                 <td>{{$user->email}}</td>
@@ -138,6 +138,7 @@
                                     @endif
                                     @endforeach
                                 </td>
+                                {{--
                                 <td class="project-actions text-right">
                                     <div class="btn-group">
                                         <a class="btn btn-primary btn-sm" href="{{ route('admin.users.show',$user->id)}}">
@@ -164,6 +165,7 @@
                                         </form> 
                                     </div>
                                 </td>
+                                --}}
                             </tr>
                             @endforeach
                         </tbody>

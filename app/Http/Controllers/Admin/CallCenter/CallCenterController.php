@@ -7,9 +7,7 @@ use App\User;
 use App\Region;
 use App\Clinic;
 use App\Specialization;
-use App\CallCenterDoctor;
-use App\DoctorClinic;
-use App\SpecializationUser;
+use App\Booking;
 use Illuminate\Http\Request;
 
 class CallCenterController extends Controller {
@@ -133,6 +131,41 @@ class CallCenterController extends Controller {
         $result = $query->pluck('name_ru', 'id');
 
         return $result;
+    }
+
+    public function booking(User $user, Clinic $clinic) {
+
+        $user1 = User::find($user->id);
+        $clinic1 = Clinic::find($clinic->id);
+
+//        $b_users = Booking::all();
+        $b_users = Booking::where('doctor_id', $user1->id)
+                ->where('clinic_id', $clinic1->id)
+                ->get();
+
+        return view('admin.callcenter.booking', compact('user1', 'clinic1', 'b_users'));
+    }
+
+    public function bookingDoctor(Request $request) {
+
+        $user = User::newGuest(
+                        $request['name'],
+                        $request['lastname'],
+                        $request['patronymic'],
+                        $request['phone'],
+                        $request['birth_date'],
+                        $request['gender'],
+                        $request['email']
+        );
+        $doctorId = $request['doctor_id'];
+        $clinicId = $request['clinic_id'];
+        $bookingDate = $request['booking_date'];
+        $timeStart = $request['time_start'];
+
+        $booking = Booking::new($user->id, $doctorId, $clinicId, $bookingDate, $timeStart, null, null, null);
+
+
+        return redirect()->route('admin.callcenter.index');
     }
 
 }

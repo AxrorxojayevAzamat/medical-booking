@@ -64,14 +64,9 @@ class User extends Authenticatable implements MustVerifyEmail {
         return $this->belongsToMany(Specialization::class, 'specialization_user');
     }
 
-
-
     public function clinics() {
         return $this->belongsToMany(Clinic::class, 'doctors_and_clinics');
     }
-
-
-
 
     public function isActive(): bool {
         return $this->status === self::STATUS_ACTIVE;
@@ -90,6 +85,35 @@ class User extends Authenticatable implements MustVerifyEmail {
 
     public function getImageAttribute() {
         return $this->avatar;
+    }
+
+    public static function new($name, $lastname, $patronymic, $phone, $birthDate, $gender, $email, $password, $role): self {
+        return static::create([
+                    'name' => $name,
+                    'lastname' => $lastname,
+                    'patronymic' => $patronymic,
+                    'phone' => $phone,
+                    'birth_date' => $birthDate,
+                    'gender' => $gender,
+                    'email' => $email,
+                    'password' => bcrypt($password),
+                    'role' => $role,
+                    'status' => self::STATUS_ACTIVE,
+        ]);
+    }
+
+    public static function newGuest($name, $lastname, $patronymic, $phone, $birthDate, $gender, $email): self {
+        $password = 12; // this is for test must change
+        $role = 5; //must change 
+        return static::new($name, $lastname, $patronymic, $phone, $birthDate, $gender, $email, $password, $role);
+    }
+
+    public function user() {
+        return $this->hasOne('App\Booking', 'user_id', 'id');
+    }
+
+    public function doctor() {
+        return $this->hasOne('App\Booking', 'doctor_id', 'id');
     }
 
 }

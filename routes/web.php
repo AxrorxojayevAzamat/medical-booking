@@ -108,3 +108,5 @@ Route::group(
 
 Route::get('admin/callcenter/findDoctorByRegion', 'Admin\CallCenter\CallCenterController@findDoctorByRegion');
 Route::get('admin/callcenter/findDoctorByType', 'Admin\CallCenter\CallCenterController@findDoctorByType');
+Route::get('admin/callcenter/booking/{user}/{clinic}', 'Admin\CallCenter\CallCenterController@booking')->name('admin.callcenter.booking');
+Route::post('admin/callcenter/booking/', 'Admin\CallCenter\CallCenterController@bookingDoctor')->name('admin.callcenter.bookingDoctor');
