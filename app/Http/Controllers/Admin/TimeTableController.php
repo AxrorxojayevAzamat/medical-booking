@@ -31,7 +31,7 @@ class TimeTableController extends Controller
      */
     public function create(Request $request)
     {
-        return view('timetables.create', compact('request'));
+        return view('admin.timetables.create', compact('request'));
     }
 
     /**
@@ -88,7 +88,7 @@ class TimeTableController extends Controller
         if (!$time) {
             return redirect()->route('user.show')->withErrors('Такого расписания  нет на сайте');
         }
-        return view('timetables.edit', compact('time'));
+        return view('admin.timetables.edit', compact('time'));
     }
 
     /**
@@ -128,7 +128,7 @@ class TimeTableController extends Controller
         //$time->created_by = $request->id;
         //$time->update_by = $request->id;
         $time->update();
-        return redirect()->route('timetables.show', compact('id'))->with('success', 'Расписание обновлено');
+        return redirect()->route('admin.timetables.show', compact('id'))->with('success', 'Расписание обновлено');
     }
 
     /**

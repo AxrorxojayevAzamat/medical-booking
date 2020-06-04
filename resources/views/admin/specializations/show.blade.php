@@ -1,21 +1,4 @@
 @extends('adminlte::page')
-@section('title', 'Специализации')
-{{-- @section('content_header')
-<div class="container-fluid">
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h1>{{ __('Показать специализацию') }}</h1>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route("admin") }}">{{ __('Главная')}} </a></li>
-                <li class="breadcrumb-item"><a href="{{ route("admin.specializations.index") }}">{{ __('Специализации')}}</a></li>
-                <li class="breadcrumb-item active">{{ __('Показать специализацию')}}</li>
-            </ol>
-        </div>
-    </div>
-</div><!-- /.container-fluid -->
-@stop --}}
 
 @section('content')
 <div class="row no-print">
@@ -36,12 +19,6 @@
 <div class="row">
     <div class="col-md-6">
         <div class="card primary">
-            <div class="card-header">
-                {{ __('Показать специализацию') }}
-            </div>
-            <!-- /.card-header -->
-
-
             <div class="card-body">
                 <div class="form-group">
 

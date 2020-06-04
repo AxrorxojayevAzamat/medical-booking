@@ -63,6 +63,22 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
             Route::get('add-main-photo', 'ClinicController@addMainPhoto')->name('add-main-photo');
         }
     );
+
+    // Route::group(
+    //     ['prefix' => 'timetables/','as' => 'timetables.'],
+    //     function () {
+    //         Route::get('create/{}', 'TimeTableController@create')->name('main-photo');
+            
+    //     }
+    // );
+    
+    Route::get('/timetables/show', 'TimeTableController@show');
+    Route::get('/timetables/show', 'TimeTableController@show')->name('timetables.show');
+    Route::get('/timetables/create', 'TimeTableController@create')->name('timetables.create');
+    Route::get('/timetables/edit', 'TimeTableController@edit')->name('timetables.edit');
+    Route::post('/timetables/store', 'TimeTableController@store')->name('timetables.store');
+    
+    Route::delete('/timetable/delete{id}', 'TimeTableController@destroy')->name('timetables.destroy');
     
     Route::get('callcenter/', 'CallCenter\CallCenterController@index')->name('callcenter.index');
     Route::get('callcenter/findCity1/{id}', 'CallCenter\CallCenterController@findCity1');
@@ -71,11 +87,4 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     
     Route::get('callcenter/findDoctorByRegion', 'CallCenter\CallCenterController@findDoctorByRegion');
     Route::get('callcenter/findDoctorByType', 'CallCenter\CallCenterController@findDoctorByType');
-       
-    Route::get('/timetables/show', 'TimeTableController@show');
-    Route::get('/timetables/show', 'TimeTableController@show')->name('timetables.show');
-    Route::get('/timetables/create', 'TimeTableController@create')->name('timetables.create');
-    Route::get('/timetables/edit', 'TimeTableController@edit')->name('timetables.edit');
-    Route::post('/timetables/store', 'TimeTableController@store')->name('timetables.store');
-    Route::delete('/timetable/delete{id}', 'TimeTableController@destroy')->name('timetables.destroy');
 });

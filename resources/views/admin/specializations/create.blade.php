@@ -1,21 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Специализации')
-@section('content_header')
-<div class="container-fluid">
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h1>{{ __('Добавить специализацию') }}</h1>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route("admin") }}">{{ __('Главная')}} </a></li>
-                <li class="breadcrumb-item"><a href="{{ route("admin.specializations.index") }}">{{ __('Специализации')}}</a></li>
-                <li class="breadcrumb-item active">{{ __('Добавить специализацию')}}</li>
-            </ol>
-        </div>
-    </div>
-</div><!-- /.container-fluid -->
-@stop
+
 @section('content')
 <form method="POST" action="{{ route("admin.specializations.store") }}">
     @csrf
@@ -31,7 +15,7 @@
                 <div class="card-body">
                     <div class="form-group">
 
-                        <label for="name_ru" class="col-form-label text-md-left">{{ __('Наименование(ru)') }}</label>
+                        <label for="name_ru" class="col-form-label text-md-left">{{ __('Название на русском') }}</label>
                         <input id="name_ru" type="text" class="form-control @error('name_ru') is-invalid @enderror" name="name_ru" value="{{ old('name_ru') }}" required autocomplete="name_ru" autofocus>
 
                         @error('name_ru')
@@ -42,7 +26,7 @@
                     </div>
                     <div class="form-group">
 
-                        <label for="name_uz" class="col-form-label text-md-left">{{ __('Наименование(uz)') }}</label>
+                        <label for="name_uz" class="col-form-label text-md-left">{{ __('Название на узбекском') }}</label>
                         <input id="name_uz" type="text" class="form-control @error('name_uz') is-invalid @enderror" name="name_uz" value="{{ old('name_uz') }}" required autocomplete="name_uz" autofocus>
 
                         @error('name_uz')

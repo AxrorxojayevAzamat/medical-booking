@@ -380,7 +380,7 @@
                 <div class="card primary">
                     <div class="card-header">
                         {{ __('Клиника для доктора') }}
-                        <a class="btn btn-secondary float-right" href="{{ route('admin.users.additionalForClinic',$user) }}" disabled>{{ __('Изменить/Добавить') }}</a>
+                        <a class="btn btn-secondary float-right" href="{{ route('admin.users.user-clinics',$user) }}" disabled>{{ __('Изменить/Добавить') }}</a>
                     </div>
                     <!-- /.card-header -->
 

@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-
+@section('breadcrumbs', '')
 @section('content')
 <form method="POST" action="{{ route("admin.users.store") }}" enctype="multipart/form-data">
     @csrf

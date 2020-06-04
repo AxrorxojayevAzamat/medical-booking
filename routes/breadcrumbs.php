@@ -3,6 +3,7 @@
 use App\Clinic;
 use App\User;
 use App\Region;
+use App\Specialization;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Crumbs;
 
@@ -100,6 +101,27 @@ Breadcrumbs::register('admin.callcenter.index', function (Crumbs $crumbs) {
     $crumbs->push('Поиск врача', route('admin.callcenter.index'));
 });
 
+//specializations
+
+Breadcrumbs::register('admin.specializations.index', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push('Специализации', route('admin.specializations.index'));
+});
+
+Breadcrumbs::register('admin.specializations.create', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.specializations.index');
+    $crumbs->push('Создать специализацию', route('admin.specializations.create'));
+});
+
+Breadcrumbs::register('admin.specializations.show', function (Crumbs $crumbs, Specialization $specialization) {
+    $crumbs->parent('admin.specializations.index');
+    $crumbs->push($specialization->name_ru, route('admin.specializations.show', $specialization));
+});
+Breadcrumbs::register('admin.specializations.edit', function (Crumbs $crumbs, Specialization $specialization) {
+    $crumbs->parent('admin.specializations.index');
+    $crumbs->push($specialization->name_ru, route('admin.specializations.index', $specialization));
+});
+
 //celebration
 Breadcrumbs::register('admin.celebration.index', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
@@ -109,4 +131,10 @@ Breadcrumbs::register('admin.celebration.index', function (Crumbs $crumbs) {
 Breadcrumbs::register('admin.celebration.create', function (Crumbs $crumbs) {
     $crumbs->parent('admin.celebration.index');
     $crumbs->push('Создать праздничный день', route('admin.celebration.create'));
+});
+
+//timetables
+Breadcrumbs::register('admin.timetables.create', function (Crumbs $crumbs) {
+    //$crumbs->parent('admin.users.edit', $user);
+    $crumbs->push('Создать расписание врача', route('admin.timetables.create'));
 });
