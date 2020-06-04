@@ -57,11 +57,11 @@
 								{{-- <li><a href="{{ url('admin') }}"><i class="pe-7s-user"></i></a></li> --}}
 								<li><a href="{{ url('admin') }}"><i class="pe-7s-user"></i></a></li>
                             @else
-                                {{-- <a href="{{ route('login', app()->getLocale() ) }}">Login</a> --}}
-                                <li><a href="{{ route('login', app()->getLocale() ) }}"><i class="pe-7s-user"></i></a></li>
+                                {{-- <a href="{{ route('login') }}">Login</a> --}}
+                                <li><a href="{{ route('login') }}"><i class="pe-7s-user"></i></a></li>
                                 @if (Route::has('register'))
-                                    {{-- <a href="{{ route('register', app()->getLocale() ) }}">Register</a> --}}
-                                    <li><a href="{{ route('register', app()->getLocale() ) }}"><i class="pe-7s-add-user"></i></a></li>
+                                    {{-- <a href="{{ route('register' ) }}">Register</a> --}}
+                                    <li><a href="{{ route('register') }}"><i class="pe-7s-add-user"></i></a></li>
                                 @endif
                             @endauth
                         </div>
@@ -129,6 +129,14 @@
 									<li><a href="icon-pack-2.html">Icon pack 2</a></li>
 									<li><a href="icon-pack-3.html">Icon pack 3</a></li>
 									<li><a href="404.html">404 page</a></li>
+								</ul>
+							</li>
+
+							<li class="submenu">
+								<a href="#" class="show-submenu">Lang<i class="icon-down-open-mini"></i></a>
+								<ul>
+									<li><a href="/locale/uz">Uz</a></li>
+									<li><a href="/locale/ru">Ru</a></li>
 								</ul>
 							</li>
 						</ul>

@@ -5,7 +5,7 @@
 <main>
   <div class="hero_home version_1">
     <div class="content">
-      <h3>Find a Doctor!</h3>
+      <h3>{{ __('msg.wlcm') }}</h3>
       <p>
         Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula.
       </p>

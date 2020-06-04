@@ -90,3 +90,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('callcenter/booking/{user}/{clinic}', 'CallCenter\CallCenterController@booking')->name('callcenter.booking');
     Route::post('callcenter/booking/', 'CallCenter\CallCenterController@bookingDoctor')->name('callcenter.bookingDoctor');
 });
+
+Route::get("locale/{locale}", function ($locale) {
+    Session::put('locale', $locale);
+
+    return redirect()->back();
+});
