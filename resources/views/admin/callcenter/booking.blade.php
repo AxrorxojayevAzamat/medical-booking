@@ -1,5 +1,6 @@
 @extends('adminlte::page')
 
+@section('content')
 <form method="POST" action="{{ route("admin.callcenter.bookingDoctor") }}" enctype="multipart/form-data">
     @csrf
 
@@ -97,6 +98,4 @@
         </div>
     </div>
 </form>
-
-
 @stop

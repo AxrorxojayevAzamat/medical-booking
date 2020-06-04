@@ -1,7 +1,5 @@
 @extends('adminlte::page')
 
-@section('breadcrumbs', '')
-
 @section('content')
 <div class="container-fluid">
     <div class="row">

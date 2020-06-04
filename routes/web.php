@@ -87,6 +87,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     
     Route::get('callcenter/findDoctorByRegion', 'CallCenter\CallCenterController@findDoctorByRegion');
     Route::get('callcenter/findDoctorByType', 'CallCenter\CallCenterController@findDoctorByType');
+    
     Route::get('callcenter/booking/{user}/{clinic}', 'CallCenter\CallCenterController@booking')->name('callcenter.booking');
     Route::post('callcenter/booking/', 'CallCenter\CallCenterController@bookingDoctor')->name('callcenter.bookingDoctor');
 });
