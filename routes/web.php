@@ -64,7 +64,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
         }
     );
     
-    Route::get('callcenter/', 'CallCenter\CallCenterController@index')->name('admin.callcenter.index');
+    Route::get('callcenter/', 'CallCenter\CallCenterController@index')->name('callcenter.index');
     Route::get('callcenter/findCity1/{id}', 'CallCenter\CallCenterController@findCity1');
     
     Route::get('callcenter/findDoctor', 'CallCenter\CallCenterController@findDoctor');

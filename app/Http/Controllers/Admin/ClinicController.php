@@ -100,13 +100,11 @@ class ClinicController extends Controller
         // }
         // $clinics->photo = json_encode($data);
         $clinics->save();
-
-        
     }
 
-    public function show($id)
+    public function show(Clinic $clinic)
     {
-        $clinic = Clinic::find($id);
+        $clinic = Clinic::find($clinic->id);
         $clinics = Clinic::all();
         $regions = Region::all();
         return view('admin.clinics.show', compact('clinic', 'regions', 'clinics'));
@@ -118,9 +116,9 @@ class ClinicController extends Controller
      * @param int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Clinic $clinic)
     {
-        $clinics = Clinic::find($id);
+        $clinics = Clinic::find($clinic->id);
         $regions = Region::all();
         return view('admin.clinics.edit', compact('clinics', 'regions'));
     }
@@ -185,10 +183,10 @@ class ClinicController extends Controller
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Clinic $clinic)
     {
         $folder = Clinic::CLINIC_PROFILE;
-        $clinics = Clinic::find($id);
+        $clinics = Clinic::find($clinic->id);
         $photos = json_decode($clinics->photo);
         // foreach ($photos as $photo) {
         //     $this->deleteOne($folder, 'public', $photo);

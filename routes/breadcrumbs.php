@@ -49,15 +49,15 @@ Breadcrumbs::register('admin.region.index', function (Crumbs $crumbs) {
 
 Breadcrumbs::register('admin.region.edit', function (Crumbs $crumbs, Region $region) {
     $crumbs->parent('admin.region.index');
-    $crumbs->push('Редакирование', route('admin.region.edit', $region));
+    $crumbs->push($region->name_ru, route('admin.region.edit', $region));
 });
 Breadcrumbs::register('admin.region.editCity', function (Crumbs $crumbs, Region $region) {
     $crumbs->parent('admin.region.index');
-    $crumbs->push('Редакирование', route('admin.region.editCity', $region));
+    $crumbs->push($region->name_ru, route('admin.region.editCity', $region));
 });
 Breadcrumbs::register('admin.region.editDistrict', function (Crumbs $crumbs, Region $region) {
     $crumbs->parent('admin.region.index');
-    $crumbs->push('Редакирование', route('admin.region.editDistrict', $region));
+    $crumbs->push($region->name_ru, route('admin.region.editDistrict', $region));
 });
 
 Breadcrumbs::register('admin.region.create', function (Crumbs $crumbs) {
@@ -88,5 +88,25 @@ Breadcrumbs::register('admin.clinic.create', function (Crumbs $crumbs) {
 
 Breadcrumbs::register('admin.clinic.show', function (Crumbs $crumbs, Clinic $clinic) {
     $crumbs->parent('admin.clinic.index');
-    $crumbs->push($clinic->id, route('admin.clinic.show', $clinic));
+    $crumbs->push($clinic->name_ru, route('admin.clinic.show', $clinic));
+});
+Breadcrumbs::register('admin.clinic.edit', function (Crumbs $crumbs, Clinic $clinic) {
+    $crumbs->parent('admin.clinic.index');
+    $crumbs->push($clinic->name_ru, route('admin.clinic.edit', $clinic));
+});
+
+Breadcrumbs::register('admin.callcenter.index', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push('Поиск врача', route('admin.callcenter.index'));
+});
+
+//celebration
+Breadcrumbs::register('admin.celebration.index', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push('Праздничные дни', route('admin.celebration.index'));
+});
+
+Breadcrumbs::register('admin.celebration.create', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.celebration.index');
+    $crumbs->push('Создать праздничный день', route('admin.celebration.create'));
 });
