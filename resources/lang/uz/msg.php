@@ -3,6 +3,6 @@
 return [
 
   
-    'wlcm' => 'Med booking UZ',
+    'wlcm' => 'Doktor toping!',
 
 ];

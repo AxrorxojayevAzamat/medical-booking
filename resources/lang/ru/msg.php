@@ -3,6 +3,7 @@
 return [
 
   
-    'wlcm' => 'Med booking RU',
+    'wlcm' => 'Найти врача!',
+
 
 ];
