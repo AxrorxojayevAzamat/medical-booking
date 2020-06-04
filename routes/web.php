@@ -15,23 +15,33 @@ use Illuminate\Support\Facades\Route;
  */
 
 
+
+
+
+Route::group([], function () {
     Route::get('/', function () {
-        return view('welcome');
+        return view('home');
     });
 
-Route::get("locale/{locale}" , function($locale){
-    Session::put('locale',$locale);
 
-    return redirect()->back();
-});
 
     Route::get('/test', function () {
         return view('test');
     });
 
+
+    Route::get('doctors-list', function () {
+        return view('doctors/list');
+    });
+
+    Route::get('/dashboard', function () {
+        return view('admin/dashboard');
+
+    });
+
     Auth::routes(['verify' => true]);
 
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/admin', 'HomeController@index')->name('dahboard');
     Route::group(
         [
             'middleware' => ['auth', 'can:user-manage'],
@@ -47,7 +57,6 @@ Route::get("locale/{locale}" , function($locale){
             Route::get('users/{user}/additionalForClinic', 'UserController@additionalForClinic')->name('users.additionalForClinic');
             Route::resource('specializations', 'SpecializationController');
             Route::resource('clinics', 'ClinicController');
-
         }
     );
 
@@ -94,11 +103,11 @@ Route::get("locale/{locale}" , function($locale){
 
     Route::group(
         [
-            'middleware' => ['auth'],
-            'namespace' => 'Admin',
-            'prefix' => 'admin',
-            'as' => 'admin.',
-        ],
+        'middleware' => ['auth'],
+        'namespace' => 'Admin',
+        'prefix' => 'admin',
+        'as' => 'admin.',
+    ],
         function () {
             Route::get('clinic/', 'ClinicController@index');
             Route::get('clinic/', 'ClinicController@index')->name('clinic.index');
@@ -111,5 +120,17 @@ Route::get("locale/{locale}" , function($locale){
         }
     );
 
+    Route::get('/timetables/show', 'TimeTableController@show');
+    Route::get('/timetables/show', 'TimeTableController@show')->name('timetables.show');
+    Route::get('/timetables/create', 'TimeTableController@create')->name('timetables.create');
+    Route::get('/timetables/edit', 'TimeTableController@edit')->name('timetables.edit');
+    Route::post('/timetables/store', 'TimeTableController@store')->name('timetables.store');
+    Route::delete('/timetable/delete{id}', 'TimeTableController@destroy')->name('timetables.destroy');
+});
 
+Route::get("locale/{locale}" , function($locale){
+    Session::put('locale',$locale);
+
+    return redirect()->back();
+});
 

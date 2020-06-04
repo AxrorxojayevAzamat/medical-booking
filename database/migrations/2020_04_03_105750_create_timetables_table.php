@@ -41,13 +41,13 @@ class CreateTimetablesTable extends Migration
             $table->time('even_start')->nullable();
             $table->time('even_end')->nullable();
 
-            $table->time('day_off_start')->nullable();
-            $table->time('day_off_end')->nullable();
+            $table->date('day_off_start')->nullable();
+            $table->date('day_off_end')->nullable();
 
             $table->integer('created_by')->unsigned();
             $table->integer('updated_by')->unsigned();
 
-            $table->timestamps();    
+            $table->timestamps();
         });
         Schema::table('timetables', function (Blueprint $table) {
             $table->foreign('doctor_id')->references('id')->on('users')->onDelete('restrict');

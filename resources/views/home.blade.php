@@ -1,381 +1,203 @@
-@extends('adminlte::page')
-
-@section('content_header')
-    <h1>Dashboard</h1>
-@stop
+@extends('layouts.app')
 
 @section('content')
-    <div class="row">
-      <div class="col-md-6">
-
-        <div class="card card-danger">
-          <div class="card-header">
-            <h3 class="card-title">Input masks</h3>
+<main>
+  <div class="hero_home version_1">
+    <div class="content">
+      <h3>Find a Doctor!</h3>
+      <p>
+        Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula.
+      </p>
+      <form method="post" action="list.html">
+        <div id="custom-search-input">
+          <div class="input-group">
+            <input type="text" class=" search-query" placeholder="Ex. Name, Specialization ....">
+            <input type="submit" class="btn_search" value="Search">
           </div>
-          <div class="card-body">
-            <!-- Date dd/mm/yyyy -->
-            <div class="form-group">
-              <label>Date masks:</label>
-
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                </div>
-                <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" im-insert="false">
-              </div>
-              <!-- /.input group -->
-            </div>
-            <!-- /.form group -->
-
-            <!-- Date mm/dd/yyyy -->
-            <div class="form-group">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                </div>
-                <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" data-mask="" im-insert="false">
-              </div>
-              <!-- /.input group -->
-            </div>
-            <!-- /.form group -->
-
-            <!-- phone mask -->
-            <div class="form-group">
-              <label>US phone mask:</label>
-
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                </div>
-                <input type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999&quot;" data-mask="" im-insert="true">
-              </div>
-              <!-- /.input group -->
-            </div>
-            <!-- /.form group -->
-
-            <!-- phone mask -->
-            <div class="form-group">
-              <label>Intl US phone mask:</label>
-
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                </div>
-                <input type="text" class="form-control" data-inputmask="'mask': ['999-999-9999 [x99999]', '+099 99 99 9999[9]-9999']" data-mask="" im-insert="true">
-              </div>
-              <!-- /.input group -->
-            </div>
-            <!-- /.form group -->
-
-            <!-- IP mask -->
-            <div class="form-group">
-              <label>IP mask:</label>
-
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-laptop"></i></span>
-                </div>
-                <input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask="" im-insert="true">
-              </div>
-              <!-- /.input group -->
-            </div>
-            <!-- /.form group -->
-
-          </div>
-          <!-- /.card-body -->
+          <ul>
+            <li>
+              <input type="radio" id="all" name="radio_search" value="all" checked>
+              <label for="all">All</label>
+            </li>
+            <li>
+              <input type="radio" id="doctor" name="radio_search" value="doctor">
+              <label for="doctor">Doctor</label>
+            </li>
+            <li>
+              <input type="radio" id="clinic" name="radio_search" value="clinic">
+              <label for="clinic">Clinic</label>
+            </li>
+          </ul>
         </div>
-        <!-- /.card -->
-
-        <div class="card card-info">
-          <div class="card-header">
-            <h3 class="card-title">Color &amp; Time Picker</h3>
-          </div>
-          <div class="card-body">
-            <!-- Color Picker -->
-            <div class="form-group">
-              <label>Color picker:</label>
-              <input type="text" class="form-control my-colorpicker1 colorpicker-element" data-colorpicker-id="1" data-original-title="" title="">
-            </div>
-            <!-- /.form group -->
-
-            <!-- Color Picker -->
-            <div class="form-group">
-              <label>Color picker with addon:</label>
-
-              <div class="input-group my-colorpicker2 colorpicker-element" data-colorpicker-id="2">
-                <input type="text" class="form-control" data-original-title="" title="">
-
-                <div class="input-group-append">
-                  <span class="input-group-text"><i class="fas fa-square"></i></span>
-                </div>
-              </div>
-              <!-- /.input group -->
-            </div>
-            <!-- /.form group -->
-
-            <!-- time Picker -->
-            <div class="bootstrap-timepicker">
-              <div class="form-group">
-                <label>Time picker:</label>
-
-                <div class="input-group date" id="timepicker" data-target-input="nearest">
-                  <input type="text" class="form-control datetimepicker-input" data-target="#timepicker">
-                  <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
-                      <div class="input-group-text"><i class="far fa-clock"></i></div>
-                  </div>
-                  </div>
-                <!-- /.input group -->
-              </div>
-              <!-- /.form group -->
-            </div>
-          </div>
-          <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
-
-      </div>
-      <!-- /.col (left) -->
-      <div class="col-md-6">
-        <div class="card card-primary">
-          <div class="card-header">
-            <h3 class="card-title">Date picker</h3>
-          </div>
-          <div class="card-body">
-            <!-- Date range -->
-            <div class="form-group">
-              <label>Date range:</label>
-
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="far fa-calendar-alt"></i>
-                  </span>
-                </div>
-                <input type="text" class="form-control float-right" id="reservation">
-              </div>
-              <!-- /.input group -->
-            </div>
-            <!-- /.form group -->
-
-            <!-- Date and time range -->
-            <div class="form-group">
-              <label>Date and time range:</label>
-
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="far fa-clock"></i></span>
-                </div>
-                <input type="text" class="form-control float-right" id="reservationtime">
-              </div>
-              <!-- /.input group -->
-            </div>
-            <!-- /.form group -->
-
-            <!-- Date and time range -->
-            <div class="form-group">
-              <label>Date range button:</label>
-
-              <div class="input-group">
-                <button type="button" class="btn btn-default float-right" id="daterange-btn">
-                  <i class="far fa-calendar-alt"></i> Date range picker
-                  <i class="fas fa-caret-down"></i>
-                </button>
-              </div>
-            </div>
-            <!-- /.form group -->
-
-          </div>
-          <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
-
-        <!-- iCheck -->
-        <div class="card card-success">
-          <div class="card-header">
-            <h3 class="card-title">iCheck Bootstrap - Checkbox &amp; Radio Inputs</h3>
-          </div>
-          <div class="card-body">
-            <!-- Minimal style -->
-            <div class="row">
-              <div class="col-sm-6">
-                <!-- checkbox -->
-                <div class="form-group clearfix">
-                  <div class="icheck-primary d-inline">
-                    <input type="checkbox" id="checkboxPrimary1" checked="">
-                    <label for="checkboxPrimary1">
-                    </label>
-                  </div>
-                  <div class="icheck-primary d-inline">
-                    <input type="checkbox" id="checkboxPrimary2">
-                    <label for="checkboxPrimary2">
-                    </label>
-                  </div>
-                  <div class="icheck-primary d-inline">
-                    <input type="checkbox" id="checkboxPrimary3" disabled="">
-                    <label for="checkboxPrimary3">
-                      Primary checkbox
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <!-- radio -->
-                <div class="form-group clearfix">
-                  <div class="icheck-primary d-inline">
-                    <input type="radio" id="radioPrimary1" name="r1" checked="">
-                    <label for="radioPrimary1">
-                    </label>
-                  </div>
-                  <div class="icheck-primary d-inline">
-                    <input type="radio" id="radioPrimary2" name="r1">
-                    <label for="radioPrimary2">
-                    </label>
-                  </div>
-                  <div class="icheck-primary d-inline">
-                    <input type="radio" id="radioPrimary3" name="r1" disabled="">
-                    <label for="radioPrimary3">
-                      Primary radio
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Minimal red style -->
-            <div class="row">
-              <div class="col-sm-6">
-                <!-- checkbox -->
-                <div class="form-group clearfix">
-                  <div class="icheck-danger d-inline">
-                    <input type="checkbox" checked="" id="checkboxDanger1">
-                    <label for="checkboxDanger1">
-                    </label>
-                  </div>
-                  <div class="icheck-danger d-inline">
-                    <input type="checkbox" id="checkboxDanger2">
-                    <label for="checkboxDanger2">
-                    </label>
-                  </div>
-                  <div class="icheck-danger d-inline">
-                    <input type="checkbox" disabled="" id="checkboxDanger3">
-                    <label for="checkboxDanger3">
-                      Danger checkbox
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <!-- radio -->
-                <div class="form-group clearfix">
-                  <div class="icheck-danger d-inline">
-                    <input type="radio" name="r2" checked="" id="radioDanger1">
-                    <label for="radioDanger1">
-                    </label>
-                  </div>
-                  <div class="icheck-danger d-inline">
-                    <input type="radio" name="r2" id="radioDanger2">
-                    <label for="radioDanger2">
-                    </label>
-                  </div>
-                  <div class="icheck-danger d-inline">
-                    <input type="radio" name="r2" disabled="" id="radioDanger3">
-                    <label for="radioDanger3">
-                      Danger radio
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Minimal red style -->
-            <div class="row">
-              <div class="col-sm-6">
-                <!-- checkbox -->
-                <div class="form-group clearfix">
-                  <div class="icheck-success d-inline">
-                    <input type="checkbox" checked="" id="checkboxSuccess1">
-                    <label for="checkboxSuccess1">
-                    </label>
-                  </div>
-                  <div class="icheck-success d-inline">
-                    <input type="checkbox" id="checkboxSuccess2">
-                    <label for="checkboxSuccess2">
-                    </label>
-                  </div>
-                  <div class="icheck-success d-inline">
-                    <input type="checkbox" disabled="" id="checkboxSuccess3">
-                    <label for="checkboxSuccess3">
-                      Success checkbox
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <!-- radio -->
-                <div class="form-group clearfix">
-                  <div class="icheck-success d-inline">
-                    <input type="radio" name="r3" checked="" id="radioSuccess1">
-                    <label for="radioSuccess1">
-                    </label>
-                  </div>
-                  <div class="icheck-success d-inline">
-                    <input type="radio" name="r3" id="radioSuccess2">
-                    <label for="radioSuccess2">
-                    </label>
-                  </div>
-                  <div class="icheck-success d-inline">
-                    <input type="radio" name="r3" disabled="" id="radioSuccess3">
-                    <label for="radioSuccess3">
-                      Success radio
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- /.card-body -->
-          <div class="card-footer">
-            Many more skins available. <a href="https://bantikyan.github.io/icheck-bootstrap/">Documentation</a>
-          </div>
-        </div>
-        <!-- /.card -->
-
-        <!-- Bootstrap Switch -->
-        <div class="card card-secondary">
-          <div class="card-header">
-            <h3 class="card-title">Bootstrap Switch</h3>
-          </div>
-          <div class="card-body">
-            <div class="bootstrap-switch-on bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate" style="width: 92px;"><div class="bootstrap-switch-container" style="width: 135px; margin-left: 0px;"><span class="bootstrap-switch-handle-on bootstrap-switch-primary" style="width: 45px;">ON</span><span class="bootstrap-switch-label" style="width: 45px;">&nbsp;</span><span class="bootstrap-switch-handle-off bootstrap-switch-default" style="width: 45px;">OFF</span><input type="checkbox" name="my-checkbox" checked="" data-bootstrap-switch=""></div></div>
-            <div class="bootstrap-switch-on bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate" style="width: 92px;"><div class="bootstrap-switch-container" style="width: 135px; margin-left: 0px;"><span class="bootstrap-switch-handle-on bootstrap-switch-success" style="width: 45px;">ON</span><span class="bootstrap-switch-label" style="width: 45px;">&nbsp;</span><span class="bootstrap-switch-handle-off bootstrap-switch-danger" style="width: 45px;">OFF</span><input type="checkbox" name="my-checkbox" checked="" data-bootstrap-switch="" data-off-color="danger" data-on-color="success"></div></div>
-          </div>
-        </div>
-        <!-- /.card -->
-      </div>
-      <!-- /.col (right) -->
+      </form>
     </div>
-    
-@stop
+  </div>
+  <!-- /Hero -->
 
+  <div class="container margin_120_95">
+    <div class="main_title">
+      <h2>Discover the <strong>online</strong> appointment!</h2>
+      <p>Usu habeo equidem sanctus no. Suas summo id sed, erat erant oporteat cu pri. In eum omnes molestie. Sed ad debet scaevola, ne mel.</p>
+    </div>
+    <div class="row add_bottom_30">
+      <div class="col-lg-4">
+        <div class="box_feat" id="icon_1">
+          <span></span>
+          <h3>Find a Doctor</h3>
+          <p>Usu habeo equidem sanctus no. Suas summo id sed, erat erant oporteat cu pri. In eum omnes molestie.</p>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="box_feat" id="icon_2">
+          <span></span>
+          <h3>View profile</h3>
+          <p>Usu habeo equidem sanctus no. Suas summo id sed, erat erant oporteat cu pri. In eum omnes molestie.</p>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="box_feat" id="icon_3">
+          <h3>Book a visit</h3>
+          <p>Usu habeo equidem sanctus no. Suas summo id sed, erat erant oporteat cu pri. In eum omnes molestie.</p>
+        </div>
+      </div>
+    </div>
+    <!-- /row -->
+    <p class="text-center"><a href="{{ url('/doctors-list' ) }}" class="btn_1 medium">Find Doctor</a></p>
 
-{{-- @extends('layouts.app')
+  </div>
+  <!-- /container -->
 
-@section('content')
-<div class="container">
+  <div class="bg_color_1">
+    <div class="container margin_120_95">
+      <div class="main_title">
+        <h2>Most Viewed doctors</h2>
+        <p>Usu habeo equidem sanctus no. Suas summo id sed, erat erant oporteat cu pri.</p>
+      </div>
+      <div id="reccomended" class="owl-carousel owl-theme">
+        <div class="item">
+          <a href="detail-page.html">
+            <div class="views"><i class="icon-eye-7"></i>140</div>
+            <div class="title">
+              <h4>Dr. Julia Holmes<em>Pediatrician - Cardiologist</em></h4>
+            </div><img src="http://via.placeholder.com/350x500.jpg" alt="">
+          </a>
+        </div>
+        <div class="item">
+          <a href="detail-page.html">
+            <div class="views"><i class="icon-eye-7"></i>120</div>
+            <div class="title">
+              <h4>Dr. Julia Holmes<em>Pediatrician</em></h4>
+            </div><img src="http://via.placeholder.com/350x500.jpg" alt="">
+          </a>
+        </div>
+        <div class="item">
+          <a href="detail-page.html">
+            <div class="views"><i class="icon-eye-7"></i>115</div>
+            <div class="title">
+              <h4>Dr. Julia Holmes<em>Pediatrician</em></h4>
+            </div><img src="http://via.placeholder.com/350x500.jpg" alt="">
+          </a>
+        </div>
+        <div class="item">
+          <a href="detail-page.html">
+            <div class="views"><i class="icon-eye-7"></i>98</div>
+            <div class="title">
+              <h4>Dr. Julia Holmes<em>Pediatrician</em></h4>
+            </div><img src="http://via.placeholder.com/350x500.jpg" alt="">
+          </a>
+        </div>
+        <div class="item">
+          <a href="detail-page.html">
+            <div class="views"><i class="icon-eye-7"></i>98</div>
+            <div class="title">
+              <h4>Dr. Julia Holmes<em>Pediatrician</em></h4>
+            </div><img src="http://via.placeholder.com/350x500.jpg" alt="">
+          </a>
+        </div>
+      </div>
+      <!-- /carousel -->
+    </div>
+    <!-- /container -->
+  </div>
+  <!-- /white_bg -->
+
+  <div class="container margin_120_95">
+    <div class="main_title">
+      <h2>Find your doctor or clinic</h2>
+      <p>Nec graeci sadipscing disputationi ne, mea ea nonumes percipitur. Nonumy ponderum oporteat cu mel, pro movet cetero at.</p>
+    </div>
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
-                </div>
-            </div>
+      <div class="col-xl-4 col-lg-5 col-md-6">
+        <div class="list_home">
+          <div class="list_title">
+            <i class="icon_pin_alt"></i>
+            <h3>Search by City or Zone</h3>
+          </div>
+          <ul>
+            <li><a href="#0"><strong>23</strong>Albany</a></li>
+            <li><a href="#0"><strong>23</strong>Albuquerque</a></li>
+            <li><a href="#0"><strong>23</strong>Atlanta</a></li>
+            <li><a href="#0"><strong>23</strong>Baltimore</a></li>
+            <li><a href="#0"><strong>23</strong>Baton Rouge</a></li>
+            <li><a href="#0"><strong>23</strong>Birmingham</a></li>
+            <li><a href="#0"><strong>23</strong>Boston</a></li>
+            <li><a href="#0"><strong>23</strong>Buffalo</a></li>
+            <li><a href="#0"><strong>23</strong>Charleston</a></li>
+            <li><a href="#0">More...</a></li>
+          </ul>
         </div>
+      </div>
+      <div class="col-xl-4 col-lg-5 col-md-6">
+        <div class="list_home">
+          <div class="list_title">
+            <i class="icon_archive_alt"></i>
+            <h3>Search by type</h3>
+          </div>
+          <ul>
+            <li><a href="#0"><strong>23</strong>Allergist</a></li>
+            <li><a href="#0"><strong>23</strong>Cardiologist</a></li>
+            <li><a href="#0"><strong>23</strong>Chiropractor</a></li>
+            <li><a href="#0"><strong>23</strong>Dentist</a></li>
+            <li><a href="#0"><strong>23</strong>Dermatologist</a></li>
+            <li><a href="#0"><strong>23</strong>Gastroenterologist</a></li>
+            <li><a href="#0"><strong>23</strong>Ophthalmologist</a></li>
+            <li><a href="#0"><strong>23</strong>Optometrist</a></li>
+            <li><a href="#0"><strong>23</strong>Pediatrician</a></li>
+            <li><a href="#0">More....</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
-</div>
-@endsection --}}
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+
+  <div id="app_section">
+    <div class="container">
+      <div class="row justify-content-around">
+        <div class="col-md-5">
+          <p><img src="img/app_img.svg" alt="" class="img-fluid" width="500" height="433"></p>
+        </div>
+        <div class="col-md-6">
+          <small>Application</small>
+          <h3>Download <strong>Findoctor App</strong> Now!</h3>
+          <p class="lead">Tota omittantur necessitatibus mei ei. Quo paulo perfecto eu, errem percipit ponderum no eos. Has eu mazim sensibus. Ad nonumes dissentiunt qui, ei menandri electram eos. Nam iisque consequuntur cu.</p>
+          <div class="app_buttons wow" data-wow-offset="100">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 43.1 85.9" style="enable-background:new 0 0 43.1 85.9;" xml:space="preserve">
+            <path stroke-linecap="round" stroke-linejoin="round" class="st0 draw-arrow" d="M11.3,2.5c-5.8,5-8.7,12.7-9,20.3s2,15.1,5.3,22c6.7,14,18,25.8,31.7,33.1" />
+            <path stroke-linecap="round" stroke-linejoin="round" class="draw-arrow tail-1" d="M40.6,78.1C39,71.3,37.2,64.6,35.2,58" />
+            <path stroke-linecap="round" stroke-linejoin="round" class="draw-arrow tail-2" d="M39.8,78.5c-7.2,1.7-14.3,3.3-21.5,4.9" />
+          </svg>
+            <a href="#0" class="fadeIn"><img src="img/apple_app.png" alt="" width="150" height="50" data-retina="true"></a>
+            <a href="#0" class="fadeIn"><img src="img/google_play_app.png" alt="" width="150" height="50" data-retina="true"></a>
+          </div>
+        </div>
+      </div>
+      <!-- /row -->
+    </div>
+    <!-- /container -->
+  </div>
+  <!-- /app_section -->
+</main>
+<!-- /main content -->
+@endsection

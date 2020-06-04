@@ -3915,7 +3915,7 @@
     }
 
     function getZoneName () {
-        return this._isUTC ? 'Coordinated Universal Time' : '';
+        return this._isUTC ? 'Coordinated Universal Timetable' : '';
     }
 
     var proto = Moment.prototype;
