@@ -97,11 +97,6 @@ Breadcrumbs::register('admin.clinic.edit', function (Crumbs $crumbs, Clinic $cli
     $crumbs->push($clinic->name_ru, route('admin.clinic.edit', $clinic));
 });
 
-Breadcrumbs::register('admin.callcenter.index', function (Crumbs $crumbs) {
-    $crumbs->parent('admin.home');
-    $crumbs->push('Поиск врача', route('admin.callcenter.index'));
-});
-
 //specializations
 
 Breadcrumbs::register('admin.specializations.index', function (Crumbs $crumbs) {
@@ -142,4 +137,15 @@ Breadcrumbs::register('admin.celebration.edit', function (Crumbs $crumbs, Celebr
 Breadcrumbs::register('admin.timetables.create', function (Crumbs $crumbs) {
     //$crumbs->parent('admin.users.edit', $user);
     $crumbs->push('Создать расписание врача', route('admin.timetables.create'));
+});
+
+//booking
+Breadcrumbs::register('admin.callcenter.index', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push('Поиск врача', route('admin.callcenter.index'));
+});
+
+Breadcrumbs::register('admin.callcenter.booking', function (Crumbs $crumbs, User $user, Clinic $clinic) {
+    $crumbs->parent('admin.callcenter.index');
+    $crumbs->push('Бронирование врача', route('admin.callcenter.booking', [$user, $clinic]));
 });
