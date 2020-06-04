@@ -1,5 +1,6 @@
 <?php
 
+use App\Celebration;
 use App\Clinic;
 use App\User;
 use App\Region;
@@ -131,6 +132,10 @@ Breadcrumbs::register('admin.celebration.index', function (Crumbs $crumbs) {
 Breadcrumbs::register('admin.celebration.create', function (Crumbs $crumbs) {
     $crumbs->parent('admin.celebration.index');
     $crumbs->push('Создать праздничный день', route('admin.celebration.create'));
+});
+Breadcrumbs::register('admin.celebration.edit', function (Crumbs $crumbs, Celebration $celebration) {
+    $crumbs->parent('admin.celebration.index');
+    $crumbs->push('Создать праздничный день', route('admin.celebration.edit', $celebration));
 });
 
 //timetables
