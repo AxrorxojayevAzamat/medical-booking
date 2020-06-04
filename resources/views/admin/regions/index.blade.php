@@ -1,22 +1,5 @@
 @extends('adminlte::page')
-@section('title','Регионы')
-@section('content_header')
-    <div class="container-fluid">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Регионы</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="http://localhost:8081/home">Главная </a></li>
-                        <li class="breadcrumb-item active">Список регионов</li>
-                    </ol>
-                </div>
-            </div>
-        </div><!-- /.container-fluid -->
-    </div>
-@stop
+
 @section('content')
 
     @if($errors->any())
@@ -109,7 +92,7 @@
                                     <td class="text-center py-1 ">
                                         @if(($region->parent_id==0))
                                             <div class="btn-group ml-2 ">
-                                                <a href="{{ route('admin.region.edit',['id'=>$region->id]) }}"
+                                                <a href="{{ route('admin.region.edit',$region->id) }}"
                                                    class="btn btn-info btn-sm"> <i class="fas fa-pencil-alt"></i></a>
                                             </div>
                                         @endif
@@ -117,7 +100,7 @@
                                             @foreach($categories as $cat)
                                                 @if($cat->id==$region->parent_id)
                                                     <div class="btn-group ml-2 ">
-                                                        <a href="{{ route('admin.region.editCity',['id'=>$region->id]) }}"
+                                                        <a href="{{ route('admin.region.editCity',$region->id) }}"
                                                            class="btn btn-info btn-sm"> <i
                                                                 class="fas fa-pencil-alt"></i></a>
                                                     </div>
@@ -130,7 +113,7 @@
                                                 @foreach($cat->children($cat->id) as $item)
                                                     @if($item->id==$region->parent_id)
                                                         <div class="btn-group ml-2 ">
-                                                            <a href="{{ route('admin.region.editDistrict',['id'=>$region->id]) }}"
+                                                            <a href="{{ route('admin.region.editDistrict',$region->id) }}"
                                                                class="btn btn-info btn-sm"> <i
                                                                     class="fas fa-pencil-alt"></i></a>
                                                         </div>
@@ -139,7 +122,7 @@
                                             @endforeach
                                         @endif
                                         <div class="btn-group ">
-                                            <form action="{{ route('admin.region.destroy',['id'=>$region->id]) }}"
+                                            <form action="{{ route('admin.region.destroy',$region->id) }}"
                                                   method="post"
                                                   onsubmit="if(confirm('Точно удалить?')){return true} else {return false}">
                                                 @csrf

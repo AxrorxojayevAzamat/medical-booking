@@ -13,14 +13,15 @@ class CelebrationSeed extends Seeder
     public function run()
     {
         $newyear = Celebration::create([
-            'date' => '2019-12-31',
             'name' => 'Новый год',
+            'date' => '2020-03-21',
             'quantity' => '3',
+
         ]);
 
         $navruz = Celebration::create([
-            'date' => '2020-03-21',
             'name' => 'Навруз',
+            'date' => '2020-03-21',
             'quantity' => '2',
         ]);
     }

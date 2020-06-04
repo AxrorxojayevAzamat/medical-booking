@@ -1,22 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Пользователи')
-@section('content_header')
-<div class="container-fluid">
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h1>{{ __('Редактировать пользователя')}}</h1>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route("home") }}">{{ __('Главная')}} </a></li>
-                <li class="breadcrumb-item"><a href="{{ route("admin.users.index") }}">{{ __('Пользователи')}}</a></li>
-                <li class="breadcrumb-item active">{{ $user->email }}</li>
-                <li class="breadcrumb-item active">{{ __('Редактирование')}}</li>
-            </ol>
-        </div>
-    </div>
-</div><!-- /.container-fluid -->
-@stop
+
 @section('content')
 <form method="POST" action="{{ route("admin.users.update", [$user->id]) }}" enctype="multipart/form-data">
     @csrf
@@ -213,7 +196,7 @@
             <div class="card primary">
                 <div class="card-header">
                     {{ __('Специализации доктора') }}
-                    <a class="btn btn-secondary float-right" href="{{ route('admin.users.additional',$user) }}">{{ __('Изменить/Добавить') }}</a>
+                    <a class="btn btn-secondary float-right" href="{{ route('admin.users.specializations', $user) }}">{{ __('Изменить/Добавить') }}</a>
                 </div>
                 <!-- /.card-header -->
 
@@ -249,7 +232,7 @@
                 <div class="card primary">
                     <div class="card-header">
                         {{ __('Расписание доктора') }}
-                        <a class="btn btn-secondary float-right" href="{!! route('timetables.create',['id'=>$user->id, 'clinic_id'=>1])!!}">{{ __('Изменить/Добавить') }}</a>
+                        <a class="btn btn-secondary float-right" href="{!! route('admin.timetables.create',['id'=>$user->id, 'clinic_id'=>1])!!}">{{ __('Изменить/Добавить') }}</a>
                     </div>
                     <!-- /.card-header -->
 
@@ -398,7 +381,7 @@
                 <div class="card primary">
                     <div class="card-header">
                         {{ __('Клиника для доктора') }}
-                        <a class="btn btn-secondary float-right" href="{{ route('admin.users.additionalForClinic',$user) }}" disabled>{{ __('Изменить/Добавить') }}</a>
+                        <a class="btn btn-secondary float-right" href="{{ route('admin.users.user-clinics',$user) }}" disabled>{{ __('Изменить/Добавить') }}</a>
                     </div>
                     <!-- /.card-header -->
 

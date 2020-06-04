@@ -19,7 +19,7 @@ class CelebrationController extends Controller
     {
         $celebrations = Celebration::orderBy('id', 'asc')
             ->paginate(1000000);
-        return view('admin.celebrations.index',compact('celebrations'));
+        return view('admin.celebrations.index', compact('celebrations'));
     }
 
     /**
@@ -49,7 +49,7 @@ class CelebrationController extends Controller
         $celebrations->name = $request->celebration_name;
         $celebrations->save();
 
-        return redirect()->route('celebration.index')->with('success', 'Успешно!');
+        return redirect()->route('admin.celebration.index')->with('success', 'Успешно!');
     }
 
 
@@ -59,9 +59,9 @@ class CelebrationController extends Controller
      * @param int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Celebration $celebration)
     {
-        $celebrations = Celebration::find($id);
+        $celebrations = Celebration::find($celebration->id);
         return view('admin.celebrations.edit', compact('celebrations'));
     }
 
@@ -81,7 +81,7 @@ class CelebrationController extends Controller
         $celebrations->update();
         $id = $celebrations->id;
 
-        return redirect()->route('celebration.index', compact('id'))->with('success', 'Отредактировано!');
+        return redirect()->route('admin.celebration.index', compact('id'))->with('success', 'Отредактировано!');
     }
 
     /**
@@ -90,10 +90,10 @@ class CelebrationController extends Controller
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Celebration $celebration)
     {
-        $celebrations = Celebration::find($id);
+        $celebrations = Celebration::find($celebration->id);
         $celebrations->delete();
-        return redirect()->route('celebration.index')->with('success', 'Удалено!');
+        return redirect()->route('admin.celebration.index')->with('success', 'Удалено!');
     }
 }

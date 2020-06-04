@@ -1,22 +1,5 @@
 @extends('adminlte::page')
-@section('title','Праздничные дни')
-@section('content_header')
-    <div class="container-fluid">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Праздничные дни</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="http://localhost:8081/home">Главная </a></li>
-                        <li class="breadcrumb-item active">Список праздничных дней</li>
-                    </ol>
-                </div>
-            </div>
-        </div><!-- /.container-fluid -->
-    </div>
-@stop
+
 @section('content')
 
     @if($errors->any())
@@ -66,11 +49,11 @@
                                     <td class="text-center py-1 ">{{$celebration->name}}</td>
                                     <td class="text-center py-1 ">
                                         <div class="btn-group ml-2 ">
-                                            <a href="{{ route('admin.celebration.edit',['id'=>$celebration->id]) }}"
+                                            <a href="{{ route('admin.celebration.edit', $celebration) }}"
                                                class="btn btn-info btn-sm"> <i class="fas fa-pencil-alt"></i></a>
                                         </div>
                                         <div class="btn-group ">
-                                            <form action="{{ route('admin.celebration.destroy',['id'=>$celebration->id]) }}"
+                                            <form action="{{ route('admin.celebration.destroy',$celebration) }}"
                                                   method="post"
                                                   onsubmit="if(confirm('Точно удалить?')){return true} else {return false}">
                                                 @csrf

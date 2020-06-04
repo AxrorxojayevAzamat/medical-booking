@@ -1,22 +1,5 @@
 @extends('adminlte::page')
-@section('title','Клиники')
-@section('content_header')
-    <div class="container-fluid">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Клиники</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="http://localhost:8081/home">Главная </a></li>
-                        <li class="breadcrumb-item active">Список клиник</li>
-                    </ol>
-                </div>
-            </div>
-        </div><!-- /.container-fluid -->
-    </div>
-@stop
+
 @section('content')
 
     @if($errors->any())
@@ -103,15 +86,15 @@
                                     <td class="text-center py-1 ">
 
                                         <div class="btn-group  ">
-                                            <a href="{{ route('admin.clinic.show',['id'=>$clinic->id]) }}"
+                                            <a href="{{ route('admin.clinic.show',$clinic) }}"
                                                class="btn btn-primary btn-sm"> <i class="fas fa-eye"></i></a>
                                         </div>
                                         <div class="btn-group  ">
-                                            <a href="{{ route('admin.clinic.edit',['id'=>$clinic->id]) }}"
+                                            <a href="{{ route('admin.clinic.edit',$clinic) }}"
                                                class="btn btn-info btn-sm"> <i class="fas fa-pencil-alt"></i></a>
                                         </div>
                                         <div class="btn-group ">
-                                            <form action="{{ route('admin.clinic.destroy',['id'=>$clinic->id]) }}"
+                                            <form action="{{ route('admin.clinic.destroy',$clinic) }}"
                                                   method="post"
                                                   onsubmit="if(confirm('Точно удалить?')){return true} else {return false}">
                                                 @csrf

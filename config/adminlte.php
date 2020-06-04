@@ -149,7 +149,7 @@ return [
       |
      */
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'admin',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -190,24 +190,12 @@ return [
             'url' => 'admin/blog',
             'can' => 'manage-blog',
         ],
-        // [
-        //     'text'        => 'pages',
-        //     'url'         => 'admin/pages',
-        //     'icon'        => 'far fa-fw fa-file',
-        //     'label'       => 4,
-        //     'label_color' => 'success',
-        // ],
-        // ['header' => 'account_settings'],
-        // [
-        //     'text' => 'profile',
-        //     'url'  => 'admin/settings',
-        //     'icon' => 'fas fa-fw fa-user',
-        // ],
-        // [
-        //     'text' => 'change_password',
-        //     'url'  => 'admin/settings',
-        //     'icon' => 'fas fa-fw fa-lock',
-        // ],
+       
+        [
+            'text' => 'Пользователи',
+            'icon' => 'fas fa-fw fa-user',
+            'url' => 'admin/users',
+        ],
         [
             'text' => 'Регионы',
             'icon' => 'fas fa-fw fa-share',
@@ -231,129 +219,19 @@ return [
             ],
         ],
         [
-            'text' => 'Врачи',
-            'icon' => 'fas fa-fw fa-user',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-            ],
-        ],
-        [
             'text' => 'Специализации',
             'icon0' => 'fas fa-fw fa-share',
             'url' => 'admin/specializations',
-//            'submenu' => [
-//                [
-//                    'text' => 'level_one',
-//                    'url'  => '#',
-//                ],
-//                [
-//                    'text'    => 'level_one',
-//                    'url'     => '#',
-//                ],
-//                [
-//                    'text' => 'level_one',
-//                    'url'  => '#',
-//                ],
-//            ],
         ],
         [
             'text' => 'Клиники',
             'icon' => 'fas fa-fw fa-share',
             'url' => 'admin/clinic/',
-//            'submenu' => [
-//                [
-//                    'text' => 'Список Клиник',
-//                    'url' => 'clinic/',
-//
-//                ],
-//                [
-//                    'text' => 'Новая клиника',
-//                    'url' => 'clinic/create',
-//                ],
-//            ],
         ],
         [
-            'text' => 'Расписание',
-            'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'Добавить',
-                    'url' => 'timetables/create',
-                ],
-                [
-                    'text' => 'Изменить',
-                    'url' => 'timetables/edit',
-                ],                [
-                    'text' => 'Показать',
-                    'url' => 'timetables/show',
-                ],
-
-            ],
-        ],
-        [
-            'text' => 'Пользователи',
-            'icon' => 'fas fa-fw fa-user',
-            'url' => 'admin/users',
-//            'submenu' => [
-//                [
-//                    'text' => 'Пользователи',
-//                    'url'  => 'admin/users',
-//                ],
-//
-//                [
-//                    'text' => 'level_one',
-//                    'url'  => '#',
-//                ],
-//            ],
-        ],
-        [
-            'text' => 'multilevel',
-            'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-            ],
+        'text' => 'CallCenter',
+        'icon' => 'fas fa-fw fa-share',
+        'url' => 'admin/callcenter/',
         ],
         [
             'text' => 'Праздничные дни',
@@ -370,6 +248,7 @@ return [
 //                ],
 //            ],
         ],
+        
         // ['header' => 'labels'],
         // [
         //     'text'       => 'important',
@@ -382,6 +261,64 @@ return [
         // [
         //     'text'       => 'information',
         //     'icon_color' => 'aqua',
+        // ],
+
+        // [
+        //     'text' => 'multilevel',
+        //     'icon' => 'fas fa-fw fa-share',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'level_one',
+        //             'url' => '#',
+        //         ],
+        //         [
+        //             'text' => 'level_one',
+        //             'url' => '#',
+        //             'submenu' => [
+        //                 [
+        //                     'text' => 'level_two',
+        //                     'url' => '#',
+        //                 ],
+        //                 [
+        //                     'text' => 'level_two',
+        //                     'url' => '#',
+        //                     'submenu' => [
+        //                         [
+        //                             'text' => 'level_three',
+        //                             'url' => '#',
+        //                         ],
+        //                         [
+        //                             'text' => 'level_three',
+        //                             'url' => '#',
+        //                         ],
+        //                     ],
+        //                 ],
+        //             ],
+        //         ],
+        //         [
+        //             'text' => 'level_one',
+        //             'url' => '#',
+        //         ],
+        //     ],
+        // ],
+
+        // [
+        //     'text'        => 'pages',
+        //     'url'         => 'admin/pages',
+        //     'icon'        => 'far fa-fw fa-file',
+        //     'label'       => 4,
+        //     'label_color' => 'success',
+        // ],
+        // ['header' => 'account_settings'],
+        // [
+        //     'text' => 'profile',
+        //     'url'  => 'admin/settings',
+        //     'icon' => 'fas fa-fw fa-user',
+        // ],
+        // [
+        //     'text' => 'change_password',
+        //     'url'  => 'admin/settings',
+        //     'icon' => 'fas fa-fw fa-lock',
         // ],
     ],
     /*
@@ -552,42 +489,6 @@ return [
             ],
         ],
         [
-            'name' => 'datatables',
-            'active' => true,
-            'files' => [
-                [
-                    'type' => 'css',
-                    'asset' => true,
-                    'location' => '/vendor/almasaeed2010/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css',
-                ],
-                [
-                    'type' => 'js',
-                    'asset' => true,
-                    'location' => '/vendor/almasaeed2010/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js',
-                ],
-                [
-                    'type' => 'css',
-                    'asset' => true,
-                    'location' => '/vendor/almasaeed2010/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css',
-                ],
-                [
-                    'type' => 'js',
-                    'asset' => true,
-                    'location' => '/vendor/almasaeed2010/adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js',
-                ],
-                [
-                    'type' => 'js',
-                    'asset' => true,
-                    'location' => '/vendor/almasaeed2010/adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js',
-                ],
-                [
-                    'type' => 'js',
-                    'asset' => true,
-                    'location' => '/vendor/almasaeed2010/adminlte/plugins/datatables/jquery.dataTables.min.js',
-                ],
-            ],
-        ],
-        [
             'name' => 'custom',
             'active' => true,
             'files' => [
@@ -596,6 +497,48 @@ return [
                     'asset' => true,
                     'location' => '/js/custom.js',
                 ],
+            ],
+        ],
+        [
+            'name' => 'kartik-v',
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '/vendor/kartik-v/bootstrap-fileinput/css/fileinput.css',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '/vendor/kartik-v/bootstrap-fileinput/css/fileinput-rtl.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '//vendor/kartik-v/bootstrap-fileinput/js/plugins/piexif.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '//vendor/kartik-v/bootstrap-fileinput/js/plugins/sortable.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '//vendor/kartik-v/bootstrap-fileinput/js/plugins/purify.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/vendor/kartik-v/bootstrap-fileinput/js/fileinput.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/vendor/kartik-v/bootstrap-fileinput./themes/fas/theme.js',
+                ],
+                
             ],
         ],
     ],

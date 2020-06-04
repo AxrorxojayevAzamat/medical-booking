@@ -1,21 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Пользователи')
-@section('content_header')
-<div class="container-fluid">
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h1>{{ __('Добавить пользователя') }}</h1>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route("home") }}">{{ __('Главная') }} </a></li>
-                <li class="breadcrumb-item"><a href="{{ route("admin.users.index") }}">{{ __('Пользователи') }}</a></li>
-                <li class="breadcrumb-item active">{{ __('Добавить пользователя') }}</li>
-            </ol>
-        </div>
-    </div>
-</div><!-- /.container-fluid -->
-@stop
+@section('breadcrumbs', '')
 @section('content')
 <form method="POST" action="{{ route("admin.users.store") }}" enctype="multipart/form-data">
     @csrf

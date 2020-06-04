@@ -157,31 +157,33 @@ class UserController extends Controller
         return redirect()->route('admin.users.index');
     }
 
-    public function specialization(Request $request, User $user)
+
+
+    public function storeSpecializations(Request $request, User $user)
     {
         $user->specializations()->sync($request['specializationUser']);
 
         return redirect()->route('admin.users.show', $user);
     }
 
-    public function additional(User $user)
+    public function specializations(User $user)
     {
         $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
 
-        return view('admin.users.additional', compact('user', 'specializations'));
+        return view('admin.users.specializations', compact('user', 'specializations'));
     }
 
 
-    public function clinic(Request $request, User $user)
+    public function storeClinics(Request $request, User $user)
     {
         $user->clinics()->sync($request['clinicUser']);
 
         return redirect()->route('admin.users.show', $user);
     }
 
-    public function additionalForClinic(User $user)
+    public function userClinics(User $user)
     {
         $clinics = Clinic::orderBy('name_ru')->pluck('name_ru', 'id');
-        return view('admin.users.additionalForClinic', compact('user', 'clinics'));
+        return view('admin.users.clinics', compact('user', 'clinics'));
     }
 }

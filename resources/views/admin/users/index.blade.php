@@ -1,20 +1,5 @@
 @extends('adminlte::page')
-@section('title','Пользователи')
-@section('content_header')
-<div class="container-fluid">
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h1>{{ __('Пользователи') }}</h1>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route("home") }}">{{ __('Главная') }} </a></li>
-                <li class="breadcrumb-item active">{{ __('Пользователи') }}</li>
-            </ol>
-        </div>
-    </div>
-</div><!-- /.container-fluid -->
-@stop
+
 @section('content')
 
 <div class="container-fluid">
@@ -108,14 +93,14 @@
                                 <th>{{ __('Email') }}</th>
                                 <th>{{ __('Роль') }}</th>
                                 <th>{{ __('Статус') }}</th>
-                                <th style="width: 15%"></th>
+{{--                                <th style="width: 15%"></th> --}}
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($users as $user)
                             <tr>
                                 <td>{{$user->id}}</td>
-                                <td>{{$user->name}}</td>
+                                <td><a href="{{ route('admin.users.show', $user->id) }}">{{ $user->name }}</td>
                                 <td>{{$user->lastname}}</td>
                                 <td>{{$user->phone}}</td>
                                 <td>{{$user->email}}</td>
@@ -138,6 +123,7 @@
                                     @endif
                                     @endforeach
                                 </td>
+                                {{--
                                 <td class="project-actions text-right">
                                     <div class="btn-group">
                                         <a class="btn btn-primary btn-sm" href="{{ route('admin.users.show',$user->id)}}">
@@ -164,6 +150,7 @@
                                         </form> 
                                     </div>
                                 </td>
+                                --}}
                             </tr>
                             @endforeach
                         </tbody>

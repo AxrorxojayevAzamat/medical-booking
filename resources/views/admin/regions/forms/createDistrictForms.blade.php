@@ -16,7 +16,7 @@
 
     <div class="col-3">
         <div class="form-group">
-            <select class="form-control" name="region" id="reg" required>
+            <select class="form-control" name="region" id="region" required>
                 <option disabled>Выберете регион сначала</option>
 
             </select>

@@ -23,7 +23,7 @@
                 <select class="form-control" name="region_id" id="region_id" required>
                     <option hidden></option>
                     @foreach($regions as $region)
-                        <option value="{{$region->id}}">{{$region->name_ru}}</option>
+                    <option value="{{$region->id}}">{{$region->name_ru}}</option>
                     @endforeach
                 </select>
             </div>
@@ -116,10 +116,18 @@
             </div>
         </div>
 
+
+        <div class="form-group row">
+            <label for="inputEmail3" class=" col-sm-5 col-form-label ">Фотография клиники </label>
+            <div class="input-group col-sm-6">
+                <div class="file-loading">
+                    <input id="file-4" type="file" class="file" multiple  data-upload-url="#" data-theme="fas" name = "images[]" data-show-upload="false" accept="jpg|jpeg|pdf|png" data-allowed-file-extensions='["jpg", "jpeg","pdf", "png"]'>
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
-</div>
 
-{{--                <input name="work_time" id="work_time" type="text" class="form-control timepicker"--}}
-{{--                       data-inputmask="&quot;mask&quot;: &quot;99:99-99:99&quot;" data-mask="" im-insert="true"--}}
-{{--                       value="{{ old('work_time')?? $clinics->work_time ??''}}" required>--}}

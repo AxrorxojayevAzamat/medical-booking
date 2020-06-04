@@ -90,25 +90,25 @@ class RegionController extends Controller
      * @param int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Region $region)
     {
         $categories = Region::children(null);
-        $regions = Region::find($id);
+        $regions = Region::find($region->id);
         return view('admin.regions.edit', compact('regions', 'categories'));
     }
 
-    public function editCity($id)
+    public function editCity(Region $region)
     {
         $categories = Region::children(null);
-        $regions = Region::find($id);
+        $regions = Region::find($region->id);
         return view('admin.regions.editCity', compact('regions', 'categories'));
     }
 
-    public function editDistrict($id)
+    public function editDistrict(Region $region)
     {
         $reg=Region::all();
         $categories = Region::children(null);
-        $regions = Region::find($id);
+        $regions = Region::find($region->id);
         return view('admin.regions.editDistrict', compact('regions', 'categories', 'reg'));
     }
 
@@ -138,9 +138,9 @@ class RegionController extends Controller
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Region $region)
     {
-        $regions = Region::find($id);
+        $regions = Region::find($region->id);
         $all = Region::all();
         foreach ($all as $a) {
             if ($regions->id == $a->parent_id) {
