@@ -80,16 +80,24 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     
     Route::delete('/timetable/delete{id}', 'TimeTableController@destroy')->name('timetables.destroy');
     
-    Route::get('callcenter/', 'CallCenter\CallCenterController@index')->name('callcenter.index');
-    Route::get('callcenter/findCity1/{id}', 'CallCenter\CallCenterController@findCity1');
+    Route::group(
+        ['prefix' => 'callcenter', 'as' => 'callcenter.'],
+        function () {
+            Route::get('/', 'CallCenter\CallCenterController@index')->name('index');
+            Route::get('/findCity1/{id}', 'CallCenter\CallCenterController@findCity1');
     
-    Route::get('callcenter/findDoctor', 'CallCenter\CallCenterController@findDoctor');
+            Route::get('/findDoctor', 'CallCenter\CallCenterController@findDoctor');
     
-    Route::get('callcenter/findDoctorByRegion', 'CallCenter\CallCenterController@findDoctorByRegion');
-    Route::get('callcenter/findDoctorByType', 'CallCenter\CallCenterController@findDoctorByType');
+            Route::get('/findDoctorByRegion', 'CallCenter\CallCenterController@findDoctorByRegion');
+            Route::get('/findDoctorByType', 'CallCenter\CallCenterController@findDoctorByType');
     
-    Route::get('callcenter/booking/{user}/{clinic}', 'CallCenter\CallCenterController@booking')->name('callcenter.booking');
-    Route::post('callcenter/booking/', 'CallCenter\CallCenterController@bookingDoctor')->name('callcenter.bookingDoctor');
+            Route::get('/booking/{user}/{clinic}', 'CallCenter\CallCenterController@booking')->name('booking');
+            Route::post('/booking/', 'CallCenter\CallCenterController@bookingDoctor')->name('bookingDoctor');
+        
+            Route::get('/bookingtime', 'CallCenter\CallCenterController@bookingTime')->name('booking-time');
+            
+        }
+    );
 });
 
 Route::get("locale/{locale}", function ($locale) {

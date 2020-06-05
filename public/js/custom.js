@@ -1,57 +1,57 @@
 $(function () {
-  //Initialize Select2 Elements
-  $('.select2').select2()
+    //Initialize Select2 Elements
+    $('.select2').select2()
 
-  //Initialize Select2 Elements
-  $('.select2bs4').select2({
-    theme: 'bootstrap4'
-  })
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+        theme: 'bootstrap4'
+    })
 
-  $(document).ready(function () {
-    bsCustomFileInput.init();
-  });
+    $(document).ready(function () {
+        bsCustomFileInput.init();
+    });
 
-  //Datemask dd/mm/yyyy
-  $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-  //Datemask2 mm/dd/yyyy
-  $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-  //Money Euro
-  $('[data-mask]').inputmask()
+    //Datemask dd/mm/yyyy
+    $('#datemask').inputmask('dd/mm/yyyy', {'placeholder': 'dd/mm/yyyy'})
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm/dd/yyyy', {'placeholder': 'mm/dd/yyyy'})
+    //Money Euro
+    $('[data-mask]').inputmask()
 
-  //Date range picker
-  $('#reservation').daterangepicker()
-  //Date range picker with time picker
-  $('#reservationtime').daterangepicker({
-    timePicker: true,
-    timePickerIncrement: 30,
-    locale: {
-      format: 'MM/DD/YYYY hh:mm A'
-    }
-  })
-  //Date range as a button
-  $('#daterange-btn').daterangepicker(
-    {
-      ranges: {
-        'Today': [moment(), moment()],
-        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-        'This Month': [moment().startOf('month'), moment().endOf('month')],
-        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-      },
-      startDate: moment().subtract(29, 'days'),
-      endDate: moment()
-    },
-    function (start, end) {
-      $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-    }
-  )
+    //Date range picker
+    $('#reservation').daterangepicker()
+    //Date range picker with time picker
+    $('#reservationtime').daterangepicker({
+        timePicker: true,
+        timePickerIncrement: 30,
+        locale: {
+            format: 'MM/DD/YYYY hh:mm A'
+        }
+    })
+    //Date range as a button
+    $('#daterange-btn').daterangepicker(
+            {
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment()
+            },
+            function (start, end) {
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+            }
+    )
 
-      //Timetable
-      $('#timepicker1').datetimepicker({
+    //Timetable
+    $('#timepicker1').datetimepicker({
         use24hours: true,
         format: 'HH:mm'
-      })
+    })
     $('#timepicker2').datetimepicker({
         use24hours: true,
         format: 'HH:mm'
@@ -127,21 +127,21 @@ $(function () {
 //Timetable
 
     //Bootstrap Duallistbox
-      $('.duallistbox').bootstrapDualListbox()
-  //Timepicker
-  $('#timepicker').datetimepicker({
-    use24hours: true,
-    format: 'HH:mm'
-  })
+    $('.duallistbox').bootstrapDualListbox()
+    //Timepicker
+    $('#timepicker').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
 
     $(document).ready(function () {
         bsCustomFileInput.init();
     });
 
     //Datemask dd/mm/yyyy
-    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    $('#datemask').inputmask('dd/mm/yyyy', {'placeholder': 'dd/mm/yyyy'})
     //Datemask2 mm/dd/yyyy
-    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+    $('#datemask2').inputmask('mm/dd/yyyy', {'placeholder': 'mm/dd/yyyy'})
     //Money Euro
     $('[data-mask]').inputmask()
 
@@ -157,21 +157,21 @@ $(function () {
     })
     //Date range as a button
     $('#daterange-btn').daterangepicker(
-        {
-            ranges: {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            {
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment()
             },
-            startDate: moment().subtract(29, 'days'),
-            endDate: moment()
-        },
-        function (start, end) {
-            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-        }
+            function (start, end) {
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+            }
     )
 
     //Timepicker
@@ -332,6 +332,13 @@ $('#timepickerend').datetimepicker({
     format: 'HH:mm'
 })
 
+$('#calendar').datepicker({
+    todayHighlight: true,
+    daysOfWeekDisabled: [0],
+    weekStart: 1,
+    format: "yyyy-mm-dd",
+    datesDisabled: ["2017/10/20", "2017/11/21", "2017/12/21", "2018/01/21", "2018/02/21", "2018/03/21"],
+});
 ///////////  for validation time
 
 

@@ -190,7 +190,6 @@ return [
             'url' => 'admin/blog',
             'can' => 'manage-blog',
         ],
-       
         [
             'text' => 'Пользователи',
             'icon' => 'fas fa-fw fa-user',
@@ -205,16 +204,16 @@ return [
                     'url' => 'admin/region/',
                 ],
                 [
-                    'text'    => 'Новый Регион',
-                    'url'     => 'admin/region/create',
+                    'text' => 'Новый Регион',
+                    'url' => 'admin/region/create',
                 ],
                 [
-                    'text'    => 'Новый Город',
-                    'url'     => 'admin/region/createCity',
+                    'text' => 'Новый Город',
+                    'url' => 'admin/region/createCity',
                 ],
                 [
-                    'text'    => 'Новый Район',
-                    'url'     => 'admin/region/createDistrict',
+                    'text' => 'Новый Район',
+                    'url' => 'admin/region/createDistrict',
                 ],
             ],
         ],
@@ -229,9 +228,9 @@ return [
             'url' => 'admin/clinic/',
         ],
         [
-        'text' => 'CallCenter',
-        'icon' => 'fas fa-fw fa-share',
-        'url' => 'admin/callcenter/',
+            'text' => 'CallCenter',
+            'icon' => 'fas fa-fw fa-share',
+            'url' => 'admin/callcenter/',
         ],
         [
             'text' => 'Праздничные дни',
@@ -248,78 +247,75 @@ return [
 //                ],
 //            ],
         ],
-        
-        // ['header' => 'labels'],
-        // [
-        //     'text'       => 'important',
-        //     'icon_color' => 'red',
-        // ],
-        // [
-        //     'text'       => 'warning',
-        //     'icon_color' => 'yellow',
-        // ],
-        // [
-        //     'text'       => 'information',
-        //     'icon_color' => 'aqua',
-        // ],
-
-        // [
-        //     'text' => 'multilevel',
-        //     'icon' => 'fas fa-fw fa-share',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'level_one',
-        //             'url' => '#',
-        //         ],
-        //         [
-        //             'text' => 'level_one',
-        //             'url' => '#',
-        //             'submenu' => [
-        //                 [
-        //                     'text' => 'level_two',
-        //                     'url' => '#',
-        //                 ],
-        //                 [
-        //                     'text' => 'level_two',
-        //                     'url' => '#',
-        //                     'submenu' => [
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url' => '#',
-        //                         ],
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url' => '#',
-        //                         ],
-        //                     ],
-        //                 ],
-        //             ],
-        //         ],
-        //         [
-        //             'text' => 'level_one',
-        //             'url' => '#',
-        //         ],
-        //     ],
-        // ],
-
-        // [
-        //     'text'        => 'pages',
-        //     'url'         => 'admin/pages',
-        //     'icon'        => 'far fa-fw fa-file',
-        //     'label'       => 4,
-        //     'label_color' => 'success',
-        // ],
-        // ['header' => 'account_settings'],
-        // [
-        //     'text' => 'profile',
-        //     'url'  => 'admin/settings',
-        //     'icon' => 'fas fa-fw fa-user',
-        // ],
-        // [
-        //     'text' => 'change_password',
-        //     'url'  => 'admin/settings',
-        //     'icon' => 'fas fa-fw fa-lock',
-        // ],
+    // ['header' => 'labels'],
+    // [
+    //     'text'       => 'important',
+    //     'icon_color' => 'red',
+    // ],
+    // [
+    //     'text'       => 'warning',
+    //     'icon_color' => 'yellow',
+    // ],
+    // [
+    //     'text'       => 'information',
+    //     'icon_color' => 'aqua',
+    // ],
+    // [
+    //     'text' => 'multilevel',
+    //     'icon' => 'fas fa-fw fa-share',
+    //     'submenu' => [
+    //         [
+    //             'text' => 'level_one',
+    //             'url' => '#',
+    //         ],
+    //         [
+    //             'text' => 'level_one',
+    //             'url' => '#',
+    //             'submenu' => [
+    //                 [
+    //                     'text' => 'level_two',
+    //                     'url' => '#',
+    //                 ],
+    //                 [
+    //                     'text' => 'level_two',
+    //                     'url' => '#',
+    //                     'submenu' => [
+    //                         [
+    //                             'text' => 'level_three',
+    //                             'url' => '#',
+    //                         ],
+    //                         [
+    //                             'text' => 'level_three',
+    //                             'url' => '#',
+    //                         ],
+    //                     ],
+    //                 ],
+    //             ],
+    //         ],
+    //         [
+    //             'text' => 'level_one',
+    //             'url' => '#',
+    //         ],
+    //     ],
+    // ],
+    // [
+    //     'text'        => 'pages',
+    //     'url'         => 'admin/pages',
+    //     'icon'        => 'far fa-fw fa-file',
+    //     'label'       => 4,
+    //     'label_color' => 'success',
+    // ],
+    // ['header' => 'account_settings'],
+    // [
+    //     'text' => 'profile',
+    //     'url'  => 'admin/settings',
+    //     'icon' => 'fas fa-fw fa-user',
+    // ],
+    // [
+    //     'text' => 'change_password',
+    //     'url'  => 'admin/settings',
+    //     'icon' => 'fas fa-fw fa-lock',
+    // ],
     ],
     /*
       |--------------------------------------------------------------------------
@@ -516,17 +512,17 @@ return [
                 [
                     'type' => 'js',
                     'asset' => true,
-                    'location' => '//vendor/kartik-v/bootstrap-fileinput/js/plugins/piexif.js',
+                    'location' => '/vendor/kartik-v/bootstrap-fileinput/js/plugins/piexif.js',
                 ],
                 [
                     'type' => 'js',
                     'asset' => true,
-                    'location' => '//vendor/kartik-v/bootstrap-fileinput/js/plugins/sortable.js',
+                    'location' => '/vendor/kartik-v/bootstrap-fileinput/js/plugins/sortable.js',
                 ],
                 [
                     'type' => 'js',
                     'asset' => true,
-                    'location' => '//vendor/kartik-v/bootstrap-fileinput/js/plugins/purify.js',
+                    'location' => '/vendor/kartik-v/bootstrap-fileinput/js/plugins/purify.js',
                 ],
                 [
                     'type' => 'js',
@@ -536,9 +532,80 @@ return [
                 [
                     'type' => 'js',
                     'asset' => true,
-                    'location' => '/vendor/kartik-v/bootstrap-fileinput./themes/fas/theme.js',
+                    'location' => '/vendor/kartik-v/bootstrap-fileinput/themes/fas/theme.js',
                 ],
-                
+            ],
+        ],
+        [
+            'name' => 'bootstrapColorpicker',
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js',
+                ],
+            ],
+        ],
+        [
+            'name' => 'findDoctor',
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '/css/bootstrap.min.css',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '/css/style.css',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '/css/menu.css',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '/css/icon_fonts/css/all_icons_min.css',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '/css/date_picker.css',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '/css/custom.css',
+                ],
+//                [
+//                    'type' => 'js',
+//                    'asset' => true,
+//                    'location' => '/js/jquery-2.2.4.min.js',
+//                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/js/common_scripts.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/js/functions.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/js/bootstrap-datepicker.js',
+                ],
             ],
         ],
     ],
