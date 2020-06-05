@@ -3,7 +3,6 @@
 @section('content')
 
 <div class="tab-content">
-
     <div class="tab-pane fade show active" id="book" role="tabpanel" aria-labelledby="book-tab">
         <p class="lead add_bottom_30">Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
         <form>
@@ -372,4 +371,12 @@
 </div>
 <!-- /tab-content -->
 @stop
-
+@section('js')
+<script>$('#calendar').datepicker({
+    todayHighlight: true,
+    daysOfWeekDisabled: [0],
+    weekStart: 1,
+    format: "yyyy-mm-dd",
+    datesDisabled: ["2017/10/20", "2017/11/21", "2017/12/21", "2018/01/21", "2018/02/21", "2018/03/21"],
+}); </script>
+@stop
