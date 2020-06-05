@@ -169,4 +169,9 @@ class CallCenterController extends Controller
 
         return redirect()->route('admin.callcenter.index');
     }
+    
+    public function bookingTime(Request $request)
+    {
+        return view('admin.callcenter.booking-time');
+    }
 }
