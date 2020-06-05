@@ -5,11 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 //'prefix' => '{language}'
 //Route::redirect('/', '/ru');
-Route::get('/', 'HomeController@index')->name('home');
-
-
+Route::get('', 'HomeController@index')->name('home');
 Auth::routes(['verify' => true]);
-//Route::get('admin', 'HomeController@index')->name('admin');
 
 Route::get('doctors-list', function () {
     return view('doctors/list');
@@ -17,7 +14,7 @@ Route::get('doctors-list', function () {
 
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
-    Route::get('/', 'DashboardController@index')->name('home');
+    Route::get('', 'DashboardController@index')->name('home');
 
     Route::resource('users', 'UserController');
     Route::resource('specializations', 'SpecializationController');
@@ -95,7 +92,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
             Route::post('/booking/', 'CallCenter\CallCenterController@bookingDoctor')->name('bookingDoctor');
         
             Route::get('/bookingtime', 'CallCenter\CallCenterController@bookingTime')->name('booking-time');
-            
         }
     );
 });
