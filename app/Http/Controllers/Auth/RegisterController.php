@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Entity\User\User;
 use App\Http\Controllers\Controller;
-use App\Role;
+use App\Entity\User\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -63,7 +63,7 @@ use RegistersUsers;
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Entity\User\User
      */
     protected function create(array $data) {
         $role = Role::where('slug', 'user')->first();

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Entity\User;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -33,7 +33,7 @@ class User extends Authenticatable implements MustVerifyEmail {
     public const USER_PROFILE = '/uploads/avatars/';
 
     public function role() {
-        return $this->belongsTo('App\Role', 'role');
+        return $this->belongsTo(Role::class, 'role');
     }
 
     public function hasAccess(array $permissions): bool {
@@ -104,16 +104,16 @@ class User extends Authenticatable implements MustVerifyEmail {
 
     public static function newGuest($name, $lastname, $patronymic, $phone, $birthDate, $gender, $email): self {
         $password = 12; // this is for test must change
-        $role = 5; //must change 
+        $role = 5; //must change
         return static::new($name, $lastname, $patronymic, $phone, $birthDate, $gender, $email, $password, $role);
     }
 
     public function user() {
-        return $this->hasOne('App\Booking', 'user_id', 'id');
+        return $this->hasOne('App\Entity\Booking\Booking', 'user_id', 'id');
     }
 
     public function doctor() {
-        return $this->hasOne('App\Booking', 'doctor_id', 'id');
+        return $this->hasOne('App\Entity\Booking\Booking', 'doctor_id', 'id');
     }
 
 }

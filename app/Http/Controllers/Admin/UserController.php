@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Clinic;
+use App\Entity\Clinic\Clinic;
 use App\Http\Controllers\Controller;
-use App\Role;
-use App\Timetable;
-use App\User;
-use App\Specialization;
+use App\Entity\User\Role;
+use App\Entity\Clinic\Timetable;
+use App\Entity\User\User;
+use App\Entity\Clinic\Specialization;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Auth;

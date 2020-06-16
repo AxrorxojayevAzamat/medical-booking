@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Entity\User;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,7 +14,7 @@ class Role extends Model {
     ];
 
     public function user() {
-        return $this->hasOne('App\User','role');
+        return $this->hasOne('App\Entity\User\User','role');
     }
 
     public function hasAccess(array $permissions): bool {

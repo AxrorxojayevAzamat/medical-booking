@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Entity\Clinic;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ClinicPhotos extends Model
+class Photos extends Model
 {
     protected $table = 'clinic_photos';
 

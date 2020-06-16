@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Clinic;
+use App\Entity\Clinic\Clinic;
 use App\Http\Requests\ClinicRequest;
-use App\Region;
+use App\Entity\Region;
 use App\Services\ClinicService;
 use Illuminate\Http\Request;
 use App\Traits\UploadTrait;

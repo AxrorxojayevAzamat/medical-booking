@@ -1,6 +1,6 @@
 <?php
 
-use App\User;
+use App\Entity\User\User;
 use Illuminate\Database\Seeder;
 
 class UserSeed extends Seeder {

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Clinic;
+use App\Entity\Clinic\Clinic;
 use Illuminate\Support\Facades\DB;
 
 class ClinicSeed extends Seeder {

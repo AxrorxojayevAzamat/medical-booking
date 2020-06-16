@@ -1,10 +1,10 @@
 <?php
 
-use App\Celebration;
-use App\Clinic;
-use App\User;
-use App\Region;
-use App\Specialization;
+use App\Entity\Celebration;
+use App\Entity\Clinic\Clinic;
+use App\Entity\User\User;
+use App\Entity\Region;
+use App\Entity\Clinic\Specialization;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Crumbs;
 

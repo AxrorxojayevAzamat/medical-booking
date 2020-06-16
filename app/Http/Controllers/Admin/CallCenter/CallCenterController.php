@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin\CallCenter;
 
 use App\Http\Controllers\Controller;
-use App\User;
-use App\Region;
-use App\Clinic;
-use App\Specialization;
-use App\Booking;
+use App\Entity\User\User;
+use App\Entity\Region;
+use App\Entity\Clinic\Clinic;
+use App\Entity\Clinic\Specialization;
+use App\Entity\Booking\Booking;
 use Illuminate\Http\Request;
 
 class CallCenterController extends Controller
@@ -169,7 +169,7 @@ class CallCenterController extends Controller
 
         return redirect()->route('admin.callcenter.index');
     }
-    
+
     public function bookingTime(Request $request)
     {
         return view('admin.callcenter.booking-time');

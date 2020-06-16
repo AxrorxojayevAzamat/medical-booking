@@ -1,13 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Entity\Clinic;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Timetable extends Model
 {
     protected $table = 'timetables';
-    
+
     protected $fillable = [
         'scheduleType',
         'interval',
@@ -32,5 +32,6 @@ class Timetable extends Model
         'day_off_start',
         'day_off_end',
         'created_by',
-        'updated_by',];
+        'updated_by',
+    ];
 }

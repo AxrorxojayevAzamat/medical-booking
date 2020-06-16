@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Intervention\Image\Facades\Image;
 use App\Traits\UploadTrait;
-use App\User;
+use App\Entity\User\User;
 use Illuminate\Support\Str;
 
 class ProfileController extends Controller {
