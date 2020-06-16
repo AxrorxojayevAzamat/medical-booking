@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <div class="card-body">
                         <form action="?" method="GET">
-                            <div class="row">                                
+                            <div class="row">
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label for="region" class="col-form-label">{{ __('Регион') }}</label>
@@ -57,7 +57,7 @@
                                         </select>
                                         <label></label>
                                     </div>
-                                </div>                         
+                                </div>
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label for="name" class="col-form-label">{{ __('Имя,Фамилия,Направление') }}</label>
@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                         </form>
-                    </div> 
+                    </div>
 
                     <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                         <thead>
@@ -91,8 +91,8 @@
                             @foreach ($user->specializations as $spec)
                             <tr>
                                 <td>{{$spec->name_ru}}</td>
-                                <td><a href="{{ route('admin.callcenter.booking', [$user, $clinic]) }}">{{ $user->name }}</td></td>
-                                <td><a href="{{ route('admin.callcenter.booking-time') }}">{{ $user->name }}</td></td>
+                                <td><a href="{{ route('admin.call-center.booking', [$user, $clinic]) }}">{{ $user->name }}</td></td>
+                                <td><a href="{{ route('admin.call-center.booking-time') }}">{{ $user->name }}</td></td>
                                 <td>{{$clinic->name_ru}}</td>
                             </tr>
                             @endforeach
@@ -109,4 +109,4 @@
         <!-- /.col -->
     </div>
     <!-- /.row -->
-    @stop  
+    @stop

@@ -56,7 +56,7 @@ class CallCenterController extends Controller
 
         $clinics = $query->paginate(20);
 
-        return view('admin.callcenter.index', compact('clinics', 'regionList', 'cityList', 'clinicTypeList', 'specList', 'clinicList'));
+        return view('admin.call-center.index', compact('clinics', 'regionList', 'cityList', 'clinicTypeList', 'specList', 'clinicList'));
     }
 
     public function findDoctorByRegion(Request $request)
@@ -145,7 +145,7 @@ class CallCenterController extends Controller
                 ->where('clinic_id', $clinic1->id)
                 ->get();
 
-        return view('admin.callcenter.booking', compact('user1', 'clinic1', 'b_users'));
+        return view('admin.call-center.booking', compact('user1', 'clinic1', 'b_users'));
     }
 
     public function bookingDoctor(Request $request)
@@ -167,11 +167,11 @@ class CallCenterController extends Controller
         $booking = Book::new($user->id, $doctorId, $clinicId, $bookingDate, $timeStart, null, null, null);
 
 
-        return redirect()->route('admin.callcenter.index');
+        return redirect()->route('admin.call-center.index');
     }
 
     public function bookingTime(Request $request)
     {
-        return view('admin.callcenter.booking-time');
+        return view('admin.call-center.booking-time');
     }
 }

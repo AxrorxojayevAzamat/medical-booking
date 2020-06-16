@@ -1,13 +1,13 @@
 @extends('adminlte::page')
 
 @section('content')
-<form method="POST" action="{{ route("admin.callcenter.bookingDoctor") }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route("admin.call-center.bookingDoctor") }}" enctype="multipart/form-data">
     @csrf
 
     <div class="row">
         <div class="col-md-12">
             <div class="card card-danger card-outline">
-                <div class="card-header">   
+                <div class="card-header">
                     {{ __('Зарегистрировать нового пользователя') }}
                 </div>
                 <div class="card-body">

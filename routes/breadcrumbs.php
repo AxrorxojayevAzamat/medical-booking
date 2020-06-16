@@ -140,17 +140,17 @@ Breadcrumbs::register('admin.timetables.create', function (Crumbs $crumbs) {
 });
 
 //booking
-Breadcrumbs::register('admin.callcenter.index', function (Crumbs $crumbs) {
+Breadcrumbs::register('admin.call-center.index', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
-    $crumbs->push('Поиск врача', route('admin.callcenter.index'));
+    $crumbs->push('Поиск врача', route('admin.call-center.index'));
 });
 
-Breadcrumbs::register('admin.callcenter.booking', function (Crumbs $crumbs, User $user, Clinic $clinic) {
-    $crumbs->parent('admin.callcenter.index');
-    $crumbs->push('Бронирование врача', route('admin.callcenter.booking', [$user, $clinic]));
+Breadcrumbs::register('admin.call-center.booking', function (Crumbs $crumbs, User $user, Clinic $clinic) {
+    $crumbs->parent('admin.call-center.index');
+    $crumbs->push('Бронирование врача', route('admin.call-center.booking', [$user, $clinic]));
 });
 
-Breadcrumbs::register('admin.callcenter.booking-time', function (Crumbs $crumbs) {
-    $crumbs->parent('admin.callcenter.index');
-    $crumbs->push('TEST Бронирование врача', route('admin.callcenter.booking-time'));
+Breadcrumbs::register('admin.call-center.booking-time', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.call-center.index');
+    $crumbs->push('TEST Бронирование врача', route('admin.call-center.booking-time'));
 });
