@@ -4,7 +4,7 @@ namespace App\Entity\Booking;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Booking extends Model
+class Book extends Model
 {
 
     protected $fillable = [

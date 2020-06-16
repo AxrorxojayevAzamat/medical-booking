@@ -7,7 +7,7 @@ use App\Entity\User\User;
 use App\Entity\Region;
 use App\Entity\Clinic\Clinic;
 use App\Entity\Clinic\Specialization;
-use App\Entity\Booking\Booking;
+use App\Entity\Booking\Book;
 use Illuminate\Http\Request;
 
 class CallCenterController extends Controller
@@ -141,7 +141,7 @@ class CallCenterController extends Controller
         $clinic1 = Clinic::find($clinic->id);
 
 //        $b_users = Booking::all();
-        $b_users = Booking::where('doctor_id', $user1->id)
+        $b_users = Book::where('doctor_id', $user1->id)
                 ->where('clinic_id', $clinic1->id)
                 ->get();
 
@@ -164,7 +164,7 @@ class CallCenterController extends Controller
         $bookingDate = $request['booking_date'];
         $timeStart = $request['time_start'];
 
-        $booking = Booking::new($user->id, $doctorId, $clinicId, $bookingDate, $timeStart, null, null, null);
+        $booking = Book::new($user->id, $doctorId, $clinicId, $bookingDate, $timeStart, null, null, null);
 
 
         return redirect()->route('admin.callcenter.index');

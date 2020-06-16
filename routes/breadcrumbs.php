@@ -1,6 +1,6 @@
 <?php
 
-use App\Entity\Celebration;
+use App\Entity\Holiday;
 use App\Entity\Clinic\Clinic;
 use App\Entity\User\User;
 use App\Entity\Region;
@@ -128,7 +128,7 @@ Breadcrumbs::register('admin.celebration.create', function (Crumbs $crumbs) {
     $crumbs->parent('admin.celebration.index');
     $crumbs->push('Создать праздничный день', route('admin.celebration.create'));
 });
-Breadcrumbs::register('admin.celebration.edit', function (Crumbs $crumbs, Celebration $celebration) {
+Breadcrumbs::register('admin.celebration.edit', function (Crumbs $crumbs, Holiday $celebration) {
     $crumbs->parent('admin.celebration.index');
     $crumbs->push('Создать праздничный день', route('admin.celebration.edit', $celebration));
 });

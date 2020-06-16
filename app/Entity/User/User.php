@@ -109,11 +109,11 @@ class User extends Authenticatable implements MustVerifyEmail {
     }
 
     public function user() {
-        return $this->hasOne('App\Entity\Booking\Booking', 'user_id', 'id');
+        return $this->hasOne('App\Entity\Booking\Book', 'user_id', 'id');
     }
 
     public function doctor() {
-        return $this->hasOne('App\Entity\Booking\Booking', 'doctor_id', 'id');
+        return $this->hasOne('App\Entity\Booking\Book', 'doctor_id', 'id');
     }
 
 }

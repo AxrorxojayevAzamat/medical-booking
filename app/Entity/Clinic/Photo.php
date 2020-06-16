@@ -4,7 +4,7 @@ namespace App\Entity\Clinic;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Photos extends Model
+class Photo extends Model
 {
     protected $table = 'clinic_photos';
 
