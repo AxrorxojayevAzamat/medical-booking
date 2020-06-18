@@ -33,7 +33,7 @@ class User extends Authenticatable implements MustVerifyEmail {
     public const USER_PROFILE = '/uploads/avatars/';
 
     public function role() {
-        return $this->belongsTo('App\Role', 'role');
+        return $this->belongsTo('App\Role');
     }
 
     public function hasAccess(array $permissions): bool {
