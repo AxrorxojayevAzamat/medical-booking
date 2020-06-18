@@ -4,10 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Timetable extends Model
-{
+class Timetable extends Model {
+
     protected $table = 'timetables';
-    
     protected $fillable = [
         'scheduleType',
         'interval',
@@ -32,5 +31,23 @@ class Timetable extends Model
         'day_off_start',
         'day_off_end',
         'created_by',
-        'updated_by',];
+        'updated_by',
+    ];
+
+    public const SCHEDULE_TYPE_WEEK = 1;
+    public const SCHEDULE_TYPE_ODD = 2;
+    public const SCHEDULE_TYPE_EVEN = 3;
+
+    public function isScheduleTypeWeek(): bool {
+        return $this->scheduleType === self::SCHEDULE_TYPE_WEEK;
+    }
+
+    public function isScheduleTypeOdd(): bool {
+        return $this->scheduleType === self::SCHEDULE_TYPE_ODD;
+    }
+
+    public function isScheduleTypeEven(): bool {
+        return $this->scheduleType === self::SCHEDULE_TYPE_EVEN;
+    }
+
 }

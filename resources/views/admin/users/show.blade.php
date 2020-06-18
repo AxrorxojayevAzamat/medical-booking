@@ -166,22 +166,22 @@
                                 @if ($time->friday_start!= null)
                                     <tr>
                                         <td>Пятница</td>
-                                        <td>{{$time->frisday_start}}</td>
-                                        <td>{{$time->frirsday_end}}</td>
+                                        <td>{{$time->friday_start}}</td>
+                                        <td>{{$time->friday_end}}</td>
                                     </tr>
                                 @endif
                                 @if ($time->saturday_start!= null)
                                     <tr>
                                         <td>Суббота</td>
-                                        <td>{{$time->satursday_start}}</td>
-                                        <td>{{$time->satursday_end}}</td>
+                                        <td>{{$time->saturday_start}}</td>
+                                        <td>{{$time->saturday_end}}</td>
                                     </tr>
                                 @endif
                                 @if ($time->sunday_start!= null)
                                     <tr>
                                         <td>Воскресенье</td>
                                         <td>{{$time->sunday_start}}</td>
-                                        <td>{{$time->sunsday_end}}</td>
+                                        <td>{{$time->sunday_end}}</td>
                                     </tr>
                                 @endif
                                 @if ($time->day_off_start!= null)

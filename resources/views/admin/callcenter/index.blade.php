@@ -92,7 +92,7 @@
                             <tr>
                                 <td>{{$spec->name_ru}}</td>
                                 <td><a href="{{ route('admin.callcenter.booking', [$user, $clinic]) }}">{{ $user->name }}</td></td>
-                                <td><a href="{{ route('admin.callcenter.booking-time') }}">{{ $user->name }}</td></td>
+                                <td><a href="{{ route('admin.callcenter.booking-time',[$user, $clinic]) }}">{{ $user->name }}</td></td>
                                 <td>{{$clinic->name_ru}}</td>
                             </tr>
                             @endforeach

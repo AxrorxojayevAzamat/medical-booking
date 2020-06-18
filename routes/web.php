@@ -91,7 +91,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
             Route::get('/booking/{user}/{clinic}', 'CallCenter\CallCenterController@booking')->name('booking');
             Route::post('/booking/', 'CallCenter\CallCenterController@bookingDoctor')->name('bookingDoctor');
         
-            Route::get('/bookingtime', 'CallCenter\CallCenterController@bookingTime')->name('booking-time');
+            Route::get('/bookingtime/{user}/{clinic}', 'CallCenter\CallCenterController@bookingTime')->name('booking-time');
         }
     );
 });
