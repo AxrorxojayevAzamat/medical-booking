@@ -232,22 +232,36 @@
                 <div class="card primary">
                     <div class="card-header">
                         {{ __('Расписание доктора') }}
-                        <a class="btn btn-secondary float-right" href="{!! route('admin.timetables.create',['id'=>$user->id, 'clinic_id'=>1])!!}">{{ __('Изменить/Добавить') }}</a>
+                        {{-- <a class="btn btn-secondary float-right" href="{!! route('admin.timetables.create',['id'=>$user->id, 'clinic_id'=>1])!!}">{{ __('Изменить/Добавить') }}</a> --}}
                     </div>
                     <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                         <thead>
                             <tr role="row">
-                                <th>{{ __('Клиника') }}</th>
-                                <th>{{ __('Направление') }}</th>
+                                <th>{{ __('Название клиники') }}</th>
+                                <th>{{ __('Управление') }}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($clinics as $clinic)
+                            {{-- @foreach ($doctorList->clinics as $clinic)
                             <tr>
-                                <td><a href="{{ route('admin.timetables.create', [$user, $clinic]) }}"></td></td>
                                 <td>{{$clinic->name_ru}}</td>
+                                <td><a href="{{ route('admin.timetables.create', [$user->id, $clinic->id])}}">Создать расписание</td></td>
+                            </tr>
+                            @endforeach --}}
+
+                            @if(!empty($time))
+                            @foreach ($time as $clinic)
+                            {{-- {{dd($clinic)}} --}}
+                            <tr>
+                                <td>{{$clinic->clinic->name_ru}}</td>
+                                <td>
+                                    <a href="{{ route('admin.timetables.create', [$user, $clinic->clinic])}}">Создать расписание</a><br>
+                                    <a href="{{ route('admin.timetables.edit', [$user, $clinic->clinic])}}">Редактировать расписание</a><br>
+                                    <a href="{{ route('admin.timetables.destroy', [$user->id, $clinic])}}">Удалить расписание</a>
+                                </td>
                             </tr>
                             @endforeach
+                            @endif
                             
                         </tbody>
                     </table>
@@ -272,6 +286,8 @@
                                 <tbody>
                                 @foreach($doctorList->clinics as $clinic)
                                     <tr>
+                                        
+                                        <td>{{$clinic->id}}</td>
                                         <td>{{$clinic->name_ru}}</td>
                                     </tr>
                                 @endforeach

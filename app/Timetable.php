@@ -32,5 +32,10 @@ class Timetable extends Model
         'day_off_start',
         'day_off_end',
         'created_by',
-        'updated_by',];
+        'updated_by',
+    ];
+    public function clinic()
+    {
+        return $this->belongsTo('App\Clinic');
+    }
 }

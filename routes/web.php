@@ -61,21 +61,20 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
         }
     );
 
-    // Route::group(
-    //     ['prefix' => 'timetables/','as' => 'timetables.'],
-    //     function () {
-    //         Route::get('create/{}', 'TimeTableController@create')->name('main-photo');
-            
-    //     }
-    // );
+    Route::group(
+        ['prefix' => 'timetables/','as' => 'timetables.'],
+        function () {
+            Route::get('create/{user?}/{clinic?}', 'TimeTableController@create')->name('create');
+            Route::get('{user?}/{clinic?}/edit', 'TimeTableController@edit')->name('edit');
+            Route::delete('delete/{user}/{clinic}', 'TimeTableController@destroy')->name('destroy');
+        }
+    );
     
     Route::get('/timetables/show', 'TimeTableController@show');
     Route::get('/timetables/show', 'TimeTableController@show')->name('timetables.show');
-    Route::get('/timetables/create', 'TimeTableController@create')->name('timetables.create');
-    Route::get('/timetables/edit', 'TimeTableController@edit')->name('timetables.edit');
+    //Route::get('/timetables/create/{user}/{clinic}', 'TimeTableController@create')->name('timetables.create');
     Route::post('/timetables/store', 'TimeTableController@store')->name('timetables.store');
     
-    Route::delete('/timetable/delete{id}', 'TimeTableController@destroy')->name('timetables.destroy');
     
     Route::group(
         ['prefix' => 'callcenter', 'as' => 'callcenter.'],

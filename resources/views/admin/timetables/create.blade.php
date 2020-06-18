@@ -25,8 +25,8 @@
         </div>
     @endforeach
     @endif
-
-    <form action="{{route('admin.timetables.store',['id'=>$request->id,'clinic_id'=>$request->clinic_id])}}" method="post", enctype="multipart/form-data">
+  
+    <form action="{{route('admin.timetables.store', ['user_id'=>$user->id,'clinic_id'=>$clinic->id])}}" method="post", enctype="multipart/form-data">
         @csrf
        
         <div class="block-left">
@@ -286,7 +286,7 @@
                     <!-- /.form group -->
                 </div>
 
-                <div class="form-group col-5" align='center'>
+                {{-- <div class="form-group col-5" align='center'>
                     <div class="form-group">
                         <input name="day_off_start" type="date" class="form-control" value="{{ old('date')?? $celebrations->date ??''}}" >
                         <label>Введите начало отпуска:</label>
@@ -297,7 +297,7 @@
                         <input name="day_off_end" type="date" class="form-control" value="{{ old('date')?? $celebrations->date ??''}}" >
                         <label>Введите конец отпуска:</label>
                     </div>
-                </div>
+                </div> --}}
                 <br><br>
                 <input type="submit" value="Отправить"  class="btn btn-primary">
             </div>

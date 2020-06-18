@@ -109,7 +109,7 @@ class UserController extends Controller
         $doctorList = User::find($user->id);
         $statuses = User::statusList();
         $timetable = Timetable::where('doctor_id', $user->id)->get();
-
+       
         return view('admin.users.show', compact('user', 'roles', 'specializations', 'doctorList', 'statuses', 'clinics', 'timetable'));
     }
 
@@ -120,7 +120,8 @@ class UserController extends Controller
         $clinics = Clinic::orderBy('name_ru')->pluck('name_ru', 'id');
         $doctorList = User::find($user->id);
         $statuses = User::statusList();
-        $time = Timetable::find($user->id);
+        $time = Timetable::where('doctor_id', $user->id)->get();
+        //$time = Timetable::find($user->id);
         return view('admin.users.edit', compact('user', 'roles', 'specializations', 'doctorList', 'statuses', 'clinics', 'time'));
     }
 

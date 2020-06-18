@@ -9,8 +9,8 @@ use App\Notifications\ResetPassword as ResetPasswordNotification;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 
-class User extends Authenticatable implements MustVerifyEmail {
-
+class User extends Authenticatable implements MustVerifyEmail
+{
     use Notifiable;
 
     protected $fillable = [
@@ -32,62 +32,76 @@ class User extends Authenticatable implements MustVerifyEmail {
     public const ROLE_DOCTOR = 'doctor';
     public const USER_PROFILE = '/uploads/avatars/';
 
-    public function role() {
+    public function role()
+    {
         return $this->belongsTo('App\Role', 'role');
     }
 
-    public function hasAccess(array $permissions): bool {
+    public function hasAccess(array $permissions): bool
+    {
         foreach ($permissions as $permission) {
-            if ($this->role($permission))
+            if ($this->role($permission)) {
                 return true;
+            }
         }
         return false;
     }
 
-    public function inRole(string $roleSlug) {
+    public function inRole(string $roleSlug)
+    {
         return $this->role()->where('slug', $roleSlug)->count() == 1;
     }
 
-    public function sendPasswordResetNotification($token) {
+    public function sendPasswordResetNotification($token)
+    {
         $this->notify(new ResetPasswordNotification($token));
     }
 
-    public static function adminlte_image() {
+    public static function adminlte_image()
+    {
         return 'https://picsum.photos/300/300';
     }
 
-    public static function adminlte_desc() {
+    public static function adminlte_desc()
+    {
         return 'That\'s a nice guy';
     }
 
-    public function specializations() {
+    public function specializations()
+    {
         return $this->belongsToMany(Specialization::class, 'specialization_user');
     }
 
-    public function clinics() {
+    public function clinics()
+    {
         return $this->belongsToMany(Clinic::class, 'doctors_and_clinics');
     }
 
-    public function isActive(): bool {
+    public function isActive(): bool
+    {
         return $this->status === self::STATUS_ACTIVE;
     }
 
-    public function isInactive(): bool {
+    public function isInactive(): bool
+    {
         return $this->status === self::STATUS_INACTIVE;
     }
 
-    public static function statusList(): array {
+    public static function statusList(): array
+    {
         return [
             User::STATUS_ACTIVE => 'Aктивный',
             User::STATUS_INACTIVE => 'Неактивный',
         ];
     }
 
-    public function getImageAttribute() {
+    public function getImageAttribute()
+    {
         return $this->avatar;
     }
 
-    public static function new($name, $lastname, $patronymic, $phone, $birthDate, $gender, $email, $password, $role): self {
+    public static function new($name, $lastname, $patronymic, $phone, $birthDate, $gender, $email, $password, $role): self
+    {
         return static::create([
                     'name' => $name,
                     'lastname' => $lastname,
@@ -102,18 +116,20 @@ class User extends Authenticatable implements MustVerifyEmail {
         ]);
     }
 
-    public static function newGuest($name, $lastname, $patronymic, $phone, $birthDate, $gender, $email): self {
+    public static function newGuest($name, $lastname, $patronymic, $phone, $birthDate, $gender, $email): self
+    {
         $password = 12; // this is for test must change
-        $role = 5; //must change 
+        $role = 5; //must change
         return static::new($name, $lastname, $patronymic, $phone, $birthDate, $gender, $email, $password, $role);
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->hasOne('App\Booking', 'user_id', 'id');
     }
 
-    public function doctor() {
+    public function doctor()
+    {
         return $this->hasOne('App\Booking', 'doctor_id', 'id');
     }
-
 }

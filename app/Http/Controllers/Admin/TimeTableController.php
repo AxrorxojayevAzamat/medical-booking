@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-
 use App\User;
+use App\Clinic;
 use App\Timetable;
 use Illuminate\Http\Request;
 use App\Http\Requests\TimeRequest;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class TimeTableController extends Controller
@@ -29,9 +29,12 @@ class TimeTableController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create(Request $request)
+    public function create(User $user, Clinic $clinic)
     {
-        return view('admin.timetables.create', compact('request'));
+        $user=$user;
+        $clinic= $clinic;
+    
+        return view('admin.timetables.create', compact('user', 'clinic'));
     }
 
     /**
@@ -43,7 +46,7 @@ class TimeTableController extends Controller
     public function store(Request $request)
     {
         $time = new Timetable();
-        $time->doctor_id = $request->input('id');
+        $time->doctor_id = $request->input('user_id');
         $time->clinic_id = $request->input('clinic_id');
         $time->scheduleType= $request->scheduleType;
         $time->interval = $request->interval;
@@ -82,13 +85,17 @@ class TimeTableController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function edit($id)
+    public function edit(User $user, Clinic $clinic)
     {
-        $time = Timetable::find($id);
+        $user=$user;
+        $clinic = $clinic;
+        $time = Timetable::where('doctor_id', $user->id)->get();
         if (!$time) {
             return redirect()->route('user.show')->withErrors('Такого расписания  нет на сайте');
         }
-        return view('admin.timetables.edit', compact('time'));
+        //dd($time);
+        return view('admin.timetables.edit', compact('time
+        ', 'user', 'clinic'));
     }
 
     /**
