@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder {
         $this->call(UserSeed::class);
         $this->call(CelebrationSeed::class);
         $this->call(BookingSeed::class);
+        $this->call(TimetableSeed::class);
     }
 
 }

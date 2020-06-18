@@ -34,7 +34,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function role()
     {
-        return $this->belongsTo('App\Role', 'role');
+        return $this->belongsTo('App\Role');
     }
 
     public function hasAccess(array $permissions): bool

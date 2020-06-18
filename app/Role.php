@@ -13,8 +13,8 @@ class Role extends Model {
         'permissions' => 'array',
     ];
 
-    public function user() {
-        return $this->hasOne('App\User','role');
+    public function users() {
+        return $this->hasMany('App\User');
     }
 
     public function hasAccess(array $permissions): bool {

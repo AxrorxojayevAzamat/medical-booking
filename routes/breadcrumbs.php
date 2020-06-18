@@ -5,6 +5,7 @@ use App\Clinic;
 use App\User;
 use App\Region;
 use App\Specialization;
+use App\Timetable;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Crumbs;
 
@@ -154,7 +155,7 @@ Breadcrumbs::register('admin.callcenter.booking', function (Crumbs $crumbs, User
     $crumbs->push('Бронирование врача', route('admin.callcenter.booking', [$user, $clinic]));
 });
 
-Breadcrumbs::register('admin.callcenter.booking-time', function (Crumbs $crumbs) {
+Breadcrumbs::register('admin.callcenter.booking-time', function (Crumbs $crumbs, User $user, Clinic $clinic) {
     $crumbs->parent('admin.callcenter.index');
-    $crumbs->push('TEST Бронирование врача', route('admin.callcenter.booking-time'));
+    $crumbs->push('TEST Бронирование врача', route('admin.callcenter.booking-time', [$user, $clinic]));
 });
