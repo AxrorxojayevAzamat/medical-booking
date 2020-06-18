@@ -13,7 +13,7 @@ Route::get('doctors-list', function () {
 });
 
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
+Route::group(['as' => 'admin.', 'prefix' => 'admin',  'namespace' => 'Admin', 'middleware' => ['auth', 'admin']], function () {
     Route::get('', 'DashboardController@index')->name('home');
 
     Route::resource('users', 'UserController');
@@ -94,6 +94,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
             Route::get('/bookingtime/{user}/{clinic}', 'CallCenter\CallCenterController@bookingTime')->name('booking-time');
         }
     );
+});
+
+Route::group([ 'as' => 'patient.','prefix'=> 'patient', 'namespace'=> 'Patient', 'middleware'=>['auth', 'patient']], function (){
+
+    Route::get('', 'DashboardController@index')->name('dashboard1');
+
 });
 
 Route::get("locale/{locale}", function ($locale) {
