@@ -91,8 +91,8 @@
                             @foreach ($doctor->specializations as $spec)
                             <tr>
                                 <td>{{$spec->name_ru}}</td>
-                                <td><a href="{{ route('admin.call-center.booking', [$doctor, $clinic]) }}">{{ $doctor->name }}</td></td>
-                                <td><a href="{{ route('admin.call-center.booking-time') }}">{{ $doctor->name }}</td></td>
+                                <td><a href="{{ route('admin.call-center.booking', [$user, $clinic]) }}">{{ $user->name }}</a></td>
+                                <td><a href="{{ route('admin.call-center.booking-time',[$user, $clinic]) }}">{{ $user->name }}</a></td>
                                 <td>{{$clinic->name_ru}}</td>
                             </tr>
                             @endforeach

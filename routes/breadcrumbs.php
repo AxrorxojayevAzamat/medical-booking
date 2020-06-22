@@ -150,7 +150,7 @@ Breadcrumbs::register('admin.call-center.booking', function (Crumbs $crumbs, Use
     $crumbs->push('Бронирование врача', route('admin.call-center.booking', [$user, $clinic]));
 });
 
-Breadcrumbs::register('admin.call-center.booking-time', function (Crumbs $crumbs) {
+Breadcrumbs::register('admin.call-center.booking-time', function (Crumbs $crumbs, User $user, Clinic $clinic) {
     $crumbs->parent('admin.call-center.index');
-    $crumbs->push('TEST Бронирование врача', route('admin.call-center.booking-time'));
+    $crumbs->push('TEST Бронирование врача', route('admin.call-center.booking-time', [$user, $clinic]));
 });

@@ -29,12 +29,13 @@
                                         <option value="1">Мужской</option>>
                                     </select></td></tr>
                             <tr><th>{{ trans('Дата бронирования') }}</th>
-                                <td><input id="booking_date" type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="booking_date" value="{{ old('booking_date') }}" required></td></tr>
+                                <td><input id="booking_date" type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="booking_date" value="{{ old('booking_date', $calendar2) }}" required></td></tr>
                             <tr><th>{{ trans('Время') }}</th>
                                 <td>
                                     <div class="input-group date" id="timepicker" data-target-input="nearest">
-                                        <input name="time_start" id="timepickerstart" type="text" class="form-control timepicker"
-                                               data-inputmask="&quot;mask&quot;: &quot;99:99&quot;" data-mask="" im-insert="true">
+                                        <input id="timepickerstart" type="text" class="form-control timepicker"
+                                               data-inputmask="&quot;mask&quot;: &quot;99:99&quot;" data-mask="" im-insert="true"
+                                               value="{{$radioTime}}" disabled>
                                         <div class="input-group-append" data-target="#timepickerstart" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="far fa-clock"></i></div>
                                         </div>
@@ -84,6 +85,8 @@
                     </table>
                     <input name="doctor_id" type="hidden" value="{{$user1->id}}"/>
                     <input name="clinic_id" type="hidden" value="{{$clinic1->id}}"/>
+                    <input name="time_start" type="hidden" value="{{$radioTime}}"/>
+                    <input name="booking_date" type="hidden" value="{{$calendar2}}"/>
 
                 </div>
                 <div class="row">
