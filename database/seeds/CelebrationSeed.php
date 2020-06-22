@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Celebration;
+use App\Entity\Celebration;
 
 class CelebrationSeed extends Seeder
 {

@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
-use App\User;
-use App\Timetable;
+use App\Entity\User\User;
+use App\Entity\Clinic\Timetable;
 use Illuminate\Http\Request;
 use App\Http\Requests\TimeRequest;
 use Illuminate\Support\Facades\Auth;
@@ -49,7 +49,7 @@ class TimeTableController extends Controller
         $time->interval = $request->interval;
         $time->monday_start = $request->monday_start;
         $time->monday_end = $request->monday_end;
-        
+
         $time->tuesday_start = $request->tuesday_start;
         $time->tuesday_end = $request->tuesday_end;
         $time->wednesday_start = $request->wednesday_start;

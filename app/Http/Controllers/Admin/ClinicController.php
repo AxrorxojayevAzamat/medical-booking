@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Clinic;
+use App\Entity\Clinic\Clinic;
 use App\Http\Requests\ClinicRequest;
-use App\Region;
+use App\Entity\Region;
 use App\Services\ClinicService;
 use Illuminate\Http\Request;
 use App\Traits\UploadTrait;
@@ -80,8 +80,8 @@ class ClinicController extends Controller
         $clinics->description_uz = $request->description_uz;
         $clinics->description_ru = $request->description_ru;
         $clinics->phone_numbers = $request->phone_numbers;
-        $clinics->adress_uz = $request->adress_uz;
-        $clinics->adress_ru = $request->adress_ru;
+        $clinics->address_uz = $request->adress_uz;
+        $clinics->address_ru = $request->adress_ru;
         $clinics->work_time_start = $request->work_time_start;
         $clinics->work_time_end = $request->work_time_end;
         $clinics->location = $request->location;
@@ -141,8 +141,8 @@ class ClinicController extends Controller
         $clinics->description_uz = $request->description_uz;
         $clinics->description_ru = $request->description_ru;
         $clinics->phone_numbers = $request->phone_numbers;
-        $clinics->adress_uz = $request->adress_uz;
-        $clinics->adress_ru = $request->adress_ru;
+        $clinics->address_uz = $request->address_uz;
+        $clinics->address_ru = $request->address_ru;
         $clinics->work_time_start = $request->work_time_start;
         $clinics->work_time_end = $request->work_time_end;
         $clinics->location = $request->location;

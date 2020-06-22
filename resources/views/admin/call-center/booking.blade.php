@@ -1,36 +1,36 @@
 @extends('adminlte::page')
 
 @section('content')
-<form method="POST" action="{{ route("admin.callcenter.bookingDoctor") }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route("admin.call-center.bookingDoctor") }}" enctype="multipart/form-data">
     @csrf
 
     <div class="row">
         <div class="col-md-12">
             <div class="card card-danger card-outline">
-                <div class="card-header">   
-                    {{ __('Зарегистрировать нового пользователя') }}
+                <div class="card-header">
+                    {{ trans('Зарегистрировать нового пользователя') }}
                 </div>
                 <div class="card-body">
                     <table class="table table-striped projects">
                         <tbody>
-                            <tr><th>{{ __('Имя, Фамилия, Отчество') }}</th><td>
+                            <tr><th>{{ trans('Имя, Фамилия, Отчество') }}</th><td>
                                     <div class="row">
-                                        <div class="col-3"><input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Имя"></div>
-                                        <div class="col-4"><input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname" autofocus placeholder="Фамилия"></div>
-                                        <div class="col-5"><input id="patronymic" type="text" class="form-control @error('patronymic') is-invalid @enderror" name="patronymic" value="{{ old('patronymic') }}" required autocomplete="patronymic" autofocus placeholder="Отчество"></div>
+                                        <div class="col-3"><input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="name" value="{{ old('first_name') }}" required autocomplete="first_name" autofocus placeholder="Имя"></div>
+                                        <div class="col-4"><input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name" autofocus placeholder="Фамилия"></div>
+                                        <div class="col-5"><input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" required autocomplete="first_name" autofocus placeholder="Отчество"></div>
                                     </div>
-                                </td></tr
-                            <tr><th>{{ __('Адрес электронной почты') }}</th><td><input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email"></td></tr>
-                            <tr><th>{{ __('Телефон') }}</th><td><input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" data-inputmask="&quot;mask&quot;: &quot;(999) 99 999-9999&quot;" data-mask="" im-insert="true" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus></td></tr>
-                            <tr><th>{{ __('Дата рождения') }}</th><td><input id="birth_date "type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="birth_date" value="{{ old('birth_date') }}" required></td></tr>
-                            <tr><th>{{ __('Пол') }}</th><td><select id="gender" class="form-control @error('gender') is-invalid @enderror" name="gender" value="{{ old('gender') }}" required autocomplete="gender" autofocus>
+                                </td></tr>
+                            <tr><th>{{ trans('Адрес электронной почты') }}</th><td><input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email"></td></tr>
+                            <tr><th>{{ trans('Телефон') }}</th><td><input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" data-inputmask="&quot;mask&quot;: &quot;(999) 99 999-9999&quot;" data-mask="" im-insert="true" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus></td></tr>
+                            <tr><th>{{ trans('Дата рождения') }}</th><td><input id="birth_date "type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="birth_date" value="{{ old('birth_date') }}" required></td></tr>
+                            <tr><th>{{ trans('Пол') }}</th><td><select id="gender" class="form-control @error('gender') is-invalid @enderror" name="gender" value="{{ old('gender') }}" required autocomplete="gender" autofocus>
                                         <option value="" selected=""></option>>
                                         <option value="0">Женский</option>>
                                         <option value="1">Мужской</option>>
                                     </select></td></tr>
-                            <tr><th>{{ __('Дата бронирования') }}</th>
-                                <td><input id="booking_date "type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="booking_date" value="{{$calendar2}}" disabled></td></tr>
-                            <tr><th>{{ __('Время') }}</th>
+                            <tr><th>{{ trans('Дата бронирования') }}</th>
+                                <td><input id="booking_date" type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="booking_date" value="{{ old('booking_date', $calendar2) }}" required></td></tr>
+                            <tr><th>{{ trans('Время') }}</th>
                                 <td>
                                     <div class="input-group date" id="timepicker" data-target-input="nearest">
                                         <input id="timepickerstart" type="text" class="form-control timepicker"
@@ -40,7 +40,7 @@
                                             <div class="input-group-text"><i class="far fa-clock"></i></div>
                                         </div>
                                     </div>
-                                </td></tr>                            
+                                </td></tr>
 
 
                         </tbody>
@@ -51,8 +51,8 @@
                     <table class="table table-striped projects">
 
                         <tbody>
-                            <tr><th>{{ __('Доктор') }}</th><td>{{$user1->name}}</td>
-                                <th>{{ __('Специализации') }}</th>
+                            <tr><th>{{ trans('Доктор') }}</th><td>{{$user1->name}}</td>
+                                <th>{{ trans('Специализации') }}</th>
                                 <td>@foreach($user1->specializations()->pluck('name_ru') as $value)
                                     {{ $loop->first ? '' : ', ' }}
                                     {{$value}}
@@ -66,10 +66,10 @@
 
                         <thead>
                             <tr>
-                                <th>{{ __('ID') }}</th>
-                                <th>{{ __('Имя забронированного пациента') }}</th>
-                                <th>{{ __('Дата бронирования') }}</th>
-                                <th>{{ __('Время') }}</th>
+                                <th>{{ trans('ID') }}</th>
+                                <th>{{ trans('Имя забронированного пациента') }}</th>
+                                <th>{{ trans('Дата бронирования') }}</th>
+                                <th>{{ trans('Время') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -92,7 +92,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group" id="submit-button">
-                            <button type="submit" class="btn btn-primary">{{ __('Сохранить')}}</button>
+                            <button type="submit" class="btn btn-primary">{{ trans('Сохранить')}}</button>
                         </div>
                     </div>
                 </div>

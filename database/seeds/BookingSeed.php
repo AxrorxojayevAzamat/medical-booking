@@ -1,6 +1,6 @@
 <?php
 
-use App\Booking;
+use App\Entity\Book\Book;
 use Illuminate\Database\Seeder;
 
 class BookingSeed extends Seeder
@@ -12,7 +12,7 @@ class BookingSeed extends Seeder
      */
     public function run()
     {
-        $booking1 = Booking::create([
+        $booking1 = Book::create([
                     'user_id' => 9,
                     'doctor_id' => 6,
                     'clinic_id' => 3,
@@ -22,7 +22,7 @@ class BookingSeed extends Seeder
                     'description' => null,
                     'status' => null,
         ]);
-        $booking2 = Booking::create([
+        $booking2 = Book::create([
                     'user_id' => 10,
                     'doctor_id' => 6,
                     'clinic_id' => 3,

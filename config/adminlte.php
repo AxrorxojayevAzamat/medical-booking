@@ -225,17 +225,17 @@ return [
         [
             'text' => 'Клиники',
             'icon' => 'fas fa-fw fa-share',
-            'url' => 'admin/clinic/',
+            'url' => 'admin/clinic',
         ],
         [
             'text' => 'CallCenter',
             'icon' => 'fas fa-fw fa-share',
-            'url' => 'admin/callcenter/',
+            'url' => 'admin/call-center',
         ],
         [
             'text' => 'Праздничные дни',
             'icon' => 'fas fa-fw fa-share',
-            'url' => 'admin/celebration/',
+            'url' => 'admin/celebration',
 //            'submenu' => [
 //                [
 //                    'text' => 'Список праздников',

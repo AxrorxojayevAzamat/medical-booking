@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Clinic;
+use App\Entity\Clinic\Clinic;
 use App\Http\Requests\ClinicRequest;
 
 class ClinicService

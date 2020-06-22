@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Region;
+use App\Entity\Region;
 use Illuminate\Support\Facades\DB;
 
 class RegionSeed extends Seeder {

@@ -17,7 +17,7 @@ class CreateTimetablesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('doctor_id');
             $table->unsignedInteger('clinic_id');
-            $table->tinyInteger('scheduleType');
+            $table->tinyInteger('schedule_type');
             $table->tinyInteger('interval')->nullable();
 
             $table->time('monday_start')->nullable();
@@ -51,6 +51,7 @@ class CreateTimetablesTable extends Migration
         });
         Schema::table('timetables', function (Blueprint $table) {
             $table->foreign('doctor_id')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('clinic_id')->references('id')->on('clinics')->onDelete('restrict');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('restrict');
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('restrict');
         });

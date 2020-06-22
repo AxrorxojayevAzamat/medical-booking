@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Entity\User\User;
 use App\Post;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -32,8 +33,16 @@ class AuthServiceProvider extends ServiceProvider
 
     public function registerPostPolicies()
     {
-        Gate::define('user-manage', function ($user) {
-            return $user->hasAccess(['user-manage']);
+        Gate::define('manage-users', function (User $user) {
+            return $user->isAdmin();
+        });
+
+        Gate::define('manage-own-profile', function (User $user, User $profile) {
+            return $user->isAdmin() || $user->id === $profile->id;
+        });
+
+        Gate::define('manage-doctor', function (User $user) {
+            return $user->isAdmin() || $user->isDoctor();
         });
     }
 }

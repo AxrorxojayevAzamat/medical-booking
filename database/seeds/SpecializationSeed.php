@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Specialization;
+use App\Entity\Clinic\Specialization;
 
 class SpecializationSeed extends Seeder {
 

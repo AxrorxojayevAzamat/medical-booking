@@ -1,11 +1,10 @@
 <?php
 
-use App\Celebration;
-use App\Clinic;
-use App\User;
-use App\Region;
-use App\Specialization;
-use App\Timetable;
+use App\Entity\Celebration;
+use App\Entity\Clinic\Clinic;
+use App\Entity\User\User;
+use App\Entity\Region;
+use App\Entity\Clinic\Specialization;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Crumbs;
 
@@ -25,7 +24,7 @@ Breadcrumbs::register('admin.users.create', function (Crumbs $crumbs) {
 
 Breadcrumbs::register('admin.users.show', function (Crumbs $crumbs, User $user) {
     $crumbs->parent('admin.users.index');
-    $crumbs->push($user->name, route('admin.users.show', $user));
+    $crumbs->push($user->email, route('admin.users.show', $user));
 });
 
 Breadcrumbs::register('admin.users.edit', function (Crumbs $crumbs, User $user) {
@@ -141,17 +140,17 @@ Breadcrumbs::register('admin.timetables.create', function (Crumbs $crumbs) {
 });
 
 //booking
-Breadcrumbs::register('admin.callcenter.index', function (Crumbs $crumbs) {
+Breadcrumbs::register('admin.call-center.index', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
-    $crumbs->push('Поиск врача', route('admin.callcenter.index'));
+    $crumbs->push('Поиск врача', route('admin.call-center.index'));
 });
 
-Breadcrumbs::register('admin.callcenter.booking', function (Crumbs $crumbs, User $user, Clinic $clinic) {
-    $crumbs->parent('admin.callcenter.index');
-    $crumbs->push('Бронирование врача', route('admin.callcenter.booking', [$user, $clinic]));
+Breadcrumbs::register('admin.call-center.booking', function (Crumbs $crumbs, User $user, Clinic $clinic) {
+    $crumbs->parent('admin.call-center.index');
+    $crumbs->push('Бронирование врача', route('admin.call-center.booking', [$user, $clinic]));
 });
 
-Breadcrumbs::register('admin.callcenter.booking-time', function (Crumbs $crumbs, User $user, Clinic $clinic) {
-    $crumbs->parent('admin.callcenter.index');
-    $crumbs->push('TEST Бронирование врача', route('admin.callcenter.booking-time', [$user, $clinic]));
+Breadcrumbs::register('admin.call-center.booking-time', function (Crumbs $crumbs, User $user, Clinic $clinic) {
+    $crumbs->parent('admin.call-center.index');
+    $crumbs->push('TEST Бронирование врача', route('admin.call-center.booking-time', [$user, $clinic]));
 });
