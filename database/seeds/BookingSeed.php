@@ -1,6 +1,6 @@
 <?php
 
-use App\Entity\Booking\Book;
+use App\Entity\Book\Book;
 use Illuminate\Database\Seeder;
 
 class BookingSeed extends Seeder

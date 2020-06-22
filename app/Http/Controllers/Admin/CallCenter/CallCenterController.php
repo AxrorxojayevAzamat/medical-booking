@@ -7,7 +7,7 @@ use App\Entity\User\User;
 use App\Entity\Region;
 use App\Entity\Clinic\Clinic;
 use App\Entity\Clinic\Specialization;
-use App\Entity\Booking\Book;
+use App\Entity\Book\Book;
 use Illuminate\Http\Request;
 
 class CallCenterController extends Controller
@@ -18,7 +18,7 @@ class CallCenterController extends Controller
         $city_id = $request->get('city');
         $type_id = $request->get('type');
 
-        $query = Clinic::with(['users', 'users.specializations']);
+        $query = Clinic::with(['doctors', 'users.specializations']);
 
 
         $regionList = Region::children(null)->pluck('name_ru', 'id');
@@ -30,8 +30,8 @@ class CallCenterController extends Controller
 
 
         if (!empty($region_id)) {
-            $childrens = Region::where('parent_id', $region_id)->pluck('id')->toArray();
-            $query->whereIn('region_id', $childrens);
+            $children = Region::where('parent_id', $region_id)->pluck('id')->toArray();
+            $query->whereIn('region_id', $children);
         }
         if (!empty($city_id)) {
             $query->where('region_id', $city_id);
@@ -44,9 +44,9 @@ class CallCenterController extends Controller
             $query->where('id', $value);
         }
         if (!empty($value = $request->get('name'))) {
-            $query->whereHas('users', function ($query1) use ($value) {
+            $query->whereHas('doctors', function ($query1) use ($value) {
                 $query1->where('name', 'ilike', '%' . $value . '%')
-                        ->orWhere('lastname', 'ilike', '%' . $value . '%');
+                        ->orWhere('last_name', 'ilike', '%' . $value . '%');
             })
                     ->orWhereHas('users.specializations', function ($query2) use ($value) {
                         $query2->where('name_ru', 'ilike', '%' . $value . '%')
@@ -151,9 +151,9 @@ class CallCenterController extends Controller
     public function bookingDoctor(Request $request)
     {
         $user = User::newGuest(
-            $request['name'],
-            $request['lastname'],
-            $request['patronymic'],
+            $request['first_name'],
+            $request['last_name'],
+            $request['middle_name'],
             $request['phone'],
             $request['birth_date'],
             $request['gender'],

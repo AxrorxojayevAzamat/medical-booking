@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Entity\Holiday;
+use App\Entity\Celebration;
 use App\Http\Requests\CelebrationRequest;
 use Illuminate\Http\Request;
 
@@ -17,7 +17,7 @@ class CelebrationController extends Controller
      */
     public function index()
     {
-        $celebrations = Holiday::orderBy('id', 'asc')
+        $celebrations = Celebration::orderBy('id', 'asc')
             ->paginate(1000000);
         return view('admin.celebrations.index', compact('celebrations'));
     }
@@ -42,7 +42,7 @@ class CelebrationController extends Controller
      */
     public function store(CelebrationRequest $request)
     {
-        $celebrations = new Holiday();
+        $celebrations = new Celebration();
 
         $celebrations->date = $request->date;
         $celebrations->quantity = $request->quantity;
@@ -59,9 +59,9 @@ class CelebrationController extends Controller
      * @param int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(Holiday $celebration)
+    public function edit(Celebration $celebration)
     {
-        $celebrations = Holiday::find($celebration->id);
+        $celebrations = Celebration::find($celebration->id);
         return view('admin.celebrations.edit', compact('celebrations'));
     }
 
@@ -74,7 +74,7 @@ class CelebrationController extends Controller
      */
     public function update(CelebrationRequest $request, $id)
     {
-        $celebrations = Holiday::find($id);
+        $celebrations = Celebration::find($id);
         $celebrations->date = $request->date;
         $celebrations->quantity = $request->quantity;
         $celebrations->name = $request->celebration_name;
@@ -90,9 +90,9 @@ class CelebrationController extends Controller
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Holiday $celebration)
+    public function destroy(Celebration $celebration)
     {
-        $celebrations = Holiday::find($celebration->id);
+        $celebrations = Celebration::find($celebration->id);
         $celebrations->delete();
         return redirect()->route('admin.celebration.index')->with('success', 'Удалено!');
     }

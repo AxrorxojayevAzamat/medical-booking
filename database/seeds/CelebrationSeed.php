@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Entity\Holiday;
+use App\Entity\Celebration;
 
 class CelebrationSeed extends Seeder
 {
@@ -12,14 +12,14 @@ class CelebrationSeed extends Seeder
      */
     public function run()
     {
-        $newyear = Holiday::create([
+        $newyear = Celebration::create([
             'name' => 'Новый год',
             'date' => '2020-03-21',
             'quantity' => '3',
 
         ]);
 
-        $navruz = Holiday::create([
+        $navruz = Celebration::create([
             'name' => 'Навруз',
             'date' => '2020-03-21',
             'quantity' => '2',

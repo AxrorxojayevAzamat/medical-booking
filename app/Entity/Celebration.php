@@ -5,40 +5,38 @@ namespace App\Entity;
 use App\Entity\User\User;
 use Carbon\Carbon;
 use Eloquent;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
  * @property string $name_uz
  * @property string $name_ru
+ * @property Carbon $date
+ * @property int $quantity
+ * @property int $status
  * @property int $created_by
  * @property int $updated_by
  * @property Carbon $created_at
  * @property Carbon $updated_at
  *
- * @property Region $parent
- * @property Region[] $children
  * @property User $createdBy
  * @property User $updatedBy
  * @mixin Eloquent
  */
-class Region extends BaseModel
+class Celebration extends BaseModel
 {
-    protected $table = 'regions';
+    const INACTIVE = 0;
+    const ACTIVE = 1;
 
-    protected $fillable = ['name_uz', 'name_uz', 'parent_id'];
+    protected $table = 'celebrations';
 
+    protected $fillable = ['name_uz', 'name_ru', 'date', 'quantity', 'status'];
+
+    protected $casts = [
+        'date' => 'datetime',
+    ];
 
     ########################################### Relations
-
-    public function parent()
-    {
-        return $this->belongsTo(Region::class, 'region_id', 'id');
-    }
-
-    public function children()
-    {
-        return $this->hasMany(Region::class, 'region_id', 'id');
-    }
 
     public function createdBy()
     {
@@ -51,6 +49,4 @@ class Region extends BaseModel
     }
 
     ###########################################
-
 }
-

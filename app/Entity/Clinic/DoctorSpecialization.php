@@ -9,27 +9,27 @@ use App\Entity\User\User;
 use Eloquent;
 
 /**
- * @property int $user_id
+ * @property int $doctor_id
  * @property int $specialization_id
  *
- * @property User $user
+ * @property User $doctor
  * @property Specialization $specialization
  * @mixin Eloquent
  */
-class UserSpecialization extends BasePivot
+class DoctorSpecialization extends BasePivot
 {
-    protected $table = 'specialization_user';
+    protected $table = 'doctor_specializations';
 
     protected $fillable = [
-        'user_id', 'specialization_id'
+        'doctor_id', 'specialization_id'
     ];
 
 
     ########################################### Relations
 
-    public function user()
+    public function doctor()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'doctor_id', 'id');
     }
 
     public function specialization()

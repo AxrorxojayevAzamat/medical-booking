@@ -2,11 +2,11 @@
 
 namespace App\Entity\User;
 
-use App\Entity\Booking\Book;
+use App\Entity\Book\Book;
 use App\Entity\Clinic\Clinic;
 use App\Entity\Clinic\DoctorClinic;
 use App\Entity\Clinic\Specialization;
-use App\Entity\Clinic\UserSpecialization;
+use App\Entity\Clinic\DoctorSpecialization;
 use Carbon\Carbon;
 use Eloquent;
 use Illuminate\Notifications\Notifiable;
@@ -27,7 +27,7 @@ use App\Notifications\ResetPassword as ResetPasswordNotification;
  * @property Carbon $updated_at
  *
  * @property Profile $profile
- * @property UserSpecialization[] $userSpecializations
+ * @property DoctorSpecialization[] $doctorSpecializations
  * @property Specialization[] $specializations
  * @property DoctorClinic[] $doctorClinics
  * @property Clinic[] $clinics
@@ -54,6 +54,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password', 'remember_token',
     ];
+
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
@@ -163,14 +164,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Book::class, 'user_id', 'id');
     }
 
-    public function userSpecializations()
+    public function doctorSpecializations()
     {
-        return $this->hasMany(UserSpecialization::class, 'user_id', 'id');
+        return $this->hasMany(DoctorSpecialization::class, 'doctor_id', 'id');
     }
 
     public function specializations()
     {
-        return $this->belongsToMany(Specialization::class, 'specialization_user');
+        return $this->belongsToMany(Specialization::class, 'doctor_specializations', 'doctor_id', 'specialization_id');
     }
 
     public function doctorClinics()
