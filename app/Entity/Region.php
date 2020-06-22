@@ -37,7 +37,7 @@ class Region extends BaseModel
 
     public function children()
     {
-        return $this->hasMany(Region::class, 'region_id', 'id');
+        return $this->hasMany(Region::class, 'parent_id', 'id');
     }
 
     public function createdBy()
