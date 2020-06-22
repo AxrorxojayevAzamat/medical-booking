@@ -3,111 +3,88 @@
 @section('content')
 <form method="POST" action="{{ route("admin.users.store") }}" enctype="multipart/form-data">
     @csrf
+
     <div class="row">
         <div class="col-md-6">
-            <div class="card primary">
-                <div class="card-header">
-                    {{ __('Добавить пользователя') }}
-                </div>
-                <!-- /.card-header -->
-
-
+            <div class="card card-primary card-outline">
                 <div class="card-body">
-                    <div class="form-group">
-
-                        <label for="name" class="col-form-label text-md-left">{{ __('Имя') }}</label>
-                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                        @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="lastname" class="col-form-label text-md-left">{{ __('Фамилия') }}</label>
-                        <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname" autofocus>
-
-                        @error('lastname')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="patronymic" class="col-form-label text-md-left">{{ __('Отчество') }}</label>
-                        <input id="patronymic" type="text" class="form-control @error('patronymic') is-invalid @enderror" name="patronymic" value="{{ old('patronymic') }}" required autocomplete="patronymic" autofocus>
-
-                        @error('patronymic')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>     
 
                     <div class="form-group">
-                        <label for="email" class="col-form-label text-md-left">{{ __('Адрес электронной почты') }}</label>
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
+                        <label for="email" class="col-form-label text-md-left">{{ trans('Адрес электронной почты') }}</label>
+                        <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
                         @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback"><strong>{{ $errors->first('email') }}</strong></span>
                         @enderror
-
-                    </div>
-                    <div class="form-group">
-                        <label for="password" class="col-form-label text-md-left">{{ __('Пароль') }}</label>
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                        @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-
-                    </div>
-                    <div class="form-group">
-                        <label for="password-confirm" class="col-form-label text-md-left">{{ __('Подтвердите пароль') }}</label>
-                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                     </div>
 
-
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-
-                </div>
-                <!-- /.card-footer -->
-
-            </div>
-            <!-- /.card primary-->
-        </div>
-        <!-- /.col-md -6 -->
-        <div class="col-md-6">
-            <div class="card primary">
-                <div class="card-header">
-                    {{ __('Добавить пользователя2') }}
-                </div>
-                <!-- /.card-header -->
-
-                <div class="card-body">                  
                     <div class="form-group">
-                        <label for="patronymic" class="col-form-label text-md-left">{{ __('Телефон') }}</label>
+                        <label for="patronymic" class="col-form-label text-md-left">{{ trans('Телефон') }}</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-phone"></i></span>
                             </div>
-                            <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" data-inputmask="&quot;mask&quot;: &quot;(999) 99 999-9999&quot;" data-mask="" im-insert="true" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
+                            <input id="phone" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" data-inputmask="&quot;mask&quot;: &quot;(999) 99 999-9999&quot;" data-mask="" im-insert="true" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
                         </div>
                         @error('phone')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback"><strong>{{ $errors->first('phone') }}</strong></span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="col-form-label text-md-left">{{ trans('Пароль') }}</label>
+                        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" autocomplete="new-password">
+                        @error('password')
+                            <span class="invalid-feedback"><strong>{{ $errors->first('password') }}</strong></span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password-confirm" class="col-form-label text-md-left">{{ trans('Подтвердите пароль') }}</label>
+                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="role" class="col-form-label text-md-left">{{ trans('Роль пользователя') }}</label>
+                        <select id="role" class="form-control{{ $errors->has('role') ? ' is-invalid' : '' }}" name="role" required>
+                            @foreach($roles as $value => $label)
+                                <option value="{{ $value }}">{{ $label }}</option>
+                            @endforeach
+                        </select>
+                        @error('role')
+                            <span class="invalid-feedback"><strong>{{ $errors->first('role') }}</strong></span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="card-footer"></div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card card-green card-outline">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="first_name" class="col-form-label text-md-left">{{ trans('Имя') }}</label>
+                        <input id="first_name" type="text" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" value="{{ old('first_name') }}" required>
+                        @error('first_name')
+                            <span class="invalid-feedback"><strong>{{ $errors->first('first_name') }}</strong></span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="bith_date" class="col-form-label text-md-left">{{ __('Дата рождения') }}</label>
+                        <label for="last_name" class="col-form-label text-md-left">{{ trans('Фамилия') }}</label>
+                        <input id="last_name" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name') }}" required >
+                        @error('last_name')
+                            <span class="invalid-feedback"><strong>{{ $errors->first('last_name') }}</strong></span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="middle_name" class="col-form-label text-md-left">{{ trans('Отчество') }}</label>
+                        <input id="middle_name" type="text" class="form-control{{ $errors->has('middle_name') ? ' is-invalid' : '' }}" name="middle_name" value="{{ old('middle_name') }}" required>
+                        @error('middle_name')
+                            <span class="invalid-feedback"><strong>{{ $errors->first('middle_name') }}</strong></span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="birth_date" class="col-form-label text-md-left">{{ trans('Дата рождения') }}</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
@@ -115,87 +92,47 @@
                             <input id="birth_date "type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="birth_date" value="{{ old('birth_date') }}" required>
                         </div>
                         @error('birth_date')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback"><strong>{{ $errors->first('birth_date') }}</strong></span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="gender" class="col-form-label text-md-left">{{ __('Пол') }}</label>
-                        <select id="gender" class="form-control @error('gender') is-invalid @enderror" name="gender" value="{{ old('gender') }}" required autocomplete="gender" autofocus>
+                        <label for="gender" class="col-form-label text-md-left">{{ trans('Пол') }}</label>
+                        <select id="gender" class="form-control{{ $errors->has('gender') ? ' is-invalid' : '' }}" name="gender" required>
                             <option value="" selected=""></option>>
-                            <option value="0">Женский</option>>
-                            <option value="1">Мужской</option>>
+                            <option value="0" {{ old('gender') == 0 ? 'selected' : '' }} >Женский</option>>
+                            <option value="1" {{ old('gender') == 1 ? 'selected' : '' }} >Мужской</option>>
                         </select>
-
                         @error('gender')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback"><strong>{{ $errors->first('gender') }}</strong></span>
                         @enderror
                     </div>
-                    <div class="form-group">
-                        <label for="patronymic" class="col-form-label text-md-left">{{ __('Роль пользователя') }}</label>
-                        <select id="role" class="form-control @error('roles') is-invalid @enderror" name="role" required>
-                            <option value="" selected=""></option>
-                            @foreach($roles as $value => $label)
-                            <option value="{{ $value }}" {{ (in_array($value, old('role', [])) || isset($user) && $user->role->contains($id)) ? 'selected' : '' }}>{{ $label }}</option>
-                            @endforeach
-                        </select>
+                </div>
+                <div class="card-footer"></div>
+            </div>
+        </div>
+    </div>
 
-                        @if ($errors->has('role'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('role') }}</strong>
-                        </span>
-                        @endif
-                    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-primary card-outline">
+                <div class="card-header"><h3 class="card-title">{{ trans('Фото') }}</h3></div>
+                <div class="card-body">
                     <div class="form-group">
-                        <label for="status" class="col-form-label text-md-left">{{ __('Статус') }}</label>
-                        <select id="status" class="form-control @error('status') is-invalid @enderror" name="status" value="{{ old('status') }}" required autocomplete="status" autofocus>
-                            <option value="" selected=""></option>
-                            @foreach ($statuses as $value => $label)
-                            <option value="{{ $value }}"{{ $value === request('status') ? ' selected' : '' }}>{{ $label }}</option>
-                            @endforeach;
-                        </select>
-
-                        @error('status')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="avatar" class="col-form-label text-md-left">{{ __('Фото') }}</label>
                         <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" id="avater" class="custom-file-input" name="avatar" >
-                                <label class="custom-file-label" for="avatar">{{ __('Выберите файл') }}</label>
-                            </div>
-                            <div class="input-group-append">
-                                <span class="input-group-text" id="">{{ __('Загрузить') }}</span>
+                                <input type="file" id="avatar" class="custom-file-input" name="avatar" >
+                                <label class="custom-file-label" for="avatar">{{ trans('Выберите файл') }}</label>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                </div>
-                <!-- /.card-footer -->
-
             </div>
-            <!-- /.card primary-->
-        </div>
-        <!-- /.col-md -6 -->
-    </div>
-    <!-- /.row -->
-    <div class="row">
-        <div class="col-12">
-            <a class="btn btn-secondary" href="{{ route("admin.users.index") }}">{{ __('Отменить') }}</a>
-            <button type="submit" class="btn btn-success float-right">{{ __('Сохранять') }}</button>
         </div>
     </div>
-    <!-- /.row -->
+
+    <div class="form-group">
+        <a class="btn btn-secondary" href="{{ route("admin.users.index") }}">{{ trans('Отменить') }}</a>
+        <button type="submit" class="btn btn-success">{{ trans('Сохранять') }}</button>
+    </div>
 </form>
-@stop
+@endsection

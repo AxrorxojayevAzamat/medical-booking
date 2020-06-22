@@ -6,300 +6,226 @@
     @method('PUT')
     <div class="row">
         <div class="col-md-6">
-            <div class="card card-danger">
-                <div class="card-header">
-                </div>
-                <!-- /.card-header -->
-
-
+            <div class="card card-primary card-outline">
                 <div class="card-body">
                     <div class="form-group">
-
-                        <label for="name" class="col-form-label text-md-left">{{ __('Имя') }}</label>
-                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', isset($user) ? $user->name : '') }}" required autocomplete="name" autofocus>
-
-                        @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="lastname" class="col-form-label text-md-left">{{ __('Фамилия') }}</label>
-                        <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname', isset($user) ? $user->lastname : '') }}" required autocomplete="lastname" autofocus>
-
-                        @error('lastname')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="patronymic" class="col-form-label text-md-left">{{ __('Отчество') }}</label>
-                        <input id="patronymic" type="text" class="form-control @error('patronymic') is-invalid @enderror" name="patronymic" value="{{ old('patronymic', isset($user) ? $user->patronymic : '') }}" required autocomplete="patronymic" autofocus>
-
-                        @error('patronymic')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email" class="col-form-label text-md-left">{{ __('Адрес электронной почты') }}</label>
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', isset($user) ? $user->email : '') }}" required autocomplete="email">
-
+                        <label for="email" class="col-form-label text-md-left">{{ trans('Адрес электронной почты') }}</label>
+                        <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email', $user->email) }}" required>
                         @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                        <span class="invalid-feedback"><strong>{{ $errors->first('email') }}</strong></span>
                         @enderror
-
-                    </div>
-                    <div class="form-group">
-                        <label for="password" class="col-form-label text-md-left">{{ __('Пароль') }}</label>
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password">
-
-                        @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-
-                    </div>
-                    <div class="form-group">
-                        <label for="password-confirm" class="col-form-label text-md-left">{{ __('Подтвердите пароль') }}</label>
-                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
                     </div>
 
-
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-
-                </div>
-                <!-- /.card-footer -->
-
-            </div>
-            <!-- /.card primary-->
-        </div>
-        <!-- /.col-md -6 -->
-        <div class="col-md-6">
-            <div class="card card-info">
-                <div class="card-header">
-                </div>
-                <!-- /.card-header -->
-
-                <div class="card-body">
                     <div class="form-group">
-                        <label for="patronymic" class="col-form-label text-md-left">{{ __('Телефон') }}</label>
+                        <label for="phone" class="col-form-label text-md-left">{{ trans('Телефон') }}</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-phone"></i></span>
                             </div>
-                            <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" data-inputmask="&quot;mask&quot;: &quot;(999) 99 999-9999&quot;" data-mask="" im-insert="true" name="phone" value="{{ old('phone', isset($user) ? $user->phone : '') }}" required autocomplete="phone" autofocus>
+                            <input id="phone" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" data-inputmask="&quot;mask&quot;: &quot;(999) 99 999-9999&quot;" data-mask="" im-insert="true" name="phone" value="{{ old('phone', $user ? $user->phone : '') }}" required autocomplete="phone" autofocus>
                         </div>
                         @error('phone')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                        <span class="invalid-feedback"><strong>{{ $errors->first('phone') }}</strong></span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="col-form-label text-md-left">{{ trans('Пароль') }}</label>
+                        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" autocomplete="new-password">
+                        @error('password')
+                            <span class="invalid-feedback"><strong>{{ $errors->first('password') }}</strong></span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password-confirm" class="col-form-label text-md-left">{{ trans('Подтвердите пароль') }}</label>
+                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="role" class="col-form-label text-md-left">{{ trans('Роль пользователя') }}</label>
+                        <select id="role" class="form-control{{ $errors->has('role') ? ' is-invalid' : '' }}" name="role" required>
+                            @foreach($roles as $value => $label)
+                                <option value="{{ $value }}"{{ $value === $user->role ? ' selected' : '' }}>{{ $label }}</option>
+                            @endforeach
+                        </select>
+                        @error('role')
+                        <span class="invalid-feedback"><strong>{{ $errors->first('role') }}</strong></span>
+                        @enderror
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="status" class="col-form-label text-md-left">{{ trans('Статус') }}</label>
+                        <select id="status" class="form-control{{ $errors->has('status') ? ' is-invalid' : '' }}" name="status" required>
+                            @foreach ($statuses as $value => $label)
+                                <option value="{{ $value }}"{{ old('status', $user->status) === $value ? ' selected' : '' }}>{{ $label }}</option>
+                            @endforeach;
+                        </select>
+                        @error('status')
+                            <span class="invalid-feedback"><strong>{{ $errors->first('status') }}</strong></span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="card-footer"></div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card card-green card-outline">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="first_name" class="col-form-label text-md-left">{{ trans('Имя') }}</label>
+                        <input id="first_name" type="text" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" value="{{ old('first_name', $profile ? $profile->first_name : '') }}" required>
+                        @error('first_name')
+                            <span class="invalid-feedback"><strong>{{ $errors->first('first_name') }}</strong></span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="bith_date" class="col-form-label text-md-left">{{ __('Дата рождения') }}</label>
+                        <label for="last_name" class="col-form-label text-md-left">{{ trans('Фамилия') }}</label>
+                        <input id="last_name" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name', $profile ? $profile->last_name : '') }}" required >
+                        @error('last_name')
+                            <span class="invalid-feedback"><strong>{{ $errors->first('last_name') }}</strong></span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="middle_name" class="col-form-label text-md-left">{{ trans('Отчество') }}</label>
+                        <input id="middle_name" type="text" class="form-control{{ $errors->has('middle_name') ? ' is-invalid' : '' }}" name="middle_name" value="{{ old('middle_name', $profile ? $profile->middle_name : '') }}" required>
+                        @error('middle_name')
+                            <span class="invalid-feedback"><strong>{{ $errors->first('middle_name') }}</strong></span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="birth_date" class="col-form-label text-md-left">{{ trans('Дата рождения') }}</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                             </div>
-                            <input id="birth_date "type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="birth_date" value="{{ old('birth_date', isset($user) ? $user->birth_date : '') }}" required>
+                            <input id="birth_date "type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="birth_date" value="{{ old('birth_date', $profile ? $profile->birth_date : '') }}" required>
                         </div>
-
                         @error('birth_date')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback"><strong>{{ $errors->first('birth_date') }}</strong></span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="gender" class="col-form-label text-md-left">{{ __('Пол') }}</label>
-                        <select id="gender" class="form-control @error('gender') is-invalid @enderror" name="gender" value="{{ old('gender', isset($user) && $user->gender== 1 ? 'selected' : '') }}" required autocomplete="gender" autofocus>
+                        <label for="gender" class="col-form-label text-md-left">{{ trans('Пол') }}</label>
+                        <select id="gender" class="form-control{{ $errors->has('gender') ? ' is-invalid' : '' }}" name="gender" required>
                             <option value="" selected=""></option>>
-                            <option value="0" {{$user->gender === 0 ? 'selected' : ''}} >Женский</option>>
-                            <option value="1" {{$user->gender === 1 ? 'selected' : ''}} >Мужской</option>>
+                            <option value="0" {{ old('gender', $profile ? $profile->gender : null) == 0 ? 'selected' : '' }} >Женский</option>>
+                            <option value="1" {{ old('gender', $profile ? $profile->gender : null) == 1 ? 'selected' : '' }} >Мужской</option>>
                         </select>
-
                         @error('gender')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback"><strong>{{ $errors->first('gender') }}</strong></span>
                         @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="patronymic" class="col-form-label text-md-left">{{ __('Роль пользователя') }}</label>
-                        <select id="role" class="form-control @error('roles') is-invalid @enderror" name="role" required>
-                            @foreach($roles as $value => $label)
-                            <option value="{{ $value }}"{{ $value === $user->role ? ' selected' : '' }}>{{ $label }}</option>
-                            @endforeach
-                        </select>
-
-                        @if ($errors->has('role'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('role') }}</strong>
-                        </span>
-                        @endif
-                    </div>
-                    <div class="form-group">
-                        <label for="status" class="col-form-label text-md-left">{{ __('Статус') }}</label>
-                        <select id="status" class="form-control @error('status') is-invalid @enderror" name="status" value="{{ old('status') }}" required autocomplete="status" autofocus>
-                            @foreach ($statuses as $value => $label)
-                            <option value="{{ $value }}"{{ $value === $user->status ? ' selected' : '' }}>{{ $label }}</option>
-                            @endforeach;
-                        </select>
-
-                        @error('status')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="avatar" class="col-form-label text-md-left">{{ __('Фото') }}</label>
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" id="avater" class="custom-file-input" name="avatar" >
-                                <label class="custom-file-label" for="avatar">{{ __('Выберите файл') }}</label>
-                            </div>
-                        </div>
                     </div>
                     <div class="form-group">
                         @if( !empty($user->avatar))
-                        <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle"
-                                 src="/uploads/avatars/{{ $user->avatar }}"
-                                 alt="Фотография пользователя">
-                        </div>
+                            <div class="text-center">
+                                <img class="profile-user-img img-fluid img-circle" src="/uploads/avatars/{{ $user->avatar }}" alt="Фотография пользователя">
+                            </div>
                         @endif
                     </div>
-
                 </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                </div>
-                <!-- /.card-footer -->
-
+                <div class="card-footer"></div>
             </div>
-            <!-- /.card primary-->
         </div>
-        <!-- /.col-md -6 -->
-        @if($user->inRole('doctor'))
-        <div class="col-md-6">
-            <div class="card primary">
-                <div class="card-header">
-                    {{ __('Специализации доктора') }}
-                    <a class="btn btn-secondary float-right" href="{{ route('admin.users.specializations', $user) }}">{{ __('Изменить/Добавить') }}</a>
-                </div>
-                <!-- /.card-header -->
+    </div>
 
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-primary card-outline">
+                <div class="card-header"><h3 class="card-title">{{ trans('Фото') }}</h3></div>
                 <div class="card-body">
-                    <div class="col-sm-12">
-
-                        <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
-                            <tbody>
-                                @foreach($doctorList->specializations as $spec)
-                                <tr>
-                                    <td>{{$spec->name_ru}}</td>
-                                </tr>
-                                @endforeach
-
-                            </tbody>
-                        </table>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" id="avatar" class="custom-file-input" name="avatar" >
+                                <label class="custom-file-label" for="avatar">{{ trans('Выберите файл') }}</label>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                </div>
-                <!-- /.card-footer -->
-
             </div>
-            <!-- /.card primary-->
         </div>
-        <!-- /.col-md -6.3 -->
-        @endif
+    </div>
 
-        @if($user->inRole('doctor'))
+    <div class="row">
+        @can('manage-doctor')
             <div class="col-md-6">
                 <div class="card primary">
                     <div class="card-header">
-                        {{ __('Расписание доктора') }}
-                        <a class="btn btn-secondary float-right" href="{!! route('admin.timetables.create',['id'=>$user->id, 'clinic_id'=>1])!!}">{{ __('Изменить/Добавить') }}</a>
+                        {{ trans('Специализации доктора') }}
+                        <a class="btn btn-secondary float-right" href="{{ route('admin.users.specializations', $user) }}">{{ trans('Изменить/Добавить') }}</a>
                     </div>
-                    <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
-                        <thead>
-                            <tr role="row">
-                                <th>{{ __('Клиника') }}</th>
-                                <th>{{ __('Направление') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($clinics as $clinic)
-                            <tr>
-                                <td><a href="{{ route('admin.timetables.create', [$user, $clinic]) }}"></td></td>
-                                <td>{{$clinic->name_ru}}</td>
-                            </tr>
-                            @endforeach
-                            
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        @endif
-
-
-        @if($user->inRole('doctor'))
-            <div class="col-md-6">
-                <div class="card primary">
-                    <div class="card-header">
-                        {{ __('Клиника для доктора') }}
-                        <a class="btn btn-secondary float-right" href="{{ route('admin.users.user-clinics',$user) }}" disabled>{{ __('Изменить/Добавить') }}</a>
-                    </div>
-                    <!-- /.card-header -->
-
                     <div class="card-body">
                         <div class="col-sm-12">
-
                             <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                                 <tbody>
-                                @foreach($doctorList->clinics as $clinic)
-                                    <tr>
-                                        <td>{{$clinic->name_ru}}</td>
-                                    </tr>
+                                @foreach($doctorList->specializations as $spec)
+                                    <tr><td>{{$spec->name_ru}}</td></tr>
                                 @endforeach
-
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer">
-                    </div>
-                    <!-- /.card-footer -->
-
+                    <div class="card-footer"></div>
                 </div>
-                <!-- /.card primary-->
             </div>
-            <!-- /.col-md -6.3 -->
-        @endif
 
+            <div class="col-md-6">
+                <div class="card primary">
+                    <div class="card-header">
+                        {{ trans('Расписание доктора') }}
+                        <a class="btn btn-secondary float-right" href="{!! route('admin.timetables.create',['id'=>$user->id, 'clinic_id'=>1])!!}">{{ trans('Изменить/Добавить') }}</a>
+                    </div>
+                    @if (!$clinics->isEmpty())
+                        <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                            <thead>
+                            <tr role="row">
+                                <th>{{ trans('Клиника') }}</th>
+                                <th>{{ trans('Направление') }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($clinics as $clinic)
+                                <tr>
+                                    <td><a href="{{ route('admin.timetables.create', [$user, $clinic]) }}">{{ $clinic->name_ru }}</a></td>
+                                    <td>{{$clinic->name_ru}}</td>
+                                </tr>
+                            @endforeach
+
+                            </tbody>
+                        </table>
+                    @endif
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card primary">
+                    <div class="card-header">
+                        {{ trans('Клиника для доктора') }}
+                        <a class="btn btn-secondary float-right" href="{{ route('admin.users.user-clinics',$user) }}" disabled>{{ trans('Изменить/Добавить') }}</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="col-sm-12">
+                            <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                                <tbody>
+                                @foreach($doctorList->clinics as $clinic)
+                                    <tr><td>{{$clinic->name_ru}}</td></tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer"></div>
+                </div>
+            </div>
+        @endcan
     </div>
-    <!-- /.row -->
-    <div class="row no-print">
-        <div class="col-12 ">
-            <button type="submit" class="btn btn-success btn-sm float-right">{{ __('Сохранять') }}</button>
-            <a class="btn btn-secondary btn-sm float-right" style="margin-right: 5px; href="{{ route("admin.users.index") }}">{{ __('Отменить') }}</a>
-        </div>
+
+    <div class="form-group">
+        <a class="btn btn-secondary" href="{{ route('admin.users.show', $user) }}">{{ trans('Отменить') }}</a>
+        <button type="submit" class="btn btn-success">{{ trans('Сохранять') }}</button>
     </div>
-    <!-- /.row -->
+
 </form>
-@stop
+@endsection

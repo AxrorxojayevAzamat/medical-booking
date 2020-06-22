@@ -2,20 +2,55 @@
 
 namespace App\Entity\User;
 
+use App\Entity\Booking\Book;
+use App\Entity\Clinic\Clinic;
+use App\Entity\Clinic\DoctorClinic;
+use App\Entity\Clinic\Specialization;
+use App\Entity\Clinic\UserSpecialization;
+use Carbon\Carbon;
+use Eloquent;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPassword as ResetPasswordNotification;
-use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
 
-class User extends Authenticatable implements MustVerifyEmail {
-
+/**
+ * @property int $id
+ * @property string $email
+ * @property string $phone
+ * @property Carbon $email_verified_at
+ * @property int $status
+ * @property string $password
+ * @property string $role
+ * @property string $remember_token
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ *
+ * @property Profile $profile
+ * @property UserSpecialization[] $userSpecializations
+ * @property Specialization[] $specializations
+ * @property DoctorClinic[] $doctorClinics
+ * @property Clinic[] $clinics
+ *
+ * @mixin Eloquent
+ */
+class User extends Authenticatable implements MustVerifyEmail
+{
     use Notifiable;
 
+    public const STATUS_ACTIVE = 10;
+    public const STATUS_INACTIVE = 11;
+
+    public const ROLE_ADMIN = 'administrator';
+    public const ROLE_USER = 'user';
+    public const ROLE_CALL_CENTER = 'call_center';
+    public const ROLE_CLINIC = 'clinic';
+    public const ROLE_DOCTOR = 'doctor';
+
     protected $fillable = [
-        'name', 'lastname', 'patronymic', 'phone', 'birth_date', 'gender', 'email', 'password', 'role', 'status', 'avatar',
+        'name', 'phone', 'email', 'password', 'role', 'status',
     ];
+
     protected $hidden = [
         'password', 'remember_token',
     ];
@@ -23,97 +58,129 @@ class User extends Authenticatable implements MustVerifyEmail {
         'email_verified_at' => 'datetime',
     ];
 
-    public const STATUS_ACTIVE = 10;
-    public const STATUS_INACTIVE = 11;
-    public const ROLE_ADMIN = 'admin';
-    public const ROLE_USER = 'user';
-    public const ROLE_CALL_CENTER = 'admin_call_center';
-    public const ROLE_CLINIC = 'admin_clinic';
-    public const ROLE_DOCTOR = 'doctor';
-    public const USER_PROFILE = '/uploads/avatars/';
-
-    public function role() {
-        return $this->belongsTo(Role::class, 'role');
+    public static function new($firstName, $lastName, $middleName, $phone, $birthDate, $gender, $email, $password, $role): self
+    {
+        return static::create([
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'middle_name' => $middleName,
+            'phone' => $phone,
+            'birth_date' => $birthDate,
+            'gender' => $gender,
+            'email' => $email,
+            'password' => bcrypt($password),
+            'role' => $role,
+            'status' => self::STATUS_ACTIVE,
+        ]);
     }
 
-    public function hasAccess(array $permissions): bool {
-        foreach ($permissions as $permission) {
-            if ($this->role($permission))
-                return true;
-        }
-        return false;
+    public static function newGuest($firstName, $lastName, $middleName, $phone, $birthDate, $gender, $email): self
+    {
+        $password = 12; // this is for test must change
+        $role = 5; //must change
+        return static::new($firstName, $lastName, $middleName, $phone, $birthDate, $gender, $email, $password, $role);
     }
 
-    public function inRole(string $roleSlug) {
-        return $this->role()->where('slug', $roleSlug)->count() == 1;
+    public function isAdmin(): bool
+    {
+        return $this->role === self::ROLE_ADMIN;
     }
 
-    public function sendPasswordResetNotification($token) {
+    public function isClinic(): bool
+    {
+        return $this->role === self::ROLE_CLINIC;
+    }
+
+    public function isCallCenter(): bool
+    {
+        return $this->role === self::ROLE_CALL_CENTER;
+    }
+
+    public function isDoctor(): bool
+    {
+        return $this->role === self::ROLE_DOCTOR;
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
         $this->notify(new ResetPasswordNotification($token));
     }
 
-    public static function adminlte_image() {
+    public static function adminlte_image()
+    {
         return 'https://picsum.photos/300/300';
     }
 
-    public static function adminlte_desc() {
+    public static function adminlte_desc()
+    {
         return 'That\'s a nice guy';
     }
 
-    public function specializations() {
-        return $this->belongsToMany(Specialization::class, 'specialization_user');
-    }
-
-    public function clinics() {
-        return $this->belongsToMany(Clinic::class, 'doctors_and_clinics');
-    }
-
-    public function isActive(): bool {
+    public function isActive(): bool
+    {
         return $this->status === self::STATUS_ACTIVE;
     }
 
-    public function isInactive(): bool {
+    public function isInactive(): bool
+    {
         return $this->status === self::STATUS_INACTIVE;
     }
 
-    public static function statusList(): array {
+    public static function statusList(): array
+    {
         return [
             User::STATUS_ACTIVE => 'Aктивный',
             User::STATUS_INACTIVE => 'Неактивный',
         ];
     }
 
-    public function getImageAttribute() {
-        return $this->avatar;
+    public static function rolesList(): array
+    {
+        return [
+            self::ROLE_USER => 'Пользователь',
+            self::ROLE_CALL_CENTER => 'Колл Центр',
+            self::ROLE_CLINIC => 'Клиник',
+            self::ROLE_DOCTOR => 'Доктор',
+            self::ROLE_ADMIN => 'Администратор',
+        ];
     }
 
-    public static function new($name, $lastname, $patronymic, $phone, $birthDate, $gender, $email, $password, $role): self {
-        return static::create([
-                    'name' => $name,
-                    'lastname' => $lastname,
-                    'patronymic' => $patronymic,
-                    'phone' => $phone,
-                    'birth_date' => $birthDate,
-                    'gender' => $gender,
-                    'email' => $email,
-                    'password' => bcrypt($password),
-                    'role' => $role,
-                    'status' => self::STATUS_ACTIVE,
-        ]);
+    public function roleName(): string
+    {
+        return self::rolesList()[$this->role];
     }
 
-    public static function newGuest($name, $lastname, $patronymic, $phone, $birthDate, $gender, $email): self {
-        $password = 12; // this is for test must change
-        $role = 5; //must change
-        return static::new($name, $lastname, $patronymic, $phone, $birthDate, $gender, $email, $password, $role);
+
+    ########################################### Relations
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class, 'user_id', 'id');
     }
 
-    public function user() {
-        return $this->hasOne('App\Entity\Booking\Book', 'user_id', 'id');
+    public function book()
+    {
+        return $this->hasOne(Book::class, 'user_id', 'id');
     }
 
-    public function doctor() {
-        return $this->hasOne('App\Entity\Booking\Book', 'doctor_id', 'id');
+    public function userSpecializations()
+    {
+        return $this->hasMany(UserSpecialization::class, 'user_id', 'id');
+    }
+
+    public function specializations()
+    {
+        return $this->belongsToMany(Specialization::class, 'specialization_user');
+    }
+
+    public function doctorClinics()
+    {
+        return $this->hasMany(DoctorClinic::class, 'doctor_id', 'id');
+    }
+
+    public function clinics()
+    {
+        return $this->belongsToMany(Clinic::class, 'doctors_and_clinics', 'doctor_id', 'clinic_id');
     }
 
 }

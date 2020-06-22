@@ -24,7 +24,7 @@ Breadcrumbs::register('admin.users.create', function (Crumbs $crumbs) {
 
 Breadcrumbs::register('admin.users.show', function (Crumbs $crumbs, User $user) {
     $crumbs->parent('admin.users.index');
-    $crumbs->push($user->name, route('admin.users.show', $user));
+    $crumbs->push($user->email, route('admin.users.show', $user));
 });
 
 Breadcrumbs::register('admin.users.edit', function (Crumbs $crumbs, User $user) {

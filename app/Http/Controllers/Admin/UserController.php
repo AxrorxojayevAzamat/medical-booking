@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Entity\Clinic\Clinic;
+use App\Entity\User\Profile;
 use App\Http\Controllers\Controller;
 use App\Entity\User\Role;
 use App\Entity\Clinic\Timetable;
 use App\Entity\User\User;
 use App\Entity\Clinic\Specialization;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Auth;
@@ -19,44 +21,52 @@ class UserController extends Controller
 {
     use UploadTrait;
 
+    public function __construct()
+    {
+        $this->middleware('can:manage-users');
+    }
+
     public function index(Request $request)
     {
-        $query = User::orderByDesc('id');
-        $this->validate($request, [
-            'id' => ['integer', 'nullable'],
-        ]);
+        $query = User::select(['users.*', 'pr.*'])
+            ->leftJoin('profiles as pr', 'users.id', '=', 'pr.user_id')
+            ->orderByDesc('created_at');
 
         if (!empty($value = $request->get('id'))) {
             $query->where('id', $value);
         }
 
         if (!empty($value = $request->get('name'))) {
-            $query->where('name', 'ilike', '%' . $value . '%');
+            $query->where('users.name', 'ilike', '%' . $value . '%');
         }
 
-        if (!empty($value = $request->get('lastname'))) {
-            $query->where('lastname', 'ilike', '%' . $value . '%');
+        if (!empty($value = $request->get('first_name'))) {
+            $query->where('pr.first_name', 'ilike', '%' . $value . '%');
+        }
+
+        if (!empty($value = $request->get('last_name'))) {
+            $query->where('pr.last_name', 'ilike', '%' . $value . '%');
         }
 
         if (!empty($value = $request->get('phone'))) {
-            $query->where('phone', 'ilike', '%' . $value . '%');
+            $query->where('users.phone', 'ilike', '%' . $value . '%');
         }
 
         if (!empty($value = $request->get('email'))) {
-            $query->where('email', 'ilike', '%' . $value . '%');
+            $query->where('users.email', 'ilike', '%' . $value . '%');
         }
 
         if (!empty($value = $request->get('role'))) {
-            $query->where('role', $value);
+            $query->where('users.role', $value);
         }
 
         if (!empty($value = $request->get('status'))) {
-            $query->where('status', $value);
+            $query->where('users.status', $value);
         }
 
         $users = $query->paginate(20);
 
-        $roles = Role::orderBy('id')->pluck('name', 'id');
+        $roles = User::rolesList();
 
         $statuses = User::statusList();
 
@@ -65,7 +75,7 @@ class UserController extends Controller
 
     public function create()
     {
-        $roles = Role::orderBy('name')->pluck('name', 'id');
+        $roles = User::rolesList();
         $statuses = User::statusList();
         return view('admin.users.create', compact('roles', 'statuses'));
     }
@@ -73,81 +83,104 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $user = User::create([
-                    'name' => $data['name'],
-                    'lastname' => $data['lastname'],
-                    'patronymic' => $data['patronymic'],
-                    'phone' => $data['phone'],
-                    'birth_date' => $data['birth_date'],
-                    'gender' => $data['gender'],
-                    'email' => $data['email'],
-                    'password' => Hash::make($data['password']),
-                    'status' => User::STATUS_ACTIVE,
-                    'role' => $data['role'],
-        ]);
 
-        $folder = User::USER_PROFILE;
-        $avatar = $request->file('avatar');
-        if ($request->hasFile('avatar')) {
-            $this->deleteOne($folder, 'public', $user->avatar);
-            $filename = Str::slug($user->name) . '_' . time();
-            $this->uploadOne($avatar, $folder, 'public', $filename);
-            $filePath = $filename . '.' . $avatar->getClientOriginalExtension();
+        DB::beginTransaction();
+        try {
+            $user = User::create([
+                'phone' => $data['phone'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+                'status' => User::STATUS_ACTIVE,
+                'role' => $data['role'],
+            ]);
 
-            $user->avatar = $filePath;
+            $profile = $user->profile()->make([
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
+                'middle_name' => $data['middle_name'],
+                'birth_date' => $data['birth_date'],
+                'gender' => $data['gender'],
+            ]);
+
+            $folder = Profile::USER_PROFILE;
+            $avatar = $request->file('avatar');
+            if ($request->hasFile('avatar')) {
+                $this->deleteOne($folder, 'public', $profile->avatar);
+                $filename = Str::random(30) . '_' . time();
+                $this->uploadOne($avatar, $folder, 'public', $filename);
+                $filePath = $filename . '.' . $avatar->getClientOriginalExtension();
+
+                $profile->avatar = $filePath;
+            }
+
+            $profile->save();
+
+            DB::commit();
+
+            return redirect()->route('admin.users.show', $user);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', $e->getMessage());
         }
-        $user->save();
-
-        return redirect()->route('admin.users.show', $user);
     }
 
     public function show(User $user)
     {
-        $roles = Role::orderBy('name')->pluck('name', 'id');
+        $profile = $user->profile;
         $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
         $clinics = Clinic::orderBy('name_ru')->pluck('name_ru', 'id');
-        $doctorList = User::find($user->id);
-        $statuses = User::statusList();
+        $doctor = User::find($user->id);
         $timetable = Timetable::where('doctor_id', $user->id)->get();
 
-        return view('admin.users.show', compact('user', 'roles', 'specializations', 'doctorList', 'statuses', 'clinics', 'timetable'));
+        return view('admin.users.show', compact('user', 'profile', 'specializations', 'doctor', 'clinics', 'timetable'));
     }
 
     public function edit(User $user)
     {
-        $roles = Role::orderBy('name')->pluck('name', 'id');
+        $roles = User::rolesList();
         $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
         $clinics = Clinic::orderBy('name_ru')->pluck('name_ru', 'id');
         $doctorList = User::find($user->id);
         $statuses = User::statusList();
         $time = Timetable::find($user->id);
-        return view('admin.users.edit', compact('user', 'roles', 'specializations', 'doctorList', 'statuses', 'clinics', 'time'));
+        $profile = $user->profile;
+        return view('admin.users.edit', compact('user', 'profile', 'roles', 'specializations', 'doctorList', 'statuses', 'clinics', 'time'));
     }
 
     public function update(Request $request, User $user)
     {
-        if (!empty($request['password'])) {
-            $input = $request->all();
-            $input['password'] = Hash::make($input['password']);
+        $profile = $user->profile;
+        DB::beginTransaction();
+        try {
+            if (!empty($request['password'])) {
+                $input = $request->all();
+                $input['password'] = bcrypt($input['password']);
 
-            $user->update($input);
-        } else {
-            $user->update($request->except(['password']));
+                $user->update($input);
+            } else {
+                $user->update($request->except(['password']));
+            }
+
+            $folder = Profile::USER_PROFILE;
+            $avatar = $request->file('avatar');
+            if ($request->hasFile('avatar')) {
+                $this->deleteOne($folder, 'public', $profile->avatar);
+                $filename = Str::random(30) . '_' . time();
+                $this->uploadOne($avatar, $folder, 'public', $filename);
+                $filePath = $filename . '.' . $avatar->getClientOriginalExtension();
+
+                $profile->avatar = $filePath;
+            }
+
+            $profile->edit($request['first_name'], $request['last_name'], $request['birth_date'], $request['gender'],
+                $request['middle_name'], $request['about_uz'], $request['about_ru']);
+            $profile->update();
+
+            return redirect()->route('admin.users.show', $user);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', $e->getMessage());
         }
-
-        $folder = User::USER_PROFILE;
-        $avatar = $request->file('avatar');
-        if ($request->hasFile('avatar')) {
-            $this->deleteOne($folder, 'public', $user->avatar);
-            $filename = Str::slug($user->name) . '_' . time();
-            $this->uploadOne($avatar, $folder, 'public', $filename);
-            $filePath = $filename . '.' . $avatar->getClientOriginalExtension();
-
-            $user->avatar = $filePath;
-        }
-        $user->save();
-
-        return redirect()->route('admin.users.show', $user);
     }
 
     public function destroy(User $user)
