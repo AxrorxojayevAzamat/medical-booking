@@ -5,7 +5,7 @@ use App\Entity\Clinic\Timetable;
 use Faker\Generator as Faker;
 
 $factory->define(Timetable::class, function (Faker $faker) {
-    $scheduleType = $faker->randomElement([Timetable::SCHEDULE_TYPE_WEEK, Timetable::SCHEDULE_TYPE_ODD, Timetable::SCHEDULE_TYPE_EVEN]);
+    $scheduleType = $faker->randomElement([Timetable::SCHEDULE_TYPE_WEEK, Timetable::SCHEDULE_TYPE_ODD_OR_EVEN]);
     return [
         'doctor_id' => 5,
         'clinic_id' => 6,

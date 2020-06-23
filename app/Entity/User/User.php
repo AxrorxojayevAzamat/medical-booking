@@ -78,7 +78,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public static function newGuest($firstName, $lastName, $middleName, $phone, $birthDate, $gender, $email): self
     {
         $password = 12; // this is for test must change
-        $role = 5; //must change
+        $role = self::ROLE_USER; //must change
         return static::new($firstName, $lastName, $middleName, $phone, $birthDate, $gender, $email, $password, $role);
     }
 

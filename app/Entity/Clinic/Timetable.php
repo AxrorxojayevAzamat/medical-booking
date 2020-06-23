@@ -49,8 +49,7 @@ class Timetable extends BaseModel
     protected $table = 'timetables';
 
     public const SCHEDULE_TYPE_WEEK = 1;
-    public const SCHEDULE_TYPE_ODD = 2;
-    public const SCHEDULE_TYPE_EVEN = 3;
+    public const SCHEDULE_TYPE_ODD_OR_EVEN = 2;
     
     protected $fillable = [
         'schedule_type',

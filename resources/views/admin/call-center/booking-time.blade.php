@@ -5,7 +5,7 @@
 <div class="tab-content">
     <div class="tab-pane fade show active" id="book" role="tabpanel" aria-labelledby="book-tab">
         <p class="lead add_bottom_30">{{ __('Расписание доктора') }} </p>
-        <form method="GET" action="{{ route('admin.callcenter.booking', [$user1, $clinic1]) }}" >
+        <form method="GET" action="{{ route('admin.call-center.booking', [$user1, $clinic1]) }}" >
             <div class="main_title_3">
                 <h3><strong>1</strong>{{ __('Выберите вашу дату') }}</h3>
             </div>
@@ -17,30 +17,16 @@
                     <li><strong></strong>{{ __('Недоступен') }}</li>
                 </ul>
             </div>
-            <div class="col-2">
-                <div class="form-group">
-                    <label for="calendar2" class="col-form-label">{{ __('TestCalendar') }}</label>
-                    <select class="form-control" id="calendar2" name="calendar2">
-                        <option></option>
-                        @foreach ($daysOn as $value)
-                        <option value="{{ $value }}"{{ $value === $currentDate ? ' selected' : '' }}>{{ $value }}</option>
-                        @endforeach;
-                    </select>
-                    <label></label>
-                </div>
-            </div>      
             <div class="main_title_3">
                 <h3><strong>2</strong>{{ __('Выберите') }}</h3>
             </div>
             <div class="row justify-content-center add_bottom_45">
                 <div class="col-md-12">
                     <ul class="time_select">
-                        @foreach ($reseptionTimes as $value => $label)
                         <li>
-                            <input type="radio" id="radio{{$value}}" name="radio_time" value="{{$label}}">
-                            <label for="radio{{$value}}">{{$label}}</label>
+                            <input type="radio" id="radio1" name="radio_time" value="12:00">
+                            <label for="radio1">12:00</label>
                         </li>                                            
-                        @endforeach
 
                     </ul>
                 </div>
@@ -78,19 +64,19 @@
 @stop
 @section('js')
 <script>
-    let period = @json($daysOff);
-            console.log(period);
+    let doctorTime = @json($doctorTimetable);
+            console.log(doctorTime);
 
-    let reseptionTimes = @json($reseptionTimes);
-    console.log(reseptionTimes);
+    let celebration = @json($celebration);
+    console.log(celebration);
 
 
     $('#calendar').datepicker({
         todayHighlight: true,
-        daysOfWeekDisabled: [],
+        daysOfWeekDisabled: [0],
         weekStart: 1,
         format: "yyyy-mm-dd",
-        datesDisabled: period,
+        datesDisabled: ['2020-06-25'],
     });
 
 

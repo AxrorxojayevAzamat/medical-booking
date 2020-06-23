@@ -32,7 +32,7 @@ class Region extends BaseModel
 
     public function parent()
     {
-        return $this->belongsTo(Region::class, 'region_id', 'id');
+        return $this->belongsTo(Region::class, 'parent_id', 'id');
     }
 
     public function children()
