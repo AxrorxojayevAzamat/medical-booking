@@ -231,6 +231,7 @@
             <div class="col-md-6">
                 <div class="card primary">
                     <div class="card-header">
+                        <a name="doctors-timetable"></a>
                         {{ __('Расписание доктора') }}
                         {{-- <a class="btn btn-secondary float-right" href="{!! route('admin.timetables.create',['id'=>$user->id, 'clinic_id'=>1])!!}">{{ __('Изменить/Добавить') }}</a> --}}
                     </div>
