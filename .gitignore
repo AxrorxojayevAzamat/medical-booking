@@ -14,4 +14,6 @@ yarn-error.log
 /.idea
 storage/debugbar/
 /public/uploads/
-/Makefile
+
+# local template file
+/template
