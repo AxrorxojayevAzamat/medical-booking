@@ -22,17 +22,21 @@ class CreateClinicsTable extends Migration
             $table->string('description_uz')->nullable();
             $table->string('description_ru')->nullable();
             $table->string('phone_numbers')->nullable();
-            $table->string('adress_uz')->nullable();
-            $table->string('adress_ru')->nullable();
+            $table->string('address_uz')->nullable();
+            $table->string('address_ru')->nullable();
             $table->string('work_time_start')->nullable();
             $table->string('work_time_end')->nullable();
             $table->string('location')->nullable();
             $table->string('photo')->nullable();
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by');
 
             $table->timestamps();
         });
         Schema::table('clinics', function (Blueprint $table) {
             $table->foreign('region_id')->references('id')->on('regions')->onDelete('restrict');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('restrict');
         });
     }
 

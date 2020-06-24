@@ -17,7 +17,7 @@ class Clinic extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'doctors_and_clinics');
+        return $this->belongsToMany(User::class, 'doctor_clinics');
     }
 
     public static function clinicTypeList(): array

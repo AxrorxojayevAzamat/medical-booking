@@ -17,7 +17,14 @@ class CreateSpecializationsTable extends Migration
             $table->increments('id');
             $table->string('name_uz');
             $table->string('name_ru');
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by');
             $table->timestamps();
+        });
+
+        Schema::table('specializations', function (Blueprint $table) {
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('restrict');
         });
     }
 

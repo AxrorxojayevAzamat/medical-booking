@@ -178,6 +178,7 @@ main {
   background: #f5f8fa;
   position: relative;
   z-index: 1;
+  width: 100% !important;
 }
 
 h1,

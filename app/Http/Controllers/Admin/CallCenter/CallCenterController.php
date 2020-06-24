@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin\CallCenter;
 
+use App\Entity\Clinic\Timetable;
 use App\Http\Controllers\Controller;
-use App\User;
-use App\Region;
-use App\Clinic;
-use App\Specialization;
-use App\Booking;
-use App\Timetable;
+use App\Entity\User\User;
+use App\Entity\Region;
+use App\Entity\Clinic\Clinic;
+use App\Entity\Clinic\Specialization;
+use App\Entity\Book\Book;
+use App\Entity\Celebration;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Carbon\CarbonPeriod;
 
 class CallCenterController extends Controller {
 
@@ -21,10 +21,10 @@ class CallCenterController extends Controller {
         $city_id = $request->get('city');
         $type_id = $request->get('type');
 
-        $query = Clinic::with(['users', 'users.specializations']);
+        $query = Clinic::with(['doctors', 'doctors.specializations']);
 
 
-        $regionList = Region::children(null)->pluck('name_ru', 'id');
+        $regionList = Region::where('parent_id',null)->pluck('name_ru', 'id');
         $cityList = $this->findCityByRegion($region_id);
 
         $clinicTypeList = Clinic::clinicTypeList();
@@ -33,8 +33,8 @@ class CallCenterController extends Controller {
 
 
         if (!empty($region_id)) {
-            $childrens = Region::where('parent_id', $region_id)->pluck('id')->toArray();
-            $query->whereIn('region_id', $childrens);
+            $children = Region::where('parent_id', $region_id)->pluck('id')->toArray();
+            $query->whereIn('region_id', $children);
         }
         if (!empty($city_id)) {
             $query->where('region_id', $city_id);
@@ -47,11 +47,11 @@ class CallCenterController extends Controller {
             $query->where('id', $value);
         }
         if (!empty($value = $request->get('name'))) {
-            $query->whereHas('users', function ($query1) use ($value) {
+            $query->whereHas('doctors', function ($query1) use ($value) {
                         $query1->where('name', 'ilike', '%' . $value . '%')
-                        ->orWhere('lastname', 'ilike', '%' . $value . '%');
+                        ->orWhere('last_name', 'ilike', '%' . $value . '%');
                     })
-                    ->orWhereHas('users.specializations', function ($query2) use ($value) {
+                    ->orWhereHas('doctors.specializations', function ($query2) use ($value) {
                         $query2->where('name_ru', 'ilike', '%' . $value . '%')
                         ->orWhere('name_uz', 'ilike', '%' . $value . '%');
                     });
@@ -59,7 +59,7 @@ class CallCenterController extends Controller {
 
         $clinics = $query->paginate(20);
 
-        return view('admin.callcenter.index', compact('clinics', 'regionList', 'cityList', 'clinicTypeList', 'specList', 'clinicList'));
+        return view('admin.call-center.index', compact('clinics', 'regionList', 'cityList', 'clinicTypeList', 'specList', 'clinicList'));
     }
 
     public function findDoctorByRegion(Request $request) {
@@ -140,18 +140,18 @@ class CallCenterController extends Controller {
         $radioTime = $request['radio_time'];
 
 //        $b_users = Booking::all();
-        $b_users = Booking::where('doctor_id', $user1->id)
+        $b_users = Book::where('doctor_id', $user1->id)
                 ->where('clinic_id', $clinic1->id)
                 ->get();
 
-        return view('admin.callcenter.booking', compact('user1', 'clinic1', 'b_users', 'calendar2', 'radioTime'));
+        return view('admin.call-center.booking', compact('user1', 'clinic1', 'b_users', 'calendar2', 'radioTime'));
     }
 
     public function bookingDoctor(Request $request) {
         $user = User::newGuest(
-                        $request['name'],
-                        $request['lastname'],
-                        $request['patronymic'],
+                        $request['first_name'],
+                        $request['last_name'],
+                        $request['middle_name'],
                         $request['phone'],
                         $request['birth_date'],
                         $request['gender'],
@@ -162,10 +162,10 @@ class CallCenterController extends Controller {
         $bookingDate = $request['booking_date'];
         $timeStart = $request['time_start'];
 
-        $booking = Booking::new($user->id, $doctorId, $clinicId, $bookingDate, $timeStart, null, null, null);
+        $booking = Book::new($user->id, $doctorId, $clinicId, $bookingDate, $timeStart, null, null, null);
 
 
-        return redirect()->route('admin.callcenter.index');
+        return redirect()->route('admin.call-center.index');
     }
 
     public function bookingTime(User $user, Clinic $clinic) {
@@ -173,91 +173,12 @@ class CallCenterController extends Controller {
         $clinic1 = Clinic::find($clinic->id);
         $currentDate = Carbon::now()->format('Y-m-d');
 
-        $doctorSchedule = Timetable::where('doctor_id', $user1->id)
+        $doctorTimetable = Timetable::where('doctor_id', $user1->id)
                         ->where('clinic_id', $clinic1->id)->first();
 
+        $celebration = Celebration::orderByDesc('id');
 
-        $doctorDates = array();
-        $doctorDates2 = array();
-        $doctorTimes = array();
-        $bookingTimes = array();
-        $daysOn = array();
-        $daysOff = array();
-
-        if (empty($doctorSchedule->monday_start)) {
-            array_push($doctorDates, Carbon::MONDAY);
-        } else {
-            array_push($doctorTimes, $doctorSchedule->monday_start);
-        }
-        if (empty($doctorSchedule->tuesday_start)) {
-            array_push($doctorDates, Carbon::TUESDAY);
-        } else {
-            array_push($doctorTimes, $doctorSchedule->tuesday_start);
-        }
-        if (empty($doctorSchedule->wednesday_start)) {
-            array_push($doctorDates, Carbon::WEDNESDAY);
-        } else {
-            array_push($doctorTimes, $doctorSchedule->wednesday_start);
-        }
-        if (empty($doctorSchedule->thursday_start)) {
-            array_push($doctorDates, Carbon::THURSDAY);
-        } else {
-            array_push($doctorTimes, $doctorSchedule->thursday_start);
-        }
-        if (empty($doctorSchedule->friday_start)) {
-            array_push($doctorDates, Carbon::FRIDAY);
-        } else {
-            array_push($doctorTimes, $doctorSchedule->friday_start);
-        }
-
-        if (empty($doctorSchedule->saturday_start)) {
-            array_push($doctorDates, Carbon::SATURDAY);
-        } else {
-            array_push($doctorTimes, $doctorSchedule->saturday_start);
-        }
-        if (empty($doctorSchedule->sunday_start)) {
-            array_push($doctorDates, Carbon::SUNDAY);
-        } else {
-            array_push($doctorTimes, $doctorSchedule->sunday_start);
-        }
-
-        $start = Carbon::now()->startOfMonth();
-        $end = Carbon::now()->endOfMonth();
-
-
-        $period = CarbonPeriod::between($start, $end);
-
-
-        foreach ($period as $date) {
-            foreach ($doctorDates as $docDate) {
-                if ($date->dayOfWeek == $docDate) {
-                    $daysOff[] = $date->format('Y-m-d');
-                }
-            }
-        }
-        foreach ($period as $date) {
-            $doctorDates2[] = $date->format('Y-m-d');
-        }
-
-        $doctorBooking = Booking::where('doctor_id', $user1->id)
-                        ->where('clinic_id', $clinic1->id)->get();
-
-        foreach ($doctorBooking as $docBooking) {
-            if (!empty($docBooking->time_start)) {
-                array_push($bookingTimes, $docBooking->time_start);
-            } else {
-                
-            }
-        }
-
-        $reseptionTimes = array_diff($doctorTimes, $bookingTimes);
-
-        $daysOn = array_diff($doctorDates2, $daysOff);
-
-        unset($period);
-        unset($bookingTimes);
-
-        return view('admin.callcenter.booking-time', compact('user1', 'clinic1', 'currentDate', 'daysOff', 'reseptionTimes', 'daysOn', 'doctorDates2'));
+        return view('admin.call-center.booking-time', compact('user1', 'clinic1', 'doctorTimetable', 'celebration'));
     }
 
 }

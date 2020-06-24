@@ -15,10 +15,19 @@ class CreateCelebrationsTable extends Migration
     {
         Schema::create('celebrations', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('date')->nullable();
+            $table->string('name_uz');
+            $table->string('name_ru');
+            $table->timestamp('date');
             $table->tinyInteger('quantity')->default(1);
-            $table->string('name');
+            $table->tinyInteger('status');
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by');
             $table->timestamps();
+        });
+
+        Schema::table('celebrations', function (Blueprint $table) {
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('restrict');
         });
     }
 

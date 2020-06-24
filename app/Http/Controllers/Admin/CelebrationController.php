@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Celebration;
+use App\Entity\Celebration;
 use App\Http\Requests\CelebrationRequest;
 use Illuminate\Http\Request;
 

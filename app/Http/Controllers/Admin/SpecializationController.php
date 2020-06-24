@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Specialization;
+use App\Entity\Clinic\Specialization;
 use Illuminate\Http\Request;
 
 class SpecializationController extends Controller {
@@ -39,11 +39,11 @@ class SpecializationController extends Controller {
         Specialization::create($request->all());
         return redirect()->route('admin.specializations.index');
     }
-    
+
         /**
      * Display the specified resource.
      *
-     * @param  \App\Specialization  $specialization
+     * @param  \App\Entity\Clinic\Specialization  $specialization
      * @return \Illuminate\Http\Response
      */
     public function show(Specialization $specialization) {
@@ -53,7 +53,7 @@ class SpecializationController extends Controller {
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Specialization  $specialization
+     * @param  \App\Entity\Clinic\Specialization  $specialization
      * @return \Illuminate\Http\Response
      */
     public function edit(Specialization $specialization) {
@@ -64,7 +64,7 @@ class SpecializationController extends Controller {
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Specialization  $specialization
+     * @param  \App\Entity\Clinic\Specialization  $specialization
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Specialization $specialization) {
@@ -76,7 +76,7 @@ class SpecializationController extends Controller {
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Specialization  $specialization
+     * @param  \App\Entity\Clinic\Specialization  $specialization
      * @return \Illuminate\Http\Response
      */
     public function destroy(Specialization $specialization) {
