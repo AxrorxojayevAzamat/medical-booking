@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('layouts.admin.page')
 
 @section('content')
     <div class="d-flex flex-row mb-3">

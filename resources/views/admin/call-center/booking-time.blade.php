@@ -1,9 +1,9 @@
-@extends('adminlte::page')
+@extends('layouts.admin.page')
 
 @section('content')
 
 
-<div id="page">		
+<div id="page">
     <main>
         <div class="container margin_60">
             <div class="row">
@@ -60,12 +60,12 @@
                                         <li>
                                             <input type="radio" id="radio15" name="radio_time" value="12:00">
                                             <label for="radio15">12:00</label>
-                                        </li>   
+                                        </li>
                                         @foreach ($reseptionTimes as $value => $label)
                                         <li>
                                             <input type="radio" id="radio{{$value}}" name="radio_time" value="{{$label}}">
                                             <label for="radio{{$value}}">{{$label}}</label>
-                                        </li>                                            
+                                        </li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -362,7 +362,7 @@
 
     let celebration = @json($celebration);
     console.log(celebration);
-    
+
     let reseptionTime = @json($reseptionTimes);
     console.log(reseptionTime);
 
@@ -375,4 +375,4 @@
     });
 </script>
 
-@stop  
+@stop

@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('layouts.admin.page')
 
 @section('content')
 
@@ -21,16 +21,16 @@
         </div>
 
     @endif
-    
+
 
 
     <div class=" card col-md-10 offset-md-1">
         <div class="card-header ">
             <div class="d-flex flex-row mb-3">
                 <a href="{{ route('admin.clinic.edit', $clinic)}}" class="btn btn-primary mr-1">Редактировать</a>
-                
+
                 <a href="{{route('admin.clinic.main-photo', $clinic )}}" class="btn btn-dark mr-1">Добавить главное фото</a>
-                
+
                 <form action="{{ route('admin.clinic.destroy',$clinic) }}" method="post">
                   @csrf
                   @method('DELETE')
