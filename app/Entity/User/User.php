@@ -181,7 +181,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function clinics()
     {
-        return $this->belongsToMany(Clinic::class, 'doctors_and_clinics', 'doctor_id', 'clinic_id');
+        return $this->belongsToMany(Clinic::class, 'doctor_clinics', 'doctor_id', 'clinic_id');
     }
 
 }

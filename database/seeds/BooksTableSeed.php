@@ -2,11 +2,30 @@
 
 use App\Entity\Book\Book;
 use Illuminate\Database\Seeder;
+use App\Entity\Clinic\DoctorClinic;
+use App\Entity\Clinic\Clinic;
+use App\Entity\User\User;
 
 class BooksTableSeed extends Seeder {
 
     public function run() {
-        factory(Book::class, 1)->create();
+//        factory(Book::class, 1)->create();
+        $doctors = DoctorClinic::all();
+
+        User::where('role', User::ROLE_DOCTOR)->chunk(1, function ($users) use ($doctors) {
+            foreach ($users as $user) {
+                foreach ($user->doctorClinics as $clinic) {
+                    foreach ($doctors as $doc => $doctorClinic) {
+                        if ($clinic->doctor_id == $doctorClinic->doctor_id && $clinic->clinic_id == $doctorClinic->clinic_id) {
+                            $user->doctorClinics()->saveMany(factory(Book::class, 1)->make([
+                                        'user_id' => factory(User::class)->create(['role' => User::ROLE_USER])->id,
+                                        'clinic_id' => $doctorClinic->clinic_id
+                            ]));
+                        }
+                    }
+                }
+            }
+        });
     }
 
 }

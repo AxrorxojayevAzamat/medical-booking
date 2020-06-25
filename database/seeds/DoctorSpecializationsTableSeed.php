@@ -4,13 +4,13 @@ use Illuminate\Database\Seeder;
 use App\Entity\Clinic\Specialization;
 use App\Entity\User\User;
 
-class DoctorSpecializationsTableSeed extends Seeder
-{
-    public function run()
-    {
+class DoctorSpecializationsTableSeed extends Seeder {
+
+    public function run() {
         $specIds = Specialization::pluck('id')->toArray();
 
-        User::chunk(100, function ($users) use ($specIds) {
+        User::where('role', User::ROLE_DOCTOR)->chunk(100, function ($users) use ($specIds) {
+            /* @var $user User */
             foreach ($users as $user) {
                 $tempos = $specIds;
                 $count = random_int(0, 3);
@@ -22,4 +22,5 @@ class DoctorSpecializationsTableSeed extends Seeder
             }
         });
     }
+
 }

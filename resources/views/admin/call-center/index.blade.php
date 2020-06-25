@@ -81,7 +81,6 @@
                             <tr role="row">
                                 <th>{{ __('Направление') }}</th>
                                 <th>{{ __('Врач') }}</th>
-                                <th>{{ __('testВрач') }}</th>
                                 <th>{{ __('Клиника') }}</th>
                             </tr>
                         </thead>
@@ -91,7 +90,6 @@
                             @foreach ($doctor->specializations as $spec)
                             <tr>
                                 <td>{{$spec->name_ru}}</td>
-                                <td><a href="{{ route('admin.call-center.booking', [$doctor, $clinic]) }}">{{ $doctor->profile ? $doctor->profile->fullName : '' }}</a></td>
                                 <td><a href="{{ route('admin.call-center.booking-time',[$doctor, $clinic]) }}">{{ $doctor->profile ? $doctor->profile->fullName : '' }}</a></td>
                                 <td>{{$clinic->name_ru}}</td>
                             </tr>

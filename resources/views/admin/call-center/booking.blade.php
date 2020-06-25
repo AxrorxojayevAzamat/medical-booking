@@ -29,7 +29,7 @@
                                         <option value="1">Мужской</option>>
                                     </select></td></tr>
                             <tr><th>{{ trans('Дата бронирования') }}</th>
-                                <td><input id="booking_date" type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="booking_date" value="{{ old('booking_date', $calendar2) }}" required></td></tr>
+                                <td><input id="booking_date" type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="booking_date" value="{{ old('booking_date', $calendar) }}" required></td></tr>
                             <tr><th>{{ trans('Время') }}</th>
                                 <td>
                                     <div class="input-group date" id="timepicker" data-target-input="nearest">
@@ -86,7 +86,7 @@
                     <input name="doctor_id" type="hidden" value="{{$user1->id}}"/>
                     <input name="clinic_id" type="hidden" value="{{$clinic1->id}}"/>
                     <input name="time_start" type="hidden" value="{{$radioTime}}"/>
-                    <input name="booking_date" type="hidden" value="{{$calendar2}}"/>
+                    <input name="booking_date" type="hidden" value="{{$calendar}}"/>
 
                 </div>
                 <div class="row">

@@ -12,6 +12,7 @@ use App\Entity\Book\Book;
 use App\Entity\Celebration;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 
 class CallCenterController extends Controller {
 
@@ -24,7 +25,7 @@ class CallCenterController extends Controller {
         $query = Clinic::with(['doctors', 'doctors.specializations']);
 
 
-        $regionList = Region::where('parent_id',null)->pluck('name_ru', 'id');
+        $regionList = Region::where('parent_id', null)->pluck('name_ru', 'id');
         $cityList = $this->findCityByRegion($region_id);
 
         $clinicTypeList = Clinic::clinicTypeList();
@@ -136,15 +137,14 @@ class CallCenterController extends Controller {
     public function booking(User $user, Clinic $clinic, Request $request) {
         $user1 = User::find($user->id);
         $clinic1 = Clinic::find($clinic->id);
-        $calendar2 = $request['calendar2'];
+        $calendar = $request['calendar'];
         $radioTime = $request['radio_time'];
 
-//        $b_users = Booking::all();
         $b_users = Book::where('doctor_id', $user1->id)
                 ->where('clinic_id', $clinic1->id)
                 ->get();
 
-        return view('admin.call-center.booking', compact('user1', 'clinic1', 'b_users', 'calendar2', 'radioTime'));
+        return view('admin.call-center.booking', compact('user1', 'clinic1', 'b_users', 'calendar', 'radioTime'));
     }
 
     public function bookingDoctor(Request $request) {
@@ -174,11 +174,95 @@ class CallCenterController extends Controller {
         $currentDate = Carbon::now()->format('Y-m-d');
 
         $doctorTimetable = Timetable::where('doctor_id', $user1->id)
-                        ->where('clinic_id', $clinic1->id)->first();
+                        ->where('clinic_id', $clinic1->id)->get();
 
-        $celebration = Celebration::orderByDesc('id');
+        $celebration = Celebration::orderByDesc('id')->get();
 
-        return view('admin.call-center.booking-time', compact('user1', 'clinic1', 'doctorTimetable', 'celebration'));
+        $doctorDates = array();
+        $doctorDates2 = array();
+        $doctorTimes = array();
+        $bookTimes = array();
+        $daysOn = array();
+        $daysOff = array();
+
+        if (empty($doctorTimetable->monday_start)) {
+            array_push($doctorDates, Carbon::MONDAY);
+        } else {
+            array_push($doctorTimes, $doctorTimetable->monday_start);
+        }
+        if (empty($doctorTimetable->tuesday_start)) {
+            array_push($doctorDates, Carbon::TUESDAY);
+        } else {
+            array_push($doctorTimes, $doctorTimetable->tuesday_start);
+        }
+        if (empty($doctorTimetable->wednesday_start)) {
+            array_push($doctorDates, Carbon::WEDNESDAY);
+        } else {
+            array_push($doctorTimes, $doctorTimetable->wednesday_start);
+        }
+        if (empty($doctorTimetable->thursday_start)) {
+            array_push($doctorDates, Carbon::THURSDAY);
+        } else {
+            array_push($doctorTimes, $doctorTimetable->thursday_start);
+        }
+        if (empty($doctorTimetable->friday_start)) {
+            array_push($doctorDates, Carbon::FRIDAY);
+        } else {
+            array_push($doctorTimes, $doctorTimetable->friday_start);
+        }
+
+        if (empty($doctorTimetable->saturday_start)) {
+            array_push($doctorDates, Carbon::SATURDAY);
+        } else {
+            array_push($doctorTimes, $doctorTimetable->saturday_start);
+        }
+        if (empty($doctorTimetable->sunday_start)) {
+            array_push($doctorDates, Carbon::SUNDAY);
+        } else {
+            array_push($doctorTimes, $doctorTimetable->sunday_start);
+        }
+
+        $start = Carbon::now()->startOfMonth();
+        $end = Carbon::now()->endOfMonth();
+
+
+        $period = CarbonPeriod::between($start, $end);
+
+
+        foreach ($period as $date) {
+            foreach ($doctorDates as $docDate) {
+                if ($date->dayOfWeek == $docDate) {
+                    $daysOff[] = $date->format('Y-m-d');
+                }
+            }
+        }
+        foreach ($period as $date) {
+            $doctorDates2[] = $date->format('Y-m-d');
+        }
+
+        $doctorBook = Book::where('doctor_id', $user1->id)
+                        ->where('clinic_id', $clinic1->id)->get();
+
+        foreach ($doctorBook as $docBook) {
+            if (!empty($docBook->time_start)) {
+                array_push($bookTimes, $docBook->time_start);
+            } else {
+                
+            }
+        }
+
+//        if (!empty($bookTimes)) {
+//            $reseptionTimes = array_diff($doctorTimes, $bookTimes);
+//        } else {
+            $reseptionTimes = $doctorTimes;
+//        }
+
+        $daysOn = array_diff($doctorDates2, $daysOff);
+
+        unset($period);
+        unset($bookTimes);
+
+        return view('admin.call-center.booking-time', compact('user1', 'clinic1', 'doctorTimetable', 'celebration', 'currentDate', 'daysOff', 'reseptionTimes', 'daysOn'));
     }
 
 }

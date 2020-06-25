@@ -2,15 +2,16 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\Entity\Clinic\Timetable;
+use App\Entity\Clinic\DoctorClinic;
 use Faker\Generator as Faker;
 
 $factory->define(Timetable::class, function (Faker $faker) {
     $scheduleType = $faker->randomElement([Timetable::SCHEDULE_TYPE_WEEK, Timetable::SCHEDULE_TYPE_ODD_OR_EVEN]);
+    $interval = $faker->randomElement([30, 60]);
+
     return [
-        'doctor_id' => 5,
-        'clinic_id' => 6,
         'schedule_type' => $scheduleType,
-        'interval' => null,
+        'interval' => $interval,
         'monday_start' => '12:01:00',
         'monday_end' => '15:01:59',
         'tuesday_start' => '12:02:00',

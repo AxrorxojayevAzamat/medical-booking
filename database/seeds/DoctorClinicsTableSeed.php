@@ -9,7 +9,8 @@ class DoctorClinicsTableSeed extends Seeder {
     public function run() {
         $clinics = Clinic::pluck('id')->toArray();
 
-        User::chunk(100, function ($users) use ($clinics) {
+
+        User::where('role', User::ROLE_DOCTOR)->chunk(100, function ($users) use ($clinics) {
             foreach ($users as $user) {
                 $tempos = $clinics;
                 $count = random_int(0, 3);
