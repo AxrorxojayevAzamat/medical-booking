@@ -13,7 +13,7 @@ Route::get('doctors-list', function () {
 });
 
 
-Route::group(['as' => 'admin.', 'prefix' => 'admin',  'namespace' => 'Admin', 'middleware' => ['auth', 'admin']], function () {
+Route::group(['as' => 'admin.', 'prefix' => 'admin',  'namespace' => 'Admin', 'middleware' => ['auth', 'can:admin-panel']], function () {
     Route::get('', 'DashboardController@index')->name('home');
 
     Route::resource('users', 'UserController');
@@ -85,8 +85,9 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin',  'namespace' => 'Admin', 'm
     });
 });
 
-Route::group([ 'as' => 'patient.','prefix'=> 'patient', 'namespace'=> 'Patient', 'middleware' => ['auth', 'patient']], function (){
-    Route::get('', 'DashboardController@index')->name('dashboard1');
+Route::group([ 'as' => 'patient.','prefix'=> 'patient', 'namespace'=> 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function (){
+    Route::get('', 'DashboardController@index')->name('dashboard');
+    Route::get('/profile', 'DashboardController@profile_show')->name('profile');
 
 });
 

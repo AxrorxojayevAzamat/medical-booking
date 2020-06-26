@@ -55,14 +55,33 @@
             <div class="row">
                 <div class="col-lg-3 col-6">
                     <div id="logo_home">
-                        <h1><a href="index.html" title="Findoctor">Findoctor</a></h1>
-                        <h1>{{Auth::user()->name}}</h1>
+                        <h1>{{Auth::user()->role}}</h1>
                     </div>
                 </div>
                 <div class="col-lg-9 col-6">
                     <ul id="top_access">
-                        <li><a href="login.html"><i class="pe-7s-user"></i></a></li>
-                        <li><a href="register-doctor.html"><i class="pe-7s-add-user"></i></a></li>
+                        @if (Route::has('login'))
+                            <div class="top-right links">
+                                @auth
+                                    @if(Auth::user()->isAdmin())
+                                        <li><a href="{{ url('admin') }}"><i class="pe-7s-user"></i></a></li>
+                                    @elseif(Auth::user()->isPatient())
+                                        <li><a href="{{ route('patient.profile') }}"><i class="pe-7s-user"></i></a></li>
+
+                                    @endif
+                                    {{-- <a href="{{ url('admin') }}">Dashboard</a> --}}
+                                    {{-- <li><a href="{{ url('admin') }}"><i class="pe-7s-user"></i></a></li> --}}
+
+                                @else
+                                    {{-- <a href="{{ route('login') }}">Login</a> --}}
+                                    <li><a href="{{ route('login') }}"><i class="pe-7s-user"></i></a></li>
+                                    @if (Route::has('register'))
+                                        {{-- <a href="{{ route('register' ) }}">Register</a> --}}
+                                        <li><a href="{{ route('register') }}"><i class="pe-7s-add-user"></i></a></li>
+                                    @endif
+                                @endauth
+                            </div>
+                        @endif
                     </ul>
                     <nav id="menu" class="main-menu">
                         <ul>

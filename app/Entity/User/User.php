@@ -87,6 +87,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->role === self::ROLE_ADMIN;
     }
 
+    public function isPatient(): bool
+    {
+        return $this->role === self::ROLE_USER;
+    }
+
     public function isClinic(): bool
     {
         return $this->role === self::ROLE_CLINIC;
