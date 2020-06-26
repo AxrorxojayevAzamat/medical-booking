@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('layouts.admin.page')
 
 @section('content')
 <div class="row">
@@ -16,7 +16,7 @@
                         <tr>
                             <th>{{ __('ID') }}</th>
                             <td>{{ __('') }}</td>
-                            <td>{{ __('') }}</td> 
+                            <td>{{ __('') }}</td>
                             <th style="width: 15%"></th>
                         </tr>
                     </thead>
@@ -49,7 +49,7 @@
                                             <i class="fas fa-trash">
                                             </i>
                                         </button>
-                                    </form> 
+                                    </form>
                                 </div>
                             </td>
                         </tr>

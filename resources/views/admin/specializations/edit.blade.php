@@ -1,9 +1,9 @@
-@extends('adminlte::page')
+@extends('layouts.admin.page')
 
 @section('content')
 <form method="POST" action="{{ route("admin.specializations.update", $specialization) }}">
     @csrf
-    @method('PUT')    
+    @method('PUT')
     <div class="row">
         <div class="col-md-6">
             <div class="card primary">

@@ -1,4 +1,4 @@
-@extends('adminlte::page')  
+@extends('layouts.admin.page')
 @section('content')
 
 
@@ -21,7 +21,7 @@
             </div>
         </form>
     </div>
-</div>         
+</div>
 
 @endsection
 
