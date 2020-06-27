@@ -3,7 +3,7 @@
 @section('content')
 
 
-<div id="page">		
+<div id="page">
     <main>
         <div class="container margin_60">
             <div class="row">
@@ -48,7 +48,7 @@
                                 <div class="col-lg-7">
                                     <div class="form-group">
                                         <div id="calendar"></div>
-                                        <input type="hidden" id="my_hidden_input">
+                                        <input type="hidden" id="my_hidden_input" name="calendar" value="00/00/0000">
                                         <ul class="legend">
                                             <li><strong></strong>{{ __('Доступный') }}</li>
                                             <li><strong></strong>{{ __('Недоступен') }}</li>
@@ -60,12 +60,12 @@
                                         <li>
                                             <input type="radio" id="radio15" name="radio_time" value="12:00">
                                             <label for="radio15">12:00</label>
-                                        </li>   
+                                        </li>
                                         @foreach ($reseptionTimes as $value => $label)
                                         <li>
                                             <input type="radio" id="radio{{$value}}" name="radio_time" value="{{$label}}">
                                             <label for="radio{{$value}}">{{$label}}</label>
-                                        </li>                                            
+                                        </li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -357,22 +357,25 @@
 @stop
 @section('js')
 <script>
-    let doctorTime = @json($doctorTimetable);
-            console.log(doctorTime);
 
-    let celebration = @json($celebration);
-    console.log(celebration);
-    
-    let reseptionTime = @json($reseptionTimes);
-    console.log(reseptionTime);
+        let doctorTime = @json($doctorTimetable);
+        console.log(doctorTime);
 
-    $('#calendar').datepicker({
-        todayHighlight: true,
-        daysOfWeekDisabled: [1],
-        weekStart: 1,
-        format: "yyyy-mm-dd",
-        datesDisabled: ["2017/10/20", "2017/11/21", "2017/12/21", "2018/01/21", "2018/02/21", "2018/03/21"],
-    });
+        let celebration = @json($celebration);
+        console.log(celebration);
+
+        let reseptionTime = @json($reseptionTimes);
+        console.log(reseptionTime);
+
+
+        $("#calendar").datepicker({
+            todayHighlight: true,
+            daysOfWeekDisabled: [1],
+            weekStart: 1,
+            format: "mm/dd/yyyy",
+            datesDisabled: ["2020/10/20", "2017/11/21", "2017/12/21", "2018/01/21", "2018/02/21", "2018/03/21"],
+        }).on('changeDate', function(e) {
+            $('#my_hidden_input').val(e.format());
+        });
 </script>
-
-@stop  
+@stop
