@@ -154,3 +154,8 @@ Breadcrumbs::register('admin.call-center.booking-time', function (Crumbs $crumbs
     $crumbs->parent('admin.call-center.index');
     $crumbs->push('Бронирование врача', route('admin.call-center.booking-time', [$user, $clinic]));
 });
+
+Breadcrumbs::register('admin.books.index', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push('Бронирование', route('admin.books.index'));
+});
