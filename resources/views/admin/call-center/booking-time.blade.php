@@ -6,6 +6,7 @@
 <div id="page">		
     <main>
         <div class="container margin_60">
+
             <div class="row">
                 <aside class="col-xl-3 col-lg-4" id="sidebar">
                     <div class="box_profile">
@@ -13,7 +14,7 @@
                             <img src="http://via.placeholder.com/565x565.jpg" alt="" class="img-fluid">
                         </figure>
                         <small>Primary care - Internist</small>
-                        <h1>DR. Julia Jhones</h1>
+                        <h1>{{$user1->profile ? $user1->profile->fullName : ''}}</h1>
                         <span class="rating">
                             <i class="icon_star voted"></i>
                             <i class="icon_star voted"></i>
@@ -24,12 +25,12 @@
                             <a href="badges.html" data-toggle="tooltip" data-placement="top" data-original-title="Badge Level" class="badge_list_1"><img src="img/badges/badge_1.svg" width="15" height="15" alt=""></a>
                         </span>
                         <ul class="statistic">
-                            <li>854 Views</li>
-                            <li>124 Patients</li>
+                            <li>854 {{ trans('Просмотры') }}</li>
+                            <li>124 {{ trans('Пациенты') }}</li>
                         </ul>
                         <ul class="contacts">
-                            <li><h6>Address</h6>859 60th, Brooklyn, NY, 11220</li>
-                            <li><h6>Phone</h6><a href="tel://000434323342">+00043 4323342</a></li>
+                            <li><h6>{{ trans('Адрес клиники') }}</h6>{{$clinic1->address_ru}}</li>
+                            <li><h6>{{ trans('Телефон клиники') }}</h6><a href="tel://{{$clinic1->phone_numbers}}">{{$clinic1->phone_numbers}}</a></li>
                         </ul>
                         <div class="text-center"><a href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+%E2%80%93+H%C3%B4pitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361" class="btn_1 outline" target="_blank"><i class="icon_pin"></i> View on map</a></div>
                     </div>
@@ -38,7 +39,6 @@
 
                 <div class="col-xl-9 col-lg-8">
                     <form method="GET" action="{{ route('admin.call-center.booking', [$user1, $clinic1]) }}" >
-                        @csrf
                         <div class="box_general_2 add_bottom_45">
                             <div class="main_title_4">
                                 <h3><i class="icon_circle-slelected"></i>{{ __('Выберите дату и время') }}</h3>
@@ -48,7 +48,7 @@
                                 <div class="col-lg-7">
                                     <div class="form-group">
                                         <div id="calendar"></div>
-                                        <input type="hidden" id="my_hidden_input">
+                                        <input type="hidden" id="my_hidden_input" name="calendar">
                                         <ul class="legend">
                                             <li><strong></strong>{{ __('Доступный') }}</li>
                                             <li><strong></strong>{{ __('Недоступен') }}</li>
@@ -56,16 +56,13 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-5">
+                                    <label>{{$currentDate}}</label>
                                     <ul class="time_select version_2 add_top_20">
-                                        <li>
-                                            <input type="radio" id="radio15" name="radio_time" value="12:00">
-                                            <label for="radio15">12:00</label>
-                                        </li>   
-                                        @foreach ($reseptionTimes as $value => $label)
+                                        @foreach ($timeSlots as $value => $label)
                                         <li>
                                             <input type="radio" id="radio{{$value}}" name="radio_time" value="{{$label}}">
                                             <label for="radio{{$value}}">{{$label}}</label>
-                                        </li>                                            
+                                        </li>                                           
                                         @endforeach
                                     </ul>
                                 </div>
@@ -112,19 +109,19 @@
                                 <p class="lead add_bottom_30">Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
                                 <div class="indent_title_in">
                                     <i class="pe-7s-user"></i>
-                                    <h3>Professional statement</h3>
+                                    <h3>{{ trans('Профессиональные заявления')}}</h3>
                                     <p>Mussum ipsum cacilds, vidis litro abertis.</p>
                                 </div>
                                 <div class="wrapper_indent">
-                                    <p>Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Nullam mollis. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapi.</p>
-                                    <h6>Specializations</h6>
+                                    <p>{{$user1->profile ? $user1->profile->about_ru : ''}}</p>
+                                    <h6>{{ trans('Специализации')}}</h6>
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <ul class="bullets">
-                                                <li>Abdominal Radiology</li>
-                                                <li>Addiction Psychiatry</li>
-                                                <li>Adolescent Medicine</li>
-                                                <li>Cardiothoracic Radiology </li>
+                                                @foreach ($spec1 as $spec)
+                                                <li> {{$spec->name_ru}}                                              
+                                                </li>                                            
+                                                @endforeach
                                             </ul>
                                         </div>
                                         <div class="col-lg-6">
@@ -357,22 +354,22 @@
 @stop
 @section('js')
 <script>
-    let doctorTime = @json($doctorTimetable);
-            console.log(doctorTime);
+    let daysOff = @json($daysOff);
+            console.log(daysOff);
 
-    let celebration = @json($celebration);
-    console.log(celebration);
-    
-    let reseptionTime = @json($reseptionTimes);
-    console.log(reseptionTime);
+    let timeSlots = @json($timeSlots);
+    console.log(timeSlots);
 
     $('#calendar').datepicker({
         todayHighlight: true,
-        daysOfWeekDisabled: [1],
+        daysOfWeekDisabled: [],
         weekStart: 1,
         format: "yyyy-mm-dd",
-        datesDisabled: ["2017/10/20", "2017/11/21", "2017/12/21", "2018/01/21", "2018/02/21", "2018/03/21"],
+        datesDisabled: daysOff,
+    }).on('changeDate', function (e) {
+        $('#my_hidden_input').val(e.format());
     });
+
 </script>
 
 @stop  

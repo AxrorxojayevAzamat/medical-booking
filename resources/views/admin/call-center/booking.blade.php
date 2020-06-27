@@ -29,7 +29,7 @@
                                         <option value="1">Мужской</option>>
                                     </select></td></tr>
                             <tr><th>{{ trans('Дата бронирования') }}</th>
-                                <td><input id="booking_date" type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="booking_date" value="{{ old('booking_date', $calendar) }}" required></td></tr>
+                                <td><input id="booking_date" type="text" class="form-control" value="{{ $calendar}}" disabled></td></tr>
                             <tr><th>{{ trans('Время') }}</th>
                                 <td>
                                     <div class="input-group date" id="timepicker" data-target-input="nearest">

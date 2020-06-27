@@ -233,6 +233,11 @@ return [
             'url' => 'admin/call-center',
         ],
         [
+            'text' => 'Бронирование',
+            'icon' => 'fas fa-fw fa-share',
+            'url' => 'admin/books',
+        ],
+        [
             'text' => 'Праздничные дни',
             'icon' => 'fas fa-fw fa-share',
             'url' => 'admin/celebration',
