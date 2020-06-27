@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('layouts.admin.page')
 
 @section('content')
 <div class="row no-print">
@@ -11,7 +11,7 @@
                 <button class="btn btn-danger float-right" type="submit" onclick="return confirm('Вы уверены?')">
                     {{ __('Удалить') }}
                 </button>
-            </form> 
+            </form>
         </a>
     </div>
 </div>

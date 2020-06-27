@@ -1,9 +1,9 @@
-@extends('adminlte::page')
+@extends('layouts.admin.page')
 
 @section('content')
 
 
-<div id="page">		
+<div id="page">
     <main>
         <div class="container margin_60">
 
@@ -372,4 +372,4 @@
 
 </script>
 
-@stop  
+@stop
