@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('layouts.admin.page')
 
 @section('content')
 
@@ -358,6 +358,7 @@
 @section('js')
 <script>
 
+<<<<<<< HEAD
         let doctorTime = @json($doctorTimetable);
         console.log(doctorTime);
 
@@ -366,8 +367,16 @@
 
         let reseptionTime = @json($reseptionTimes);
         console.log(reseptionTime);
+=======
+    let celebration = @json($celebration);
+    console.log(celebration);
+
+    let reseptionTime = @json($reseptionTimes);
+    console.log(reseptionTime);
+>>>>>>> d9b74a840c29689a39fd1558b8a0287b0af0b4b7
 
 
+<<<<<<< HEAD
         $("#calendar").datepicker({
             todayHighlight: true,
             daysOfWeekDisabled: [1],
@@ -378,4 +387,6 @@
             $('#my_hidden_input').val(e.format());
         });
 </script>
+=======
+>>>>>>> d9b74a840c29689a39fd1558b8a0287b0af0b4b7
 @stop
