@@ -9,8 +9,8 @@ $factory->define(Celebration::class, function (Faker $faker) {
     return [
         'name_ru' => $faker->unique()->name,
         'name_uz' => $faker->unique()->name,
-        'date' => $faker->date('Y-m-d H:i:s'),
-        'quantity' => $faker->randomNumber(1),
+        'date' => $faker->dateTimeBetween($startDate = '0 month', $endDate = '+1 month', $timezone = null),
+        'quantity' => $faker->numberBetween($min = 1, $max = 3),
         'status' => $status,
         'created_by' => 1,
         'updated_by' => 1,

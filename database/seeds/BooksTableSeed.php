@@ -3,7 +3,7 @@
 use App\Entity\Book\Book;
 use Illuminate\Database\Seeder;
 use App\Entity\Clinic\DoctorClinic;
-use App\Entity\Clinic\Clinic;
+use App\Entity\User\Profile;
 use App\Entity\User\User;
 
 class BooksTableSeed extends Seeder {

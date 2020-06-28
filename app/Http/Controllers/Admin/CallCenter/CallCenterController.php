@@ -171,98 +171,150 @@ class CallCenterController extends Controller {
     public function bookingTime(User $user, Clinic $clinic) {
         $user1 = User::find($user->id);
         $clinic1 = Clinic::find($clinic->id);
-        $currentDate = Carbon::now()->format('Y-m-d');
+        $spec1 = $user->specializations;
+        $currentDate = Carbon::now()->addDays(3)->format('Y-m-d');
 
-        $doctorTimetable = Timetable::where('doctor_id', $user1->id)
-                        ->where('clinic_id', $clinic1->id)->get();
+        $doctorTimetable = Timetable::where('doctor_id', $user->id)
+                ->where('clinic_id', $clinic->id)
+                ->first();
 
-        $celebration = Celebration::orderByDesc('id')->get();
+        $celebration = Celebration::orderByDesc('id');
+        $celebrationDays = $celebration->pluck('date')->toArray();
 
-        $doctorDates = array();
-        $doctorDates2 = array();
-        $doctorTimes = array();
-        $bookTimes = array();
-        $daysOn = array();
-        $daysOff = array();
-
-        if (empty($doctorTimetable->monday_start)) {
-            array_push($doctorDates, Carbon::MONDAY);
-        } else {
-            array_push($doctorTimes, $doctorTimetable->monday_start);
-        }
-        if (empty($doctorTimetable->tuesday_start)) {
-            array_push($doctorDates, Carbon::TUESDAY);
-        } else {
-            array_push($doctorTimes, $doctorTimetable->tuesday_start);
-        }
-        if (empty($doctorTimetable->wednesday_start)) {
-            array_push($doctorDates, Carbon::WEDNESDAY);
-        } else {
-            array_push($doctorTimes, $doctorTimetable->wednesday_start);
-        }
-        if (empty($doctorTimetable->thursday_start)) {
-            array_push($doctorDates, Carbon::THURSDAY);
-        } else {
-            array_push($doctorTimes, $doctorTimetable->thursday_start);
-        }
-        if (empty($doctorTimetable->friday_start)) {
-            array_push($doctorDates, Carbon::FRIDAY);
-        } else {
-            array_push($doctorTimes, $doctorTimetable->friday_start);
-        }
-
-        if (empty($doctorTimetable->saturday_start)) {
-            array_push($doctorDates, Carbon::SATURDAY);
-        } else {
-            array_push($doctorTimes, $doctorTimetable->saturday_start);
-        }
-        if (empty($doctorTimetable->sunday_start)) {
-            array_push($doctorDates, Carbon::SUNDAY);
-        } else {
-            array_push($doctorTimes, $doctorTimetable->sunday_start);
-        }
+//        $doctorBook = Book::where('doctor_id', $user1->id)
+//                        ->where('clinic_id', $clinic1->id)->get();
 
         $start = Carbon::now()->startOfMonth();
         $end = Carbon::now()->endOfMonth();
 
-
         $period = CarbonPeriod::between($start, $end);
 
+        $docDayOfWeeks = $this->getDaysConst($doctorTimetable);
+
+        $daysOff = array();
+        $daysOff1 = array();
+        $daysOff2 = array();
 
         foreach ($period as $date) {
-            foreach ($doctorDates as $docDate) {
-                if ($date->dayOfWeek == $docDate) {
-                    $daysOff[] = $date->format('Y-m-d');
+            foreach ($docDayOfWeeks as $docDayOfWeek) {
+                if ($date->dayOfWeek == $docDayOfWeek) {
+                    $daysOff1[] = $date->format('Y-m-d');
                 }
             }
         }
-        foreach ($period as $date) {
-            $doctorDates2[] = $date->format('Y-m-d');
+
+        foreach ($celebrationDays as $celeb) {
+            $daysOff2[] = Carbon::createFromFormat('Y-m-d H:i:s', $celeb)->format('Y-m-d');
         }
 
-        $doctorBook = Book::where('doctor_id', $user1->id)
-                        ->where('clinic_id', $clinic1->id)->get();
+        $daysOff = array_merge($daysOff1, $daysOff2);
 
-        foreach ($doctorBook as $docBook) {
-            if (!empty($docBook->time_start)) {
-                array_push($bookTimes, $docBook->time_start);
-            } else {
-                
-            }
-        }
 
-//        if (!empty($bookTimes)) {
-//            $reseptionTimes = array_diff($doctorTimes, $bookTimes);
-//        } else {
-            $reseptionTimes = $doctorTimes;
-//        }
+        $duration = $this->getTime($doctorTimetable, $currentDate);
+        $timeSlots = $this->getTimes($duration['start'], $duration['end'], $duration['inter']);
 
-        $daysOn = array_diff($doctorDates2, $daysOff);
+
 
         unset($period);
-        unset($bookTimes);
+        unset($daysOff1);
+        unset($daysOff2);
 
-        return view('admin.call-center.booking-time', compact('user1', 'clinic1', 'doctorTimetable', 'celebration', 'currentDate', 'daysOff', 'reseptionTimes', 'daysOn'));
+        return view('admin.call-center.booking-time', compact('user1', 'clinic1', 'spec1', 'currentDate', 'daysOff', 'timeSlots'));
+    }
+
+    public function getDaysConst(Timetable $timetable) {
+
+        $daysConst = array();
+
+        if (empty($timetable->monday_start)) {
+            array_push($daysConst, Carbon::MONDAY);
+        }
+
+        if (empty($timetable->tuesday_start)) {
+            array_push($daysConst, Carbon::TUESDAY);
+        }
+
+        if (empty($timetable->wednesday_start)) {
+            array_push($daysConst, Carbon::WEDNESDAY);
+        }
+
+        if (empty($timetable->thursday_start)) {
+            array_push($daysConst, Carbon::THURSDAY);
+        }
+
+        if (empty($timetable->friday_start)) {
+            array_push($daysConst, Carbon::FRIDAY);
+        }
+
+        if (empty($timetable->saturday_start)) {
+            array_push($daysConst, Carbon::SATURDAY);
+        }
+
+        if (empty($timetable->sunday_start)) {
+            array_push($daysConst, Carbon::SUNDAY);
+        }
+
+        return $daysConst;
+    }
+
+    public function getTimes(string $startTime, string $endTime, int $interval) {
+        $start_time = Carbon::createFromFormat('H:i:s', $startTime);
+        $end_time = Carbon::createFromFormat('H:i:s', $endTime);
+
+        $time = $start_time;
+        $time_slots = array();
+
+        while ($end_time->greaterThan($time)) {
+            $time_slots[] = $time->format('H:i');
+            $time = $time->addMinutes($interval);
+        }
+
+        return $time_slots;
+    }
+
+    public function getTime(Timetable $timetable, string $date) {
+        $carbon = Carbon::createFromFormat('Y-m-d', $date);
+        $time = array();
+
+        switch ($carbon->dayOfWeek) {
+            case Carbon::MONDAY:
+                $time['start'] = $timetable->monday_start;
+                $time['end'] = $timetable->monday_end;
+                $time['inter'] = $timetable->interval;
+                break;
+            case Carbon::TUESDAY:
+                $time['start'] = $timetable->tuesday_start;
+                $time['end'] = $timetable->tuesday_end;
+                $time['inter'] = $timetable->interval;
+                break;
+            case Carbon::WEDNESDAY:
+                $time['start'] = $timetable->wednesday_start;
+                $time['end'] = $timetable->wednesday_end;
+                $time['inter'] = $timetable->interval;
+                break;
+            case Carbon::THURSDAY:
+                $time['start'] = $timetable->thursday_start;
+                $time['end'] = $timetable->thursday_end;
+                $time['inter'] = $timetable->interval;
+                break;
+            case Carbon::FRIDAY:
+                $time['start'] = $timetable->friday_start;
+                $time['end'] = $timetable->friday_end;
+                $time['inter'] = $timetable->interval;
+                break;
+            case Carbon::SATURDAY:
+                $time['start'] = $timetable->saturday_start;
+                $time['end'] = $timetable->saturday_end;
+                $time['inter'] = $timetable->interval;
+                break;
+            case Carbon::SUNDAY:
+                $time['start'] = $timetable->sunday_start;
+                $time['end'] = $timetable->sunday_end;
+                $time['inter'] = $timetable->interval;
+                break;
+        }
+
+        return $time;
     }
 
 }
