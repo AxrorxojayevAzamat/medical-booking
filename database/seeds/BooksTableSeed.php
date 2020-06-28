@@ -9,7 +9,6 @@ use App\Entity\User\User;
 class BooksTableSeed extends Seeder {
 
     public function run() {
-//        factory(Book::class, 1)->create();
         $doctors = DoctorClinic::all();
 
         User::where('role', User::ROLE_DOCTOR)->chunk(1, function ($users) use ($doctors) {
