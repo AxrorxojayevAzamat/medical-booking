@@ -18,13 +18,6 @@ class RegisterController extends Controller
 
     public function __construct()
     {
-        if (Auth::check() && Auth::user()->isAdmin())
-        {
-            $this->redirectTo = route('admin.home');
-        } else {
-            $this->redirectTo =  route('patient.dashboard1');
-        }
-
         $this->middleware('guest');
     }
 

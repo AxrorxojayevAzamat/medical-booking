@@ -13,5 +13,15 @@ class UsersTableSeeder extends Seeder
                 $user->profile()->saveMany(factory(Profile::class, 1)->make());
             }
         });
+
+        $patient = User::create([
+            'email' => 'xurshid@xurshid.com',
+            'email_verified_at' => '2020-06-25 00:00:00',
+            'password' => bcrypt('12'),
+            'status' => '11',
+            'status' => User::STATUS_ACTIVE,
+            'role' => User::ROLE_USER,
+        ]);
+
     }
 }
