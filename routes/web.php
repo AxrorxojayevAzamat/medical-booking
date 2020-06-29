@@ -13,11 +13,7 @@ Route::get('doctors-list', function () {
 });
 
 
-<<<<<<< HEAD
-Route::group(['as' => 'admin.', 'prefix' => 'admin',  'namespace' => 'Admin', 'middleware' => ['auth', 'can:admin-panel']], function () {
-=======
-Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'admin']], function () {
->>>>>>> e48ae23cf0a44052ff74825d9ea116d2ca55788f
+Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'can:admin-panel']], function () {
     Route::get('', 'DashboardController@index')->name('home');
 
     Route::resource('users', 'UserController');
@@ -57,12 +53,12 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         Route::get('add-main-photo', 'ClinicController@addMainPhoto')->name('add-main-photo');
     });
 
-    // Route::group(
-    //     ['prefix' => 'timetables/','as' => 'timetables.'],
-    //     function () {
-    //         Route::get('create/{}', 'TimeTableController@create')->name('main-photo');
-    //     }
-    // );
+// Route::group(
+//     ['prefix' => 'timetables/','as' => 'timetables.'],
+//     function () {
+//         Route::get('create/{}', 'TimeTableController@create')->name('main-photo');
+//     }
+// );
 
     Route::get('/timetables/show', 'TimeTableController@show');
     Route::get('/timetables/show', 'TimeTableController@show')->name('timetables.show');
@@ -91,15 +87,9 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     });
 });
 
-<<<<<<< HEAD
-Route::group([ 'as' => 'patient.','prefix'=> 'patient', 'namespace'=> 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function (){
+Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function () {
     Route::get('', 'DashboardController@index')->name('dashboard');
     Route::get('/profile', 'DashboardController@profile_show')->name('profile');
-
-=======
-Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'patient']], function () {
-    Route::get('', 'DashboardController@index')->name('dashboard1');
->>>>>>> e48ae23cf0a44052ff74825d9ea116d2ca55788f
 });
 
 Route::get("locale/{locale}", function ($locale) {
