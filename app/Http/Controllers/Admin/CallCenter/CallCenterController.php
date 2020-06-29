@@ -174,31 +174,37 @@ class CallCenterController extends Controller {
         $user1 = User::find($user->id);
         $clinic1 = Clinic::find($clinic->id);
         $spec1 = $user->specializations;
-        $currentDate = Carbon::now()->addDays(3)->format('Y-m-d');
+        $currentDate = Carbon::now()->format('Y-m-d');
 
         $doctorTimetable = Timetable::where('doctor_id', $user->id)
                 ->where('clinic_id', $clinic->id)
                 ->first();
 
-        $celebration = Celebration::orderByDesc('id');
-        $celebrationDays = $celebration->pluck('date')->toArray();
+        $celebration = Celebration::orderByDesc('id')->get();
+        $celebrationDays = $celebration;
+//        ->pluck('date')->toArray();
 
         $start = Carbon::now()->startOfMonth();
         $end = Carbon::now()->endOfMonth();
+        $restStart = Carbon::createFromFormat('Y-m-d', $doctorTimetable->day_off_start);
+        $restEnd = Carbon::createFromFormat('Y-m-d', $doctorTimetable->day_off_end);
 
         $period = CarbonPeriod::between($start, $end);
+        $restPeriod = CarbonPeriod::between($restStart, $restEnd);
+
 
         $docDayOfWeeks = $this->getDaysConst($doctorTimetable);
 
         $daysOff = array();
         $daysOff1 = array();
         $daysOff2 = array();
+        $daysOff3 = array();
         $timeSlots = array();
 
         foreach ($period as $date) {
             if (!empty($docDayOfWeeks)) {
                 foreach ($docDayOfWeeks as $docDayOfWeek) {
-                    if ($date->dayOfWeek == $docDayOfWeek) {
+                    if ($date->dayOfWeek === $docDayOfWeek) {
                         $daysOff1[] = $date->format('Y-m-d');
                     }
                 }
@@ -209,14 +215,24 @@ class CallCenterController extends Controller {
 
         if (!empty($celebrationDays)) {
             foreach ($celebrationDays as $celeb) {
-                $daysOff2[] = Carbon::createFromFormat('Y-m-d H:i:s', $celeb)->format('Y-m-d');
+                $count = $celeb->quantity;
+                $c = Carbon::createFromFormat('Y-m-d H:i:s', $celeb->date);
+                for ($i = 0; $i < $count; $i++) {
+                    $daysOff2[] = $c->format('Y-m-d');
+                    $c = $c->addDay();
+                }
+            }
+        }
+        if (!empty($restPeriod)) {
+            foreach ($restPeriod as $date) {
+                $daysOff3[] = $date->format('Y-m-d');
             }
         }
 
         if (!empty($daysOff2)) {
-            $daysOff = array_merge($daysOff1, $daysOff2);
+            $daysOff = array_merge($daysOff1, $daysOff2, $daysOff3);
         } else {
-            $daysOff = $daysOff1;
+            $daysOff = array_merge($daysOff1, $daysOff3);
         }
 
         $duration = $this->getTime($doctorTimetable, $currentDate);
@@ -226,10 +242,15 @@ class CallCenterController extends Controller {
 
 
         unset($period);
+        unset($restPeriod);
         unset($daysOff1);
         unset($daysOff2);
+        unset($daysOff3);
 
-        return view('admin.call-center.booking-time', compact('user1', 'clinic1', 'spec1', 'currentDate', 'daysOff', 'timeSlots'));
+        $doctorBooks = Book::where('doctor_id', $user1->id)
+                        ->where('clinic_id', $clinic1->id)->get();
+
+        return view('admin.call-center.booking-time', compact('user1', 'clinic1', 'spec1', 'currentDate', 'daysOff', 'timeSlots', 'doctorTimetable', 'doctorBooks'));
     }
 
     public function getDaysConst(Timetable $timetable) {
