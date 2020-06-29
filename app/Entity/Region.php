@@ -10,6 +10,7 @@ use Eloquent;
  * @property int $id
  * @property string $name_uz
  * @property string $name_ru
+ * @property int $parent_id
  * @property int $created_by
  * @property int $updated_by
  * @property Carbon $created_at
