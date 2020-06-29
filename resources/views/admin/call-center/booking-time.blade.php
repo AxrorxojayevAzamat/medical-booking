@@ -359,6 +359,12 @@
     let timeSlots = @json($timeSlots);
     console.log(timeSlots);
 
+    let timetable = @json($doctorTimetable);
+    console.log(timetable);
+
+    let books = @json($doctorBooks);
+    console.log(books);
+
     $('#calendar').datepicker({
         todayHighlight: true,
         daysOfWeekDisabled: [],
