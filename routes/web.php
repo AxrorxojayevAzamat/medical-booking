@@ -13,7 +13,7 @@ Route::get('doctors-list', function () {
 });
 
 
-Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'admin']], function () {
+Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'can:admin-panel']], function () {
     Route::get('', 'DashboardController@index')->name('home');
 
     Route::resource('users', 'UserController');
