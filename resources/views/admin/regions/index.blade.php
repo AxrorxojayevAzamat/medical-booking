@@ -143,13 +143,7 @@
             </div>
         </div>
     </div>
-
-
-
-    @if(!isset($_GET['search']))
-        {{$regions->links()}}
-
-    @endif
+    {{$regions->links()}}
 
 @endsection
 

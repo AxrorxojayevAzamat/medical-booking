@@ -17,19 +17,18 @@ class RegionController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->search) {
-            $categories = Region::children(null);
-            $regions = Region::orderBy('id', 'DESC')
-                ->where('name_uz', 'ILIKE', '%' . $request->search . '%')
-                ->orWhere('name_ru', 'ILIKE', '%' . $request->search . '%')
-                ->get();
-            return view('admin.regions.index', compact('regions', 'categories'));
+        $query = Region::orderByDesc('regions.id');
+
+        if (!empty($value = $request->get('search'))) {
+            $query->where(function ($query) use ($value) {
+                $query->where('name_uz', 'ilike', '%' . $value . '%')
+                    ->orWhere('name_ru', 'ilike', '%' . $value . '%');
+            });
         }
 
+        $categories = Region::where('parent_id', null);
 
-        $categories = Region::children(null);
-        $regions = Region::orderBy('regions.id', 'asc')
-            ->paginate(1000000);
+        $regions = $query->paginate(20);
         return view('admin.regions.index', compact('regions', 'categories'));
     }
 
@@ -45,13 +44,13 @@ class RegionController extends Controller
 
     public function createCity()
     {
-        $categories = Region::children(null);
+        $categories = Region::where('parent_id', null);
         return view('admin.regions.createCity', compact('categories'));
     }
 
     public function createDistrict()
     {
-        $categories = Region::children(null);
+        $categories = Region::where('parent_id', null);
         return view('admin.regions.createDistrict', compact('categories'));
     }
 
@@ -92,14 +91,14 @@ class RegionController extends Controller
      */
     public function edit(Region $region)
     {
-        $categories = Region::children(null);
+        $categories = Region::where('parent_id', null);
         $regions = Region::find($region->id);
         return view('admin.regions.edit', compact('regions', 'categories'));
     }
 
     public function editCity(Region $region)
     {
-        $categories = Region::children(null);
+        $categories = Region::where('parent_id', null);
         $regions = Region::find($region->id);
         return view('admin.regions.editCity', compact('regions', 'categories'));
     }
@@ -107,7 +106,7 @@ class RegionController extends Controller
     public function editDistrict(Region $region)
     {
         $reg=Region::all();
-        $categories = Region::children(null);
+        $categories = Region::where('parent_id', null);
         $regions = Region::find($region->id);
         return view('admin.regions.editDistrict', compact('regions', 'categories', 'reg'));
     }
