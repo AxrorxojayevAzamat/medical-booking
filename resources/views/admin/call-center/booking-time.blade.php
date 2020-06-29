@@ -56,7 +56,6 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-5">
-                                    <label>{{$currentDate}}</label>
                                     <ul class="time_select version_2 add_top_20">
                                         @foreach ($timeSlots as $value => $label)
                                         <li>

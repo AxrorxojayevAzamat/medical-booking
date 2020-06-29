@@ -228,7 +228,7 @@ $(document).ready(function () {
     $('#region').on('change', function () {
         let region_id = $(this).val();
         $.ajax({
-            url: 'callcenter/findDoctorByRegion/?',
+            url: 'call-center/findDoctorByRegion/?',
             type: 'GET',
             data: {
                 region: region_id
@@ -260,7 +260,7 @@ $(document).ready(function () {
         let type_id = $('#type').val();
         let city_id = $('#city').val();
         $.ajax({
-            url: 'callcenter/findDoctorByType/?',
+            url: 'call-center/findDoctorByType/?',
             type: 'GET',
             data: {
                 region: region_id,
@@ -288,7 +288,7 @@ $(document).ready(function () {
         let type_id = $(this).val();
         let city_id = $('#city').val();
         $.ajax({
-            url: 'callcenter/findDoctorByType/?',
+            url: 'call-center/findDoctorByType/?',
             type: 'GET',
             data: {
                 region: region_id,
@@ -313,7 +313,7 @@ $(document).ready(function () {
     $('#calendar2').on('change', function () {
         let booking_date = $(this).val();
         $.ajax({
-            url: 'callcenter/bookingDoctor/?',
+            url: 'call-center/bookingDoctor/?',
             type: 'GET',
             data: {
                 region: booking_date,

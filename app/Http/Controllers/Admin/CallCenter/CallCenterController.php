@@ -161,8 +161,10 @@ class CallCenterController extends Controller {
         $clinicId = $request['clinic_id'];
         $bookingDate = $request['booking_date'];
         $timeStart = $request['time_start'];
+        $description = $request['description'];
 
-        $booking = Book::new($user->id, $doctorId, $clinicId, $bookingDate, $timeStart, null, null, null);
+
+        $booking = Book::new($user->id, $doctorId, $clinicId, $bookingDate, $timeStart, null, $description, null);
 
 
         return redirect()->route('admin.call-center.index');
@@ -181,9 +183,6 @@ class CallCenterController extends Controller {
         $celebration = Celebration::orderByDesc('id');
         $celebrationDays = $celebration->pluck('date')->toArray();
 
-//        $doctorBook = Book::where('doctor_id', $user1->id)
-//                        ->where('clinic_id', $clinic1->id)->get();
-
         $start = Carbon::now()->startOfMonth();
         $end = Carbon::now()->endOfMonth();
 
@@ -194,25 +193,36 @@ class CallCenterController extends Controller {
         $daysOff = array();
         $daysOff1 = array();
         $daysOff2 = array();
+        $timeSlots = array();
 
         foreach ($period as $date) {
-            foreach ($docDayOfWeeks as $docDayOfWeek) {
-                if ($date->dayOfWeek == $docDayOfWeek) {
-                    $daysOff1[] = $date->format('Y-m-d');
+            if (!empty($docDayOfWeeks)) {
+                foreach ($docDayOfWeeks as $docDayOfWeek) {
+                    if ($date->dayOfWeek == $docDayOfWeek) {
+                        $daysOff1[] = $date->format('Y-m-d');
+                    }
                 }
+            } else {
+                $daysOff1[] = $date->format('Y-m-d');
             }
         }
 
-        foreach ($celebrationDays as $celeb) {
-            $daysOff2[] = Carbon::createFromFormat('Y-m-d H:i:s', $celeb)->format('Y-m-d');
+        if (!empty($celebrationDays)) {
+            foreach ($celebrationDays as $celeb) {
+                $daysOff2[] = Carbon::createFromFormat('Y-m-d H:i:s', $celeb)->format('Y-m-d');
+            }
         }
 
-        $daysOff = array_merge($daysOff1, $daysOff2);
-
+        if (!empty($daysOff2)) {
+            $daysOff = array_merge($daysOff1, $daysOff2);
+        } else {
+            $daysOff = $daysOff1;
+        }
 
         $duration = $this->getTime($doctorTimetable, $currentDate);
-        $timeSlots = $this->getTimes($duration['start'], $duration['end'], $duration['inter']);
-
+        if (!empty($duration['start']) && !empty($duration['end']) && !empty($duration['inter'])) {
+            $timeSlots = $this->getTimes($duration['start'], $duration['end'], $duration['inter']);
+        }
 
 
         unset($period);
@@ -258,21 +268,24 @@ class CallCenterController extends Controller {
     }
 
     public function getTimes(string $startTime, string $endTime, int $interval) {
-        $start_time = Carbon::createFromFormat('H:i:s', $startTime);
-        $end_time = Carbon::createFromFormat('H:i:s', $endTime);
-
-        $time = $start_time;
         $time_slots = array();
+        if (!empty($startTime) && !empty($endTime) && !empty($interval)) {
+            $start_time = Carbon::createFromFormat('H:i:s', $startTime);
+            $end_time = Carbon::createFromFormat('H:i:s', $endTime);
 
-        while ($end_time->greaterThan($time)) {
-            $time_slots[] = $time->format('H:i');
-            $time = $time->addMinutes($interval);
+            $time = $start_time;
+
+            while ($end_time->greaterThan($time)) {
+                $time_slots[] = $time->format('H:i');
+                $time = $time->addMinutes($interval);
+            }
         }
 
         return $time_slots;
     }
 
-    public function getTime(Timetable $timetable, string $date) {
+    public
+            function getTime(Timetable $timetable, string $date) {
         $carbon = Carbon::createFromFormat('Y-m-d', $date);
         $time = array();
 
