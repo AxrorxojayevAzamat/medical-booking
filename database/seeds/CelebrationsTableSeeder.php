@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Entity\Celebration;
 
-class CelebrationsTableSeed extends Seeder
+class CelebrationsTableSeeder extends Seeder
 {
     public function run()
     {
