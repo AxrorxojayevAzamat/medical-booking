@@ -23,5 +23,14 @@ class UsersTableSeeder extends Seeder
             'role' => User::ROLE_USER,
         ]);
 
+        $doctor = User::create([
+            'email' => 'doctor@doctor.com',
+            'email_verified_at' => '2020-06-30 13:00:00',
+            'password' => bcrypt('12'),
+            'status' => '11',
+            'status' => User::STATUS_ACTIVE,
+            'role' => User::ROLE_DOCTOR,
+        ]);
+
     }
 }

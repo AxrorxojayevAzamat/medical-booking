@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Entity\Clinic\Specialization;
 use App\Entity\User\User;
 
-class DoctorSpecializationsTableSeed extends Seeder {
+class DoctorSpecializationsTableSeeder extends Seeder {
 
     public function run() {
         $specIds = Specialization::pluck('id')->toArray();
@@ -13,7 +13,7 @@ class DoctorSpecializationsTableSeed extends Seeder {
             /* @var $user User */
             foreach ($users as $user) {
                 $tempos = $specIds;
-                $count = random_int(0, 3);
+                $count = random_int(0, 2);
                 for ($i = 0; $i < $count; $i++) {
                     $key = array_rand($tempos);
                     $user->doctorSpecializations()->create(['specialization_id' => $tempos[$key]]);

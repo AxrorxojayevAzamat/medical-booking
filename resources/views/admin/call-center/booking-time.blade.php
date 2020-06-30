@@ -56,13 +56,13 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-5">
-                                    <ul class="time_select version_2 add_top_20">
-                                        @foreach ($timeSlots as $value => $label)
+                                    <ul class="time_select version_2 add_top_20" id="radio_times">
+                                        {{-- @foreach ($timeSlots as $value => $label)
                                         <li>
                                             <input type="radio" id="radio{{$value}}" name="radio_time" value="{{$label}}">
                                             <label for="radio{{$value}}">{{$label}}</label>
-                                        </li>                                           
-                                        @endforeach
+                                        </li>
+                                        @endforeach --}}
                                     </ul>
                                 </div>
                             </div>
@@ -118,8 +118,8 @@
                                         <div class="col-lg-6">
                                             <ul class="bullets">
                                                 @foreach ($spec1 as $spec)
-                                                <li> {{$spec->name_ru}}                                              
-                                                </li>                                            
+                                                <li> {{$spec->name_ru}}
+                                                </li>
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -354,7 +354,7 @@
 @section('js')
 <script>
     let daysOff = @json($daysOff);
-            console.log(daysOff);
+    console.log(daysOff);
 
     let timeSlots = @json($timeSlots);
     console.log(timeSlots);
@@ -365,14 +365,90 @@
     let books = @json($doctorBooks);
     console.log(books);
 
+    var disabledDaysOfWeek = timetable.schedule_type == 2 ? [6, 0] :
+                             timetable.schedule_type == 1 ? [2, 4, 6, 0] :
+                             timetable.schedule_type == 3 ? [1, 3, 5, 0] : [];
+    console.log(disabledDaysOfWeek);
+
+    var timeStart;
+    var timeEnd;
+    var time_slots = [];
+
+    function makeInterval(day, time_start, time_end, interval) {
+        var time_sum = (new Date(day + " " + time_start)).getHours();
+        var interval_sum = interval;
+        var r = 0;
+        time_slots = [];
+        time_slots.unshift(time_sum >= 10 ? time_sum + ":00" : "0" + time_sum + ":00");
+
+        while( (new Date(day + " " + time_end)).getHours() - 1 > time_sum ) {
+            if ( interval_sum >= 60) {
+                time_sum = time_sum + 1;
+                r = interval_sum % 60;
+                time_slots = [...time_slots, time_sum >= 10 ? time_sum + ":" + ( r >= 10 ? r : "0" + r ) :
+                                             "0" + time_sum + ":" + ( r >= 10 ? r : "0" + r )];
+                interval_sum = 0;
+                interval_sum = r + interval;
+            } else {
+                time_slots = [...time_slots, time_sum >= 10 ? time_sum + ":" + ( (interval_sum >= 10) ? interval_sum : "0" + interval_sum ) :
+                                             "0" + time_sum + ":" + ( (interval_sum >= 10) ? interval_sum : "0" + interval_sum )];
+                interval_sum = r + interval;
+            }
+        }
+    }
+
+    function getTimes(selected_day) {
+        timeStart = selected_day == 1 ? timetable.monday_start :
+                    selected_day == 2 ? timetable.tuesday_start :
+                    selected_day == 3 ? timetable.wednesday_start :
+                    selected_day == 4 ? timetable.thursday_start :
+                    selected_day == 5 ? timetable.friday_start :
+                    selected_day == 6 ? timetable.saturday_start :
+                    selected_day == 0 ? timetable.sunday_start : null;
+
+        timeEnd = selected_day == 1 ? timetable.monday_end :
+                  selected_day == 2 ? timetable.tuesday_end :
+                  selected_day == 3 ? timetable.wednesday_end :
+                  selected_day == 4 ? timetable.thursday_end :
+                  selected_day == 5 ? timetable.friday_end :
+                  selected_day == 6 ? timetable.saturday_end :
+                  selected_day == 0 ? timetable.sunday_end : null;
+    }
+
+    function appendRadioButton(time_slot, book, day) {
+        var equeled;
+        $("#radio_times").empty();
+        for(var i = 0; i < time_slot.length; i++) {
+            equeled = true;
+            for(var j = 0; j < book.length; j++) {
+                if( (time_slot[i]+":00" == book[j].time_start) && (day == book[j].booking_date)) {
+                    equeled = false;
+                    $("#radio_times").append(
+                        '<li><input type="radio" id="radio'+ i +'" name="radio_time" value="'+
+                            time_slot[i] +'"><label style="color: #ccc;">'+ time_slot[i] +'</label></li>'
+                    );
+                    break;
+                }
+            }
+            if(equeled)
+            $("#radio_times").append(
+                    '<li><input type="radio" id="radio'+ i +'" name="radio_time" value="'+
+                        time_slot[i] +'"><label for="radio'+i+'">'+ time_slot[i] +'</label></li>'
+                )
+        }
+    }
+
     $('#calendar').datepicker({
         todayHighlight: true,
-        daysOfWeekDisabled: [],
+        daysOfWeekDisabled: disabledDaysOfWeek,
         weekStart: 1,
         format: "yyyy-mm-dd",
         datesDisabled: daysOff,
     }).on('changeDate', function (e) {
         $('#my_hidden_input').val(e.format());
+        getTimes((new Date(e.format())).getDay());
+        makeInterval(e.format(), timeStart, timeEnd, timetable.interval);
+        appendRadioButton(time_slots, books, e.format());
     });
 
 </script>

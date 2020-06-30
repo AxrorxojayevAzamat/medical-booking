@@ -12,13 +12,13 @@ use App\Entity\Book\Book;
 use App\Entity\Celebration;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use App\UseCases\Doctor\DoctorService;
+use App\UseCases\Doctor\BookService;
 
 class CallCenterController extends Controller {
 
     private $service;
 
-    public function __construct(DoctorService $service) {
+    public function __construct(BookService $service) {
         $this->service = $service;
 //        $this->middleware('can:manage-adverts');
     }
@@ -120,7 +120,7 @@ class CallCenterController extends Controller {
         $description = $request['description'];
 
 
-        $booking = Book::new($user->id, $doctorId, $clinicId, $bookingDate, $timeStart, null, $description, null);
+        $booking = Book::new($user->id, $doctorId, $clinicId, $bookingDate, $timeStart, null, $description);
 
 
         return redirect()->route('admin.call-center.index');

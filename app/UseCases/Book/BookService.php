@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UseCases\Doctor;
+namespace App\UseCases\Book;
 
 use Illuminate\Http\Request;
 use App\Entity\Region;
@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Collection;
 
-class DoctorService {
+class BookService {
 
     public function findDoctorByRegion(Request $request) {
         $region_id = $request->get('region');

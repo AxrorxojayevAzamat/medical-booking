@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Entity\Clinic\Clinic;
 use App\Entity\User\User;
 
-class DoctorClinicsTableSeed extends Seeder {
+class DoctorClinicsTableSeeder extends Seeder {
 
     public function run() {
         $clinics = Clinic::pluck('id')->toArray();

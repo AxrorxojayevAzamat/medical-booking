@@ -92,7 +92,7 @@
                                 <ul>
                                     <li class="third-level"><a href="#0">List pages</a>
                                         <ul>
-                                            <li><a href="{{ route('doctor.index') }}">Doctor List page</a></li>
+                                            <li><a href="{{ route('book.index') }}">Doctor List page</a></li>
                                             <li><a href="grid-list.html">List grid page</a></li>
                                             <li><a href="list-map.html">List map page</a></li>
                                         </ul>

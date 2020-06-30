@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('', 'HomeController@index')->name('home');
 Auth::routes(['verify' => true]);
 
-Route::group(['prefix' => 'doctor', 'namespace' => 'Doctor', 'as' => 'doctor.'], function () {
-    Route::get('/', 'DoctorController@index')->name('index');
-    Route::get('/show/{user}', 'DoctorController@show')->name('show');
+Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
+    Route::get('', 'BookController@index')->name('index');
+    Route::get('/show/{user}', 'BookController@show')->name('show');
 });
 
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'can:admin-panel']], function () {
@@ -88,8 +88,13 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 });
 
 Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function () {
-    Route::get('', 'DashboardController@index')->name('dashboard');
+    Route::get('/', 'DashboardController@index')->name('dashboard');
     Route::get('/profile', 'DashboardController@profile_show')->name('profile');
+});
+
+Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 'middleware' => ['auth', 'can:doctor-panel']], function () {
+    Route::get('/', 'DoctorController@index')->name('dashboard');
+    Route::get('/profile', 'DoctorController@profile_show')->name('profile');
 });
 
 Route::get("locale/{locale}", function ($locale) {
