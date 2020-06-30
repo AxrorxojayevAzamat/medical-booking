@@ -1,12 +1,12 @@
 <?php
 
-use App\Entity\Book\Book;
 use Illuminate\Database\Seeder;
+use App\Entity\Clinic\Timetable;
 use App\Entity\Clinic\DoctorClinic;
-use App\Entity\User\Profile;
+use App\Entity\Clinic\Clinic;
 use App\Entity\User\User;
 
-class BooksTableSeed extends Seeder {
+class TimetablesTableSeeder extends Seeder {
 
     public function run() {
         $doctors = DoctorClinic::all();
@@ -16,10 +16,7 @@ class BooksTableSeed extends Seeder {
                 foreach ($user->doctorClinics as $clinic) {
                     foreach ($doctors as $doc => $doctorClinic) {
                         if ($clinic->doctor_id == $doctorClinic->doctor_id && $clinic->clinic_id == $doctorClinic->clinic_id) {
-                            $user->doctorClinics()->saveMany(factory(Book::class, 1)->make([
-                                        'user_id' => factory(User::class)->create(['role' => User::ROLE_USER])->id,
-                                        'clinic_id' => $doctorClinic->clinic_id
-                            ]));
+                            $user->doctorClinics()->saveMany(factory(Timetable::class, 1)->make(['clinic_id' => $doctorClinic->clinic_id]));
                         }
                     }
                 }

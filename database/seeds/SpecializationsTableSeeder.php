@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Entity\Clinic\Specialization;
 
-class SpecializationsTableSeed extends Seeder {
+class SpecializationsTableSeeder extends Seeder {
 
     /**
      * Run the database seeds.

@@ -27,13 +27,20 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Book extends Model
 {
+    const STATUS_CREATED = 1;
+    const STATUS_WAITING_PAY = 2;
+    const STATUS_PAYED = 3;
+    const STATUS_CANCELLED = 4;
+    const STATUS_POSTPONED = 5;
+    const STATUS_COMPLETED = 10;
+
     protected $table = 'books';
 
     protected $fillable = [
         'user_id', 'doctor_id', 'clinic_id', 'booking_date', 'time_start', 'time_finish', 'description', 'status'
     ];
 
-    public static function new($userId, $doctorId, $clinicId, $bookingDate, $timeStart, $finishTime, $description, $status): self
+    public static function new($userId, $doctorId, $clinicId, $bookingDate, $timeStart, $finishTime, $description): self
     {
         return static::create([
             'user_id' => $userId,
@@ -43,7 +50,7 @@ class Book extends Model
             'time_start' => $timeStart,
             'time_finish' => $finishTime,
             'description' => $description,
-            'status' => $status,
+            'status' => self::STATUS_CREATED,
         ]);
     }
 

@@ -164,7 +164,7 @@ class CallCenterController extends Controller {
         $description = $request['description'];
 
 
-        $booking = Book::new($user->id, $doctorId, $clinicId, $bookingDate, $timeStart, null, $description, null);
+        $booking = Book::new($user->id, $doctorId, $clinicId, $bookingDate, $timeStart, null, $description);
 
 
         return redirect()->route('admin.call-center.index');

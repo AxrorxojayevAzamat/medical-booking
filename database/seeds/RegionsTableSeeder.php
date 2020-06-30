@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Entity\Region;
 
-class RegionsTableSeed extends Seeder {
+class RegionsTableSeeder extends Seeder {
 
     public function run() {
         factory(Region::class, 14)->create()->each(function(Region $region) {
