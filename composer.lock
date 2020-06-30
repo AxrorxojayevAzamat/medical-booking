@@ -1076,7 +1076,17 @@
                 "progress",
                 "upload"
             ],
+<<<<<<< HEAD
             "time": "2020-06-20T13:39:59+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://opencollective.com/bootstrap-fileinput",
+                    "type": "open_collective"
+                }
+            ],
+            "time": "2020-06-02T11:45:44+00:00"
+>>>>>>> efc39cd5207cdc1a68678afdadda4baeee623ee0
         },
         {
             "name": "laravel/framework",
@@ -1382,7 +1392,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2020-06-27T12:50:08+00:00"
+=======
+            "time": "2020-05-04T22:15:21+00:00"
+>>>>>>> efc39cd5207cdc1a68678afdadda4baeee623ee0
         },
         {
             "name": "league/flysystem",
@@ -2857,7 +2871,25 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD
             "time": "2020-06-12T11:15:37+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-05-31T05:25:51+00:00"
+>>>>>>> efc39cd5207cdc1a68678afdadda4baeee623ee0
         },
         {
             "name": "symfony/mime",
@@ -2920,7 +2952,25 @@
                 "mime",
                 "mime-type"
             ],
+<<<<<<< HEAD
             "time": "2020-06-09T15:07:35+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-05-25T12:33:44+00:00"
+>>>>>>> efc39cd5207cdc1a68678afdadda4baeee623ee0
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -2982,7 +3032,25 @@
                 "polyfill",
                 "portable"
             ],
+<<<<<<< HEAD
             "time": "2020-06-06T08:46:27+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-05-12T16:14:59+00:00"
+>>>>>>> efc39cd5207cdc1a68678afdadda4baeee623ee0
         },
         {
             "name": "symfony/polyfill-iconv",
@@ -3045,7 +3113,25 @@
                 "portable",
                 "shim"
             ],
+<<<<<<< HEAD
             "time": "2020-06-06T08:46:27+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-05-12T16:47:27+00:00"
+>>>>>>> efc39cd5207cdc1a68678afdadda4baeee623ee0
         },
         {
             "name": "symfony/polyfill-intl-idn",
@@ -3111,7 +3197,25 @@
                 "portable",
                 "shim"
             ],
+<<<<<<< HEAD
             "time": "2020-06-06T08:46:27+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-05-12T16:47:27+00:00"
+>>>>>>> efc39cd5207cdc1a68678afdadda4baeee623ee0
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -3174,7 +3278,25 @@
                 "portable",
                 "shim"
             ],
+<<<<<<< HEAD
             "time": "2020-06-06T08:46:27+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-05-12T16:47:27+00:00"
+>>>>>>> efc39cd5207cdc1a68678afdadda4baeee623ee0
         },
         {
             "name": "symfony/polyfill-php72",
@@ -3291,7 +3413,25 @@
                 "portable",
                 "shim"
             ],
+<<<<<<< HEAD
             "time": "2020-06-06T08:46:27+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-05-12T16:47:27+00:00"
+>>>>>>> efc39cd5207cdc1a68678afdadda4baeee623ee0
         },
         {
             "name": "symfony/polyfill-php80",
@@ -3357,7 +3497,25 @@
                 "portable",
                 "shim"
             ],
+<<<<<<< HEAD
             "time": "2020-06-06T08:46:27+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-05-12T16:47:27+00:00"
+>>>>>>> efc39cd5207cdc1a68678afdadda4baeee623ee0
         },
         {
             "name": "symfony/process",
@@ -4263,7 +4421,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2020-06-24T19:23:30+00:00"
+=======
+            "time": "2020-06-03T08:03:56+00:00"
+>>>>>>> efc39cd5207cdc1a68678afdadda4baeee623ee0
         },
         {
             "name": "composer/semver",
@@ -5876,7 +6038,21 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
+<<<<<<< HEAD
             "time": "2020-06-19T13:23:43+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://github.com/Ocramius",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/roave/security-advisories",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-06-04T00:00:55+00:00"
+>>>>>>> efc39cd5207cdc1a68678afdadda4baeee623ee0
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
