@@ -33,7 +33,7 @@ class LoginController extends Controller
         if ($this->attemptLogin($request)) {
             if (Auth::check() && Auth::user()->isAdmin()) {
                 $this->redirectTo = route('admin.home');
-            }elseif (Auth::check() && Auth::user()->isPatient()){
+            }elseif (Auth::user()->isPatient()){
                 $this->redirectTo = route('patient.dashboard');
             }
 
