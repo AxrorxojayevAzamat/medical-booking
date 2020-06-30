@@ -305,8 +305,7 @@ class CallCenterController extends Controller {
         return $time_slots;
     }
 
-    public
-            function getTime(Timetable $timetable, string $date) {
+    public function getTime(Timetable $timetable, string $date) {
         $carbon = Carbon::createFromFormat('Y-m-d', $date);
         $time = array();
 
