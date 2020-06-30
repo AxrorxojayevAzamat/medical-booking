@@ -12,9 +12,16 @@ use App\Entity\Book\Book;
 use App\Entity\Celebration;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Carbon\CarbonPeriod;
+use App\UseCases\Doctor\DoctorService;
 
 class CallCenterController extends Controller {
+
+    private $service;
+
+    public function __construct(DoctorService $service) {
+        $this->service = $service;
+//        $this->middleware('can:manage-adverts');
+    }
 
     public function index(Request $request) {
 
@@ -26,11 +33,11 @@ class CallCenterController extends Controller {
 
 
         $regionList = Region::where('parent_id', null)->pluck('name_ru', 'id');
-        $cityList = $this->findCityByRegion($region_id);
+        $cityList = $this->service->findCityByRegion($region_id);
 
         $clinicTypeList = Clinic::clinicTypeList();
         $specList = Specialization::all()->pluck('name_ru', 'id');
-        $clinicList = $this->findClinicByType($type_id, $city_id, $region_id);
+        $clinicList = $this->service->findClinicByType($type_id, $city_id, $region_id);
 
 
         if (!empty($region_id)) {
@@ -64,74 +71,23 @@ class CallCenterController extends Controller {
     }
 
     public function findDoctorByRegion(Request $request) {
-        $region_id = $request->get('region');
-        $result = $this->findCityByRegion($region_id);
-        $clinics = $this->findClinicByRegion($region_id);
-
-        $data = ['cities' => $result, 'clinics' => $clinics];
-
-
-        return json_encode($data);
+        try {
+            $this->service->findDoctorByRegion($request);
+        } catch (\DomainException $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 
     public function findDoctorByType(Request $request) {
-        $region_id = $request->get('region');
-        $city_id = $request->get('city');
-        $type_id = $request->get('type');
+        try {
+            $region_id = $request->get('region');
+            $city_id = $request->get('city');
+            $type_id = $request->get('type');
 
-        $result = $this->findClinicByType($type_id, $city_id, $region_id);
-
-        return json_encode($result);
-    }
-
-    public function findCityByRegion($region_id) {
-        if (!empty($region_id)) {
-            $result = Region::where('parent_id', $region_id)->pluck('name_ru', 'id');
+            $result = $this->service->findClinicByType($type_id, $city_id, $region_id);
+        } catch (\DomainException $e) {
+            return back()->with('error', $e->getMessage());
         }
-
-        if (empty($region_id)) {
-            $result = Region::whereNotNull('parent_id')->pluck('name_ru', 'id');
-        }
-
-        return $result;
-    }
-
-    public function findClinicByType($type_id, $city_id, $region_id) {
-        $query = Clinic::orderBy('id');
-
-        if (!empty($region_id)) {
-            $regionList = Region::where('parent_id', $region_id)->pluck('id')->toArray();
-            $query->whereIn('region_id', $regionList);
-        }
-        if (!empty($region_id) && empty($city_id)) {
-            $regionList = Region::where('parent_id', $region_id)->pluck('id')->toArray();
-            $query->whereIn('region_id', $regionList);
-        }
-
-        if (!empty($city_id)) {
-            $query->where('region_id', $city_id);
-        }
-
-        if (!empty($type_id)) {
-            $query->where('type', $type_id);
-        }
-
-        $result = $query->pluck('name_ru', 'id');
-
-        return $result;
-    }
-
-    public function findClinicByRegion($region_id) {
-        $query = Clinic::orderBy('id');
-
-        if (!empty($region_id)) {
-            $regionList = Region::where('parent_id', $region_id)->pluck('id')->toArray();
-            $query->whereIn('region_id', $regionList);
-        }
-
-        $result = $query->pluck('name_ru', 'id');
-
-        return $result;
     }
 
     public function booking(User $user, Clinic $clinic, Request $request) {
@@ -174,60 +130,32 @@ class CallCenterController extends Controller {
         $user1 = User::find($user->id);
         $clinic1 = Clinic::find($clinic->id);
         $spec1 = $user->specializations;
+        
         $currentDate = Carbon::now()->format('Y-m-d');
 
         $doctorTimetable = Timetable::where('doctor_id', $user->id)
                 ->where('clinic_id', $clinic->id)
                 ->first();
 
-        $celebration = Celebration::orderByDesc('id')->get();
-        $celebrationDays = $celebration;
-//        ->pluck('date')->toArray();
+        $celebrationDays = Celebration::orderByDesc('id')->get();
+
+        $doctorBooks = Book::where('doctor_id', $user1->id)
+                        ->where('clinic_id', $clinic1->id)->get();
 
         $start = Carbon::now()->startOfMonth();
         $end = Carbon::now()->endOfMonth();
         $restStart = Carbon::createFromFormat('Y-m-d', $doctorTimetable->day_off_start);
         $restEnd = Carbon::createFromFormat('Y-m-d', $doctorTimetable->day_off_end);
 
-        $period = CarbonPeriod::between($start, $end);
-        $restPeriod = CarbonPeriod::between($restStart, $restEnd);
-
-
-        $docDayOfWeeks = $this->getDaysConst($doctorTimetable);
+        $docDayOfWeeks = $this->service->getDaysConst($doctorTimetable);
 
         $daysOff = array();
-        $daysOff1 = array();
-        $daysOff2 = array();
-        $daysOff3 = array();
-        $timeSlots = array();
+        $daysOff1 = $this->service->daysDisabled($docDayOfWeeks, $start, $end);
+        $daysOff2 = $this->service->celebrationDays($celebrationDays);
+        $daysOff3 = $this->service->restDays($restStart, $restEnd);
 
-        foreach ($period as $date) {
-            if (!empty($docDayOfWeeks)) {
-                foreach ($docDayOfWeeks as $docDayOfWeek) {
-                    if ($date->dayOfWeek === $docDayOfWeek) {
-                        $daysOff1[] = $date->format('Y-m-d');
-                    }
-                }
-            } else {
-                $daysOff1[] = $date->format('Y-m-d');
-            }
-        }
+        $timeSlots = $this->service->timeSlots($doctorTimetable, $currentDate);
 
-        if (!empty($celebrationDays)) {
-            foreach ($celebrationDays as $celeb) {
-                $count = $celeb->quantity;
-                $c = Carbon::createFromFormat('Y-m-d H:i:s', $celeb->date);
-                for ($i = 0; $i < $count; $i++) {
-                    $daysOff2[] = $c->format('Y-m-d');
-                    $c = $c->addDay();
-                }
-            }
-        }
-        if (!empty($restPeriod)) {
-            foreach ($restPeriod as $date) {
-                $daysOff3[] = $date->format('Y-m-d');
-            }
-        }
 
         if (!empty($daysOff2)) {
             $daysOff = array_merge($daysOff1, $daysOff2, $daysOff3);
@@ -235,120 +163,7 @@ class CallCenterController extends Controller {
             $daysOff = array_merge($daysOff1, $daysOff3);
         }
 
-        $duration = $this->getTime($doctorTimetable, $currentDate);
-        if (!empty($duration['start']) && !empty($duration['end']) && !empty($duration['inter'])) {
-            $timeSlots = $this->getTimes($duration['start'], $duration['end'], $duration['inter']);
-        }
-
-
-        unset($period);
-        unset($restPeriod);
-        unset($daysOff1);
-        unset($daysOff2);
-        unset($daysOff3);
-
-        $doctorBooks = Book::where('doctor_id', $user1->id)
-                        ->where('clinic_id', $clinic1->id)->get();
-
         return view('admin.call-center.booking-time', compact('user1', 'clinic1', 'spec1', 'currentDate', 'daysOff', 'timeSlots', 'doctorTimetable', 'doctorBooks'));
-    }
-
-    public function getDaysConst(Timetable $timetable) {
-
-        $daysConst = array();
-
-        if (empty($timetable->monday_start)) {
-            array_push($daysConst, Carbon::MONDAY);
-        }
-
-        if (empty($timetable->tuesday_start)) {
-            array_push($daysConst, Carbon::TUESDAY);
-        }
-
-        if (empty($timetable->wednesday_start)) {
-            array_push($daysConst, Carbon::WEDNESDAY);
-        }
-
-        if (empty($timetable->thursday_start)) {
-            array_push($daysConst, Carbon::THURSDAY);
-        }
-
-        if (empty($timetable->friday_start)) {
-            array_push($daysConst, Carbon::FRIDAY);
-        }
-
-        if (empty($timetable->saturday_start)) {
-            array_push($daysConst, Carbon::SATURDAY);
-        }
-
-        if (empty($timetable->sunday_start)) {
-            array_push($daysConst, Carbon::SUNDAY);
-        }
-
-        return $daysConst;
-    }
-
-    public function getTimes(string $startTime, string $endTime, int $interval) {
-        $time_slots = array();
-        if (!empty($startTime) && !empty($endTime) && !empty($interval)) {
-            $start_time = Carbon::createFromFormat('H:i:s', $startTime);
-            $end_time = Carbon::createFromFormat('H:i:s', $endTime);
-
-            $time = $start_time;
-
-            while ($end_time->greaterThan($time)) {
-                $time_slots[] = $time->format('H:i');
-                $time = $time->addMinutes($interval);
-            }
-        }
-
-        return $time_slots;
-    }
-
-    public
-            function getTime(Timetable $timetable, string $date) {
-        $carbon = Carbon::createFromFormat('Y-m-d', $date);
-        $time = array();
-
-        switch ($carbon->dayOfWeek) {
-            case Carbon::MONDAY:
-                $time['start'] = $timetable->monday_start;
-                $time['end'] = $timetable->monday_end;
-                $time['inter'] = $timetable->interval;
-                break;
-            case Carbon::TUESDAY:
-                $time['start'] = $timetable->tuesday_start;
-                $time['end'] = $timetable->tuesday_end;
-                $time['inter'] = $timetable->interval;
-                break;
-            case Carbon::WEDNESDAY:
-                $time['start'] = $timetable->wednesday_start;
-                $time['end'] = $timetable->wednesday_end;
-                $time['inter'] = $timetable->interval;
-                break;
-            case Carbon::THURSDAY:
-                $time['start'] = $timetable->thursday_start;
-                $time['end'] = $timetable->thursday_end;
-                $time['inter'] = $timetable->interval;
-                break;
-            case Carbon::FRIDAY:
-                $time['start'] = $timetable->friday_start;
-                $time['end'] = $timetable->friday_end;
-                $time['inter'] = $timetable->interval;
-                break;
-            case Carbon::SATURDAY:
-                $time['start'] = $timetable->saturday_start;
-                $time['end'] = $timetable->saturday_end;
-                $time['inter'] = $timetable->interval;
-                break;
-            case Carbon::SUNDAY:
-                $time['start'] = $timetable->sunday_start;
-                $time['end'] = $timetable->sunday_end;
-                $time['inter'] = $timetable->interval;
-                break;
-        }
-
-        return $time;
     }
 
 }

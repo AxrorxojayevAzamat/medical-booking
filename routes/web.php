@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('', 'HomeController@index')->name('home');
 Auth::routes(['verify' => true]);
 
-Route::get('doctors-list', function () {
-    return view('doctors/list');
+Route::group(['prefix' => 'doctor', 'namespace' => 'Doctor', 'as' => 'doctor.'], function () {
+    Route::get('/', 'DoctorController@index')->name('index');
+    Route::get('/show/{user}', 'DoctorController@show')->name('show');
 });
-
 
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'can:admin-panel']], function () {
     Route::get('', 'DashboardController@index')->name('home');
