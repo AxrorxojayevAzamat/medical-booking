@@ -12,7 +12,7 @@ use App\Entity\Book\Book;
 use App\Entity\Celebration;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use App\UseCases\Doctor\BookService;
+use App\UseCases\Book\BookService;
 
 class CallCenterController extends Controller {
 
@@ -130,7 +130,7 @@ class CallCenterController extends Controller {
         $user1 = User::find($user->id);
         $clinic1 = Clinic::find($clinic->id);
         $spec1 = $user->specializations;
-        
+
         $currentDate = Carbon::now()->format('Y-m-d');
 
         $doctorTimetable = Timetable::where('doctor_id', $user->id)
