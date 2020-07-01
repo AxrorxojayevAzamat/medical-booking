@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('layouts.admin.page')
 
 @section('content')
 <form method="POST" action="{{ route("admin.users.update", [$user->id]) }}" enctype="multipart/form-data">

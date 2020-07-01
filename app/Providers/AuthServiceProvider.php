@@ -4,9 +4,9 @@ namespace App\Providers;
 
 use App\Entity\User\User;
 use App\Post;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -44,5 +44,19 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('manage-doctor', function (User $user) {
             return $user->isAdmin() || $user->isDoctor();
         });
+
+        Gate::define('admin-panel', function (User $user) {
+            return $user->isAdmin();
+        });
+
+        Gate::define('patient-panel', function (User $user) {
+            return $user->isPatient();
+        });
+
+        Gate::define('doctor-panel', function (User $user) {
+            return $user->isDoctor();
+        });
+
+
     }
 }

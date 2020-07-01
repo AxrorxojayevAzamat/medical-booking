@@ -9,7 +9,12 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('patient.dashboard1');
+        return view('patient.dashboard');
+    }
+
+    public function profile_show()
+    {
+        return view('patient.profile');
     }
 }
 

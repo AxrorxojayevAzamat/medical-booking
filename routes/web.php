@@ -3,17 +3,15 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-//'prefix' => '{language}'
-//Route::redirect('/', '/ru');
 Route::get('', 'HomeController@index')->name('home');
 Auth::routes(['verify' => true]);
 
-Route::get('doctors-list', function () {
-    return view('doctors/list');
+Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
+    Route::get('', 'BookController@index')->name('index');
+    Route::get('/show/{user}', 'BookController@show')->name('show');
 });
 
-
-Route::group(['as' => 'admin.', 'prefix' => 'admin',  'namespace' => 'Admin', 'middleware' => ['auth', 'admin']], function () {
+Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'can:admin-panel']], function () {
     Route::get('', 'DashboardController@index')->name('home');
 
     Route::resource('users', 'UserController');
@@ -21,15 +19,13 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin',  'namespace' => 'Admin', 'm
     Route::resource('clinic', 'ClinicController');
     Route::resource('celebration', 'CelebrationController');
 
-    Route::group(
-        [ 'prefix' => 'users', 'as' => 'users.' ],
-        function () {
-            Route::post('{user}/store-specializations', 'UserController@storeSpecializations')->name('store-specializations');
-            Route::get('{user}/specializations', 'UserController@specializations')->name('specializations');
+    Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+        Route::post('{user}/store-specializations', 'UserController@storeSpecializations')->name('store-specializations');
+        Route::get('{user}/specializations', 'UserController@specializations')->name('specializations');
 
-            Route::post('{user}/store-clinics', 'UserController@storeClinics')->name('store-clinics');
-            Route::get('{user}/user-clinics', 'UserController@userClinics')->name('user-clinics');
-        }
+        Route::post('{user}/store-clinics', 'UserController@storeClinics')->name('store-clinics');
+        Route::get('{user}/user-clinics', 'UserController@userClinics')->name('user-clinics');
+    }
     );
 
     Route::group(['prefix' => 'region', 'as' => 'region.'], function () {
@@ -50,7 +46,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin',  'namespace' => 'Admin', 'm
     });
 
 
-    Route::group(['prefix' => 'clinics/{clinic}','as' => 'clinic.'], function () {
+    Route::group(['prefix' => 'clinics/{clinic}', 'as' => 'clinic.'], function () {
         Route::get('main-photo', 'ClinicController@mainPhoto')->name('main-photo');
         Route::get('add-main-photo', 'ClinicController@addMainPhoto')->name('add-main-photo');
     });
@@ -89,6 +85,9 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin',  'namespace' => 'Admin', 'm
 
     
 
+    Route::group(['prefix' => 'books', 'as' => 'books.'], function () {
+        Route::get('/', 'BookController@index')->name('index');
+    });
     Route::group(['prefix' => 'call-center', 'as' => 'call-center.'], function () {
         Route::get('/', 'CallCenter\CallCenterController@index')->name('index');
         Route::get('/findCity1/{id}', 'CallCenter\CallCenterController@findCity1');
@@ -104,8 +103,14 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin',  'namespace' => 'Admin', 'm
         Route::get('/booking-time/{user}/{clinic}', 'CallCenter\CallCenterController@bookingTime')->name('booking-time');
     });
 
-Route::group([ 'as' => 'patient.','prefix'=> 'patient', 'namespace'=> 'Patient', 'middleware' => ['auth', 'patient']], function () {
-    Route::get('', 'DashboardController@index')->name('dashboard1');
+Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function () {
+    Route::get('/', 'DashboardController@index')->name('dashboard');
+    Route::get('/profile', 'DashboardController@profile_show')->name('profile');
+});
+
+Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 'middleware' => ['auth', 'can:doctor-panel']], function () {
+    Route::get('/', 'DoctorController@index')->name('dashboard');
+    Route::get('/profile', 'DoctorController@profile_show')->name('profile');
 });
 
 Route::get("locale/{locale}", function ($locale) {

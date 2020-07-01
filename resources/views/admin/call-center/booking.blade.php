@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('layouts.admin.page')
 
 @section('content')
 <form method="POST" action="{{ route("admin.call-center.bookingDoctor") }}" enctype="multipart/form-data">
@@ -29,7 +29,9 @@
                                         <option value="1">Мужской</option>>
                                     </select></td></tr>
                             <tr><th>{{ trans('Дата бронирования') }}</th>
-                                <td><input id="booking_date" type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="booking_date" value="{{ old('booking_date', $calendar2) }}" required></td></tr>
+                                <td>
+                                    <input id="booking_date "type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="booking_date" value="{{ $calendar ? $calendar : '' }}" disabled>
+                                </td></tr>
                             <tr><th>{{ trans('Время') }}</th>
                                 <td>
                                     <div class="input-group date" id="timepicker" data-target-input="nearest">
@@ -39,6 +41,12 @@
                                         <div class="input-group-append" data-target="#timepickerstart" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="far fa-clock"></i></div>
                                         </div>
+                                    </div>
+                                </td></tr>
+                            <tr><th>{{ trans('Описание') }}</th>
+                                <td>
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="description" rows="3"></textarea>
                                     </div>
                                 </td></tr>
 
@@ -62,31 +70,10 @@
                         </tbody>
                     </table>
 
-                    <table class="table table-striped projects">
-
-                        <thead>
-                            <tr>
-                                <th>{{ trans('ID') }}</th>
-                                <th>{{ trans('Имя забронированного пациента') }}</th>
-                                <th>{{ trans('Дата бронирования') }}</th>
-                                <th>{{ trans('Время') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($b_users as $b_user)
-                            <tr>
-                                <td>{{$b_user->id}}</td>
-                                <td>{{$b_user->user->name}}</td>
-                                <td>{{$b_user->booking_date}}</td>
-                                <td>{{$b_user->time_start}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
                     <input name="doctor_id" type="hidden" value="{{$user1->id}}"/>
                     <input name="clinic_id" type="hidden" value="{{$clinic1->id}}"/>
                     <input name="time_start" type="hidden" value="{{$radioTime}}"/>
-                    <input name="booking_date" type="hidden" value="{{$calendar2}}"/>
+                    <input name="booking_date" type="hidden" value="{{$calendar}}"/>
 
                 </div>
                 <div class="row">

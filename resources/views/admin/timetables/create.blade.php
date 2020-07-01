@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('layouts.admin.page')
 
 @section('content')
     <style>
@@ -28,7 +28,7 @@
   
     <form action="{{route('admin.timetables.store', ['user_id'=>$user->id,'clinic_id'=>$clinic->id])}}" method="post", enctype="multipart/form-data">
         @csrf
-       
+
         <div class="block-left">
             <div class="radio">
                 <label>
