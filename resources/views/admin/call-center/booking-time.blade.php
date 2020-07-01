@@ -385,10 +385,11 @@
 
     // var disabledDays = timetable.schedule_type == 2 ? getDays(new Date()) : [];
 
-    let getDays = today => {
-        var disDays = [];
-        return disDays;
-     }
+    // let getDays = today => {
+    //     var disDays = [];
+
+    //     return disDays;
+    //  }
 
     function setTimes(selected_day) {
         var times;
