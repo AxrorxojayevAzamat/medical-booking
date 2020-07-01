@@ -50,7 +50,7 @@
                             @endforeach
                         </select>
                         @error('role')
-                        <span class="invalid-feedback"><strong>{{ $errors->first('role') }}</strong></span>
+                            <span class="invalid-feedback"><strong>{{ $errors->first('role') }}</strong></span>
                         @enderror
                     </div>
 
@@ -76,21 +76,21 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="first_name" class="col-form-label text-md-left">{{ trans('Имя') }}</label>
-                        <input id="first_name" type="text" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" value="{{ old('first_name', $profile ? $profile->first_name : '') }}" required>
+                        <input id="first_name" type="text" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" value="{{ old('first_name', $profile ? $profile->first_name : '') }}">
                         @error('first_name')
                             <span class="invalid-feedback"><strong>{{ $errors->first('first_name') }}</strong></span>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="last_name" class="col-form-label text-md-left">{{ trans('Фамилия') }}</label>
-                        <input id="last_name" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name', $profile ? $profile->last_name : '') }}" required >
+                        <input id="last_name" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name', $profile ? $profile->last_name : '') }}">
                         @error('last_name')
                             <span class="invalid-feedback"><strong>{{ $errors->first('last_name') }}</strong></span>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="middle_name" class="col-form-label text-md-left">{{ trans('Отчество') }}</label>
-                        <input id="middle_name" type="text" class="form-control{{ $errors->has('middle_name') ? ' is-invalid' : '' }}" name="middle_name" value="{{ old('middle_name', $profile ? $profile->middle_name : '') }}" required>
+                        <input id="middle_name" type="text" class="form-control{{ $errors->has('middle_name') ? ' is-invalid' : '' }}" name="middle_name" value="{{ old('middle_name', $profile ? $profile->middle_name : '') }}">
                         @error('middle_name')
                             <span class="invalid-feedback"><strong>{{ $errors->first('middle_name') }}</strong></span>
                         @enderror
@@ -101,7 +101,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                             </div>
-                            <input id="birth_date "type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="birth_date" value="{{ old('birth_date', $profile ? $profile->birth_date : '') }}" required>
+                            <input id="birth_date "type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="birth_date" value="{{ old('birth_date', $profile ? $profile->birth_date : '') }}">
                         </div>
                         @error('birth_date')
                             <span class="invalid-feedback"><strong>{{ $errors->first('birth_date') }}</strong></span>
@@ -109,7 +109,7 @@
                     </div>
                     <div class="form-group">
                         <label for="gender" class="col-form-label text-md-left">{{ trans('Пол') }}</label>
-                        <select id="gender" class="form-control{{ $errors->has('gender') ? ' is-invalid' : '' }}" name="gender" required>
+                        <select id="gender" class="form-control{{ $errors->has('gender') ? ' is-invalid' : '' }}" name="gender">
                             <option value="" selected=""></option>>
                             <option value="0" {{ old('gender', $profile ? $profile->gender : null) == 0 ? 'selected' : '' }} >Женский</option>>
                             <option value="1" {{ old('gender', $profile ? $profile->gender : null) == 1 ? 'selected' : '' }} >Мужской</option>>
