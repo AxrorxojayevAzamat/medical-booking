@@ -22,7 +22,8 @@ class BookController extends Controller {
     public function index(Request $request) {
         $query = User::select(['users.*', 'pr.*'])
                 ->leftJoin('profiles as pr', 'users.id', '=', 'pr.user_id')
-                ->where('role', User::ROLE_DOCTOR)
+                ->join('doctor_clinics as dc', 'dc.doctor_id', '=', 'users.id')
+                ->where('role', User::ROLE_DOCTOR)            
                 ->orderByDesc('created_at');
         $doctors = $query->paginate(10);
         return view('book.index', compact('doctors'));

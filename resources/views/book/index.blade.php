@@ -73,8 +73,8 @@
                         @foreach($doctor->specializations as $spec)
                         <small>{{$spec->name_uz}}</small>
                         @endforeach
-                        <h3>{{$doctor->profile->fullName}}</h3>
-                        <p>{{$doctor->profile->about_ru}}</p>
+                        <h3>{{$doctor->profile ? $doctor->profile->fullName : ''}}</h3>
+                        <p>{{$doctor->profile ? $doctor->profile->about_ru : ''}}</p>
                         <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i> <small>(145)</small></span>
                         <a href="badges.html" data-toggle="tooltip" data-placement="top" data-original-title="Badge Level" class="badge_list_1"><img src="img/badges/badge_1.svg" width="15" height="15" alt=""></a>
                         <ul>

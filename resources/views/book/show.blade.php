@@ -2,10 +2,20 @@
 
 @section('content')
 
-<div id="page">
+<div id="page">		
     <main>
-        <div class="container margin_60">
+        <div id="breadcrumb">
+            <div class="container">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Category</a></li>
+                    <li>Page active</li>
+                </ul>
+            </div>
+        </div>
+        <!-- /breadcrumb -->
 
+        <div class="container margin_60">
             <div class="row">
                 <aside class="col-xl-3 col-lg-4" id="sidebar">
                     <div class="box_profile">
@@ -13,7 +23,7 @@
                             <img src="http://via.placeholder.com/565x565.jpg" alt="" class="img-fluid">
                         </figure>
                         <small>Primary care - Internist</small>
-                        <h1>{{$user->profile ? $user->profile->fullName : ''}}</h1>
+                        <h1>DR. Julia Jhones</h1>
                         <span class="rating">
                             <i class="icon_star voted"></i>
                             <i class="icon_star voted"></i>
@@ -24,64 +34,148 @@
                             <a href="badges.html" data-toggle="tooltip" data-placement="top" data-original-title="Badge Level" class="badge_list_1"><img src="img/badges/badge_1.svg" width="15" height="15" alt=""></a>
                         </span>
                         <ul class="statistic">
-                            <li>854 {{ trans('Просмотры') }}</li>
-                            <li>124 {{ trans('Пациенты') }}</li>
+                            <li>854 Views</li>
+                            <li>124 Patients</li>
                         </ul>
-                        @foreach($clinics as $clinic)
                         <ul class="contacts">
-                            <li><h6>{{ trans('Адрес клиники') }}</h6>{{$clinic->address_ru}}</li>
-                            <li><h6>{{ trans('Телефон клиники') }}</h6><a href="tel://{{$clinic->phone_numbers}}">{{$clinic->phone_numbers}}</a></li>
+                            <li><h6>Address</h6>859 60th, Brooklyn, NY, 11220</li>
+                            <li><h6>Phone</h6><a href="tel://000434323342">+00043 4323342</a></li>
                         </ul>
                         <div class="text-center"><a href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+%E2%80%93+H%C3%B4pitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361" class="btn_1 outline" target="_blank"><i class="icon_pin"></i> View on map</a></div>
-                        @endforeach
                     </div>
                 </aside>
                 <!-- /asdide -->
 
                 <div class="col-xl-9 col-lg-8">
-                    @foreach($clinics as $clinicKey => $clinicValue)
-                    <form method="GET" action="{{ route('admin.call-center.booking', [$user, $clinicValue]) }}" >
-                        <div class="box_general_2 add_bottom_45">
-                            <div class="main_title_4">
-                                <h3><i class="icon_circle-slelected"></i>{{ __('Выберите дату и время') }}</h3>
-                            </div>
 
-                            <div class="row add_bottom_45">
-                                <label>{{dd($daysOff)}}</label>
-                                <div class="col-lg-7">
-                                    <div class="form-group">
-                                        <div id="calendar"></div>
-                                        <input type="hidden" id="my_hidden_input{{$clinicKey}}" name="calendar{{$clinicKey}}">
-                                        <ul class="legend">
-                                            <li><strong></strong>{{ __('Доступный') }}</li>
-                                            <li><strong></strong>{{ __('Недоступен') }}</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <ul class="time_select version_2 add_top_20">  
-                                        @foreach ($timeSlots as $timeSlot)
-                                        @if($timeSlot['clinic_id']===$clinicValue->id)
-                                        @foreach ($timeSlot['time_slots'] as $value => $label)
-                                        <li>
-                                            <input type="radio" id="radio{{$clinicKey}}{{$value}}" name="radio_time" value="{{$label}}">
-                                            <label for="radio{{$clinicKey}}{{$value}}">{{$label}}</label>
-                                        </li>
-                                        @endforeach
-                                        @endif
-                                        @endforeach
-                                    </ul> 
-                                </div>
-                            </div>
-                            <!-- /row -->
-
-
-                            <hr>
-                            <div class="text-center"><button class="btn_1 medium" type="submit">{{ __('Забронируйте сейчас') }}</button></div>
+                    <div class="box_general_2 add_bottom_45">
+                        <div class="main_title_4">
+                            <h3><i class="icon_circle-slelected"></i>Select your date and time</h3>
                         </div>
-                        <!-- /box_general -->
-                    </form>
-                    @endforeach
+
+                        <div class="row add_bottom_45">
+                            <div class="col-lg-7">
+                                <div class="form-group">
+                                    <div id="calendar"></div>
+                                    <input type="hidden" id="my_hidden_input">
+                                    <ul class="legend">
+                                        <li><strong></strong>Available</li>
+                                        <li><strong></strong>Not available</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <ul class="time_select version_2 add_top_20">
+                                    <li>
+                                        <input type="radio" id="radio1" name="radio_time" value="09.30am">
+                                        <label for="radio1">09.30am</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="radio2" name="radio_time" value="10.00am">
+                                        <label for="radio2">10.00am</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="radio3" name="radio_time" value="10.30am">
+                                        <label for="radio3">10.30am</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="radio4" name="radio_time" value="11.00am">
+                                        <label for="radio4">11.00am</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="radio5" name="radio_time" value="11.30am">
+                                        <label for="radio5">11.30am</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="radio6" name="radio_time" value="12.00am">
+                                        <label for="radio6">12.00am</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="radio7" name="radio_time" value="01.30pm">
+                                        <label for="radio7">01.30pm</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="radio8" name="radio_time" value="02.00pm">
+                                        <label for="radio8">02.00pm</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="radio9" name="radio_time" value="02.30pm">
+                                        <label for="radio9">02.30pm</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="radio10" name="radio_time" value="03.00pm">
+                                        <label for="radio10">03.00pm</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="radio11" name="radio_time" value="03.30pm">
+                                        <label for="radio11">03.30pm</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="radio12" name="radio_time" value="04.00pm">
+                                        <label for="radio12">04.00pm</label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /row -->
+
+                        <div class="main_title_4">
+                            <h3><i class="icon_circle-slelected"></i>Select visit - treatment</h3>
+                        </div>
+                        <ul class="treatments clearfix">
+                            <li>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="css-checkbox" id="visit1" name="visit1">
+                                    <label for="visit1" class="css-label">Back Pain visit <strong>$55</strong></label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="css-checkbox" id="visit2" name="visit2">
+                                    <label for="visit2" class="css-label">Cardiovascular screen <strong>$55</strong></label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="css-checkbox" id="visit3" name="visit3">
+                                    <label for="visit3" class="css-label">Diabetes consultation <strong>$55</strong></label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="css-checkbox" id="visit4" name="visit4">
+                                    <label for="visit4" class="css-label">Icontinence visit <strong>$55</strong></label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="css-checkbox" id="visit5" name="visit5">
+                                    <label for="visit5" class="css-label">Foot Pain visit <strong>$55</strong></label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="css-checkbox" id="visit6" name="visit6">
+                                    <label for="visit6" class="css-label">Food intollerance visit <strong>$55</strong></label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="css-checkbox" id="visit7" name="visit7">
+                                    <label for="visit7" class="css-label">Neck Pain visit <strong>$55</strong></label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <input type="checkbox" class="css-checkbox" id="visit8" name="visit8">
+                                    <label for="visit8" class="css-label">Back Pain visit <strong>$55</strong></label>
+                                </div>
+                            </li>
+                        </ul>
+                        <hr>
+                        <div class="text-center"><a href="booking-page.html" class="btn_1 medium">Book Now</a></div>
+                    </div>
+                    <!-- /box_general -->
 
                     <div class="tabs_styled_2">
                         <ul class="nav nav-tabs" role="tablist">
@@ -100,19 +194,19 @@
                                 <p class="lead add_bottom_30">Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
                                 <div class="indent_title_in">
                                     <i class="pe-7s-user"></i>
-                                    <h3>{{ trans('Профессиональные заявления')}}</h3>
+                                    <h3>Professional statement</h3>
                                     <p>Mussum ipsum cacilds, vidis litro abertis.</p>
                                 </div>
                                 <div class="wrapper_indent">
-                                    <p>{{$user->profile ? $user->profile->about_ru : ''}}</p>
-                                    <h6>{{ trans('Специализации')}}</h6>
+                                    <p>Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Nullam mollis. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapi.</p>
+                                    <h6>Specializations</h6>
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <ul class="bullets">
-                                                @foreach ($specs as $spec)
-                                                <li> {{$spec->name_ru}}
-                                                </li>
-                                                @endforeach
+                                                <li>Abdominal Radiology</li>
+                                                <li>Addiction Psychiatry</li>
+                                                <li>Adolescent Medicine</li>
+                                                <li>Cardiothoracic Radiology </li>
                                             </ul>
                                         </div>
                                         <div class="col-lg-6">
@@ -335,24 +429,20 @@
         <!-- /container -->
     </main>
     <!-- /main -->
+
 </div>
-<!-- page -->
-
-<div id="toTop"></div>
-<!-- Back to top button -->
-
-@stop
+<!-- page --> 
+@stop        
 @section('js')
 <script>
 
-    $('#calendar1').datepicker({
+    $('#calendar').datepicker({
         todayHighlight: true,
         daysOfWeekDisabled: [1],
         weekStart: 1,
         format: "yyyy-mm-dd",
         datesDisabled: ["2017/10/20", "2017/11/21", "2017/12/21", "2018/01/21", "2018/02/21", "2018/03/21"],
     });
-
 </script>
 
 @stop
