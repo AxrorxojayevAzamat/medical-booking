@@ -112,9 +112,9 @@
                             @foreach ($users as $user)
                             <tr>
                                 <td>{{ $user->id }}</td>
-                                <td><a href="{{ route('admin.users.show', $user->id) }}">{{ $user->profile ? $user->profile->fullName : '' }}</a></td>
-                                <td>{{ $user->phone }}</td>
-                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->profile ? $user->profile->fullName : '' }}</td>
+                                <td><a href="{{ route('admin.users.show', $user->id) }}">{{ $user->phone }}</a></td>
+                                <td><a href="{{ route('admin.users.show', $user->id) }}">{{ $user->email }}</a></td>
                                 <td>{{ $user->roleName() }}</td>
                                 <td class="project-state">
                                     @if ($user->status === \App\Entity\User\User::STATUS_INACTIVE)

@@ -139,7 +139,7 @@ class UserController extends Controller
     {
         $roles = User::rolesList();
         $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
-        $clinics = Clinic::orderBy('name_ru')->pluck('name_ru', 'id');
+        $clinics = Clinic::orderBy('name_ru')->get();
         $doctorList = User::find($user->id);
         $statuses = User::statusList();
         $time = Timetable::find($user->id);
