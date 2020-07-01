@@ -66,9 +66,10 @@
 <!-- Back to top button -->
 
 <!-- COMMON SCRIPTS -->
-<script src="{{('js/jquery-2.2.4.min.js')}}"></script>
-<script src="{{('js/common_scripts.min.js')}}"></script>
-<script src="{{('js/functions.js')}}"></script>
+<script src="{{asset('js/jquery-2.2.4.min.js')}}"></script>
+<script src="{{asset('js/common_scripts.min.js')}}"></script>
+<script src="{{asset('js/functions.js')}}"></script>
+<script src="{{('js/bootstrap-datepicker.js')}}"></script>
 
 </body>
 

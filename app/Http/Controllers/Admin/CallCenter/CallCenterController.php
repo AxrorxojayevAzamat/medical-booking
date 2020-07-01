@@ -12,7 +12,7 @@ use App\Entity\Book\Book;
 use App\Entity\Celebration;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use App\UseCases\Doctor\BookService;
+use App\UseCases\Book\BookService;
 
 class CallCenterController extends Controller {
 

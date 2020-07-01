@@ -2,119 +2,10 @@
 
 @section('content')
 
-<div id="page">		
-    <header class="header_sticky">	
-        <a href="#menu" class="btn_mobile">
-            <div class="hamburger hamburger--spin" id="hamburger">
-                <div class="hamburger-box">
-                    <div class="hamburger-inner"></div>
-                </div>
-            </div>
-        </a>
-        <!-- /btn_mobile-->
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-6">
-                    <div id="logo">
-                        <a href="index.html" title="Findoctor"><img src="img/logo.png" data-retina="true" alt="" width="163" height="36"></a>
-                    </div>
-                </div>
-                <div class="col-lg-9 col-6">
-                    <ul id="top_access">
-                        <li><a href="login.html"><i class="pe-7s-user"></i></a></li>
-                        <li><a href="register-doctor.html"><i class="pe-7s-add-user"></i></a></li>
-                    </ul>
-                    <nav id="menu" class="main-menu">
-                        <ul>
-                            <li>
-                                <span><a href="#0">Home</a></span>
-                                <ul>
-                                    <li><a href="index.html">Home Default</a></li>
-                                    <li><a href="index-2.html">Home Version 2</a></li>
-                                    <li><a href="index-3.html">Home Version 3</a></li>
-                                    <li><a href="index-4.html">Home Version 4</a></li>
-                                    <li><a href="index-7.html">Home with Map</a></li>
-                                    <li><a href="index-6.html">Revolution Slider</a></li>
-                                    <li><a href="index-5.html">With Cookie Bar (EU law)</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <span><a href="#0">Pages</a></span>
-                                <ul>
-                                    <li>
-                                        <span><a href="#0">List pages</a></span>
-                                        <ul>
-                                            <li><a href="list.html">List page</a></li>
-                                            <li><a href="grid-list.html">List grid page</a></li>
-                                            <li><a href="list-map.html">List map page</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <span><a href="#0">Detail pages</a></span>
-                                        <ul>
-                                            <li><a href="detail-page.html">Detail page</a></li>
-                                            <li><a href="detail-page-2.html">Detail page 2</a></li>
-                                            <li><a href="detail-page-3.html">Detail page 3</a></li>
-                                            <li><a href="detail-page-working-booking.html">Detail working booking</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="submit-review.html">Submit Review</a></li>
-                                    <li><a href="blog-1.html">Blog</a></li>
-                                    <li><a href="badges.html">Badges</a></li>
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="login-2.html">Login 2</a></li>
-                                    <li><a href="register-doctor.html">Register Doctor</a></li>
-                                    <li><a href="register-doctor-working.html">Working doctor register</a></li>
-                                    <li><a href="register.html">Register</a></li>
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li><a href="contacts.html">Contacts</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <span><a href="#0">Extra Elements</a></span>
-                                <ul>
-                                    <li><a href="booking-page.html">Booking page</a></li>
-                                    <li><a href="confirm.html">Confirm page</a></li>
-                                    <li><a href="faq.html">Faq page</a></li>
-                                    <li><a href="coming_soon/index.html">Coming soon</a></li>
-                                    <li>
-                                        <span><a href="#0">Pricing tables</a></span>
-                                        <ul>
-                                            <li><a href="pricing-tables-3.html">Pricing tables 1</a></li>
-                                            <li><a href="pricing-tables.html">Pricing tables 2</a></li>
-                                            <li><a href="pricing-tables-2.html">Pricing tables 3</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="icon-pack-1.html">Icon pack 1</a></li>
-                                    <li><a href="icon-pack-2.html">Icon pack 2</a></li>
-                                    <li><a href="icon-pack-3.html">Icon pack 3</a></li>
-                                    <li><a href="404.html">404 page</a></li>
-                                </ul>
-                            </li>
-                            <li><span><a href="#0">Buy this template</a></span></li>
-                        </ul>
-                    </nav>
-                    <!-- /main-menu -->
-                </div>
-            </div>
-        </div>
-        <!-- /container -->
-    </header>
-    <!-- /header -->
-
+<div id="page">
     <main>
-        <div id="breadcrumb">
-            <div class="container">
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Category</a></li>
-                    <li>Page active</li>
-                </ul>
-            </div>
-        </div>
-        <!-- /breadcrumb -->
-
         <div class="container margin_60">
+
             <div class="row">
                 <aside class="col-xl-3 col-lg-4" id="sidebar">
                     <div class="box_profile">
@@ -122,7 +13,7 @@
                             <img src="http://via.placeholder.com/565x565.jpg" alt="" class="img-fluid">
                         </figure>
                         <small>Primary care - Internist</small>
-                        <h1>DR. Julia Jhones</h1>
+                        <h1>{{$user->profile ? $user->profile->fullName : ''}}</h1>
                         <span class="rating">
                             <i class="icon_star voted"></i>
                             <i class="icon_star voted"></i>
@@ -133,148 +24,64 @@
                             <a href="badges.html" data-toggle="tooltip" data-placement="top" data-original-title="Badge Level" class="badge_list_1"><img src="img/badges/badge_1.svg" width="15" height="15" alt=""></a>
                         </span>
                         <ul class="statistic">
-                            <li>854 Views</li>
-                            <li>124 Patients</li>
+                            <li>854 {{ trans('Просмотры') }}</li>
+                            <li>124 {{ trans('Пациенты') }}</li>
                         </ul>
+                        @foreach($clinics as $clinic)
                         <ul class="contacts">
-                            <li><h6>Address</h6>859 60th, Brooklyn, NY, 11220</li>
-                            <li><h6>Phone</h6><a href="tel://000434323342">+00043 4323342</a></li>
+                            <li><h6>{{ trans('Адрес клиники') }}</h6>{{$clinic->address_ru}}</li>
+                            <li><h6>{{ trans('Телефон клиники') }}</h6><a href="tel://{{$clinic->phone_numbers}}">{{$clinic->phone_numbers}}</a></li>
                         </ul>
                         <div class="text-center"><a href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+%E2%80%93+H%C3%B4pitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361" class="btn_1 outline" target="_blank"><i class="icon_pin"></i> View on map</a></div>
+                        @endforeach
                     </div>
                 </aside>
                 <!-- /asdide -->
 
                 <div class="col-xl-9 col-lg-8">
+                    @foreach($clinics as $clinicKey => $clinicValue)
+                    <form method="GET" action="{{ route('admin.call-center.booking', [$user, $clinicValue]) }}" >
+                        <div class="box_general_2 add_bottom_45">
+                            <div class="main_title_4">
+                                <h3><i class="icon_circle-slelected"></i>{{ __('Выберите дату и время') }}</h3>
+                            </div>
 
-                    <div class="box_general_2 add_bottom_45">
-                        <div class="main_title_4">
-                            <h3><i class="icon_circle-slelected"></i>Select your date and time</h3>
-                        </div>
-
-                        <div class="row add_bottom_45">
-                            <div class="col-lg-7">
-                                <div class="form-group">
-                                    <div id="calendar"></div>
-                                    <input type="hidden" id="my_hidden_input">
-                                    <ul class="legend">
-                                        <li><strong></strong>Available</li>
-                                        <li><strong></strong>Not available</li>
-                                    </ul>
+                            <div class="row add_bottom_45">
+                                <label>{{dd($daysOff)}}</label>
+                                <div class="col-lg-7">
+                                    <div class="form-group">
+                                        <div id="calendar"></div>
+                                        <input type="hidden" id="my_hidden_input{{$clinicKey}}" name="calendar{{$clinicKey}}">
+                                        <ul class="legend">
+                                            <li><strong></strong>{{ __('Доступный') }}</li>
+                                            <li><strong></strong>{{ __('Недоступен') }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <ul class="time_select version_2 add_top_20">  
+                                        @foreach ($timeSlots as $timeSlot)
+                                        @if($timeSlot['clinic_id']===$clinicValue->id)
+                                        @foreach ($timeSlot['time_slots'] as $value => $label)
+                                        <li>
+                                            <input type="radio" id="radio{{$clinicKey}}{{$value}}" name="radio_time" value="{{$label}}">
+                                            <label for="radio{{$clinicKey}}{{$value}}">{{$label}}</label>
+                                        </li>
+                                        @endforeach
+                                        @endif
+                                        @endforeach
+                                    </ul> 
                                 </div>
                             </div>
-                            <div class="col-lg-5">
-                                <ul class="time_select version_2 add_top_20">
-                                    <li>
-                                        <input type="radio" id="radio1" name="radio_time" value="09.30am">
-                                        <label for="radio1">09.30am</label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" id="radio2" name="radio_time" value="10.00am">
-                                        <label for="radio2">10.00am</label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" id="radio3" name="radio_time" value="10.30am">
-                                        <label for="radio3">10.30am</label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" id="radio4" name="radio_time" value="11.00am">
-                                        <label for="radio4">11.00am</label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" id="radio5" name="radio_time" value="11.30am">
-                                        <label for="radio5">11.30am</label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" id="radio6" name="radio_time" value="12.00am">
-                                        <label for="radio6">12.00am</label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" id="radio7" name="radio_time" value="01.30pm">
-                                        <label for="radio7">01.30pm</label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" id="radio8" name="radio_time" value="02.00pm">
-                                        <label for="radio8">02.00pm</label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" id="radio9" name="radio_time" value="02.30pm">
-                                        <label for="radio9">02.30pm</label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" id="radio10" name="radio_time" value="03.00pm">
-                                        <label for="radio10">03.00pm</label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" id="radio11" name="radio_time" value="03.30pm">
-                                        <label for="radio11">03.30pm</label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" id="radio12" name="radio_time" value="04.00pm">
-                                        <label for="radio12">04.00pm</label>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- /row -->
+                            <!-- /row -->
 
-                        <div class="main_title_4">
-                            <h3><i class="icon_circle-slelected"></i>Select visit - treatment</h3>
+
+                            <hr>
+                            <div class="text-center"><button class="btn_1 medium" type="submit">{{ __('Забронируйте сейчас') }}</button></div>
                         </div>
-                        <ul class="treatments clearfix">
-                            <li>
-                                <div class="checkbox">
-                                    <input type="checkbox" class="css-checkbox" id="visit1" name="visit1">
-                                    <label for="visit1" class="css-label">Back Pain visit <strong>$55</strong></label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="checkbox">
-                                    <input type="checkbox" class="css-checkbox" id="visit2" name="visit2">
-                                    <label for="visit2" class="css-label">Cardiovascular screen <strong>$55</strong></label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="checkbox">
-                                    <input type="checkbox" class="css-checkbox" id="visit3" name="visit3">
-                                    <label for="visit3" class="css-label">Diabetes consultation <strong>$55</strong></label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="checkbox">
-                                    <input type="checkbox" class="css-checkbox" id="visit4" name="visit4">
-                                    <label for="visit4" class="css-label">Icontinence visit <strong>$55</strong></label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="checkbox">
-                                    <input type="checkbox" class="css-checkbox" id="visit5" name="visit5">
-                                    <label for="visit5" class="css-label">Foot Pain visit <strong>$55</strong></label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="checkbox">
-                                    <input type="checkbox" class="css-checkbox" id="visit6" name="visit6">
-                                    <label for="visit6" class="css-label">Food intollerance visit <strong>$55</strong></label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="checkbox">
-                                    <input type="checkbox" class="css-checkbox" id="visit7" name="visit7">
-                                    <label for="visit7" class="css-label">Neck Pain visit <strong>$55</strong></label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="checkbox">
-                                    <input type="checkbox" class="css-checkbox" id="visit8" name="visit8">
-                                    <label for="visit8" class="css-label">Back Pain visit <strong>$55</strong></label>
-                                </div>
-                            </li>
-                        </ul>
-                        <hr>
-                        <div class="text-center"><a href="booking-page.html" class="btn_1 medium">Book Now</a></div>
-                    </div>
-                    <!-- /box_general -->
+                        <!-- /box_general -->
+                    </form>
+                    @endforeach
 
                     <div class="tabs_styled_2">
                         <ul class="nav nav-tabs" role="tablist">
@@ -293,19 +100,19 @@
                                 <p class="lead add_bottom_30">Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
                                 <div class="indent_title_in">
                                     <i class="pe-7s-user"></i>
-                                    <h3>Professional statement</h3>
+                                    <h3>{{ trans('Профессиональные заявления')}}</h3>
                                     <p>Mussum ipsum cacilds, vidis litro abertis.</p>
                                 </div>
                                 <div class="wrapper_indent">
-                                    <p>Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Nullam mollis. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapi.</p>
-                                    <h6>Specializations</h6>
+                                    <p>{{$user->profile ? $user->profile->about_ru : ''}}</p>
+                                    <h6>{{ trans('Специализации')}}</h6>
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <ul class="bullets">
-                                                <li>Abdominal Radiology</li>
-                                                <li>Addiction Psychiatry</li>
-                                                <li>Adolescent Medicine</li>
-                                                <li>Cardiothoracic Radiology </li>
+                                                @foreach ($specs as $spec)
+                                                <li> {{$spec->name_ru}}
+                                                </li>
+                                                @endforeach
                                             </ul>
                                         </div>
                                         <div class="col-lg-6">
@@ -527,6 +334,25 @@
         </div>
         <!-- /container -->
     </main>
-    <!-- /main -->         
+    <!-- /main -->
 </div>
-@endsection
+<!-- page -->
+
+<div id="toTop"></div>
+<!-- Back to top button -->
+
+@stop
+@section('js')
+<script>
+
+    $('#calendar1').datepicker({
+        todayHighlight: true,
+        daysOfWeekDisabled: [1],
+        weekStart: 1,
+        format: "yyyy-mm-dd",
+        datesDisabled: ["2017/10/20", "2017/11/21", "2017/12/21", "2018/01/21", "2018/02/21", "2018/03/21"],
+    });
+
+</script>
+
+@stop

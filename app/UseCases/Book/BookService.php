@@ -200,33 +200,46 @@ class BookService {
     public function getDaysConst(Timetable $timetable) {
 
         $daysConst = array();
+        switch ($timetable->shcedule_type) {
+            case Timetable::SCHEDULE_TYPE_WEEK:
+                if (empty($timetable->monday_start)) {
+                    array_push($daysConst, Carbon::MONDAY);
+                }
 
-        if (empty($timetable->monday_start)) {
-            array_push($daysConst, Carbon::MONDAY);
-        }
+                if (empty($timetable->tuesday_start)) {
+                    array_push($daysConst, Carbon::TUESDAY);
+                }
 
-        if (empty($timetable->tuesday_start)) {
-            array_push($daysConst, Carbon::TUESDAY);
-        }
+                if (empty($timetable->wednesday_start)) {
+                    array_push($daysConst, Carbon::WEDNESDAY);
+                }
 
-        if (empty($timetable->wednesday_start)) {
-            array_push($daysConst, Carbon::WEDNESDAY);
-        }
+                if (empty($timetable->thursday_start)) {
+                    array_push($daysConst, Carbon::THURSDAY);
+                }
 
-        if (empty($timetable->thursday_start)) {
-            array_push($daysConst, Carbon::THURSDAY);
-        }
+                if (empty($timetable->friday_start)) {
+                    array_push($daysConst, Carbon::FRIDAY);
+                }
 
-        if (empty($timetable->friday_start)) {
-            array_push($daysConst, Carbon::FRIDAY);
-        }
+                if (empty($timetable->saturday_start)) {
+                    array_push($daysConst, Carbon::SATURDAY);
+                }
 
-        if (empty($timetable->saturday_start)) {
-            array_push($daysConst, Carbon::SATURDAY);
-        }
+                if (empty($timetable->sunday_start)) {
+                    array_push($daysConst, Carbon::SUNDAY);
+                }
+                break;
+            case Timetable::SCHEDULE_TYPE_ODD_OR_EVEN:
+                if (!empty($timetable->odd_start) && !empty($timetable->odd_end)) {
+                    $daysConst = [Carbon::MONDAY, Carbon::WEDNESDAY, Carbon::FRIDAY, Carbon::SUNDAY];
+                }
 
-        if (empty($timetable->sunday_start)) {
-            array_push($daysConst, Carbon::SUNDAY);
+                if (!empty($timetable->even_start) && !empty($timetable->even_end)) {
+                    $daysConst = [Carbon::TUESDAY, Carbon::THURSDAY, Carbon::SATURDAY];
+                }
+
+                break;
         }
 
         return $daysConst;
