@@ -105,7 +105,6 @@ class UserController extends Controller
             $folder = Profile::USER_PROFILE;
             $avatar = $request->file('avatar');
             if ($request->hasFile('avatar')) {
-                $this->deleteOne($folder, 'public', $profile->avatar);
                 $filename = Str::random(30) . '_' . time();
                 $this->uploadOne($avatar, $folder, 'public', $filename);
                 $filePath = $filename . '.' . $avatar->getClientOriginalExtension();
@@ -161,6 +160,23 @@ class UserController extends Controller
                 $user->update($request->except(['password']));
             }
 
+            if (!$profile) {
+                $profile = $user->profile()->make([
+                    'first_name' => $request['first_name'],
+                    'last_name' => $request['last_name'],
+                    'middle_name' => $request['middle_name'],
+                    'birth_date' => $request['birth_date'],
+                    'gender' => $request['gender'],
+                    'about_uz' => $request['about_uz'],
+                    'about_ru' => $request['about_ru'],
+                ]);
+            } else {
+                $profile->edit($request['first_name'], $request['last_name'], $request['birth_date'], $request['gender'],
+                    $request['middle_name'], $request['about_uz'], $request['about_ru']);
+            }
+
+            $profile->save();
+
             $folder = Profile::USER_PROFILE;
             $avatar = $request->file('avatar');
             if ($request->hasFile('avatar')) {
@@ -172,9 +188,7 @@ class UserController extends Controller
                 $profile->avatar = $filePath;
             }
 
-            $profile->edit($request['first_name'], $request['last_name'], $request['birth_date'], $request['gender'],
-                $request['middle_name'], $request['about_uz'], $request['about_ru']);
-            $profile->update();
+            DB::commit();
 
             return redirect()->route('admin.users.show', $user);
         } catch (\Exception $e) {
