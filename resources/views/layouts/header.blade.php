@@ -25,6 +25,7 @@
     <link href="{{asset('css/icon_fonts/css/all_icons_min.css')}}" rel="stylesheet">
 
     <!-- YOUR CUSTOM CSS -->
+    <link href="{{asset('css/date_picker.css')}}" rel="stylesheet">
     <link href="{{asset('css/custom.css')}}" rel="stylesheet">
     <link href="{{asset('css/custom.css')}}" rel="stylesheet">
 
