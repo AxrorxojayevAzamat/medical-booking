@@ -131,9 +131,7 @@ class UserController extends Controller
         $clinics = Clinic::orderBy('name_ru')->pluck('name_ru', 'id');
         $doctor = User::find($user->id);
         $timetable = Timetable::where('doctor_id', $user->id)->get();
-       
-        //return view('admin.users.show', compact('user', 'roles', 'specializations', 'doctorList', 'statuses', 'clinics', 'timetable'));
-
+        
         return view('admin.users.show', compact('user', 'profile', 'specializations', 'doctor', 'clinics', 'timetable'));
     }
 

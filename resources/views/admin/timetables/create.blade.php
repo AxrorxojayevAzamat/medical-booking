@@ -32,9 +32,7 @@
         <div class="block-left">
             <div class="radio">
                 <label>
-                    {{-- <input id="scheduleType1" type="radio" class="form-control @error('scheduleType') is-invalid @enderror" name="scheduleType" value="1"> --}}
-                    {{-- <input type="radio" name="scheduleType" id="scheduleType1" value="1" class="form-control @error('scheduleType') is-invalid @enderror" name="scheduleType" value="{{ old('scheduleType') }}" required> --}}
-                    <input type="radio" name="scheduleType" id="scheduleType1" value="1">
+                    <input type="radio" name="schedule_type" id="schedule_type1" value="1">
                     Неделя
                 </label>
             </div>
@@ -213,17 +211,10 @@
                 <div class="form-group">
                     <div class="radio">
                         <label>
-                            <input type="radio" name="scheduleType" id="scheduleType2" value="2">
-                            Месяц - четные дни
+                            <input type="radio" name="schedule_type" id="schedule_type2" value="2">
+                            Месяц - четные и нечетные дни
                         </label>
                     </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="scheduleType" id="scheduleType3" value="3">
-                            Месяц - нечетные дни
-                        </label>
-                    </div>
-
                 </div>
                 <div class="bootstrap-timepicker">
                     <div class="form-group">

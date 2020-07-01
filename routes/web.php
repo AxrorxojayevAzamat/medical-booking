@@ -24,12 +24,12 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin',  'namespace' => 'Admin', 'm
     Route::group(
         [ 'prefix' => 'users', 'as' => 'users.' ],
         function () {
-        Route::post('{user}/store-specializations', 'UserController@storeSpecializations')->name('store-specializations');
-        Route::get('{user}/specializations', 'UserController@specializations')->name('specializations');
+            Route::post('{user}/store-specializations', 'UserController@storeSpecializations')->name('store-specializations');
+            Route::get('{user}/specializations', 'UserController@specializations')->name('specializations');
 
-        Route::post('{user}/store-clinics', 'UserController@storeClinics')->name('store-clinics');
-        Route::get('{user}/user-clinics', 'UserController@userClinics')->name('user-clinics');
-    }
+            Route::post('{user}/store-clinics', 'UserController@storeClinics')->name('store-clinics');
+            Route::get('{user}/user-clinics', 'UserController@userClinics')->name('user-clinics');
+        }
     );
 
     Route::group(['prefix' => 'region', 'as' => 'region.'], function () {
@@ -58,25 +58,15 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin',  'namespace' => 'Admin', 'm
     Route::group(
         ['prefix' => 'timetables/','as' => 'timetables.'],
         function () {
-            Route::get('create/{user?}/{clinic?}', 'TimeTableController@create')->name('create');
+            Route::get('{user?}/{clinic?}/create', 'TimeTableController@create')->name('create');
             Route::get('{user?}/{clinic?}/edit', 'TimeTableController@edit')->name('edit');
-            Route::delete('delete/{user}/{clinic}', 'TimeTableController@destroy')->name('destroy');
+            Route::delete('delete/{time?}', 'TimeTableController@destroy')->name('destroy');
         }
     );
-    
-    // Route::group(
-    //     ['prefix' => 'timetables/','as' => 'timetables.'],
-    //     function () {
-    //         Route::get('create/{}', 'TimeTableController@create')->name('main-photo');
 
-    //     }
-    // );
-
-    Route::get('/timetables/show', 'TimeTableController@show');
+    //Route::get('/timetables/show', 'TimeTableController@show');
     Route::get('/timetables/show', 'TimeTableController@show')->name('timetables.show');
-    //Route::get('/timetables/create/{user}/{clinic}', 'TimeTableController@create')->name('timetables.create');
     Route::post('/timetables/store', 'TimeTableController@store')->name('timetables.store');
-    Route::delete('/timetable/delete{id}', 'TimeTableController@destroy')->name('timetables.destroy');
     
     Route::group(
         ['prefix' => 'callcenter', 'as' => 'callcenter.'],

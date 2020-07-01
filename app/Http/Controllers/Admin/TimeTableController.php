@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Entity\User\User;
 use App\Entity\Clinic\Timetable;
+use App\Entity\Clinic\Clinic;
 use Illuminate\Http\Request;
 use App\Http\Requests\TimeRequest;
 use Illuminate\Support\Facades\Auth;
@@ -48,7 +49,7 @@ class TimeTableController extends Controller
         $time = new Timetable();
         $time->doctor_id = $request->input('user_id');
         $time->clinic_id = $request->input('clinic_id');
-        $time->scheduleType= $request->scheduleType;
+        $time->schedule_type = $request->schedule_type;
         $time->interval = $request->interval;
         $time->monday_start = $request->monday_start;
         $time->monday_end = $request->monday_end;
@@ -89,13 +90,13 @@ class TimeTableController extends Controller
     {
         $user=$user;
         $clinic = $clinic;
+        
         $time = Timetable::where('doctor_id', $user->id)->get();
         if (!$time) {
             return redirect()->route('user.show')->withErrors('Такого расписания  нет на сайте');
         }
-        //dd($time);
-        return view('admin.timetables.edit', compact('time
-        ', 'user', 'clinic'));
+        
+        return view('admin.timetables.edit', compact('time', 'user', 'clinic'));
     }
 
     /**
@@ -144,14 +145,10 @@ class TimeTableController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Timetable $time)
     {
-        $time = Timetable::find($id);
-        if (!$time) {
-            return redirect()->route('user.show')->withErrors('Такой страницы нет на сайте');
-        }
-
+        // dd($time);
         $time->delete();
-        return redirect()->route('user.show')->with('success', 'Расписание удалено!');
+        return redirect()->route('admin.users.show', $time->doctor_id)->with('success', 'Расписание удалено!');
     }
 }
