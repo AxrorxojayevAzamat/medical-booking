@@ -47,7 +47,7 @@
                             </div>
 
                             <div class="row add_bottom_45">
-                                <label>{{dd($daysOff)}}</label>
+                                {{-- <label>{{dd($daysOff)}}</label> --}}
                                 <div class="col-lg-7">
                                     <div class="form-group">
                                         <div id="calendar"></div>
@@ -59,7 +59,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-5">
-                                    <ul class="time_select version_2 add_top_20">  
+                                    <ul class="time_select version_2 add_top_20">
                                         @foreach ($timeSlots as $timeSlot)
                                         @if($timeSlot['clinic_id']===$clinicValue->id)
                                         @foreach ($timeSlot['time_slots'] as $value => $label)
@@ -70,7 +70,7 @@
                                         @endforeach
                                         @endif
                                         @endforeach
-                                    </ul> 
+                                    </ul>
                                 </div>
                             </div>
                             <!-- /row -->
@@ -345,7 +345,7 @@
 @section('js')
 <script>
 
-    $('#calendar1').datepicker({
+    $('#calendar').datepicker({
         todayHighlight: true,
         daysOfWeekDisabled: [1],
         weekStart: 1,

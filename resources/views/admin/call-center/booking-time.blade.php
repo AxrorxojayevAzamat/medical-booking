@@ -353,11 +353,9 @@
 @stop
 @section('js')
 <script>
+
     let daysOff = @json($daysOff);
     console.log(daysOff);
-
-    // let timeSlots = @json($timeSlots);
-    // console.log(timeSlots);
 
     let timetable = @json($doctorTimetable);
     console.log(timetable);
@@ -365,16 +363,26 @@
     let books = @json($doctorBooks);
     console.log(books);
 
+
+    //blackpaper
+    daysOff = [];
+    timetable.interval = 30;
     timetable.odd_start = "09:00:00";
     timetable.odd_end = "18:00:00";
 
-    timetable.even_start = "";
-    timetable.even_end = "";
+    timetable.even_start = null;
+    timetable.even_end = null;
+
+    timetable.schedule_type = 2;
+    //blackpaper
+
 
     var timeStart;
     var timeEnd;
     var time_slots = [];
+    var disDays = [];
 
+    var disabledDays = timetable.schedule_type == 2 ? getDays() : [];
     var disabledDaysOfWeek = timetable.schedule_type == 1 ? [ timetable.sunday_start == null ? 0 : '',
                                                               timetable.monday_start == null ? 1 : '',
                                                               timetable.tuesday_start == null ? 2 : '',
@@ -383,13 +391,33 @@
                                                               timetable.friday_start == null ? 5 : '',
                                                               timetable.saturday_start == null ? 6 : '' ] : [];
 
-    // var disabledDays = timetable.schedule_type == 2 ? getDays(new Date()) : [];
 
-    // let getDays = today => {
-    //     var disDays = [];
+    function getDays() {
+        var d = new Date();
+        var year = d.getFullYear();
+        var month = d.getMonth();
+        var i;
+        if (timetable.odd_start == null && timetable.odd_end == null) {
+            i = 1;
+            while( i < 30 ) {
+                i = i + 2;
+                disDays = [...disDays, year + '-' + month + '-' + i,  year + '-' + (month+1) + '-' + i ];
+            }
+        }
+        else if (timetable.even_start == null && timetable.even_end == null) {
+            i = 0;
+            while( i < 30 ) {
+                i = i + 2;
+                disDays = [...disDays, year + '-' + month + '-' + i,  year + '-' + (month+1) + '-' + i];
+            }
+        } else {
+            disDays = [];
+        }
+        return disDays;
+    }
 
-    //     return disDays;
-    //  }
+    console.log(disDays)
+
 
     function setTimes(selected_day) {
         var times;
@@ -424,25 +452,18 @@
 
     function makeInterval(day, time_start, time_end, interval) {
         var time_sum = (new Date(day + " " + time_start)).getHours();
-        var interval_sum = interval;
-        var r = 0;
+        var r = interval;
         time_slots = [];
-        time_slots.unshift(time_sum >= 10 ? time_sum + ":00" : "0" + time_sum + ":00");
 
-        while( (new Date(day + " " + time_end)).getHours() - 1 > time_sum ) {
-            if ( interval_sum >= 60) {
-                time_sum = time_sum + 1;
-                r = interval_sum % 60;
+        while( (new Date(day + " " + time_end)).getHours() > time_sum ) {
+            time_slots = [...time_slots, time_sum >= 10 ? time_sum + ":00": "0" + time_sum + ":00"];
+            r = interval;
+            while( r < 60 ) {
                 time_slots = [...time_slots, time_sum >= 10 ? time_sum + ":" + ( r >= 10 ? r : "0" + r ) :
                                              "0" + time_sum + ":" + ( r >= 10 ? r : "0" + r )];
-                interval_sum = 0;
-                interval_sum = r + interval;
-
-            } else {
-                time_slots = [...time_slots, time_sum >= 10 ? time_sum + ":" + ( (interval_sum >= 10) ? interval_sum : "0" + interval_sum ) :
-                                             "0" + time_sum + ":" + ( (interval_sum >= 10) ? interval_sum : "0" + interval_sum )];
-                interval_sum = r + interval;
+                r = r + interval;
             }
+            time_sum = time_sum + 1;
         }
     }
 
@@ -474,15 +495,22 @@
         daysOfWeekDisabled: disabledDaysOfWeek,
         weekStart: 1,
         format: "yyyy-mm-dd",
-        datesDisabled: [],
+        datesDisabled: disabledDays.concat(daysOff),
     }).on('changeDate', function (e) {
         $('#my_hidden_input').val(e.format());
         setTimes( ( new Date( e.format() ) ) );
         makeInterval(e.format(), timeStart, timeEnd, timetable.interval);
         appendRadioButton(time_slots, books, e.format());
-        console.log(time_slots);
+        // console.log(time_slots);
     });
 
+    $(document).ready(function() {
+        var d = new Date();
+        var today = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate();
+        setTimes( new Date(today) );
+        makeInterval(today, timeStart, timeEnd, timetable.interval);
+        appendRadioButton(time_slots, books, today);
+    });
 </script>
 
 @stop
