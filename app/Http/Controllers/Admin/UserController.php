@@ -143,7 +143,6 @@ class UserController extends Controller
         $doctorList = User::find($user->id);
         $statuses = User::statusList();
         $time = Timetable::where('doctor_id', $user->id)->get();
-        //$time = Timetable::find($user->id);
         $profile = $user->profile;
         return view('admin.users.edit', compact('user', 'profile', 'roles', 'specializations', 'doctorList', 'statuses', 'clinics', 'time'));
     }

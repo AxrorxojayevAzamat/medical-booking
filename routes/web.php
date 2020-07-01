@@ -19,13 +19,15 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('clinic', 'ClinicController');
     Route::resource('celebration', 'CelebrationController');
 
-    Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
-        Route::post('{user}/store-specializations', 'UserController@storeSpecializations')->name('store-specializations');
-        Route::get('{user}/specializations', 'UserController@specializations')->name('specializations');
+    Route::group(
+        ['prefix' => 'users', 'as' => 'users.'],
+        function () {
+            Route::post('{user}/store-specializations', 'UserController@storeSpecializations')->name('store-specializations');
+            Route::get('{user}/specializations', 'UserController@specializations')->name('specializations');
 
-        Route::post('{user}/store-clinics', 'UserController@storeClinics')->name('store-clinics');
-        Route::get('{user}/user-clinics', 'UserController@userClinics')->name('user-clinics');
-    }
+            Route::post('{user}/store-clinics', 'UserController@storeClinics')->name('store-clinics');
+            Route::get('{user}/user-clinics', 'UserController@userClinics')->name('user-clinics');
+        }
     );
 
     Route::group(['prefix' => 'region', 'as' => 'region.'], function () {
@@ -64,27 +66,6 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('/timetables/show', 'TimeTableController@show')->name('timetables.show');
     Route::post('/timetables/store', 'TimeTableController@store')->name('timetables.store');
     
-    Route::group(
-        ['prefix' => 'callcenter', 'as' => 'callcenter.'],
-        function () {
-            Route::get('/', 'CallCenter\CallCenterController@index')->name('index');
-            Route::get('/findCity1/{id}', 'CallCenter\CallCenterController@findCity1');
-    
-            Route::get('/findDoctor', 'CallCenter\CallCenterController@findDoctor');
-    
-            Route::get('/findDoctorByRegion', 'CallCenter\CallCenterController@findDoctorByRegion');
-            Route::get('/findDoctorByType', 'CallCenter\CallCenterController@findDoctorByType');
-    
-            Route::get('/booking/{user}/{clinic}', 'CallCenter\CallCenterController@booking')->name('booking');
-            Route::post('/booking/', 'CallCenter\CallCenterController@bookingDoctor')->name('bookingDoctor');
-        
-            Route::get('/bookingtime/{user}/{clinic}', 'CallCenter\CallCenterController@bookingTime')->name('booking-time');
-        }
-    );
-});
-
-    
-
     Route::group(['prefix' => 'books', 'as' => 'books.'], function () {
         Route::get('/', 'BookController@index')->name('index');
     });
@@ -102,6 +83,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 
         Route::get('/booking-time/{user}/{clinic}', 'CallCenter\CallCenterController@bookingTime')->name('booking-time');
     });
+});
 
 Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function () {
     Route::get('/', 'DashboardController@index')->name('dashboard');
