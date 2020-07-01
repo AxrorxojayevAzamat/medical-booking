@@ -1,7 +1,6 @@
-@extends('layouts.admin.page')
+@extends('layouts.app')
 
 @section('content')
-
 
 <div id="page">
     <main>
@@ -14,7 +13,7 @@
                             <img src="http://via.placeholder.com/565x565.jpg" alt="" class="img-fluid">
                         </figure>
                         <small>Primary care - Internist</small>
-                        <h1>{{$user1->profile ? $user1->profile->fullName : ''}}</h1>
+                        <h1>{{$user->profile ? $user->profile->fullName : ''}}</h1>
                         <span class="rating">
                             <i class="icon_star voted"></i>
                             <i class="icon_star voted"></i>
@@ -28,27 +27,31 @@
                             <li>854 {{ trans('Просмотры') }}</li>
                             <li>124 {{ trans('Пациенты') }}</li>
                         </ul>
+                        @foreach($clinics as $clinic)
                         <ul class="contacts">
-                            <li><h6>{{ trans('Адрес клиники') }}</h6>{{$clinic1->address_ru}}</li>
-                            <li><h6>{{ trans('Телефон клиники') }}</h6><a href="tel://{{$clinic1->phone_numbers}}">{{$clinic1->phone_numbers}}</a></li>
+                            <li><h6>{{ trans('Адрес клиники') }}</h6>{{$clinic->address_ru}}</li>
+                            <li><h6>{{ trans('Телефон клиники') }}</h6><a href="tel://{{$clinic->phone_numbers}}">{{$clinic->phone_numbers}}</a></li>
                         </ul>
                         <div class="text-center"><a href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+%E2%80%93+H%C3%B4pitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361" class="btn_1 outline" target="_blank"><i class="icon_pin"></i> View on map</a></div>
+                        @endforeach
                     </div>
                 </aside>
                 <!-- /asdide -->
 
                 <div class="col-xl-9 col-lg-8">
-                    <form method="GET" action="{{ route('admin.call-center.booking', [$user1, $clinic1]) }}" >
+                    @foreach($clinics as $clinicKey => $clinicValue)
+                    <form method="GET" action="{{ route('admin.call-center.booking', [$user, $clinicValue]) }}" >
                         <div class="box_general_2 add_bottom_45">
                             <div class="main_title_4">
                                 <h3><i class="icon_circle-slelected"></i>{{ __('Выберите дату и время') }}</h3>
                             </div>
 
                             <div class="row add_bottom_45">
+                                <label>{{dd($daysOff)}}</label>
                                 <div class="col-lg-7">
                                     <div class="form-group">
                                         <div id="calendar"></div>
-                                        <input type="hidden" id="my_hidden_input" name="calendar">
+                                        <input type="hidden" id="my_hidden_input{{$clinicKey}}" name="calendar{{$clinicKey}}">
                                         <ul class="legend">
                                             <li><strong></strong>{{ __('Доступный') }}</li>
                                             <li><strong></strong>{{ __('Недоступен') }}</li>
@@ -56,40 +59,29 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-5">
-                                    <ul class="time_select version_2 add_top_20" id="radio_times">
-                                        {{-- @foreach ($timeSlots as $value => $label)
+                                    <ul class="time_select version_2 add_top_20">  
+                                        @foreach ($timeSlots as $timeSlot)
+                                        @if($timeSlot['clinic_id']===$clinicValue->id)
+                                        @foreach ($timeSlot['time_slots'] as $value => $label)
                                         <li>
-                                            <input type="radio" id="radio{{$value}}" name="radio_time" value="{{$label}}">
-                                            <label for="radio{{$value}}">{{$label}}</label>
+                                            <input type="radio" id="radio{{$clinicKey}}{{$value}}" name="radio_time" value="{{$label}}">
+                                            <label for="radio{{$clinicKey}}{{$value}}">{{$label}}</label>
                                         </li>
-                                        @endforeach --}}
-                                    </ul>
+                                        @endforeach
+                                        @endif
+                                        @endforeach
+                                    </ul> 
                                 </div>
                             </div>
                             <!-- /row -->
 
-                            <div class="main_title_4">
-                                <h3><i class="icon_circle-slelected"></i>{{ __('Выберите услугу') }}</h3>
-                            </div>
-                            <ul class="treatments clearfix">
-                                <li>
-                                    <div class="checkbox">
-                                        <input type="checkbox" class="css-checkbox" id="visit1" name="visit1">
-                                        <label for="visit1" class="css-label">{{ __('Визит боли в спине') }} <strong>$55</strong></label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="checkbox">
-                                        <input type="checkbox" class="css-checkbox" id="visit2" name="visit2">
-                                        <label for="visit2" class="css-label">{{ __('Сердечно-сосудистый экран') }}<strong>$55</strong></label>
-                                    </div>
-                                </li>
-                            </ul>
+
                             <hr>
                             <div class="text-center"><button class="btn_1 medium" type="submit">{{ __('Забронируйте сейчас') }}</button></div>
                         </div>
                         <!-- /box_general -->
                     </form>
+                    @endforeach
 
                     <div class="tabs_styled_2">
                         <ul class="nav nav-tabs" role="tablist">
@@ -112,12 +104,12 @@
                                     <p>Mussum ipsum cacilds, vidis litro abertis.</p>
                                 </div>
                                 <div class="wrapper_indent">
-                                    <p>{{$user1->profile ? $user1->profile->about_ru : ''}}</p>
+                                    <p>{{$user->profile ? $user->profile->about_ru : ''}}</p>
                                     <h6>{{ trans('Специализации')}}</h6>
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <ul class="bullets">
-                                                @foreach ($spec1 as $spec)
+                                                @foreach ($specs as $spec)
                                                 <li> {{$spec->name_ru}}
                                                 </li>
                                                 @endforeach
@@ -343,7 +335,6 @@
         <!-- /container -->
     </main>
     <!-- /main -->
-
 </div>
 <!-- page -->
 
@@ -353,133 +344,13 @@
 @stop
 @section('js')
 <script>
-    let daysOff = @json($daysOff);
-    console.log(daysOff);
 
-    // let timeSlots = @json($timeSlots);
-    // console.log(timeSlots);
-
-    let timetable = @json($doctorTimetable);
-    console.log(timetable);
-
-    let books = @json($doctorBooks);
-    console.log(books);
-
-    timetable.odd_start = "09:00:00";
-    timetable.odd_end = "18:00:00";
-
-    timetable.even_start = "";
-    timetable.even_end = "";
-
-    var timeStart;
-    var timeEnd;
-    var time_slots = [];
-
-    var disabledDaysOfWeek = timetable.schedule_type == 1 ? [ timetable.sunday_start == null ? 0 : '',
-                                                              timetable.monday_start == null ? 1 : '',
-                                                              timetable.tuesday_start == null ? 2 : '',
-                                                              timetable.wednesday_start == null ? 3 : '',
-                                                              timetable.thursday_start == null ? 4 : '',
-                                                              timetable.friday_start == null ? 5 : '',
-                                                              timetable.saturday_start == null ? 6 : '' ] : [];
-
-    // var disabledDays = timetable.schedule_type == 2 ? getDays(new Date()) : [];
-
-    let getDays = today => {
-        var disDays = [];
-        return disDays;
-     }
-
-    function setTimes(selected_day) {
-        var times;
-        if( timetable.schedule_type == 1 ) {
-            times = selected_day.getDay();
-
-            timeStart = times == 0 ? timetable.sunday_start || '':
-                        times == 1 ? timetable.monday_start || '':
-                        times == 2 ? timetable.tuesday_start || '':
-                        times == 3 ? timetable.wednesday_start || '':
-                        times == 4 ? timetable.thursday_start || '':
-                        times == 5 ? timetable.friday_start || '':
-                        times == 6 ? timetable.saturday_start || '' : null;
-
-            timeEnd = times == 0 ? timetable.sunday_end || '':
-                      times == 1 ? timetable.monday_end || '':
-                      times == 2 ? timetable.tuesday_end || '':
-                      times == 3 ? timetable.wednesday_end || '':
-                      times == 4 ? timetable.thursday_end || '':
-                      times == 5 ? timetable.friday_end || '':
-                      times == 6 ? timetable.saturday_end || '' : null;
-        } else {
-            times = selected_day.getDate();
-
-            timeStart = times % 2 != 0 ? timetable.odd_start || '':
-                        times % 2 == 0 ? timetable.even_start || '' : null;
-
-            timeEnd = times % 2 != 0 ? timetable.odd_end || '':
-                      times % 2 == 0 ? timetable.even_end || '' : null;
-        }
-    }
-
-    function makeInterval(day, time_start, time_end, interval) {
-        var time_sum = (new Date(day + " " + time_start)).getHours();
-        var interval_sum = interval;
-        var r = 0;
-        time_slots = [];
-        time_slots.unshift(time_sum >= 10 ? time_sum + ":00" : "0" + time_sum + ":00");
-
-        while( (new Date(day + " " + time_end)).getHours() - 1 > time_sum ) {
-            if ( interval_sum >= 60) {
-                time_sum = time_sum + 1;
-                r = interval_sum % 60;
-                time_slots = [...time_slots, time_sum >= 10 ? time_sum + ":" + ( r >= 10 ? r : "0" + r ) :
-                                             "0" + time_sum + ":" + ( r >= 10 ? r : "0" + r )];
-                interval_sum = 0;
-                interval_sum = r + interval;
-
-            } else {
-                time_slots = [...time_slots, time_sum >= 10 ? time_sum + ":" + ( (interval_sum >= 10) ? interval_sum : "0" + interval_sum ) :
-                                             "0" + time_sum + ":" + ( (interval_sum >= 10) ? interval_sum : "0" + interval_sum )];
-                interval_sum = r + interval;
-            }
-        }
-    }
-
-    function appendRadioButton(time_slot, book, day) {
-        var equeled;
-        $("#radio_times").empty();
-        for(var i = 0; i < time_slot.length; i++) {
-            equeled = true;
-            for(var j = 0; j < book.length; j++) {
-                if( (time_slot[i]+":00" == book[j].time_start) && (day == book[j].booking_date)) {
-                    equeled = false;
-                    $("#radio_times").append(
-                        '<li><input type="radio" id="radio'+ i +'" name="radio_time" value="'+
-                            time_slot[i] +'"><label style="color: #ccc; text-decoration: line-through;">'+ time_slot[i] +'</label></li>'
-                    );
-                    break;
-                }
-            }
-            if(equeled)
-            $("#radio_times").append(
-                    '<li><input type="radio" id="radio'+ i +'" name="radio_time" value="'+
-                        time_slot[i] +'"><label for="radio'+i+'">'+ time_slot[i] +'</label></li>'
-                )
-        }
-    }
-
-    $('#calendar').datepicker({
+    $('#calendar1').datepicker({
         todayHighlight: true,
-        daysOfWeekDisabled: disabledDaysOfWeek,
+        daysOfWeekDisabled: [1],
         weekStart: 1,
         format: "yyyy-mm-dd",
-        datesDisabled: [],
-    }).on('changeDate', function (e) {
-        $('#my_hidden_input').val(e.format());
-        setTimes( ( new Date( e.format() ) ) );
-        makeInterval(e.format(), timeStart, timeEnd, timetable.interval);
-        appendRadioButton(time_slots, books, e.format());
-        console.log(time_slots);
+        datesDisabled: ["2017/10/20", "2017/11/21", "2017/12/21", "2018/01/21", "2018/02/21", "2018/03/21"],
     });
 
 </script>
