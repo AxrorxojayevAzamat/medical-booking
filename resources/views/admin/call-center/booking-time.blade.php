@@ -356,8 +356,8 @@
     let daysOff = @json($daysOff);
     console.log(daysOff);
 
-    let timeSlots = @json($timeSlots);
-    console.log(timeSlots);
+    // let timeSlots = @json($timeSlots);
+    // console.log(timeSlots);
 
     let timetable = @json($doctorTimetable);
     console.log(timetable);
@@ -365,14 +365,61 @@
     let books = @json($doctorBooks);
     console.log(books);
 
-    var disabledDaysOfWeek = timetable.schedule_type == 2 ? [6, 0] :
-                             timetable.schedule_type == 1 ? [2, 4, 6, 0] :
-                             timetable.schedule_type == 3 ? [1, 3, 5, 0] : [];
-    console.log(disabledDaysOfWeek);
+    timetable.odd_start = "09:00:00";
+    timetable.odd_end = "18:00:00";
+
+    timetable.even_start = "";
+    timetable.even_end = "";
 
     var timeStart;
     var timeEnd;
     var time_slots = [];
+
+    var disabledDaysOfWeek = timetable.schedule_type == 1 ? [ timetable.sunday_start == null ? 0 : '',
+                                                              timetable.monday_start == null ? 1 : '',
+                                                              timetable.tuesday_start == null ? 2 : '',
+                                                              timetable.wednesday_start == null ? 3 : '',
+                                                              timetable.thursday_start == null ? 4 : '',
+                                                              timetable.friday_start == null ? 5 : '',
+                                                              timetable.saturday_start == null ? 6 : '' ] : [];
+
+    // var disabledDays = timetable.schedule_type == 2 ? getDays(new Date()) : [];
+
+    let getDays = today => {
+        var disDays = [];
+        return disDays;
+     }
+
+    function setTimes(selected_day) {
+        var times;
+        if( timetable.schedule_type == 1 ) {
+            times = selected_day.getDay();
+
+            timeStart = times == 0 ? timetable.sunday_start || '':
+                        times == 1 ? timetable.monday_start || '':
+                        times == 2 ? timetable.tuesday_start || '':
+                        times == 3 ? timetable.wednesday_start || '':
+                        times == 4 ? timetable.thursday_start || '':
+                        times == 5 ? timetable.friday_start || '':
+                        times == 6 ? timetable.saturday_start || '' : null;
+
+            timeEnd = times == 0 ? timetable.sunday_end || '':
+                      times == 1 ? timetable.monday_end || '':
+                      times == 2 ? timetable.tuesday_end || '':
+                      times == 3 ? timetable.wednesday_end || '':
+                      times == 4 ? timetable.thursday_end || '':
+                      times == 5 ? timetable.friday_end || '':
+                      times == 6 ? timetable.saturday_end || '' : null;
+        } else {
+            times = selected_day.getDate();
+
+            timeStart = times % 2 != 0 ? timetable.odd_start || '':
+                        times % 2 == 0 ? timetable.even_start || '' : null;
+
+            timeEnd = times % 2 != 0 ? timetable.odd_end || '':
+                      times % 2 == 0 ? timetable.even_end || '' : null;
+        }
+    }
 
     function makeInterval(day, time_start, time_end, interval) {
         var time_sum = (new Date(day + " " + time_start)).getHours();
@@ -389,30 +436,13 @@
                                              "0" + time_sum + ":" + ( r >= 10 ? r : "0" + r )];
                 interval_sum = 0;
                 interval_sum = r + interval;
+
             } else {
                 time_slots = [...time_slots, time_sum >= 10 ? time_sum + ":" + ( (interval_sum >= 10) ? interval_sum : "0" + interval_sum ) :
                                              "0" + time_sum + ":" + ( (interval_sum >= 10) ? interval_sum : "0" + interval_sum )];
                 interval_sum = r + interval;
             }
         }
-    }
-
-    function getTimes(selected_day) {
-        timeStart = selected_day == 1 ? timetable.monday_start :
-                    selected_day == 2 ? timetable.tuesday_start :
-                    selected_day == 3 ? timetable.wednesday_start :
-                    selected_day == 4 ? timetable.thursday_start :
-                    selected_day == 5 ? timetable.friday_start :
-                    selected_day == 6 ? timetable.saturday_start :
-                    selected_day == 0 ? timetable.sunday_start : null;
-
-        timeEnd = selected_day == 1 ? timetable.monday_end :
-                  selected_day == 2 ? timetable.tuesday_end :
-                  selected_day == 3 ? timetable.wednesday_end :
-                  selected_day == 4 ? timetable.thursday_end :
-                  selected_day == 5 ? timetable.friday_end :
-                  selected_day == 6 ? timetable.saturday_end :
-                  selected_day == 0 ? timetable.sunday_end : null;
     }
 
     function appendRadioButton(time_slot, book, day) {
@@ -425,7 +455,7 @@
                     equeled = false;
                     $("#radio_times").append(
                         '<li><input type="radio" id="radio'+ i +'" name="radio_time" value="'+
-                            time_slot[i] +'"><label style="color: #ccc;">'+ time_slot[i] +'</label></li>'
+                            time_slot[i] +'"><label style="color: #ccc; text-decoration: line-through;">'+ time_slot[i] +'</label></li>'
                     );
                     break;
                 }
@@ -443,12 +473,13 @@
         daysOfWeekDisabled: disabledDaysOfWeek,
         weekStart: 1,
         format: "yyyy-mm-dd",
-        datesDisabled: daysOff,
+        datesDisabled: [],
     }).on('changeDate', function (e) {
         $('#my_hidden_input').val(e.format());
-        getTimes((new Date(e.format())).getDay());
+        setTimes( ( new Date( e.format() ) ) );
         makeInterval(e.format(), timeStart, timeEnd, timetable.interval);
         appendRadioButton(time_slots, books, e.format());
+        console.log(time_slots);
     });
 
 </script>
