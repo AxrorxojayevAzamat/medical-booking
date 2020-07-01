@@ -1,4 +1,4 @@
-@extends('patient.base')
+@extends('doctor.base')
 
 
 @section('content')

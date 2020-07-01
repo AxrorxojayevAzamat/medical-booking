@@ -308,29 +308,6 @@ $(document).ready(function () {
 
     });
 });
-//////////// for adminCallCenter bookingDoctor
-$(document).ready(function () {
-    $('#calendar2').on('change', function () {
-        let booking_date = $(this).val();
-        $.ajax({
-            url: 'call-center/bookingDoctor/?',
-            type: 'GET',
-            data: {
-                region: booking_date,
-            },
-            dataType: 'json',
-
-            success: function (data) {
-                $('#calendar2').empty();
-                $('#calendar2').append('<option></option>');
-                $.each(data, function (key, value) {
-                    $('#calendar2').append('<option value="' + key + '">' + value + '</option>');
-                });
-            }
-        });
-
-    });
-});
 
 ///////////  for validation time
 //Time  range picker
