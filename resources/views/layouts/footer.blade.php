@@ -70,6 +70,8 @@
 <script src="{{asset('js/common_scripts.min.js')}}"></script>
 <script src="{{asset('js/functions.js')}}"></script>
 <script src="{{asset('js/bootstrap-datepicker.js')}}"></script>
+@stack('scripts')
+@yield('scripts')
 
 </body>
 

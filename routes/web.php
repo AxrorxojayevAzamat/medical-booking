@@ -90,6 +90,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function () {
     Route::get('/', 'DashboardController@index')->name('dashboard');
     Route::get('/profile', 'DashboardController@profile_show')->name('profile');
+    Route::get('/booking/{user}/{clinic}', 'PatientController@booking')->name('booking');
+    Route::post('/booking-doctor/', 'PatientController@bookingDoctor')->name('booking-doctor');
 });
 
 Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 'middleware' => ['auth', 'can:doctor-panel']], function () {
