@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div id="page">		
+<div id="page">
     <main class="theia-exception">
         <div id="results">
             <div class="container">
