@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div id="page">		
+<div id="page">
     <main>
         <div id="breadcrumb">
             <div class="container">
@@ -48,32 +48,6 @@
 
                 <div class="col-xl-9 col-lg-8">
 
-<<<<<<< HEAD
-                            <div class="row add_bottom_45">
-                                {{-- <label>{{dd($daysOff)}}</label> --}}
-                                <div class="col-lg-7">
-                                    <div class="form-group">
-                                        <div id="calendar"></div>
-                                        <input type="hidden" id="my_hidden_input{{$clinicKey}}" name="calendar{{$clinicKey}}">
-                                        <ul class="legend">
-                                            <li><strong></strong>{{ __('Доступный') }}</li>
-                                            <li><strong></strong>{{ __('Недоступен') }}</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <ul class="time_select version_2 add_top_20">
-                                        @foreach ($timeSlots as $timeSlot)
-                                        @if($timeSlot['clinic_id']===$clinicValue->id)
-                                        @foreach ($timeSlot['time_slots'] as $value => $label)
-                                        <li>
-                                            <input type="radio" id="radio{{$clinicKey}}{{$value}}" name="radio_time" value="{{$label}}">
-                                            <label for="radio{{$clinicKey}}{{$value}}">{{$label}}</label>
-                                        </li>
-                                        @endforeach
-                                        @endif
-                                        @endforeach
-=======
                     <div class="box_general_2 add_bottom_45">
                         <div class="main_title_4">
                             <h3><i class="icon_circle-slelected"></i>Select your date and time</h3>
@@ -87,7 +61,6 @@
                                     <ul class="legend">
                                         <li><strong></strong>Available</li>
                                         <li><strong></strong>Not available</li>
->>>>>>> d04748026a40a054f8d81d17fd8c98109f2d8ad1
                                     </ul>
                                 </div>
                             </div>
@@ -458,8 +431,8 @@
     <!-- /main -->
 
 </div>
-<!-- page --> 
-@stop        
+<!-- page -->
+@stop
 @section('js')
 <script>
 
