@@ -8,6 +8,7 @@ use App\Entity\User\User;
 use App\Entity\Clinic\Timetable;
 use App\Entity\Celebration;
 use App\Entity\Book\Book;
+use App\Entity\Clinic\Clinic;
 use App\UseCases\Book\BookService;
 use Carbon\Carbon;
 
@@ -23,7 +24,7 @@ class BookController extends Controller {
         $query = User::select(['users.*', 'pr.*'])
                 ->leftJoin('profiles as pr', 'users.id', '=', 'pr.user_id')
                 ->join('doctor_clinics as dc', 'dc.doctor_id', '=', 'users.id')
-                ->where('role', User::ROLE_DOCTOR)            
+                ->where('role', User::ROLE_DOCTOR)
                 ->orderByDesc('created_at');
         $doctors = $query->paginate(10);
         return view('book.index', compact('doctors'));
@@ -49,6 +50,7 @@ class BookController extends Controller {
         $daysOff0 = array();
         $daysOff = array();
         $timeSlots = array();
+        $holidays = array();
         foreach ($doctorTimetables as $timetable) {
             $start = Carbon::now()->startOfMonth();
             $end = Carbon::now()->endOfMonth();
@@ -58,20 +60,20 @@ class BookController extends Controller {
             $docDayOfWeeks = $this->service->getDaysConst($timetable);
 
             $daysOff1 = $this->service->daysDisabled($docDayOfWeeks, $start, $end);
-            $daysOff2 = $this->service->celebrationDays($celebrationDays);
+            $holidays = $this->service->celebrationDays($celebrationDays);
             $daysOff3 = $this->service->restDays($restStart, $restEnd);
 
-            if (!empty($daysOff2)) {
-                $daysOff0 = array_merge($daysOff1, $daysOff2, $daysOff3);
+            if (!empty($holidays)) {
+                $daysOff0 = array_merge($daysOff1, $holidays, $daysOff3);
             } else {
                 $daysOff0 = array_merge($daysOff1, $daysOff3);
             }
             array_push($timeSlots, ['clinic_id' => $timetable->clinic_id, 'time_slots' => $this->service->timeSlots($timetable, $currentDate)]);
             array_push($daysOff, ['clinic_id' => $timetable->clinic_id, 'days_off' => $daysOff0]);
         }
+        $daysOff9 = json_encode($daysOff);
 
-
-        return view('book.show', compact('user', 'clinics', 'specs', 'daysOff', 'timeSlots', 'doctorTimetables', 'doctorBooks'));
+        return view('book.show', compact('user', 'clinics', 'specs', 'daysOff', 'timeSlots', 'doctorTimetables', 'doctorBooks', 'holidays', 'daysOff9'));
     }
 
 }
