@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $time_start
  * @property Carbon $time_finish
  * @property string $description
+ * @property int $payment_type
  * @property int $status
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -33,6 +34,9 @@ class Book extends Model
     const STATUS_CANCELLED = 4;
     const STATUS_POSTPONED = 5;
     const STATUS_COMPLETED = 10;
+
+    const PAYME = 1;
+    const CLICK = 2;
 
     protected $table = 'books';
 
@@ -52,6 +56,19 @@ class Book extends Model
             'description' => $description,
             'status' => self::STATUS_CREATED,
         ]);
+    }
+
+    public static function typeList()
+    {
+        return [
+            self::PAYME => 'Payme',
+            self::CLICK => 'Click',
+        ];
+    }
+
+    public static function typeName($type): string
+    {
+        return self::typeList()[$type];
     }
 
 

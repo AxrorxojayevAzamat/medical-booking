@@ -130,7 +130,7 @@ class CallCenterController extends Controller {
         $user1 = User::find($user->id);
         $clinic1 = Clinic::find($clinic->id);
         $spec1 = $user->specializations;
-        
+
         $currentDate = Carbon::now()->format('Y-m-d');
 
         $doctorTimetable = Timetable::where('doctor_id', $user->id)
