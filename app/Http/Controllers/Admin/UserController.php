@@ -130,7 +130,7 @@ class UserController extends Controller
         $clinics = Clinic::orderBy('name_ru')->pluck('name_ru', 'id');
         $doctor = User::find($user->id);
         $timetable = Timetable::where('doctor_id', $user->id)->get();
-
+        
         return view('admin.users.show', compact('user', 'profile', 'specializations', 'doctor', 'clinics', 'timetable'));
     }
 
@@ -141,7 +141,7 @@ class UserController extends Controller
         $clinics = Clinic::orderBy('name_ru')->get();
         $doctorList = User::find($user->id);
         $statuses = User::statusList();
-        $time = Timetable::find($user->id);
+        $time = Timetable::where('doctor_id', $user->id)->get();
         $profile = $user->profile;
         return view('admin.users.edit', compact('user', 'profile', 'roles', 'specializations', 'doctorList', 'statuses', 'clinics', 'time'));
     }
@@ -171,8 +171,15 @@ class UserController extends Controller
                     'about_ru' => $request['about_ru'],
                 ]);
             } else {
-                $profile->edit($request['first_name'], $request['last_name'], $request['birth_date'], $request['gender'],
-                    $request['middle_name'], $request['about_uz'], $request['about_ru']);
+                $profile->edit(
+                    $request['first_name'],
+                    $request['last_name'],
+                    $request['birth_date'],
+                    $request['gender'],
+                    $request['middle_name'],
+                    $request['about_uz'],
+                    $request['about_ru']
+                );
             }
 
             $profile->save();

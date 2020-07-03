@@ -175,27 +175,41 @@
             <div class="col-md-6">
                 <div class="card primary">
                     <div class="card-header">
-                        {{ trans('Расписание доктора') }}
-                        <a class="btn btn-secondary float-right" href="{!! route('admin.timetables.create',['id'=>$user->id, 'clinic_id'=>1])!!}">{{ trans('Изменить/Добавить') }}</a>
+                        <a name="doctors-timetable"></a>
+                        {{ __('Расписание доктора') }}
+                        {{-- <a class="btn btn-secondary float-right" href="{!! route('admin.timetables.create',['id'=>$user->id, 'clinic_id'=>1])!!}">{{ __('Изменить/Добавить') }}</a> --}}
                     </div>
                     @if (!$clinics->isEmpty())
                         <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                             <thead>
                             <tr role="row">
-                                <th>{{ trans('Клиника') }}</th>
-                                <th>{{ trans('Направление') }}</th>
+                                <th>{{ __('Название клиники') }}</th>
+                                <th>{{ __('Управление') }}</th>
                             </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($clinics as $clinic)
-                                <tr>
-                                    <td><a href="{{ route('admin.timetables.create', [$user, $clinic]) }}">{{ $clinic->name_ru }}</a></td>
-                                    <td>{{$clinic->name_ru}}</td>
-                                </tr>
-                            @endforeach
+                        </thead>
+                        <tbody>
+                            {{-- @foreach ($doctorList->clinics as $clinic)
+                            <tr>
+                                <td>{{$clinic->name_ru}}</td>
+                                <td><a href="{{ route('admin.timetables.create', [$user->id, $clinic->id])}}">Создать расписание</td></td>
+                            </tr>
+                            @endforeach --}}
 
-                            </tbody>
-                        </table>
+                            @if(!empty($time))
+                            @foreach ($time as $clinic)
+                            <tr>
+                                <td>{{$clinic->clinic->name_ru}}</td>
+                                <td>
+                                    <a href="{{ route('admin.timetables.create', [$user, $clinic->clinic])}}">Создать расписание</a><br>
+                                    <a href="{{ route('admin.timetables.edit', [$user, $clinic->clinic])}}">Редактировать расписание</a><br>
+                                    <a href="{{ route('admin.timetables.destroy', [$user->id, $clinic])}}">Удалить расписание</a>
+                                </td>
+                            </tr>
+                            @endforeach
+                            @endif
+                            
+                        </tbody>
+                    </table>
                     @endif
                 </div>
             </div>
@@ -210,7 +224,11 @@
                             <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                                 <tbody>
                                 @foreach($doctorList->clinics as $clinic)
-                                    <tr><td>{{$clinic->name_ru}}</td></tr>
+                                    <tr>
+                                        
+                                        <td>{{$clinic->id}}</td>
+                                        <td>{{$clinic->name_ru}}</td>
+                                    </tr>
                                 @endforeach
                                 </tbody>
                             </table>

@@ -3,8 +3,6 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-//'prefix' => '{language}'
-//Route::redirect('/', '/ru');
 Route::get('', 'HomeController@index')->name('home');
 Auth::routes(['verify' => true]);
 
@@ -21,13 +19,15 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('clinic', 'ClinicController');
     Route::resource('celebration', 'CelebrationController');
 
-    Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
-        Route::post('{user}/store-specializations', 'UserController@storeSpecializations')->name('store-specializations');
-        Route::get('{user}/specializations', 'UserController@specializations')->name('specializations');
+    Route::group(
+        ['prefix' => 'users', 'as' => 'users.'],
+        function () {
+            Route::post('{user}/store-specializations', 'UserController@storeSpecializations')->name('store-specializations');
+            Route::get('{user}/specializations', 'UserController@specializations')->name('specializations');
 
-        Route::post('{user}/store-clinics', 'UserController@storeClinics')->name('store-clinics');
-        Route::get('{user}/user-clinics', 'UserController@userClinics')->name('user-clinics');
-    }
+            Route::post('{user}/store-clinics', 'UserController@storeClinics')->name('store-clinics');
+            Route::get('{user}/user-clinics', 'UserController@userClinics')->name('user-clinics');
+        }
     );
 
     Route::group(['prefix' => 'region', 'as' => 'region.'], function () {
@@ -53,21 +53,20 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         Route::get('add-main-photo', 'ClinicController@addMainPhoto')->name('add-main-photo');
     });
 
-// Route::group(
-//     ['prefix' => 'timetables/','as' => 'timetables.'],
-//     function () {
-//         Route::get('create/{}', 'TimeTableController@create')->name('main-photo');
-//     }
-// );
+    Route::group(
+        ['prefix' => 'timetables/','as' => 'timetables.'],
+        function () {
+            Route::get('{user?}/{clinic?}/create', 'TimeTableController@create')->name('create');
+            Route::post('store', 'TimeTableController@store')->name('store');
+            Route::post('{user?}/{timetable?}/update', 'TimeTableController@update')->name('update');
+            Route::get('{user?}/{clinic?}/edit', 'TimeTableController@edit')->name('edit');
+            Route::delete('delete/{time?}', 'TimeTableController@destroy')->name('destroy');
+        }
+    );
 
-    Route::get('/timetables/show', 'TimeTableController@show');
-    Route::get('/timetables/show', 'TimeTableController@show')->name('timetables.show');
-    Route::get('/timetables/create', 'TimeTableController@create')->name('timetables.create');
-    Route::get('/timetables/edit', 'TimeTableController@edit')->name('timetables.edit');
-    Route::post('/timetables/store', 'TimeTableController@store')->name('timetables.store');
-
-    Route::delete('/timetable/delete{id}', 'TimeTableController@destroy')->name('timetables.destroy');
-
+    //Route::get('/timetables/show', 'TimeTableController@show');
+    //Route::get('/timetables/show', 'TimeTableController@show')->name('timetables.show');
+    
     Route::group(['prefix' => 'books', 'as' => 'books.'], function () {
         Route::get('/', 'BookController@index')->name('index');
     });
