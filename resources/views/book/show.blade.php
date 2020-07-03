@@ -345,7 +345,7 @@
 <script>
     let daysOff = @json($daysOff);
     let clinics = @json($clinics);
-    console.log(days);
+    console.log(daysOff);
     console.log(clinics);
 
     for(var i=0; i<clinics.length; i++) {
