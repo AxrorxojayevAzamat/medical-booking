@@ -398,7 +398,7 @@
     function getDays() {
         var d = new Date();
         var year = d.getFullYear();
-        var month = d.getMonth();
+        var month = d.getMonth() + 1;
         var i;
         if (timetable.odd_start == null && timetable.odd_end == null) {
             i = 1;
@@ -456,6 +456,7 @@
     function makeInterval(day, time_start, time_end, interval) {
         var time_sum = (new Date(day + " " + time_start)).getHours();
         var r = interval;
+        // var launch_hour = 0;
         time_slots = [];
 
         while( (new Date(day + " " + time_end)).getHours() > time_sum ) {
@@ -466,7 +467,8 @@
                                              "0" + time_sum + ":" + ( r >= 10 ? r : "0" + r )];
                 r = r + interval;
             }
-            time_sum = time_sum + 1;
+            // time_sum = ( time_sum == launch_hour - 1) ? time_sum + 2 : time_sum + 1;
+            time_sum =  time_sum + 1;
         }
     }
 

@@ -60,7 +60,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-5">
-                                    <ul class="time_select version_2 add_top_20">  
+                                    <ul class="time_select version_2 add_top_20">
                                         @foreach ($timeSlots as $timeSlot)
                                         @if($timeSlot['clinic_id']===$clinicValue->id)
                                         @foreach ($timeSlot['time_slots'] as $value => $label)
@@ -71,7 +71,7 @@
                                         @endforeach
                                         @endif
                                         @endforeach
-                                    </ul> 
+                                    </ul>
                                 </div>
                             </div>
                             <!-- /row -->
@@ -345,18 +345,24 @@
 @endsection
 @section('scripts')
 <script>
-    var daysOff = @json($daysOff);
-            console.log(daysOff);
+    let daysOff = @json($daysOff);
+    let clinics = @json($clinics);
+    console.log(days);
+    console.log(clinics);
 
-    $('#calendar0').datepicker({
+    for(var i=0; i<clinics.length; i++) {
+        $('#calendar'+i).datepicker({
         todayHighlight: true,
         daysOfWeekDisabled: [0],
         weekStart: 1,
         format: "yyyy-mm-dd",
         datesDisabled: ["2020/07/05"],
-    }).on('changeDate', function (e) {
-        $('#my_hidden_input0').val(e.format())
-    });
+        }).on('changeDate', function (e) {
+            $('#my_hidden_input'+i).val(e.format());
+            console.log(clinics[e.currentTarget.id.slice(-1)].name_uz)
+        });
+    }
+
 </script>
 
 @endsection
