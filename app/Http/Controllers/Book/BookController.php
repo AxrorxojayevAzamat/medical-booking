@@ -32,9 +32,8 @@ class BookController extends Controller {
                 ->groupBy(['users.id', 'pr.user_id'])
                 ->orderByDesc('users.created_at');
         $doctors = $query->paginate(10);
-        $bla = Carbon::createFromDate('2020', '02', '04')->day % 2;
 
-        return view('book.index', compact('doctors', 'bla'));
+        return view('book.index', compact('doctors'));
     }
 
     public function show(User $user) {
