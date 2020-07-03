@@ -48,6 +48,10 @@ $(function () {
     )
 
     //Timetable
+    $('#timepicker').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
     $('#timepicker1').datetimepicker({
         use24hours: true,
         format: 'HH:mm'
@@ -120,7 +124,11 @@ $(function () {
         use24hours: true,
         format: 'HH:mm'
     })
-    $('#timepicker').datetimepicker({
+    $('#timepicker19').datetimepicker({
+        use24hours: true,
+        format: 'HH:mm'
+    })
+    $('#timepicker20').datetimepicker({
         use24hours: true,
         format: 'HH:mm'
     })

@@ -27,6 +27,8 @@ use Eloquent;
  * @property string $saturday_end
  * @property string $sunday_start
  * @property string $sunday_end
+ * @property string $lunch_start
+ * @property string $lunch_end
  * @property string $odd_start
  * @property string $odd_end
  * @property string $even_start
@@ -68,6 +70,8 @@ class Timetable extends BaseModel
         'saturday_end',
         'sunday_start',
         'sunday_end',
+        'lunch_start',
+        'lunch_end',
         'odd_start',
         'odd_end',
         'even_start',
