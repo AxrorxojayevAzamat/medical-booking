@@ -343,12 +343,12 @@
 @endsection
 @section('scripts')
 <script>
-    let daysOff9 = @json($daysOff9);
-    var days = JSON.parse(daysOff9);
+    let daysOff = @json($daysOff);
+    let clinics = @json($clinics);
     console.log(days);
-    console.log(daysOff9);
+    console.log(clinics);
 
-    for(var i=0; i<1; i++) {
+    for(var i=0; i<clinics.length; i++) {
         $('#calendar'+i).datepicker({
         todayHighlight: true,
         daysOfWeekDisabled: [0],
@@ -356,7 +356,8 @@
         format: "yyyy-mm-dd",
         datesDisabled: ["2020/07/05"],
         }).on('changeDate', function (e) {
-        $('#my_hidden_input0').val(e.format())
+            $('#my_hidden_input'+i).val(e.format());
+            console.log(clinics[e.currentTarget.id.slice(-1)].name_uz)
         });
     }
 

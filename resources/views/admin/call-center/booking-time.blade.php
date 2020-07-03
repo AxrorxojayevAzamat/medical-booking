@@ -395,7 +395,7 @@
     function getDays() {
         var d = new Date();
         var year = d.getFullYear();
-        var month = d.getMonth();
+        var month = d.getMonth() + 1;
         var i;
         if (timetable.odd_start == null && timetable.odd_end == null) {
             i = 1;
