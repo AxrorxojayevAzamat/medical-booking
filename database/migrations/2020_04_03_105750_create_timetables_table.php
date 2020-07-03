@@ -35,6 +35,9 @@ class CreateTimetablesTable extends Migration
             $table->time('sunday_start')->nullable();
             $table->time('sunday_end')->nullable();
 
+            $table->time('lunch_start')->nullable();
+            $table->time('lunch_end')->nullable();
+
             $table->time('odd_start')->nullable();
             $table->time('odd_end')->nullable();
 
