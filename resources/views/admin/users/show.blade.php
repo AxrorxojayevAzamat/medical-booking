@@ -1,20 +1,35 @@
 @extends('layouts.admin.page')
 
 @section('content')
-    <div class="d-flex flex-row mb-3">
-        <a class="btn btn-primary mr-1" href="{{ route('admin.users.edit',$user->id)}}">{{ trans('Редактировать') }}</a>
-        <a class="btn btn-success mr-1" href="{{ route('admin.users.edit',$user->id)}}">{{ trans('Забронировать') }}</a>
-        <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}" class="mr-1">
-            @csrf
-            @method('DELETE')
-            <button class="btn btn-danger" onclick="return confirm('{{ 'Вы уверены?' }}')">{{ trans('Удалить') }}</button>
-        </form>
+    <div class="d-flex bd-highlight mb-3">
+        <a class="btn btn-primary mr-1 p-2 bd-highlight" href="{{ route('admin.users.edit',$user)}}">{{ trans('Редактировать') }}</a>
+        <a class="btn btn-secondary mr-1 p-2 bd-highlight" href="{{ route('admin.users.user-clinics',$user)}}">{{ trans('Добавить клинику') }}</a>
+        <a class="btn btn-success mr-1 p-2 bd-highlight" href="{{ route('admin.users.edit',$user)}}">{{ trans('Забронировать') }}</a>
+
+            <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}" class="ml-auto mr-1">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger mr-1" onclick="return confirm('{{ 'Вы уверены?' }}')">{{ trans('Удалить') }}</button>
+            </form>
+    </div>
     </div>
 
     <div class="row">
         <div class="col-md-12">
             <div class="card card-primary card-outline">
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @if( $profile && !empty($profile->avatar))
+                                <div class="card-body box-profile">
+                                    <div class="text-center">
+                                        <img class="profile-user-img img-fluid img-circle" src="/uploads/avatars/{{ $profile->avatar }}../../dist/img/user4-128x128.jpg" alt="Фотография пользователя">
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                    </div>  
+                    
                     <table class="table table-striped projects">
                         <tbody>
                             <tr><th>{{ trans('ID') }}</th><td>{{ $user->id }}</td></tr>
@@ -40,213 +55,211 @@
                             <tr><th>{{ trans('Отчество') }}</th><td>{{ $profile ? $profile->middle_name : '' }}</td></tr>
                             <tr><th>{{ trans('Дата рождения') }}</th><td>{{ $profile ? $profile->birth_date : '' }}</td></tr>
                             <tr><th>{{ trans('Пол') }}</th><td>{{ $profile ? $profile->gender === 0 ? 'Женский' : 'Мужской' : ''}}</td></tr>
+                            
+                            @if($user->isDoctor())  
                             <tr>
-                                <th>{{ trans('Photo') }}</th>
-                                <td>
-                                    <div class="form-group">
-                                        @if( $profile && !empty($profile->avatar))
-                                        <div class="text-center">
-                                            <img class="profile-user-img img-fluid img-circle"
-                                                 src="/uploads/avatars/{{ $profile->avatar }}"
-                                                 alt="Фотография пользователя">
-                                        </div>
-                                        @endif
-                                    </div>
-                                </td>
+                                <th>{{'Специализации'}}</th>
+                                @if(!$doctor->specializations->isEmpty())
+                                <th>
+                                    @foreach($doctor->specializations as $spec)
+                                    <a href='{{ route('admin.specializations.show', $spec->id) }}'><strong> {{$spec->name_ru}}</strong></a>
+                                    @endforeach
+                                </th>
+                                    @else
+                                    <th><p><a href="{{route('admin.users.specializations', $user) }}" disabled>{{ trans('Добавить') }}</a></p></th>
                             </tr>
+                                @endif
+                            @endif
+                                {{-- <tr>
+                                <th>
+                                        <div class="col-md-3">
+                                            @if( $profile && !empty($profile->avatar))
+                                            <div class="">
+                                                <img class="profile-user-img img-fluid img-circle"
+                                                     src="/uploads/avatars/{{ $profile->avatar }}"
+                                                     alt="Фотография пользователя">
+                                            </div>
+                                            @endif
+                                        </div>
+                                </th>
+                                </tr> --}}
                         </tbody>
-                    </table>
+                    </table>         
                 </div>
             </div>
         </div>
     </div>
 
     @can('manage-doctor')
-        <div class="card card-primary card-outline" id="specializations">
-            <div class="card-header card-green with-border">{{ trans('Специализации доктора') }}</div>
-            <div class="card-body">
-                <p><a class="btn btn-secondary" href="{{ route('admin.users.specializations', $user) }}" disabled>{{ trans('Изменить/Добавить') }}</a></p>
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>{{ trans('Название специализации') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($doctor->specializations as $spec)
-                        <tr>
-                            <td>{{ $spec->id }}</td>
-                            <td>{{ $spec->name_ru }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
         <div class="card card-secondary card-outline" id="doctor-clinic">
-            <div class="card-header card-green with-border">{{ trans('Клиники для доктора') }}</div>
-            <div class="card-body">
-                <p><a class="btn btn-secondary" href="{{ route('admin.users.user-clinics', $user) }}" disabled>{{ trans('Изменить/Добавить') }}</a></p>
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>{{ trans('Клиники для доктора') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($doctor->clinics as $clinic)
-                        <tr>
-                            <td>{{ $clinic->id }}</td>
-                            <td>{{ $clinic->name_ru}}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
+           
+                @foreach($doctor->clinics as $clinic)
+                <div class="card-header">{{ __('Клиника ') }} <a href='{{ route('admin.clinic.show', $clinic) }}'><strong> {{$clinic->name_ru}}</strong></a> 
+                    <form action="{{ route('admin.clinic.destroy',$clinic) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger float-right" onclick="return confirm('Хотите удалить клинику{{$clinic->name_ru}}?')" >Удалить клинику</button>
+                    </form>
+                    <div class="card-body">        
+                                @php 
+                                    $time = $timetable->where('clinic_id', $clinic->id);
+                                @endphp
+                                
+                                @if($time->isEmpty())
+                                <p><a class="btn btn-secondary" href="{{ route('admin.timetables.create', [$user, $clinic])}}" disabled>{{ trans('Создать расписание') }}</a></p>
+                                @endif
 
-        <div class="col-md-6">
-            <div class="card primary">
-                <div class="card-header">
-                    {{ trans('Расписание доктора') }}
-                </div>
-                <!-- /.card-header -->
-
-                <div class="card-body">
-                    <div class="col-sm-12">
-
-                        <div class="container table">
-                            @if (!empty($timetable))
-                            @foreach($timetable as $time)
-
-                            @if($time->scheduleType == 1)
+                                @if($time)
+                                @foreach($time as $time)
+                                    <div class="row">
+                                        <a class="btn btn-primary mr-1" role="button" href="{{ route('admin.timetables.edit', [$user, $clinic])}}">{{ trans('Редактировать расписание') }}</a>
+                                            
+                                        <form method="POST" action="{{ route('admin.timetables.destroy', $time->id)}}" >
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-danger" role="button" onclick="return confirm('{{ 'Вы уверены?' }}')">{{ trans('Удалить') }}</button>
+                                            </form>
+                                    </div>
+                                
+                                @if($time->schedule_type == 1)   
+                                <table class="table table-hover text-nowrap">
+                                    <thead>
+                                    <tr>
+                                        <th>Дни недели</th>
+                                        <th>Начало приёма</th>
+                                        <th>Конец приёма</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @if ($time->monday_start!= null)
+                                        <tr>
+                                            <td>Понедельник</td>
+                                            <td>{{ $time->monday_start ? $time->monday_start : ''}}</td>
+                                            <td>{{ $time->monday_end}}</td>
+                                        </tr>
+                                    @endif
+                                    @if ($time->tuesday_start!= null)
+                                        <tr>
+                                            <td>Вторник</td>
+                                            <td>{{ $time->tuesday_start}}</td>
+                                            <td>{{ $time->tuesday_end}}</td>
+                                        </tr>
+                                    @endif
+                                    @if ($time->wednesday_start!= null)
+                                        <tr>
+                                            <td>Среда</td>
+                                            <td>{{ $time->wednesday_start}}</td>
+                                            <td>{{ $time->wednesday_end}}</td>
+                                        </tr>
+                                    @endif
+                                    @if ($time->thursday_start!= null)
+                                        <tr>
+                                            <td>Четверг</td>
+                                            <td>{{ $time->thursday_start}}</td>
+                                            <td>{{ $time->thursday_end}}</td>
+                                        </tr>
+                                    @endif
+                                    @if ($time->friday_start!= null)
+                                        <tr>
+                                            <td>Пятница</td>
+                                            <td>{{ $time->frisday_start? $time->frisday_start : '-----'}}</td>
+                                            <td>{{ $time->frirsday_end}}</td>
+                                        </tr>
+                                    @endif
+                                    @if ($time->saturday_start!= null)
+                                        <tr>
+                                            <td>Суббота</td>
+                                            <td>{{ $time->satursday_start}}</td>
+                                            <td>{{ $time->satursday_end}}</td>
+                                        </tr>
+                                    @endif
+                                    @if ($time->sunday_start!= null)
+                                        <tr>
+                                            <td>Воскресенье</td>
+                                            <td>{{ $time->sunday_start}}</td>
+                                            <td>{{ $time->sunsday_end}}</td>
+                                        </tr>
+                                    @endif
+                                    </tbody>
+                                </table>
+                                @elseif ($time->schedule_type == 2 && $time->even_start || $time->even_end)
                                     <table class="table table-hover text-nowrap">
                                         <thead>
                                         <tr>
-                                            <th>{{ $time->scheduleType}}</th>
-                                            <th>Clinic_name</th>
                                             <th></th>
+                                            <th>Начало</th>
+                                            <th>Конец</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @if ($time->monday_start!= null)
                                             <tr>
-                                                <td>Понедельник</td>
-                                                <td>{{ $time->monday_start}}</td>
-                                                <td>{{ $time->monday_end}}</td>
+                                                <td><strong>Четные дни месяца</strong></td>
+                                                <td>{{ $time->even_start}}</td>
+                                                <td>{{ $time->even_end}}</td>
                                             </tr>
-                                        @endif
-                                        @if ($time->tuesday_start!= null)
-                                            <tr>
-                                                <td>Вторник</td>
-                                                <td>{{ $time->tuesday_start}}</td>
-                                                <td>{{ $time->tuesday_end}}</td>
-                                            </tr>
-                                        @endif
-                                        @if ($time->wednesday_start!= null)
-                                            <tr>
-                                                <td>Среда</td>
-                                                <td>{{ $time->wednesday_start}}</td>
-                                                <td>{{ $time->wednesday_end}}</td>
-                                            </tr>
-                                        @endif
-                                        @if ($time->thursday_start!= null)
-                                            <tr>
-                                                <td>Четверг</td>
-                                                <td>{{ $time->thursday_start}}</td>
-                                                <td>{{ $time->thursday_end}}</td>
-                                            </tr>
-                                        @endif
-                                        @if ($time->friday_start!= null)
-                                            <tr>
-                                                <td>Пятница</td>
-                                                <td>{{ $time->frisday_start}}</td>
-                                                <td>{{ $time->frirsday_end}}</td>
-                                            </tr>
-                                        @endif
-                                        @if ($time->saturday_start!= null)
-                                            <tr>
-                                                <td>Суббота</td>
-                                                <td>{{ $time->satursday_start}}</td>
-                                                <td>{{ $time->satursday_end}}</td>
-                                            </tr>
-                                        @endif
-                                        @if ($time->sunday_start!= null)
-                                            <tr>
-                                                <td>Воскресенье</td>
-                                                <td>{{ $time->sunday_start}}</td>
-                                                <td>{{ $time->sunsday_end}}</td>
-                                            </tr>
-                                        @endif
-                                        @if ($time->day_off_start!= null)
-                                            <tr>
-                                                <td>Отпуск</td>
-                                                <td>{{ $time->day_off_start}}</td>
-                                                <td>{{ $time->day_off_end}}</td>
-                                            </tr>
-                                        @endif
                                         </tbody>
                                     </table>
-                                @elseif ($time->scheduleType == 2)
-                                    <table class="table table-hover text-nowrap">
-                                        <thead>
+                                    
+                                @elseif ($time->schedule_type == 2 && $time->odd_start || $time->odd_end)
+                                <table class="table table-hover text-nowrap">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Начало</th>
+                                        <th>Конец</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
                                         <tr>
-                                            <th>Clini_id</th>
-                                            <th>Clinic_name</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>Дни месяца</td>
-                                            <td>{{ $time->even_start}}</td>
-                                            <td>{{ $time->even_end}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Отпуск</td>
-                                            <td>{{ $time->day_off_start}}</td>
-                                            <td>{{ $time->day_off_end}}</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                @else
-                                    <table class="table table-hover text-nowrap">
-                                        <thead>
-                                        <tr>
-                                            <th>Clini_id</th>
-                                            <th>Clinic_name</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>Дни месяца</td>
+                                            <td><strong>Нечетные дни месяца</strong></td>
                                             <td>{{ $time->odd_start}}</td>
                                             <td>{{ $time->odd_end}}</td>
                                         </tr>
+                                    </tbody>
+                                </table>
+                                @endif
+                                
+                                @if($time->lunch_start)
+                                <table class="table table-hover text-nowrap">
+                                    <thead>
                                         <tr>
-                                            <td>Отпуск</td>
-                                            <td>{{ $time->day_off_start}}</td>
-                                            <td>{{ $time->day_off_end}}</td>
+                                            <th></th>
+                                            <th>Начало</th>
+                                            <th>Конец</th>
                                         </tr>
-                                        </tbody>
-                                    </table>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Обеденный пеперыв</strong></td>
+                                            <td>{{$time->lunch_start}}</td>
+                                            <td>{{$time->lunch_end}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                @endif
+                                
+                                @if($time->day_off_start)
+                                <table class="table table-hover text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Начало</th>
+                                            <th>Конец</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Отпуск или нерабочий день</strong></td>
+                                            <td>{{$time->day_off_start}}</td>
+                                            <td>{{$time->day_off_end}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                                 @endif
                                 @endforeach
-                            @endif
-                        </div>
+                                @endif
                     </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer">
-                    </div>
-                    <!-- /.card-footer -->
-                </div>
-                <!-- /.card primary-->
-            </div>
-        </div>
+                </div> 
+                @endforeach    
     @endcan
-
 @endsection

@@ -138,6 +138,10 @@ Breadcrumbs::register('admin.timetables.create', function (Crumbs $crumbs) {
     //$crumbs->parent('admin.users.edit', $user);
     $crumbs->push('Создать расписание врача', route('admin.timetables.create'));
 });
+Breadcrumbs::register('admin.timetables.edit', function (Crumbs $crumbs) {
+    //$crumbs->parent('admin.users.edit', $user);
+    $crumbs->push('Редактирование расписания врача', route('admin.timetables.edit'));
+});
 
 //booking
 Breadcrumbs::register('admin.call-center.index', function (Crumbs $crumbs) {
