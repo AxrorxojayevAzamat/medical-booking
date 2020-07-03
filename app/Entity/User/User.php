@@ -157,6 +157,16 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
+    ######################################################################################### Scopes
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', self::STATUS_ACTIVE);
+    }
+
+    #########################################################################################
+
+
     ########################################### Relations
 
     public function profile()
