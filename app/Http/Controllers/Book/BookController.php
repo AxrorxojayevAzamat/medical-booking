@@ -71,7 +71,7 @@ class BookController extends Controller {
                 if ($timetable->isOdd())
                     $daysOff1 = $this->service->daysDisabledBool(false, $start, $end); //false -- odd ; true -- even
                 else
-                    $daysOff1 = $this->service->daysDisabledB(true, $start, $end);
+                    $daysOff1 = $this->service->daysDisabledBool(true, $start, $end);
             }
 
             $holidays = $this->service->celebrationDays($celebrationDays);
