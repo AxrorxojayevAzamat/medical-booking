@@ -9,6 +9,8 @@ use App\Entity\Clinic\Timetable;
 use App\Entity\Celebration;
 use App\Entity\Book\Book;
 use App\Entity\Clinic\Clinic;
+use App\Entity\Clinic\DoctorClinic;
+use App\Entity\Clinic\DoctorSpecialization;
 use App\UseCases\Book\BookService;
 use Carbon\Carbon;
 
@@ -23,11 +25,16 @@ class BookController extends Controller {
     public function index(Request $request) {
         $query = User::select(['users.*', 'pr.*'])
                 ->leftJoin('profiles as pr', 'users.id', '=', 'pr.user_id')
-                ->join('doctor_clinics as dc', 'dc.doctor_id', '=', 'users.id')
+                ->join('timetables as ts', 'users.id', '=', 'ts.doctor_id')
+                ->join('doctor_clinics as dc', 'users.id', '=', 'dc.doctor_id')
+                ->join('doctor_specializations as ds', 'users.id', '=', 'ds.doctor_id')
                 ->where('role', User::ROLE_DOCTOR)
-                ->orderByDesc('created_at');
+                ->groupBy(['users.id', 'pr.user_id'])
+                ->orderByDesc('users.created_at');
         $doctors = $query->paginate(10);
-        return view('book.index', compact('doctors'));
+        $bla = Carbon::createFromDate('2020', '02', '04')->day % 2;
+
+        return view('book.index', compact('doctors', 'bla'));
     }
 
     public function show(User $user) {
@@ -57,23 +64,30 @@ class BookController extends Controller {
             $restStart = Carbon::createFromFormat('Y-m-d', $timetable->day_off_start);
             $restEnd = Carbon::createFromFormat('Y-m-d', $timetable->day_off_end);
 
-            $docDayOfWeeks = $this->service->getDaysConst($timetable);
+            if ($timetable->isWeek()) {
+                $docDayOfWeeks = $this->service->getDaysConst($timetable);
+                $daysOff1 = $this->service->daysDisabled($docDayOfWeeks, $start, $end);
+            } else {
 
-            $daysOff1 = $this->service->daysDisabled($docDayOfWeeks, $start, $end);
+                if ($timetable->isOdd())
+                    $daysOff1 = $this->service->daysDisabledBool(false, $start, $end); //false -- odd ; true -- even
+                else
+                    $daysOff1 = $this->service->daysDisabledB(true, $start, $end);
+            }
+
             $holidays = $this->service->celebrationDays($celebrationDays);
             $daysOff3 = $this->service->restDays($restStart, $restEnd);
 
             if (!empty($holidays)) {
-                $daysOff0 = array_merge($daysOff1, $holidays, $daysOff3);
+                $daysOff0 = array_unique(array_merge($daysOff1, $holidays, $daysOff3));
             } else {
-                $daysOff0 = array_merge($daysOff1, $daysOff3);
+                $daysOff0 = array_unique(array_merge($daysOff1, $daysOff3));
             }
             array_push($timeSlots, ['clinic_id' => $timetable->clinic_id, 'time_slots' => $this->service->timeSlots($timetable, $currentDate)]);
             array_push($daysOff, ['clinic_id' => $timetable->clinic_id, 'days_off' => $daysOff0]);
         }
-        $daysOff9 = json_encode($daysOff);
 
-        return view('book.show', compact('user', 'clinics', 'specs', 'daysOff', 'timeSlots', 'doctorTimetables', 'doctorBooks', 'holidays', 'daysOff9'));
+        return view('book.show', compact('user', 'clinics', 'specs', 'daysOff', 'timeSlots', 'doctorTimetables', 'doctorBooks', 'holidays'));
     }
 
 }

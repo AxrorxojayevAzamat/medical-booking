@@ -29,6 +29,7 @@
                         </ul>
                         @foreach($clinics as $clinic)
                         <ul class="contacts">
+                            <li><h6>{{ trans('Название клиники') }}</h6>{{$clinic->name_ru}}</li>
                             <li><h6>{{ trans('Адрес клиники') }}</h6>{{$clinic->address_ru}}</li>
                             <li><h6>{{ trans('Телефон клиники') }}</h6><a href="tel://{{$clinic->phone_numbers}}">{{$clinic->phone_numbers}}</a></li>
                         </ul>
@@ -40,12 +41,13 @@
 
                 <div class="col-xl-9 col-lg-8">
                     @foreach($clinics as $clinicKey => $clinicValue)
-                        <form method="GET" action="{{ route('patient.booking', [$user, $clinicValue]) }}" >
+                    <form method="GET" action="{{ route('patient.booking', [$user, $clinicValue]) }}" >
                         <div class="box_general_2 add_bottom_45">
                             <div class="main_title_4">
                                 <h3><i class="icon_circle-slelected"></i>{{ __('Выберите дату и время') }}</h3>
-                            </div>
 
+                            </div>
+                            <h3>{{$clinicValue->name_ru }}</h3>
                             <div class="row add_bottom_45">
                                 <div class="col-lg-7">
                                     <div class="form-group">
@@ -343,6 +345,9 @@
 @endsection
 @section('scripts')
 <script>
+    var daysOff = @json($daysOff);
+            console.log(daysOff);
+
     $('#calendar0').datepicker({
         todayHighlight: true,
         daysOfWeekDisabled: [0],

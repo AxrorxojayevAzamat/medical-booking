@@ -350,10 +350,13 @@
 <div id="toTop"></div>
 <!-- Back to top button -->
 
+
 @stop
 @section('js')
 <script>
 
+    let dd = @json($timeSlots);
+    console.log(dd);
     let daysOff = @json($daysOff);
     console.log(daysOff);
 

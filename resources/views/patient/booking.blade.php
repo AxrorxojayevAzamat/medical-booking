@@ -12,7 +12,7 @@
                             <p>Exisitng Customer? <a href="#0">Click here to login</a></p>
                         </div>
                         <div class="form_title">
-                            <h3><strong>1</strong>Your Details</h3>
+                            <h3><strong>1</strong>Ваши данные</h3>
                             <p>
                                 Mussum ipsum cacilds, vidis litro abertis.
                             </p>
@@ -21,36 +21,52 @@
                             <div class="row">
                                 <div class="col-md-6 col-sm-6">
                                     <div class="form-group">
-                                        <label>First name</label>
-                                        <input type="text" class="form-control" id="firstname_booking" name="firstname_booking" value="{{$patient->profile ? $patient->profile->first_name : ''}}"placeholder="Jhon">
+                                        <label>Имя</label>
+                                        <input type="text" class="form-control" id="first_name" name="first_name" value="{{$patient->profile ? $patient->profile->first_name : ''}}" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-6">
                                     <div class="form-group">
-                                        <label>Last name</label>
-                                        <input type="text" class="form-control" id="lastname_booking" name="lastname_booking" placeholder="Doe">
+                                        <label>Фамилия</label>
+                                        <input type="text" class="form-control" id="last_name" name="last_name"  value="{{$patient->profile ? $patient->profile->last_name : ''}}" disabled>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Отчество</label>
+                                        <input type="text" class="form-control" id="middle_name" name="middle_name" value="{{$patient->profile ? $patient->profile->middle_name : ''}}" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+
+                                    <div class="form-group">
+                                        <label>Телефон</label>
+                                        <input type="text" id="phone" name="phone" class="form-control" value="{{$patient ? $patient->phone : ''}}" disabled>
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 col-sm-6">
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <input type="email" id="email_booking" name="email_booking" class="form-control" placeholder="jhon@doe.com">
+                                        <input type="email" id="email" name="email" class="form-control" value="{{$patient ? $patient->email : ''}}" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-6">
                                     <div class="form-group">
-                                        <label>Confirm email</label>
-                                        <input type="email" id="email_booking_2" name="email_booking_2" class="form-control" placeholder="jhon@doe.com">
+                                        <label>Подтвердить Email</label>
+                                        <input type="email" id="email2" name="email2" class="form-control" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 col-sm-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Telephone</label>
-                                        <input type="text" id="telephone_booking" name="telephone_booking" class="form-control" placeholder="00 44 678 94329">
+                                        <label>Описание</label>
+                                        <textarea class="form-control" name="description" rows="3"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -199,7 +215,8 @@
                 <!-- /col -->
                 <aside class="col-xl-4 col-lg-4" id="sidebar">
                     <div class="box_general_3 booking">
-                        <form>
+                        <form method="POST" action="{{ route("patient.booking-doctor") }}" enctype="multipart/form-data">
+                            @csrf
                             <div class="title">
                                 <h3>Your booking</h3>
                             </div>
@@ -222,7 +239,12 @@
                                 </li>
                             </ul>
                             <hr>
-                            <a href="confirm.html" class="btn_1 full-width">Confirm and pay</a>
+                            <input name="patient_id" type="hidden" value="{{$patient->id}}"/>
+                            <input name="doctor_id" type="hidden" value="{{$user->id}}"/>
+                            <input name="clinic_id" type="hidden" value="{{$clinic->id}}"/>
+                            <input name="time_start" type="hidden" value="{{$radioTime}}"/>
+                            <input name="booking_date" type="hidden" value="{{$calendar}}"/>
+                            <button type="submit" class="btn_1 full-width">{{ trans('Confirm and pay')}}</button>
                         </form>
                     </div>
                     <!-- /box_general -->

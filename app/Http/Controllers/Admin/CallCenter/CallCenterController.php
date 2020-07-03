@@ -136,34 +136,42 @@ class CallCenterController extends Controller {
         $doctorTimetable = Timetable::where('doctor_id', $user->id)
                 ->where('clinic_id', $clinic->id)
                 ->first();
-
         $celebrationDays = Celebration::orderByDesc('id')->get();
 
         $doctorBooks = Book::where('doctor_id', $user1->id)
                         ->where('clinic_id', $clinic1->id)->get();
+
+        $daysOff = array();
+        $daysOff1 = array();
 
         $start = Carbon::now()->startOfMonth();
         $end = Carbon::now()->endOfMonth();
         $restStart = Carbon::createFromFormat('Y-m-d', $doctorTimetable->day_off_start);
         $restEnd = Carbon::createFromFormat('Y-m-d', $doctorTimetable->day_off_end);
 
-        $docDayOfWeeks = $this->service->getDaysConst($doctorTimetable);
 
-        $daysOff = array();
-        $daysOff1 = $this->service->daysDisabled($docDayOfWeeks, $start, $end);
-        $daysOff2 = $this->service->celebrationDays($celebrationDays);
+        if ($doctorTimetable->isWeek()) {
+            $docDayOfWeeks = $this->service->getDaysConst($doctorTimetable);
+            $daysOff1 = $this->service->daysDisabled($docDayOfWeeks, $start, $end);
+        } else {
+
+            if ($doctorTimetable->isOdd()) {
+                $daysOff1 = $this->service->daysDisabledBool(false, $start, $end);  //false -- odd ; true -- even
+            } elseif ($doctorTimetable->isEven()) {
+                $daysOff1 = $this->service->daysDisabledBool(true, $start, $end);
+            }
+        }
+        $holidays = $this->service->celebrationDays($celebrationDays);
         $daysOff3 = $this->service->restDays($restStart, $restEnd);
-
         $timeSlots = $this->service->timeSlots($doctorTimetable, $currentDate);
 
-
-        if (!empty($daysOff2)) {
-            $daysOff = array_merge($daysOff1, $daysOff2, $daysOff3);
+        if (!empty($holidays)) {
+            $daysOff = array_unique(array_merge($daysOff1, $holidays, $daysOff3));
         } else {
-            $daysOff = array_merge($daysOff1, $daysOff3);
+            $daysOff = array_unique(array_merge($daysOff1, $daysOff3));
         }
 
-        return view('admin.call-center.booking-time', compact('user1', 'clinic1', 'spec1', 'currentDate', 'daysOff', 'timeSlots', 'doctorTimetable', 'doctorBooks'));
+        return view('admin.call-center.booking-time', compact('user1', 'clinic1', 'spec1', 'currentDate', 'daysOff', 'timeSlots', 'doctorTimetable', 'doctorBooks', 'holidays'));
     }
 
 }
