@@ -12,7 +12,12 @@
                         <figure>
                             <img src="http://via.placeholder.com/565x565.jpg" alt="" class="img-fluid">
                         </figure>
-                        <small>Primary care - Internist</small>
+                        @foreach($user->specializations()->pluck('name_ru') as $value)
+                        <small>
+                            {{ $loop->first ? '' : ', ' }}
+                            {{$value}}
+                        </small>
+                        @endforeach
                         <h1>{{$user->profile ? $user->profile->fullName : ''}}</h1>
                         <span class="rating">
                             <i class="icon_star voted"></i>
@@ -29,6 +34,7 @@
                         </ul>
                         @foreach($clinics as $clinic)
                         <ul class="contacts">
+                            <li><h6>{{ trans('Название клиники') }}</h6>{{$clinic->name_ru}}</li>
                             <li><h6>{{ trans('Адрес клиники') }}</h6>{{$clinic->address_ru}}</li>
                             <li><h6>{{ trans('Телефон клиники') }}</h6><a href="tel://{{$clinic->phone_numbers}}">{{$clinic->phone_numbers}}</a></li>
                         </ul>
@@ -40,12 +46,13 @@
 
                 <div class="col-xl-9 col-lg-8">
                     @foreach($clinics as $clinicKey => $clinicValue)
-                        <form method="GET" action="{{ route('patient.booking', [$user, $clinicValue]) }}" >
+                    <form method="GET" action="{{ route('patient.booking', [$user, $clinicValue]) }}" >
                         <div class="box_general_2 add_bottom_45">
                             <div class="main_title_4">
                                 <h3><i class="icon_circle-slelected"></i>{{ __('Выберите дату и время') }}</h3>
-                            </div>
 
+                            </div>
+                            <h3>{{$clinicValue->name_ru }}</h3>
                             <div class="row add_bottom_45">
                                 <div class="col-lg-7">
                                     <div class="form-group">
@@ -85,18 +92,15 @@
                     <div class="tabs_styled_2">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-expanded="true">General info</a>
+                                <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-expanded="true">Общая информация</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews">Reviews</a>
+                                <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews">Отзывы</a>
                             </li>
                         </ul>
                         <!--/nav-tabs -->
-
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
-
-                                <p class="lead add_bottom_30">Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
                                 <div class="indent_title_in">
                                     <i class="pe-7s-user"></i>
                                     <h3>{{ trans('Профессиональные заявления')}}</h3>
@@ -114,84 +118,11 @@
                                                 @endforeach
                                             </ul>
                                         </div>
-                                        <div class="col-lg-6">
-                                            <ul class="bullets">
-                                                <li>Abdominal Radiology</li>
-                                                <li>Addiction Psychiatry</li>
-                                                <li>Adolescent Medicine</li>
-                                                <li>Cardiothoracic Radiology </li>
-                                            </ul>
-                                        </div>
+
                                     </div>
                                     <!-- /row-->
                                 </div>
                                 <!-- /wrapper indent -->
-
-                                <hr>
-
-                                <div class="indent_title_in">
-                                    <i class="pe-7s-news-paper"></i>
-                                    <h3>Education</h3>
-                                    <p>Mussum ipsum cacilds, vidis litro abertis.</p>
-                                </div>
-                                <div class="wrapper_indent">
-                                    <p>Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Nullam mollis. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapi.</p>
-                                    <h6>Curriculum</h6>
-                                    <ul class="list_edu">
-                                        <li><strong>New York Medical College</strong> - Doctor of Medicine</li>
-                                        <li><strong>Montefiore Medical Center</strong> - Residency in Internal Medicine</li>
-                                        <li><strong>New York Medical College</strong> - Master Internal Medicine</li>
-                                    </ul>
-                                </div>
-                                <!--  End wrapper indent -->
-
-                                <hr>
-
-                                <div class="indent_title_in">
-                                    <i class="pe-7s-cash"></i>
-                                    <h3>Prices &amp; Payments</h3>
-                                    <p>Mussum ipsum cacilds, vidis litro abertis.</p>
-                                </div>
-                                <div class="wrapper_indent">
-                                    <p>Zril causae ancillae sit ea. Dicam veritus mediocritatem sea ex, nec id agam eius. Te pri facete latine salutandi, scripta mediocrem et sed, cum ne mundi vulputate. Ne his sint graeco detraxit, posse exerci volutpat has in.</p>
-                                    <div class="table-responsive">
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Service - Visit</th>
-                                                    <th>Price</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>New patient visit</td>
-                                                    <td>$34</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>General consultation</td>
-                                                    <td>$60</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Back Pain</td>
-                                                    <td>$40</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Diabetes Consultation</td>
-                                                    <td>$55</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Eating disorder</td>
-                                                    <td>$60</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Foot Pain</td>
-                                                    <td>$35</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!--  End wrapper_indent -->
 
                             </div>
                             <!-- /tab_2 -->
@@ -348,15 +279,15 @@
     console.log(daysOff);
     console.log(clinics);
 
-    for(var i=0; i<clinics.length; i++) {
-        $('#calendar'+i).datepicker({
-        todayHighlight: true,
-        daysOfWeekDisabled: [0],
-        weekStart: 1,
-        format: "yyyy-mm-dd",
-        datesDisabled: ["2020/07/05"],
+    for (var i = 0; i < clinics.length; i++) {
+        $('#calendar' + i).datepicker({
+            todayHighlight: true,
+            daysOfWeekDisabled: [0],
+            weekStart: 1,
+            format: "yyyy-mm-dd",
+            datesDisabled: ["2020/07/05"],
         }).on('changeDate', function (e) {
-            $('#my_hidden_input'+i).val(e.format());
+            $('#my_hidden_input' + i).val(e.format());
             console.log(clinics[e.currentTarget.id.slice(-1)].name_uz)
         });
     }

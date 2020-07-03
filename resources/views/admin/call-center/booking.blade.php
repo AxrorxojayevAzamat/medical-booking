@@ -15,9 +15,9 @@
                         <tbody>
                             <tr><th>{{ trans('Имя, Фамилия, Отчество') }}</th><td>
                                     <div class="row">
-                                        <div class="col-3"><input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="name" value="{{ old('first_name') }}" required autocomplete="first_name" autofocus placeholder="Имя"></div>
+                                        <div class="col-3"><input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" required autocomplete="first_name" autofocus placeholder="Имя"></div>
                                         <div class="col-4"><input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name" autofocus placeholder="Фамилия"></div>
-                                        <div class="col-5"><input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" required autocomplete="first_name" autofocus placeholder="Отчество"></div>
+                                        <div class="col-5"><input id="middle_name" type="text" class="form-control @error('middle_name') is-invalid @enderror" name="middle_name" value="{{ old('middle_name') }}" required autocomplete="middle_name" autofocus placeholder="Отчество"></div>
                                     </div>
                                 </td></tr>
                             <tr><th>{{ trans('Адрес электронной почты') }}</th><td><input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email"></td></tr>
