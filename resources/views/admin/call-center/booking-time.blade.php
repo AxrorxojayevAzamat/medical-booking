@@ -419,9 +419,6 @@
         return disDays;
     }
 
-    console.log(disDays)
-
-
     function setTimes(selected_day) {
         var times;
         if( timetable.schedule_type == 1 ) {
@@ -471,6 +468,35 @@
             time_sum =  time_sum + 1;
         }
     }
+
+    // function makeIntervalNew(day, time_start, time_end, interval, launch_start, launch_end) {
+    //     var timeStart = (new Date(day + " " + time_start)).getHours();
+    //     var timeEnd = (new Date(day + " " + time_end)).getHours();
+    //     time_slots = [];
+
+    //     if(launch_start && launch_end) {
+    //         var launchStart = (new Date(day + " " + launch_start)).getHours();
+    //         var launchEnd = (new Date(day + " " + launch_end)).getHours();
+    //         while(timeStart < launchStart) {
+    //             launchStart = (new )
+    //         }
+    //     }
+    //     var r = interval;
+    //     // var launch_hour = 0;
+    //     time_slots = [];
+
+    //     while( (new Date(day + " " + time_end)).getHours() > time_sum ) {
+    //         time_slots = [...time_slots, time_sum >= 10 ? time_sum + ":00": "0" + time_sum + ":00"];
+    //         r = interval;
+    //         while( r < 60 ) {
+    //             time_slots = [...time_slots, time_sum >= 10 ? time_sum + ":" + ( r >= 10 ? r : "0" + r ) :
+    //                                          "0" + time_sum + ":" + ( r >= 10 ? r : "0" + r )];
+    //             r = r + interval;
+    //         }
+    //         // time_sum = ( time_sum == launch_hour - 1) ? time_sum + 2 : time_sum + 1;
+    //         time_sum =  time_sum + 1;
+    //     }
+    // }
 
     function appendRadioButton(time_slot, book, day) {
         var equeled;
