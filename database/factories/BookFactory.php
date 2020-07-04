@@ -14,6 +14,6 @@ $factory->define(Book::class, function (Faker $faker) {
         'time_finish' => $time->format('H:i:s'),
         'description' => $faker->text(15),
         'payment_type' => $faker->randomElement([Book::PAYME, Book::CLICK]),
-        'status' => $faker->randomElement([Book::STATUS_PAYED, Book::STATUS_POSTPONED, Book::STATUS_CANCELLED, Book::STATUS_COMPLETED]),
+        'status' => $faker->randomElement([Book::STATUS_ACTIVE, Book::STATUS_POSTPONED, Book::STATUS_CANCELLED, Book::STATUS_COMPLETED]),
     ];
 });

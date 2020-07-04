@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $user_id
  * @property int $doctor_id
  * @property int $clinic_id
+ * @property int $price_id
  * @property Carbon $time_start
  * @property Carbon $time_finish
  * @property string $description
@@ -24,13 +25,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property User $user
  * @property User $doctor
  * @property Clinic $clinic
+ * @property Price $bookPrice
  * @mixin Eloquent
  */
 class Book extends Model
 {
-    const STATUS_CREATED = 1;
-    const STATUS_WAITING_PAY = 2;
-    const STATUS_PAYED = 3;
+    const STATUS_WAITING = 1;
+    const STATUS_ACTIVE = 3;
     const STATUS_CANCELLED = 4;
     const STATUS_POSTPONED = 5;
     const STATUS_COMPLETED = 10;
@@ -54,8 +55,18 @@ class Book extends Model
             'time_start' => $timeStart,
             'time_finish' => $finishTime,
             'description' => $description,
-            'status' => self::STATUS_CREATED,
+            'status' => self::STATUS_WAITING,
         ]);
+    }
+
+    public function activate()
+    {
+        $this->status = self::STATUS_ACTIVE;
+    }
+
+    public function cancel()
+    {
+        $this->status = self::STATUS_CANCELLED;
     }
 
     public static function typeList()
@@ -87,6 +98,11 @@ class Book extends Model
     public function clinic()
     {
         return $this->belongsTo(Clinic::class, 'clinic_id', 'id');
+    }
+
+    public function bookPrice()
+    {
+        return $this->belongsTo(Price::class, 'price_id', 'id');
     }
 
     ###########################################
