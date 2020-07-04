@@ -4,23 +4,22 @@
 namespace App\Services\Book\Click;
 
 
+use App\Entity\Book\Book;
 use App\Entity\Book\Payment\Click;
 use App\Exceptions\ClickException;
 use App\Helpers\ClickHelper;
 use App\Helpers\ResponseHelper;
-use App\Repository\ClickRepository;
 use App\Validators\Book\ClickValidator;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Psr\Http\Message\ResponseInterface;
 
 class ClickService
 {
-    protected $clicks;
     protected $validator;
-    protected $accounts;
-    protected $receipts;
     protected $apis;
     protected $request;
     protected $config;
@@ -28,7 +27,6 @@ class ClickService
 
     public function __construct()
     {
-        $this->clicks = new ClickRepository();
         $this->validator = new ClickValidator('click');
         $this->apis = new ClickApiService('click');
         $this->request = new RequestService();
@@ -81,16 +79,16 @@ class ClickService
 
     public function createInvoice(Request $request)
     {
-        $payment = $this->clicks->findByToken($request->token);
-        if (!in_array($payment->status,[ClickHelper::INPUT, ClickHelper::REFUNDED])) {
+        $payment = $this->findByToken($request->transaction_id);
+        if (!in_array($payment->status, [ClickHelper::INPUT, ClickHelper::REFUNDED])) {
             return ['error_code' => -31300, 'error_note' => 'Payment in processing'];
         }
 
         $response = $this->apis->createInvoice([
             'service_id' => $this->config['service_id'],
-            'merchant_trans_id' => $this->apis->getMerchantTransactionId($request->token),
+            'merchant_trans_id' => $payment->merchant_transaction_id,
             'phone_number' => $request->phone_number,
-            'amount' => (float)($payment->amount / 100)
+            'amount' => $payment->amount
         ]);
 
         return $this->baseMethod($response, $payment, function ($data, Click $payment) use ($request): Click {
@@ -100,14 +98,14 @@ class ClickService
                 $payment->setStatus(ClickHelper::ERROR, $data->error_note);
 
             }
-            $this->clicks->update($payment);
+            $payment->update();
             return $payment;
         });
     }
 
     public function createCardToken(Request $request): Click
     {
-        $payment = $this->clicks->findOrderByAccount($request->account_id);
+        $payment = $this->findByToken($request->transaction_id);
         if (!in_array($payment->status, [ClickHelper::INPUT, ClickHelper::REFUNDED])) {
             throw new ClickException('Payment in processing', ResponseHelper::CODE_ERROR, ClickException::ERROR_PAYMENT_IN_PROCESSING);
         }
@@ -125,15 +123,14 @@ class ClickService
             } else {
                 $payment->setStatus(ClickHelper::ERROR, $data->error_note);
             }
-            $this->clicks->update($payment);
+            $payment->update();
             return $payment;
         });
     }
 
     public function verifyCardToken(Request $request): Click
     {
-        $payment = $this->clicks->findOrderByAccount($request->account_id);
-
+        $payment = $this->findByToken($request->transaction_id);
         if ($payment->status !== ClickHelper::WAITING) {
             throw new ClickException('Payment is not stable to perform', ResponseHelper::CODE_ERROR, ClickException::ERROR_COULD_NOT_PERFORM);
         }
@@ -154,7 +151,7 @@ class ClickService
             } else {
                 $payment->setStatus(ClickHelper::CONFIRMED, $data->error_note);
             }
-            $this->clicks->update($payment);
+            $payment->update();
 
             return $payment;
         });
@@ -162,8 +159,7 @@ class ClickService
 
     public function deleteCardToken(Request $request): Click
     {
-        $payment = $this->clicks->findByToken($request->token);
-
+        $payment = $this->findByToken($request->transaction_id);
         if ($payment->card_token !== $request->card_token) {
             throw new ClickException('Incorrect card token', ResponseHelper::CODE_ERROR, ClickException::ERROR_COULD_NOT_PERFORM);
         }
@@ -172,28 +168,37 @@ class ClickService
 
         return $this->baseMethod($response, $payment, function ($data, Click $payment): Click {
             if ((int)$data->error_code === 0) {
-                $payment->setAttributes(['card_id' => null, 'status_note' => $data->error_note]);
+                $payment->setAttributes(['card_token' => null, 'status_note' => $data->error_note]);
             } else {
                 $payment->setStatus(ClickHelper::ERROR, $data->error_note);
             }
-            $this->clicks->update($payment);
+            $payment->update();
 
             return $payment;
         });
     }
 
-    public function createOrderReceipt($amount, $accountId): Click
+    public function createOrderReceipt($amount, $accountId): Click  // TODO add booking part
     {
         if (!$order = $this->clicks->findOrderByAccountNull($accountId)) {
-            $order = Click::create($amount * 100, PaymentTypes::TYPE_GENERAL, $accountId);
-            $this->clicks->save($order);
+            $book = Book::create([
+
+            ]);
+
+            $order = Click::create([
+                'book_id' => $book->id,
+                'merchant_transaction_id' => Str::random(20) . time(),
+                'amount' => $amount,
+                'status' => ClickHelper::INPUT,
+                'created_at' => time(),
+            ]);
         }
         return $order;
     }
 
-    public function performPayment(string $cardToken, int $uniqueId): Click
+    public function performPayment(string $cardToken, int $token): Click
     {
-        $payment = $this->clicks->findOrderByAccount($uniqueId);
+        $payment = $this->findByToken($token);
         if ($payment->card_token !== $cardToken) {
             throw new ClickException('Incorrect card token', ResponseHelper::CODE_ERROR, ClickException::ERROR_COULD_NOT_PERFORM);
         }
@@ -212,13 +217,15 @@ class ClickService
                 $payment->setStatus(ClickHelper::ERROR, $data->error_note);
             }
 
-            return $this->pay($payment);
+            $payment->refresh();
+
+            return $payment;
         });
     }
 
     public function checkInvoice(Request $request): Click
     {
-        $payment = $this->clicks->findByToken($request->token);
+        $payment = $this->findByToken($request->transaction_id);
 
         if ($payment->invoice_id !== $request->invoice_id) {
             throw new ClickException('Incorrect invoice id', ResponseHelper::CODE_ERROR, ClickException::ERROR_COULD_NOT_PERFORM);
@@ -235,7 +242,7 @@ class ClickService
                 } else {
                     $payment->setStatus(ClickHelper::ERROR, $data->error_note);
                 }
-                $this->clicks->update($payment);
+                $payment->update();
             }
 
             return $payment;
@@ -244,7 +251,7 @@ class ClickService
 
     public function checkPayment(Request $request): Click
     {
-        $payment = $this->clicks->findOrderByAccount($request->account_id);
+        $payment = $this->findByToken($request->transaction_id);
         if ($payment->status === ClickHelper::CONFIRMED) {
             return $payment;
         }
@@ -259,7 +266,7 @@ class ClickService
                 } else {
                     $payment->setStatus(ClickHelper::ERROR, $data->error_note);
                 }
-                $this->clicks->update($payment);
+                $payment->update();
             }
             return $payment;
         });
@@ -267,7 +274,7 @@ class ClickService
 
     public function checkPaymentStatus(Request $request): Click
     {
-        $payment = $this->clicks->findOrderByAccount($request->account_id);
+        $payment = $this->findByToken($request->transaction_id);
         $response = $this->apis->checkPaymentStatus($payment->merchant_transaction_id);
 
         return $this->baseMethod($response, $payment, function ($data, Click $payment): Click {
@@ -279,7 +286,7 @@ class ClickService
             } else {
                 $payment->setStatus(ClickHelper::ERROR, $data->error_note);
             }
-            $this->clicks->save($payment);
+            $payment->update();
 
             return $payment;
         });
@@ -288,15 +295,15 @@ class ClickService
     public function cancel(Request $request): Click
     {
         $response = $this->apis->onCanceling($request->payment_id);
-        $payment = $this->clicks->findByToken($request->token);
+        $payment = $this->findByToken($request->transaction_id);
 
         return $this->baseMethod($response, $payment, function ($data, Click $payment): Click {
             if ((int)$data->error_code === 0) {
                 $payment->setStatus(ClickHelper::REJECTED, $data->error_note, ['payment_id' => $data->payment_id]);
-                $this->clicks->update($payment);
+                $payment->update();
             } else {
                 $payment->setStatus(ClickHelper::ERROR, $data->error_note);
-                $this->clicks->update($payment);
+                $payment->update();
             }
 
             return $payment;
@@ -305,7 +312,8 @@ class ClickService
 
     public function prepare(Request $request): array
     {
-        $payment = $this->validate($request, $result = []);
+        $result = [];
+        $payment = $this->validate($request, $result);
 
         $result += [
             'click_trans_id' => $request->click_trans_id,
@@ -316,7 +324,7 @@ class ClickService
 
         if ($result['error'] === 0) {
             $payment->changeStatus(ClickHelper::WAITING);
-            $this->clicks->save($payment);
+            $payment->update();
         }
 
         return $result;
@@ -324,7 +332,8 @@ class ClickService
 
     public function complete(Request $request): array
     {
-        $payment = $this->validate($request, $result = []);
+        $result = [];
+        $payment = $this->validate($request, $result);
 
         $result += [
             'click_trans_id' => $request->click_trans_id,
@@ -335,7 +344,7 @@ class ClickService
 
         if ($request->error < 0 && !in_array($result['error'], [ClickValidator::ALREADY_PAID, ClickValidator::TRANSACTION_CANCELLED])) {
             $payment->changeStatus(ClickHelper::REJECTED);
-            $this->clicks->save($payment);
+            $payment->update();
 
             return ['error' => ClickValidator::TRANSACTION_CANCELLED, 'error_note' => 'Transaction cancelled'];
         }
@@ -352,7 +361,7 @@ class ClickService
         try {
             $this->validator->validateBasic($request);
             $this->validator->requestCheck($request);
-            $payment = $this->clicks->findByMerchantTransId($request->merchant_trans_id);
+            $payment = $this->findByToken($request->merchant_trans_id);
             $this->validator->checkPayment($request, $payment);
             $result = ['error' => 0, 'error_note' => 'Success'];
             return $payment;
@@ -381,16 +390,14 @@ class ClickService
 
     protected function pay(Click $payment, $params = [], $notes = ''): Click
     {
-        $account = $this->accounts->findActive($payment->account_id);
-        $receipt = Receipt::create($account->id, $payment->amount, Receipt::TYPE_CLICK);
-        $account->replenish($receipt->amount);
+        $payment->pay($params, $notes);
+        $book = $payment->book;
+        $book->activate();
 
         DB::beginTransaction();
         try {
-            $this->accounts->update($account);
-            $this->receipts->save($receipt);
-            $payment->pay($receipt->id, $params, $notes);
-            $this->clicks->update($payment);
+            $book->update();
+            $payment->update();
             DB::commit();
 
             return $payment;
@@ -398,5 +405,13 @@ class ClickService
             DB::rollBack();
             throw new ClickException('Update failed',ResponseHelper::CODE_ERROR, ClickValidator::UPDATE_FAILED);
         }
+    }
+
+    public function findByToken($token): Click
+    {
+        if (!$click = Click::where('merchant_transaction_id', $token)->first()) {
+            throw new \DomainException('Click order is not found.');
+        }
+        return $click;
     }
 }

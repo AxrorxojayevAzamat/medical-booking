@@ -2,20 +2,18 @@
 
 namespace App\Services\Book\Click;
 
+use App\Entity\Book\Payment\Click;
 use App\Services\ApiService;
-use App\Repository\ClickRepository;
 use Psr\Http\Message\ResponseInterface;
 
 class ClickApiService
 {
     private $apis;
     private $config;
-    private $repository;
     private $baseUrl;
 
     public function __construct(string $configName, $headers = [])
     {
-        $this->repository = new ClickRepository();
         $this->config = config($configName);
 
         $time = time();
@@ -30,10 +28,10 @@ class ClickApiService
 
     public function getMerchantTransactionId($token)
     {
-        $payment = $this->repository->findByToken($token);
+        $payment = Click::where('token', $token)->first();
         $payment->merchant_transaction_id = $payment->id;
-        $this->repository->update($payment);
-        return $payment->id;
+        $payment->update();
+        return $payment->merchant_transaction_id;
     }
 
     public function createInvoice(array $data)

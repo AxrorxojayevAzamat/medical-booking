@@ -7,11 +7,11 @@ namespace App\Http\Controllers\Book;
 use App\Exceptions\ClickException;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
-use App\Services\Book\Click\ApplicationService;
 use App\Services\Book\Click\ClickService;
 use App\Validators\Book\ClickValidator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class ClickController extends Controller
 {
@@ -27,12 +27,6 @@ class ClickController extends Controller
 
 
     ##################################################################################### Endpoints
-
-    public function endpoint(Request $request)
-    {
-        $application = new ApplicationService();
-        $application->session($request);
-    }
 
     public function prepare(Request $request)
     {
@@ -104,9 +98,9 @@ class ClickController extends Controller
         return $this->baseClickAction($request, function (Request $request): JsonResponse {
             $this->validator->validateAuth($request);
             $this->validator->validatePerformPayment($request);
-            $click = $this->service->performPayment($request->card_token, $request->account_id);
+            $click = $this->service->performPayment($request->card_token, $request->transaction_id);
 
-            return $this->response(ResponseHelper::CODE_SUCCESS, trans('Payment is successfully performed.'), ['receipt_id' => $click->receipt_id]);
+            return $this->response(ResponseHelper::CODE_SUCCESS, trans('Payment is successfully performed.'), ['book_id' => $click->book_id]);
         });
     }
 
@@ -117,10 +111,32 @@ class ClickController extends Controller
             $this->validator->validateCheckPayment($request);
             $click = $this->service->checkPayment($request);
 
-            return $this->response(ResponseHelper::CODE_SUCCESS, trans('Payment is successfully performed.'), ['receipt_id' => $click->receipt_id]);
+            return $this->response(ResponseHelper::CODE_SUCCESS, trans('Payment is successfully performed.'), ['book_id' => $click->book_id]);
         });
     }
 
     #####################################################################################
+
+
+    protected function baseClickAction(Request $request, callable $func): JsonResponse
+    {
+        try {
+            return $func($request);
+        } catch (ValidationException $e) {
+            return $this->response(ResponseHelper::CODE_VALIDATION_ERROR, trans('validation.error'), $e->errorBag);
+        }  catch (ClickException $e) {
+            return $this->response($e->getCode(), $e->getMessage());
+        } catch (\DomainException|\RuntimeException|\Exception $e) {
+            return $this->response(ResponseHelper::CODE_ERROR, $e->getMessage());
+        }
+    }
+
+    protected function response(int $code, string $message, $data = []): JsonResponse
+    {
+        return response()->json([
+            'message' => $message,
+            'data' => $data,
+        ], $code);
+    }
 
 }

@@ -13,6 +13,7 @@ return [
     |
     */
 
+    'error' => 'Berilgan ma`lumotlar noto`g`ri.',
     'accepted' => 'The :attribute must be accepted.',
     'active_url' => 'The :attribute is not a valid URL.',
     'after' => 'The :attribute must be a date after :date.',
@@ -92,10 +93,10 @@ return [
     ],
     'not_in' => 'The selected :attribute is invalid.',
     'not_regex' => 'The :attribute format is invalid.',
-    'numeric' => 'The :attribute must be a number.',
+    'numeric' => ':attribute maydoni raqam bo`lishi kerak.',
     'present' => 'The :attribute field must be present.',
     'regex' => 'The :attribute format is invalid.',
-    'required' => 'Поле ":attribute" обязательно к заполнению.',
+    'required' => ':attribute maydoni to`ldirilishi shart.',
     'required_if' => 'The :attribute field is required when :other is :value.',
     'required_unless' => 'The :attribute field is required unless :other is in :values.',
     'required_with' => 'The :attribute field is required when :values is present.',
@@ -110,7 +111,7 @@ return [
         'array' => 'The :attribute must contain :size items.',
     ],
     'starts_with' => 'The :attribute must start with one of the following: :values',
-    'string' => 'The :attribute must be a string.',
+    'string' => ':attribute maydoni satr bo`lishi kerak.',
     'timezone' => 'The :attribute must be a valid zone.',
     'unique' => 'The :attribute has already been taken.',
     'uploaded' => 'The :attribute failed to upload.',

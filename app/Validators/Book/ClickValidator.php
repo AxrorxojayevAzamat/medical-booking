@@ -44,7 +44,7 @@ class ClickValidator extends BaseValidator
     public function validateOrderCreate(Request $request): void
     {
         $this->validate($request, [
-            'account_id' => 'required|numeric',
+            'user_id' => 'required|numeric',
             'amount' => 'required|numeric',
         ]);
     }
@@ -56,10 +56,10 @@ class ClickValidator extends BaseValidator
     public function validateCreateToken(Request $request): void
     {
         $this->validate($request, [
-            'account_id' => 'required|numeric|min:1',
+            'transaction_id' => 'required|numeric|min:1',
             'card_token' => 'required|string|max:255',
             'expire_date' => 'required|string|max:255',
-            'temporary' => 'boolean',
+            'temporary' => 'nullable|boolean',
         ]);
     }
 
@@ -70,7 +70,7 @@ class ClickValidator extends BaseValidator
     public function validateVerifyToken(Request $request): void
     {
         $this->validate($request, [
-            'account_id' => 'required|numeric|min:1',
+            'transaction_id' => 'required|numeric|min:1',
             'card_token' => 'required|string|max:255',
             'sms_code' => 'required|numeric',
         ]);
@@ -83,7 +83,7 @@ class ClickValidator extends BaseValidator
     public function validatePerformPayment(Request $request): void
     {
         $this->validate($request, [
-            'account_id' => 'required|numeric|min:1',
+            'transaction_id' => 'required|numeric|min:1',
             'card_token' => 'required|string|max:255',
         ]);
     }
@@ -95,7 +95,7 @@ class ClickValidator extends BaseValidator
     public function validateCheckPayment(Request $request): void
     {
         $this->validate($request, [
-            'account_id' => 'required|numeric|min:1',
+            'transaction_id' => 'required|numeric|min:1',
         ]);
     }
 
@@ -203,7 +203,8 @@ class ClickValidator extends BaseValidator
 
     private function validateAmounts(Request $request, Click $payment): void
     {
-        if (abs((float)($payment->amount / 100) - (float)$request->amount) > 0.01) {
+//        if (abs((float)($payment->amount / 100) - (float)$request->amount) > 0.01) {
+        if (abs($payment->amount - (float)$request->amount) > 0.01) {
             throw new ClickException('Incorrect parameter amount', ResponseHelper::CODE_VALIDATION_ERROR, 0, self::AMOUNT);
         }
     }

@@ -13,6 +13,7 @@ return [
     |
     */
 
+    'error' => 'Указанные данные неверны.',
     'accepted' => 'The :attribute must be accepted.',
     'active_url' => 'The :attribute is not a valid URL.',
     'after' => 'The :attribute must be a date after :date.',
@@ -92,7 +93,7 @@ return [
     ],
     'not_in' => 'The selected :attribute is invalid.',
     'not_regex' => 'The :attribute format is invalid.',
-    'numeric' => 'The :attribute must be a number.',
+    'numeric' => 'Поле :attribute должен быть числом.',
     'present' => 'The :attribute field must be present.',
     'regex' => 'The :attribute format is invalid.',
     'required' => 'Поле ":attribute" обязательно к заполнению.',
@@ -110,7 +111,7 @@ return [
         'array' => 'The :attribute must contain :size items.',
     ],
     'starts_with' => 'The :attribute must start with one of the following: :values',
-    'string' => 'The :attribute must be a string.',
+    'string' => 'Поле :attribute должен быть строкой.',
     'timezone' => 'The :attribute must be a valid zone.',
     'unique' => 'The :attribute has already been taken.',
     'uploaded' => 'The :attribute failed to upload.',
