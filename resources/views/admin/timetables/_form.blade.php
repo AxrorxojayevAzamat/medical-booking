@@ -228,7 +228,7 @@
                 <div class="form-group">
                     <label>Интервал</label>
                     <div class="input-group date" id="timepicker18" data-target-input="nearest">
-                        <input type="number" name="interval" class="form-control datetimepicker-input" data-target="#timepicker" value="{{ old('interval',$timetable ? $timetable->interval : '')}}">
+                        <input type="number" name="interval" class="form-control datetimepicker-input" data-target="#timepicker18" value="{{ old('interval',$timetable ? $timetable->interval : '')}}">
 
                     </div>
                 </div>
@@ -239,7 +239,7 @@
                     <label>Обеденный перерыв начало и конец</label>
 
                     <div class="input-group date" id="timepicker19" data-target-input="nearest">
-                        <input type="time" name="lunch_start" class="form-control datetimepicker-input" data-target="#timepicker16" value="{{ old('lunch_start',$timetable ? $timetable->lunch_start :'')}}">
+                        <input type="time" name="lunch_start" class="form-control datetimepicker-input" data-target="#timepicker19" value="{{ old('lunch_start',$timetable ? $timetable->lunch_start :'')}}">
                         <div class="input-group-append" data-target="#timepicker19" data-toggle="datetimepicker">
                             <div class="input-group-text">
                                 <i class="far fa-clock"></i>
@@ -247,7 +247,7 @@
                         </div>
                     </div>
                     <div class="input-group date" id="timepicker20" data-target-input="nearest">
-                        <input type="time" name="lunch_end" class="form-control datetimepicker-input" data-target="#timepicker17" value="{{ old('lunch_end', $timetable ? $timetable->lunch_end :'')}}">
+                        <input type="time" name="lunch_end" class="form-control datetimepicker-input" data-target="#timepicker20" value="{{ old('lunch_end', $timetable ? $timetable->lunch_end :'')}}">
                         <div class="input-group-append" data-target="#timepicker20" data-toggle="datetimepicker">
                             <div class="input-group-text">
                                 <i class="far fa-clock"></i>
