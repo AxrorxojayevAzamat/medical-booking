@@ -4,7 +4,7 @@
    
         <div class="radio">
             <label>
-                <input type="radio" name="schedule_type" id="schedule_type1" value="1" {{old ('schedule_type',  $timetable && $timetable->schedule_type == '1' ? "checked" : "" )}}>
+                <input type="radio" name="schedule_type" id="schedule_type1" value="1" {{old ('schedule_type', $timetable && $timetable->schedule_type == '1' ? 'checked' : '' )}}>
                 Неделя
             </label>
         </div>

@@ -125,7 +125,7 @@
                                 <table class="table table-hover text-nowrap">
                                     <thead>
                                     <tr>
-                                        <th>Дни недели</th>
+                                        <th></th>
                                         <th>Начало приёма</th>
                                         <th>Конец приёма</th>
                                     </tr>
