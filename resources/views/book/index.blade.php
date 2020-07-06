@@ -64,21 +64,22 @@
             <div class="row">
                 <div class="col-lg-7">
 
-                    @foreach($doctors as $doctor)
+                    @foreach($doctors as $doctorKey => $doctorValue)
                     <div class="strip_list wow fadeIn">
                         <figure>
                             <a href="detail-page.html"><img src="http://via.placeholder.com/565x565.jpg" alt=""></a>
                         </figure>
-                        @foreach($doctor->specializations as $spec)
+                        @foreach($doctorValue->specializations as $spec)
                         <small>{{$spec->name_uz}}</small>
                         @endforeach
-                        <h3>{{$doctor->profile ? $doctor->profile->fullName : ''}}</h3>
-                        <p>{{$doctor->profile ? $doctor->profile->about_ru : ''}}</p>
+                        <h3>{{$doctorValue->profile ? $doctorValue->profile->fullName : ''}}</h3>
+                        <p>{{$doctorValue->profile ? $doctorValue->profile->about_ru : ''}}</p>
                         <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i> <small>(145)</small></span>
                         <a href="badges.html" data-toggle="tooltip" data-placement="top" data-original-title="Badge Level" class="badge_list_1"><img src="img/badges/badge_1.svg" width="15" height="15" alt=""></a>
                         <ul>
-                            <li><a href="#0" onclick="onHtmlClick('Doctors', 0)" class="btn_listing">View on Map</a></li>
-                            <li><a href="{{ route('book.show',$doctor) }}">Book now</a></li>
+                            {{-- <li><a href="#0" onclick="onHtmlClick('Doctors', {{ $doctorKey }})" class="btn_listing">View on Map</a></li> --}}
+                            <li><a href="#0" onclick="initMap(41.2646, 69.2163)" class="btn_listing">View on Map</a></li>
+                            <li><a href="{{ route('book.show',$doctorValue) }}">Book now</a></li>
                         </ul>
                     </div>
                     @endforeach

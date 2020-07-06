@@ -354,9 +354,9 @@
 @stop
 @section('js')
 <script>
+    let holidays = @json($holidays);
+    console.log(holidays);
 
-    let dd = @json($timeSlots);
-    console.log(dd);
     let daysOff = @json($daysOff);
     console.log(daysOff);
 
@@ -377,6 +377,8 @@
     timetable.even_end = null;
 
     timetable.schedule_type = 2;
+
+    // timetable.lunch_start = "13:30:00";
     //blackpaper
 
 
@@ -419,56 +421,60 @@
         return disDays;
     }
 
-    console.log(disDays)
-
-
     function setTimes(selected_day) {
-        var times;
+        var day;
         if( timetable.schedule_type == 1 ) {
-            times = selected_day.getDay();
+            day = selected_day.getDay();
 
-            timeStart = times == 0 ? timetable.sunday_start || '':
-                        times == 1 ? timetable.monday_start || '':
-                        times == 2 ? timetable.tuesday_start || '':
-                        times == 3 ? timetable.wednesday_start || '':
-                        times == 4 ? timetable.thursday_start || '':
-                        times == 5 ? timetable.friday_start || '':
-                        times == 6 ? timetable.saturday_start || '' : null;
+            timeStart = day == 0 ? timetable.sunday_start || '':
+                        day == 1 ? timetable.monday_start || '':
+                        day == 2 ? timetable.tuesday_start || '':
+                        day == 3 ? timetable.wednesday_start || '':
+                        day == 4 ? timetable.thursday_start || '':
+                        day == 5 ? timetable.friday_start || '':
+                        day == 6 ? timetable.saturday_start || '' : null;
 
-            timeEnd = times == 0 ? timetable.sunday_end || '':
-                      times == 1 ? timetable.monday_end || '':
-                      times == 2 ? timetable.tuesday_end || '':
-                      times == 3 ? timetable.wednesday_end || '':
-                      times == 4 ? timetable.thursday_end || '':
-                      times == 5 ? timetable.friday_end || '':
-                      times == 6 ? timetable.saturday_end || '' : null;
+            timeEnd = day == 0 ? timetable.sunday_end || '':
+                      day == 1 ? timetable.monday_end || '':
+                      day == 2 ? timetable.tuesday_end || '':
+                      day == 3 ? timetable.wednesday_end || '':
+                      day == 4 ? timetable.thursday_end || '':
+                      day == 5 ? timetable.friday_end || '':
+                      day == 6 ? timetable.saturday_end || '' : null;
         } else {
-            times = selected_day.getDate();
+            day = selected_day.getDate();
 
-            timeStart = times % 2 != 0 ? timetable.odd_start || '':
-                        times % 2 == 0 ? timetable.even_start || '' : null;
+            timeStart = day % 2 != 0 ? timetable.odd_start || '':
+                        day % 2 == 0 ? timetable.even_start || '' : null;
 
-            timeEnd = times % 2 != 0 ? timetable.odd_end || '':
-                      times % 2 == 0 ? timetable.even_end || '' : null;
+            timeEnd = day % 2 != 0 ? timetable.odd_end || '':
+                      day % 2 == 0 ? timetable.even_end || '' : null;
         }
     }
 
-    function makeInterval(day, time_start, time_end, interval) {
-        var time_sum = (new Date(day + " " + time_start)).getHours();
-        var r = interval;
-        // var launch_hour = 0;
+    function makeInterval(day, time_start, time_end, interval, lunch_start, lunch_end) {
+        var timeStart = new Date(day + " " + time_start);
+        var timeEnd = new Date(day + " " + time_end);
         time_slots = [];
-
-        while( (new Date(day + " " + time_end)).getHours() > time_sum ) {
-            time_slots = [...time_slots, time_sum >= 10 ? time_sum + ":00": "0" + time_sum + ":00"];
-            r = interval;
-            while( r < 60 ) {
-                time_slots = [...time_slots, time_sum >= 10 ? time_sum + ":" + ( r >= 10 ? r : "0" + r ) :
-                                             "0" + time_sum + ":" + ( r >= 10 ? r : "0" + r )];
-                r = r + interval;
+        if(lunch_start && lunch_end) {
+            var lunchStart = new Date(day + " " + lunch_start);
+            var lunchEnd = new Date(day + " " + lunch_end);
+            while(timeStart < lunchStart) {
+                time_slots = [...time_slots, (timeStart.getHours() < 10 ? '0' + timeStart.getHours() :  timeStart.getHours()) + ":" +
+                                             (timeStart.getMinutes() < 10 ? '0' + timeStart.getMinutes() :  timeStart.getMinutes())];
+                timeStart.setMinutes(timeStart.getMinutes() + interval);
             }
-            // time_sum = ( time_sum == launch_hour - 1) ? time_sum + 2 : time_sum + 1;
-            time_sum =  time_sum + 1;
+            while(lunchEnd < timeEnd) {
+                time_slots = [...time_slots, (lunchEnd.getHours() < 10 ? '0' + lunchEnd.getHours() :  lunchEnd.getHours()) + ":" +
+                                             (lunchEnd.getMinutes() < 10 ? '0' + lunchEnd.getMinutes() :  lunchEnd.getMinutes())];
+                lunchEnd.setMinutes(lunchEnd.getMinutes() + interval);
+            }
+        } else {
+            while(timeStart < timeEnd) {
+                time_slots = [...time_slots, (timeStart.getHours() < 10 ? '0' + timeStart.getHours() :  timeStart.getHours()) + ":" +
+                                             (timeStart.getMinutes() < 10 ? '0' + timeStart.getMinutes() :  timeStart.getMinutes())];
+                timeStart.setMinutes(timeStart.getMinutes() + interval);
+            }
         }
     }
 
@@ -478,7 +484,7 @@
         for(var i = 0; i < time_slot.length; i++) {
             equeled = true;
             for(var j = 0; j < book.length; j++) {
-                if( (time_slot[i]+":00" == book[j].time_start) && (day == book[j].booking_date)) {
+                if( (time_slot[i] == book[j].time_start.slice(0, 5)) && (day == book[j].booking_date)) {
                     equeled = false;
                     $("#radio_times").append(
                         '<li><input type="radio" id="radio'+ i +'" name="radio_time" value="'+
@@ -504,17 +510,19 @@
     }).on('changeDate', function (e) {
         $('#my_hidden_input').val(e.format());
         setTimes( ( new Date( e.format() ) ) );
-        makeInterval(e.format(), timeStart, timeEnd, timetable.interval);
+        makeInterval(e.format(), timeStart, timeEnd, timetable.interval, timetable.lunch_start, timetable.lunch_end);
         appendRadioButton(time_slots, books, e.format());
-        // console.log(time_slots);
     });
 
     $(document).ready(function() {
         var d = new Date();
         var today = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate();
         setTimes( new Date(today) );
-        makeInterval(today, timeStart, timeEnd, timetable.interval);
+        makeInterval(today, timeStart, timeEnd, timetable.interval, timetable.lunch_start, timetable.lunch_end);
         appendRadioButton(time_slots, books, today);
+        if(!timeStart || !timeEnd) {
+            $("#radio_times").empty();
+        }
     });
 </script>
 
