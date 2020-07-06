@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class PatientController extends Controller {
 
     public function booking(User $user, Clinic $clinic, Request $request) {
-        $calendar = $request['calendar0'];
+        $calendar = $request['calendar'];
         $radioTime = $request['radio_time'];
 
         $patient = User::find(Auth::user()->id);
