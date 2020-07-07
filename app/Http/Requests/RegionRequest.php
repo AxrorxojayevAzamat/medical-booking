@@ -4,9 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property string $name_uz
+ * @property string $name_ru
+ * @property int[] $parents
+ */
 class RegionRequest extends FormRequest
 {
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -14,9 +19,9 @@ class RegionRequest extends FormRequest
     public function rules()
     {
         return [
-           'region_uz'=>'required|min:2|max:50|string',
-           'region_ru'=>'required|min:2|max:50|string',
-
+            'name_uz'=>'required|string|min:2|max:50',
+            'name_ru'=>'required|string|min:2|max:50',
+            'parents.*' => 'nullable|numeric|min:1|exists:regions,id',
         ];
     }
 }

@@ -44,37 +44,24 @@ Breadcrumbs::register('admin.users.user-clinics', function (Crumbs $crumbs, User
 
 
 //regions
-Breadcrumbs::register('admin.region.index', function (Crumbs $crumbs) {
+Breadcrumbs::register('admin.regions.index', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
-    $crumbs->push('Регионы', route('admin.region.index'));
+    $crumbs->push('Регионы', route('admin.regions.index'));
 });
 
-Breadcrumbs::register('admin.region.edit', function (Crumbs $crumbs, Region $region) {
-    $crumbs->parent('admin.region.index');
-    $crumbs->push($region->name_ru, route('admin.region.edit', $region));
-});
-Breadcrumbs::register('admin.region.editCity', function (Crumbs $crumbs, Region $region) {
-    $crumbs->parent('admin.region.index');
-    $crumbs->push($region->name_ru, route('admin.region.editCity', $region));
-});
-Breadcrumbs::register('admin.region.editDistrict', function (Crumbs $crumbs, Region $region) {
-    $crumbs->parent('admin.region.index');
-    $crumbs->push($region->name_ru, route('admin.region.editDistrict', $region));
+Breadcrumbs::register('admin.regions.create', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.regions.index');
+    $crumbs->push('Создать регион', route('admin.regions.create'));
 });
 
-Breadcrumbs::register('admin.region.create', function (Crumbs $crumbs) {
-    $crumbs->parent('admin.region.index');
-    $crumbs->push('Создать регион', route('admin.region.create'));
+Breadcrumbs::register('admin.regions.show', function (Crumbs $crumbs, Region $region) {
+    $crumbs->parent('admin.regions.index');
+    $crumbs->push($region->name_ru, route('admin.regions.show', $region));
 });
 
-Breadcrumbs::register('admin.region.createCity', function (Crumbs $crumbs) {
-    $crumbs->parent('admin.region.index');
-    $crumbs->push('Создать город', route('admin.region.createCity'));
-});
-
-Breadcrumbs::register('admin.region.createDistrict', function (Crumbs $crumbs) {
-    $crumbs->parent('admin.region.index');
-    $crumbs->push('Создать район', route('admin.region.createDistrict'));
+Breadcrumbs::register('admin.regions.edit', function (Crumbs $crumbs, Region $region) {
+    $crumbs->parent('admin.regions.show', $region);
+    $crumbs->push('Редактировать', route('admin.regions.edit', $region));
 });
 
 //clinics
