@@ -37,20 +37,25 @@ class BookController extends Controller {
     }
 
     public function show(User $user) {
-        $clinics = $user->clinics;
-        $clinic2 = $user->clinics->pluck('id')->toArray();
+        $clinicsId = $user->clinics->pluck('id')->toArray();
+        $clinics = Clinic::whereIn('id', $clinicsId)
+                ->orderByDesc('id')
+                ->get();
         $specs = $user->specializations;
 
         $currentDate = Carbon::now()->format('Y-m-d');
 
         $doctorTimetables = Timetable::where('doctor_id', $user->id)
-                ->whereIn('clinic_id', $clinic2)
+                ->whereIn('clinic_id', $clinicsId)
+                ->orderByDesc('clinic_id')
                 ->get();
 
         $celebrationDays = Celebration::orderByDesc('id')->get();
 
         $doctorBooks = Book::where('doctor_id', $user->id)
-                        ->whereIn('clinic_id', $clinic2)->get();
+                ->whereIn('clinic_id', $clinicsId)
+                ->orderByDesc('clinic_id')  
+                ->get();
 
 
         $daysOff0 = array();
