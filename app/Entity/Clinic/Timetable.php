@@ -46,16 +46,18 @@ use Eloquent;
  * @property User $updatedBy
  * @mixin Eloquent
  */
-class Timetable extends BaseModel
-{
+class Timetable extends BaseModel {
+
     protected $table = 'timetables';
 
     public const SCHEDULE_TYPE_WEEK = 1;
     public const SCHEDULE_TYPE_ODD_OR_EVEN = 2;
-    
+
     protected $fillable = [
         'schedule_type',
         'interval',
+        'doctor_id',
+        'clinic_id',
         'monday_start',
         'monday_end',
         'tuesday_start',
@@ -80,25 +82,33 @@ class Timetable extends BaseModel
         'day_off_end',
     ];
 
+    public function isWeek() {
+        return $this->schedule_type === self::SCHEDULE_TYPE_WEEK;
+    }
+
+    public function isOdd() {
+        return $this->schedule_type == self::SCHEDULE_TYPE_ODD_OR_EVEN && !empty($this->odd_start) && !empty($this->odd_end);
+    }
+
+    public function isEven() {
+        return $this->schedule_type == self::SCHEDULE_TYPE_ODD_OR_EVEN && !empty($this->even_start) && !empty($this->even_end);
+    }
+
     ########################################### Relations
 
-    public function doctor()
-    {
+    public function doctor() {
         return $this->belongsTo(User::class, 'doctor_id', 'id');
     }
 
-    public function clinic()
-    {
+    public function clinic() {
         return $this->belongsTo(Clinic::class, 'clinic_id', 'id');
     }
 
-    public function createdBy()
-    {
+    public function createdBy() {
         return $this->belongsTo(User::class, 'created_by', 'id');
     }
 
-    public function updatedBy()
-    {
+    public function updatedBy() {
         return $this->belongsTo(User::class, 'updated_by', 'id');
     }
 

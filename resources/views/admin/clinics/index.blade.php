@@ -21,8 +21,7 @@
         </div>
 
     @endif
-
-
+    
     <div class="container ">
         <div class="row">
             <div class="col-12 ">
@@ -39,22 +38,19 @@
                                 <input class="form-control " name="searchclinic" type="search"
                                        placeholder="Поиск по имени..."
                                        aria-label="Search">
-                                <div class="input-group-append">
-                                    <button class="btn btn-secondary " type="submit"><i class="fas fa-search"></i>
-                                    </button>
-                                </div>
+                                
                                 <div class="col-3-sm-2 ml-4">
-                                    <select id="typeClinic" class="form-control" name="typeClinic">
+                                    <select id="typeClinic" class="form-control mr-2" name="typeClinic">
                                         <option hidden value="">Выберете тип</option>
                                         <option value="1" >Частная клиника</option>
                                         <option value="2">Государственная поликлиника</option>
                                     </select>
                                 </div>
-
+                                <div class="input-group-append">
+                                    <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i>
+                                    </button>
+                                </div>
                             </form>
-
-
-
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -109,9 +105,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <!-- /.card-body -->
                 </div>
-                <!-- /.card -->
             </div>
         </div>
     </div>
@@ -121,5 +115,4 @@
         {{$clinics->links()}}
 
     @endif
-
 @endsection

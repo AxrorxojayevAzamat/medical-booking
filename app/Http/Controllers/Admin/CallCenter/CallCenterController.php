@@ -29,7 +29,14 @@ class CallCenterController extends Controller {
         $city_id = $request->get('city');
         $type_id = $request->get('type');
 
-        $query = Clinic::with(['doctors', 'doctors.specializations']);
+        $query = User::select(['users.*', 'pr.*'])
+                ->leftJoin('profiles as pr', 'users.id', '=', 'pr.user_id')
+                ->join('timetables as ts', 'users.id', '=', 'ts.doctor_id')
+                ->join('doctor_clinics as dc', 'users.id', '=', 'dc.doctor_id')
+                ->join('doctor_specializations as ds', 'users.id', '=', 'ds.doctor_id')
+                ->where('role', User::ROLE_DOCTOR)
+                ->groupBy(['users.id', 'pr.user_id'])
+                ->orderByDesc('users.created_at');
 
 
         $regionList = Region::where('parent_id', null)->pluck('name_ru', 'id');
@@ -40,34 +47,34 @@ class CallCenterController extends Controller {
         $clinicList = $this->service->findClinicByType($type_id, $city_id, $region_id);
 
 
-        if (!empty($region_id)) {
-            $children = Region::where('parent_id', $region_id)->pluck('id')->toArray();
-            $query->whereIn('region_id', $children);
-        }
-        if (!empty($city_id)) {
-            $query->where('region_id', $city_id);
-        }
-        if (!empty($type_id)) {
-            $query->where('type', $type_id);
-        }
+//        if (!empty($region_id)) {
+//            $children = Region::where('parent_id', $region_id)->pluck('id')->toArray();
+//            $query->whereIn('region_id', $children);
+//        }
+//        if (!empty($city_id)) {
+//            $query->where('region_id', $city_id);
+//        }
+//        if (!empty($type_id)) {
+//            $query->where('type', $type_id);
+//        }
+//
+//        if (!empty($value = $request->get('clinic'))) {
+//            $query->where('id', $value);
+//        }
+//        if (!empty($value = $request->get('name'))) {
+//            $query->whereHas('doctors', function ($query1) use ($value) {
+//                        $query1->where('name', 'ilike', '%' . $value . '%')
+//                        ->orWhere('last_name', 'ilike', '%' . $value . '%');
+//                    })
+//                    ->orWhereHas('doctors.specializations', function ($query2) use ($value) {
+//                        $query2->where('name_ru', 'ilike', '%' . $value . '%')
+//                        ->orWhere('name_uz', 'ilike', '%' . $value . '%');
+//                    });
+//        }
 
-        if (!empty($value = $request->get('clinic'))) {
-            $query->where('id', $value);
-        }
-        if (!empty($value = $request->get('name'))) {
-            $query->whereHas('doctors', function ($query1) use ($value) {
-                        $query1->where('name', 'ilike', '%' . $value . '%')
-                        ->orWhere('last_name', 'ilike', '%' . $value . '%');
-                    })
-                    ->orWhereHas('doctors.specializations', function ($query2) use ($value) {
-                        $query2->where('name_ru', 'ilike', '%' . $value . '%')
-                        ->orWhere('name_uz', 'ilike', '%' . $value . '%');
-                    });
-        }
+        $doctors = $query->paginate(20);
 
-        $clinics = $query->paginate(20);
-
-        return view('admin.call-center.index', compact('clinics', 'regionList', 'cityList', 'clinicTypeList', 'specList', 'clinicList'));
+        return view('admin.call-center.index', compact('doctors', 'regionList', 'cityList', 'clinicTypeList', 'specList', 'clinicList'));
     }
 
     public function findDoctorByRegion(Request $request) {
@@ -136,34 +143,42 @@ class CallCenterController extends Controller {
         $doctorTimetable = Timetable::where('doctor_id', $user->id)
                 ->where('clinic_id', $clinic->id)
                 ->first();
-
         $celebrationDays = Celebration::orderByDesc('id')->get();
 
         $doctorBooks = Book::where('doctor_id', $user1->id)
                         ->where('clinic_id', $clinic1->id)->get();
+
+        $daysOff = array();
+        $daysOff1 = array();
 
         $start = Carbon::now()->startOfMonth();
         $end = Carbon::now()->endOfMonth();
         $restStart = Carbon::createFromFormat('Y-m-d', $doctorTimetable->day_off_start);
         $restEnd = Carbon::createFromFormat('Y-m-d', $doctorTimetable->day_off_end);
 
-        $docDayOfWeeks = $this->service->getDaysConst($doctorTimetable);
 
-        $daysOff = array();
-        $daysOff1 = $this->service->daysDisabled($docDayOfWeeks, $start, $end);
-        $daysOff2 = $this->service->celebrationDays($celebrationDays);
+        if ($doctorTimetable->isWeek()) {
+            $docDayOfWeeks = $this->service->getDaysConst($doctorTimetable);
+            $daysOff1 = $this->service->daysDisabled($docDayOfWeeks, $start, $end);
+        } else {
+
+            if ($doctorTimetable->isOdd()) {
+                $daysOff1 = $this->service->daysDisabledBool(false, $start, $end);  //false -- odd ; true -- even
+            } elseif ($doctorTimetable->isEven()) {
+                $daysOff1 = $this->service->daysDisabledBool(true, $start, $end);
+            }
+        }
+        $holidays = $this->service->celebrationDays($celebrationDays);
         $daysOff3 = $this->service->restDays($restStart, $restEnd);
-
         $timeSlots = $this->service->timeSlots($doctorTimetable, $currentDate);
 
-
-        if (!empty($daysOff2)) {
-            $daysOff = array_merge($daysOff1, $daysOff2, $daysOff3);
+        if (!empty($holidays)) {
+            $daysOff = array_unique(array_merge($daysOff1, $holidays, $daysOff3));
         } else {
-            $daysOff = array_merge($daysOff1, $daysOff3);
+            $daysOff = array_unique(array_merge($daysOff1, $daysOff3));
         }
 
-        return view('admin.call-center.booking-time', compact('user1', 'clinic1', 'spec1', 'currentDate', 'daysOff', 'timeSlots', 'doctorTimetable', 'doctorBooks'));
+        return view('admin.call-center.booking-time', compact('user1', 'clinic1', 'spec1', 'currentDate', 'daysOff', 'timeSlots', 'doctorTimetable', 'doctorBooks', 'holidays'));
     }
 
 }

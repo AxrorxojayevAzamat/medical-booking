@@ -533,6 +533,11 @@ return [
                     'asset' => true,
                     'location' => '/js/bootstrap-datepicker.js',
                 ],
+            // [
+            //     'type' => 'js',
+            //     'asset' => true,
+            //     'location' => '/js/datetime.js',
+            // ],
             ],
         ],
     ],

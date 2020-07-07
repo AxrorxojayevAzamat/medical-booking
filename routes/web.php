@@ -58,14 +58,11 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         function () {
             Route::get('{user?}/{clinic?}/create', 'TimeTableController@create')->name('create');
             Route::post('store', 'TimeTableController@store')->name('store');
-            Route::post('{user?}/{timetable?}/update', 'TimeTableController@update')->name('update');
+            Route::put('{user?}/{timetable?}/update', 'TimeTableController@update')->name('update');
             Route::get('{user?}/{clinic?}/edit', 'TimeTableController@edit')->name('edit');
             Route::delete('delete/{time?}', 'TimeTableController@destroy')->name('destroy');
         }
     );
-
-    //Route::get('/timetables/show', 'TimeTableController@show');
-    //Route::get('/timetables/show', 'TimeTableController@show')->name('timetables.show');
     
     Route::group(['prefix' => 'books', 'as' => 'books.'], function () {
         Route::get('/', 'BookController@index')->name('index');
@@ -89,6 +86,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function () {
     Route::get('/', 'DashboardController@index')->name('dashboard');
     Route::get('/profile', 'DashboardController@profile_show')->name('profile');
+    Route::get('/booking/{user}/{clinic}', 'PatientController@booking')->name('booking');
+    Route::post('/booking-doctor/', 'PatientController@bookingDoctor')->name('booking-doctor');
 });
 
 Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 'middleware' => ['auth', 'can:doctor-panel']], function () {

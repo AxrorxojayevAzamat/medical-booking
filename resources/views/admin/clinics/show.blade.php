@@ -28,21 +28,16 @@
         <div class="card-header ">
             <div class="d-flex flex-row mb-3">
                 <a href="{{ route('admin.clinic.edit', $clinic)}}" class="btn btn-primary mr-1">Редактировать</a>
-
                 <a href="{{route('admin.clinic.main-photo', $clinic )}}" class="btn btn-dark mr-1">Добавить главное фото</a>
-
                 <form action="{{ route('admin.clinic.destroy',$clinic) }}" method="post">
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="btn btn-danger" onclick="return confirm('Хотите удалить?')" >Удалить</button>
                 </form>
-
             </div>
         </div>
-
+        
         <div align='center'>
-
-
             <div class="form-horizontal">
                 <div class="card-body">
 
@@ -63,15 +58,11 @@
                     <div class="form-group row">
                         <label for="inputEmail3" class="col-sm-5 col-form-label ">Выберете регион </label>
                         <div class="col-sm-6 form-control">
-
                             @foreach($regions as $region)
-
                                 @if($clinic->region_id==$region->id)
                                     {{$region->name_ru}}
                                 @endif
-
                             @endforeach
-
                         </div>
                     </div>
 
@@ -155,14 +146,8 @@
                             </div>
                         @endif
                     </div>
-
                 </div>
             </div>
-
         </div>
     </div>
-
-
-
-
 @endsection

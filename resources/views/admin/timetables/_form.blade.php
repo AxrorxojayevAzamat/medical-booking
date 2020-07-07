@@ -1,10 +1,21 @@
+    @if($errors->any())
+    @foreach($errors->all() as $error)
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ $error }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endforeach
+    @endif
+
 <div class="container">
     <div class="row">
       <div class="col">
    
         <div class="radio">
             <label>
-                <input type="radio" name="schedule_type" id="schedule_type1" value="1" {{old ('schedule_type',  $timetable && $timetable->schedule_type == '1' ? "checked" : "" )}}>
+                <input type="radio" name="schedule_type" id="schedule_type1" value="1" {{old ('schedule_type', $timetable && $timetable->schedule_type == '1' ? 'checked' : '' )}}>
                 Неделя
             </label>
         </div>
@@ -257,6 +268,7 @@
                 </div>
             </div>
             <br><br><br>
+            
             <div class="form-group col">
                 <div class="form-group">
                     <label>Отпуск или нерабочие дни начало:</label>
@@ -269,6 +281,9 @@
                     <input name="day_off_end" type="date" class="form-control" value="{{ old('day_off_end', $timetable ? $timetable->day_off_end :'')}}" >
                 </div>
             </div>
+
+            
+           
             <input type="submit" value="Отправить"  class="btn btn-primary float-right">
         </div>
     </div>

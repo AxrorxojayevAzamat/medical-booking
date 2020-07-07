@@ -20,8 +20,8 @@ class CreateDoctorClinicsTable extends Migration
 
         Schema::table('doctor_clinics', function (Blueprint $table) {
             $table->primary(['doctor_id', 'clinic_id']);
-            $table->foreign('doctor_id')->references('id')->on('users')->onDelete('restrict');
-            $table->foreign('clinic_id')->references('id')->on('clinics')->onDelete('restrict');
+            $table->foreign('doctor_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('clinic_id')->references('id')->on('clinics')->onDelete('cascade');
         });
     }
 

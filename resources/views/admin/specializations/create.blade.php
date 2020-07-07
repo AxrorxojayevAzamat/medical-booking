@@ -9,13 +9,11 @@
                 <div class="card-header">
                     {{ __('Добавить специализацию') }}
                 </div>
-                <!-- /.card-header -->
-
-
+            
                 <div class="card-body">
                     <div class="form-group">
 
-                        <label for="name_ru" class="col-form-label text-md-left">{{ __('Название на русском') }}</label>
+                        <label for="name_ru" class="col-form-label text-md-left">{{ __('Название (ru)') }}</label>
                         <input id="name_ru" type="text" class="form-control @error('name_ru') is-invalid @enderror" name="name_ru" value="{{ old('name_ru') }}" required autocomplete="name_ru" autofocus>
 
                         @error('name_ru')
@@ -26,7 +24,7 @@
                     </div>
                     <div class="form-group">
 
-                        <label for="name_uz" class="col-form-label text-md-left">{{ __('Название на узбекском') }}</label>
+                        <label for="name_uz" class="col-form-label text-md-left">{{ __('Название (uz)') }}</label>
                         <input id="name_uz" type="text" class="form-control @error('name_uz') is-invalid @enderror" name="name_uz" value="{{ old('name_uz') }}" required autocomplete="name_uz" autofocus>
 
                         @error('name_uz')
@@ -37,23 +35,15 @@
                     </div>
 
                 </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                </div>
-                <!-- /.card-footer -->
-
             </div>
-            <!-- /.card primary-->
         </div>
-        <!-- /.col-md -6 -->
     </div>
-    <!-- /.row -->
+
     <div class="row">
         <div class="col-12">
-            <a class="btn btn-secondary" href="{{ route("admin.specializations.index") }}">{{ __('Отменить') }}</a>
-            <button type="submit" class="btn btn-success float-right">{{ __('Сохранять') }}</button>
+            <button type="submit" class="btn btn-success">{{ __('Сохранить') }}</button>
+            {{-- <a class="btn btn-secondary" href="{{ route("admin.specializations.index") }}">{{ __('Отменить') }}</a> --}}
         </div>
     </div>
-    <!-- /.row -->
 </form>
 @stop

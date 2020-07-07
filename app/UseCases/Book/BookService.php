@@ -99,6 +99,18 @@ class BookService {
         return $daysOff1;
     }
 
+    public function daysDisabledBool(bool $isOdd, string $start, string $end) {
+        $daysOff1 = array();
+        $period = CarbonPeriod::between($start, $end);
+
+        foreach ($period as $date) {
+            if ($date->day % 2 == $isOdd) {
+                $daysOff1[] = $date->format('Y-m-d');
+            }
+        }
+        return $daysOff1;
+    }
+
     public function restDays(string $restStart, string $restEnd) {
         $daysOff3 = array();
         $restPeriod = CarbonPeriod::between($restStart, $restEnd);
@@ -155,43 +167,55 @@ class BookService {
             function getTime(Timetable $timetable, string $date) {
         $carbon = Carbon::createFromFormat('Y-m-d', $date);
         $time = array();
+        if ($timetable->isWeek()) {
+            switch ($carbon->dayOfWeek) {
+                case Carbon::MONDAY:
+                    $time['start'] = $timetable->monday_start;
+                    $time['end'] = $timetable->monday_end;
+                    $time['inter'] = $timetable->interval;
+                    break;
+                case Carbon::TUESDAY:
+                    $time['start'] = $timetable->tuesday_start;
+                    $time['end'] = $timetable->tuesday_end;
+                    $time['inter'] = $timetable->interval;
+                    break;
+                case Carbon::WEDNESDAY:
+                    $time['start'] = $timetable->wednesday_start;
+                    $time['end'] = $timetable->wednesday_end;
+                    $time['inter'] = $timetable->interval;
+                    break;
+                case Carbon::THURSDAY:
+                    $time['start'] = $timetable->thursday_start;
+                    $time['end'] = $timetable->thursday_end;
+                    $time['inter'] = $timetable->interval;
+                    break;
+                case Carbon::FRIDAY:
+                    $time['start'] = $timetable->friday_start;
+                    $time['end'] = $timetable->friday_end;
+                    $time['inter'] = $timetable->interval;
+                    break;
+                case Carbon::SATURDAY:
+                    $time['start'] = $timetable->saturday_start;
+                    $time['end'] = $timetable->saturday_end;
+                    $time['inter'] = $timetable->interval;
+                    break;
+                case Carbon::SUNDAY:
+                    $time['start'] = $timetable->sunday_start;
+                    $time['end'] = $timetable->sunday_end;
+                    $time['inter'] = $timetable->interval;
+                    break;
+            }
+        }
+        if ($timetable->isOdd()) {
+            $time['start'] = $timetable->odd_start;
+            $time['end'] = $timetable->odd_end;
+            $time['inter'] = $timetable->interval;
+        }
 
-        switch ($carbon->dayOfWeek) {
-            case Carbon::MONDAY:
-                $time['start'] = $timetable->monday_start;
-                $time['end'] = $timetable->monday_end;
-                $time['inter'] = $timetable->interval;
-                break;
-            case Carbon::TUESDAY:
-                $time['start'] = $timetable->tuesday_start;
-                $time['end'] = $timetable->tuesday_end;
-                $time['inter'] = $timetable->interval;
-                break;
-            case Carbon::WEDNESDAY:
-                $time['start'] = $timetable->wednesday_start;
-                $time['end'] = $timetable->wednesday_end;
-                $time['inter'] = $timetable->interval;
-                break;
-            case Carbon::THURSDAY:
-                $time['start'] = $timetable->thursday_start;
-                $time['end'] = $timetable->thursday_end;
-                $time['inter'] = $timetable->interval;
-                break;
-            case Carbon::FRIDAY:
-                $time['start'] = $timetable->friday_start;
-                $time['end'] = $timetable->friday_end;
-                $time['inter'] = $timetable->interval;
-                break;
-            case Carbon::SATURDAY:
-                $time['start'] = $timetable->saturday_start;
-                $time['end'] = $timetable->saturday_end;
-                $time['inter'] = $timetable->interval;
-                break;
-            case Carbon::SUNDAY:
-                $time['start'] = $timetable->sunday_start;
-                $time['end'] = $timetable->sunday_end;
-                $time['inter'] = $timetable->interval;
-                break;
+        if ($timetable->isEven()) {
+            $time['start'] = $timetable->even_start;
+            $time['end'] = $timetable->even_end;
+            $time['inter'] = $timetable->interval;
         }
 
         return $time;
@@ -200,46 +224,34 @@ class BookService {
     public function getDaysConst(Timetable $timetable) {
 
         $daysConst = array();
-        switch ($timetable->shcedule_type) {
-            case Timetable::SCHEDULE_TYPE_WEEK:
-                if (empty($timetable->monday_start)) {
-                    array_push($daysConst, Carbon::MONDAY);
-                }
+        if ($timetable->isWeek()) {
+            if (empty($timetable->monday_start)) {
+                array_push($daysConst, Carbon::MONDAY);
+            }
 
-                if (empty($timetable->tuesday_start)) {
-                    array_push($daysConst, Carbon::TUESDAY);
-                }
+            if (empty($timetable->tuesday_start)) {
+                array_push($daysConst, Carbon::TUESDAY);
+            }
 
-                if (empty($timetable->wednesday_start)) {
-                    array_push($daysConst, Carbon::WEDNESDAY);
-                }
+            if (empty($timetable->wednesday_start)) {
+                array_push($daysConst, Carbon::WEDNESDAY);
+            }
 
-                if (empty($timetable->thursday_start)) {
-                    array_push($daysConst, Carbon::THURSDAY);
-                }
+            if (empty($timetable->thursday_start)) {
+                array_push($daysConst, Carbon::THURSDAY);
+            }
 
-                if (empty($timetable->friday_start)) {
-                    array_push($daysConst, Carbon::FRIDAY);
-                }
+            if (empty($timetable->friday_start)) {
+                array_push($daysConst, Carbon::FRIDAY);
+            }
 
-                if (empty($timetable->saturday_start)) {
-                    array_push($daysConst, Carbon::SATURDAY);
-                }
+            if (empty($timetable->saturday_start)) {
+                array_push($daysConst, Carbon::SATURDAY);
+            }
 
-                if (empty($timetable->sunday_start)) {
-                    array_push($daysConst, Carbon::SUNDAY);
-                }
-                break;
-            case Timetable::SCHEDULE_TYPE_ODD_OR_EVEN:
-                if (!empty($timetable->odd_start) && !empty($timetable->odd_end)) {
-                    $daysConst = [Carbon::MONDAY, Carbon::WEDNESDAY, Carbon::FRIDAY, Carbon::SUNDAY];
-                }
-
-                if (!empty($timetable->even_start) && !empty($timetable->even_end)) {
-                    $daysConst = [Carbon::TUESDAY, Carbon::THURSDAY, Carbon::SATURDAY];
-                }
-
-                break;
+            if (empty($timetable->sunday_start)) {
+                array_push($daysConst, Carbon::SUNDAY);
+            }
         }
 
         return $daysConst;

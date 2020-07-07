@@ -30,7 +30,7 @@ class CreateProfilesTable extends Migration
 
         Schema::table('profiles', function (Blueprint $table) {
             $table->primary('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
         DB::table('users')->insert([

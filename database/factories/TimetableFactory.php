@@ -14,6 +14,8 @@ $factory->define(Timetable::class, function (Faker $faker) {
     $afternoon = Carbon::createFromTime($faker->numberBetween(13, 18), 0, 0);
     $dayOff = Carbon::now()->addDays($faker->numberBetween(2, 9));
     $maxDayOff = Carbon::now()->addDays($faker->numberBetween(10, 15));
+    $lunchStart = Carbon::createFromTime(13, 0, 0);
+    $lunchEnd = Carbon::createFromTime(14, 0, 0);
 
     return [
         'schedule_type' => $scheduleType,
@@ -32,6 +34,8 @@ $factory->define(Timetable::class, function (Faker $faker) {
         'saturday_end' => null,
         'sunday_start' => null,
         'sunday_end' => null,
+        'lunch_start' => $lunchStart,
+        'lunch_end' => $lunchEnd,
         'odd_start' => ($scheduleType == Timetable::SCHEDULE_TYPE_ODD_OR_EVEN && $oddOrEven == 1) ? $morning : null,
         'odd_end' => ($scheduleType == Timetable::SCHEDULE_TYPE_ODD_OR_EVEN && $oddOrEven == 1) ? $afternoon : null,
         'even_start' => ($scheduleType == Timetable::SCHEDULE_TYPE_ODD_OR_EVEN && $oddOrEven == 2) ? $morning : null,

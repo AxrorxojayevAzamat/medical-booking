@@ -53,8 +53,8 @@ class CreateTimetablesTable extends Migration
             $table->timestamps();
         });
         Schema::table('timetables', function (Blueprint $table) {
-            $table->foreign('doctor_id')->references('id')->on('users')->onDelete('restrict');
-            $table->foreign('clinic_id')->references('id')->on('clinics')->onDelete('restrict');
+            $table->foreign('doctor_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('clinic_id')->references('id')->on('clinics')->onDelete('cascade');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('restrict');
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('restrict');
         });

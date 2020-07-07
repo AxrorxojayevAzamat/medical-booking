@@ -139,11 +139,11 @@ class UserController extends Controller
         $roles = User::rolesList();
         $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
         $clinics = Clinic::orderBy('name_ru')->get();
-        $doctorList = User::find($user->id);
+        $doctor = User::find($user->id);
         $statuses = User::statusList();
-        $time = Timetable::where('doctor_id', $user->id)->get();
+        $timetable = Timetable::where('doctor_id', $user->id)->get();
         $profile = $user->profile;
-        return view('admin.users.edit', compact('user', 'profile', 'roles', 'specializations', 'doctorList', 'statuses', 'clinics', 'time'));
+        return view('admin.users.edit', compact('user', 'profile', 'roles', 'specializations', 'doctor', 'statuses', 'clinics', 'timetable'));
     }
 
     public function update(Request $request, User $user)
