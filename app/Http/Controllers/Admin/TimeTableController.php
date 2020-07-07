@@ -59,9 +59,9 @@ class TimeTableController extends Controller
     }
 
    
-    public function destroy(Timetable $timetable)
+    public function destroy(Timetable $time)
     {
-        $timetable->delete();
-        return redirect()->route('admin.users.show', $timetable->doctor_id)->with('success', 'Расписание удалено!');
+        $time->delete();
+        return redirect()->route('admin.users.show', $time->doctor_id)->with('success', 'Расписание удалено!');
     }
 }

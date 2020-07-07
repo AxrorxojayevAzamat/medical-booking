@@ -115,7 +115,7 @@
                                     <div class="row">
                                         <a class="btn btn-primary mr-1" role="button" href="{{ route('admin.timetables.edit', [$user, $clinic])}}">{{ trans('Редактировать расписание') }}</a>
                                             
-                                        <form method="POST" action="{{ route('admin.timetables.destroy', $time->id)}}" >
+                                        <form method="POST" action="{{ route('admin.timetables.destroy', $time)}}" >
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger" role="button" onclick="return confirm('{{ 'Вы уверены?' }}')">{{ trans('Удалить') }}</button>
