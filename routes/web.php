@@ -58,14 +58,11 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         function () {
             Route::get('{user?}/{clinic?}/create', 'TimeTableController@create')->name('create');
             Route::post('store', 'TimeTableController@store')->name('store');
-            Route::post('{user?}/{timetable?}/update', 'TimeTableController@update')->name('update');
+            Route::put('{user?}/{timetable?}/update', 'TimeTableController@update')->name('update');
             Route::get('{user?}/{clinic?}/edit', 'TimeTableController@edit')->name('edit');
             Route::delete('delete/{time?}', 'TimeTableController@destroy')->name('destroy');
         }
     );
-
-    //Route::get('/timetables/show', 'TimeTableController@show');
-    //Route::get('/timetables/show', 'TimeTableController@show')->name('timetables.show');
     
     Route::group(['prefix' => 'books', 'as' => 'books.'], function () {
         Route::get('/', 'BookController@index')->name('index');

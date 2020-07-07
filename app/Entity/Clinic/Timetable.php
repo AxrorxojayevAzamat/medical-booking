@@ -56,6 +56,8 @@ class Timetable extends BaseModel
     protected $fillable = [
         'schedule_type',
         'interval',
+        'doctor_id',
+        'clinic_id',
         'monday_start',
         'monday_end',
         'tuesday_start',

@@ -21,12 +21,7 @@ class ClinicController extends Controller
     {
         $this->service = $service;
     }
-    /**
-     * Show the form for indexing a new resource.
-     *
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
+   
     public function index(Request $request)
     {
         $query = Clinic::orderBy('id');
@@ -47,23 +42,12 @@ class ClinicController extends Controller
         return view('admin.clinics.index', compact('clinics'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
     public function create()
     {
         $regions = Region::all();
         return view('admin.clinics.create', compact('regions'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
-     */
     public function store(ClinicRequest $request)
     {
         try {
@@ -85,7 +69,6 @@ class ClinicController extends Controller
         $clinics->work_time_start = $request->work_time_start;
         $clinics->work_time_end = $request->work_time_end;
         $clinics->location = $request->location;
-
 
         // $folder = Clinic::CLINIC_PROFILE;
         // $photos = $request->file('images');
@@ -110,12 +93,6 @@ class ClinicController extends Controller
         return view('admin.clinics.show', compact('clinic', 'regions', 'clinics'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
     public function edit(Clinic $clinic)
     {
         $clinics = Clinic::find($clinic->id);
@@ -123,13 +100,6 @@ class ClinicController extends Controller
         return view('admin.clinics.edit', compact('clinics', 'regions'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function update(ClinicRequest $request, $id)
     {
         $clinics = Clinic::find($id);
@@ -177,12 +147,6 @@ class ClinicController extends Controller
         return redirect()->route('admin.clinic.index', compact('id'))->with('success', 'Отредактировано!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function destroy(Clinic $clinic)
     {
         $folder = Clinic::CLINIC_PROFILE;
@@ -192,8 +156,8 @@ class ClinicController extends Controller
         //     $this->deleteOne($folder, 'public', $photo);
         // }
         $clinics->delete();
-
-        return redirect()->route('admin.clinic.index')->with('success', 'Удалено!');
+        return redirect()->back();
+        // return redirect()->route('admin.clinic.index')->with('success', 'Удалено!');
     }
 
     public function mainPhoto(Clinic $clinic)

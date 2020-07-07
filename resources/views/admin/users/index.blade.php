@@ -112,7 +112,8 @@
                             @foreach ($users as $user)
                             <tr>
                                 <td>{{ $user->id }}</td>
-                                <td>{{ $user->profile ? $user->profile->fullName : '' }}</td>
+                                {{-- <td>{{ $user->profile ? $user->profile->fullName : '' }}</td> --}}
+                                <td><a href="{{ route('admin.users.show', $user->id) }}">{{ $user->profile ? $user->profile->fullName : '' }}</a></td>
                                 <td><a href="{{ route('admin.users.show', $user->id) }}">{{ $user->phone }}</a></td>
                                 <td><a href="{{ route('admin.users.show', $user->id) }}">{{ $user->email }}</a></td>
                                 <td>{{ $user->roleName() }}</td>

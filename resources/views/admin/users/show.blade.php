@@ -3,8 +3,11 @@
 @section('content')
     <div class="d-flex bd-highlight mb-3">
         <a class="btn btn-primary mr-1 p-2 bd-highlight" href="{{ route('admin.users.edit',$user)}}">{{ trans('Редактировать') }}</a>
+        @if($user->isDoctor())  
         <a class="btn btn-secondary mr-1 p-2 bd-highlight" href="{{ route('admin.users.user-clinics',$user)}}">{{ trans('Добавить клинику') }}</a>
-        <a class="btn btn-success mr-1 p-2 bd-highlight" href="{{ route('admin.users.edit',$user)}}">{{ trans('Забронировать') }}</a>
+        <a class="btn btn-info mr-1 p-2 bd-highlight" href="{{ route('admin.users.specializations', $user)}}">{{ trans('Добавить специализацию') }}</a>
+        @endif
+        {{-- <a class="btn btn-success mr-1 p-2 bd-highlight" href="{{ route('admin.users.edit',$user)}}">{{ trans('Забронировать') }}</a> --}}
 
             <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}" class="ml-auto mr-1">
                 @csrf
@@ -12,7 +15,7 @@
                 <button class="btn btn-danger mr-1" onclick="return confirm('{{ 'Вы уверены?' }}')">{{ trans('Удалить') }}</button>
             </form>
     </div>
-    </div>
+    
 
     <div class="row">
         <div class="col-md-12">
@@ -57,16 +60,14 @@
                             <tr><th>{{ trans('Пол') }}</th><td>{{ $profile ? $profile->gender === 0 ? 'Женский' : 'Мужской' : ''}}</td></tr>
                             
                             @if($user->isDoctor())  
+                            @if(!$doctor->specializations->isEmpty())
                             <tr>
                                 <th>{{'Специализации'}}</th>
-                                @if(!$doctor->specializations->isEmpty())
                                 <th>
                                     @foreach($doctor->specializations as $spec)
-                                    <a href='{{ route('admin.specializations.show', $spec->id) }}'><strong> {{$spec->name_ru}}</strong></a>
+                                    <a href='{{ route('admin.specializations.show', $spec->id) }}'><strong>{{$spec->name_ru}}</strong></a><br> 
                                     @endforeach
-                                </th>
-                                    @else
-                                    <th><p><a href="{{route('admin.users.specializations', $user) }}" disabled>{{ trans('Добавить') }}</a></p></th>
+                                </th>  
                             </tr>
                                 @endif
                             @endif
@@ -98,7 +99,7 @@
                     <form action="{{ route('admin.clinic.destroy',$clinic) }}" method="post">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger float-right" onclick="return confirm('Хотите удалить клинику{{$clinic->name_ru}}?')" >Удалить клинику</button>
+                        <button type="submit" class="btn btn-danger float-right" onclick="return confirm('При удалени клиники удаляются все расписании и брони Хотите удалить клинику {{$clinic->name_ru}}?')" >Удалить клинику</button>
                     </form>
                     <div class="card-body">        
                                 @php 
@@ -131,49 +132,49 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @if ($time->monday_start!= null)
+                                    @if ($time->monday_start)
                                         <tr>
                                             <td>Понедельник</td>
-                                            <td>{{ $time->monday_start ? $time->monday_start : ''}}</td>
+                                            <td>{{ $time->monday_start}}</td>
                                             <td>{{ $time->monday_end}}</td>
                                         </tr>
                                     @endif
-                                    @if ($time->tuesday_start!= null)
+                                    @if ($time->tuesday_start)
                                         <tr>
                                             <td>Вторник</td>
                                             <td>{{ $time->tuesday_start}}</td>
                                             <td>{{ $time->tuesday_end}}</td>
                                         </tr>
                                     @endif
-                                    @if ($time->wednesday_start!= null)
+                                    @if ($time->wednesday_start)
                                         <tr>
                                             <td>Среда</td>
                                             <td>{{ $time->wednesday_start}}</td>
                                             <td>{{ $time->wednesday_end}}</td>
                                         </tr>
                                     @endif
-                                    @if ($time->thursday_start!= null)
+                                    @if ($time->thursday_start)
                                         <tr>
                                             <td>Четверг</td>
                                             <td>{{ $time->thursday_start}}</td>
                                             <td>{{ $time->thursday_end}}</td>
                                         </tr>
                                     @endif
-                                    @if ($time->friday_start!= null)
+                                    @if ($time->friday_start)
                                         <tr>
                                             <td>Пятница</td>
-                                            <td>{{ $time->frisday_start? $time->frisday_start : '-----'}}</td>
-                                            <td>{{ $time->frirsday_end}}</td>
+                                            <td>{{ $time->friday_start}}</td>
+                                            <td>{{ $time->friday_start}}</td>
                                         </tr>
                                     @endif
-                                    @if ($time->saturday_start!= null)
+                                    @if ($time->saturday_start)
                                         <tr>
                                             <td>Суббота</td>
                                             <td>{{ $time->satursday_start}}</td>
                                             <td>{{ $time->satursday_end}}</td>
                                         </tr>
                                     @endif
-                                    @if ($time->sunday_start!= null)
+                                    @if ($time->sunday_start)
                                         <tr>
                                             <td>Воскресенье</td>
                                             <td>{{ $time->sunday_start}}</td>
