@@ -1,1 +1,12 @@
 /* YOUR CUSTOM CSS */
+
+.card .card-header .btn-delete {
+    position: absolute;
+    top: 1.25em;
+    right: 1.25em;
+}
+
+
+.card .card-body table .project-state {
+    text-align: start;
+}
