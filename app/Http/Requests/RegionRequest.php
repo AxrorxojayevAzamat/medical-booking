@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class RegionRequest extends FormRequest
 {
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -14,8 +14,8 @@ class RegionRequest extends FormRequest
     public function rules()
     {
         return [
-           'region_uz'=>'required|min:2|max:50|string',
-           'region_ru'=>'required|min:2|max:50|string',
+           'name_uz'=>'required|string|min:2|max:50',
+           'name_ru'=>'required|string|min:2|max:50',
 
         ];
     }

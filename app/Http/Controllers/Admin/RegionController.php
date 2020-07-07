@@ -39,7 +39,8 @@ class RegionController extends Controller
      */
     public function create()
     {
-        return view('admin.regions.create');
+        $parents = Region::where('parent_id', null)->pluck('name_ru', 'id');
+        return view('admin.regions.create', compact('parents'));
     }
 
     public function createCity()
@@ -70,6 +71,8 @@ class RegionController extends Controller
      */
     public function store(RegionRequest $request)
     {
+        dd($request->all());
+
         $regions = new Region();
 
 
