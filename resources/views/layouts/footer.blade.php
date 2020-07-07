@@ -69,7 +69,15 @@
 <script src="{{asset('js/jquery-2.2.4.min.js')}}"></script>
 <script src="{{asset('js/common_scripts.min.js')}}"></script>
 <script src="{{asset('js/functions.js')}}"></script>
-<script src="{{('js/bootstrap-datepicker.js')}}"></script>
+<script src="{{asset('js/bootstrap-datepicker.js')}}"></script>
+
+<script src="{{asset('http://maps.googleapis.com/maps/api/js')}}"></script>
+<script src="{{asset('js/markerclusterer.js')}}"></script>
+{{-- <script src="{{asset('js/map_listing.js')}}"></script> --}}
+<script src="{{asset('js/map.js')}}"></script>
+<script src="{{asset('js/infobox.js')}}"></script>
+@stack('scripts')
+@yield('scripts')
 
 </body>
 

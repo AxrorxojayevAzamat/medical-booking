@@ -79,22 +79,14 @@
                     <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                         <thead>
                             <tr role="row">
-                                <th>{{ __('Направление') }}</th>
                                 <th>{{ __('Врач') }}</th>
-                                <th>{{ __('Клиника') }}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($clinics as $clinic)
-                            @foreach ($clinic->doctors as $doctor)
-                            @foreach ($doctor->specializations as $spec)
+                            @foreach($doctors as $doctor)
                             <tr>
-                                <td>{{$spec->name_ru}}</td>
-                                <td><a href="{{ route('admin.call-center.booking-time',[$doctor, $clinic]) }}">{{ $doctor->profile ? $doctor->profile->fullName : '' }}</a></td>
-                                <td>{{$clinic->name_ru}}</td>
+                                <td><a href="{{ route('book.show',[$doctor]) }}">{{ $doctor->profile ? $doctor->profile->fullName : '' }}</a></td>
                             </tr>
-                            @endforeach
-                            @endforeach
                             @endforeach
                         </tbody>
                     </table>

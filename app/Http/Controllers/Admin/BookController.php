@@ -9,10 +9,12 @@ use \App\Entity\Book\Book;
 class BookController extends Controller {
 
     public function index(Request $request) {
-        $bookingList = Book::orderBy('id');
-//                select(['books.*', 'us.*', 'pr.*'])
-//                        ->leftJoin('users as us', 'books.user_id', '=', 'us.id')
-//                        ->leftJoin('profiles as pr', 'pr.user_id', '=', 'us.id')
+        $query = Book::select(['books.*', 'us.*', 'pr.*'])
+                ->join('users as us', 'books.user_id', '=', 'us.id')
+                ->join('profiles as pr', 'pr.user_id', '=', 'us.id')
+                ->orderByDesc('books.id')
+        ;
+        $bookingList = $query->paginate(10);
         return view('admin.books.index', compact('bookingList'));
     }
 

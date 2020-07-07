@@ -7,6 +7,6 @@ class CelebrationsTableSeeder extends Seeder
 {
     public function run()
     {
-        factory(Celebration::class, 10)->create();
+        factory(Celebration::class, 5)->create();
     }
 }

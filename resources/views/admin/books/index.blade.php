@@ -1,35 +1,32 @@
 @extends('layouts.admin.page')
 
+@section('css')
+<link href="{{asset('css/admin.css')}}" rel="stylesheet">
+@stop
+
 @section('content')
 <div class="container-fluid">
     <div class="box_general">
         <div class="header_box">
             <h2 class="d-inline-block">Bookings List</h2>
-            <div class="filter">
-                <select name="orderby" class="selectbox">
-                    <option value="Any status">Any status</option>
-                    <option value="Approved">Approved</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Cancelled">Cancelled</option>
-                </select>
-            </div>
         </div>
         <div class="list_general">
             <ul>
                 @foreach($bookingList as $book)
                 <li>
-                    <figure><img src="img/avatar1.jpg" alt=""></figure>
-                    <h4>{{$book->user_id}} <i class="pending">Pending</i></h4>
+                    <figure><img src="{{asset('img/avatar1.jpg')}}" alt=""></figure>
+                    <h4>{{$book->user->profile->fullName}} 
+                    {{--    
+                        <i class="approved">{{ trans('Одобрено') }}</i>
+                    --}}
+                    </h4>
+                    
                     <ul class="booking_details">
-                        <li><strong>Booking date</strong> 11 November 2017</li>
-                        <li><strong>Booking time</strong> 10.20AM</li>
-                        <li><strong>Visits</strong> Cardiology test, Diabetic diagnose</li>
-                        <li><strong>Telephone</strong> 0043 432324</li>
-                        <li><strong>Email</strong> user@email.com</li>
-                    </ul>
-                    <ul class="buttons">
-                        <li><a href="#0" class="btn_1 gray approve"><i class="fa fa-fw fa-check-circle-o"></i> Approve</a></li>
-                        <li><a href="#0" class="btn_1 gray delete"><i class="fa fa-fw fa-times-circle-o"></i> Cancel</a></li>
+                        <li><strong>{{ trans('Дата бронирования') }}</strong>{{$book->booking_date}}</li>
+                        <li><strong>{{ trans('Время бронирования') }}</strong>{{$book->time_start}}</li>
+                        <li><strong>{{ trans('Описание') }}</strong>{{$book->descriptions}}</li>
+                        <li><strong>{{ trans('Телефон') }}</strong>{{$book->user->phone}}</li>
+                        <li><strong>{{ trans('Адрес электронной почты') }}</strong>{{$book->user->email}}</li>
                     </ul>
                 </li>
                 @endforeach
@@ -40,15 +37,7 @@
     <!-- /box_general-->
     <nav aria-label="...">
         <ul class="pagination pagination-sm add_bottom_30">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
+            {{ $bookingList->links() }}
         </ul>
     </nav>
     <!-- /pagination-->
@@ -56,12 +45,19 @@
 <!-- /container-fluid-->
 @stop
 @section('js')
-<script>
-    let a = @json($bookingList);
-            console.log(a);
-
-
-
-</script>
+<!-- Bootstrap core JavaScript-->    
+<!--<script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>-->
+<script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- Core plugin JavaScript-->
+<script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+<!-- Page level plugin JavaScript-->
+<script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
+<script src="{{asset('vendor/datatables/jquery.dataTables.js')}}"></script>
+<script src="{{asset('vendor/datatables/dataTables.bootstrap4.js')}}"></script>
+<script src="{{asset('vendor/jquery.selectbox-0.2.js')}}"></script>
+<script src="{{asset('vendor/retina-replace.min.js')}}"></script>
+<script src="{{asset('vendor/jquery.magnific-popup.min.js')}}"></script>
+<!-- Custom scripts for all pages-->
+<script src="{{asset('js/admin.js')}}"></script> 
 
 @stop

@@ -4,7 +4,7 @@ Theme URI: http://www.ansonika.com/findoctor/
 Author: Ansonika
 Author URI: http://themeforest.net/user/Ansonika/
 
-[Table of contents] 
+[Table of contents]
 
 1. SITE STRUCTURE and TYPOGRAPHY
 - 1.1 Typography
@@ -21,7 +21,7 @@ Author URI: http://themeforest.net/user/Ansonika/
 - 2.7 Contact page
 - 2.8 Booking page/confirm
 - 2.9 Pricing page
-- 2.10 Submit review 
+- 2.10 Submit review
 - 2.11 Home with map
 - 2.12 About
 
@@ -2853,6 +2853,55 @@ ul.list_edu li strong {
 #calendar .datepicker.datepicker-inline table {
   width: 100%;
 }
+
+
+/* calendar + i */
+#calendar0 {
+    padding: 0;
+    margin-bottom: 30px;
+  }
+  #calendar0 .datepicker.datepicker-inline,
+  #calendar0 .datepicker.datepicker-inline table {
+    width: 100%;
+  }
+
+  #calendar1 {
+    padding: 0;
+    margin-bottom: 30px;
+  }
+  #calendar1 .datepicker.datepicker-inline,
+  #calendar1 .datepicker.datepicker-inline table {
+    width: 100%;
+  }
+
+  #calendar2 {
+    padding: 0;
+    margin-bottom: 30px;
+  }
+  #calendar2 .datepicker.datepicker-inline,
+  #calendar2 .datepicker.datepicker-inline table {
+    width: 100%;
+  }
+
+  #calendar3 {
+    padding: 0;
+    margin-bottom: 30px;
+  }
+  #calendar3 .datepicker.datepicker-inline,
+  #calendar3 .datepicker.datepicker-inline table {
+    width: 100%;
+  }
+
+  #calendar4 {
+    padding: 0;
+    margin-bottom: 30px;
+  }
+  #calendar4 .datepicker.datepicker-inline,
+  #calendar4 .datepicker.datepicker-inline table {
+    width: 100%;
+  }
+/* calendar + i */
+
 
 .datepicker thead tr th.prev:hover,
 .datepicker thead tr th.next:hover {
