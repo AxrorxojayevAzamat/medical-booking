@@ -5,11 +5,9 @@ deploy_development:
   script:
   - rsync -av * /var/www/dev.medbron.uz/ --no-perms --no-owner --no-group
   - cd /var/www/dev.medbron.uz/
-<<<<<<< HEAD
   - php artisan migrate
-=======
->>>>>>> origin
-  - composer update --no-dev
+#  - composer update --no-dev
+  - composer update
   environment:
     name: development
     url: https://dev.medbron.uz
@@ -20,10 +18,7 @@ deploy_production:
   script:
   - rsync -av * /var/www/prod.medbron.uz/ --no-perms --no-owner --no-group
   - cd /var/www/prod.medbron.uz/
-<<<<<<< HEAD
   - php artisan migrate
-=======
->>>>>>> origin
   - composer install
   environment:
     name: production
