@@ -6,7 +6,8 @@ deploy_development:
   - rsync -av * /var/www/dev.medbron.uz/ --no-perms --no-owner --no-group
   - cd /var/www/dev.medbron.uz/
   - php artisan migrate
-  - composer update --no-dev
+#  - composer update --no-dev
+  - composer update
   environment:
     name: development
     url: https://dev.medbron.uz
