@@ -38,7 +38,8 @@
                             <li><h6>{{ trans('Адрес клиники') }}</h6>{{$clinic->address_ru}}</li>
                             <li><h6>{{ trans('Телефон клиники') }}</h6><a href="tel://{{$clinic->phone_numbers}}">{{$clinic->phone_numbers}}</a></li>
                         </ul>
-                        <div class="text-center"><a href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+%E2%80%93+H%C3%B4pitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361" class="btn_1 outline" target="_blank"><i class="icon_pin"></i> View on map</a></div>
+                        {{-- <div class="text-center"><a href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+%E2%80%93+H%C3%B4pitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361" class="btn_1 outline" target="_blank"><i class="icon_pin"></i> View on map</a></div> --}}
+                        <div class="text-center"><a href="https://www.google.com/maps/dir/41.3218984,69.2096464/@41.3184591,69.2052458,16.5z/data=!4m2!4m1!3e3" class="btn_1 outline" target="_blank"><i class="icon_pin"></i> View on map</a></div>
                         @endforeach
                     </div>
                 </aside>
@@ -46,11 +47,11 @@
 
                 <div class="col-xl-9 col-lg-8">
                     @foreach($clinics as $clinicKey => $clinicValue)
-                    
+
                         @guest
                         <form method="GET" action="{{ route('patient.booking', [$user, $clinicValue]) }}" >
                         @endguest
-                        
+
                         @can('patient-panel')
                         <form method="GET" action="{{ route('patient.booking', [$user, $clinicValue]) }}" >
                         @endcan
@@ -58,7 +59,7 @@
                         @can('admin-panel')
                         <form method="GET" action="{{ route('admin.call-center.booking', [$user, $clinicValue]) }}" >
                         @endcan
-                        
+
                             <div class="box_general_2 add_bottom_45">
                                 <div class="main_title_4">
                                     <h3><i class="icon_circle-slelected"></i>{{ __('Выберите дату и время') }}</h3>
@@ -78,7 +79,7 @@
                                     </div>
                                     <div class="col-lg-5">
                                         <ul class="time_select version_2 add_top_20" id="radio_times{{$clinicKey}}">
-                                            
+
                                         </ul>
                                     </div>
                                 </div>
@@ -326,30 +327,34 @@
         if (timetable[index].schedule_type == 1) {
             day = selected_day.getDay();
 
-            timeStart[index] = [day == 0 ? timetable[index].sunday_start || '' :
-                        day == 1 ? timetable[index].monday_start || '' :
-                        day == 2 ? timetable[index].tuesday_start || '' :
-                        day == 3 ? timetable[index].wednesday_start || '' :
-                        day == 4 ? timetable[index].thursday_start || '' :
-                        day == 5 ? timetable[index].friday_start || '' :
-                        day == 6 ? timetable[index].saturday_start || '' : null];
+           timeStart[index] = [day == 0 ? timetable[index].sunday_start || '':
+                               day == 1 ? timetable[index].monday_start || '':
+                               day == 2 ? timetable[index].tuesday_start || '':
+                               day == 3 ? timetable[index].wednesday_start || '':
+                               day == 4 ? timetable[index].thursday_start || '':
+                               day == 5 ? timetable[index].friday_start || '':
+                               day == 6 ? timetable[index].saturday_start || '' : null];
 
-            timeEnd[index] = [day == 0 ? timetable[index].sunday_end || '' :
-                        day == 1 ? timetable[index].monday_end || '' :
-                        day == 2 ? timetable[index].tuesday_end || '' :
-                        day == 3 ? timetable[index].wednesday_end || '' :
-                        day == 4 ? timetable[index].thursday_end || '' :
-                        day == 5 ? timetable[index].friday_end || '' :
-                        day == 6 ? timetable[index].saturday_end || '' : null];
+           timeEnd[index] = [day == 0 ? timetable[index].sunday_end || '':
+                             day == 1 ? timetable[index].monday_end || '':
+                             day == 2 ? timetable[index].tuesday_end || '':
+                             day == 3 ? timetable[index].wednesday_end || '':
+                             day == 4 ? timetable[index].thursday_end || '':
+                             day == 5 ? timetable[index].friday_end || '':
+                             day == 6 ? timetable[index].saturday_end || '' : null];
+                            //  console.log(timeStart[index]);
+                            //  console.log(timeEnd[index]);
         } else {
             day = selected_day.getDate();
 
             timeStart[index] = [day % 2 != 0 ? timetable[index].odd_start || '' :
                         day % 2 == 0 ? timetable[index].even_start || '' : null];
 
-            timeEnd[index] = [day % 2 != 0 ? timetable[index].odd_end || '' :
-                        day % 2 == 0 ? timetable[index].even_end || '' : null];
-        }
+            timeEnd[index] = [day % 2 != 0 ? timetable[index].odd_end || '':
+                             day % 2 == 0 ? timetable[index].even_end || '' : null];
+                            //  console.log(timeStart[index]);
+                            //  console.log(timeEnd[index]);
+         }
     }
 
     function makeInterval(day, time_start, time_end, interval, lunch_start, lunch_end, index) {
@@ -376,6 +381,7 @@
                 timeStart.setMinutes(timeStart.getMinutes() + interval);
             }
         }
+        // console.log(time_slots[index]);
     }
 
     function appendRadioButton(time_slot, book, day, index) {
@@ -387,20 +393,23 @@
                 if ((time_slot[index][i] == book[j].time_start.slice(0, 5)) && (day == book[j].booking_date) && (timetable[index].clinic_id == book[j].clinic_id)) {
                     equeled = false;
                     $("#radio_times" + index).append(
-                            '<li><input type="radio" id="radio' + i + '" name="radio_time" value="' +
-                            time_slot[index][i] + '"><label style="color: #ccc; text-decoration: line-through;">' + time_slot[index][i] + '</label></li>'
-                            );
+                        '<li><input type="radio" id="radio' + index + '-' + i + '" name="radio_time" value="' +
+                            time_slot[index][i] +'"><label style="color: #ccc; text-decoration: line-through;">' + time_slot[index][i] + '</label></li>'
+                    );
                     break;
                 }
             }
-            if (equeled)
-                $("#radio_times" + index).append(
-                        '<li><input type="radio" id="radio' + i + '" name="radio_time" value="' +
-                        time_slot[index][i] + '"><label for="radio' + i + '">' + time_slot[index][i] + '</label></li>'
-                        )
+            if(equeled)
+            $("#radio_times" + index).append(
+                    '<li><input type="radio" id="radio' + index + '-' + i + '" name="radio_time" value="' +
+                        time_slot[index][i] + '"><label for="radio' + index + '-' + i + '">'+ time_slot[index][i] + '</label></li>'
+                )
         }
     }
     var blabla = null;
+
+        // timetable[1].tuesday_start = null;
+        // timetable[1].tuesday_end = null;
 
     for (var i = 0; i < timetable.length; i++) {
 
@@ -436,18 +445,8 @@
             makeInterval(today, timeStart[i], timeEnd[i], timetable[i].interval,
                     timetable[i].lunch_start, timetable[i].lunch_end, i);
             appendRadioButton(time_slots, books, today, i);
-            if (timetable[i].schedule_type == 1) {
-                for (var j = 0; j < disabledDays[i].length; j++) {
-                    if (d.getDay() == disabledDays[i][j]) {
-                        $("#radio_times" + i).empty();
-                    }
-                }
-            } else if (timetable[i].schedule_type == 2) {
-                for (var j = 0; j < disabledDates[i].length; j++) {
-                    if (today == disabledDates[i][j]) {
-                        $("#radio_times" + i).empty();
-                    }
-                }
+            if(time_slots[i][0] == "00:00") {
+                $("#radio_times" + i).empty();
             }
         }
     });

@@ -73,7 +73,7 @@
 
 <script src="{{asset('http://maps.googleapis.com/maps/api/js')}}"></script>
 <script src="{{asset('js/markerclusterer.js')}}"></script>
-<script src="{{asset('js/map_listing.js')}}"></script>
+{{-- <script src="{{asset('js/map_listing.js')}}"></script> --}}
 <script src="{{asset('js/map.js')}}"></script>
 <script src="{{asset('js/infobox.js')}}"></script>
 @stack('scripts')
