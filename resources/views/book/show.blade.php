@@ -278,13 +278,9 @@
 @endsection
 @section('scripts')
 <script>
-    // let daysOff = @json($daysOff);
-    // let clinics = @json($clinics);
     let timetable = @json($doctorTimetables);
     let books = @json($doctorBooks);
     let holidays = @json($holidays);
-    // console.log(daysOff);
-    // console.log(clinics);
     console.log(timetable);
     console.log(books);
     console.log(holidays);

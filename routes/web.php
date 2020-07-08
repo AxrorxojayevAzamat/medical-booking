@@ -33,21 +33,10 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         }
     );
 
+    Route::resource('/regions', 'RegionController');
     Route::group(['prefix' => 'region', 'as' => 'region.'], function () {
-        Route::get('/', 'RegionController@index')->name('index');
-
-        Route::get('create', 'RegionController@create')->name('create');
-        Route::get('createCity', 'RegionController@createCity')->name('createCity');
-        Route::get('createDistrict', 'RegionController@createDistrict')->name('createDistrict');
         Route::get('findCity/{id}', 'RegionController@findCity');
 
-        Route::get('edit/{region}', 'RegionController@edit')->name('edit');
-        Route::get('editCity/{region}', 'RegionController@editCity')->name('editCity');
-        Route::get('editDistrict/{region}', 'RegionController@editDistrict')->name('editDistrict');
-
-        Route::post('/', 'RegionController@store')->name('store');
-        Route::patch('show/{region}', 'RegionController@update')->name('update');
-        Route::delete('{region}', 'RegionController@destroy')->name('destroy');
     });
 
 
@@ -66,7 +55,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
             Route::delete('delete/{time?}', 'TimeTableController@destroy')->name('destroy');
         }
     );
-    
+
     Route::group(['prefix' => 'books', 'as' => 'books.'], function () {
         Route::get('/', 'BookController@index')->name('index');
     });
@@ -81,8 +70,6 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 
         Route::get('/booking/{user}/{clinic}', 'CallCenter\CallCenterController@booking')->name('booking');
         Route::post('/booking/', 'CallCenter\CallCenterController@bookingDoctor')->name('bookingDoctor');
-
-        Route::get('/booking-time/{user}/{clinic}', 'CallCenter\CallCenterController@bookingTime')->name('booking-time');
     });
 });
 

@@ -3,7 +3,7 @@
 @section('content')
     <div class="d-flex bd-highlight mb-3">
         <a class="btn btn-primary mr-1 p-2 bd-highlight" href="{{ route('admin.users.edit',$user)}}">{{ trans('Редактировать') }}</a>
-        @if($user->isDoctor())  
+        @if($user->isDoctor())
         <a class="btn btn-secondary mr-1 p-2 bd-highlight" href="{{ route('admin.users.user-clinics',$user)}}">{{ trans('Добавить клинику') }}</a>
         <a class="btn btn-info mr-1 p-2 bd-highlight" href="{{ route('admin.users.specializations', $user)}}">{{ trans('Добавить специализацию') }}</a>
         @endif
@@ -15,7 +15,7 @@
                 <button class="btn btn-danger mr-1" onclick="return confirm('{{ 'Вы уверены?' }}')">{{ trans('Удалить') }}</button>
             </form>
     </div>
-    
+
 
     <div class="row">
         <div class="col-md-12">
@@ -31,8 +31,8 @@
                                 </div>
                             @endif
                         </div>
-                    </div>  
-                    
+                    </div>
+
                     <table class="table table-striped projects">
                         <tbody>
                             <tr><th>{{ trans('ID') }}</th><td>{{ $user->id }}</td></tr>
@@ -58,16 +58,16 @@
                             <tr><th>{{ trans('Отчество') }}</th><td>{{ $profile ? $profile->middle_name : '' }}</td></tr>
                             <tr><th>{{ trans('Дата рождения') }}</th><td>{{ $profile ? $profile->birth_date : '' }}</td></tr>
                             <tr><th>{{ trans('Пол') }}</th><td>{{ $profile ? $profile->gender === 0 ? 'Женский' : 'Мужской' : ''}}</td></tr>
-                            
-                            @if($user->isDoctor())  
+
+                            @if($user->isDoctor())
                             @if(!$doctor->specializations->isEmpty())
                             <tr>
                                 <th>{{'Специализации'}}</th>
                                 <th>
                                     @foreach($doctor->specializations as $spec)
-                                    <a href='{{ route('admin.specializations.show', $spec->id) }}'><strong>{{$spec->name_ru}}</strong></a><br> 
+                                    <a href='{{ route('admin.specializations.show', $spec->id) }}'><strong>{{$spec->name_ru}}</strong></a><br>
                                     @endforeach
-                                </th>  
+                                </th>
                             </tr>
                                 @endif
                             @endif
@@ -85,7 +85,7 @@
                                 </th>
                                 </tr> --}}
                         </tbody>
-                    </table>         
+                    </table>
                 </div>
             </div>
         </div>
@@ -93,19 +93,21 @@
 
     @can('manage-doctor')
         <div class="card card-secondary card-outline" id="doctor-clinic">
-           
+
                 @foreach($doctor->clinics as $clinic)
-                <div class="card-header">{{ __('Клиника ') }} <a href='{{ route('admin.clinic.show', $clinic) }}'><strong> {{$clinic->name_ru}}</strong></a> 
+                <div class="card-header">{{ __('Клиника ') }} <a href='{{ route('admin.clinic.show', $clinic) }}'><strong> {{$clinic->name_ru}}</strong></a>
                     <form action="{{ route('admin.clinic.destroy',$clinic) }}" method="post">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger float-right" onclick="return confirm('При удалени клиники удаляются все расписании и брони Хотите удалить клинику {{$clinic->name_ru}}?')" >Удалить клинику</button>
+                        <div>
+                        <button type="submit" class="btn btn-danger float-right btn-delete" onclick="return confirm('При удалени клиники удаляются все расписании и брони Хотите удалить клинику {{$clinic->name_ru}}?')"  >Удалить клинику</button>
+                    </div>
                     </form>
-                    <div class="card-body">        
-                                @php 
+                    <div class="card-body">
+                                @php
                                     $time = $timetable->where('clinic_id', $clinic->id);
                                 @endphp
-                                
+
                                 @if($time->isEmpty())
                                 <p><a class="btn btn-secondary" href="{{ route('admin.timetables.create', [$user, $clinic])}}" disabled>{{ trans('Создать расписание') }}</a></p>
                                 @endif
@@ -114,15 +116,15 @@
                                 @foreach($time as $time)
                                     <div class="row">
                                         <a class="btn btn-primary mr-1" role="button" href="{{ route('admin.timetables.edit', [$user, $clinic])}}">{{ trans('Редактировать расписание') }}</a>
-                                            
+
                                         <form method="POST" action="{{ route('admin.timetables.destroy', $time)}}" >
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger" role="button" onclick="return confirm('{{ 'Вы уверены?' }}')">{{ trans('Удалить') }}</button>
                                             </form>
                                     </div>
-                                
-                                @if($time->schedule_type == 1)   
+
+                                @if($time->schedule_type == 1)
                                 <table class="table table-hover text-nowrap">
                                     <thead>
                                     <tr>
@@ -200,7 +202,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    
+
                                 @elseif ($time->schedule_type == 2 && $time->odd_start || $time->odd_end)
                                 <table class="table table-hover text-nowrap">
                                     <thead>
@@ -219,7 +221,7 @@
                                     </tbody>
                                 </table>
                                 @endif
-                                
+
                                 @if($time->lunch_start)
                                 <table class="table table-hover text-nowrap">
                                     <thead>
@@ -238,7 +240,7 @@
                                     </tbody>
                                 </table>
                                 @endif
-                                
+
                                 @if($time->day_off_start)
                                 <table class="table table-hover text-nowrap">
                                     <thead>
@@ -260,7 +262,7 @@
                                 @endforeach
                                 @endif
                     </div>
-                </div> 
-                @endforeach    
+                </div>
+                @endforeach
     @endcan
 @endsection

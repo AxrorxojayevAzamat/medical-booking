@@ -26,7 +26,7 @@ class Region extends BaseModel
 {
     protected $table = 'regions';
 
-    protected $fillable = ['name_uz', 'name_uz', 'parent_id'];
+    protected $fillable = ['name_uz', 'name_ru', 'parent_id'];
 
 
     ########################################### Relations
