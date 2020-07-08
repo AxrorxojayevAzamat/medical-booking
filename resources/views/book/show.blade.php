@@ -254,7 +254,7 @@
                                     </div>
                                     <!-- End review-container -->
                                     <hr>
-                                    <div class="text-right"><a href="submit-review.html" class="btn_1 add_bottom_15">Submit review</a></div>
+                                    <div class="text-right"><a href="{{ route('book.reviews') }}" class="btn_1 add_bottom_15">Submit review</a></div>
                                 </div>
                                 <!-- /tab_3 -->
                             </div>

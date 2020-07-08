@@ -10,6 +10,10 @@ use App\Entity\Book\Book;
 use Illuminate\Support\Facades\Auth;
 
 class PatientController extends Controller {
+    public function profile_show()
+    {
+        return view('patient.profile');
+    }
 
     public function booking(User $user, Clinic $clinic, Request $request) {
         $calendar = $request['calendar'];

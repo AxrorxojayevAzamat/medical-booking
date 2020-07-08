@@ -9,7 +9,10 @@ Auth::routes(['verify' => true]);
 Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
     Route::get('', 'BookController@index')->name('index');
     Route::get('/show/{user}', 'BookController@show')->name('show');
+    Route::get('/review', 'BookController@review')->name('reviews');
 });
+
+
 
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'can:admin-panel']], function () {
     Route::get('', 'DashboardController@index')->name('home');
@@ -84,8 +87,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 });
 
 Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function () {
-    Route::get('/', 'DashboardController@index')->name('dashboard');
-    Route::get('/profile', 'DashboardController@profile_show')->name('profile');
+    Route::get('profile', 'PatientController@profile_show')->name('profile');
     Route::get('/booking/{user}/{clinic}', 'PatientController@booking')->name('booking');
     Route::post('/booking-doctor/', 'PatientController@bookingDoctor')->name('booking-doctor');
 });
