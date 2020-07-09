@@ -217,7 +217,7 @@ return [
             'url' => 'admin/call-center',
         ],
         [
-            'text' => 'Бронирование',
+            'text' => 'Bookings list',
             'icon' => 'fas fa-fw fa-share',
             'url' => 'admin/books',
         ],
