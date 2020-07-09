@@ -58,7 +58,10 @@
                                 @if(Auth::user()->isAdmin())
                                 <li><a href="{{ url('admin') }}"><i class="pe-7s-user"></i></a></li>
                                 @elseif(Auth::user()->isPatient())
-                                <li><a href="{{ url('patient') }}"><i class="pe-7s-user"></i></a></li>
+                                <li><a href="{{ url('patient/profile')  }}"><i class="pe-7s-user"></i></a></li>
+                                    @elseif(Auth::user()->isDoctor())
+                                        <li><a href="{{ url('doctor/profile')  }}"><i class="pe-7s-user"></i></a></li>
+
 
                                 @endif
                                 {{-- <a href="{{ url('admin') }}">Dashboard</a> --}}

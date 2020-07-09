@@ -123,7 +123,6 @@
                         )
         }
     }
-    var blabla = null;
 
     // timetable[1].tuesday_start = null;
     // timetable[1].tuesday_end = null;
@@ -144,7 +143,7 @@
             daysOfWeekDisabled: disabledDays[i],
             weekStart: 1,
             format: "yyyy-mm-dd",
-            datesDisabled: disabledDates[i],
+            datesDisabled: disabledDates[i].concat(holidays),
         }).on('changeDate', function (e) {
             $('#my_hidden_input' + e.currentTarget.id.slice(-1)).val(e.format());
             setTimes((new Date(e.format())), e.currentTarget.id.slice(-1));

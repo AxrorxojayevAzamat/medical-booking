@@ -162,10 +162,11 @@ class CallCenterController extends Controller {
     }
 
     public function show(User $user, User $doctor) {
-        $clinicsId = $doctor->clinics->pluck('id')->toArray();
+        $clinicsId = Timetable::where('doctor_id',$doctor->id)->pluck('clinic_id')->toArray();
         $clinics = Clinic::whereIn('id', $clinicsId)
                 ->orderByDesc('id')
                 ->get();
+        
         $specs = $doctor->specializations;
         $doctorTimetables = Timetable::where('doctor_id', $doctor->id)
                 ->whereIn('clinic_id', $clinicsId)
@@ -180,6 +181,7 @@ class CallCenterController extends Controller {
                 ->get();
 
         $holidays = $this->service->celebrationDays($celebrationDays);
+        
         return view('admin.call-center.show-doctor', compact('user', 'doctor', 'clinics', 'specs', 'doctorTimetables', 'doctorBooks', 'holidays'));
     }
 

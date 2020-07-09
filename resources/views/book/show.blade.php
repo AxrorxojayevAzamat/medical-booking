@@ -52,9 +52,13 @@
                     <form method="GET" action="{{ route('patient.booking', [$user, $clinic]) }}" >
                     @endguest
 
-                    @can('patient-panel')
-                    <form method="GET" action="{{ route('patient.booking', [$user, $clinic]) }}" >
-                    @endcan
+                        @can('patient-panel')
+                        <form method="GET" action="{{ route('patient.booking', [$user, $clinicValue]) }}" >
+                        @endcan
+
+                        @can('admin-panel')
+                        <form method="GET" action="{{ route('admin.call-center.booking', [$user, $clinicValue]) }}" >
+                        @endcan
 
                             <div class="box_general_2 add_bottom_45">
                                 <div class="main_title_4">
@@ -234,7 +238,7 @@
                                     </div>
                                     <!-- End review-container -->
                                     <hr>
-                                    <div class="text-right"><a href="submit-review.html" class="btn_1 add_bottom_15">Submit review</a></div>
+                                    <div class="text-right"><a href="{{ route('book.reviews') }}" class="btn_1 add_bottom_15">Submit review</a></div>
                                 </div>
                                 <!-- /tab_3 -->
                             </div>
