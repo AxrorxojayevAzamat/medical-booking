@@ -60,4 +60,10 @@ class BookController extends Controller {
         return view('book.show', compact('user', 'clinics', 'specs', 'doctorTimetables', 'doctorBooks', 'holidays'));
     }
 
+    public function review(User $user){
+
+        return view('book.review');
+    }
+
+
 }
