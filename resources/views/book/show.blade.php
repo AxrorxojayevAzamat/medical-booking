@@ -55,7 +55,7 @@
                         @can('patient-panel')
                         <form method="GET" action="{{ route('patient.booking', [$user, $clinicValue]) }}" >
                         @endcan
-                    
+
                         @can('admin-panel')
                         <form method="GET" action="{{ route('admin.call-center.booking', [$user, $clinicValue]) }}" >
                         @endcan
@@ -281,6 +281,8 @@
     let timetable = @json($doctorTimetables);
     let books = @json($doctorBooks);
     let holidays = @json($holidays);
+    // console.log(daysOff);
+    // console.log(clinics);
     console.log(timetable);
     console.log(books);
     console.log(holidays);
@@ -423,7 +425,7 @@
             daysOfWeekDisabled: disabledDays[i],
             weekStart: 1,
             format: "yyyy-mm-dd",
-            datesDisabled: disabledDates[i],
+            datesDisabled: disabledDates[i].concat(holidays),
         }).on('changeDate', function (e) {
             $('#my_hidden_input' + e.currentTarget.id.slice(-1)).val(e.format());
             setTimes((new Date(e.format())),  e.currentTarget.id.slice(-1));
