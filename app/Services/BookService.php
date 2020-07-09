@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UseCases\Book;
+namespace App\Services;
 
 use Illuminate\Http\Request;
 use App\Entity\Region;

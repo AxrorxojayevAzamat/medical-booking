@@ -133,20 +133,23 @@ Breadcrumbs::register('admin.timetables.edit', function (Crumbs $crumbs) {
 //booking
 Breadcrumbs::register('admin.call-center.index', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
-    $crumbs->push('Поиск врача', route('admin.call-center.index'));
+    $crumbs->push('Пациенты', route('admin.call-center.index'));
 });
 
-Breadcrumbs::register('admin.call-center.booking-time', function (Crumbs $crumbs, User $user, Clinic $clinic) {
+Breadcrumbs::register('admin.call-center.create-patient', function (Crumbs $crumbs) {
     $crumbs->parent('admin.call-center.index');
-    $crumbs->push('Бронирование врача', route('admin.call-center.booking-time', [$user, $clinic]));
+    $crumbs->push('Создание нового пациента', route('admin.call-center.create-patient'));
 });
 
-Breadcrumbs::register('admin.call-center.booking', function (Crumbs $crumbs, User $user, Clinic $clinic) {
+Breadcrumbs::register('admin.call-center.patient-doctor', function (Crumbs $crumbs, User $user) {
     $crumbs->parent('admin.call-center.index');
-    $crumbs->push('Зарегистрировать нового пользователя', route('admin.call-center.booking', [$user, $clinic]));
+    $crumbs->push('Выбрать врача', route('admin.call-center.patient-doctor', $user));
 });
 
-
+Breadcrumbs::register('admin.call-center.show-doctor', function (Crumbs $crumbs, User $user, User $doctor) {
+    $crumbs->parent('admin.call-center.patient-doctor', $user);
+    $crumbs->push('Бронирование врача', route('admin.call-center.show-doctor', [$user,$doctor]));
+});
 
 Breadcrumbs::register('admin.books.index', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');

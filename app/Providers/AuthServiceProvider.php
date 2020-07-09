@@ -56,7 +56,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('doctor-panel', function (User $user) {
             return $user->isDoctor();
         });
-
+        
 
     }
 }

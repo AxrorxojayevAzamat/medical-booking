@@ -1,102 +1,124 @@
 @extends('layouts.admin.page')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <!-- /.card-header -->
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="card card-danger card-outline">
+            <div class="card-header">
+                <a class="btn btn-success" href="{{ route("admin.call-center.create-patient") }}">{{ trans('Добавить') }} </a>
+            </div>
+            <div class="card-body">
                 <div class="card-body">
-                    <div class="card-body">
-                        <form action="?" method="GET">
-                            <div class="row">
-                                <div class="col-2">
-                                    <div class="form-group">
-                                        <label for="region" class="col-form-label">{{ __('Регион') }}</label>
-                                        <select class="form-control" name="region" id="region">
-                                            <option ></option>
-                                            @foreach($regionList as $value => $label)
-                                            <option value="{{ $value }}"{{ $value == request('region') ? ' selected' : '' }}>{{ $label }}</option>
-                                            @endforeach
-                                        </select>
+                    <form action="?" method="GET">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <div class="form-group">
+                                    <label for="id" class="col-form-label">{{ trans('Ид') }}</label>
+                                    <input id="id" class="form-control" name="id" value="{{ request('id') }}">
+                                    @if ($errors->has('id'))
+                                    <div class="invalid-feedback">
+                                        <strong>{{ $errors->first('id') }}</strong>
                                     </div>
-                                </div>
-
-
-                                <div class="col-2">
-                                    <div class="form-group">
-                                        <label for="city" class="col-form-label">{{ __('Город') }}</label>
-                                        <select class="form-control" name="city" id="city">
-                                            <option value="" selected=""></option>
-                                            @foreach ($cityList as $value => $label)
-                                            <option value="{{ $value }}"{{ $value == request('city') ? ' selected' : '' }}>{{ $label }}</option>
-                                            @endforeach;
-                                        </select>
-                                        <label></label>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="form-group">
-                                        <label for="type" class="col-form-label">{{ __('Тип клиники ') }}</label>
-                                        <select id="type" class="form-control @error('status') is-invalid @enderror" name="type" value="{{ old('type') }}" autocomplete="type" autofocus>
-                                            <option value="" selected=""></option>
-                                            @foreach ($clinicTypeList as $value => $label)
-                                            <option value="{{ $value }}"{{ $value == request('type') ? ' selected' : '' }}>{{ $label }}</option>
-                                            @endforeach;
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="form-group">
-                                        <label for="clinic" class="col-form-label">{{ __('Название') }}</label>
-                                        <select class="form-control" name="clinic" id="clinic">
-                                            <option></option>
-                                            @foreach ($clinicList as $value => $label)
-                                            <option value="{{ $value }}"{{ $value == request('clinic') ? ' selected' : '' }}>{{ $label }}</option>
-                                            @endforeach;
-                                        </select>
-                                        <label></label>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="form-group">
-                                        <label for="name" class="col-form-label">{{ __('Имя,Фамилия,Направление') }}</label>
-                                        <input name="name" type="text" class="form-control"  value="{{ request('name') }}" placeholder="Имя,Фамилия,Направление ...">
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label class="col-form-label">&nbsp;</label><br />
-                                        <button type="submit" class="btn btn-primary">{{ __('Поиск') }}</button>
-                                        <a href="?" class="btn btn-outline-secondary">{{ __('Очистить') }}</a>
-                                    </div>
+                                    @endif
                                 </div>
                             </div>
-                        </form>
-                    </div>
-
-                    <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
-                        <thead>
-                            <tr role="row">
-                                <th>{{ __('Врач') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($doctors as $doctor)
-                            <tr>
-                                <td><a href="{{ route('book.show',[$doctor]) }}">{{ $doctor->profile ? $doctor->profile->fullName : '' }}</a></td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label for="name" class="col-form-label">{{ trans('Имя пользователя') }}</label>
+                                    <input id="name" class="form-control" name="name" value="{{ request('name') }}">
+                                    @if ($errors->has('name'))
+                                    <div class="invalid-feedback">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label for="first_name" class="col-form-label">{{ trans('Имя') }}</label>
+                                    <input id="first_name" class="form-control" name="first_name" value="{{ request('first_name') }}">
+                                    @if ($errors->has('first_name'))
+                                    <div class="invalid-feedback">
+                                        <strong>{{ $errors->first('first_name') }}</strong>
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label for="last_name" class="col-form-label">{{ trans('Фамилия') }}</label>
+                                    <input id="last_name" class="form-control" name="last_name" value="{{ request('last_name') }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label for="name" class="col-form-label">{{ trans('Телефон') }}</label>
+                                    <input id="phone" type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;(999) 99 999-9999&quot;" data-mask="" im-insert="true" name="phone" value="{{ request('phone') }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label for="email" class="col-form-label">{{ trans('Email') }}</label>
+                                    <input id="email" class="form-control" name="email" value="{{ request('email') }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="form-group">
+                                    <label class="col-form-label">&nbsp;</label><br />
+                                    <button type="submit" class="btn btn-primary">Поиск</button>
+                                    <a href="?" class="btn btn-outline-secondary">{{ __('Очистить') }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <!-- /.card-body -->
+
+                <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                    <thead>
+                        <tr role="row">
+                            <th>{{ trans('ID') }}</th>
+                            <th>{{ trans('ФИО') }}</th>
+                            <th>{{ trans('Телефон') }}</th>
+                            <th>{{ trans('Email') }}</th>
+                            <th>{{ trans('Роль') }}</th>
+                            <th>{{ trans('Статус') }}</th>
+                            <th>{{ trans('Действие') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($users as $user)
+                        <tr>
+                            <td>{{ $user->id }}</td>
+                            <td>{{ $user->profile ? $user->profile->fullName : '' }}</td>
+                            <td>{{ $user->phone }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>{{ $user->roleName() }}</td>
+                            <td class="project-state">
+                                @if ($user->status === \App\Entity\User\User::STATUS_INACTIVE)
+                                <span class="badge badge-secondary">Неактивный</span>
+                                @endif
+                                @if ($user->status === \App\Entity\User\User::STATUS_ACTIVE)
+                                <span class="badge badge-primary">Aктивный</span>
+                                @endif
+                            </td>
+                            <td> 
+                                <a class="btn btn-block btn-outline-primary btn-sm" href="{{ route('admin.call-center.patient-doctor', $user) }}">{{ trans('Выбрать врача') }}</a>
+                            </td>
+
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
 
             </div>
-            <!-- /.card -->
+
+            {{ $users->links() }}
+            <div class="card-footer">
+
+            </div>
         </div>
-        <!-- /.col -->
     </div>
-    <!-- /.row -->
-    @stop
+</div>
+@stop

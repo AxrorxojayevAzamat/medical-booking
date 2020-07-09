@@ -59,17 +59,16 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::group(['prefix' => 'books', 'as' => 'books.'], function () {
         Route::get('/', 'BookController@index')->name('index');
     });
-    Route::group(['prefix' => 'call-center', 'as' => 'call-center.'], function () {
-        Route::get('/', 'CallCenter\CallCenterController@index')->name('index');
-        Route::get('/findCity1/{id}', 'CallCenter\CallCenterController@findCity1');
-
-        Route::get('/findDoctor', 'CallCenter\CallCenterController@findDoctor');
-
-        Route::get('/findDoctorByRegion', 'CallCenter\CallCenterController@findDoctorByRegion');
-        Route::get('/findDoctorByType', 'CallCenter\CallCenterController@findDoctorByType');
-
-        Route::get('/booking/{user}/{clinic}', 'CallCenter\CallCenterController@booking')->name('booking');
-        Route::post('/booking/', 'CallCenter\CallCenterController@bookingDoctor')->name('bookingDoctor');
+    Route::group(['prefix' => 'call-center', 'namespace' => 'CallCenter','as' => 'call-center.'], function () {
+        Route::get('/findDoctorByRegion', 'CallCenterController@findDoctorByRegion');
+        Route::get('/findDoctorByType', 'CallCenterController@findDoctorByType');
+        
+        Route::get('/', 'CallCenterController@index')->name('index');
+        Route::get('/create-patient', 'CallCenterController@create')->name('create-patient');
+        Route::post('/store-patient', 'CallCenterController@storePatient')->name('store-patient');
+        Route::get('patient/{user}/doctor', 'CallCenterController@doctors')->name('patient-doctor');
+        Route::get('/patient/{user}/doctor/{doctor}', 'CallCenterController@show')->name('show-doctor');
+        Route::post('/booking-doctor', 'CallCenterController@bookingDoctor')->name('booking-doctor');
     });
 });
 

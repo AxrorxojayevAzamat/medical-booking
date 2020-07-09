@@ -9,7 +9,7 @@ use App\Entity\Clinic\Timetable;
 use App\Entity\Celebration;
 use App\Entity\Book\Book;
 use App\Entity\Clinic\Clinic;
-use App\UseCases\Book\BookService;
+use App\Services\BookService;
 use Carbon\Carbon;
 
 class BookController extends Controller {
@@ -40,9 +40,6 @@ class BookController extends Controller {
                 ->orderByDesc('id')
                 ->get();
         $specs = $user->specializations;
-
-        $currentDate = Carbon::now()->format('Y-m-d');
-
         $doctorTimetables = Timetable::where('doctor_id', $user->id)
                 ->whereIn('clinic_id', $clinicsId)
                 ->orderByDesc('clinic_id')

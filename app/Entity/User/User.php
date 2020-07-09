@@ -34,13 +34,12 @@ use App\Notifications\ResetPassword as ResetPasswordNotification;
  *
  * @mixin Eloquent
  */
-class User extends Authenticatable implements MustVerifyEmail
-{
+class User extends Authenticatable implements MustVerifyEmail {
+
     use Notifiable;
 
     public const STATUS_ACTIVE = 10;
     public const STATUS_INACTIVE = 11;
-
     public const ROLE_ADMIN = 'administrator';
     public const ROLE_USER = 'user';
     public const ROLE_CALL_CENTER = 'call_center';
@@ -50,98 +49,87 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'name', 'phone', 'email', 'password', 'role', 'status',
     ];
-
     protected $hidden = [
         'password', 'remember_token',
     ];
-
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
-    public static function new($firstName, $lastName, $middleName, $phone, $birthDate, $gender, $email, $password, $role): self
-    {
+    public static function new($email, $phone, $password, $role): self {
         return static::create([
-            'first_name' => $firstName,
-            'last_name' => $lastName,
-            'middle_name' => $middleName,
-            'phone' => $phone,
-            'birth_date' => $birthDate,
-            'gender' => $gender,
-            'email' => $email,
-            'password' => bcrypt($password),
-            'role' => $role,
-            'status' => self::STATUS_ACTIVE,
+                    'email' => $email,
+                    'phone' => $phone,
+                    'password' => bcrypt($password),
+                    'role' => $role,
+                    'status' => self::STATUS_ACTIVE,
         ]);
     }
 
-    public static function newGuest($firstName, $lastName, $middleName, $phone, $birthDate, $gender, $email): self
-    {
+    public static function newGuest($email, $phone, $firstName, $lastName, $middleName, $birthDate, $gender): self {
         $password = 12; // this is for test must change
-        $role = self::ROLE_USER; //must change
-        return static::new($firstName, $lastName, $middleName, $phone, $birthDate, $gender, $email, $password, $role);
+        $role = self::ROLE_USER;
+
+        $user = static::new($email, $phone, $password, $role);
+
+        $profile = $user->profile()->create([
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'patronymic' => $middleName,
+            'birth_date' => $birthDate,
+            'gender' => $gender,
+        ]);
+        return $user;
     }
 
-    public function isAdmin(): bool
-    {
+    public function isAdmin(): bool {
         return $this->role === self::ROLE_ADMIN;
     }
 
-    public function isPatient(): bool
-    {
+    public function isPatient(): bool {
         return $this->role === self::ROLE_USER;
     }
 
-    public function isClinic(): bool
-    {
+    public function isClinic(): bool {
         return $this->role === self::ROLE_CLINIC;
     }
 
-    public function isCallCenter(): bool
-    {
+    public function isCallCenter(): bool {
         return $this->role === self::ROLE_CALL_CENTER;
     }
 
-    public function isDoctor(): bool
-    {
+    public function isDoctor(): bool {
         return $this->role === self::ROLE_DOCTOR;
     }
 
-    public function sendPasswordResetNotification($token)
-    {
+    public function sendPasswordResetNotification($token) {
         $this->notify(new ResetPasswordNotification($token));
     }
 
-    public static function adminlte_image()
-    {
+    public static function adminlte_image() {
         return 'https://picsum.photos/300/300';
     }
 
-    public static function adminlte_desc()
-    {
+    public static function adminlte_desc() {
         return 'That\'s a nice guy';
     }
 
-    public function isActive(): bool
-    {
+    public function isActive(): bool {
         return $this->status === self::STATUS_ACTIVE;
     }
 
-    public function isInactive(): bool
-    {
+    public function isInactive(): bool {
         return $this->status === self::STATUS_INACTIVE;
     }
 
-    public static function statusList(): array
-    {
+    public static function statusList(): array {
         return [
             User::STATUS_ACTIVE => 'Aктивный',
             User::STATUS_INACTIVE => 'Неактивный',
         ];
     }
 
-    public static function rolesList(): array
-    {
+    public static function rolesList(): array {
         return [
             self::ROLE_USER => 'Пользователь',
             self::ROLE_CALL_CENTER => 'Колл Центр',
@@ -151,51 +139,41 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    public function roleName(): string
-    {
+    public function roleName(): string {
         return self::rolesList()[$this->role];
     }
 
-
     ######################################################################################### Scopes
 
-    public function scopeActive($query)
-    {
+    public function scopeActive($query) {
         return $query->where('status', self::STATUS_ACTIVE);
     }
 
     #########################################################################################
-
-
     ########################################### Relations
 
-    public function profile()
-    {
+    public function profile() {
         return $this->hasOne(Profile::class, 'user_id', 'id');
     }
 
-    public function book()
-    {
+    public function book() {
         return $this->hasOne(Book::class, 'user_id', 'id');
     }
 
-    public function doctorSpecializations()
-    {
+    public function doctorSpecializations() {
         return $this->hasMany(DoctorSpecialization::class, 'doctor_id', 'id');
     }
 
-    public function specializations()
-    {
+    public function specializations() {
         return $this->belongsToMany(Specialization::class, 'doctor_specializations', 'doctor_id', 'specialization_id');
     }
 
-    public function doctorClinics()
-    {
+    public function doctorClinics() {
         return $this->hasMany(DoctorClinic::class, 'doctor_id', 'id');
     }
 
-    public function clinics()
-    {
+    public function clinics() {
         return $this->belongsToMany(Clinic::class, 'doctor_clinics', 'doctor_id', 'clinic_id');
     }
+
 }
