@@ -53,13 +53,9 @@
                     @endguest
 
                         @can('patient-panel')
-                        <form method="GET" action="{{ route('patient.booking', [$user, $clinicValue]) }}" >
+                        <form method="GET" action="{{ route('patient.booking', [$user, $clinic]) }}" >
                         @endcan
-
-                        @can('admin-panel')
-                        <form method="GET" action="{{ route('admin.call-center.booking', [$user, $clinicValue]) }}" >
-                        @endcan
-
+                       
                             <div class="box_general_2 add_bottom_45">
                                 <div class="main_title_4">
                                     <h3><i class="icon_circle-slelected"></i>{{ __('Выберите дату и время') }}</h3>
