@@ -164,4 +164,27 @@ class ClinicController extends Controller
     {
         return view('admin.clinics.add-main-photo', compact('clinic'));
     }
+    public function removeMainPhoto(Clinic $clinic)
+    {
+        try {
+            $this->service->removeMainPhoto($clinic->id);
+            return response()->json('The main photo is successfully deleted!');
+        } catch (\Exception $e) {
+            return response()->json('The main photo is not deleted!', 400);
+        }
+    }
+
+    public function addMainPhoto(Clinic $clinic, Request $request)
+    {
+        //dd($clinic);
+        try {
+            $this->validate($request, ['photo' => 'required|image|mimes:jpg,jpeg,png']);
+
+            $this->service->addMainPhoto($clinic->id, $request->photo);
+
+            return redirect()->route('admin.clinic.show', $clinic);
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
 }

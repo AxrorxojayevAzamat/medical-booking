@@ -97,6 +97,11 @@ Breadcrumbs::register('admin.clinic.edit', function (Crumbs $crumbs, Clinic $cli
     $crumbs->push($clinic->name_ru, route('admin.clinic.edit', $clinic));
 });
 
+Breadcrumbs::register('admin.clinic.main-photo', function (Crumbs $crumbs, Clinic $clinic) {
+    $crumbs->parent('admin.clinic.index');
+    $crumbs->push($clinic->name_ru, route('admin.clinic.main-photo', $clinic));
+});
+
 //specializations
 
 Breadcrumbs::register('admin.specializations.index', function (Crumbs $crumbs) {
@@ -158,7 +163,6 @@ Breadcrumbs::register('admin.call-center.booking', function (Crumbs $crumbs, Use
     $crumbs->parent('admin.call-center.index');
     $crumbs->push('Зарегистрировать нового пользователя', route('admin.call-center.booking', [$user, $clinic]));
 });
-
 
 
 Breadcrumbs::register('admin.books.index', function (Crumbs $crumbs) {

@@ -36,7 +36,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Clinic extends BaseModel
 {
-
     public const CLINIC_PROFILE = '/uploads/photo_clinics/';
 
     public const CLINIC_TYPE_PRIVATE = 1;
@@ -44,7 +43,7 @@ class Clinic extends BaseModel
 
 
     protected $fillable = ['name_uz', 'name_ru', 'region_id', 'type', 'description_uz', 'description_ru', 'phone_numbers',
-        'address_uz', 'address_ru', 'work_time_start', 'work_time_end', 'location',
+        'address_uz', 'address_ru', 'work_time_start', 'work_time_end', 'location', 'main_photo_id',
     ];
 
     public static function clinicTypeList(): array
@@ -75,7 +74,11 @@ class Clinic extends BaseModel
 
     public function photos()
     {
-        return $this->hasMany(Photo::class, 'clinic_id', 'id');
+        return $this->hasMany(Photo::class, 'clinic_id', 'id')->whereKeyNot($this->main_photo_id)->orderBy('sort');
+    }
+    public function mainPhoto()
+    {
+        return $this->belongsTo(Photo::class, 'main_photo_id', 'id');
     }
 
     public function createdBy()
@@ -89,6 +92,4 @@ class Clinic extends BaseModel
     }
 
     ###########################################
-
-
 }

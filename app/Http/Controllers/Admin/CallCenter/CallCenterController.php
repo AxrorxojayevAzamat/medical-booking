@@ -2,29 +2,30 @@
 
 namespace App\Http\Controllers\Admin\CallCenter;
 
-use App\Entity\Clinic\Timetable;
-use App\Http\Controllers\Controller;
-use App\Entity\User\User;
 use App\Entity\Region;
-use App\Entity\Clinic\Clinic;
-use App\Entity\Clinic\Specialization;
 use App\Entity\Book\Book;
+use App\Entity\User\User;
 use App\Entity\Celebration;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
+use App\Entity\Clinic\Clinic;
+use App\Entity\Clinic\Timetable;
 use App\UseCases\Book\BookService;
+use Carbon\Carbon;
+use App\Http\Controllers\Controller;
+use App\Entity\Clinic\Specialization;
 
-class CallCenterController extends Controller {
-
+class CallCenterController extends Controller
+{
     private $service;
 
-    public function __construct(BookService $service) {
+    public function __construct(BookService $service)
+    {
         $this->service = $service;
 //        $this->middleware('can:manage-adverts');
     }
 
-    public function index(Request $request) {
-
+    public function index(Request $request)
+    {
         $region_id = $request->get('region');
         $city_id = $request->get('city');
         $type_id = $request->get('type');
@@ -77,7 +78,8 @@ class CallCenterController extends Controller {
         return view('admin.call-center.index', compact('doctors', 'regionList', 'cityList', 'clinicTypeList', 'specList', 'clinicList'));
     }
 
-    public function findDoctorByRegion(Request $request) {
+    public function findDoctorByRegion(Request $request)
+    {
         try {
             $this->service->findDoctorByRegion($request);
         } catch (\DomainException $e) {
@@ -85,7 +87,8 @@ class CallCenterController extends Controller {
         }
     }
 
-    public function findDoctorByType(Request $request) {
+    public function findDoctorByType(Request $request)
+    {
         try {
             $region_id = $request->get('region');
             $city_id = $request->get('city');
@@ -97,7 +100,8 @@ class CallCenterController extends Controller {
         }
     }
 
-    public function booking(User $user, Clinic $clinic, Request $request) {
+    public function booking(User $user, Clinic $clinic, Request $request)
+    {
         $user1 = User::find($user->id);
         $clinic1 = Clinic::find($clinic->id);
         $calendar = $request['calendar'];
@@ -110,15 +114,16 @@ class CallCenterController extends Controller {
         return view('admin.call-center.booking', compact('user1', 'clinic1', 'b_users', 'calendar', 'radioTime'));
     }
 
-    public function bookingDoctor(Request $request) {
+    public function bookingDoctor(Request $request)
+    {
         $user = User::newGuest(
-                        $request['first_name'],
-                        $request['last_name'],
-                        $request['middle_name'],
-                        $request['phone'],
-                        $request['birth_date'],
-                        $request['gender'],
-                        $request['email']
+            $request['first_name'],
+            $request['last_name'],
+            $request['middle_name'],
+            $request['phone'],
+            $request['birth_date'],
+            $request['gender'],
+            $request['email']
         );
         $doctorId = $request['doctor_id'];
         $clinicId = $request['clinic_id'];
@@ -133,7 +138,8 @@ class CallCenterController extends Controller {
         return redirect()->route('admin.call-center.index');
     }
 
-    public function bookingTime(User $user, Clinic $clinic) {
+    public function bookingTime(User $user, Clinic $clinic)
+    {
         $user1 = User::find($user->id);
         $clinic1 = Clinic::find($clinic->id);
         $spec1 = $user->specializations;
@@ -161,7 +167,6 @@ class CallCenterController extends Controller {
             $docDayOfWeeks = $this->service->getDaysConst($doctorTimetable);
             $daysOff1 = $this->service->daysDisabled($docDayOfWeeks, $start, $end);
         } else {
-
             if ($doctorTimetable->isOdd()) {
                 $daysOff1 = $this->service->daysDisabledBool(false, $start, $end);  //false -- odd ; true -- even
             } elseif ($doctorTimetable->isEven()) {
@@ -180,5 +185,4 @@ class CallCenterController extends Controller {
 
         return view('admin.call-center.booking-time', compact('user1', 'clinic1', 'spec1', 'currentDate', 'daysOff', 'timeSlots', 'doctorTimetable', 'doctorBooks', 'holidays'));
     }
-
 }

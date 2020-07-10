@@ -2,12 +2,13 @@
 
 namespace App\Entity\Clinic;
 
+use Eloquent;
+use Carbon\Carbon;
 use App\Entity\BaseModel;
 use App\Entity\User\User;
-use Carbon\Carbon;
-use Eloquent;
-use Illuminate\Database\Eloquent\Model;
+use App\Helpers\ImageHelper;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
@@ -28,7 +29,7 @@ class Photo extends BaseModel
     protected $table = 'clinic_photos';
 
     protected $fillable = [
-        'product_id', 'filename', 'sort',
+        'clinic_id', 'filename', 'sort',
     ];
 
 
@@ -50,5 +51,16 @@ class Photo extends BaseModel
     }
 
     ###########################################
+    
+    ########################################### Accessors
+    public function getFileThumbnailAttribute(): string
+    {
+        return '/storage/images/' . ImageHelper::FOLDER_CLINICS . '/' . $this->clinic_id . '/' . ImageHelper::TYPE_THUMBNAIL . '/' . $this->filename;
+    }
 
+    public function getFileOriginalAttribute(): string
+    {
+        return '/storage/images/' . ImageHelper::FOLDER_CLINICS . '/' . $this->clinic_id . '/' . ImageHelper::TYPE_ORIGINAL . '/' . $this->filename;
+    }
+    ###########################################
 }

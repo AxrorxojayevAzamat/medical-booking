@@ -48,9 +48,10 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     });
 
 
-    Route::group(['prefix' => 'clinics/{clinic}', 'as' => 'clinic.'], function () {
-        Route::get('main-photo', 'ClinicController@mainPhoto')->name('main-photo');
-        Route::get('add-main-photo', 'ClinicController@addMainPhoto')->name('add-main-photo');
+    Route::group(['prefix' => 'clinic', 'as' => 'clinic.'], function () {
+        Route::get('{clinic}/main-photo', 'ClinicController@mainPhoto')->name('main-photo');
+        Route::post('{clinic}/add-main-photo', 'ClinicController@addMainPhoto')->name('add-main-photo');
+        Route::post('{clinic}/remove-main-photo', 'ClinicController@removeMainPhoto')->name('remove-main-photo');
     });
 
     Route::group(
