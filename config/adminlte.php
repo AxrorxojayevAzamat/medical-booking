@@ -199,24 +199,7 @@ return [
         [
             'text' => 'Регионы',
             'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'Список регионов',
-                    'url' => 'admin/region/',
-                ],
-                [
-                    'text' => 'Новый Регион',
-                    'url' => 'admin/region/create',
-                ],
-                [
-                    'text' => 'Новый Город',
-                    'url' => 'admin/region/createCity',
-                ],
-                [
-                    'text' => 'Новый Район',
-                    'url' => 'admin/region/createDistrict',
-                ],
-            ],
+            'url' => 'admin/regions/',
         ],
         [
             'text' => 'Специализации',
@@ -234,7 +217,7 @@ return [
             'url' => 'admin/call-center',
         ],
         [
-            'text' => 'Бронирование',
+            'text' => 'Bookings list',
             'icon' => 'fas fa-fw fa-share',
             'url' => 'admin/books',
         ],

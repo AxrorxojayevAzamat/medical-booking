@@ -7,8 +7,11 @@ class RegionsTableSeeder extends Seeder {
 
     public function run() {
         factory(Region::class, 14)->create()->each(function(Region $region) {
-            $counts = [0, random_int(10, 11)];
-                        $region->children()->saveMany(factory(Region::class, $counts[array_rand($counts)])->create());
+            $counts = random_int(2, 11);
+            $region->children()->saveMany(factory(Region::class, $counts)->create()->each(function (Region $region) {
+                $counts = random_int(0, 5);
+                $region->children()->saveMany(factory(Region::class, $counts)->create());
+            }));
         });
     }
 

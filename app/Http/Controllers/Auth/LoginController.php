@@ -31,13 +31,16 @@ class LoginController extends Controller
         }
 
         if ($this->attemptLogin($request)) {
-            if (Auth::check() && Auth::user()->isAdmin()) {
-                $this->redirectTo = route('admin.home');
-            }elseif (Auth::user()->isPatient()){
-                $this->redirectTo = route('patient.dashboard');
-            }elseif(Auth::user()->isDoctor()){
-                $this->redirectTo = route('doctor.dashboard');
+            if (Auth::check()){
+                if(Auth::user()->isAdmin()) {
+                    return redirect()->route('admin.home');
+                }elseif(Auth::user()->isPatient()){
+                    return redirect()->route('patient.profile');
+                }elseif(Auth::user()->isDoctor()){
+                    return redirect()->route('doctor.profile');
+                }
             }
+
 
             return $this->sendLoginResponse($request);
         }

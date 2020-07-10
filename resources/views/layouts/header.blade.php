@@ -46,7 +46,7 @@
                 <div class="row">
                     <div class="col-lg-3 col-6">
                         <div id="logo_home">
-                            <h1><a href="index.html" title="Findoctor">Findoctor</a></h1>
+                            <h1><a href="{{ url('/') }}" title="Findoctor">Findoctor</a></h1>
                         </div>
                     </div>
                     <nav class="col-lg-9 col-6">
@@ -58,7 +58,10 @@
                                 @if(Auth::user()->isAdmin())
                                 <li><a href="{{ url('admin') }}"><i class="pe-7s-user"></i></a></li>
                                 @elseif(Auth::user()->isPatient())
-                                <li><a href="{{ url('patient') }}"><i class="pe-7s-user"></i></a></li>
+                                <li><a href="{{ url('patient')  }}"><i class="pe-7s-user"></i></a></li>
+                                    @elseif(Auth::user()->isDoctor())
+                                        <li><a href="{{ url('doctor/profile')  }}"><i class="pe-7s-user"></i></a></li>
+
 
                                 @endif
                                 {{-- <a href="{{ url('admin') }}">Dashboard</a> --}}
@@ -80,7 +83,7 @@
                                 <li class="submenu">
                                     <a href="#0" class="show-submenu">Home<i class="icon-down-open-mini"></i></a>
                                     <ul>
-                                        <li><a href="index.html">Home Default</a></li>
+                                        <li><a href="{{ url('/') }}">Home Default</a></li>
                                         <li><a href="index-2.html">Home Version 2</a></li>
                                         <li><a href="index-3.html">Home Version 3</a></li>
                                         <li><a href="index-4.html">Home Version 4</a></li>

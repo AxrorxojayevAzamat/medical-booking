@@ -10,6 +10,20 @@ use App\Entity\Book\Book;
 use Illuminate\Support\Facades\Auth;
 
 class PatientController extends Controller {
+    public function profile_show(User $user)
+    {
+        $bookings = User::find(Auth::user()->id);
+        return view('patient.profile', compact('bookings'));
+    }
+
+    public function myBookings($user_id){
+
+        $bookings = Book::where('user_id', $user_id)->get();
+
+
+        return view('patient.patient_bookings', compact('bookings'));
+
+    }
 
     public function booking(User $user, Clinic $clinic, Request $request) {
         $calendar = $request['calendar'];
