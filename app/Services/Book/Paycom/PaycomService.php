@@ -2,6 +2,7 @@
 
 namespace App\Services\Book\Paycom;
 
+use App\Entity\Book\Book;
 use App\Entity\Book\Payment\PaycomOrder;
 use App\Entity\Book\Payment\PaycomTransaction;
 use App\Entity\User\User;
@@ -32,19 +33,27 @@ class PaycomService
         ]);
     }
 
-    public function createBookOrder($bookId, $amount): PaycomOrder  // TODO add book
+    public function createBookOrder(int $userId, int $doctorId, int $clinicId, string $bookingDate, string $timeStart, int $amount, string $description): PaycomOrder
     {
+        DB::beginTransaction();
+        try {
+            $book = Book::new($userId, $doctorId, $clinicId, $bookingDate, $timeStart, null, $description, Book::PAYME);
 
+            $order = PaycomOrder::create([
+                'book_id' => $book->id,
+                'amount' => $amount,
+                'state' => PaycomOrder::STATE_WAITING_PAY,
+                'locked' => PaycomOrder::UNLOCKED,
+                'created_at' => time(),
+            ]);
 
-        $order = PaycomOrder::create([
-            'book_id' => $bookId,
-            'amount' => $amount,
-            'state' => PaycomOrder::STATE_WAITING_PAY,
-            'locked' => PaycomOrder::UNLOCKED,
-            'created_at' => time(),
-        ]);
+            DB::commit();
 
-        return $order;
+            return $order;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
     }
 
     public function checkCard($token): void

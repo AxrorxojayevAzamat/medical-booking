@@ -48,19 +48,14 @@ class PaycomController extends Controller
     {
         try {
             $this->validator->authorizePaycom($request);
-            $this->validator->validateOrderCreate($request);
             $this->validator->validateAmount($request->amount);
             $user = Auth::user();
+
+            $order = $this->service->createBookOrder($user->id, $request->doctor_id, $request->clinic_id, $request->booking_date, $request->time_start, $request->amount, $request->description);
+            return $this->successResponse('Paycom order is created.', ['order_id' => $order->id]);
         } catch (ValidationException $e) {
             return $this->response(ResponseHelper::CODE_VALIDATION_ERROR, trans('validation.error'), $e->errorBag);
         } catch (Exception $e) {
-            return $this->response(ResponseHelper::CODE_ERROR, $e->getMessage());
-        }
-
-        try {
-            $order = $this->service->createBookOrder($user->id, $request->amount); // TODO fix order creation
-            return $this->successResponse('Paycom order is created.', ['order_id' => $order->id]);
-        } catch (RuntimeException $e) {
             return $this->response(ResponseHelper::CODE_ERROR, $e->getMessage());
         }
     }

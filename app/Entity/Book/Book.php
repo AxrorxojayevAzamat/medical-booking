@@ -45,7 +45,7 @@ class Book extends Model
         'user_id', 'doctor_id', 'clinic_id', 'booking_date', 'time_start', 'time_finish', 'description', 'payment_type','status'
     ];
 
-    public static function new($userId, $doctorId, $clinicId, $bookingDate, $timeStart, $finishTime, $description): self
+    public static function new($userId, $doctorId, $clinicId, $bookingDate, $timeStart, $finishTime, $description, $paymentType): self
     {
         return static::create([
             'user_id' => $userId,
@@ -55,7 +55,7 @@ class Book extends Model
             'time_start' => $timeStart,
             'time_finish' => $finishTime,
             'description' => $description,
-            'payment_type' => self::STATUS_WAITING,
+            'payment_type' => $paymentType,
             'status' => self::STATUS_WAITING,
         ]);
     }
