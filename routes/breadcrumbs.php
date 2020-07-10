@@ -151,13 +151,10 @@ Breadcrumbs::register('admin.call-center.patient-doctor', function (Crumbs $crum
     $crumbs->push('Выбрать врача', route('admin.call-center.patient-doctor', $user));
 });
 
-<<<<<<< HEAD
-=======
 Breadcrumbs::register('admin.call-center.show-doctor', function (Crumbs $crumbs, User $user, User $doctor) {
     $crumbs->parent('admin.call-center.patient-doctor', $user);
     $crumbs->push('Бронирование врача', route('admin.call-center.show-doctor', [$user,$doctor]));
 });
->>>>>>> 3ed8896d13b8d1a335fb19dcccd77abd2606ac7c
 
 Breadcrumbs::register('admin.books.index', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
