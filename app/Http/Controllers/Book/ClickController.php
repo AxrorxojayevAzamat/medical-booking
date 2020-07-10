@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Http\Controllers\Book;
-
 
 use App\Exceptions\ClickException;
 use App\Helpers\ResponseHelper;
@@ -78,7 +76,7 @@ class ClickController extends Controller
             $this->validator->validateCreateToken($request);
             $click = $this->service->createCardToken($request);
 
-            return $this->response(ResponseHelper::CODE_SUCCESS, trans('click.sms_sent_phone'), ['card_token' => $request->card_token,]);
+            return $this->response(ResponseHelper::CODE_SUCCESS, trans('Код смс отправляен на ваш телефон.'), ['card_token' => $request->card_token,]);
         });
     }
 
@@ -93,7 +91,7 @@ class ClickController extends Controller
         });
     }
 
-    public function performPayment(Request $request)
+    public function performOrder(Request $request)
     {
         return $this->baseClickAction($request, function (Request $request): JsonResponse {
             $this->validator->validateAuth($request);

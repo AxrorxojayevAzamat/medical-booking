@@ -7,9 +7,11 @@ use App\Entity\Book\Payment\PaycomOrder;
 use App\Entity\User\User;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BookRequest;
 use App\Services\Book\Paycom\PaycomService;
 use App\Services\Book\Paycom\ApplicationService;
 use App\Validators\Book\PaycomValidator;
+use Auth;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -42,13 +44,13 @@ class PaycomController extends Controller
         return $application->run();
     }
 
-    public function createOrder(Request $request)
+    public function createOrder(BookRequest $request)
     {
         try {
             $this->validator->authorizePaycom($request);
             $this->validator->validateOrderCreate($request);
             $this->validator->validateAmount($request->amount);
-            $user = $this->service->findActiveUser($request->user_id);
+            $user = Auth::user();
         } catch (ValidationException $e) {
             return $this->response(ResponseHelper::CODE_VALIDATION_ERROR, trans('validation.error'), $e->errorBag);
         } catch (Exception $e) {
@@ -63,7 +65,7 @@ class PaycomController extends Controller
         }
     }
 
-    public function performReceipt(Request $request)
+    public function performOrder(Request $request)
     {
         try {
             $this->validator->validateReceiptPerform($request);

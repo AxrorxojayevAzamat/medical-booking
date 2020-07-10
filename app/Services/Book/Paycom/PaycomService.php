@@ -34,15 +34,16 @@ class PaycomService
 
     public function createBookOrder($bookId, $amount): PaycomOrder  // TODO add book
     {
-        if (!$order = PaycomOrder::where('book_id', $bookId)->orderBy('created_at', 'desc')->first()) {
-            $order = PaycomOrder::create([
-                'book_id' => $bookId,
-                'amount' => $amount,
-                'state' => PaycomOrder::STATE_WAITING_PAY,
-                'locked' => PaycomOrder::UNLOCKED,
-                'created_at' => time(),
-            ]);
-        }
+
+
+        $order = PaycomOrder::create([
+            'book_id' => $bookId,
+            'amount' => $amount,
+            'state' => PaycomOrder::STATE_WAITING_PAY,
+            'locked' => PaycomOrder::UNLOCKED,
+            'created_at' => time(),
+        ]);
+
         return $order;
     }
 
