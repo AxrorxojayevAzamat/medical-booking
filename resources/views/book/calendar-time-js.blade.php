@@ -7,6 +7,28 @@
     console.log(holidays);
 
 
+    timetable[0].schedule_type = 2;
+    timetable[0].odd_start = "09:00:00";
+    timetable[0].odd_end = "19:00:00";
+    timetable[0].even_start = null;
+    timetable[0].even_end = null;
+
+    // var newbook = {
+    //     booking_date: "2020-07-11",
+    //     clinic_id: 6,
+    //     created_at: "2020-07-09 18:56:51",
+    //     description: "Quo soluta.",
+    //     doctor_id: 15,
+    //     id: 24,
+    //     payment_type: 2,
+    //     status: 10,
+    //     time_finish: "15:35:40",
+    //     time_start: "15:00:30",
+    //     updated_at: "2020-07-09 18:56:51",
+    //     user_id: 29,
+    // }
+
+    // books.unshift(newbook);
 
     var timeStart = [];
     var timeEnd = [];
@@ -154,6 +176,7 @@
             daysOfWeekDisabled: disabledDays[i],
             weekStart: 1,
             format: "yyyy-mm-dd",
+            startDate: new Date(),
             datesDisabled: disabledDates[i].concat(holidays, daysOff[i]),
         }).on('changeDate', function (e) {
             $('#my_hidden_input' + e.currentTarget.id.slice(-1)).val(e.format());
@@ -167,7 +190,9 @@
 
     $(document).ready(function () {
         var d = new Date();
-        var today = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate();
+        var today = d.getFullYear() + "-" + ((d.getMonth() + 1) > 10 ? (d.getMonth() + 1) : "0" + (d.getMonth() + 1)) +
+                     "-" + (d.getDate() > 10 ? d.getDate() : "0" + d.getDate());
+        console.log(today);
         for (var i = 0; i < timetable.length; i++) {
             setTimes(d, i);
             makeInterval(today, timeStart[i], timeEnd[i], timetable[i].interval,
