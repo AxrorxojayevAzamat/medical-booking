@@ -37,6 +37,8 @@ class ClickController extends Controller
             return json_encode($e->getMessage());
         } catch (\RuntimeException $e) {
             return json_encode(['error' => ClickValidator::UPDATE_FAILED, 'error_note' => 'Error in request from click']);
+        } catch (\Exception $e) {
+            return json_encode($e->getMessage());
         }
     }
 
@@ -51,6 +53,8 @@ class ClickController extends Controller
             return json_encode(['error' => ClickValidator::UPDATE_FAILED, 'error_note' => 'Error in request from click']);
         } catch (ClickException $e) {
             return json_encode(['error' => $e->getClickCode(), 'error_note' => $e->getMessage()]);
+        } catch (\Exception $e) {
+            return json_encode($e->getMessage());
         }
     }
 
@@ -62,13 +66,13 @@ class ClickController extends Controller
     public function createOrder(BookRequest $request)
     {
         return $this->baseClickAction($request, function (BookRequest $request): JsonResponse {
-            $this->validator->validateOrderCreate($request);
+//            $this->validator->validateOrderCreate($request);
             $this->validator->validateAmount($request->amount);
             $user = Auth::user();
 
-            $order = $this->service->createOrder($user->id, $request->doctor_id, $request->clinic_id, $request->booking_date, $request->time_start, $request->amount, $request->description);
+            $order = $this->service->createOrder(57, $request->doctor_id, $request->clinic_id, $request->booking_date, $request->time_start, $request->amount, $request->description);
 
-            return $this->response(ResponseHelper::CODE_SUCCESS, 'Paycom order is created.', ['transaction_id' => $order->merchant_transaction_id]);
+            return $this->response(ResponseHelper::CODE_SUCCESS, 'Click order is created.', ['transaction_id' => $order->merchant_transaction_id]);
         });
     }
 

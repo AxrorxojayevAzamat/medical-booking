@@ -15,14 +15,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $click_transaction_id
  * @property int $click_paydoc_id
  * @property int $amount
- * @property string $token
  * @property string $card_token
  * @property int $invoice_id
  * @property int $payment_id
  * @property string $sign_time
  * @property int $status
  * @property string $status_note
- * @property string $note
  * @property int $created_at
  *
  * @property Book $book
@@ -33,6 +31,10 @@ class Click extends Model
     protected $table = 'click_transactions';
 
     public $timestamps = false;
+
+    protected $fillable = ['book_id', 'merchant_transaction_id', 'click_transaction_id', 'click_paydoc_id', 'amount',
+        'card_token', 'invoice_id', 'payment_id', 'sign_time', 'status', 'status_note', 'created_at',
+    ];
 
 
     public function changeStatus(int $status): void

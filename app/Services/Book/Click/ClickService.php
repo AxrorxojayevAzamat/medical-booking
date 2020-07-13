@@ -92,7 +92,7 @@ class ClickService
         ]);
 
         return $this->baseMethod($response, $payment, function ($data, Click $payment) use ($request): Click {
-            if ((int)$data['error_code'] == 0) {
+            if ((int)$data['error_code'] == ClickValidator::SUCCESS) {
                 $payment->setStatus(ClickHelper::WAITING, $data->error_note, ['invoice_id' => $data['invoice_id'], 'phone_number' => $request->phone_number]);
             } else {
                 $payment->setStatus(ClickHelper::ERROR, $data->error_note);
@@ -118,7 +118,7 @@ class ClickService
         ]);
 
         return $this->baseMethod($response, $payment, function ($data, Click $payment): Click {
-            if ((int)$data->error_code == 0) {
+            if ((int)$data->error_code == ClickValidator::SUCCESS) {
                 $payment->setStatus(ClickHelper::WAITING, $data->error_note, ['card_token' => $data->card_token, 'phone_number' => $data->phone_number]);
             } else {
                 $payment->setStatus(ClickHelper::ERROR, $data->error_note);
@@ -146,7 +146,7 @@ class ClickService
         }
 
         return $this->baseMethod($response, $payment, function ($data, Click $payment): Click {
-            if ((int)$data->error_code == 0) {
+            if ((int)$data->error_code == ClickValidator::SUCCESS) {
                 $payment->setStatus(ClickHelper::CONFIRMED, $data->error_note, ['card_number' => $data->card_token]);
             } else {
                 $payment->setStatus(ClickHelper::CONFIRMED, $data->error_note);
@@ -167,7 +167,7 @@ class ClickService
         $response = $this->apis->deleteCardToken($request->card_token);
 
         return $this->baseMethod($response, $payment, function ($data, Click $payment): Click {
-            if ((int)$data->error_code === 0) {
+            if ((int)$data->error_code === ClickValidator::SUCCESS) {
                 $payment->setAttributes(['card_token' => null, 'status_note' => $data->error_note]);
             } else {
                 $payment->setStatus(ClickHelper::ERROR, $data->error_note);
@@ -178,7 +178,7 @@ class ClickService
         });
     }
 
-    public function createOrder(int $userId, int $doctorId, int $clinicId, string $bookingDate, string $timeStart, int $amount, string $description): Click  // TODO add booking part
+    public function createOrder(int $userId, int $doctorId, int $clinicId, string $bookingDate, string $timeStart, int $amount, string $description): Click
     {
         DB::beginTransaction();
         try {
@@ -216,7 +216,7 @@ class ClickService
         ]);
 
         return $this->baseMethod($response, $payment, function ($data, Click $payment): Click {
-            if ((int)$data->error_code === 0) {
+            if ((int)$data->error_code === ClickValidator::SUCCESS) {
                 $payment->setStatus(ClickHelper::CONFIRMED, $data->error_note, ['payment_id' => $data->payment_id]);
             } else {
                 $payment->setStatus(ClickHelper::ERROR, $data->error_note);
@@ -238,7 +238,7 @@ class ClickService
         $response = $this->apis->checkInvoice(['service_id' => $this->config['service_id'], 'invoice_id' => $request['invoice_id']]);
 
         return $this->baseMethod($response, $payment, function ($data, Click $payment): Click {
-            if ((int)$data->error_code === 0) {
+            if ((int)$data->error_code === ClickValidator::SUCCESS) {
                 if ((int)$data->status > 0) {
                     $payment->setStatus(ClickHelper::CONFIRMED, $data->error_note);
                     return $this->pay($payment);
@@ -263,7 +263,7 @@ class ClickService
         $response = $this->apis->checkPayment($payment->payment_id);
 
         return $this->baseMethod($response, $payment, function ($data, Click $payment): Click {
-            if ((int)$data->error_code === 0) {
+            if ((int)$data->error_code === ClickValidator::SUCCESS) {
                 if ((int)$data->status > 0) {
                     $payment->setStatus(ClickHelper::CONFIRMED, $data->error_note);
                 } else if ((int)$data->status === -99) {
@@ -283,7 +283,7 @@ class ClickService
         $response = $this->apis->checkPaymentStatus($payment->merchant_transaction_id);
 
         return $this->baseMethod($response, $payment, function ($data, Click $payment): Click {
-            if ((int)$data->error_code === 0) {
+            if ((int)$data->error_code === ClickValidator::SUCCESS) {
                 $payment->setAttributes([
                     'payment_id' => $data->payment_id,
                     'status_note' => $data->error_note,
@@ -303,7 +303,7 @@ class ClickService
         $payment = $this->findByToken($request->transaction_id);
 
         return $this->baseMethod($response, $payment, function ($data, Click $payment): Click {
-            if ((int)$data->error_code === 0) {
+            if ((int)$data->error_code === ClickValidator::SUCCESS) {
                 $payment->setStatus(ClickHelper::REJECTED, $data->error_note, ['payment_id' => $data->payment_id]);
                 $payment->update();
             } else {
@@ -318,18 +318,26 @@ class ClickService
     public function prepare(Request $request): array
     {
         $result = [];
-        $payment = $this->validate($request, $result);
+        $merchantConfirmId = 0;
+        $merchantPrepareId = 0;
+
+        if ($payment = Click::where('merchant_transaction_id', $request->merchant_trans_id)->first()) {
+            $merchantConfirmId = $payment->id;
+            $merchantPrepareId = $payment->id;
+        }
+
+        $this->validate($request, $result, $payment);
 
         $result += [
             'click_trans_id' => $request->click_trans_id,
             'merchant_trans_id' => $request->merchant_trans_id,
-            'merchant_confirm_id' => $payment->id,
-            'merchant_prepare_id' => $payment->id,
+            'merchant_confirm_id' => $merchantConfirmId,
+            'merchant_prepare_id' => $merchantPrepareId,
         ];
 
-        if ($result['error'] === 0) {
+        if ($result['error'] === ClickValidator::SUCCESS) {
             $payment->changeStatus(ClickHelper::WAITING);
-            $payment->update();
+            $payment->update(['click_transaction_id' => $request->click_trans_id]);
         }
 
         return $result;
@@ -338,13 +346,21 @@ class ClickService
     public function complete(Request $request): array
     {
         $result = [];
-        $payment = $this->validate($request, $result);
+        $merchantConfirmId = 0;
+        $merchantPrepareId = 0;
+
+        if ($payment = Click::where('merchant_transaction_id', $request->merchant_trans_id)->first()) {
+            $merchantConfirmId = $payment->id;
+            $merchantPrepareId = $payment->id;
+        }
+
+        $this->validate($request, $result, $payment);
 
         $result += [
             'click_trans_id' => $request->click_trans_id,
             'merchant_trans_id' => $request->merchant_trans_id,
-            'merchant_confirm_id' => $payment->id,
-            'merchant_prepare_id' => $payment->id,
+            'merchant_confirm_id' => $merchantConfirmId,
+            'merchant_prepare_id' => $merchantPrepareId,
         ];
 
         if ($request->error < 0 && !in_array($result['error'], [ClickValidator::ALREADY_PAID, ClickValidator::TRANSACTION_CANCELLED])) {
@@ -352,32 +368,32 @@ class ClickService
             $payment->update();
 
             return ['error' => ClickValidator::TRANSACTION_CANCELLED, 'error_note' => 'Transaction cancelled'];
+        } elseif ($result['error'] === ClickValidator::SUCCESS) {
+            $payment = $this->pay($payment);
         }
-
-        $payment = $this->pay($payment);
 
         return $result;
     }
 
     ################################################################################# Helper functions
 
-    protected function validate($request, &$result): ?Click
+    protected function validate($request, &$result, Click $payment = null): void
     {
         try {
             $this->validator->validateBasic($request);
             $this->validator->requestCheck($request);
-            $payment = $this->findByToken($request->merchant_trans_id);
+            if (!$payment) {
+                $result = ['error' => ClickValidator::USER_NOT_FOUND, 'error_note' => 'Transaction does not exist'];
+            }
             $this->validator->checkPayment($request, $payment);
-            $result = ['error' => 0, 'error_note' => 'Success'];
-            return $payment;
+            $result = ['error' => ClickValidator::SUCCESS, 'error_note' => 'Success'];
         } catch (ValidationException $e) {
             $result = ['error' => ClickValidator::REQUEST_ERROR, 'error_note' => 'Error in request from click'];
         } catch (\DomainException $e) {
-            $result = ['error' => ClickValidator::USER_NOT_FOUND, 'error_note' => 'User does not exist'];
+            $result = ['error' => ClickValidator::USER_NOT_FOUND, 'error_note' => 'Transaction does not exist'];
         } catch (ClickException $e) {
             $result = ['error' => $e->getClickCode(), 'error_note' => $e->getMessage()];
         }
-        return null;
     }
 
     protected function baseMethod(ResponseInterface $response, Click $payment, callable $func)
