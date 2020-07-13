@@ -176,13 +176,12 @@ class ClinicController extends Controller
 
     public function addMainPhoto(Clinic $clinic, Request $request)
     {
-        //dd($clinic);
         try {
             $this->validate($request, ['photo' => 'required|image|mimes:jpg,jpeg,png']);
 
             $this->service->addMainPhoto($clinic->id, $request->photo);
 
-            return redirect()->route('admin.clinic.show', $clinic);
+            return redirect()->route('admin.clinic.show', $clinic)->with('success', 'Успешно сохранено!');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }

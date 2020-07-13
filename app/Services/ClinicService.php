@@ -59,16 +59,13 @@ class ClinicService
         $clinic = Clinic::findOrFail($id);
 
         $this->deletePhotos($clinic->id, $clinic->mainPhoto->filename);
-        
         DB::beginTransaction();
         try {
-            $clinic->mainPhoto()->delete();
             $clinic->update(['main_photo_id' => null]);
+            $clinic->mainPhoto()->delete();
             //$this->sortPhotos($clinic);
             
-            
             DB::commit();
-            dd($clinic);
 
             return true;
         } catch (\Exception $e) {
@@ -78,15 +75,8 @@ class ClinicService
     }
     private function deletePhotos(int $clinicId, string $filename)
     {
-        // dd(Storage::disk('public')->exists('/images/' . ImageHelper::FOLDER_CLINICS . '/' . $clinicId . '/' . ImageHelper::TYPE_THUMBNAIL . '/' . $filename));
-        //dd(Storage::disk('storage')->exists('/1.jpg'));
-        // if (Storage::disk('public')->exists('/images/' . ImageHelper::FOLDER_CLINICS . '/' . $clinicId . '/' . ImageHelper::TYPE_THUMBNAIL . '/' . $filename)) {
-        //     dd('1');
-        // } else {
-        //     dd('not exist');
-        // }
         Storage::disk('public')->delete('/images/' . ImageHelper::FOLDER_CLINICS . '/' . $clinicId . '/' . ImageHelper::TYPE_THUMBNAIL . '/' . $filename);
-        // Storage::disk('public')->delete('/images/' . ImageHelper::FOLDER_CLINICS . '/' . $clinicId . '/' . ImageHelper::TYPE_ORIGINAL . '/' . $filename);
+        Storage::disk('public')->delete('/images/' . ImageHelper::FOLDER_CLINICS . '/' . $clinicId . '/' . ImageHelper::TYPE_ORIGINAL . '/' . $filename);
     }
 
     private function sortPhotos(Clinic $clinic): void
