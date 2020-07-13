@@ -18,3 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('regions/children/{parent_id}', 'Api\RegionController@children');
+
+Route::post('book/paycom', ['uses' => 'Book\PaycomController@endpoint']);
+Route::post('book/click/prepare', ['uses' => 'Book\ClickController@prepare']);
+Route::post('book/click/complete', ['uses' => 'Book\ClickController@complete']);
+
+//Route::post('book/paycom/create', 'Book\PaycomController@createOrder');
+//Route::post('book/paycom/perform', 'Book\PaycomController@performOrder');

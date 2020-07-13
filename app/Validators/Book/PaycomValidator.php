@@ -27,8 +27,12 @@ class PaycomValidator extends BaseValidator
     public function validateOrderCreate(Request $request): void
     {
         $this->validate($request, [
-            'user_id' => 'required|numeric',
-            'amount' => 'required|numeric',
+            'doctor_id' => 'required|numeric|exists:users,id',
+            'clinic_id' => 'required|numeric|exists:clinics,id',
+            'amount' => 'required|numeric|min:1000|max:9999999',
+            'booking_date' => 'required|date_format:"Y-m-d"',
+            'time_start' => 'required|date_format:"H:i"',
+            'description' => 'required|string|max:255',
         ]);
     }
 
@@ -40,7 +44,7 @@ class PaycomValidator extends BaseValidator
     public function validateReceiptPerform(Request $request): void
     {
         $this->validate($request, [
-            'account_id' => 'required|numeric',
+            'order_id' => 'required|numeric',
             'token' => 'required|string',
         ]);
     }

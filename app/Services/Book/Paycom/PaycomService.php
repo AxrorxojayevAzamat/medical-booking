@@ -2,6 +2,7 @@
 
 namespace App\Services\Book\Paycom;
 
+use App\Entity\Book\Book;
 use App\Entity\Book\Payment\PaycomOrder;
 use App\Entity\Book\Payment\PaycomTransaction;
 use App\Entity\User\User;
@@ -32,18 +33,27 @@ class PaycomService
         ]);
     }
 
-    public function createBookOrder($bookId, $amount): PaycomOrder  // TODO add book
+    public function createBookOrder(int $userId, int $doctorId, int $clinicId, string $bookingDate, string $timeStart, int $amount, string $description): PaycomOrder
     {
-        if (!$order = PaycomOrder::where('book_id', $bookId)->orderBy('created_at', 'desc')->first()) {
+        DB::beginTransaction();
+        try {
+            $book = Book::new($userId, $doctorId, $clinicId, $bookingDate, $timeStart, null, $description, Book::PAYME);
+
             $order = PaycomOrder::create([
-                'book_id' => $bookId,
+                'book_id' => $book->id,
                 'amount' => $amount,
                 'state' => PaycomOrder::STATE_WAITING_PAY,
                 'locked' => PaycomOrder::UNLOCKED,
                 'created_at' => time(),
             ]);
+
+            DB::commit();
+
+            return $order;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
         }
-        return $order;
     }
 
     public function checkCard($token): void
@@ -60,7 +70,7 @@ class PaycomService
     public function createReceipt(int $orderId, int $amount)
     {
         return $this->getPostRequestData('receipts.create', [
-            'amount' => (int)$amount,
+            'amount' => 100 * (int) $amount,
             'account' => [
                 $this->config['account'] => $orderId,
             ],

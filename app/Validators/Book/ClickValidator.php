@@ -44,8 +44,12 @@ class ClickValidator extends BaseValidator
     public function validateOrderCreate(Request $request): void
     {
         $this->validate($request, [
-            'user_id' => 'required|numeric',
-            'amount' => 'required|numeric',
+            'doctor_id' => 'required|numeric|exists:users,id',
+            'clinic_id' => 'required|numeric|exists:clinics,id',
+            'amount' => 'required|numeric|min:1',
+            'booking_date' => 'required|date_format:"Y-m-d"',
+            'time_start' => 'required|date_format:"H:i"',
+            'description' => 'required|string|max:255',
         ]);
     }
 
@@ -99,9 +103,9 @@ class ClickValidator extends BaseValidator
         ]);
     }
 
-    public function validateAmount(Request $request): void
+    public function validateAmount(int $amount): void
     {
-        if ($request->amount < 1000 || $request->amount > 9999999) {
+        if ($amount < 1000 || $amount > 9999999) {
             throw new \Exception('Amount is wrong.');
         }
     }

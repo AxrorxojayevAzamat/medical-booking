@@ -49,10 +49,8 @@ class PaycomTransaction extends Model
 
     public $timestamps = false;
 
-    protected $fillable = [
-        'paycom_transaction_id',
-        'paycom_time',
-        'paycom_time_datetime',
+    protected $fillable = ['paycom_transaction_id', 'paycom_time', 'paycom_time_datetime', 'create_time', 'perform_time',
+        'cancel_time', 'amount', 'state', 'state_note', 'reason', 'receivers', 'order_id',
     ];
 
     public function pay($perform_time): void

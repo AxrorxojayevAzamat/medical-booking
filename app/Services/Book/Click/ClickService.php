@@ -178,12 +178,11 @@ class ClickService
         });
     }
 
-    public function createOrderReceipt($amount, $accountId): Click  // TODO add booking part
+    public function createOrder(int $userId, int $doctorId, int $clinicId, string $bookingDate, string $timeStart, int $amount, string $description): Click  // TODO add booking part
     {
-        if (!$order = $this->clicks->findOrderByAccountNull($accountId)) {
-            $book = Book::create([
-
-            ]);
+        DB::beginTransaction();
+        try {
+            $book = Book::new($userId, $doctorId, $clinicId, $bookingDate, $timeStart, null, $description, Book::CLICK);
 
             $order = Click::create([
                 'book_id' => $book->id,
@@ -192,8 +191,14 @@ class ClickService
                 'status' => ClickHelper::INPUT,
                 'created_at' => time(),
             ]);
+
+            DB::commit();
+
+            return $order;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
         }
-        return $order;
     }
 
     public function performPayment(string $cardToken, int $token): Click
