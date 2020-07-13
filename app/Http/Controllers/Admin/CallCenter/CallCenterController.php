@@ -14,16 +14,18 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Services\BookService;
 
-class CallCenterController extends Controller {
-
+class CallCenterController extends Controller
+{
     private $service;
 
-    public function __construct(BookService $service) {
+    public function __construct(BookService $service)
+    {
         $this->service = $service;
 //        $this->middleware('can:manage-adverts');
     }
 
-    public function findDoctorByRegion(Request $request) {
+    public function findDoctorByRegion(Request $request)
+    {
         try {
             return $this->service->findDoctorByRegion($request);
         } catch (\DomainException $e) {
@@ -31,7 +33,8 @@ class CallCenterController extends Controller {
         }
     }
 
-    public function findDoctorByType(Request $request) {
+    public function findDoctorByType(Request $request)
+    {
         try {
             $region_id = $request->get('region');
             $city_id = $request->get('city');
@@ -43,8 +46,8 @@ class CallCenterController extends Controller {
         }
     }
 
-    public function index(Request $request) {
-
+    public function index(Request $request)
+    {
         $query = User::select(['users.*', 'pr.*'])
                 ->leftJoin('profiles as pr', 'users.id', '=', 'pr.user_id')
                 ->where('users.role', User::ROLE_USER)
@@ -87,25 +90,27 @@ class CallCenterController extends Controller {
         return view('admin.call-center.index', compact('users'));
     }
 
-    public function create() {
+    public function create()
+    {
         return view('admin.call-center.create-patient');
     }
 
-    public function storePatient(Request $request) {
+    public function storePatient(Request $request)
+    {
         $user = User::newGuest(
-                        $request['email'],
-                        $request['phone'],
-                        $request['first_name'],
-                        $request['last_name'],
-                        $request['middle_name'],
-                        $request['birth_date'],
-                        $request['gender']
+            $request['email'],
+            $request['phone'],
+            $request['first_name'],
+            $request['last_name'],
+            $request['middle_name'],
+            $request['birth_date'],
+            $request['gender']
         );
         return redirect()->route('admin.call-center.index');
     }
 
-    public function doctors(User $user, Request $request) {
-
+    public function doctors(User $user, Request $request)
+    {
         $region_id = $request->get('region');
         $city_id = $request->get('city');
         $type_id = $request->get('type');
@@ -161,8 +166,9 @@ class CallCenterController extends Controller {
         return view('admin.call-center.patient-doctor', compact('user', 'doctors', 'regionList', 'cityList', 'clinicTypeList', 'specList', 'clinicList'));
     }
 
-    public function show(User $user, User $doctor) {
-        $clinicsId = Timetable::where('doctor_id',$doctor->id)->pluck('clinic_id')->toArray();
+    public function show(User $user, User $doctor)
+    {
+        $clinicsId = Timetable::where('doctor_id', $doctor->id)->pluck('clinic_id')->toArray();
         $clinics = Clinic::whereIn('id', $clinicsId)
                 ->orderByDesc('id')
                 ->get();
@@ -185,8 +191,8 @@ class CallCenterController extends Controller {
         return view('admin.call-center.show-doctor', compact('user', 'doctor', 'clinics', 'specs', 'doctorTimetables', 'doctorBooks', 'holidays'));
     }
 
-    public function bookingDoctor(Request $request) {
-        
+    public function bookingDoctor(Request $request)
+    {
         $userId = $request['user_id'];
         $doctorId = $request['doctor_id'];
         $clinicId = $request['clinic_id'];
@@ -198,5 +204,4 @@ class CallCenterController extends Controller {
 
         return redirect()->route('admin.books.index');
     }
-
 }

@@ -1,12 +1,21 @@
 @extends('layouts.admin.page')
+
 @section('content')
 
+@if($errors->any())
+    @foreach($errors->all() as $error)
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ $error }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+@endforeach
+@endif
 
 <div class="card" id="photos">
-    <div class="card-header border">Фотографии клиники</div>
     <div class="card-body">
-        {{-- <form method="POST" action="{{ route('admin.clicnics.add-main-photo', $clinics) }}" enctype="multipart/form-data"> --}}
-        <form method="POST" action="" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.clinic.add-main-photo', $clinic) }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <div class="file-loading">
@@ -24,14 +33,14 @@
 </div>
 
 @endsection
-
-@section('script')
+@section('js')
 <script>
     let fileInput = $("#file-input");
-    let logoUrl = '{{ $clinic ? ($clinic->main_photo_id ? $product->mainPhoto->fileOriginal : null) : null }}';
+    let logoUrl = '{{ $clinic ? ($clinic->main_photo_id ? $clinic->mainPhoto->fileOriginal : null) : null }}';
 
     if (logoUrl) {
         let send = XMLHttpRequest.prototype.send, token = $('meta[name="csrf-token"]').attr('content');
+        console.log(token)
         XMLHttpRequest.prototype.send = function(data) {
             this.setRequestHeader('X-CSRF-Token', token);
             return send.apply(this, arguments);
@@ -59,3 +68,7 @@
     }
 </script>
 @endsection
+
+
+
+

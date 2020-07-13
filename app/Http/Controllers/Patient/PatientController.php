@@ -10,7 +10,7 @@ use App\Entity\Book\Book;
 use Illuminate\Support\Facades\Auth;
 
 class PatientController extends Controller {
-    public function profile_show(User $user)
+    public function profileShow(User $user)
     {
         $bookings = User::find(Auth::user()->id);
         return view('patient.profile', compact('bookings'));
