@@ -70,7 +70,7 @@ class PaycomService
     public function createReceipt(int $orderId, int $amount)
     {
         return $this->getPostRequestData('receipts.create', [
-            'amount' => (int)$amount,
+            'amount' => 100 * (int) $amount,
             'account' => [
                 $this->config['account'] => $orderId,
             ],

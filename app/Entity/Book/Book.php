@@ -42,7 +42,7 @@ class Book extends Model
     protected $table = 'books';
 
     protected $fillable = [
-        'user_id', 'doctor_id', 'clinic_id', 'booking_date', 'time_start', 'time_finish', 'description', 'payment_type','status'
+        'user_id', 'doctor_id', 'clinic_id', 'booking_date', 'time_start', 'time_finish', 'description', 'payment_type', 'status'
     ];
 
     public static function new($userId, $doctorId, $clinicId, $bookingDate, $timeStart, $finishTime, $description, $paymentType): self

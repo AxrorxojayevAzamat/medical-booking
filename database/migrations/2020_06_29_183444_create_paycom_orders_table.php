@@ -15,7 +15,6 @@ class CreatePaycomOrdersTable extends Migration
     {
         Schema::create('paycom_orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('book_id');
             $table->bigInteger('amount');
             $table->tinyInteger('state');
@@ -24,7 +23,6 @@ class CreatePaycomOrdersTable extends Migration
         });
 
         Schema::table('paycom_orders', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
             $table->foreign('book_id')->references('id')->on('books')->onDelete('restrict');
         });
     }
