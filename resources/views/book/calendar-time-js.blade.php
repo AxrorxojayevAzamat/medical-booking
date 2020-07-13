@@ -1,20 +1,51 @@
 <script>
     let timetable = @json($doctorTimetables);
-            let books = @json($doctorBooks);
-            let holidays = @json($holidays);
+    let books = @json($doctorBooks);
+    let holidays = @json($holidays);
     console.log(timetable);
     console.log(books);
     console.log(holidays);
 
 
+    timetable[0].schedule_type = 2;
+    timetable[0].odd_start = "09:00:00";
+    timetable[0].odd_end = "19:00:00";
+    timetable[0].even_start = null;
+    timetable[0].even_end = null;
+
+    // var newbook = {
+    //     booking_date: "2020-07-11",
+    //     clinic_id: 6,
+    //     created_at: "2020-07-09 18:56:51",
+    //     description: "Quo soluta.",
+    //     doctor_id: 15,
+    //     id: 24,
+    //     payment_type: 2,
+    //     status: 10,
+    //     time_finish: "15:35:40",
+    //     time_start: "15:00:30",
+    //     updated_at: "2020-07-09 18:56:51",
+    //     user_id: 29,
+    // }
+
+    // books.unshift(newbook);
 
     var timeStart = [];
     var timeEnd = [];
-    var time_slots = [[], []];
+    var time_slots = [[], [], [], []];
 
-    var disabledDates = [[], []];
-    var disabledDays = [[], []];
-    var disDays = [[], []];
+    var disabledDates = [[], [], [], []];
+    var disabledDays = [[], [], [], []];
+    var disDays = [[], [], [], []];
+    var daysOff = [[], [], [], []];
+
+    function getDaysOff(index) {
+        var dayStart = timetable[index].day_off_start;
+        var dayEnd = timetable[index].day_off_end;
+        for(var start = new Date(dayStart + " 00:00:00"); start <= (new Date(dayEnd + " 00:00:00")); start.setDate(start.getDate() + 1)) {
+            daysOff[index] = [...daysOff[index], start.getFullYear() + "-" + (start.getMonth() + 1) + "-" + start.getDate()];
+        }
+    }
 
     function getDates(index) {
         var d = new Date();
@@ -129,6 +160,8 @@
 
     for (var i = 0; i < timetable.length; i++) {
 
+        getDaysOff(i);
+
         disabledDates[i] = timetable[i].schedule_type == 2 ? getDates(i) : [];
         disabledDays[i] = timetable[i].schedule_type == 1 ? [timetable[i].sunday_start == null ? 0 : '',
             timetable[i].monday_start == null ? 1 : '',
@@ -143,7 +176,8 @@
             daysOfWeekDisabled: disabledDays[i],
             weekStart: 1,
             format: "yyyy-mm-dd",
-            datesDisabled: disabledDates[i].concat(holidays),
+            startDate: new Date(),
+            datesDisabled: disabledDates[i].concat(holidays, daysOff[i]),
         }).on('changeDate', function (e) {
             $('#my_hidden_input' + e.currentTarget.id.slice(-1)).val(e.format());
             setTimes((new Date(e.format())), e.currentTarget.id.slice(-1));
@@ -153,9 +187,12 @@
             appendRadioButton(time_slots, books, e.format(), e.currentTarget.id.slice(-1));
         });
     }
+
     $(document).ready(function () {
         var d = new Date();
-        var today = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate();
+        var today = d.getFullYear() + "-" + ((d.getMonth() + 1) > 10 ? (d.getMonth() + 1) : "0" + (d.getMonth() + 1)) +
+                     "-" + (d.getDate() > 10 ? d.getDate() : "0" + d.getDate());
+        console.log(today);
         for (var i = 0; i < timetable.length; i++) {
             setTimes(d, i);
             makeInterval(today, timeStart[i], timeEnd[i], timetable[i].interval,
