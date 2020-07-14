@@ -69,6 +69,12 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Doctor List">
+                <a class="nav-link" href="{{route('book.index')}}">
+                    <i class="fa fa-fw fa-plus-circle"></i>
+                    <span class="nav-link-text">Doctor List</span>
+                </a>
+            </li>
         </ul>
         <ul class="navbar-nav sidenav-toggler">
             <li class="nav-item">
