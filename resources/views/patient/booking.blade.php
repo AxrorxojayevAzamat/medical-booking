@@ -176,11 +176,11 @@
                                 </li>
                             </ul>
                             <hr>
-                            <input name="patient_id" type="hidden" value="{{$patient->id}}"/>
-                            <input name="doctor_id" type="hidden" value="{{$user->id}}"/>
-                            <input name="clinic_id" type="hidden" value="{{$clinic->id}}"/>
-                            <input name="time_start" type="hidden" value="{{$radioTime}}"/>
-                            <input name="booking_date" type="hidden" value="{{$calendar}}"/>
+                            <input name="patient_id" type="hidden" value="{{$patient->id}}" id="patient_id"/>
+                            <input name="doctor_id" type="hidden" value="{{$user->id}}" id="doctor_id"/>
+                            <input name="clinic_id" type="hidden" value="{{$clinic->id}}" id="clinic_id"/>
+                            <input name="time_start" type="hidden" value="{{$radioTime}}" id="time_start"/>
+                            <input name="booking_date" type="hidden" value="{{$calendar}}" id="booking_date"/>
                             <input name="merchant_id" type="hidden" value="5f07150278994c390463280c" id="payme_merchant_id"/>
                             <button type="submit" class="btn_1 full-width">{{ trans('Confirm and pay')}}</button>
                         </form>
