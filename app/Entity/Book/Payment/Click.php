@@ -49,7 +49,7 @@ class Click extends Model
 
     public function setStatus(int $status, string $statusNote, array $attributes = []): void
     {
-        $this->status = $status;
+        $this->status = $status ?? $this->status;
         $this->status_note = $statusNote;
         $this->setAttributes($attributes);
     }
