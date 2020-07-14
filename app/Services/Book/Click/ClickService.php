@@ -33,50 +33,6 @@ class ClickService
         $this->config = config('click');
     }
 
-    public function payment(Request $request)
-    {
-        $check = $this->request->payment($request);
-
-        if ($check['type'] === 'phone_number') {
-            return $this->createInvoice($check);
-        }
-
-        if ($check['type'] === 'card_number') {
-            return $this->createCardToken($check);
-        }
-
-        if ($check['type'] === 'sms_code') {
-            return $this->verifyCardToken($check);
-        }
-
-        if ($check['type'] === 'card_token') {
-            return $this->performPayment($check['card_token'], $check['account_id']);
-        }
-
-        if ($check['type'] === 'delete_card_token') {
-            return $this->deleteCardToken($check);
-        }
-
-        if ($check['type'] === 'check_invoice_id') {
-            return $this->checkInvoice($check);
-        }
-
-        if ($check['type'] === 'check_payment') {
-            return $this->checkPayment($check);
-        }
-
-        if ($check['type'] === 'merchant_trans_id') {
-            return $this->checkPaymentStatus($check);
-        }
-
-        if ($check['type'] === 'cancel') {
-            return $this->cancel($check);
-        }
-
-        throw new ClickException('Could not detect the method', ResponseHelper::CODE_ERROR, ClickException::ERROR_INSUFFICIENT_PRIVILEGE
-        );
-    }
-
     public function createInvoice(Request $request)
     {
         $payment = $this->findByToken($request->transaction_id);
@@ -147,9 +103,9 @@ class ClickService
 
         return $this->baseMethod($response, $payment, function ($data, Click $payment): Click {
             if ((int)$data->error_code == ClickValidator::SUCCESS) {
-                $payment->setStatus(ClickHelper::CONFIRMED, $data->error_note, ['card_number' => $data->card_token]);
+                $payment->setStatus(ClickHelper::WAITING, $data->error_note, ['card_number' => $data->card_token]);
             } else {
-                $payment->setStatus(ClickHelper::CONFIRMED, $data->error_note);
+                $payment->setStatus(ClickHelper::ERROR, $data->error_note);
             }
             $payment->update();
 
