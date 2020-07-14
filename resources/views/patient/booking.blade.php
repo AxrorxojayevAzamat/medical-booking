@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div id="page">		
+<div id="page">
     <main>
         <div class="container margin_60">
             <div class="row">
@@ -74,64 +74,7 @@
                                 Mussum ipsum cacilds, vidis litro abertis.
                             </p>
                         </div>
-                        <div class="step">
-                            <div class="form-group">
-                                <label>Name on card</label>
-                                <input type="text" class="form-control" id="name_card_booking" name="name_card_booking" placeholder="Jhon Doe">
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Card number</label>
-                                        <input type="text" id="card_number" name="card_number" class="form-control" placeholder="xxxx - xxxx - xxxx - xxxx">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-sm-6">
-                                    <img src="img/payments.png" alt="Cards" class="cards">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Expiration date</label>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <input type="text" id="expire_month" name="expire_month" class="form-control" placeholder="MM">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <input type="text" id="expire_year" name="expire_year" class="form-control" placeholder="Year">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Security code</label>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <input type="text" id="ccv" name="ccv" class="form-control" placeholder="CCV">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <img src="img/icon_ccv.gif" width="50" height="29" alt="ccv"><small>Last 3 digits</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--End row -->
-
-                            <h5>Or checkout with Paypal</h5>
-                            <p>
-                                Lorem ipsum dolor sit amet, vim id accusata sensibus, id ridens quaeque qui. Ne qui vocent ornatus molestie, reque fierent dissentiunt mel ea.
-                            </p>
-                            <p>
-                                <img src="img/paypal_bt.png" alt="Image">
-                            </p>
-                        </div>
+                        @include('patient.payme-click')
                         <hr>
                         <!--End step -->
 
@@ -238,6 +181,7 @@
                             <input name="clinic_id" type="hidden" value="{{$clinic->id}}"/>
                             <input name="time_start" type="hidden" value="{{$radioTime}}"/>
                             <input name="booking_date" type="hidden" value="{{$calendar}}"/>
+                            <input name="merchant_id" type="hidden" value="5f07150278994c390463280c" id="payme_merchant_id"/>
                             <button type="submit" class="btn_1 full-width">{{ trans('Confirm and pay')}}</button>
                         </form>
                     </div>
@@ -251,7 +195,7 @@
     </main>
     <!-- /main -->
 </div>
-<!-- page -->   
+<!-- page -->
 
 <div id="toTop"></div>
 <!-- Back to top button -->

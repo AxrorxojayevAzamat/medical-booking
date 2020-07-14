@@ -53,7 +53,7 @@
         var month = d.getMonth() + 1;
         var i;
         if (timetable[index].odd_start == null && timetable[index].odd_end == null) {
-            i = 1;
+            i = -1;
             while (i < 30) {
                 i = i + 2;
                 disDays[index] = [...disDays[index], year + '-' + month + '-' + i, year + '-' + (month + 1) + '-' + i];
