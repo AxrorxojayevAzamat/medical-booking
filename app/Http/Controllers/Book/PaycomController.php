@@ -73,7 +73,7 @@ class PaycomController extends Controller
             $this->service->checkRequestReceiptsCreate($data);
             $data = $this->service->payReceipt($data->result->receipt->_id, $token);
 
-            return $this->successResponse('Payment is successfully performed.', ['transaction_id' => $order->receipt_id]);
+            return $this->successResponse('Payment is successfully performed.', ['book_id' => $order->book_id]);
         } catch (ValidationException $e) {
             return $this->response(ResponseHelper::CODE_VALIDATION_ERROR, trans('validation.error'), $e->errorBag);
         } catch (RuntimeException|Exception $e) {

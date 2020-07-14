@@ -14,6 +14,7 @@ use Illuminate\Validation\ValidationException;
 
 class ClickValidator extends BaseValidator
 {
+    const SUCCESS = 0;
     const SIGN = -1;
     const AMOUNT = -2;
     const ACTION = -3;
@@ -25,7 +26,7 @@ class ClickValidator extends BaseValidator
     const TRANSACTION_CANCELLED = -9;
     private $config;
 
-    public function __construct($configName)
+    public function __construct($configName = 'click')
     {
         $this->config = config($configName);
     }
@@ -105,7 +106,7 @@ class ClickValidator extends BaseValidator
 
     public function validateAmount(int $amount): void
     {
-        if ($amount < 1000 || $amount > 9999999) {
+        if ($amount < 500 || $amount > 9999999) {
             throw new \Exception('Amount is wrong.');
         }
     }
@@ -130,7 +131,7 @@ class ClickValidator extends BaseValidator
             'error_note' => 'required|string',
             'sign_time' => 'required|date_format:Y-m-d H:i:s',
             'sign_string' => 'required|string',
-            'merchant_prepare_id' => 'numeric|min:1'
+            'merchant_prepare_id' => 'nullable|numeric|min:1'
         ]);
     }
 
@@ -168,7 +169,7 @@ class ClickValidator extends BaseValidator
 
     private function checkSignString(Request $request): void
     {
-        $sign_string = md5(
+        $signString = md5(
             $request->click_trans_id .
             $request->service_id .
             $this->config['secret_key'] .
@@ -179,7 +180,7 @@ class ClickValidator extends BaseValidator
             $request->sign_time
         );
 
-        if ($sign_string !== $request->sign_string) {
+        if ($signString !== $request->sign_string) {
             throw new ClickException('SIGN CHECK FAILED!', ResponseHelper::CODE_VALIDATION_ERROR, 0, self::SIGN);
         }
     }
@@ -193,14 +194,15 @@ class ClickValidator extends BaseValidator
 
     private function validateOrderPrepareId(Request $request, Click $payment): void
     {
-        if ($request->action == 1 && $payment->id !== $request->merchant_prepare_id) {
+        if ($request->action == 1 && $payment->id !== (int) $request->merchant_prepare_id) {
             throw new ClickException('Transaction does not exist', ResponseHelper::CODE_VALIDATION_ERROR, 0, self::TRANSACTION_NOT_FOUND);
         }
     }
 
     private function validateAlreadyPaid(Click $payment): void
     {
-        if ($payment->status == ClickHelper::getStatusName(ClickHelper::CONFIRMED)) {
+        if ($payment->status === ClickHelper::CONFIRMED) {
+
             throw new ClickException('Already paid', ResponseHelper::CODE_VALIDATION_ERROR, 0, self::ALREADY_PAID);
         }
     }
@@ -215,7 +217,7 @@ class ClickValidator extends BaseValidator
 
     private function validateCancelled(Click $payment): void
     {
-        if ($payment->status == ClickHelper::getStatusName(ClickHelper::REJECTED)) {
+        if ($payment->status === ClickHelper::REJECTED) {
             throw new ClickException('Transaction cancelled', ResponseHelper::CODE_VALIDATION_ERROR, 0, self::TRANSACTION_CANCELLED);
         }
     }
