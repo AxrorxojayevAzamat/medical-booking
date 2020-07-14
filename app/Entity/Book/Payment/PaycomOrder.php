@@ -33,6 +33,8 @@ class PaycomOrder extends Model
 
     protected $table = 'paycom_orders';
 
+    protected $fillable = ['book_id', 'amount', 'locked', 'state', 'created_at'];
+
     public $timestamps = false;
 
     public function cancel(): void
@@ -114,7 +116,7 @@ class PaycomOrder extends Model
             );
         }
 
-        if (($this->amount) !== ($amount)) {
+        if (($this->amount * 100) !== ($amount)) {
             throw new PaycomException(
                 $request_id,
                 'Incorrect amount.',

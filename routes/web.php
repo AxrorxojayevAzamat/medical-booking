@@ -10,6 +10,14 @@ Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], funct
     Route::get('', 'BookController@index')->name('index');
     Route::get('/show/{user}', 'BookController@show')->name('show');
     Route::get('/review', 'BookController@review')->name('reviews');
+
+    Route::post('paycom/create', 'PaycomController@createOrder');
+    Route::post('paycom/perform', 'PaycomController@performOrder');
+
+    Route::post('click/create', 'ClickController@createOrder');
+    Route::post('click/create-token', 'ClickController@createOrder');
+    Route::post('click/verify-token', 'ClickController@createOrder');
+    Route::post('click/perform', 'ClickController@performOrder');
 });
 
 
@@ -40,9 +48,10 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     });
 
 
-    Route::group(['prefix' => 'clinics/{clinic}', 'as' => 'clinic.'], function () {
-        Route::get('main-photo', 'ClinicController@mainPhoto')->name('main-photo');
-        Route::get('add-main-photo', 'ClinicController@addMainPhoto')->name('add-main-photo');
+    Route::group(['prefix' => 'clinic', 'as' => 'clinic.'], function () {
+        Route::get('{clinic}/main-photo', 'ClinicController@mainPhoto')->name('main-photo');
+        Route::post('{clinic}/add-main-photo', 'ClinicController@addMainPhoto')->name('add-main-photo');
+        Route::post('{clinic}/remove-main-photo', 'ClinicController@removeMainPhoto')->name('remove-main-photo');
     });
 
     Route::group(
@@ -62,7 +71,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::group(['prefix' => 'call-center', 'namespace' => 'CallCenter','as' => 'call-center.'], function () {
         Route::get('/findDoctorByRegion', 'CallCenterController@findDoctorByRegion');
         Route::get('/findDoctorByType', 'CallCenterController@findDoctorByType');
-        
+
         Route::get('/', 'CallCenterController@index')->name('index');
         Route::get('/create-patient', 'CallCenterController@create')->name('create-patient');
         Route::post('/store-patient', 'CallCenterController@storePatient')->name('store-patient');

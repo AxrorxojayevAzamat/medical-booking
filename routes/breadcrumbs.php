@@ -84,6 +84,11 @@ Breadcrumbs::register('admin.clinic.edit', function (Crumbs $crumbs, Clinic $cli
     $crumbs->push($clinic->name_ru, route('admin.clinic.edit', $clinic));
 });
 
+Breadcrumbs::register('admin.clinic.main-photo', function (Crumbs $crumbs, Clinic $clinic) {
+    $crumbs->parent('admin.clinic.index');
+    $crumbs->push($clinic->name_ru, route('admin.clinic.main-photo', $clinic));
+});
+
 //specializations
 
 Breadcrumbs::register('admin.specializations.index', function (Crumbs $crumbs) {

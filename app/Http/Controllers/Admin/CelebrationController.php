@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Entity\Celebration;
-use App\Http\Requests\CelebrationRequest;
+use App\Http\Requests\BookRequest;
 use Illuminate\Http\Request;
 
 class CelebrationController extends Controller
@@ -40,7 +40,7 @@ class CelebrationController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(CelebrationRequest $request)
+    public function store(BookRequest $request)
     {
         $celebrations = new Celebration();
 
@@ -72,7 +72,7 @@ class CelebrationController extends Controller
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(CelebrationRequest $request, $id)
+    public function update(BookRequest $request, $id)
     {
         $celebrations = Celebration::find($id);
         $celebrations->date = $request->date;

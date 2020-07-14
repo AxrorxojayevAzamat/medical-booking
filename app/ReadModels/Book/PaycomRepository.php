@@ -45,7 +45,7 @@ class PaycomRepository
 
     public function findOrderByOrderId(int $orderId): PaycomOrder
     {
-        if (!$order = PaycomOrder::where('order_id', $orderId)->orderBy('created_at', 'desc')->first()) {
+        if (!$order = PaycomOrder::where('id', $orderId)->orderBy('created_at', 'desc')->first()) {
             throw new PaycomException(
                 $this->request_id,
                 PaycomException::message(

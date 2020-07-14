@@ -28,7 +28,7 @@
         <div class="card-header ">
             <div class="d-flex flex-row mb-3">
                 <a href="{{ route('admin.clinic.edit', $clinic)}}" class="btn btn-primary mr-1">Редактировать</a>
-                <a href="{{route('admin.clinic.main-photo', $clinic )}}" class="btn btn-dark mr-1">Добавить главное фото</a>
+                <a href="{{route('admin.clinic.main-photo', $clinic)}}" class="btn btn-dark mr-1">Добавить главное фото</a>
                 <form action="{{ route('admin.clinic.destroy',$clinic) }}" method="post">
                   @csrf
                   @method('DELETE')
@@ -137,12 +137,10 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="inputEmail3" class=" col-sm-5 col-form-label ">Фотография клиники </label>
-                        @if( !empty($clinic->photo))
-                            <div class="text-center">
-                                <?php foreach (json_decode($clinic->photo)as $picture) { ?>
-                                    <img src="/uploads/photo_clinics/{{$picture }}"/>
-                                <?php } ?>
+                        <label for="inputEmail3" class=" col-sm-5 col-form-label ">Главное фото клиники </label>
+                        @if($clinic->mainPhoto)
+                            <div class="text-center">                               
+                                    <img src="/storage/images/clinics/{{$clinic->id}}/thumbs/{{$clinic->mainPhoto->filename}}">
                             </div>
                         @endif
                     </div>

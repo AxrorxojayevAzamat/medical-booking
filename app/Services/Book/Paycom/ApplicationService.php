@@ -162,8 +162,8 @@ class ApplicationService
                 $book = $order->book;
                 $book->activate();
 
-                $perform_time = Format::timestamp(true);
-                $paycom->pay($perform_time);
+                $performTime = Format::timestamp(true);
+                $paycom->pay($performTime);
                 $order->pay();
 
                 DB::beginTransaction();
@@ -173,7 +173,7 @@ class ApplicationService
                     $paycom->update();
 
                     DB::commit();
-                    return $this->performResponse($paycom->id, $perform_time, $paycom->state);
+                    return $this->performResponse($paycom->id, $performTime, $paycom->state);
                 } catch (\DomainException|\RuntimeException $e) {
                     DB::rollBack();
                     $this->throwError($e->getMessage(), PaycomException::ERROR_INTERNAL_SYSTEM);
