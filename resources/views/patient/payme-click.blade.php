@@ -1,4 +1,5 @@
-<div class="choose">
+<form class="choose">
+    @csrf
     <div class="form-group">
         <label>Choose one of them</label>
     </div>
@@ -11,12 +12,14 @@
             <img src="{{asset('img/click_01.jpg')}}" class="img-thumbnail choose-click" style="margin: 22px" width="60%" height="60%">
         </div>
     </div>
-</div>
+    <div class="error-container">
+    </div>
+</form>
 
 
 {{-- payme --}}
-<div class="payme">
-
+<form class="payme">
+    @csrf
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -53,8 +56,9 @@
     <div class="error-container">
     </div>
 
-</div>
+</form>
 <form id="sms-payme" class="sms-payme">
+    @csrf
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -71,8 +75,8 @@
 </form>
 
 {{-- click --}}
-<div class="click" >
-
+<form class="click" >
+    @csrf
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -107,9 +111,10 @@
     </div>
     <div class="error-container">
     </div>
-</div>
+</form>
 
 <form id="sms-click" class="sms-click">
+    @csrf
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -125,8 +130,9 @@
     </div>
 </form>
 
-<div class="successed">
+<form class="successed">
+    @csrf
     <div class="row">
         <h1>Successed !!!</h1>
     </div>
-</div>
+</form>
