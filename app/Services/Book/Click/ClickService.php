@@ -384,6 +384,7 @@ class ClickService
             $this->validator->requestCheck($request);
             if (!$payment) {
                 $result = ['error' => ClickValidator::USER_NOT_FOUND, 'error_note' => 'Transaction does not exist'];
+                return;
             }
             $this->validator->checkPayment($request, $payment);
             $result = ['error' => ClickValidator::SUCCESS, 'error_note' => 'Success'];
