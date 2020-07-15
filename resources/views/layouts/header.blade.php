@@ -81,6 +81,9 @@
                         <div class="main-menu">
                             <ul>
                                 <li class="submenu">
+                                    <a href="{{ route('book.index')}}" class="show-submenu">Doctor List<i class="icon-down-open-mini"></i></a>
+                                </li>
+                                <li class="submenu">
                                     <a href="#0" class="show-submenu">Home<i class="icon-down-open-mini"></i></a>
                                     <ul>
                                         <li><a href="{{ url('/') }}">Home Default</a></li>
@@ -97,7 +100,6 @@
                                     <ul>
                                         <li class="third-level"><a href="#0">List pages</a>
                                             <ul>
-                                                <li><a href="{{ route('book.index') }}">Doctor List page</a></li>
                                                 <li><a href="grid-list.html">List grid page</a></li>
                                                 <li><a href="list-map.html">List map page</a></li>
                                             </ul>

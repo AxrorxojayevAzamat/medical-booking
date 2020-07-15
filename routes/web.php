@@ -6,22 +6,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('', 'HomeController@index')->name('home');
 Auth::routes(['verify' => true]);
 
-Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
-    Route::get('', 'BookController@index')->name('index');
-    Route::get('/show/{user}', 'BookController@show')->name('show');
-    Route::get('/review', 'BookController@review')->name('reviews');
-
-    Route::post('paycom/create', 'PaycomController@createOrder');
-    Route::post('paycom/perform', 'PaycomController@performOrder');
-
-    Route::post('click/create', 'ClickController@createOrder');
-    Route::post('click/create-token', 'ClickController@createOrder');
-    Route::post('click/verify-token', 'ClickController@createOrder');
-    Route::post('click/perform', 'ClickController@performOrder');
-});
-
-
-
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'can:admin-panel']], function () {
     Route::get('', 'DashboardController@index')->name('home');
 
@@ -79,6 +63,12 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         Route::get('/patient/{user}/doctor/{doctor}', 'CallCenterController@show')->name('show-doctor');
         Route::post('/booking-doctor', 'CallCenterController@bookingDoctor')->name('booking-doctor');
     });
+});
+
+Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
+    Route::get('', 'BookController@index')->name('index');
+    Route::get('/{user}', 'BookController@show')->name('show');
+    Route::get('/review', 'BookController@review')->name('reviews');
 });
 
 Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function () {
