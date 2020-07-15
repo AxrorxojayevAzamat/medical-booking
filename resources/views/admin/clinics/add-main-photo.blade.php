@@ -46,7 +46,8 @@
             return send.apply(this, arguments);
         };
 
-        fileInput.fileinput({
+        fileInput.fileinput({ 
+            language: "ru",
             initialPreview: [logoUrl],
             initialPreviewAsData: true,
             showUpload: false,
@@ -59,6 +60,7 @@
         });
     } else {
         fileInput.fileinput({
+            language: "ru",
             showUpload: false,
             previewFileType: 'text',
             browseOnZoneClick: true,

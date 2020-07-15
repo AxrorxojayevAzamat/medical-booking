@@ -442,6 +442,11 @@ return [
                 [
                     'type' => 'js',
                     'asset' => true,
+                    'location' => '/vendor/kartik-v/bootstrap-fileinput/js/locales/ru.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
                     'location' => '/vendor/kartik-v/bootstrap-fileinput/themes/fas/theme.js',
                 ],
             ],

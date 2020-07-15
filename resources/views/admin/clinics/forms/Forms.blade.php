@@ -115,19 +115,6 @@
                        value="{{ old('location')?? $clinics->location ??''}}" required>
             </div>
         </div>
-
-
-        <div class="form-group row">
-            <label for="inputEmail3" class=" col-sm-5 col-form-label ">Фотография клиники </label>
-            <div class="input-group col-sm-6">
-                <div class="file-loading">
-                    <input id="file-4" type="file" class="file" multiple  data-upload-url="#" data-theme="fas" name = "images[]" data-show-upload="false" accept="jpg|jpeg|pdf|png" data-allowed-file-extensions='["jpg", "jpeg","pdf", "png"]'>
-                </div>
-
-            </div>
-
-        </div>
-
     </div>
 
 

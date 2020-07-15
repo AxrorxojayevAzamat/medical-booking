@@ -49,7 +49,15 @@ class Photo extends BaseModel
     {
         return $this->belongsTo(User::class, 'updated_by', 'id');
     }
+    public function setSort($sort): void
+    {
+        $this->sort = $sort;
+    }
 
+    public function isIdEqualTo($id): bool
+    {
+        return $this->id == $id;
+    }
     ###########################################
     
     ########################################### Accessors

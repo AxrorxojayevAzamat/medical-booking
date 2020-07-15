@@ -2,7 +2,7 @@
 
 @section('content')
 
-    @if($errors->any())
+    @if($errors->count() > 0)
         @foreach($errors->all() as $error)
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{ $error }}
@@ -22,13 +22,12 @@
 
     @endif
 
-
-
     <div class=" card col-md-10 offset-md-1">
         <div class="card-header ">
             <div class="d-flex flex-row mb-3">
                 <a href="{{ route('admin.clinic.edit', $clinic)}}" class="btn btn-primary mr-1">Редактировать</a>
-                <a href="{{route('admin.clinic.main-photo', $clinic)}}" class="btn btn-dark mr-1">Добавить главное фото</a>
+                <a href="{{route('admin.clinic.main-photo', $clinic)}}" class="btn btn-dark mr-1">Главное фото</a>
+                <a href="{{route('admin.clinic.photos', $clinic)}}" class="btn btn-info mr-1">Фотографии</a>
                 <form action="{{ route('admin.clinic.destroy',$clinic) }}" method="post">
                   @csrf
                   @method('DELETE')
@@ -67,16 +66,16 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-5 col-form-label">Адресс клиники(узбекское)</label>
+                        <label for="inputEmail3" class="col-sm-5 col-form-label">Адресс клиники(uz)</label>
                         <div class="col-sm-6 form-control">
-                            {{  $clinic->adress_uz }}
+                            {{$clinic->address_uz}}
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="inputEmail3" class=" col-sm-5 col-form-label">Адресс клиники(русское) </label>
+                        <label for="inputEmail3" class=" col-sm-5 col-form-label">Адресс клиники(ru) </label>
                         <div class="col-sm-6 form-control">
-                            {{ $clinic->adress_ru}}
+                            {{ $clinic->address_ru}}
                         </div>
                     </div>
 
@@ -93,14 +92,14 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-5 col-form-label">Описание клиники(узбекское)</label>
+                        <label for="inputEmail3" class="col-sm-5 col-form-label">Описание клиники(uz)</label>
                         <div class="col-sm-6 form-control">
                             {{ $clinic->description_uz }}
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="inputEmail3" class=" col-sm-5 col-form-label ">Описание
+                        <label for="inputEmail3" class=" col-sm-5 col-form-label ">Описание клиники(ru)
                             клиники(русское) </label>
                         <div class="col-sm-6 form-control">
                             {{  $clinic->description_ru }}
@@ -136,14 +135,14 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label for="inputEmail3" class=" col-sm-5 col-form-label ">Главное фото клиники </label>
                         @if($clinic->mainPhoto)
                             <div class="text-center">                               
                                     <img src="/storage/images/clinics/{{$clinic->id}}/thumbs/{{$clinic->mainPhoto->filename}}">
                             </div>
                         @endif
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

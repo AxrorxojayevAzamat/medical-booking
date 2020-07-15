@@ -41,7 +41,7 @@
                                 
                                 <div class="col-3-sm-2 ml-4">
                                     <select id="typeClinic" class="form-control mr-2" name="typeClinic">
-                                        <option hidden value="">Выберете тип</option>
+                                        <option hidden value="">Выберите тип</option>
                                         <option value="1" >Частная клиника</option>
                                         <option value="2">Государственная поликлиника</option>
                                     </select>

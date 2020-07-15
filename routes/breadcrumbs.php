@@ -85,8 +85,12 @@ Breadcrumbs::register('admin.clinic.edit', function (Crumbs $crumbs, Clinic $cli
 });
 
 Breadcrumbs::register('admin.clinic.main-photo', function (Crumbs $crumbs, Clinic $clinic) {
-    $crumbs->parent('admin.clinic.index');
-    $crumbs->push($clinic->name_ru, route('admin.clinic.main-photo', $clinic));
+    $crumbs->parent('admin.clinic.show', $clinic);
+    $crumbs->push('Главное фото', route('admin.clinic.main-photo', $clinic));
+});
+Breadcrumbs::register('admin.clinic.photos', function (Crumbs $crumbs, Clinic $clinic) {
+    $crumbs->parent('admin.clinic.show', $clinic);
+    $crumbs->push('Добавление фотографий', route('admin.clinic.photos', $clinic));
 });
 
 //specializations
