@@ -34,67 +34,23 @@
 @include('patient._click')
 
 @section('scripts')
+@include('patient.payme-js')
 @include('patient.click_script')
 
-    <script>
-        $('.payme').css('display','none');
-        $('.click').css('display','none');
-        $('.sms-payme').css('display','none');
-        $('.sms-click').css('display','none');
-        $('.successed').css('display','none');
-
-        $('#payme-submit').hide();
-        $('#click-submit').hide();
-        $('input[name="booking_date"]').hide();
+<script>
+    $('.click').css('display','none');
+    $('.sms-click').css('display','none');
+    $('.successed').css('display','none');
 
 
-    // $('.choose').on("submit", function() {
-    //     infoSendPaymeUz();
-    // })
-    $('.payme-choose').submit(function(e) {
-        e.preventDefault();
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                'XSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                'X-Auth': $('#payme_merchant_id').val()
-            }
-        });
-        let clientInfo = {
-            "doctor_id": '',
-            "clinic_id": '',
-            "amount": '',
-            "booking_date": '',
-            "time_start": '',
-            "description": ''
-        };
+    $('.click').css('display','none');
+    $('.sms-click').css('display','none');
 
-        clientInfo.doctor_id = $('#doctor_id').val();
-        clientInfo.clinic_id = $('#clinic_id').val();
-        clientInfo.amount = 15000;
-        clientInfo.booking_date = '2020-07-15';
-        clientInfo.time_start = $('#time_start').val();
-        clientInfo.description = "something";
-
-        $.ajax({
-            url: '/book/paycom/create',
-            method: "POST",
-            data: clientInfo,
-            dataType: "json",
-            success: function (data) {
-                console.log("success")
-                paymeOrderId = data.data.order_id;
-                $('.choose').css('display','none');
-                $('.payme').css('display','block');
-            },
-            error: function (data) {
-                console.log(data)
-                $('.payme').css('display','none');
-                $('.choose').css('display','block');
-                document.getElementsByClassName(".error-container").innerHTML += data.responseJSON.message;
-            }
-        })
-    });
+    $('#payme-submit').hide();
+    $('#click-submit').hide();
+    $('input[name="booking_date"]').hide();
+    $('#click-submit').hide();
+    $('input[name="booking_date"]').hide();
 
     $('.click-choose').submit(function(e) {
         e.preventDefault();
@@ -136,6 +92,6 @@
 
 
     });
-    </script>
+</script>
 
 @endsection
