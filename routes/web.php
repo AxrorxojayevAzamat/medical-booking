@@ -13,6 +13,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('specializations', 'SpecializationController');
     Route::resource('clinic', 'ClinicController');
     Route::resource('celebration', 'CelebrationController');
+    Route::resource('partners', 'PartnerController');
 
     Route::group(
         ['prefix' => 'users', 'as' => 'users.'],

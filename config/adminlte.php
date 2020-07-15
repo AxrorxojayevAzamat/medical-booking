@@ -198,7 +198,7 @@ return [
         ],
         [
             'text' => 'Регионы',
-            'icon' => 'fas fa-fw fa-share',
+            'icon' => 'fas fa-fw fa-map-marker',
             'url' => 'admin/regions/',
         ],
         [
@@ -208,23 +208,28 @@ return [
         ],
         [
             'text' => 'Клиники',
-            'icon' => 'fas fa-fw fa-share',
+            'icon' => 'fas fa-fw fa-clinic-medical',
             'url' => 'admin/clinic',
         ],
         [
             'text' => 'CallCenter',
-            'icon' => 'fas fa-fw fa-share',
+            'icon' => 'fas fa-fw fa-headphones',
             'url' => 'admin/call-center',
         ],
         [
             'text' => 'Bookings list',
-            'icon' => 'fas fa-fw fa-share',
+            'icon' => 'fas fa-fw fa-calendar-alt',
             'url' => 'admin/books',
         ],
         [
             'text' => 'Праздничные дни',
-            'icon' => 'fas fa-fw fa-share',
+            'icon' => 'fas fa-fw fa-birthday-cake',
             'url' => 'admin/celebration',
+        ],
+        [
+            'text' => 'Партнеры',
+            'icon' => 'fas fa-fw fa-globe',
+            'url' => 'admin/partners',
         ],
     ],
     /*

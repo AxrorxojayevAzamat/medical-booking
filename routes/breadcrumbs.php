@@ -129,6 +129,16 @@ Breadcrumbs::register('admin.celebration.edit', function (Crumbs $crumbs, Celebr
     $crumbs->push('Создать праздничный день', route('admin.celebration.edit', $celebration));
 });
 
+//partners
+Breadcrumbs::register('admin.partners.index', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push('Партнеры', route('admin.partners.index'));
+});
+Breadcrumbs::register('admin.partners.create', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.partners.index');
+    $crumbs->push('Добавление нового партнера', route('admin.partners.create'));
+});
+
 //timetables
 Breadcrumbs::register('admin.timetables.create', function (Crumbs $crumbs) {
     //$crumbs->parent('admin.users.edit', $user);
