@@ -1,4 +1,4 @@
-<form class="click" >
+<div class="click" >
 
     <div class="row">
         <div class="col-md-6">
@@ -29,12 +29,12 @@
             </div>
         </div>
         <div class="col-md-6">
-            <input class="btn_1 medium confirm-click" type="submit" value="Confirm" style="margin: 22px">
+            <input class="btn_1 medium confirm-click" id="tokenCreate" type="submit" value="Confirm" style="margin: 22px">
         </div>
     </div>
     <div class="error-container">
     </div>
-</form>
+</div>
 
 <form id="sms-click" class="sms-click">
 
@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="col-md-6 col-sm-6">
-            <input class="btn_1 medium pay-clicks" type="submit" value="Pay" style="margin: 22px">
+            <input class="btn_1 medium pay-clicks" id="sms-sent-btn-click" type="submit" value="Pay" style="margin: 22px">
         </div>
     </div>
     <div class="error-container">
@@ -59,7 +59,3 @@
         <h1>Successed !!!</h1>
     </div>
 </form>
-
-<script>
-
-</script>
