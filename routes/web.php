@@ -69,6 +69,14 @@ Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], funct
     Route::get('', 'BookController@index')->name('index');
     Route::get('/{user}', 'BookController@show')->name('show');
     Route::get('/review', 'BookController@review')->name('reviews');
+
+    Route::post('paycom/create', 'PaycomController@createOrder');
+    Route::post('paycom/perform', 'PaycomController@performOrder');
+
+    Route::post('click/create', 'ClickController@createOrder');
+    Route::post('click/create-token', 'ClickController@createToken');
+    Route::post('click/verify-token', 'ClickController@verifyToken');
+    Route::post('click/perform', 'ClickController@performOrder');
 });
 
 Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function () {
