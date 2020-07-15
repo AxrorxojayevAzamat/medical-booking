@@ -15,14 +15,14 @@ $('.sms-payme').css('display','none');
 $('.sms-click').css('display','none');
 $('.successed').css('display','none');
 
-$('.choose-payme').click(function(e) {
-    infoSendPaymeUz();
-});
+// $('.choose-payme').click(function(e) {
+//     infoSendPaymeUz();
+// });
 
-$('.choose-click').click(function(e) {
-    $('.choose').css('display','none');
-    $('.click').css('display','block');
-});
+// $('.choose-click').click(function(e) {
+//     $('.choose').css('display','none');
+//     $('.click').css('display','block');
+// });
 
 let id = 'F' + Math.floor(Math.random() * 100);
 let paymeOrderId;
