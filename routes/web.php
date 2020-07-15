@@ -6,14 +6,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('', 'HomeController@index')->name('home');
 Auth::routes(['verify' => true]);
 
-Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
-    Route::get('', 'BookController@index')->name('index');
-    Route::get('/show/{user}', 'BookController@show')->name('show');
-    Route::get('/review', 'BookController@review')->name('reviews');
-});
-
-
-
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'can:admin-panel']], function () {
     Route::get('', 'DashboardController@index')->name('home');
 
@@ -70,7 +62,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::group(['prefix' => 'call-center', 'namespace' => 'CallCenter','as' => 'call-center.'], function () {
         Route::get('/findDoctorByRegion', 'CallCenterController@findDoctorByRegion');
         Route::get('/findDoctorByType', 'CallCenterController@findDoctorByType');
-        
+
         Route::get('/', 'CallCenterController@index')->name('index');
         Route::get('/create-patient', 'CallCenterController@create')->name('create-patient');
         Route::post('/store-patient', 'CallCenterController@storePatient')->name('store-patient');
@@ -78,6 +70,12 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         Route::get('/patient/{user}/doctor/{doctor}', 'CallCenterController@show')->name('show-doctor');
         Route::post('/booking-doctor', 'CallCenterController@bookingDoctor')->name('booking-doctor');
     });
+});
+
+Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
+    Route::get('', 'BookController@index')->name('index');
+    Route::get('/{user}', 'BookController@show')->name('show');
+    Route::get('/review', 'BookController@review')->name('reviews');
 });
 
 Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function () {

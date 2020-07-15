@@ -1,16 +1,16 @@
 <?php
 
-
 namespace App\Http\Controllers\Book;
-
 
 use App\Exceptions\ClickException;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BookRequest;
 use App\Services\Book\Click\ClickService;
 use App\Validators\Book\ClickValidator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class ClickController extends Controller
@@ -37,6 +37,8 @@ class ClickController extends Controller
             return json_encode($e->getMessage());
         } catch (\RuntimeException $e) {
             return json_encode(['error' => ClickValidator::UPDATE_FAILED, 'error_note' => 'Error in request from click']);
+        } catch (\Exception $e) {
+            return json_encode($e->getMessage());
         }
     }
 
@@ -51,6 +53,8 @@ class ClickController extends Controller
             return json_encode(['error' => ClickValidator::UPDATE_FAILED, 'error_note' => 'Error in request from click']);
         } catch (ClickException $e) {
             return json_encode(['error' => $e->getClickCode(), 'error_note' => $e->getMessage()]);
+        } catch (\Exception $e) {
+            return json_encode($e->getMessage());
         }
     }
 
@@ -59,15 +63,16 @@ class ClickController extends Controller
 
     ##################################################################################### Subscribe API
 
-    public function createOrder(Request $request)
+    public function createOrder(BookRequest $request)
     {
-        return $this->baseClickAction($request, function (Request $request): JsonResponse {
-            $this->validator->validateOrderCreate($request);
+        return $this->baseClickAction($request, function (BookRequest $request): JsonResponse {
+//            $this->validator->validateOrderCreate($request);
             $this->validator->validateAmount($request->amount);
-            $account = $this->accounts->findActive($request->account_id);
-            $order = $this->service->createOrderReceipt($request->amount, $account->id);
+            $user = Auth::user();
 
-            return $this->response(ResponseHelper::CODE_SUCCESS, 'Paycom order is created.', ['order_id' => $order->id]);
+            $order = $this->service->createOrder($user->id, $request->doctor_id, $request->clinic_id, $request->booking_date, $request->time_start, $request->amount, $request->description);
+
+            return $this->response(ResponseHelper::CODE_SUCCESS, 'Click order is created.', ['transaction_id' => $order->merchant_transaction_id]);
         });
     }
 
@@ -78,7 +83,7 @@ class ClickController extends Controller
             $this->validator->validateCreateToken($request);
             $click = $this->service->createCardToken($request);
 
-            return $this->response(ResponseHelper::CODE_SUCCESS, trans('click.sms_sent_phone'), ['card_token' => $request->card_token,]);
+            return $this->response(ResponseHelper::CODE_SUCCESS, trans('Код смс отправляен на ваш телефон.'), ['card_token' => $request->card_token]);
         });
     }
 
@@ -93,7 +98,7 @@ class ClickController extends Controller
         });
     }
 
-    public function performPayment(Request $request)
+    public function performOrder(Request $request)
     {
         return $this->baseClickAction($request, function (Request $request): JsonResponse {
             $this->validator->validateAuth($request);

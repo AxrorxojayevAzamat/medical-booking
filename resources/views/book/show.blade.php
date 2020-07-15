@@ -48,199 +48,192 @@
                 <div class="col-xl-9 col-lg-8">
                     @foreach($clinics as $key => $clinic)
 
-                    @guest
                     <form method="GET" action="{{ route('patient.booking', [$user, $clinic]) }}" >
-                    @endguest
+                        <div class="box_general_2 add_bottom_45">
+                            <div class="main_title_4">
+                                <h3><i class="icon_circle-slelected"></i>{{ __('Выберите дату и время') }}</h3>
 
-                        @can('patient-panel')
-                        <form method="GET" action="{{ route('patient.booking', [$user, $clinic]) }}" >
-                        @endcan
-                       
-                            <div class="box_general_2 add_bottom_45">
-                                <div class="main_title_4">
-                                    <h3><i class="icon_circle-slelected"></i>{{ __('Выберите дату и время') }}</h3>
-
-                                </div>
-                                <h3>{{$clinic->name_ru }}</h3>
-                                
-                                @include('book.calendar-time')
-
-
-                                <hr>
-                                <div class="text-center"><button class="btn_1 medium" type="submit">{{ __('Забронируйте сейчас') }}</button></div>
                             </div>
-                            <!-- /box_general -->
-                        </form>
-                        @endforeach
+                            <h3>{{$clinic->name_ru }}</h3>
 
-                        <div class="tabs_styled_2">
-                            <ul class="nav nav-tabs" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-expanded="true">Общая информация</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews">Отзывы</a>
-                                </li>
-                            </ul>
-                            <!--/nav-tabs -->
-                            <div class="tab-content">
-                                <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
-                                    <div class="indent_title_in">
-                                        <i class="pe-7s-user"></i>
-                                        <h3>{{ trans('Профессиональные заявления')}}</h3>
-                                        <p>Mussum ipsum cacilds, vidis litro abertis.</p>
-                                    </div>
-                                    <div class="wrapper_indent">
-                                        <p>{{$user->profile ? $user->profile->about_ru : ''}}</p>
-                                        <h6>{{ trans('Специализации')}}</h6>
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <ul class="bullets">
-                                                    @foreach ($specs as $spec)
-                                                    <li> {{$spec->name_ru}}
-                                                    </li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
+                            @include('book.calendar-time')
 
-                                        </div>
-                                        <!-- /row-->
-                                    </div>
-                                    <!-- /wrapper indent -->
 
+                            <hr>
+                            <div class="text-center"><button class="btn_1 medium" type="submit">{{ __('Забронируйте сейчас') }}</button></div>
+                        </div>
+                        <!-- /box_general -->
+                    </form>
+                    @endforeach
+
+                    <div class="tabs_styled_2">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-expanded="true">Общая информация</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews">Отзывы</a>
+                            </li>
+                        </ul>
+                        <!--/nav-tabs -->
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+                                <div class="indent_title_in">
+                                    <i class="pe-7s-user"></i>
+                                    <h3>{{ trans('Профессиональные заявления')}}</h3>
+                                    <p>Mussum ipsum cacilds, vidis litro abertis.</p>
                                 </div>
-                                <!-- /tab_2 -->
-
-                                <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                                    <div class="reviews-container">
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <div id="review_summary">
-                                                    <strong>4.7</strong>
-                                                    <div class="rating">
-                                                        <i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
-                                                    </div>
-                                                    <small>Based on 4 reviews</small>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-9">
-                                                <div class="row">
-                                                    <div class="col-lg-10 col-9">
-                                                        <div class="progress">
-                                                            <div class="progress-bar" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-3"><small><strong>5 stars</strong></small></div>
-                                                </div>
-                                                <!-- /row -->
-                                                <div class="row">
-                                                    <div class="col-lg-10 col-9">
-                                                        <div class="progress">
-                                                            <div class="progress-bar" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-3"><small><strong>4 stars</strong></small></div>
-                                                </div>
-                                                <!-- /row -->
-                                                <div class="row">
-                                                    <div class="col-lg-10 col-9">
-                                                        <div class="progress">
-                                                            <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-3"><small><strong>3 stars</strong></small></div>
-                                                </div>
-                                                <!-- /row -->
-                                                <div class="row">
-                                                    <div class="col-lg-10 col-9">
-                                                        <div class="progress">
-                                                            <div class="progress-bar" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-3"><small><strong>2 stars</strong></small></div>
-                                                </div>
-                                                <!-- /row -->
-                                                <div class="row">
-                                                    <div class="col-lg-10 col-9">
-                                                        <div class="progress">
-                                                            <div class="progress-bar" role="progressbar" style="width: 0" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-3"><small><strong>1 stars</strong></small></div>
-                                                </div>
-                                                <!-- /row -->
-                                            </div>
+                                <div class="wrapper_indent">
+                                    <p>{{$user->profile ? $user->profile->about_ru : ''}}</p>
+                                    <h6>{{ trans('Специализации')}}</h6>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <ul class="bullets">
+                                                @foreach ($specs as $spec)
+                                                <li> {{$spec->name_ru}}
+                                                </li>
+                                                @endforeach
+                                            </ul>
                                         </div>
-                                        <!-- /row -->
 
-                                        <hr>
+                                    </div>
+                                    <!-- /row-->
+                                </div>
+                                <!-- /wrapper indent -->
 
-                                        <div class="review-box clearfix">
-                                            <figure class="rev-thumb"><img src="http://via.placeholder.com/150x150.jpg" alt="">
-                                            </figure>
-                                            <div class="rev-content">
+                            </div>
+                            <!-- /tab_2 -->
+
+                            <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                                <div class="reviews-container">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div id="review_summary">
+                                                <strong>4.7</strong>
                                                 <div class="rating">
                                                     <i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
                                                 </div>
-                                                <div class="rev-info">
-                                                    Admin – April 03, 2016:
-                                                </div>
-                                                <div class="rev-text">
-                                                    <p>
-                                                        Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis
-                                                    </p>
-                                                </div>
+                                                <small>Based on 4 reviews</small>
                                             </div>
                                         </div>
-                                        <!-- End review-box -->
-
-                                        <div class="review-box clearfix">
-                                            <figure class="rev-thumb"><img src="http://via.placeholder.com/150x150.jpg" alt="">
-                                            </figure>
-                                            <div class="rev-content">
-                                                <div class="rating">
-                                                    <i class="icon-star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
+                                        <div class="col-lg-9">
+                                            <div class="row">
+                                                <div class="col-lg-10 col-9">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
                                                 </div>
-                                                <div class="rev-info">
-                                                    Ahsan – April 01, 2016
-                                                </div>
-                                                <div class="rev-text">
-                                                    <p>
-                                                        Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis
-                                                    </p>
-                                                </div>
+                                                <div class="col-lg-2 col-3"><small><strong>5 stars</strong></small></div>
                                             </div>
-                                        </div>
-                                        <!-- End review-box -->
-
-                                        <div class="review-box clearfix">
-                                            <figure class="rev-thumb"><img src="http://via.placeholder.com/150x150.jpg" alt="">
-                                            </figure>
-                                            <div class="rev-content">
-                                                <div class="rating">
-                                                    <i class="icon-star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
+                                            <!-- /row -->
+                                            <div class="row">
+                                                <div class="col-lg-10 col-9">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
                                                 </div>
-                                                <div class="rev-info">
-                                                    Sara – March 31, 2016
-                                                </div>
-                                                <div class="rev-text">
-                                                    <p>
-                                                        Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis
-                                                    </p>
-                                                </div>
+                                                <div class="col-lg-2 col-3"><small><strong>4 stars</strong></small></div>
                                             </div>
+                                            <!-- /row -->
+                                            <div class="row">
+                                                <div class="col-lg-10 col-9">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 col-3"><small><strong>3 stars</strong></small></div>
+                                            </div>
+                                            <!-- /row -->
+                                            <div class="row">
+                                                <div class="col-lg-10 col-9">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 col-3"><small><strong>2 stars</strong></small></div>
+                                            </div>
+                                            <!-- /row -->
+                                            <div class="row">
+                                                <div class="col-lg-10 col-9">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar" style="width: 0" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 col-3"><small><strong>1 stars</strong></small></div>
+                                            </div>
+                                            <!-- /row -->
                                         </div>
-                                        <!-- End review-box -->
                                     </div>
-                                    <!-- End review-container -->
+                                    <!-- /row -->
+
                                     <hr>
-                                    <div class="text-right"><a href="{{ route('book.reviews') }}" class="btn_1 add_bottom_15">Submit review</a></div>
+
+                                    <div class="review-box clearfix">
+                                        <figure class="rev-thumb"><img src="http://via.placeholder.com/150x150.jpg" alt="">
+                                        </figure>
+                                        <div class="rev-content">
+                                            <div class="rating">
+                                                <i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
+                                            </div>
+                                            <div class="rev-info">
+                                                Admin – April 03, 2016:
+                                            </div>
+                                            <div class="rev-text">
+                                                <p>
+                                                    Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End review-box -->
+
+                                    <div class="review-box clearfix">
+                                        <figure class="rev-thumb"><img src="http://via.placeholder.com/150x150.jpg" alt="">
+                                        </figure>
+                                        <div class="rev-content">
+                                            <div class="rating">
+                                                <i class="icon-star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
+                                            </div>
+                                            <div class="rev-info">
+                                                Ahsan – April 01, 2016
+                                            </div>
+                                            <div class="rev-text">
+                                                <p>
+                                                    Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End review-box -->
+
+                                    <div class="review-box clearfix">
+                                        <figure class="rev-thumb"><img src="http://via.placeholder.com/150x150.jpg" alt="">
+                                        </figure>
+                                        <div class="rev-content">
+                                            <div class="rating">
+                                                <i class="icon-star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
+                                            </div>
+                                            <div class="rev-info">
+                                                Sara – March 31, 2016
+                                            </div>
+                                            <div class="rev-text">
+                                                <p>
+                                                    Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End review-box -->
                                 </div>
-                                <!-- /tab_3 -->
+                                <!-- End review-container -->
+                                <hr>
+                                <div class="text-right"><a href="{{ route('book.reviews') }}" class="btn_1 add_bottom_15">Submit review</a></div>
                             </div>
-                            <!-- /tab-content -->
+                            <!-- /tab_3 -->
                         </div>
-                        <!-- /tabs_styled -->
+                        <!-- /tab-content -->
+                    </div>
+                    <!-- /tabs_styled -->
                 </div>
                 <!-- /col -->
             </div>
