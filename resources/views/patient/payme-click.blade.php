@@ -31,21 +31,67 @@
 
 @include('patient.payme')
 
-<div class="click-container">
-    @include('patient.click')
-</div>
+@include('patient._click')
 
 @section('scripts')
 @include('patient.payme-js')
+@include('patient.click_script')
 
 <script>
     $('.click').css('display','none');
     $('.sms-click').css('display','none');
     $('.successed').css('display','none');
 
+
+    $('.click').css('display','none');
+    $('.sms-click').css('display','none');
+
+    $('#payme-submit').hide();
+    $('#click-submit').hide();
+    $('input[name="booking_date"]').hide();
     $('#click-submit').hide();
     $('input[name="booking_date"]').hide();
 
+    $('.click-choose').submit(function(e) {
+        e.preventDefault();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                'XSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                'X-Auth': $('#payme_merchant_id').val()
+            }
+        });
+        let orderCreate = {};
+        orderCreate.doctor_id = $('#doctor_id').val();
+        orderCreate.clinic_id = $('#clinic_id').val();
+        orderCreate.amount = 15000;
+        orderCreate.booking_date = '2020-07-15';
+        orderCreate.time_start = $('#time_start').val();
+        orderCreate.description = "click order create";
+
+
+        $.ajax({
+            url: '/book/click/create',
+            method: "POST",
+            data: orderCreate,
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                clickOrderId = data.data.transaction_id;
+                console.log(clickOrderId);
+                $('.choose').hide();
+                $('.click').css('display','block');
+            },
+            error: function (data) {
+                console.log(data);
+                $('.choose').show();
+                $('.click').css('display','none');
+                $(".error-container").text(data.message);
+            }
+        })
+
+
+    });
 </script>
 
 @endsection

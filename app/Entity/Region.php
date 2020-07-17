@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\User\User;
+use App\Helpers\LanguageHelper;
 use Carbon\Carbon;
 use Eloquent;
 
@@ -15,6 +16,7 @@ use Eloquent;
  * @property int $updated_by
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property string $name
  *
  * @property Region $parent
  * @property Region[] $children
@@ -27,6 +29,16 @@ class Region extends BaseModel
     protected $table = 'regions';
 
     protected $fillable = ['name_uz', 'name_ru', 'parent_id'];
+
+
+    ########################################### Mutators
+
+    public function getNameAttribute(): string
+    {
+        return LanguageHelper::getName($this);
+    }
+
+    ###########################################
 
 
     ########################################### Relations

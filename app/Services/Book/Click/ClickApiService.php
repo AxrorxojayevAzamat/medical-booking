@@ -36,47 +36,47 @@ class ClickApiService
 
     public function createInvoice(array $data)
     {
-        return $this->apis->request('POST', 'invoice/create', ['json' => $data]);
+        return $this->apis->request('POST', $this->baseUrl . 'invoice/create', ['json' => $data]);
     }
 
     public function checkInvoice(array $data)
     {
-        return $this->apis->request('GET', 'invoice/status/' . $data['service_id'] . '/' . $data['invoice_id']);
+        return $this->apis->request('GET', $this->baseUrl . 'invoice/status/' . $data['service_id'] . '/' . $data['invoice_id']);
     }
 
     public function createCardToken(array $data)
     {
-        return $this->apis->request('POST', 'card_token/request', ['json' => $data]);
+        return $this->apis->request('POST', $this->baseUrl . 'card_token/request', ['json' => $data]);
     }
 
     public function verifyCardToken(array $data)
     {
-        return $this->apis->request('POST', 'card_token/verify', ['json' => $data]);
+        return $this->apis->request('POST', $this->baseUrl . 'card_token/verify', ['json' => $data]);
     }
 
     public function performPayment(array $data)
     {
-        return $this->apis->request('POST', 'card_token/payment', ['json' => $data]);
+        return $this->apis->request('POST', $this->baseUrl . 'card_token/payment', ['json' => $data]);
     }
 
     public function deleteCardToken(string $cardToken)
     {
-        return  $this->apis->request('DELETE', 'card_token/' . $this->config['service_id'] . '/' . $cardToken);
+        return  $this->apis->request('DELETE', $this->baseUrl . 'card_token/' . $this->config['service_id'] . '/' . $cardToken);
     }
 
     public function checkPayment(int $paymentId)
     {
-        return $this->apis->request('GET', 'payment/status/' . $this->config['service_id'] . '/' . $paymentId);
+        return $this->apis->request('GET', $this->baseUrl . 'payment/status/' . $this->config['service_id'] . '/' . $paymentId);
     }
 
     public function checkPaymentStatus(int $merchantTransactionId)
     {
-        return  $this->apis->request('DELETE', 'payment/status_by_mti/' . $this->config['service_id'] . '/' . $merchantTransactionId);
+        return  $this->apis->request('DELETE', $this->baseUrl . 'payment/status_by_mti/' . $this->config['service_id'] . '/' . $merchantTransactionId);
     }
 
     public function onCanceling(int $paymentId): ResponseInterface
     {
-        return $this->apis->request('DELETE', 'payment/reversal/' . $this->config['service_id'] . '/' . $paymentId);
+        return $this->apis->request('DELETE', $this->baseUrl . 'payment/reversal/' . $this->config['service_id'] . '/' . $paymentId);
     }
 
     public function isResponseSuccessful(ResponseInterface $response)

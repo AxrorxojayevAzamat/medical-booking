@@ -74,6 +74,8 @@
                             </p>
                         </div>
                         @include('patient.payme-click')
+
+
                         <hr>
                         <!--End step -->
 
