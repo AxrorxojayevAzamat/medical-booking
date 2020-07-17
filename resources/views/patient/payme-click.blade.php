@@ -86,7 +86,7 @@
                 console.log(data);
                 $('.choose').show();
                 $('.click').css('display','none');
-                $(".error-container").val(data.message);
+                $(".error-container").text(data.message);
             }
         })
 

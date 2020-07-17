@@ -70,7 +70,7 @@
                                         console.log(data);
                                         $('.successed').show();
                                         let reply = "{{ trans('book.book_id') }}" + data.data.book_id;
-                                        $('.successed').val(reply);
+                                        $('.successed').text(reply);
                                     },
                                     error: function (data) {
                                         $('.error-container').show();
