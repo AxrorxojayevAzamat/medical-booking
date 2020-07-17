@@ -224,30 +224,13 @@
                                         </div>
                                     </div>
                                     <!-- End review-box -->
-                                </div>
-<<<<<<< HEAD
-                                <link rel="stylesheet" type="text/css" href="/css/gallery.css">
-                                <link rel="stylesheet" type="text/css" href="/css/lightbox.gallery.min.css">
-                                <script type="text/javascript" src="/js/lightbox-plus-jquery.min.js">
-                                </script>
-                                </head>
-                                <body>
-                                <h1> Doctor's Gallery</h1>
-                     <div class="gallery">
- 
-            <a href="/img/Doctor1.jpg" data-lightbox="mygallery" data-title="This is First Picture"> <img src="/img/Doctor1.jpg"></a>
-            <a href="/img/Doctor2.jpg" data-lightbox="mygallery" data-title="This is Second Picture"> <img src="/img/Doctor2.jpg"></a>
-            <a href="/img/Doctor3.jpg" data-lightbox="mygallery" data-title="This is Third Picture"> <img src="/img/Doctor3.jpg"></a>
-            <a href="/img/Doctor4.jpg" data-lightbox="mygallery" data-title="This is Fourth Picture"> <img src="/img/Doctor4.jpg"></a>
-            <a href="/img/Doctor5.jpg" data-lightbox="mygallery" data-title="This is Fifth Picture"> <img src="/img/Doctor5.jpg"></a>
-
-                     </div>
-=======
                                 <!-- End review-container -->
+                                </div>
+                                     <!-- End review-container -->
                                 <hr>
                                 <div class="text-right"><a href="{{ route('book.reviews') }}" class="btn_1 add_bottom_15">Submit review</a></div>
->>>>>>> 008d31ed81fe12081e488997d357744dc877f41c
-                            </div>
+    
+                              </div>
                             <!-- /tab_3 -->
                         </div>
                         <!-- /tab-content -->
@@ -266,6 +249,22 @@
 
 <div id="toTop"></div>
 <!-- Back to top button -->
+
+<link rel="stylesheet" type="text/css" href="/css/gallery.css">
+                                <link rel="stylesheet" type="text/css" href="/css/lightbox.gallery.min.css">
+                                <script type="text/javascript" src="/js/lightbox-plus-jquery.min.js">
+                                </script>
+                                </head>
+                                <body>
+                                <h1> Doctor's Gallery</h1>
+                     <div class="gallery">
+ 
+            <a href="/img/Doctor1.jpg" data-lightbox="mygallery" data-title="This is First Picture"> <img src="/img/Doctor1.jpg"></a>
+            <a href="/img/Doctor2.jpg" data-lightbox="mygallery" data-title="This is Second Picture"> <img src="/img/Doctor2.jpg"></a>
+            <a href="/img/Doctor3.jpg" data-lightbox="mygallery" data-title="This is Third Picture"> <img src="/img/Doctor3.jpg"></a>
+            <a href="/img/Doctor4.jpg" data-lightbox="mygallery" data-title="This is Fourth Picture"> <img src="/img/Doctor4.jpg"></a>
+            <a href="/img/Doctor5.jpg" data-lightbox="mygallery" data-title="This is Fifth Picture"> <img src="/img/Doctor5.jpg"></a>
+                               </div>
 
 @endsection
 @section('scripts')
