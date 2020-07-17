@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers\Book;
 
+use App\Entity\Clinic\DoctorClinic;
+use App\Entity\Clinic\DoctorSpecialization;
+use App\Entity\Clinic\Specialization;
+use App\Entity\Region;
+use App\Helpers\LanguageHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Entity\User\User;
@@ -10,7 +15,6 @@ use App\Entity\Celebration;
 use App\Entity\Book\Book;
 use App\Entity\Clinic\Clinic;
 use App\Services\BookService;
-use Carbon\Carbon;
 
 class BookController extends Controller {
 
@@ -20,14 +24,85 @@ class BookController extends Controller {
         $this->service = $service;
     }
 
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
+        $doctorIds = [];
+        $query = User::select(['users.*', 'pr.*'])
+            ->leftJoin('profiles as pr', 'users.id', '=', 'pr.user_id')
+            ->doctor();
 
-        $doctors = $this->doctors($request);
+        if (!empty($value = $request->get('full_name'))) {
+            $query->where(function ($query) use ($value) {
+                $query->whereRaw("concat(pr.last_name, ' ', pr.first_name, ' ', pr.middle_name) like '%$value%'")
+                    ->orWhereRaw("concat(pr.first_name, ' ', pr.middle_name, ' ', pr.last_name) like '%$value%'");
+            });
+        }
 
-        return view('book.index', compact('doctors'));
+        if (!empty($value = $request->get('clinic'))) {
+            $doctorIds = array_merge($doctorIds, DoctorClinic::where('clinic_id', $value)->pluck('doctor_id')->toArray());
+        }
+
+        if (!empty($value = $request->get('specialization'))) {
+            $doctorIds = array_merge($doctorIds, DoctorSpecialization::where('specialization_id', $value)->pluck('doctor_id')->toArray());
+        }
+
+        if (!empty($value = $request->get('region'))) {
+            $regionIds = $this->getRegionIds($value);
+
+            $doctorIds = array_merge($doctorIds, DoctorClinic::select('doctor_clinics.doctor_id')
+                ->leftJoin('clinics as c', 'doctor_clinics.clinic_id', '=', 'c.id')
+                ->whereIn('c.region_id', $regionIds)->pluck('doctor_clinics.doctor_id')->toArray());
+        }
+
+        if (!empty($doctorIds)) {
+            $doctorIds = array_unique($doctorIds);
+            $query->whereIn('users.id', $doctorIds);
+        }
+
+        if (!empty($value = $request->get('gender'))) {
+            $query->where('pr.gender', $value);
+        }
+
+        if (!empty($value = $request->get('order_by'))) {
+            if ($value == 'alphabet') {
+                $query->orderBy('pr.last_name')->orderBy('pr.first_name')->orderBy('pr.middle_name');
+            } elseif ($value == 'best_rated') {
+                $query->orderByDesc('pr.rating');
+            }
+        }
+        $query->orderByDesc('users.created_at');
+
+        $doctors = $query->paginate(10);
+
+        $countAll = User::doctor()->count();
+        $countCurrent = count($doctors);
+
+        $regions = Region::where('parent_id', null)->pluck('name_' . LanguageHelper::getCurrentLanguagePrefix(), 'id');
+        $clinics = Clinic::pluck('name_' . LanguageHelper::getCurrentLanguagePrefix(), 'id');
+        $specializations = Specialization::pluck('name_' . LanguageHelper::getCurrentLanguagePrefix(), 'id');
+
+        return view('book.index', compact('doctors', 'regions', 'clinics', 'specializations', 'countAll', 'countCurrent'));
     }
 
-    public function show(User $user) {
+    private function getRegionIds($regionId): array
+    {
+        $region = Region::find($regionId);
+        $allRegionIds = [$region->id];
+        $regionIds = [$region->id];
+
+        while (true) {
+            $regionIds = Region::whereIn('parent_id', $regionIds)->pluck('id')->toArray();
+            if (!$regionIds) {
+                break;
+            }
+            $allRegionIds += $regionIds;
+        }
+
+        return $allRegionIds;
+    }
+
+    public function show(User $user)
+    {
         $clinicsId = $user->clinics->pluck('id')->toArray();
         $clinics = Clinic::whereIn('id', $clinicsId)
                 ->orderByDesc('id')
@@ -50,22 +125,8 @@ class BookController extends Controller {
         return view('book.show', compact('user', 'clinics', 'specs', 'doctorTimetables', 'doctorBooks', 'holidays'));
     }
 
-    public function doctors(Request $request) {
-        $query = User::select(['users.*', 'pr.*'])
-                ->leftJoin('profiles as pr', 'users.id', '=', 'pr.user_id')
-                ->join('timetables as ts', 'users.id', '=', 'ts.doctor_id')
-                ->join('doctor_clinics as dc', 'users.id', '=', 'dc.doctor_id')
-                ->join('doctor_specializations as ds', 'users.id', '=', 'ds.doctor_id')
-                ->where('role', User::ROLE_DOCTOR)
-                ->groupBy(['users.id', 'pr.user_id'])
-                ->orderByDesc('users.created_at');
-        $doctors = $query->paginate(10);
-
-        return $doctors;
-    }
-
-    public function review(User $user) {
-
+    public function review(User $user)
+    {
         return view('book.review');
     }
 
