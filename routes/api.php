@@ -25,7 +25,7 @@ Route::post('book/click/complete', ['uses' => 'Book\ClickController@complete']);
 
 //Route::post('book/paycom/create', 'Book\PaycomController@createOrder');
 //Route::post('book/paycom/perform', 'Book\PaycomController@performOrder');
-Route::post('book/click/create', 'Book\ClickController@createOrder');
-Route::post('book/click/create-token', 'Book\ClickController@createOrder');
-Route::post('book/click/verify-token', 'Book\ClickController@createOrder');
-Route::post('book/click/perform', 'Book\ClickController@performOrder');
+//Route::post('book/click/create', 'Book\ClickController@createOrder');
+//Route::post('book/click/create-token', 'Book\ClickController@createOrder');
+//Route::post('book/click/verify-token', 'Book\ClickController@createOrder');
+//Route::post('book/click/perform', 'Book\ClickController@performOrder');

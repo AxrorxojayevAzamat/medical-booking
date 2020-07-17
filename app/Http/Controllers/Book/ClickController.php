@@ -70,7 +70,7 @@ class ClickController extends Controller
             $this->validator->validateAmount($request->amount);
             $user = Auth::user();
 
-            $order = $this->service->createOrder(57, $request->doctor_id, $request->clinic_id, $request->booking_date, $request->time_start, $request->amount, $request->description);
+            $order = $this->service->createOrder($user->id, $request->doctor_id, $request->clinic_id, $request->booking_date, $request->time_start, $request->amount, $request->description);
 
             return $this->response(ResponseHelper::CODE_SUCCESS, 'Click order is created.', ['transaction_id' => $order->merchant_transaction_id]);
         });

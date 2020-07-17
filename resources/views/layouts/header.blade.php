@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="Find easily a doctor and book online an appointment">
         <meta name="author" content="Ansonika">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Medical Booking</title>
 
         <!-- Favicons-->
@@ -24,11 +25,17 @@
         <link href="{{asset('css/menu.css')}}" rel="stylesheet">
         <link href="{{asset('css/vendors.css')}}" rel="stylesheet">
         <link href="{{asset('css/icon_fonts/css/all_icons_min.css')}}" rel="stylesheet">
+<<<<<<< HEAD
         <link href="{{asset('css/style1.css')}}" rel="stylesheet">
+=======
+        <link href="{{asset('vendor/select2/css/select2.min.css')}}" rel="stylesheet">
+
+>>>>>>> 008d31ed81fe12081e488997d357744dc877f41c
         <!-- YOUR CUSTOM CSS -->
         <link href="{{asset('css/date_picker.css')}}" rel="stylesheet">
         <link href="{{asset('css/custom.css')}}" rel="stylesheet">
-
+        @stack('css')
+        @yield('css')
     </head>
 
     <body>
@@ -81,6 +88,9 @@
                         <div class="main-menu">
                             <ul>
                                 <li class="submenu">
+                                    <a href="{{ route('book.index')}}" class="show-submenu">Doctor List<i class="icon-down-open-mini"></i></a>
+                                </li>
+                                <li class="submenu">
                                     <a href="#0" class="show-submenu">Home<i class="icon-down-open-mini"></i></a>
                                     <ul>
                                         <li><a href="{{ url('/') }}">Home Default</a></li>
@@ -97,7 +107,6 @@
                                     <ul>
                                         <li class="third-level"><a href="#0">List pages</a>
                                             <ul>
-                                                <li><a href="{{ route('book.index') }}">Doctor List page</a></li>
                                                 <li><a href="grid-list.html">List grid page</a></li>
                                                 <li><a href="list-map.html">List map page</a></li>
                                             </ul>

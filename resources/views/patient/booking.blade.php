@@ -9,7 +9,6 @@
                 <div class="col-xl-8 col-lg-8">
                     <div class="box_general_3 cart">
                         <div class="message">
-                            <p>Exisitng Customer? <a href="#0">Click here to login</a></p>
                         </div>
                         <div class="form_title">
                             <h3><strong>1</strong>Ваши данные</h3>
@@ -155,34 +154,26 @@
                         <form method="POST" action="{{ route("patient.booking-doctor") }}" enctype="multipart/form-data">
                             @csrf
                             <div class="title">
-                                <h3>Your booking</h3>
+                                <h3>{{trans('Ваше бронирование')}}</h3>
                             </div>
                             <div class="summary">
                                 <ul>
-                                    <li>Date: <strong class="float-right">{{$calendar}}</strong></li>
-                                    <li>Time: <strong class="float-right">{{$radioTime}}</strong></li>
-                                    <li>Dr. Name: <strong class="float-right">{{$user->profile ? $user->profile->fullName : ''}}</strong></li>
+                                    <li>{{trans('Дата')}} <strong class="float-right">{{$calendar}}</strong></li>
+                                    <li>{{trans('Время')}} <strong class="float-right">{{$radioTime}}</strong></li>
+                                    <li>{{trans('Имя доктора:')}} <strong class="float-right">{{$user->profile ? $user->profile->fullName : ''}}</strong></li>
                                 </ul>
                             </div>
                             <ul class="treatments checkout clearfix">
                                 <li>
-                                    Back Pain visit <strong class="float-right">$55</strong>
-                                </li>
-                                <li>
-                                    Cardiovascular screen <strong class="float-right">$55</strong>
-                                </li>
-                                <li class="total">
-                                    Total <strong class="float-right">$110</strong>
+                                    {{trans('Стоимость бронирования')}} <strong class="float-right">
+                                        {{$price}} {{$currency}}
+
+                                    </strong>
                                 </li>
                             </ul>
-                            <hr>
-                            <input name="patient_id" type="hidden" value="{{$patient->id}}"/>
-                            <input name="doctor_id" type="hidden" value="{{$user->id}}"/>
-                            <input name="clinic_id" type="hidden" value="{{$clinic->id}}"/>
-                            <input name="time_start" type="hidden" value="{{$radioTime}}"/>
-                            <input name="booking_date" type="hidden" value="{{$calendar}}"/>
-                            <input name="merchant_id" type="hidden" value="5f07150278994c390463280c" id="payme_merchant_id"/>
-                            <button type="submit" class="btn_1 full-width">{{ trans('Confirm and pay')}}</button>
+                            {{-- <hr> --}}
+
+                            {{-- <button type="submit" class="btn_1 full-width">{{ trans('Confirm and pay')}}</button> --}}
                         </form>
                     </div>
                     <!-- /box_general -->

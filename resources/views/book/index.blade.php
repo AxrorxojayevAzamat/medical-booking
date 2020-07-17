@@ -8,7 +8,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <h4><strong>Showing 10</strong> of 140 results</h4>
+                        <h4>{!! trans('doctors.showing_results', ['current' => $countCurrent, 'all' => $countAll]) !!}</h4>
                     </div>
                     <div class="col-md-6">
                         <div class="search_bar_list">
@@ -17,48 +17,82 @@
                         </div>
                     </div>
                 </div>
-                <!-- /row -->
             </div>
-            <!-- /container -->
         </div>
-        <!-- /results -->
 
         <div class="filters_listing">
             <div class="container">
-                <ul class="clearfix">
-                    <li>
-                        <h6>Type</h6>
-                        <div class="switch-field">
-                            <input type="radio" id="all" name="type_patient" value="all" checked>
-                            <label for="all">All</label>
-                            <input type="radio" id="doctors" name="type_patient" value="doctors">
-                            <label for="doctors">Doctors</label>
-                            <input type="radio" id="clinics" name="type_patient" value="clinics">
-                            <label for="clinics">Clinics</label>
-                        </div>
-                    </li>
-                    <li>
-                        <h6>Layout</h6>
-                        <div class="layout_view">
-                            <a href="grid-list.html"><i class="icon-th"></i></a>
-                            <a href="#0" class="active"><i class="icon-th-list"></i></a>
-                            <a href="list-map.html"><i class="icon-map-1"></i></a>
-                        </div>
-                    </li>
-                    <li>
-                        <h6>Sort by</h6>
-                        <select name="orderby" class="selectbox">
-                            <option value="Closest">Closest</option>
-                            <option value="Best rated">Best rated</option>
-                            <option value="Men">Men</option>
-                            <option value="Women">Women</option>
-                        </select>
-                    </li>
-                </ul>
+                <form action="?" method="GET">
+                    <ul class="clearfix">
+                        <li>
+                            <h6>Layout</h6>
+                            <div class="layout_view">
+                                <a href="grid-list.html"><i class="icon-th"></i></a>
+                                <a href="#0" class="active"><i class="icon-th-list"></i></a>
+                                <a href="list-map.html"><i class="icon-map-1"></i></a>
+                            </div>
+                        </li>
+                        <li>
+                            <h6>Поиск по имени...</h6>
+                            <div class="form-group">
+                                <input class="form-control" name="full_name" type="search" placeholder="ФИО" aria-label="Search" value="{{ request('full_name') }}">
+                            </div>
+                        </li>
+                        <li>
+                            <h6>Поиск по названии клиники...</h6>
+                            <div class="form-group">
+                                <select id="clinic_id" name="clinic">
+                                    <option value=""></option>
+                                    @foreach ($clinics as $value => $label)
+                                        <option value="{{ $value }}"{{ $value == request('clinic') ? ' selected' : '' }}>{{ $label }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </li>
+                        <li>
+                            <h6>Поиск по регионам...</h6>
+                            <select id="region_id" name="region">
+                                <option value=""></option>
+                                @foreach ($regions as $value => $label)
+                                    <option value="{{ $value }}"{{ $value == request('region') ? ' selected' : '' }}>{{ $label }}</option>
+                                @endforeach
+                            </select>
+                        </li>
+                        <li>
+                            <h6>Пол</h6>
+                            <select name="gender" class="selectbox">
+                                <option value=""></option>
+                                <option value="{{ \App\Entity\User\Profile::MALE }}"{{ \App\Entity\User\Profile::MALE == request('gender') ? ' selected' : '' }}>Мужчина</option>
+                                <option value="{{ \App\Entity\User\Profile::FEMALE }}"{{ \App\Entity\User\Profile::FEMALE == request('gender') ? ' selected' : '' }}>Женщина</option>
+                            </select>
+                        </li>
+                        <li>
+                            <h6>Поиск по специализациям...</h6>
+                            <select id="specialization_id" name="specialization">
+                                <option value=""></option>
+                                @foreach ($specializations as $value => $label)
+                                    <option value="{{ $value }}"{{ $value == request('specialization') ? ' selected' : '' }}>{{ $label }}</option>
+                                @endforeach
+                            </select>
+                        </li>
+                        <li>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Искать</button>
+                                <a href="?" class="btn btn-outline-secondary">Очистить</a>
+                            </div>
+                        </li>
+                        <li>
+                            <h6>Сортировка по</h6>
+                            <select name="order_by" class="selectbox" multiple>
+                                <option value=""></option>
+                                <option value="alphabet"{{ 'alphabet' == request('order_by') ? ' selected' : '' }}>Алфавиту</option>
+                                <option value="best_rated"{{ 'best_rated' == request('order_by') ? ' selected' : '' }}>Рейтингу</option>
+                            </select>
+                        </li>
+                    </ul>
+                </form>
             </div>
-            <!-- /container -->
         </div>
-        <!-- /filters -->
 
         <div class="container margin_60_35">
             <div class="row">
@@ -111,4 +145,12 @@
 
 
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $('#region_id').select2();
+        $('#clinic_id').select2();
+        $('#specialization_id').select2();
+    </script>
 @endsection
