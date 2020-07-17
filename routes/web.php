@@ -9,8 +9,8 @@ Auth::routes(['verify' => true]);
 Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
     Route::get('', 'BookController@index')->name('index');
     Route::get('/show/{user}', 'BookController@show')->name('show');
+    Route::get('/gallery', 'GalleryController@gallery')->name('gallery');
     Route::get('/review', 'BookController@review')->name('reviews');
-
     Route::post('paycom/create', 'PaycomController@createOrder');
     Route::post('paycom/perform', 'PaycomController@performOrder');
 

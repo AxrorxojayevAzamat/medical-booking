@@ -61,6 +61,9 @@ class BookController extends Controller {
 
         return view('book.review');
     }
-
+    function gallery()
+    {
+        return view('gallery');
+    }
 
 }
