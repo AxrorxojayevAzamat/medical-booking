@@ -9,7 +9,7 @@ class ApiService
 {
     private $client;
 
-    public function __construct($headers = [])
+    public function __construct(array $headers = [])
     {
         $headers = array_merge($headers, [
             'Content-Type' => 'application/json',

@@ -83,11 +83,11 @@ class ClickController extends Controller
             $this->validator->validateCreateToken($request);
             $click = $this->service->createCardToken($request);
 
-            return $this->response(ResponseHelper::CODE_SUCCESS, trans('Код смс отправляен на ваш телефон.'), ['card_token' => $request->card_token]);
+            return $this->response(ResponseHelper::CODE_SUCCESS, trans('Код смс отправляен на ваш телефон.'), ['card_token' => $click->card_token]);
         });
     }
 
-    public function verifyToken(Request $request)
+    public function zzverifyToken(Request $request)
     {
         return $this->baseClickAction($request, function (Request $request): JsonResponse {
             $this->validator->validateAuth($request);

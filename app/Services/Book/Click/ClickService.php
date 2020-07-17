@@ -75,11 +75,13 @@ class ClickService
 
         return $this->baseMethod($response, $payment, function ($data, Click $payment): Click {
             if ((int)$data->error_code == ClickValidator::SUCCESS) {
-                $payment->setStatus(ClickHelper::WAITING, $data->error_note, ['card_token' => $data->card_token, 'phone_number' => $data->phone_number]);
+                $payment->setStatus(ClickHelper::WAITING, $data->error_note, ['card_token' => $data->card_token]);
+                $payment->update();
             } else {
                 $payment->setStatus(ClickHelper::ERROR, $data->error_note);
+                $payment->update();
+                throw new ClickException($data->error_note, ResponseHelper::CODE_ERROR);
             }
-            $payment->update();
             return $payment;
         });
     }
@@ -104,10 +106,12 @@ class ClickService
         return $this->baseMethod($response, $payment, function ($data, Click $payment): Click {
             if ((int)$data->error_code == ClickValidator::SUCCESS) {
                 $payment->setStatus(ClickHelper::WAITING, $data->error_note, ['card_number' => $data->card_token]);
+                $payment->update();
             } else {
                 $payment->setStatus(ClickHelper::ERROR, $data->error_note);
+                $payment->update();
+                throw new ClickException($data->error_note, ResponseHelper::CODE_ERROR);
             }
-            $payment->update();
 
             return $payment;
         });
@@ -125,10 +129,12 @@ class ClickService
         return $this->baseMethod($response, $payment, function ($data, Click $payment): Click {
             if ((int)$data->error_code === ClickValidator::SUCCESS) {
                 $payment->setAttributes(['card_token' => null, 'status_note' => $data->error_note]);
+                $payment->update();
             } else {
                 $payment->setStatus(ClickHelper::ERROR, $data->error_note);
+                $payment->update();
+                throw new ClickException($data->error_note, ResponseHelper::CODE_ERROR);
             }
-            $payment->update();
 
             return $payment;
         });
@@ -174,11 +180,12 @@ class ClickService
         return $this->baseMethod($response, $payment, function ($data, Click $payment): Click {
             if ((int)$data->error_code === ClickValidator::SUCCESS) {
                 $payment->setStatus(ClickHelper::CONFIRMED, $data->error_note, ['payment_id' => $data->payment_id]);
+                $payment->refresh();
             } else {
                 $payment->setStatus(ClickHelper::ERROR, $data->error_note);
+                $payment->update();
+                throw new ClickException($data->error_note, ResponseHelper::CODE_ERROR);
             }
-
-            $payment->refresh();
 
             return $payment;
         });
@@ -200,10 +207,13 @@ class ClickService
                     return $this->pay($payment);
                 } else if ((int)$data->status == -99) {
                     $payment->setStatus(ClickHelper::REJECTED, $data->error_note);
+                    $payment->update();
+                    throw new ClickException($data->error_note, ResponseHelper::CODE_ERROR);
                 } else {
                     $payment->setStatus(ClickHelper::ERROR, $data->error_note);
+                    $payment->update();
+                    throw new ClickException($data->error_note, ResponseHelper::CODE_ERROR);
                 }
-                $payment->update();
             }
 
             return $payment;
@@ -222,12 +232,16 @@ class ClickService
             if ((int)$data->error_code === ClickValidator::SUCCESS) {
                 if ((int)$data->status > 0) {
                     $payment->setStatus(ClickHelper::CONFIRMED, $data->error_note);
+                    $payment->update();
                 } else if ((int)$data->status === -99) {
                     $payment->setStatus(ClickHelper::REJECTED, $data->error_note);
+                    $payment->update();
+                    throw new ClickException($data->error_note, ResponseHelper::CODE_ERROR);
                 } else {
                     $payment->setStatus(ClickHelper::ERROR, $data->error_note);
+                    $payment->update();
+                    throw new ClickException($data->error_note, ResponseHelper::CODE_ERROR);
                 }
-                $payment->update();
             }
             return $payment;
         });
@@ -244,10 +258,12 @@ class ClickService
                     'payment_id' => $data->payment_id,
                     'status_note' => $data->error_note,
                 ]);
+                $payment->update();
             } else {
                 $payment->setStatus(ClickHelper::ERROR, $data->error_note);
+                $payment->update();
+                throw new ClickException($data->error_note, ResponseHelper::CODE_ERROR);
             }
-            $payment->update();
 
             return $payment;
         });
@@ -265,6 +281,7 @@ class ClickService
             } else {
                 $payment->setStatus(ClickHelper::ERROR, $data->error_note);
                 $payment->update();
+                throw new ClickException($data->error_note, ResponseHelper::CODE_ERROR);
             }
 
             return $payment;
