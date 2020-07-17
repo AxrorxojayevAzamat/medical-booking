@@ -10,3 +10,17 @@
 .card .card-body table .project-state {
     text-align: start;
 }
+
+.choose .row .img-payme-click {
+    margin: 22px;
+    padding: .5rem .75rem;
+    border: 1px solid #dee2e6;
+}
+
+.choose .row .img-payme-click:hover {
+    cursor: pointer;
+}
+
+.payme .row .btn_1 {
+    padding: 12px 40px;
+}
