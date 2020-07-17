@@ -9,7 +9,7 @@ class RegionsTableSeeder extends Seeder {
         factory(Region::class, 14)->create()->each(function(Region $region) {
             $counts = random_int(2, 11);
             $region->children()->saveMany(factory(Region::class, $counts)->create()->each(function (Region $region) {
-                $counts = random_int(0, 5);
+                $counts = random_int(0, 11);
                 $region->children()->saveMany(factory(Region::class, $counts)->create());
             }));
         });
