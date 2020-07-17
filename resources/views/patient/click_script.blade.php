@@ -1,5 +1,6 @@
 
 <script>
+
         $("#tokenCreate").click(function (e) {
             e.preventDefault();
             console.log("logings");
@@ -15,7 +16,7 @@
             let tokenCreate = {};
             tokenCreate.transaction_id = clickOrderId;
             tokenCreate.card_token = $("#c_card_number").val();
-            tokenCreate.expire_date = $("#c_expire_month").val() + '/' + $("#c_expire_year").val();
+            tokenCreate.expire_date = $("#c_expire_month").val() + $("#c_expire_year").val();
             console.log(tokenCreate);
 
             $.ajax({
@@ -27,12 +28,14 @@
                     $('.sms-click').css('display','block');
                     $('.click').hide();
                     let card_token = data.data.card_token;
+                    countDown(59, 'timerclickuz');
                     console.log(data);
                     $("#sms-sent-btn-click").click(function (e) {
                         e.preventDefault();
+                        //timer needed
                         let verifyToken = {};
                         verifyToken.transaction_id = clickOrderId;
-                        verifyToken.card_token = data.data.card_token;
+                        verifyToken.card_token = card_token;
                         verifyToken.sms_code = $("#sms_number").val();
 
                         $.ajaxSetup({
@@ -65,18 +68,24 @@
                                     dataType: 'json',
                                     success: function (data) {
                                         console.log(data);
-                                        console.log("urraaa")
+                                        $('.successed').show();
+                                        let reply = "{{ trans('book.book_id') }}" + data.data.book_id;
+                                        $('.successed').val(reply);
                                     },
                                     error: function (data) {
+                                        $('.error-container').show();
+                                        $('.error-container').text(data.responseJSON.message);
                                         console.log(data);
-                                        console.log("eehh")
 
                                     }
                                 });
-                                console.log(data)
+                                $('.error-container').show();
+                                $('.error-container').text(data.responseJSON.message);
+                                console.log(data);
                             },
                             error: function (data) {
-                                console.log(data)
+                                $('.error-container').show();
+                                $('.error-container').text(data.responseJSON.message);
                             }
                         })
 
@@ -86,12 +95,27 @@
 
                 },
                 error: function (data) {
-                    $('.sms-click').css('display','none');
-                    $('.error-container').val(data.message);
+                    $('.error-container').show();
+                    $('.error-container').text(data.responseJSON.message);
                     console.log(data);
                 }
             })
         })
+        function disablingElements(id) {
+            $(id).prop('disabled', true);
+        }
+        function countDown(secs, elem){
+            var element = document.getElementById(elem);
+            element.innerHTML = ""+secs+" ";
+            if(secs < 1){
+                clearTimeout(timer);
+                disablingElements('#sms_number');
+                disablingElements('#sms-sent-btn-click');
+                return false;
+            }
+            secs--;
+            var timer = setTimeout('countDown('+secs+',"'+elem+'")', 1000);
+        }
 
 </script>
 

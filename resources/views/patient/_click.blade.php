@@ -40,6 +40,7 @@
 
     <div class="row">
         <div class="col-md-6">
+            <div class="timer" id="timerclickuz"></div>
             <div class="form-group">
                 <label>Click sms code <span id="countDown"></span></label>
                 <input type="text" id="sms_number" name="sms_number" class="form-control" placeholder="xxxxxx">
@@ -53,9 +54,6 @@
     </div>
 </form>
 
-<form class="successed">
+<div class="successed">
 
-    <div class="row">
-        <h1>Successed !!!</h1>
-    </div>
-</form>
+</div>
