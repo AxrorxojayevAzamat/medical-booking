@@ -21,18 +21,18 @@
         </div>
 
         <div class="filters_listing">
-            <div class="container">
+            <div class="container-fluid">
                 <form action="?" method="GET">
-                    <ul class="clearfix">
-                        <li>
+                    <ul class="clearfix row d-flex justify-content-center">
+                        {{-- <li>
                             <h6>Layout</h6>
                             <div class="layout_view">
                                 <a href="grid-list.html"><i class="icon-th"></i></a>
                                 <a href="#0" class="active"><i class="icon-th-list"></i></a>
                                 <a href="list-map.html"><i class="icon-map-1"></i></a>
                             </div>
-                        </li>
-                        <li>
+                        </li> --}}
+                        <li style="margin-right: .75em">
                             <h6>Поиск по имени...</h6>
                             <div class="form-group">
                                 <input class="form-control" name="full_name" type="search" placeholder="ФИО" aria-label="Search" value="{{ request('full_name') }}">
@@ -48,7 +48,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </li>
+                        </li >
                         <li>
                             <h6>Поиск по регионам...</h6>
                             <select id="region_id" name="region">
@@ -76,12 +76,6 @@
                             </select>
                         </li>
                         <li>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary">Искать</button>
-                                <a href="?" class="btn btn-outline-secondary">Очистить</a>
-                            </div>
-                        </li>
-                        <li>
                             <h6>Сортировка по</h6>
                             <select name="order_by" class="selectbox" multiple>
                                 <option value=""></option>
@@ -89,6 +83,13 @@
                                 <option value="best_rated"{{ 'best_rated' == request('order_by') ? ' selected' : '' }}>Рейтингу</option>
                             </select>
                         </li>
+                        <li style="margin: auto .5em;">
+                            <div class="form-group" style="margin: auto 0;">
+                                <button type="submit" class="btn btn-primary">Искать</button>
+                                <a href="?" class="btn btn-outline-secondary">Очистить</a>
+                            </div>
+                        </li>
+
                     </ul>
                 </form>
             </div>

@@ -73,8 +73,8 @@
                                 Mussum ipsum cacilds, vidis litro abertis.
                             </p>
                         </div>
-                        @include('patient.payme-click')
 
+                        @include('patient.payme-click')
 
                         <hr>
                         <!--End step -->
