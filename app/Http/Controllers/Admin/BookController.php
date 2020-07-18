@@ -12,8 +12,35 @@ class BookController extends Controller {
         $query = Book::select(['books.*', 'us.*', 'pr.*'])
                 ->join('users as us', 'books.user_id', '=', 'us.id')
                 ->join('profiles as pr', 'pr.user_id', '=', 'us.id')
-                ->orderByDesc('books.id')
-        ;
+                ->orderByDesc('books.created_at');
+
+        if (!empty($value = $request->get('id'))) {
+            $query->where('books.id', $value);
+        }
+
+        if (!empty($value = $request->get('full_name'))) {
+            $query->where(function ($query) use ($value) {
+                $query->where('first_name', 'ilike', '%' . $value . '%')
+                        ->orWhere('last_name', 'ilike', '%' . $value . '%')
+                        ->orWhere('middle_name', 'ilike', '%' . $value . '%');
+            });
+        }
+
+        if (!empty($value = $request->get('booking_date'))) {
+            $query->whereDate('books.booking_date', $value);
+        }
+
+        if (!empty($value = $request->get('time_start'))) {
+            $query->whereRaw("TO_CHAR(books.time_start,'HH24:MI') = ?", $value);
+        }
+
+        if (!empty($value = $request->get('phone'))) {
+            $query->where('users.phone', 'ilike', '%' . $value . '%');
+        }
+
+        if (!empty($value = $request->get('email'))) {
+            $query->where('users.email', 'ilike', '%' . $value . '%');
+        }
         $bookingList = $query->paginate(10);
         return view('admin.books.index', compact('bookingList'));
     }
