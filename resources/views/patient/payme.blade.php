@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="col-md-4 col-sm-4">
-            <img src="{{asset('img/payme_01.svg')}}" class="img-thumbnail" style="margin: 22px" width="60%" height="60%">
+            <img src="{{asset('img/payme_01.svg')}}" class="img-thumbnail" style="margin: 24px 15px" width="60%" height="60%">
         </div>
     </div>
 

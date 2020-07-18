@@ -237,6 +237,6 @@ $(".confirm-payme").click(function(e) {
         },
     });
 
-}
+})
 
 </script>

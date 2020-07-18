@@ -32,14 +32,14 @@
                                 <a href="list-map.html"><i class="icon-map-1"></i></a>
                             </div>
                         </li> --}}
-                        <li style="margin-right: .75em">
+                        <li>
                             <h6>Поиск по имени...</h6>
                             <div class="form-group">
                                 <input class="form-control" name="full_name" type="search" placeholder="ФИО" aria-label="Search" value="{{ request('full_name') }}">
                             </div>
                         </li>
-                        <li>
-                            <h6>Поиск по названии клиники...</h6>
+                        <li style="margin-right: 10px">
+                            <h6>Поиск по клиники...</h6>
                             <div class="form-group">
                                 <select id="clinic_id" name="clinic">
                                     <option value=""></option>
@@ -83,10 +83,10 @@
                                 <option value="best_rated"{{ 'best_rated' == request('order_by') ? ' selected' : '' }}>Рейтингу</option>
                             </select>
                         </li>
-                        <li style="margin: auto .5em;">
+                        <li>
                             <div class="form-group" style="margin: auto 0;">
-                                <button type="submit" class="btn btn-primary">Искать</button>
-                                <a href="?" class="btn btn-outline-secondary">Очистить</a>
+                                <button type="submit" class="btn btn-primary btn-search">Искать</button>
+                                <a href="?" class="btn btn-outline-secondary btn-clear">Очистить</a>
                             </div>
                         </li>
 
@@ -153,5 +153,6 @@
         $('#region_id').select2();
         $('#clinic_id').select2();
         $('#specialization_id').select2();
+        // $('.select2-container--below').css("width","100%");
     </script>
 @endsection
