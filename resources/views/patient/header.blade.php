@@ -70,7 +70,7 @@
                 </ul>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Doctor List">
-                <a class="nav-link" href="{{route('book.index')}}">
+                <a class="nav-link" href="{{route('doctors.index')}}">
                     <i class="fa fa-fw fa-plus-circle"></i>
                     <span class="nav-link-text">Doctor List</span>
                 </a>

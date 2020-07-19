@@ -75,12 +75,12 @@
                     <tbody>
                         @foreach($bookingList as $book)
                         <tr>
-                            <td>{{$book->user->profile->fullName}}</td>
+                            <td><a href="{{ route('admin.users.show', $book->user->id) }}">{{ $book->user->profile ? $book->user->profile->fullName : '' }}</a></td>
                             <td>{{$book->booking_date}}</td>
                             <td>{{$book->time_start ? \Carbon\Carbon::parse($book->time_start)->format('H:i') : ''}}</td>
                             <td>{{$book->user->phone}}</td>
-                            <td>{{$book->doctor->profile->fullName}}</td>
-                            <td>{{$book->clinic->name_ru}}</td>
+                            <td><a href="{{ route('admin.users.show', $book->doctor->id) }}">{{ $book->doctor->profile ? $book->doctor->profile->fullName : '' }}</a></td>
+                            <td><a href="{{ route('admin.clinic.show', $book->clinic->id) }}">{{ $book->clinic->name ? $book->clinic->name : '' }}</a></td>
                         </tr>
 
                         @endforeach

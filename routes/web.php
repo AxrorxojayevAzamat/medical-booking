@@ -66,8 +66,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 });
 
 Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
-    Route::get('', 'BookController@index')->name('index');
-    Route::get('/{user}', 'BookController@show')->name('show');
+    
+    
     Route::get('/review', 'BookController@review')->name('reviews');
 
     Route::post('paycom/create', 'PaycomController@createOrder');
@@ -90,6 +90,9 @@ Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 
     Route::get('', 'DoctorController@profileShow')->name('profile');
     Route::get('/{doctor_id}/bookings', 'DoctorController@doctorBookings')->name('doctorbookings');
 });
+
+Route::get('/doctors', 'Doctor\DoctorController@index')->name('doctors.index');
+Route::get('/doctors/{user}', 'Doctor\DoctorController@show')->name('doctors.show');
 
 Route::get("locale/{locale}", function ($locale) {
     Session::put('locale', $locale);

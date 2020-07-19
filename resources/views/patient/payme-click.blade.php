@@ -1,6 +1,6 @@
 <div class="choose">
     <div class="form-group">
-        <label>Choose one of them</label>
+        <label>{{ trans('book.choose_one_of_them') }}</label>
     </div>
 
     <div class="row">

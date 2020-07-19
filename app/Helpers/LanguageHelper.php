@@ -27,7 +27,6 @@ class LanguageHelper
         return self::getAttribute($className, 'body', $lang) ?? '';
     }
 
-
     public static function getDescription($className, $lang = null): string
     {
         return self::getAttribute($className, 'description', $lang) ?? '';
@@ -41,6 +40,16 @@ class LanguageHelper
     public static function getComment($className, $lang = null): string
     {
         return self::getAttribute($className, 'comment', $lang) ?? '';
+    }
+    
+    public static function getAbout($className, $lang = null): string
+    {
+        return self::getAttribute($className, 'about', $lang) ?? '';
+    }
+    
+    public static function getAddress($className, $lang = null): string
+    {
+        return self::getAttribute($className, 'address', $lang) ?? '';
     }
 
     public static function getAttribute($className, string $attributeName, $lang = null): ?string

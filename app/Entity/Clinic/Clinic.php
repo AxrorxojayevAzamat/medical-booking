@@ -7,6 +7,7 @@ use App\Entity\Region;
 use App\Entity\User\User;
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
+use App\Helpers\LanguageHelper;
 
 /**
  * @property int $id
@@ -54,6 +55,13 @@ class Clinic extends BaseModel
         ];
     }
 
+    public function getNameAttribute(): string {
+        return LanguageHelper::getName($this);
+    }
+    
+    public function getAddressAttribute(): string {
+        return LanguageHelper::getAddress($this);
+    }
 
     ########################################### Relations
 
