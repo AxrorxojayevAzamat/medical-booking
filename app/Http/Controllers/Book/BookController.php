@@ -133,5 +133,4 @@ class BookController extends Controller {
     {
         return view('book.review');
     }
-
 }
