@@ -13,7 +13,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <label>Expiration date</label>
             <div class="row">
                 <div class="col-md-6">
@@ -28,8 +28,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <input class="btn_1 medium confirm-payme" type="submit" value="Confirm" style="margin: 22px">
+        <div class="col-md-8">
+            <input class="btn_1 medium confirm-payme" type="submit" value="Confirm" style="margin: 22px 20px">
+            <input class="btn_1 medium cancel-payme" type="submit" value="Cancel" style="margin: 22px 20px">
         </div>
     </div>
 
@@ -53,13 +54,3 @@
     <div class="error-container">
     </div>
 </form>
-{{--
-<script>
-
-$('.payme').css('display','none');
-$('.click').css('display','none');
-$('.sms-payme').css('display','none');
-$('.sms-click').css('display','none');
-$('.successed').css('display','none');
-
-</script> --}}

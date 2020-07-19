@@ -26,6 +26,7 @@ $('.successed').css('display','none');
 
 let id = 'F' + Math.floor(Math.random() * 100);
 let paymeOrderId;
+let clickOrderId;
 let tokennum;
 let time;
 
