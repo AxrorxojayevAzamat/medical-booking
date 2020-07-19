@@ -25,12 +25,8 @@
         <link href="{{asset('css/menu.css')}}" rel="stylesheet">
         <link href="{{asset('css/vendors.css')}}" rel="stylesheet">
         <link href="{{asset('css/icon_fonts/css/all_icons_min.css')}}" rel="stylesheet">
-        <<<<<<< HEAD
-        <link href="{{asset('css/style1.css')}}" rel="stylesheet">
-=======
+        
         <link href="{{asset('vendor/select2/css/select2.min.css')}}" rel="stylesheet">
-
->>>>>>> 008d31ed81fe12081e488997d357744dc877f41c        
         <!-- YOUR CUSTOM CSS -->
         <link href="{{asset('css/date_picker.css')}}" rel="stylesheet">
         <link href="{{asset('css/custom.css')}}" rel="stylesheet">
