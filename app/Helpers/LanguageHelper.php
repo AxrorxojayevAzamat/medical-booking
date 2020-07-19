@@ -22,15 +22,24 @@ class LanguageHelper
         return self::getAttribute($className, 'title', $lang) ?? '';
     }
 
+    public static function getMenuTitle($className, $lang = null): string
+    {
+        return self::getAttribute($className, 'menu_title', $lang) ?? '';
+    }
+
     public static function getBody($className, $lang = null): string
     {
         return self::getAttribute($className, 'body', $lang) ?? '';
     }
 
-
     public static function getDescription($className, $lang = null): string
     {
         return self::getAttribute($className, 'description', $lang) ?? '';
+    }
+
+    public static function getContent($className, $lang = null): string
+    {
+        return self::getAttribute($className, 'content', $lang) ?? '';
     }
 
     public static function getNote($className, $lang = null): string

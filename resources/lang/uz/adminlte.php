@@ -23,4 +23,7 @@ return [
     'verify_check_your_email'     => 'Before proceeding, please check your email for a verification link.',
     'verify_if_not_recieved'      => 'If you did not receive the email',
     'verify_request_another'      => 'click here to request another',
+
+    'draft' => 'Qoralama',
+    'published' => 'Chop etilgan',
 ];

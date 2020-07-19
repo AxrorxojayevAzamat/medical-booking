@@ -2,6 +2,7 @@
 
 use App\Entity\Celebration;
 use App\Entity\Clinic\Clinic;
+use App\Entity\News;
 use App\Entity\User\User;
 use App\Entity\Region;
 use App\Entity\Clinic\Specialization;
@@ -159,4 +160,26 @@ Breadcrumbs::register('admin.call-center.show-doctor', function (Crumbs $crumbs,
 Breadcrumbs::register('admin.books.index', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
     $crumbs->push('Бронирование', route('admin.books.index'));
+});
+
+
+// News
+Breadcrumbs::register('admin.news.index', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push('Новости', route('admin.news.index'));
+});
+
+Breadcrumbs::register('admin.news.create', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.news.index');
+    $crumbs->push('Добавить новость', route('admin.news.create'));
+});
+
+Breadcrumbs::register('admin.news.show', function (Crumbs $crumbs, News $news) {
+    $crumbs->parent('admin.news.index');
+    $crumbs->push($news->title_ru, route('admin.news.show', $news));
+});
+
+Breadcrumbs::register('admin.news.edit', function (Crumbs $crumbs, News $news) {
+    $crumbs->parent('admin.news.index');
+    $crumbs->push('Редактировать новость', route('admin.news.edit', $news));
 });
