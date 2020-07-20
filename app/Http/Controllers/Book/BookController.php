@@ -15,6 +15,9 @@ use App\Entity\Celebration;
 use App\Entity\Book\Book;
 use App\Entity\Clinic\Clinic;
 use App\Services\BookService;
+use Carbon\Carbon;
+use Auth;
+use App\Entity\Rate;
 
 class BookController extends Controller {
 
@@ -126,11 +129,60 @@ class BookController extends Controller {
 
         $holidays = $this->service->celebrationDays($celebrationDays);
 
-        return view('book.show', compact('user', 'clinics', 'specs', 'doctorTimetables', 'doctorBooks', 'holidays'));
+        $ratecheck = Rate::where(['user_id'=>Auth::id(),'doctor_id'=>$user->id])->first();
+
+        $rates = array();
+        for ($i=5; $i > 0 ; $i--) { 
+            array_push($rates, Rate::where(['doctor_id'=>$user->id,'rate'=>$i])->count());
+        }
+        return view('book.show', compact('user', 'clinics', 'specs', 'doctorTimetables', 'doctorBooks', 'holidays','ratecheck','rates'));
     }
 
     public function review(User $user)
     {
         return view('book.review');
+    }
+
+    public function rate(Request $request){
+        
+        
+        if(!Auth::check()){
+            return redirect()->back()->with('error', 'You are not logged');   
+        }
+
+        if($request->rate<1 || $request->rate>5){
+            return redirect()->back()->with('error', 'You are  injecting code');      
+        }
+
+        $rates = new Rate([
+            'user_id'=>Auth::id(),
+            'doctor_id'=>$request->doctor_id,
+            'rate'=>$request->rate
+        ]);
+        $rates->save(); 
+
+        $doctor = User::find($request->doctor_id);
+        $doctor->rate += $request->rate;
+        $doctor->num_of_rates++;
+        $doctor->save();
+
+        return redirect()->back()->with('success', 'Successfully Rated');   
+
+    }
+
+    public function rateCancel(Request $request){
+        
+        $user_rate = Rate::where(['user_id'=>Auth::id(),'doctor_id'=>$request->doctor_id])->first();
+        if (!$user_rate) {
+            return redirect()->back()->with('success', 'Your Rate Canceled');    
+        }
+        $doctor = User::find($request->doctor_id);
+        $doctor->rate -= $user_rate->rate;
+        $doctor->num_of_rates--;
+        $doctor->save();
+        
+        $user_rate->delete();
+
+        return redirect()->back()->with('success', 'Your Rate Canceled');   
     }
 }
