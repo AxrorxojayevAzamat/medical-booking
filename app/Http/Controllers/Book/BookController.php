@@ -10,11 +10,8 @@ use App\Entity\User\User;
 
 class BookController extends Controller {
 
-    
-
-    public function review(User $user)
+       public function review(User $user)
     {
         return view('book.review');
     }
-
 }

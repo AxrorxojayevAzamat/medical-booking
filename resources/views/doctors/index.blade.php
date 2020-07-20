@@ -25,12 +25,7 @@
                 <form action="?" method="GET">
                     <ul class="clearfix">
                         <li>
-                            <h6>Layout</h6>
-                            <div class="layout_view">
-                                <a href="grid-list.html"><i class="icon-th"></i></a>
-                                <a href="#0" class="active"><i class="icon-th-list"></i></a>
-                                <a href="list-map.html"><i class="icon-map-1"></i></a>
-                            </div>
+                            
                         </li>
                         <li>
                             <h6>Поиск по имени...</h6>
@@ -111,7 +106,7 @@
                         @foreach($doctorValue->specializations as $spec)
                         <small>{{$spec->name}}</small>
                         @endforeach
-                        <h3>{{$doctorValue->profile ? $doctorValue->profile->fullName : ''}}</h3>
+                        <h3><a href="{{ route('doctors.show',$doctorValue) }}">{{$doctorValue->profile ? $doctorValue->profile->fullName : ''}}</a></h3>
                         <p>{{$doctorValue->profile ? substr($doctorValue->profile->about, 0, 120) . ' . . . ' : ''}}</p> 
                         <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i> <small>(145)</small></span>
                         <a href="badges.html" data-toggle="tooltip" data-placement="top" data-original-title="Badge Level" class="badge_list_1"><img src="img/badges/badge_1.svg" width="15" height="15" alt=""></a>

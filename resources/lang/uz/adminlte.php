@@ -32,4 +32,6 @@ return [
         'phone'  => 'Telefon',
     ],   
 
+    'draft' => 'Qoralama',
+    'published' => 'Chop etilgan',
 ];

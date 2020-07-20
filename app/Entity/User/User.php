@@ -34,7 +34,8 @@ use App\Notifications\ResetPassword as ResetPasswordNotification;
  *
  * @mixin Eloquent
  */
-class User extends Authenticatable implements MustVerifyEmail {
+class User extends Authenticatable implements MustVerifyEmail
+{
 
     use Notifiable;
 

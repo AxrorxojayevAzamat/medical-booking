@@ -39,7 +39,7 @@
                             <li><h6>{{ trans('doctors.clinic_phone') }}</h6><a href="tel://{{$clinic->phone_numbers}}">{{$clinic->phone_numbers}}</a></li>
                         </ul>
                         {{-- <div class="text-center"><a href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+%E2%80%93+H%C3%B4pitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361" class="btn_1 outline" target="_blank"><i class="icon_pin"></i> View on map</a></div> --}}
-                        <div class="text-center"><a href="https://www.google.com/maps/dir/41.3218984,69.2096464/@41.3184591,69.2052458,16.5z/data=!4m2!4m1!3e3" class="btn_1 outline" target="_blank"><i class="icon_pin"></i>{{trans('doctors.view_on_map')}}</a></div>
+                        <div class="text-center"><a href="https://www.google.com/maps/dir/{{$clinic->location}}/@.{{$clinic->location}},20.5z" class="btn_1 outline" target="_blank"><i class="icon_pin"></i>{{trans('doctors.view_on_map')}}</a></div>
                         <br>
                         @endforeach
                     </div>
@@ -224,16 +224,33 @@
                                         </div>
                                     </div>
                                     <!-- End review-box -->
-                                </div>
                                 <!-- End review-container -->
+                                </div>
+                                     <!-- End review-container -->
                                 <hr>
                                 <div class="text-right"><a href="{{ route('book.reviews') }}" class="btn_1 add_bottom_15">Submit review</a></div>
-                            </div>
+    
+                              </div>
                             <!-- /tab_3 -->
                         </div>
                         <!-- /tab-content -->
                     </div>
                     <!-- /tabs_styled -->
+                    <link rel="stylesheet" type="text/css" href="/css/gallery.css">
+                <link rel="stylesheet" type="text/css" href="/css/lightbox.gallery.min.css">
+                                <script type="text/javascript" src="/js/lightbox-plus-jquery.min.js">
+                                </script>
+                                </head>
+                                <body>
+                                <h1>Doctor`s Gallery</h1>
+                     <div class="gallery">
+ 
+            <a href="/img/Doctor1.jpg" data-lightbox="mygallery" data-title="This is First Picture"> <img src="/img/Doctor1.jpg"></a>
+            <a href="/img/Doctor2.jpg" data-lightbox="mygallery" data-title="This is Second Picture"> <img src="/img/Doctor2.jpg"></a>
+            <a href="/img/Doctor3.jpg" data-lightbox="mygallery" data-title="This is Third Picture"> <img src="/img/Doctor3.jpg"></a>
+            <a href="/img/Doctor4.jpg" data-lightbox="mygallery" data-title="This is Fourth Picture"> <img src="/img/Doctor4.jpg"></a>
+            <a href="/img/Doctor5.jpg" data-lightbox="mygallery" data-title="This is Fifth Picture"> <img src="/img/Doctor5.jpg"></a>
+                               </div>
                 </div>
                 <!-- /col -->
             </div>
@@ -247,6 +264,7 @@
 
 <div id="toTop"></div>
 <!-- Back to top button -->
+
 
 @endsection
 @section('scripts')
