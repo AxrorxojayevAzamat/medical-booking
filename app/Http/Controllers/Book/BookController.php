@@ -29,6 +29,10 @@ class BookController extends Controller {
         $doctorIds = [];
         $query = User::select(['users.*', 'pr.*'])
             ->leftJoin('profiles as pr', 'users.id', '=', 'pr.user_id')
+            ->join('timetables as ts', 'users.id', '=', 'ts.doctor_id')
+            ->join('doctor_clinics as dc', 'users.id', '=', 'dc.doctor_id')
+            ->join('doctor_specializations as ds', 'users.id', '=', 'ds.doctor_id')
+            ->groupBy(['users.id', 'pr.user_id'])
             ->doctor();
 
         if (!empty($value = $request->get('full_name'))) {
@@ -129,5 +133,4 @@ class BookController extends Controller {
     {
         return view('book.review');
     }
-
 }
