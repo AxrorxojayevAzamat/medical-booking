@@ -90,7 +90,7 @@ Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient
 
 Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 'middleware' => ['auth', 'can:doctor-panel']], function () {
     Route::get('', 'DoctorController@profileShow')->name('profile');
-    Route::get('/{doctor_id}/bookings', 'DoctorController@doctorBookings')->name('doctorbookings');
+    Route::get('/{doctor_id}/bookings', 'DoctorController@books')->name('doctorbookings');
 });
 
 Route::get('/doctors', 'Doctor\DoctorController@index')->name('doctors.index');

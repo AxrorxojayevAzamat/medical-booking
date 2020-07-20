@@ -1,6 +1,14 @@
 @extends('layouts.admin.page')
 
-@section('css')
+@if (!config('adminlte.enabled_laravel_mix'))
+    @php($cssSectionName = 'css')
+    @php($javaScriptSectionName = 'js')
+@else
+    @php($cssSectionName = 'mix_adminlte_css')
+    @php($javaScriptSectionName = 'mix_adminlte_js')
+@endif
+
+@section($cssSectionName)
 <!-- DataTables -->
 <link rel="stylesheet" href="{{asset('vendor/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{asset('vendor/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
@@ -97,7 +105,7 @@
 </div>
 <!-- /.row -->
 @stop
-@section('js')
+@section($javaScriptSectionName)
 
 <!-- DataTables -->
 <script src="{{asset('vendor/adminlte/plugins/datatables/jquery.dataTables.min.js')}}"></script>

@@ -17,20 +17,24 @@ use App\Entity\Clinic\Timetable;
 use App\Entity\Celebration;
 use App\Services\BookService;
 
-class DoctorController extends Controller {
+class DoctorController extends Controller
+{
 
     private $service;
 
-    public function __construct(BookService $service) {
+    public function __construct(BookService $service)
+    {
         $this->service = $service;
     }
 
-    public function profileShow() {
+    public function profileShow()
+    {
         $bookings = User::find(Auth::user()->id);
         return view('doctor.profile', compact('bookings'));
     }
 
-    public function doctorBookings($doctor_id) {
+    public function books($doctor_id)
+    {
 
         $bookings = Book::where('doctor_id', $doctor_id)->get();
 
@@ -38,7 +42,8 @@ class DoctorController extends Controller {
         return view('doctor.doctor_bookings', compact('bookings'));
     }
 
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         $doctorIds = [];
         $query = User::select(['users.*', 'pr.*'])
                 ->leftJoin('profiles as pr', 'users.id', '=', 'pr.user_id')
@@ -97,7 +102,8 @@ class DoctorController extends Controller {
         return view('doctors.index', compact('doctors', 'regions', 'clinics', 'specializations', 'countAll', 'countCurrent'));
     }
 
-    private function getRegionIds($regionId): array {
+    private function getRegionIds($regionId): array
+    {
         $region = Region::find($regionId);
         $allRegionIds = [$region->id];
         $regionIds = [$region->id];
@@ -113,7 +119,8 @@ class DoctorController extends Controller {
         return $allRegionIds;
     }
 
-    public function show(User $user) {
+    public function show(User $user)
+    {
         $clinicsId = $user->clinics->pluck('id')->toArray();
         $clinics = Clinic::whereIn('id', $clinicsId)
                 ->orderByDesc('id')
