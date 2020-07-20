@@ -160,10 +160,6 @@ class ClinicService
             foreach ($photos as $i => $photo) {
                 $this->removePhoto($clinic->id, $photo->id);
             }
-            // $folderPath = Storage::url('images/clinics/3/original');
-           
-            // Storage::deleteDirectory($folderPath);
-            // dd($folderPath);
             return true;
         } catch (\Exception $e) {
             throw $e;

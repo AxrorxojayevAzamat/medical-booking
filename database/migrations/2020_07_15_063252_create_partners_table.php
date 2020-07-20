@@ -12,9 +12,10 @@ class CreatePartnersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('site_url');
-            $table->string('photo');
-            $table->tinyInteger('sort');
-            $table->tinyInteger('status');
+            $table->tinyInteger('sort')->nullable();
+            ;
+            $table->tinyInteger('status')->default(1);
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }

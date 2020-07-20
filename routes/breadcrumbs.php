@@ -5,6 +5,7 @@ use App\Entity\Clinic\Clinic;
 use App\Entity\User\User;
 use App\Entity\Region;
 use App\Entity\Clinic\Specialization;
+use App\Entity\Partner;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Crumbs;
 
@@ -138,7 +139,14 @@ Breadcrumbs::register('admin.partners.create', function (Crumbs $crumbs) {
     $crumbs->parent('admin.partners.index');
     $crumbs->push('Добавление нового партнера', route('admin.partners.create'));
 });
-
+Breadcrumbs::register('admin.partners.show', function (Crumbs $crumbs, Partner $partner) {
+    $crumbs->parent('admin.partners.index');
+    $crumbs->push($partner->name, route('admin.partners.show', $partner));
+});
+Breadcrumbs::register('admin.partners.edit', function (Crumbs $crumbs, Partner $partner) {
+    $crumbs->parent('admin.partners.index');
+    $crumbs->push($partner->name, route('admin.partners.edit', $partner));
+});
 //timetables
 Breadcrumbs::register('admin.timetables.create', function (Crumbs $crumbs) {
     //$crumbs->parent('admin.users.edit', $user);

@@ -71,6 +71,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         Route::get('/patient/{user}/doctor/{doctor}', 'CallCenterController@show')->name('show-doctor');
         Route::post('/booking-doctor', 'CallCenterController@bookingDoctor')->name('booking-doctor');
     });
+
+    Route::post('partners/{partner}/delete-photo', 'PartnerController@deletePhoto')->name('partners.delete-photo');
 });
 
 Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {

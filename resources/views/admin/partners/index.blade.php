@@ -17,9 +17,15 @@
             <tbody>
             @foreach($partners as $partner)
                 <tr>
+                    <td class="text-center py-1 "><a href="{{ route('admin.partners.show', $partner) }}">{{ $partner->id }}</a></td>
                     <td class="text-center py-1 "><a href="{{ route('admin.partners.show', $partner) }}">{{ $partner->name }}</a></td>
-                    <td class="text-center py-1 "></td>
+                    <td class="text-center py-1 "><a href="{{ route('admin.partners.show', $partner) }}">{{ $partner->site_url }}</a></td>
+                    <td class="text-center py-1 "><a href="{{ route('admin.partners.show', $partner) }}">{{ $partner->sort }}</a></td>
+                    @if($partner->photo)
+                    <td class="text-center py-1 "> <img src="{{ $partner->fileThumbnail}}"></td>
+                    @endif
                 </tr>
+                
             @endforeach
             </tbody>
         </table>

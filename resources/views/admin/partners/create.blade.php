@@ -10,27 +10,50 @@
             <div class="card primary">
                 <div class="card-body">
                     <div class="form-group">
-
-                        <label for="name_ru" class="col-form-label text-md-left">{{ __('Название (ru)') }}</label>
-                        <input id="name_ru" type="text" class="form-control @error('name_ru') is-invalid @enderror" name="name_ru" value="{{ old('name_ru') }}" required autocomplete="name_ru" autofocus>
-
-                        @error('name_ru')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
+                        <label for="name" class="col-form-label text-md-left">{{ __('Название') }}</label>
+                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                        @if ($errors->has('name'))
+                            <span class="invalid-feedback"><strong>{{ $errors->first('name_uz') }}</strong></span>
+                        @endif
                     </div>
                     <div class="form-group">
-
-                        <label for="name_uz" class="col-form-label text-md-left">{{ __('Название (uz)') }}</label>
-                        <input id="name_uz" type="text" class="form-control @error('name_uz') is-invalid @enderror" name="name_uz" value="{{ old('name_uz') }}" required autocomplete="name_uz" autofocus>
-
-                        @error('name_uz')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                        <label for="site_url" class="col-form-label text-md-left">{{ __('Ссылка сайта') }}</label>
+                        <input id="site_url" type="text" class="form-control @error('site_url') is-invalid @enderror" name="site_url" value="{{ old('site_url') }}" required autocomplete="name_uz" autofocus>
+                        @if ($errors->has('site_url'))
+                            <span class="invalid-feedback"><strong>{{ $errors->first('site_url') }}</strong></span>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <label for="sort" class="col-form-label text-md-left">{{ __('Сортировка очереди') }}</label>
+                        <input id="sort" type="number" class="form-control @error('sort') is-invalid @enderror" name="sort" value="{{ old('sort') }}" required autocomplete="name_uz" autofocus>
+                        @if ($errors->has('sort'))
+                            <span class="invalid-feedback"><strong>{{ $errors->first('sort') }}</strong></span>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <label for="status" class="col-form-label text-md-left">{{ trans('Статус') }}</label>
+                        <select id="status" class="form-control{{ $errors->has('status') ? ' is-invalid' : '' }}" name="status" required>
+                            @foreach($status as $value => $label)
+                                <option value="{{ $value }}">{{ $label }}</option>
+                            @endforeach
+                        </select>
+                        @error('status')
+                            <span class="invalid-feedback"><strong>{{ $errors->first('status') }}</strong></span>
                         @enderror
                     </div>
+                    <div class="card" id="photos">
+                        <div class="card-body">
+                                <div class="form-group">
+                                    <div class="file-loading">
+                                        <input id="file-input" class="file" type="file" name="photo">
+                                    </div>
+                                    @if ($errors->has('logo'))
+                                        <span class="invalid-feedback"><strong>{{ $errors->first('photos') }}</strong></span>
+                                    @endif
+                                </div> 
+                        </div>
+                    </div>
+
 
                 </div>
             </div>
@@ -43,4 +66,18 @@
         {{-- <a href="{{ route('admin.regions.index') }}" class="btn btn-default btn-sm ml-1">Назад</a> --}}
     </div>
 </form>
+@endsection
+@section('js')
+<script>
+    let fileInput = $("#file-input");
+        fileInput.fileinput({
+            language: "ru",
+            showUpload: false,
+            previewFileType: 'text',
+            browseOnZoneClick: true,
+            maxFileCount: 1,
+            allowedFileExtensions: ['jpg', 'jpeg', 'png'],
+        });
+    
+</script>
 @endsection
