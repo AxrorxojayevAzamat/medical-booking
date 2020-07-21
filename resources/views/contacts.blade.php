@@ -24,11 +24,11 @@
 
 		<!-- <div id="map_contact"></div> -->
 		<!-- /map -->
-		
+
 		<div class="container margin_60_35">
 			<div class="row">
 				<!--/aside -->
-				<div class=" col-lg-8 col-md-8 ml-auto">
+				<div class=" col-lg-8 col-md-8 mx-auto">
 					<div class="box_general">
 						<h3>Contact us</h3>
 						<p>
@@ -69,7 +69,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
@@ -77,7 +77,7 @@
 											</div>
 											@if($errors->has('g-recaptcha-response'))
 												<span class="invalid-feedback" style="display: block">
-													<strong>{{ $errors->first('g-recaptcha-response') 
+													<strong>{{ $errors->first('g-recaptcha-response')
 													}}</strong>
 												</span>
 											@endif
@@ -85,8 +85,8 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
+									<div class="col-md-6 mx-auto">
+										<div class="form-group d-flex justify-content-center">
 											<input type="submit" value="Submit" class="btn_1 add_top_20" id="submit-contact">
 										</div>
 									</div>
