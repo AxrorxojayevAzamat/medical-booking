@@ -22,6 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('role');
             $table->tinyInteger('status')->nullable();
             $table->string('password');
+            $table->integer('rate')->default('0');
+            $table->integer('num_of_rates')->default('0');
             $table->rememberToken();
             $table->timestamps();
         });

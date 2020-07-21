@@ -11,4 +11,10 @@ class DashboardController extends Controller
     {
         return view('admin.dashboard');
     }
+
+    public function contactsList()
+    {
+   		return view('admin.contact.index', ['lists' => Contacts::orderBy('created_at','desc')->get()
+   	 	]);
+    }
 }

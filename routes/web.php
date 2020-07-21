@@ -14,6 +14,9 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('clinic', 'ClinicController');
     Route::resource('celebration', 'CelebrationController');
 
+    Route::get('/contactslist', 'DashboardController@contactsList')->name('list');
+
+
     Route::group(
         ['prefix' => 'users', 'as' => 'users.'],
         function () {
@@ -70,6 +73,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
     Route::get('', 'BookController@index')->name('index');
     Route::get('/{user}', 'BookController@show')->name('show');
+    Route::get('/{doctor_id}/rate/{rate}', 'BookController@rate')->name('rate');
+    Route::get('/{doctor_id}/ratecancel', 'BookController@rateCancel')->name('rateCancel');
     Route::get('/review', 'BookController@review')->name('reviews');
 
     Route::post('paycom/create', 'PaycomController@createOrder');
@@ -91,6 +96,12 @@ Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient
 Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 'middleware' => ['auth', 'can:doctor-panel']], function () {
     Route::get('', 'DoctorController@profileShow')->name('profile');
     Route::get('/{doctor_id}/bookings', 'DoctorController@doctorBookings')->name('doctorbookings');
+});
+
+Route::group(['prefix' => 'contacts', 'as' => 'contacts.'], function () {
+        Route::resource('/contacts', 'ContactsController');
+        Route::get('', 'ContactsController@index')->name('contacts');
+        Route::post('', 'ContactsController@contacts')->name('postContacts');
 });
 
 Route::get("locale/{locale}", function ($locale) {

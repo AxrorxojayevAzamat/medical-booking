@@ -116,8 +116,21 @@
                         @endforeach
                         <h3>{{$doctorValue->profile ? $doctorValue->profile->fullName : ''}}</h3>
                         <p>{{$doctorValue->profile ? $doctorValue->profile->about_ru : ''}}</p>
-                        <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i> <small>(145)</small></span>
-                        <a href="badges.html" data-toggle="tooltip" data-placement="top" data-original-title="Badge Level" class="badge_list_1"><img src="img/badges/badge_1.svg" width="15" height="15" alt=""></a>
+                        
+                        <?php $average = number_format($doctorValue->rate/($doctorValue->num_of_rates?:1), 1, '.', ''); ?>
+                            
+                        <span class="rating">Average rating: {{ $average }} <small>({{ $doctorValue->num_of_rates }})</small></span>
+                        @if($average>4 && $average<=5)
+                        <img src="{{URL::to('img/badges/badge_1.svg')}}" width="15" height="15" alt="">
+                        @elseif($average>3 && $average<=4)
+                        <img src="{{URL::to('img/badges/badge_2.svg')}}" width="15" height="15" alt="">
+                        @elseif($average>2 && $average<=3)
+                        <img src="{{URL::to('img/badges/badge_3.svg')}}" width="15" height="15" alt="">
+                        @elseif($average>1 && $average<=2)
+                        <img src="{{URL::to('img/badges/badge_4.svg')}}" width="15" height="15" alt="">
+                        @elseif($average>0 && $average<=1)
+                        <img src="{{URL::to('img/badges/badge_5.svg')}}" width="15" height="15" alt="">
+                        @endif
                         <ul>
                             {{-- <li><a href="#0" onclick="onHtmlClick('Doctors', {{ $doctorKey }})" class="btn_listing">View on Map</a></li> --}}
                             <li><a href="#0" onclick="initMap(41.2646, 69.2163)" class="btn_listing">View on Map</a></li>
