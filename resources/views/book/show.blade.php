@@ -60,7 +60,7 @@
 
 
                             <hr>
-                            <div class="text-center"><button class="btn_1 medium" type="submit">{{ __('Забронируйте сейчас') }}</button></div>
+                            <div class="text-center"><button class="btn_1 medium" type="submit" onclick="checkRadioTime()">{{ __('Забронируйте сейчас') }}</button></div>
                         </div>
                         <!-- /box_general -->
                     </form>
@@ -229,7 +229,7 @@
                                      <!-- End review-container -->
                                 <hr>
                                 <div class="text-right"><a href="{{ route('book.reviews') }}" class="btn_1 add_bottom_15">Submit review</a></div>
-    
+
                               </div>
                             <!-- /tab_3 -->
                         </div>
@@ -244,7 +244,7 @@
                                 <body>
                                 <h1>Doctor`s Gallery</h1>
                      <div class="gallery">
- 
+
             <a href="/img/Doctor1.jpg" data-lightbox="mygallery" data-title="This is First Picture"> <img src="/img/Doctor1.jpg"></a>
             <a href="/img/Doctor2.jpg" data-lightbox="mygallery" data-title="This is Second Picture"> <img src="/img/Doctor2.jpg"></a>
             <a href="/img/Doctor3.jpg" data-lightbox="mygallery" data-title="This is Third Picture"> <img src="/img/Doctor3.jpg"></a>

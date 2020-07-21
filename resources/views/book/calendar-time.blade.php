@@ -9,9 +9,10 @@
                 <li><strong></strong>{{ __('Недоступен') }}</li>
             </ul>
         </div>
+        <div class="warning_choose"></div>
     </div>
     <div class="col-lg-5">
-        <ul class="time_select version_2 add_top_20" id="radio_times{{$key}}">
+        <ul class="time_select version_2 add_top_20 d-flex flex-wrap flex-column" id="radio_times{{$key}}" style="height: 350px; overflow: auto">
 
         </ul>
     </div>

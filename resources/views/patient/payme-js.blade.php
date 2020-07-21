@@ -46,9 +46,9 @@ $(".cancel-payme").click(function(e) {
     $('.choose').css('display','block');
     $('.payme').css('display','none');
 })
-function countDown(secs, elem){
+function countDownPayme(secs, elem){
     var element = document.getElementById(elem);
-    element.innerHTML = "( "+secs+" sec )";
+    element.innerHTML = "( " + secs + " sec )";
     if(secs < 1){
         clearTimeout(timer);
         element.innerHTML = '0';
@@ -56,6 +56,9 @@ function countDown(secs, elem){
         $(".pay-payme").prop('disabled', true);
         return false;
     }
+    secs--;
+    var timer = setTimeout('countDownPayme('+secs+',"'+elem+'")', 1000);
+
 }
 function errorPayme(err_container, err) {
     $(err_container).html('<p class="error-message">'+err+'</p>');
@@ -162,7 +165,7 @@ $(".confirm-payme").click(function(e) {
                             time = data.result.wait;
                             time = time/1000;
                             time = time - 1;
-                            countDown(time, "countDown");
+                            countDownPayme(time, "countDown");
                             $(".pay-payme").click(function(e) {
                                 e.preventDefault();
                                 $("#sms-payme").css("display","none");
@@ -206,7 +209,9 @@ $(".confirm-payme").click(function(e) {
                                                     console.log("Finish: ");
                                                     console.log(data);
                                                     $(".success").css("display","block");
-                                                    document.getElementsByClassName("success").innerHTML = "<h2>" + data.data.book_id + "</h2>";
+                                                    // document.getElementsByClassName("success").innerHTML = "<h2>" + data.data.book_id + "</h2>";
+                                                    $(".success").html("<h2> Your queue number: " + data.data.book_id + "</h2>");
+
                                                 },
                                                 error: function(data){
                                                     errorPayme(".error-container", data.responseJSON.message)

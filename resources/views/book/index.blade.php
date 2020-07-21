@@ -39,7 +39,7 @@
                             </div>
                         </li>
                         <li style="margin-right: 10px">
-                            <h6>Поиск по клиники...</h6>
+                            <h6>Поиск по клиником...</h6>
                             <div class="form-group">
                                 <select id="clinic_id" name="clinic">
                                     <option value=""></option>
@@ -89,7 +89,14 @@
                                 <a href="?" class="btn btn-outline-secondary btn-clear">Очистить</a>
                             </div>
                         </li>
-
+                        <li style="margin: auto 10px auto 30px;">
+                            <input type="radio" id="doctor" name="radio_search" value="doctor" checked>
+                            <label for="doctor">Doctor</label>
+                          </li>
+                          <li style="margin: auto 10px;">
+                            <input type="radio" id="clinic" name="radio_search" value="clinic">
+                            <label for="clinic">Clinic</label>
+                          </li>
                     </ul>
                 </form>
             </div>

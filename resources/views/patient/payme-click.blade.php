@@ -3,14 +3,14 @@
         <label>Choose one of them</label>
     </div>
 
-    <div class="row">
-        <form class="payme-choose col-md-6 col-sm-6 d-flex justify-content-end">
+    <div class="row d-flex justify-content-center">
+        <form class="payme-choose col-md-5 col-sm-5 d-flex justify-content-center">
             <label for="payme-submit">
                 <img src="{{asset('img/payme_01.svg')}}" class="img-payme-click choose-payme" width="200px" height=80px>
                 <input type="submit" value="" id="payme-submit">
             </label>
         </form>
-        <form class="click-choose col-md-6 col-sm-6 d-flex justify-content-start">
+        <form class="click-choose col-md-5 col-sm-5 d-flex justify-content-center">
             <label for="click-submit">
                 <img src="{{asset('img/click_01.jpg')}}" class="img-payme-click choose-click" width="200px" height="80px">
                 <input type="submit" value="" id="click-submit">
