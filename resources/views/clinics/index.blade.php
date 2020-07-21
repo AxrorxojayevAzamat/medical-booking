@@ -23,7 +23,7 @@
             <div class="filters_listing">
                 <div class="container">
                     <form action="?" method="GET">
-                        <ul class="clearfix">
+                        <ul class="clearfix row d-flex justify-content-center">
                             <li>
                                 <h6>Поиск по названии...</h6>
                                 <div class="form-group">
@@ -41,8 +41,8 @@
                             </li>
                             <li>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">Искать</button>
-                                    <a href="?" class="btn btn-outline-secondary">Очистить</a>
+                                    <button type="submit" class="btn btn-search">Искать</button>
+                                    <a href="?" class="btn btn-clear">Очистить</a>
                                 </div>
                             </li>
                         </ul>
@@ -97,4 +97,95 @@
     <script>
         $('#region_id').select2();
     </script>
+@endsection
+@section('css')
+    <style>
+.filters_listing {
+    background-color: #3f4079;
+}
+
+.filters_listing ul li {
+    margin-right: 10px;
+}
+
+.filters_listing li .sbHolder {
+    min-height: 40px;
+    border-radius: 0;
+}
+
+.filters_listing ul li h6 {
+    color: #fff;
+    margin-bottom: 3px;
+}
+
+.filters_listing li .sbHolder .sbToggle {
+    line-height: 40px;
+}
+
+.filters_listing li .sbHolder .sbSelector {
+    line-height: 40px;
+}
+
+.filters_listing ul li .form-group .form-control {
+    border-radius: 3px 0 0 3px;
+}
+
+.filters_listing li .select2 .select2-selection__rendered {
+    line-height: 40px;
+}
+.filters_listing .select2-container--default .select2-selection--single {
+    border-radius: 0
+}
+
+.filters_listing li .select2-selection {
+    min-height: 40px;
+}
+
+.filters_listing li .select2-selection__arrow {
+    min-height: 40px;
+}
+
+.filters_listing li .form-group span.select2-container--default {
+    width: 100%;
+}
+.filters_listing ul li:nth-child(3) .btn-search {
+    min-height: 40px;
+    background-color: #74d1c6;
+    border-color: #74d1c6;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+    border-radius: 0;
+    color: #fff
+    /* margin-right: 7px; */
+
+}
+
+.filters_listing ul li:nth-child(3) .btn-search:hover {
+    background-color: #e74e84;
+    border-color: #e74e84;
+}
+
+.filters_listing ul li:nth-child(3) .btn-clear {
+    min-height: 40px;
+    font-weight: 600;
+    color: #fff;
+    border: 2px solid #e74e84;
+    background-color: #e74e84;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+    border-radius: 0 3px 3px 0;
+}
+
+.filters_listing ul li:nth-child(3) .btn-clear:hover {
+    color: #fff;
+    background-color: #74d1c6;
+    border-color: #74d1c6;
+}
+
+.filters_listing ul li:nth-child(3) .form-group {
+    margin-left: 10px;
+    margin-top: 16px;
+}
+
+    </style>
 @endsection

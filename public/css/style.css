@@ -2314,7 +2314,7 @@ a.wish_bt:hover:after {
   float: left;
 }
 .filters_listing ul li:nth-child(2) {
-  float: right;
+  float: left;
   margin-right: 0;
 }
 @media (max-width: 767px) {
