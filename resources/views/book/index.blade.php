@@ -7,8 +7,20 @@
         <div id="results">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <h4>{!! trans('doctors.showing_results', ['current' => $countCurrent, 'all' => $countAll]) !!}</h4>
+                    </div>
+                    <div class="col-md-3">
+                        <ul class="row">
+                            <li style="margin: auto 10px auto 30px;">
+                                <input type="radio" id="doctor" name="radio_search" value="doctor" checked>
+                                <label for="doctor">Doctor</label>
+                            </li>
+                            <li style="margin: auto 10px;">
+                                <input type="radio" id="clinic" name="radio_search" value="clinic">
+                                <label for="clinic">Clinic</label>
+                            </li>
+                        </ul>
                     </div>
                     <div class="col-md-6">
                         <div class="search_bar_list">
@@ -89,14 +101,14 @@
                                 <a href="?" class="btn btn-outline-secondary btn-clear">Очистить</a>
                             </div>
                         </li>
-                        <li style="margin: auto 10px auto 30px;">
+                        {{-- <li style="margin: auto 10px auto 30px;">
                             <input type="radio" id="doctor" name="radio_search" value="doctor" checked>
                             <label for="doctor">Doctor</label>
                           </li>
                           <li style="margin: auto 10px;">
                             <input type="radio" id="clinic" name="radio_search" value="clinic">
                             <label for="clinic">Clinic</label>
-                          </li>
+                          </li> --}}
                     </ul>
                 </form>
             </div>
