@@ -17,7 +17,7 @@
 		<div class="container margin_60_35">
 			<div class="row">
 				<!--/aside -->
-				<div class="col-lg-8 col-md-8 ml-auto">
+				<div class="col-lg-8 col-md-8 mx-auto">
 					<div class="box_general">
 						<h3>{{ trans('contacts.title') }}</h3>
 						<p>
