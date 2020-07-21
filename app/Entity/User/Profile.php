@@ -24,8 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Profile extends Model
 {
-    const FEMALE = 0;
-    const MALE = 1;
+    const FEMALE = 1;
+    const MALE = 2;
 
     const USER_PROFILE = '/uploads/avatars/';
 
@@ -59,7 +59,7 @@ class Profile extends Model
 
     public function getFullNameAttribute(): string
     {
-        return "$this->first_name $this->last_name";
+        return "$this->last_name $this->first_name";
     }
 
 

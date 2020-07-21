@@ -38,6 +38,7 @@ $('#sendBtn').click(function(e){
     formData.params.save = false;
     delete $.ajaxSettings.headers['X-CSRF-TOKEN'];
     delete $.ajaxSettings.headers['XSRF-TOKEN'];
+    delete $.ajaxSettings.headers['Referer'];
     $.ajax({
         url: "https://checkout.paycom.uz/api",
         method: "POST",
@@ -86,7 +87,7 @@ $('#sendBtn').click(function(e){
                                 $.ajaxSetup({
                                     headers: {
                                         'X-Auth' : $('#paycom_merchant_id').val()
-                                    } 
+                                    }
                                 });
                                 $.ajax({
                                     url: "https://checkout.paycom.uz/api",
@@ -145,7 +146,7 @@ $('#sendBtn').click(function(e){
                                     error: function(data){
                                         $(".spiner-payme-container").hide();
                                         errorFillerPayme(".error-container", data.error.message)
-                                    } 
+                                    }
                                 })
                             })
                         }else{
@@ -162,7 +163,7 @@ $('#sendBtn').click(function(e){
                 })
             }
         },
-        
+
         error: function (data){
             $(".spiner-payme-container").hide();
             errorFillerPayme(".error-container", data.error.message)

@@ -79,12 +79,21 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         Route::post('down', 'PartnerController@down')->name('down');
         Route::post('last', 'PartnerController@last')->name('last');
     });
+    Route::resource('news', 'NewsController');
 });
 
 Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
     Route::get('', 'BookController@index')->name('index');
     Route::get('/{user}', 'BookController@show')->name('show');
     Route::get('/review', 'BookController@review')->name('reviews');
+
+    Route::post('paycom/create', 'PaycomController@createOrder');
+    Route::post('paycom/perform', 'PaycomController@performOrder');
+
+    Route::post('click/create', 'ClickController@createOrder');
+    Route::post('click/create-token', 'ClickController@createToken');
+    Route::post('click/verify-token', 'ClickController@verifyToken');
+    Route::post('click/perform', 'ClickController@performOrder');
 });
 
 Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function () {

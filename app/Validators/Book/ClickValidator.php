@@ -61,7 +61,7 @@ class ClickValidator extends BaseValidator
     public function validateCreateToken(Request $request): void
     {
         $this->validate($request, [
-            'transaction_id' => 'required|numeric|min:1',
+            'transaction_id' => 'required|string|max:50',
             'card_token' => 'required|string|max:255',
             'expire_date' => 'required|string|max:255',
             'temporary' => 'nullable|boolean',
@@ -75,7 +75,7 @@ class ClickValidator extends BaseValidator
     public function validateVerifyToken(Request $request): void
     {
         $this->validate($request, [
-            'transaction_id' => 'required|numeric|min:1',
+            'transaction_id' => 'required|string|max:50',
             'card_token' => 'required|string|max:255',
             'sms_code' => 'required|numeric',
         ]);
@@ -88,7 +88,7 @@ class ClickValidator extends BaseValidator
     public function validatePerformPayment(Request $request): void
     {
         $this->validate($request, [
-            'transaction_id' => 'required|numeric|min:1',
+            'transaction_id' => 'required|string|max:50',
             'card_token' => 'required|string|max:255',
         ]);
     }
@@ -100,7 +100,7 @@ class ClickValidator extends BaseValidator
     public function validateCheckPayment(Request $request): void
     {
         $this->validate($request, [
-            'transaction_id' => 'required|numeric|min:1',
+            'transaction_id' => 'required|string|max:50',
         ]);
     }
 

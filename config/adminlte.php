@@ -231,6 +231,11 @@ return [
             'icon' => 'fas fa-fw fa-globe',
             'url' => 'admin/partners',
         ],
+        [
+            'text' => 'Новости',
+            'icon' => 'fas fa-fw fa-envelope',
+            'url' => 'admin/news',
+        ],
     ],
     /*
       |--------------------------------------------------------------------------

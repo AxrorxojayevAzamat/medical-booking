@@ -158,6 +158,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return self::rolesList()[$this->role];
     }
 
+
     ######################################################################################### Scopes
 
     public function scopeActive($query)
@@ -165,7 +166,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return $query->where('status', self::STATUS_ACTIVE);
     }
 
+    public function scopeDoctor($query)
+    {
+        return $query->where('role', self::ROLE_DOCTOR);
+    }
+
     #########################################################################################
+
+
     ########################################### Relations
 
     public function profile()

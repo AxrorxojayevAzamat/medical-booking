@@ -25,11 +25,13 @@
         <link href="{{asset('css/menu.css')}}" rel="stylesheet">
         <link href="{{asset('css/vendors.css')}}" rel="stylesheet">
         <link href="{{asset('css/icon_fonts/css/all_icons_min.css')}}" rel="stylesheet">
-
+        
+        <link href="{{asset('vendor/select2/css/select2.min.css')}}" rel="stylesheet">
         <!-- YOUR CUSTOM CSS -->
         <link href="{{asset('css/date_picker.css')}}" rel="stylesheet">
         <link href="{{asset('css/custom.css')}}" rel="stylesheet">
-
+        @stack('css')
+        @yield('css')
     </head>
 
     <body>
@@ -50,7 +52,7 @@
                             <h1><a href="{{ url('/') }}" title="Findoctor">Findoctor</a></h1>
                         </div>
                     </div>
-                    <nav class="col-lg-9 col-6">
+                    <nav class="col-lg-9 col-6">  
                         <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="#0"><span>Menu mobile</span></a>
                         <ul id="top_access">
                             @if (Route::has('login'))

@@ -66,7 +66,7 @@
                                 <option value=""></option>
                                 @foreach ($parents as $value => $label)
                                     <option value="{{ $value }}">{{ $label }}</option>
-                                @endforeach;
+                                @endforeach
                             </select>
                         </div>
                     </div>
