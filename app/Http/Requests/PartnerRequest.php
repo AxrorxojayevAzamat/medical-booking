@@ -23,7 +23,6 @@ class PartnerRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'site_url' => 'required|string|max:255',
-            'sort' => 'required|int|unique:partners',
             'status' => 'required|int',
             'photo' => 'image|mimes:jpg,jpeg,png',
         ];

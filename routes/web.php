@@ -72,7 +72,13 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         Route::post('/booking-doctor', 'CallCenterController@bookingDoctor')->name('booking-doctor');
     });
 
-    Route::post('partners/{partner}/delete-photo', 'PartnerController@deletePhoto')->name('partners.delete-photo');
+    Route::group(['prefix' => 'partners/{partner}', 'as' => 'partners.'], function () {
+        Route::post('delete-photo', 'PartnerController@deletePhoto')->name('delete-photo');
+        Route::post('first', 'PartnerController@first')->name('first');
+        Route::post('up', 'PartnerController@up')->name('up');
+        Route::post('down', 'PartnerController@down')->name('down');
+        Route::post('last', 'PartnerController@last')->name('last');
+    });
 });
 
 Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {

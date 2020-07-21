@@ -59,9 +59,17 @@ class Partner extends Model
         return static::create([
             'name' => $name,
             'site_url' => $site_url,
-            'sort' => $sort,
+            'sort' => 100,
             'status' => $status,
             'photo' => $photo,
         ]);
+    }
+    public function setSort($sort): void
+    {
+        $this->sort = $sort;
+    }
+    public function isIdEqualTo($id): bool
+    {
+        return $this->id == $id;
     }
 }

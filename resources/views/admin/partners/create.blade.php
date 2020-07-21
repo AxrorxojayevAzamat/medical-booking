@@ -4,9 +4,8 @@
 
 <form action="{{ route('admin.partners.store') }}" method="post" enctype="multipart/form-data">
     @csrf
-    
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card primary">
                 <div class="card-body">
                     <div class="form-group">
@@ -25,7 +24,7 @@
                     </div>
                     <div class="form-group">
                         <label for="sort" class="col-form-label text-md-left">{{ __('Сортировка очереди') }}</label>
-                        <input id="sort" type="number" class="form-control @error('sort') is-invalid @enderror" name="sort" value="{{ old('sort') }}" required autocomplete="name_uz" autofocus>
+                        <input id="sort" type="number" class="form-control @error('sort') is-invalid @enderror" name="sort" value="{{ old('sort') }}" autocomplete="name_uz" autofocus>
                         @if ($errors->has('sort'))
                             <span class="invalid-feedback"><strong>{{ $errors->first('sort') }}</strong></span>
                         @endif
@@ -53,8 +52,6 @@
                                 </div> 
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -63,7 +60,6 @@
 
     <div class="form-group">
         <button type="submit" class="btn btn-success btn-sm ml-1">Сохранить</button>
-        {{-- <a href="{{ route('admin.regions.index') }}" class="btn btn-default btn-sm ml-1">Назад</a> --}}
     </div>
 </form>
 @endsection

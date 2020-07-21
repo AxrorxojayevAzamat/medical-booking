@@ -32,7 +32,7 @@ class PartnerController extends Controller
     {
         $partner = $this->service->create($request);
         
-        return view('admin.partners.show', $partner);
+        return redirect()->route('admin.partners.show', $partner);
     }
     public function show(Partner $partner)
     {
@@ -59,11 +59,14 @@ class PartnerController extends Controller
     public function destroy(Partner $partner)
     {
         $partner = Partner::findorFail($partner->id);
-        $photo = $this->service->deletePhotos($partner->id, $partner->photo);
-
-        if ($photo==true) {
-            $partner->delete();
+        if ($partner->photo) {
+            $photo = $this->service->deletePhotos($partner->id, $partner->photo);
+            if ($photo==true) {
+                $partner->delete();
+            }
         }
+        $partner->delete();
+        
         return redirect()->route('admin.partners.index')->with('success', 'Удалено!');
     }
     public function deletePhoto(Partner $partner)
@@ -73,6 +76,46 @@ class PartnerController extends Controller
             return response()->json('The main photo is successfully deleted!');
         } catch (\Exception $e) {
             return response()->json('The main photo is not deleted!', 400);
+        }
+    }
+
+    public function first(Partner $partner)
+    {
+        try {
+            $this->service->moveToFirst($partner->id);
+            return redirect()->route('admin.partners.index');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function up(Partner $partner)
+    {
+        try {
+            $this->service->moveUp($partner->id);
+            return redirect()->route('admin.partners.show', $partner);
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function down(Partner $partner)
+    {
+        try {
+            $this->service->moveDown($partner->id);
+            return redirect()->route('admin.partners.show', $partner);
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function last(Partner $partner)
+    {
+        try {
+            $this->service->moveToLast($partner->id);
+            return redirect()->route('admin.partners.show', $partner);
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
         }
     }
 }
