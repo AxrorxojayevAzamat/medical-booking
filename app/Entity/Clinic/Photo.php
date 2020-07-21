@@ -19,6 +19,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  *
+ * @property string $fileThumbnail
+ * @property string $fileOriginal
+ *
+ * @property string
  * @property Clinic $clinic
  * @property User $createdBy
  * @property User $updatedBy
@@ -51,7 +55,7 @@ class Photo extends BaseModel
     }
 
     ###########################################
-    
+
     ########################################### Accessors
     public function getFileThumbnailAttribute(): string
     {
