@@ -5,21 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Entity\Clinic\Clinic;
 use App\Entity\User\Profile;
 use App\Http\Controllers\Controller;
-use App\Entity\User\Role;
 use App\Entity\Clinic\Timetable;
 use App\Entity\User\User;
 use App\Entity\Clinic\Specialization;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use Auth;
-use Intervention\Image\Facades\Image;
-use App\Traits\UploadTrait;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-    use UploadTrait;
+    private $service;
 
     public function __construct()
     {
