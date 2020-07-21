@@ -22,7 +22,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $fileThumbnail
  * @property string $fileOriginal
  *
- * @property string
  * @property Clinic $clinic
  * @property User $createdBy
  * @property User $updatedBy
