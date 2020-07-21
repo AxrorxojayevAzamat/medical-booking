@@ -20,17 +20,17 @@
                         @endforeach
                         <h1>{{$user->profile ? $user->profile->fullName : ''}}</h1>
                         <h6>Average Doctor rating</h6>
-                        <?php $average = number_format($user->rate/($user->num_of_rates?:1), 1, '.', ''); ?>
+                        <?php $average = number_format($user->profile->rate/($user->profile->num_of_rates?:1), 1, '.', ''); ?>
                         <h2 class="bold padding-bottom-7">{{ $average }} <small>/ 5.0</small></h2>
                         <ul class="statistic">
-                            <li>Total number: {{ $user->num_of_rates }}</li>
+                            <li>Total number: {{ $user->profile->num_of_rates }}</li>
                         </ul>
 
                         @if(!$ratecheck)
                         <div class="">
                             <label>Rate:</label>
                             @for($i=0;$i<5;$i++)
-                                <a href="{{ route('book.rate',['doctor_id'=>$user->id,'rate'=>$i+1]) }}" class="icon_star" aria-label="Left Align"> 
+                                <a href="{{ route('book.rate',['doctor_id'=>$user->id,'rate'=>$i+1]) }}" class="icon_star" style="color: #e4e43f" aria-label="Left Align"> 
                             </a>
                             @endfor
                         </div>
@@ -127,7 +127,7 @@
                                                         @endfor
                                                     </div>
                                                     <br>
-                                                    <small>Based on {{$user->num_of_rates}} reviews</small>
+                                                    <small>Based on {{$user->profile->num_of_rates}} reviews</small>
                                                 </div>
                                             </div>
                                             <div class="col-lg-9">
@@ -136,7 +136,7 @@
                                                 <div class="row">
                                                     <div class="col-lg-10 col-9">
                                                         <div class="progress">
-                                                            <div class="progress-bar" role="progressbar" style="width:{{$rate*100/($user->num_of_rates?:1)}}%" aria-valuenow="{{$rate*20}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            <div class="progress-bar" role="progressbar" style="width:{{$rate*100/($user->profile->num_of_rates?:1)}}%" aria-valuenow="{{$rate*20}}" aria-valuemin="0" aria-valuemax="100"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-3"><small><strong>{{$i--}} stars</strong></small></div>

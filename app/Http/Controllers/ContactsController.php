@@ -26,14 +26,13 @@ class ContactsController extends Controller
             'g-recaptcha-response' => new Captcha(),
         ]);
         
-        $contacts = new Contacts ([
+        $contacts = Contacts::create ([
             'name' => $request->input('name'),
             'lastname' => $request->input('lastname'),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
             'message' => $request->input('message')
         ]);
-        $contacts->save();
 
         Mail::to('bookingmedical@gmail.com')->send(
         	new Email(

@@ -14,7 +14,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('clinic', 'ClinicController');
     Route::resource('celebration', 'CelebrationController');
 
-    Route::get('/contactslist', 'DashboardController@contactsList')->name('list');
+    Route::get('/contactslist', 'DashboardController@contactsList')->name('contactlist');
 
 
     Route::group(

@@ -35,7 +35,7 @@ class Profile extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'first_name', 'last_name', 'middle_name', 'birth_date', 'gender', 'about_uz', 'about_ru', 'avatar',
+        'first_name', 'last_name', 'middle_name', 'birth_date', 'gender', 'about_uz', 'about_ru', 'avatar', 'rate', 'num_of_rates'
     ];
 
     protected $casts = [
@@ -65,6 +65,10 @@ class Profile extends Model
 
 
     ########################################### Relations
+
+    public function rate() {
+        return $this->belongsTo(Rate::class, 'user_id', 'id');
+    }
 
     ###########################################
 }

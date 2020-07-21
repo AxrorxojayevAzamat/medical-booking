@@ -48,7 +48,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public const ROLE_DOCTOR = 'doctor';
 
     protected $fillable = [
-        'name', 'phone', 'email', 'password', 'role', 'status', 'rate', 'num_of_rates'
+        'name', 'phone', 'email', 'password', 'role', 'status'
     ];
     protected $hidden = [
         'password', 'remember_token',
@@ -182,10 +182,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function clinics() {
         return $this->belongsToMany(Clinic::class, 'doctor_clinics', 'doctor_id', 'clinic_id');
-    }
-
-    public function user() {
-        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
 }

@@ -17,7 +17,7 @@
 
                 <div class="header_box version_2">
                     <h2><i class="fa fa-user"></i>Your rating:</h2>
-                    <?php $average = number_format($bookings->rate/($bookings->num_of_rates?:1), 1, '.', ''); ?>
+                    <?php $average = number_format($bookings->profile->rate/($bookings->profile->num_of_rates?:1), 1, '.', ''); ?>
                     <h2 class="bold">{{ $average }} / 5.0 </h2>
                 </div>
                 

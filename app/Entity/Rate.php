@@ -15,4 +15,5 @@ class Rate extends Model
     {
     	return $this->belongsTo('App\Entity\User\User','Rate'); 
     }
+
 }

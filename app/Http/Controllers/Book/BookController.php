@@ -18,6 +18,7 @@ use App\Services\BookService;
 use Carbon\Carbon;
 use Auth;
 use App\Entity\Rate;
+use App\Entity\User\Profile;
 
 class BookController extends Controller {
 
@@ -129,6 +130,7 @@ class BookController extends Controller {
 
         $holidays = $this->service->celebrationDays($celebrationDays);
 
+
         $ratecheck = Rate::where(['user_id'=>Auth::id(),'doctor_id'=>$user->id])->first();
 
         $rates = array();
@@ -147,21 +149,21 @@ class BookController extends Controller {
         
         
         if(!Auth::check()){
-            return redirect()->back()->with('error', 'You are not logged');   
+            return redirect()->route('login');   
         }
 
         if($request->rate<1 || $request->rate>5){
-            return redirect()->back()->with('error', 'You are  injecting code');      
+            return redirect()->back()->with('error', 'You are injecting code');      
         }
 
-        $rates = new Rate([
+
+        $rates = Rate::create([
             'user_id'=>Auth::id(),
             'doctor_id'=>$request->doctor_id,
             'rate'=>$request->rate
         ]);
-        $rates->save(); 
 
-        $doctor = User::find($request->doctor_id);
+        $doctor = Profile::find($request->doctor_id);
         $doctor->rate += $request->rate;
         $doctor->num_of_rates++;
         $doctor->save();
@@ -176,7 +178,7 @@ class BookController extends Controller {
         if (!$user_rate) {
             return redirect()->back()->with('success', 'Your Rate Canceled');    
         }
-        $doctor = User::find($request->doctor_id);
+        $doctor = Profile::find($request->doctor_id);
         $doctor->rate -= $user_rate->rate;
         $doctor->num_of_rates--;
         $doctor->save();

@@ -1,19 +1,17 @@
-@extends('layouts.app')
+@extends('layouts.admin.page')
 
 @section('content')
-
-<h1 align="center">Contact list</h1>
 
 <table class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Lastname</th>
-      <th scope="col">Email</th>
-      <th scope="col">Phone</th>
-      <th scope="col">Message</th>
-      <th scope="col">Created_at</th>
+      <th scope="col">Имя</th>
+      <th scope="col">Фамилия</th>
+      <th scope="col">Почта</th>
+      <th scope="col">Телефон</th>
+      <th scope="col">Сообщения</th>
+      <th scope="col">Отправлено</th>
     </tr>
   </thead>
   <tbody>
