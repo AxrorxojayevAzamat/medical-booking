@@ -52,7 +52,7 @@
 								<div class="row">
 									<div class="col-md-6 col-sm-6">
 										<div class="form-group">
-											<input type="email" id="email" name="email" class="form-control" value="{{old('email')}}" placeholder="{{ trans('contacts.email') }}" required>
+											<input type="email" id="email" name="email" class="form-control" value="{{old('email')}}" placeholder="someone@example.com" required>
 											@if ($errors->has('email'))
 	                                                <span class="invalid-feedback" style="display: block">
 	                                                	<strong style="color: red;">{{ $errors->first('email') }}</strong>
@@ -62,7 +62,7 @@
 									</div>
 									<div class="col-md-6 col-sm-6">
 										<div class="form-group">
-											<input type="text" id="phone" name="phone" class="form-control" value="{{old('phone')}}" placeholder="{{ trans('contacts.phone') }}" required>
+											<input type="text" id="phone" name="phone" class="form-control" value="{{old('phone')}}" placeholder="+998-9X-XXX-XX-XX" required>
 											@if ($errors->has('phone'))
 	                                                <span class="invalid-feedback" style="display: block">
 	                                                	<strong>{{ $errors->first('phone') }}</strong>

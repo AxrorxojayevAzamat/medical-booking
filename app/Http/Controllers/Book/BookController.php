@@ -19,6 +19,7 @@ use Carbon\Carbon;
 use Auth;
 use App\Entity\Rate;
 use App\Entity\User\Profile;
+use Redirect;
 
 class BookController extends Controller {
 
@@ -149,7 +150,8 @@ class BookController extends Controller {
         
         
         if(!Auth::check()){
-            return redirect()->route('login');   
+            //return redirect()->route('login');   
+            return redirect()->intended('login');
         }
 
         if($request->rate<1 || $request->rate>5){
