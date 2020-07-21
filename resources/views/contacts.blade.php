@@ -13,11 +13,11 @@
 
 		<!-- <div id="map_contact"></div> -->
 		<!-- /map -->
-		
+
 		<div class="container margin_60_35">
 			<div class="row">
 				<!--/aside -->
-				<div class="col-lg-8 col-md-8 mx-auto">
+				<div class=" col-lg-8 col-md-8 mx-auto">
 					<div class="box_general">
 						<h3>{{ trans('contacts.title') }}</h3>
 						<p>
@@ -83,7 +83,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
@@ -91,7 +91,7 @@
 											</div>
 											@if($errors->has('g-recaptcha-response'))
 												<span class="invalid-feedback" style="display: block">
-													<strong>{{ $errors->first('g-recaptcha-response') 
+													<strong>{{ $errors->first('g-recaptcha-response')
 													}}</strong>
 												</span>
 											@endif

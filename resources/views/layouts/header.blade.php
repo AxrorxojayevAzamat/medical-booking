@@ -84,7 +84,9 @@
                         <div class="main-menu">
                             <ul>
                                 <li class="submenu">
-                                    <a href="{{ route('book.index')}}" class="show-submenu">Doctor List<i class="icon-down-open-mini"></i></a>
+                                    <a href="{{ route('book.index')}}" class="show-submenu">Doctor List
+                                        {{-- <i class="icon-down-open-mini"></i> --}}
+                                    </a>
                                 </li>
                                 <li class="submenu">
                                     <a href="#0" class="show-submenu">Home<i class="icon-down-open-mini"></i></a>

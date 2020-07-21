@@ -39,11 +39,18 @@
     var disDays = [[], [], [], []];
     var daysOff = [[], [], [], []];
 
-    function getDaysOff(index) {
+    function checkRadioTime() {
+        setTimeout(function() {
+            $(".warning_choose").html('<p style="color: #e74e84">Choose time for booking!</p>');
+        }, 500);
+    }
+
+    function setDaysOff(index) {
         var dayStart = timetable[index].day_off_start;
         var dayEnd = timetable[index].day_off_end;
         for(var start = new Date(dayStart + " 00:00:00"); start <= (new Date(dayEnd + " 00:00:00")); start.setDate(start.getDate() + 1)) {
-            daysOff[index] = [...daysOff[index], start.getFullYear() + "-" + (start.getMonth() + 1) + "-" + start.getDate()];
+            daysOff[index] = [...daysOff[index], start.getFullYear() + "-" + ((start.getMonth() + 1) > 9 ? (start.getMonth() + 1) : "0" + (start.getMonth() + 1))
+             + "-" + ((start.getDate() > 9) ? start.getDate() : "0" + start.getDate())];
         }
     }
 
@@ -150,7 +157,7 @@
             if (equeled)
                 $("#radio_times" + index).append(
                         '<li><input type="radio" id="radio' + index + '-' + i + '" name="radio_time" value="' +
-                        time_slot[index][i] + '"><label for="radio' + index + '-' + i + '">' + time_slot[index][i] + '</label></li>'
+                        time_slot[index][i] + '" required><label for="radio' + index + '-' + i + '">' + time_slot[index][i] + '</label></li>'
                         )
         }
     }
@@ -160,7 +167,7 @@
 
     for (var i = 0; i < timetable.length; i++) {
 
-        getDaysOff(i);
+        setDaysOff(i);
 
         disabledDates[i] = timetable[i].schedule_type == 2 ? getDates(i) : [];
         disabledDays[i] = timetable[i].schedule_type == 1 ? [timetable[i].sunday_start == null ? 0 : '',
@@ -198,8 +205,16 @@
             makeInterval(today, timeStart[i], timeEnd[i], timetable[i].interval,
                     timetable[i].lunch_start, timetable[i].lunch_end, i);
             appendRadioButton(time_slots, books, today, i);
-            if (time_slots[i][0] == "00:00") {
-                $("#radio_times" + i).empty();
+            for(var j = 0; j < daysOff[i].length; j++) {
+                if ((time_slots[i][0] == "00:00") || (today == daysOff[i][j]) ) {
+                    $("#radio_times" + i).empty();
+                }
+                // else if ((time_slots[i][0] == "00:00") || (today == daysOff[i][j]) ) {
+                //     $("#radio_times" + i).empty();
+                // }
+                // else if ((time_slots[i][0] == "00:00") || (today == daysOff[i][j]) ) {
+                //     $("#radio_times" + i).empty();
+                // }
             }
         }
     });
