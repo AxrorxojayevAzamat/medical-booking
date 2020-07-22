@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Clinic;
 
 use App\Http\Controllers\Controller;
 use App\Entity\Clinic\Clinic;
@@ -19,9 +19,10 @@ class ClinicController extends Controller
 
     public function __construct(ClinicService $service)
     {
+        $this->middleware('can:manage-clinics');
         $this->service = $service;
     }
-   
+
     public function index(Request $request)
     {
         $query = Clinic::orderBy('id');
@@ -52,7 +53,7 @@ class ClinicController extends Controller
     {
         try {
             $clinics = $this->service->create($request);
-            return redirect()->route('admin.clinic.index')->with('success', 'Успешно!');
+            return redirect()->route('admin.clinics.index')->with('success', 'Успешно!');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
@@ -63,7 +64,6 @@ class ClinicController extends Controller
         $clinics->type = $request->type;
         $clinics->description_uz = $request->description_uz;
         $clinics->description_ru = $request->description_ru;
-        $clinics->phone_numbers = $request->phone_numbers;
         $clinics->address_uz = $request->adress_uz;
         $clinics->address_ru = $request->adress_ru;
         $clinics->work_time_start = $request->work_time_start;
@@ -87,10 +87,8 @@ class ClinicController extends Controller
 
     public function show(Clinic $clinic)
     {
-        $clinic = Clinic::find($clinic->id);
-        $clinics = Clinic::all();
-        $regions = Region::all();
-        return view('admin.clinics.show', compact('clinic', 'regions', 'clinics'));
+        $contacts = $clinic->contacts()->orderBy('type')->get();
+        return view('admin.clinics.show', compact('clinic', 'contacts'));
     }
 
     public function edit(Clinic $clinic)
@@ -110,7 +108,6 @@ class ClinicController extends Controller
         $clinics->type = $request->type;
         $clinics->description_uz = $request->description_uz;
         $clinics->description_ru = $request->description_ru;
-        $clinics->phone_numbers = $request->phone_numbers;
         $clinics->address_uz = $request->address_uz;
         $clinics->address_ru = $request->address_ru;
         $clinics->work_time_start = $request->work_time_start;
@@ -144,7 +141,7 @@ class ClinicController extends Controller
         $clinics->update();
         $id = $clinics->id;
 
-        return redirect()->route('admin.clinic.index', compact('id'))->with('success', 'Отредактировано!');
+        return redirect()->route('admin.clinics.index', compact('id'))->with('success', 'Отредактировано!');
     }
 
     public function destroy(Clinic $clinic)
@@ -157,7 +154,7 @@ class ClinicController extends Controller
         // }
         $clinics->delete();
         return redirect()->back();
-        // return redirect()->route('admin.clinic.index')->with('success', 'Удалено!');
+        // return redirect()->route('admin.clinics.index')->with('success', 'Удалено!');
     }
 
     public function mainPhoto(Clinic $clinic)
@@ -181,7 +178,7 @@ class ClinicController extends Controller
 
             $this->service->addMainPhoto($clinic->id, $request->photo);
 
-            return redirect()->route('admin.clinic.show', $clinic)->with('success', 'Успешно сохранено!');
+            return redirect()->route('admin.clinics.show', $clinic)->with('success', 'Успешно сохранено!');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
