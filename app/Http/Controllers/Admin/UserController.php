@@ -2,65 +2,31 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Entity\Clinic\Clinic;
-use App\Entity\User\Profile;
-use App\Http\Controllers\Controller;
-use App\Entity\Clinic\Timetable;
 use App\Entity\User\User;
-use App\Entity\Clinic\Specialization;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Entity\User\Profile;
+use Illuminate\Http\Request;
+use App\Entity\Clinic\Clinic;
+use App\Services\UserService;
+use App\Entity\Clinic\Timetable;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Entity\Clinic\Specialization;
 
 class UserController extends Controller
 {
     private $service;
 
-    public function __construct()
+    public function __construct(UserService $service)
     {
         $this->middleware('can:manage-users');
+        $this->service = $service;
     }
 
     public function index(Request $request)
     {
-        $query = User::select(['users.*', 'pr.*'])
-            ->leftJoin('profiles as pr', 'users.id', '=', 'pr.user_id')
-            ->orderByDesc('created_at');
-
-        if (!empty($value = $request->get('id'))) {
-            $query->where('id', $value);
-        }
-
-        if (!empty($value = $request->get('name'))) {
-            $query->where('users.name', 'ilike', '%' . $value . '%');
-        }
-
-        if (!empty($value = $request->get('first_name'))) {
-            $query->where('pr.first_name', 'ilike', '%' . $value . '%');
-        }
-
-        if (!empty($value = $request->get('last_name'))) {
-            $query->where('pr.last_name', 'ilike', '%' . $value . '%');
-        }
-
-        if (!empty($value = $request->get('phone'))) {
-            $query->where('users.phone', 'ilike', '%' . $value . '%');
-        }
-
-        if (!empty($value = $request->get('email'))) {
-            $query->where('users.email', 'ilike', '%' . $value . '%');
-        }
-
-        if (!empty($value = $request->get('role'))) {
-            $query->where('users.role', $value);
-        }
-
-        if (!empty($value = $request->get('status'))) {
-            $query->where('users.status', $value);
-        }
-
-        $users = $query->paginate(20);
-
+        $users = $this->service->search($request)->paginate(20);
+        
         $roles = User::rolesList();
 
         $statuses = User::statusList();
@@ -77,43 +43,10 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->all();
-
-        DB::beginTransaction();
         try {
-            $user = User::create([
-                'phone' => $data['phone'],
-                'email' => $data['email'],
-                'password' => bcrypt($data['password']),
-                'status' => User::STATUS_ACTIVE,
-                'role' => $data['role'],
-            ]);
-
-            $profile = $user->profile()->make([
-                'first_name' => $data['first_name'],
-                'last_name' => $data['last_name'],
-                'middle_name' => $data['middle_name'],
-                'birth_date' => $data['birth_date'],
-                'gender' => $data['gender'],
-            ]);
-
-            $folder = Profile::USER_PROFILE;
-            $avatar = $request->file('avatar');
-            if ($request->hasFile('avatar')) {
-                $filename = Str::random(30) . '_' . time();
-                $this->uploadOne($avatar, $folder, 'public', $filename);
-                $filePath = $filename . '.' . $avatar->getClientOriginalExtension();
-
-                $profile->avatar = $filePath;
-            }
-
-            $profile->save();
-
-            DB::commit();
-
+            $user = $this->service->create($request);
             return redirect()->route('admin.users.show', $user);
         } catch (\Exception $e) {
-            DB::rollBack();
             return back()->with('error', $e->getMessage());
         }
     }
@@ -143,58 +76,10 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        $profile = $user->profile;
-        DB::beginTransaction();
         try {
-            if (!empty($request['password'])) {
-                $input = $request->all();
-                $input['password'] = bcrypt($input['password']);
-
-                $user->update($input);
-            } else {
-                $user->update($request->except(['password']));
-            }
-
-            if (!$profile) {
-                $profile = $user->profile()->make([
-                    'first_name' => $request['first_name'],
-                    'last_name' => $request['last_name'],
-                    'middle_name' => $request['middle_name'],
-                    'birth_date' => $request['birth_date'],
-                    'gender' => $request['gender'],
-                    'about_uz' => $request['about_uz'],
-                    'about_ru' => $request['about_ru'],
-                ]);
-            } else {
-                $profile->edit(
-                    $request['first_name'],
-                    $request['last_name'],
-                    $request['birth_date'],
-                    $request['gender'],
-                    $request['middle_name'],
-                    $request['about_uz'],
-                    $request['about_ru']
-                );
-            }
-
-            $profile->save();
-
-            $folder = Profile::USER_PROFILE;
-            $avatar = $request->file('avatar');
-            if ($request->hasFile('avatar')) {
-                $this->deleteOne($folder, 'public', $profile->avatar);
-                $filename = Str::random(30) . '_' . time();
-                $this->uploadOne($avatar, $folder, 'public', $filename);
-                $filePath = $filename . '.' . $avatar->getClientOriginalExtension();
-
-                $profile->avatar = $filePath;
-            }
-
-            DB::commit();
-
+            $user = $this->service->update($request, $user);
             return redirect()->route('admin.users.show', $user);
         } catch (\Exception $e) {
-            DB::rollBack();
             return back()->with('error', $e->getMessage());
         }
     }
@@ -202,11 +87,9 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-
+        
         return redirect()->route('admin.users.index');
     }
-
-
 
     public function storeSpecializations(Request $request, User $user)
     {

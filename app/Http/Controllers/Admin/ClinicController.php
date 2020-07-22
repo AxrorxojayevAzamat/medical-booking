@@ -3,21 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Entity\Region;
-use App\Traits\UploadTrait;
-use Illuminate\Support\Str;
 use App\Entity\Clinic\Photo;
 use Illuminate\Http\Request;
 use App\Entity\Clinic\Clinic;
 use App\Services\ClinicService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClinicRequest;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Redirect;
 
 class ClinicController extends Controller
 {
-    use UploadTrait;
-
     private $service;
 
     public function __construct(ClinicService $service)

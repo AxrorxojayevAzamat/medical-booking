@@ -6,6 +6,8 @@
         @if($user->isDoctor())
         <a class="btn btn-secondary mr-1 p-2 bd-highlight" href="{{ route('admin.users.user-clinics',$user)}}">{{ trans('Добавить клинику') }}</a>
         <a class="btn btn-info mr-1 p-2 bd-highlight" href="{{ route('admin.users.specializations', $user)}}">{{ trans('Добавить специализацию') }}</a>
+        <a href="" class="btn btn-dark mr-1">Главное фото</a>
+        <a href="" class="btn btn-warning mr-1">Фотографии</a>
         @endif
         {{-- <a class="btn btn-success mr-1 p-2 bd-highlight" href="{{ route('admin.users.edit',$user)}}">{{ trans('Забронировать') }}</a> --}}
 
@@ -36,7 +38,7 @@
                     <table class="table table-striped projects">
                         <tbody>
                             <tr><th>{{ trans('ID') }}</th><td>{{ $user->id }}</td></tr>
-                            <tr><th>{{ trans('Логин') }}</th><td>{{ $user->name }}</td></tr>
+                            {{-- <tr><th>{{ trans('Логин') }}</th><td>{{ $user->name }}</td></tr> --}}
                             <tr><th>{{ trans('Адрес электронной почты') }}</th><td>{{ $user->email }}</td></tr>
                             <tr><th>{{ trans('Телефон') }}</th><td>{{ $user->phone }}</td></tr>
                             <tr><th>{{ trans('Роль пользователя') }}</th><td>{{ $user->roleName() }}</td></tr>
