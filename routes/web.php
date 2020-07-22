@@ -16,13 +16,25 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('partners', 'PartnerController');
 
     Route::group(
-        ['prefix' => 'users', 'as' => 'users.'],
+        ['prefix' => 'users/{user}', 'as' => 'users.'],
         function () {
-            Route::post('{user}/store-specializations', 'UserController@storeSpecializations')->name('store-specializations');
-            Route::get('{user}/specializations', 'UserController@specializations')->name('specializations');
+            Route::post('store-specializations', 'UserController@storeSpecializations')->name('store-specializations');
+            Route::get('specializations', 'UserController@specializations')->name('specializations');
 
-            Route::post('{user}/store-clinics', 'UserController@storeClinics')->name('store-clinics');
-            Route::get('{user}/user-clinics', 'UserController@userClinics')->name('user-clinics');
+            Route::post('store-clinics', 'UserController@storeClinics')->name('store-clinics');
+            Route::get('user-clinics', 'UserController@userClinics')->name('user-clinics');
+            //MainPhoto
+            Route::get('main-photo', 'UserController@mainPhoto')->name('main-photo');
+            Route::post('add-main-photo', 'UserController@addMainPhoto')->name('add-main-photo');
+            Route::post('remove-main-photo', 'UserController@removeMainPhoto')->name('remove-main-photo');
+            //Photos
+            Route::get('photos', 'UserController@photos')->name('photos');
+            Route::post('add-photo', 'UserController@addPhoto')->name('add-photo');
+            Route::post('remove-photo/{photo}', 'UserController@removePhoto')->name('remove-photo');
+            //Sorting
+            Route::get('move-photo-up/{photo}', 'UserController@movePhotoUp')->name('move-photo-up');
+            Route::get('remove-photo/{photo}', 'UserController@removePhoto')->name('delete-photo');
+            Route::get('move-photo-down/{photo}', 'UserController@movePhotoDown')->name('move-photo-down');
         }
     );
 

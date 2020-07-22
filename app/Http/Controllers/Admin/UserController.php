@@ -118,4 +118,9 @@ class UserController extends Controller
         $clinics = Clinic::orderBy('name_ru')->pluck('name_ru', 'id');
         return view('admin.users.clinics', compact('user', 'clinics'));
     }
+
+    public function mainPhoto(User $user)
+    {
+        return view('admin.users.add-main-photo', compact('user'));
+    }
 }

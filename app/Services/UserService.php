@@ -73,7 +73,6 @@ class UserService
             $profile->save();
             DB::commit();
 
-            // dd($user);
             return $profile;
         } catch (\Exception $e) {
             DB::rollBack();

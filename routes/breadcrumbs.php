@@ -43,6 +43,14 @@ Breadcrumbs::register('admin.users.user-clinics', function (Crumbs $crumbs, User
     $crumbs->parent('admin.users.show', $user);
     $crumbs->push(trans('Клиники врача'), route('admin.users.user-clinics', $user));
 });
+Breadcrumbs::register('admin.users.main-photo', function (Crumbs $crumbs, User $user) {
+    $crumbs->parent('admin.users.show', $user);
+    $crumbs->push(trans('Главное фото'), route('admin.users.main-photo', $user));
+});
+Breadcrumbs::register('admin.users.photos', function (Crumbs $crumbs, User $user) {
+    $crumbs->parent('admin.users.show', $user);
+    $crumbs->push(trans('Фотографии'), route('admin.users.photos', $user));
+});
 
 
 //regions
