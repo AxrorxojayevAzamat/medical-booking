@@ -112,6 +112,9 @@ class BookController extends Controller {
 
     public function show(User $user)
     {
+        if(!$user->isDoctor()){
+            return redirect()->back()->with('error', 'You are injecting code');      
+        }
         $clinicsId = $user->clinics->pluck('id')->toArray();
         $clinics = Clinic::whereIn('id', $clinicsId)
                 ->orderByDesc('id')
