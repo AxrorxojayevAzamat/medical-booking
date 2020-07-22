@@ -34,14 +34,15 @@ class LoginController extends Controller
         if ($this->attemptLogin($request)) {
             if (Auth::check()){
                 if(Auth::user()->isAdmin()) {
+                    session(['url.intended' => route('admin.home') ]);
                     $this->redirectTo = route('admin.home');
                 }
                 if(Auth::user()->isPatient()) {
-                    $this->redirectTo = dd(session()->get('url.intended'));
+                    $this->redirectTo = session()->get('url.intended');
                     //$this->redirectTo = route('patient.profile');
                 }
                 if(Auth::user()->isDoctor()) {
-                    $this->redirectTo = dd(session()->get('url.intended'));
+                    $this->redirectTo = session()->get('url.intended');
                     //$this->redirectTo = route('doctor.profile');
                 }
             }
