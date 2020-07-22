@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Entity\Book\Book;
 use App\Entity\Clinic\Clinic;
+use App\Entity\Clinic\Contact;
 use App\Entity\Region;
 use App\Entity\User\User;
 use App\Helpers\LanguageHelper;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ClinicController extends Controller {
 
@@ -57,5 +55,14 @@ class ClinicController extends Controller {
         }
 
         return $allRegionIds;
+    }
+
+    public function show(Clinic $clinic)
+    {
+//        $contacts = $clinic->contacts()->orderBy('type')->get();
+        $phoneNumbers = $clinic->contacts()->where('type', Contact::PHONE_NUMBER)->pluck('value');
+        $faxNumbers = $clinic->contacts()->where('type', Contact::FAX_NUMBER)->pluck('value');
+        $emails = $clinic->contacts()->where('type', Contact::EMAIL)->pluck('value');
+        return view('clinics.show', compact('clinic', 'phoneNumbers', 'faxNumbers', 'emails'));
     }
 }

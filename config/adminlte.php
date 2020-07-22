@@ -209,7 +209,7 @@ return [
         [
             'text' => 'Клиники',
             'icon' => 'fas fa-fw fa-share',
-            'url' => 'admin/clinic',
+            'url' => 'admin/clinics',
         ],
         [
             'text' => 'CallCenter',
