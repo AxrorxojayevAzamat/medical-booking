@@ -58,10 +58,10 @@
                             <h3>{{$clinic->name_ru }}</h3>
 
                             @include('book.calendar-time')
-
+                        <input type="checkbox" class="time_checkbox{{$key}}" style="display: none" required>
 
                             <hr>
-                            <div class="text-center"><button class="btn_1 medium" type="submit"  onclick="checkRadioTime()">{{ trans('book.book_now') }}</button></div>
+                            <div class="text-center"><button class="btn_1 medium" type="submit" id="{{$key}}" onclick="checkDay(event)">{{ trans('book.book_now') }}</button></div>
                         </div>
                         <!-- /box_general -->
                     </form>

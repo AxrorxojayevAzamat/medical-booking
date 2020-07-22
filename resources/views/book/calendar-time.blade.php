@@ -9,10 +9,11 @@
                 <li><strong></strong>{{ trans('book.book_calendar_not_available') }}</li>
             </ul>
         </div>
-        <div class="warning_choose"></div>
+    <div class="warning_time{{$key}}"></div>
+    <div class="warning_day{{$key}}"></div>
     </div>
     <div class="col-lg-5">
-        <ul class="time_select version_2 add_top_20 d-flex flex-wrap flex-column" id="radio_times{{$key}}" style="height: 350px; overflow: auto">
+        <ul class="time_select version_2 add_top_20" id="radio_times{{$key}}">
 
         </ul>
     </div>

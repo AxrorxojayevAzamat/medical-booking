@@ -56,7 +56,7 @@
 
                             </div>
                             <h3>{{$clinic->name_ru }}</h3>
-                            
+
                             @include('book.calendar-time')
 
 
@@ -64,7 +64,9 @@
                             <input type="hidden" name="user_id" value="{{$user->id}}">
                             <input type="hidden" name="doctor_id" value="{{$doctor->id}}">
                             <input type="hidden" name="clinic_id" value="{{$clinic->id}}">
-                            <div class="text-center"><button class="btn_1 medium" type="submit">{{ __('Забронируйте сейчас') }}</button></div>
+                        <input type="checkbox" class="time_checkbox{{$key}}" style="display: none" required>
+
+                            <div class="text-center"><button class="btn_1 medium" id="{{$key}}" onclick="checkDay(event)" type="submit">{{ __('Забронируйте сейчас') }}</button></div>
                         </div>
                         <!-- /box_general -->
                     </form>
