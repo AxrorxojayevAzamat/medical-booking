@@ -5,8 +5,8 @@
             <div id="calendar{{$key}}"></div>
             <input type="hidden" id="my_hidden_input{{$key}}" name="calendar">
             <ul class="legend">
-                <li><strong></strong>{{ __('Доступный') }}</li>
-                <li><strong></strong>{{ __('Недоступен') }}</li>
+                <li><strong></strong>{{ trans('book.book_calendar_available') }}</li>
+                <li><strong></strong>{{ trans('book.book_calendar_not_available') }}</li>
             </ul>
         </div>
         <div class="warning_choose"></div>

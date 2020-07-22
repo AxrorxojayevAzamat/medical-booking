@@ -10,12 +10,16 @@
                 <aside class="col-xl-3 col-lg-4" id="sidebar">
                     <div class="box_profile">
                         <figure>
-                            <img src="http://via.placeholder.com/565x565.jpg" alt="" class="img-fluid">
+                            @if($user->profile->image)
+                            <img src="{{asset($user->profile->image)}}" alt="">
+                            @else
+                            <img src="{{asset('/img/565x565.jpg')}}" alt="">
+                            @endif
                         </figure>
-                        @foreach($user->specializations()->pluck('name_ru') as $value)
+                        @foreach($user->specializations as $value)
                         <small>
                             {{ $loop->first ? '' : ', ' }}
-                            {{$value}}
+                            {{$value->name}}
                         </small>
                         @endforeach
                         <h1>{{$user->profile ? $user->profile->fullName : ''}}</h1>
@@ -28,18 +32,15 @@
                             <small>(145)</small>
                             <a href="badges.html" data-toggle="tooltip" data-placement="top" data-original-title="Badge Level" class="badge_list_1"><img src="{{asset('img/badges/badge_1.svg')}}" width="15" height="15" alt=""></a>
                         </span>
-                        <ul class="statistic">
-                            <li>854 {{ trans('Просмотры') }}</li>
-                            <li>124 {{ trans('Пациенты') }}</li>
-                        </ul>
-                        @foreach($clinics as $clinic)
+                        @foreach($user->clinics as $clinic)
                         <ul class="contacts">
-                            <li><h6>{{ trans('Название клиники') }}</h6>{{$clinic->name_ru}}</li>
-                            <li><h6>{{ trans('Адрес клиники') }}</h6>{{$clinic->address_ru}}</li>
-                            <li><h6>{{ trans('Телефон клиники') }}</h6><a href="tel://{{$clinic->phone_numbers}}">{{$clinic->phone_numbers}}</a></li>
+                            <li><h6>{{ trans('doctors.clinic_name') }}</h6>{{$clinic->name}}</li>
+                            <li><h6>{{ trans('doctors.clinic_address') }}</h6>{{$clinic->address}}</li>
+                            <li><h6>{{ trans('doctors.clinic_phone') }}</h6><a href="tel://{{$clinic->phone_numbers}}">{{$clinic->phone_numbers}}</a></li>
                         </ul>
                         {{-- <div class="text-center"><a href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+%E2%80%93+H%C3%B4pitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361" class="btn_1 outline" target="_blank"><i class="icon_pin"></i> View on map</a></div> --}}
-                        <div class="text-center"><a href="https://www.google.com/maps/dir/41.3218984,69.2096464/@41.3184591,69.2052458,16.5z/data=!4m2!4m1!3e3" class="btn_1 outline" target="_blank"><i class="icon_pin"></i> View on map</a></div>
+                        <div class="text-center"><a href="https://www.google.com/maps/dir/{{$clinic->location}}/@.{{$clinic->location}},20.5z" class="btn_1 outline" target="_blank"><i class="icon_pin"></i>{{trans('doctors.view_on_map')}}</a></div>
+                        <br>
                         @endforeach
                     </div>
                 </aside>
@@ -51,7 +52,7 @@
                     <form method="GET" action="{{ route('patient.booking', [$user, $clinic]) }}" >
                         <div class="box_general_2 add_bottom_45">
                             <div class="main_title_4">
-                                <h3><i class="icon_circle-slelected"></i>{{ __('Выберите дату и время') }}</h3>
+                                <h3><i class="icon_circle-slelected"></i>{{ trans('book.book_calendar') }}</h3>
 
                             </div>
                             <h3>{{$clinic->name_ru }}</h3>
@@ -60,7 +61,7 @@
 
 
                             <hr>
-                            <div class="text-center"><button class="btn_1 medium" type="submit" onclick="checkRadioTime()">{{ __('Забронируйте сейчас') }}</button></div>
+                            <div class="text-center"><button class="btn_1 medium" type="submit"  onclick="checkRadioTime()">{{ trans('book.book_now') }}</button></div>
                         </div>
                         <!-- /box_general -->
                     </form>
@@ -69,10 +70,10 @@
                     <div class="tabs_styled_2">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-expanded="true">Общая информация</a>
+                                <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-expanded="true">{{ trans('doctors.general_info') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews">Отзывы</a>
+                                <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews">{{ trans('doctors.reviews') }}</a>
                             </li>
                         </ul>
                         <!--/nav-tabs -->
@@ -80,17 +81,16 @@
                             <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
                                 <div class="indent_title_in">
                                     <i class="pe-7s-user"></i>
-                                    <h3>{{ trans('Профессиональные заявления')}}</h3>
-                                    <p>Mussum ipsum cacilds, vidis litro abertis.</p>
+                                    <h3>{{ trans('doctors.proff_statements') }}</h3>
                                 </div>
                                 <div class="wrapper_indent">
-                                    <p>{{$user->profile ? $user->profile->about_ru : ''}}</p>
-                                    <h6>{{ trans('Специализации')}}</h6>
+                                    <p>{{$user->profile ? $user->profile->about : ''}}</p>
+                                    <h6>{{ trans('doctors.specs') }}</h6>
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <ul class="bullets">
                                                 @foreach ($specs as $spec)
-                                                <li> {{$spec->name_ru}}
+                                                <li> {{$spec->name}}
                                                 </li>
                                                 @endforeach
                                             </ul>
