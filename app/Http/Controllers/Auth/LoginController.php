@@ -16,8 +16,7 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        // session(['url.intended' => url()->previous()]);
-        // $this->redirectTo = dd(session()->get('url.intended'));
+        session(['url.intended' => url()->previous()]);
         $this->middleware('guest')->except('logout');
     }
 
@@ -38,10 +37,12 @@ class LoginController extends Controller
                     $this->redirectTo = route('admin.home');
                 }
                 if(Auth::user()->isPatient()) {
-                    $this->redirectTo = route('patient.profile');
+                    $this->redirectTo = dd(session()->get('url.intended'));
+                    //$this->redirectTo = route('patient.profile');
                 }
                 if(Auth::user()->isDoctor()) {
-                    $this->redirectTo = route('doctor.profile');
+                    $this->redirectTo = dd(session()->get('url.intended'));
+                    //$this->redirectTo = route('doctor.profile');
                 }
             }
 

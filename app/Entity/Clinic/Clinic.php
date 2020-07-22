@@ -5,6 +5,7 @@ namespace App\Entity\Clinic;
 use App\Entity\BaseModel;
 use App\Entity\Region;
 use App\Entity\User\User;
+use App\Helpers\LanguageHelper;
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,7 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $work_time_start
  * @property string $work_time_end
  * @property string $location
- * @property string $photo
+ * @property int $main_photo_id
  * @property int $created_by
  * @property int $updated_by
  *
@@ -30,6 +31,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property DoctorClinic[] $doctorClinics
  * @property User[] $doctors
  * @property Photo[] $photos
+ * @property Photo $mainPhoto
  * @property User $createdBy
  * @property User $updatedBy
  * @mixin Eloquent
@@ -53,6 +55,21 @@ class Clinic extends BaseModel
             self::CLINIC_TYPE_GOVERNMENT => 'Государственная поликлиника',
         ];
     }
+
+
+    ########################################### Mutators
+
+    public function getNameAttribute(): string
+    {
+        return LanguageHelper::getName($this);
+    }
+
+    public function getDescriptionAttribute(): string
+    {
+        return LanguageHelper::getDescription($this);
+    }
+
+    ###########################################
 
 
     ########################################### Relations

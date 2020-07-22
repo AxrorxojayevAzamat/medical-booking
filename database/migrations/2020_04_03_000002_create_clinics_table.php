@@ -27,14 +27,12 @@ class CreateClinicsTable extends Migration
             $table->string('work_time_start')->nullable();
             $table->string('work_time_end')->nullable();
             $table->string('location')->nullable();
-            $table->unsignedBigInteger('main_photo_id')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
 
             $table->timestamps();
         });
         Schema::table('clinics', function (Blueprint $table) {
-            $table->foreign('main_photo_id')->references('id')->on('clinic_photos')->onDelete('restrict');
             $table->foreign('region_id')->references('id')->on('regions')->onDelete('restrict');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('restrict');
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('restrict');
