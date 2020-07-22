@@ -21,7 +21,7 @@ class ContactsController extends Controller
             'name' => 'required',
             'lastname' => 'required',
             'email' => 'required',
-            'phone' => ['required', 'string','regex:/^[+]?{7,18}$/'],
+            'phone' => ['required', 'string','regex:/^[+]?[\d,(,)]{7,18}$/'],
             'message' => 'required',
             'g-recaptcha-response' => new Captcha(),
         ]);
