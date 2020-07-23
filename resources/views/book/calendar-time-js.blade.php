@@ -38,11 +38,17 @@
     var disabledDays = [[], [], [], []];
     var disDays = [[], [], [], []];
     var daysOff = [[], [], [], []];
+    var checkedDays = [false, false, false, false];
 
-    function checkRadioTime() {
-        setTimeout(function() {
-            $(".warning_choose").html('<p style="color: #e74e84">Choose time for booking!</p>');
-        }, 500);
+
+    function checkDay(event) {
+        if($(".time_checkbox" + event.target.id).prop("checked")) {
+            $(".warning_day" + event.target.id).empty();
+            // $(".warning_day" + event.target.id).html('<p style="color: #e74e84">Choose day for booking!</p>');
+            $(".warning_time" + event.target.id).html('<p style="color: #e74e84">Choose time for booking!</p>');
+        } else {
+            $(".warning_day" + event.target.id).html('<p style="color: #e74e84">Choose day for booking!</p>');
+        }
     }
 
     function setDaysOff(index) {
@@ -192,6 +198,9 @@
                     timetable[e.currentTarget.id.slice(-1)].interval, timetable[e.currentTarget.id.slice(-1)].lunch_start,
                     timetable[e.currentTarget.id.slice(-1)].lunch_end, e.currentTarget.id.slice(-1));
             appendRadioButton(time_slots, books, e.format(), e.currentTarget.id.slice(-1));
+            checkedDays[e.currentTarget.id.slice(-1)] = true;
+            console.log(checkedDays);
+            $(".time_checkbox" + e.currentTarget.id.slice(-1)).prop("checked", true);
         });
     }
 

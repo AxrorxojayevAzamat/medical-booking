@@ -7,13 +7,25 @@
         <div id="results">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <h4>{!! trans('doctors.showing_results', ['current' => $countCurrent, 'all' => $countAll]) !!}</h4>
+                    </div>
+                    <div class="col-md-3">
+                        <ul class="row">
+                            <li style="margin: auto 10px auto 30px;">
+                                <input type="radio" id="doctor" name="radio_search" value="doctor" checked>
+                                <label for="doctor">Doctor</label>
+                            </li>
+                            <li style="margin: auto 10px;">
+                                <input type="radio" id="clinic" name="radio_search" value="clinic">
+                                <label for="clinic">Clinic</label>
+                            </li>
+                        </ul>
                     </div>
                     <div class="col-md-6">
                         <div class="search_bar_list">
-                            <input type="text" class="form-control" placeholder="Ex. Specialist, Name, Doctor...">
-                            <input type="submit" value="Search">
+                            <input type="text" class="form-control" placeholder="{{trans('doctors.search_placeholder')}}">
+                            <input type="submit" value="{{trans('adminlte.search')}}">
                         </div>
                     </div>
                 </div>
@@ -44,7 +56,7 @@
                                 <select id="clinic_id" name="clinic">
                                     <option value=""></option>
                                     @foreach ($clinics as $value => $label)
-                                        <option value="{{ $value }}"{{ $value == request('clinic') ? ' selected' : '' }}>{{ $label }}</option>
+                                    <option value="{{ $value }}"{{ $value == request('clinic') ? ' selected' : '' }}>{{ $label }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -54,7 +66,7 @@
                             <select id="region_id" name="region">
                                 <option value=""></option>
                                 @foreach ($regions as $value => $label)
-                                    <option value="{{ $value }}"{{ $value == request('region') ? ' selected' : '' }}>{{ $label }}</option>
+                                <option value="{{ $value }}"{{ $value == request('region') ? ' selected' : '' }}>{{ $label }}</option>
                                 @endforeach
                             </select>
                         </li>
@@ -71,7 +83,7 @@
                             <select id="specialization_id" name="specialization">
                                 <option value=""></option>
                                 @foreach ($specializations as $value => $label)
-                                    <option value="{{ $value }}"{{ $value == request('specialization') ? ' selected' : '' }}>{{ $label }}</option>
+                                <option value="{{ $value }}"{{ $value == request('specialization') ? ' selected' : '' }}>{{ $label }}</option>
                                 @endforeach
                             </select>
                         </li>
@@ -89,14 +101,14 @@
                                 <a href="?" class="btn btn-outline-secondary btn-clear">Очистить</a>
                             </div>
                         </li>
-                        <li style="margin: auto 10px auto 30px;">
+                        {{-- <li style="margin: auto 10px auto 30px;">
                             <input type="radio" id="doctor" name="radio_search" value="doctor" checked>
                             <label for="doctor">Doctor</label>
                           </li>
                           <li style="margin: auto 10px;">
                             <input type="radio" id="clinic" name="radio_search" value="clinic">
                             <label for="clinic">Clinic</label>
-                          </li>
+                          </li> --}}
                     </ul>
                 </form>
             </div>
@@ -109,11 +121,17 @@
                     @foreach($doctors as $doctorKey => $doctorValue)
                     <div class="strip_list wow fadeIn">
                         <figure>
-                            <a href="detail-page.html"><img src="http://via.placeholder.com/565x565.jpg" alt=""></a>
+                            @if($doctorValue->profile->image)
+                            <img src="{{asset($doctorValue->profile->image)}}" alt="">
+                            @else
+                            <img src="{{asset('/img/565x565.jpg')}}" alt="">
+                            @endif
+
                         </figure>
                         @foreach($doctorValue->specializations as $spec)
-                        <small>{{$spec->name_uz}}</small>
+                        <small>{{$spec->name}}</small>
                         @endforeach
+
                         <h3>{{$doctorValue->profile ? $doctorValue->profile->fullName : ''}}</h3>
                         <p>{{$doctorValue->profile ? $doctorValue->profile->about_ru : ''}}</p>
                         
@@ -131,22 +149,23 @@
                         @elseif($average>0 && $average<=1)
                         <img src="{{URL::to('img/badges/badge_5.svg')}}" width="15" height="15" alt="">
                         @endif
+
+                        <h3><a href="{{ route('doctors.show',$doctorValue) }}">{{$doctorValue->profile ? $doctorValue->profile->fullName : ''}}</a></h3>
+                        <p>{{$doctorValue->profile ? substr($doctorValue->profile->about, 0, 120) . ' . . . ' : ''}}</p>
+
                         <ul>
-                            {{-- <li><a href="#0" onclick="onHtmlClick('Doctors', {{ $doctorKey }})" class="btn_listing">View on Map</a></li> --}}
-                            <li><a href="#0" onclick="initMap(41.2646, 69.2163)" class="btn_listing">View on Map</a></li>
-                            <li><a href="{{ route('book.show',$doctorValue) }}">Book now</a></li>
+                            @if(empty($doctorValue->clinics->pluck('location')->toArray()))
+                            <li><a href="#0" onclick="initMap()" class="btn_listing"></a></li>
+                            @else
+                            <li><a href="#0" onclick="initMap({{$doctorValue->clinics->pluck('location')->first()}})" class="btn_listing">{{trans('doctors.view_on_map')}}</a></li>
+                            @endif
+                            <li><a href="{{ route('doctors.show',$doctorValue) }}">{{trans('doctors.booking')}}</a></li>
                         </ul>
                     </div>
                     @endforeach
                     <!-- /strip_list -->
 
-
-
-                    <nav aria-label="" class="add_top_20">
-                        <ul class="pagination pagination-sm">
-                            {{ $doctors->links() }}
-                        </ul>
-                    </nav>
+                    {{ $doctors->links() }}
                     <!-- /pagination -->
                 </div>
                 <!-- /col -->
@@ -169,10 +188,9 @@
 @endsection
 
 @section('scripts')
-    <script>
-        $('#region_id').select2();
-        $('#clinic_id').select2();
-        $('#specialization_id').select2();
-        // $('.select2-container--below').css("width","100%");
-    </script>
+<script>
+    $('#region_id').select2();
+    $('#clinic_id').select2();
+    $('#specialization_id').select2();
+</script>
 @endsection

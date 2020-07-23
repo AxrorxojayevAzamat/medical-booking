@@ -70,11 +70,6 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 });
 
 Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
-    Route::get('', 'BookController@index')->name('index');
-    Route::get('/{user}', 'BookController@show')->name('show');
-    Route::get('/{doctor_id}/rate/{rate}', 'BookController@rate')->name('rate');
-    Route::get('/{doctor_id}/ratecancel', 'BookController@rateCancel')->name('rateCancel');
-    Route::get('/review', 'BookController@review')->name('reviews');
 
     Route::post('paycom/create', 'PaycomController@createOrder');
     Route::post('paycom/perform', 'PaycomController@performOrder');
@@ -93,8 +88,8 @@ Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient
 });
 
 Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 'middleware' => ['auth', 'can:doctor-panel']], function () {
-    Route::get('', 'DoctorController@profileShow')->name('profile');
-    Route::get('/{doctor_id}/bookings', 'DoctorController@doctorBookings')->name('doctorbookings');
+    Route::get('/profile', 'DoctorController@profileShow')->name('profile');
+    Route::get('/{doctor_id}/bookings', 'DoctorController@books')->name('doctorbookings');
 });
 
 Route::group(['prefix' => 'contacts', 'as' => 'contacts.'], function () {
@@ -103,6 +98,12 @@ Route::group(['prefix' => 'contacts', 'as' => 'contacts.'], function () {
         Route::post('', 'ContactsController@contacts')->name('postContacts');
 });
 
+Route::group(['prefix' => 'doctors', 'as' => 'doctors.'], function () {
+    Route::get('/', 'Doctor\DoctorController@index')->name('index');
+    Route::get('/{user}', 'Doctor\DoctorController@show')->name('show');
+    Route::get('/{doctor_id}/rate/{rate}', 'RateController@rate')->name('rate');
+    Route::get('/{doctor_id}/ratecancel', 'RateController@rateCancel')->name('rateCancel');
+});
 Route::get('/specializations', 'SpecializationsController@index')->name('specializations');
 
 Route::get("locale/{locale}", function ($locale) {

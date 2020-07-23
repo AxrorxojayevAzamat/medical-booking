@@ -2952,7 +2952,7 @@ ul.legend li:last-child strong {
 
 ul.time_select.version_2 li {
   float: left;
-  width: 50%;
+  width: 100%;
 }
 ul.time_select li input[type="radio"] {
   display: none;
@@ -4753,6 +4753,7 @@ ul.bullets li:before {
 
 .add_top_20 {
   margin-top: 20px;
+  column-count: 2;
 }
 
 .add_top_30 {

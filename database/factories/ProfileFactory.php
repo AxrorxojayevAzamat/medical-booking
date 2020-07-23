@@ -1,7 +1,6 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-
 use App\Entity\User\Profile;
 use Faker\Generator as Faker;
 
@@ -15,8 +14,6 @@ $factory->define(Profile::class, function (Faker $faker) {
         'gender' => $gender,
         'about_uz' => $faker->text('150'),
         'about_ru' => $faker->text('150'),
-        'avatar' => $faker->imageUrl(),
+        'avatar' => $faker->randomElement(['','/img/avatar1.jpg','/img/avatar2.jpg','/img/avatar2.jpg','/img/avatar3.jpg','/img/avatar4.jpg','/img/avatar4.jpg','/img/avatar6.jpg']),
     ];
-
-
 });
