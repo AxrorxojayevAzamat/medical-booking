@@ -38,8 +38,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Clinic extends BaseModel
 {
-    public const CLINIC_PHOTOS = '/uploads/photo_clinics/';
-
     public const CLINIC_TYPE_PRIVATE = 1;
     public const CLINIC_TYPE_GOVERNMENT = 2;
 

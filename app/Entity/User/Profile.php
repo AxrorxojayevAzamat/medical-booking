@@ -16,8 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $gender
  * @property string $about_uz
  * @property string $about_ru
- * @property string $avatar
  * @property string $fullName
+ * @property int $main_photo_id
  *
  * @property User $user
  * @mixin Eloquent
@@ -27,14 +27,13 @@ class Profile extends Model
     const FEMALE = 1;
     const MALE = 2;
 
-    const USER_PROFILE = '/uploads/avatars/';
 
     protected $table = 'profiles';
     protected $primaryKey = 'user_id';
     public $timestamps = false;
 
     protected $fillable = [
-        'first_name', 'last_name', 'middle_name', 'birth_date', 'gender', 'about_uz', 'about_ru', 'avatar',
+        'first_name', 'last_name', 'middle_name', 'birth_date', 'gender', 'about_uz', 'about_ru', 'main_photo_id',
     ];
 
     protected $casts = [
@@ -68,6 +67,14 @@ class Profile extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+    public function photos()
+    {
+        return $this->hasMany(Photo::class, 'user_id', 'id')->whereKeyNot($this->main_photo_id)->orderBy('sort');
+    }
+    public function mainPhoto()
+    {
+        return $this->belongsTo(Photo::class, 'main_photo_id', 'id');
     }
 
     ###########################################
