@@ -7,8 +7,18 @@
             <div id="results">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <h4>{!! trans('doctors.showing_results', ['current' => $countCurrent, 'all' => $countAll]) !!}</h4>
+                        </div>
+                        <div class="col-md-3">
+                            <ul class="row">
+                                <li style="margin: auto 10px auto 30px;">
+                                    <a href="/doctors">Doctor</a>
+                                </li>
+                                <li style="margin: auto 10px;">
+                                    <a href="/clinics">Clinic</a>
+                                </li>
+                            </ul>
                         </div>
                         <div class="col-md-6">
                             <div class="search_bar_list">
@@ -104,13 +114,6 @@
     background-color: #3f4079;
 }
 
-<<<<<<< HEAD
-=======
-.filters_listing ul li.first:nth-child(1) {
-    display: block
-}
-
->>>>>>> c09b9d50fe8a785dd561197d12c256e7cda7df8b
 .filters_listing ul li {
     margin-right: 10px;
 }
