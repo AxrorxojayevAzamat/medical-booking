@@ -11,8 +11,15 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 
     Route::resource('users', 'UserController');
     Route::resource('specializations', 'SpecializationController');
-    Route::resource('clinic', 'ClinicController');
     Route::resource('celebration', 'CelebrationController');
+
+    Route::resource('clinics', 'Clinic\ClinicController');
+    Route::group(['prefix' => 'clinics/{clinic}', 'namespace' => 'Clinic', 'as' => 'clinics.'], function () {
+        Route::resource('contacts', 'ContactController')->except('index');
+        Route::get('main-photo', 'ClinicController@mainPhoto')->name('main-photo');
+        Route::post('add-main-photo', 'ClinicController@addMainPhoto')->name('add-main-photo');
+        Route::post('remove-main-photo', 'ClinicController@removeMainPhoto')->name('remove-main-photo');
+    });
 
     Route::group(
         ['prefix' => 'users', 'as' => 'users.'],
@@ -29,13 +36,6 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::group(['prefix' => 'region', 'as' => 'region.'], function () {
         Route::get('findCity/{id}', 'RegionController@findCity');
 
-    });
-
-
-    Route::group(['prefix' => 'clinic', 'as' => 'clinic.'], function () {
-        Route::get('{clinic}/main-photo', 'ClinicController@mainPhoto')->name('main-photo');
-        Route::post('{clinic}/add-main-photo', 'ClinicController@addMainPhoto')->name('add-main-photo');
-        Route::post('{clinic}/remove-main-photo', 'ClinicController@removeMainPhoto')->name('remove-main-photo');
     });
 
     Route::group(

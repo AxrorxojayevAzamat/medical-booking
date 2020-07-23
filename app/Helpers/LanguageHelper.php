@@ -37,6 +37,11 @@ class LanguageHelper
         return self::getAttribute($className, 'description', $lang) ?? '';
     }
 
+    public static function getAddress($className, $lang = null): string
+    {
+        return self::getAttribute($className, 'address', $lang) ?? '';
+    }
+
     public static function getContent($className, $lang = null): string
     {
         return self::getAttribute($className, 'content', $lang) ?? '';

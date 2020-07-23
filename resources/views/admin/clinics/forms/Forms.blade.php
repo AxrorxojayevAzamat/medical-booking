@@ -73,16 +73,6 @@
             </div>
         </div>
 
-        <div class="form-group row">
-            <label for="inputEmail3" class=" col-sm-5 col-form-label ">Телефон клиники </label>
-            <div class="col-sm-6 ">
-                <input name="phone_numbers" id="phone_numbers" type="text" class="form-control"
-                       data-inputmask="&quot;mask&quot;: &quot;(999) 99 999-9999&quot;" data-mask="" im-insert="true"
-                       value="{{ old('phone_numbers')?? $clinics->phone_numbers ??''}}" required>
-
-            </div>
-        </div>
-
 
         <div class="form-group row">
             <label for="inputEmail3" class=" col-sm-5 col-form-label ">Начало работы клиники </label>

@@ -17,7 +17,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $description_ru
  * @property int $region_id
  * @property int $type
- * @property string $phone_numbers
  * @property string $address_uz
  * @property string $address_ru
  * @property string $work_time_start
@@ -27,6 +26,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $created_by
  * @property int $updated_by
  *
+ * @property string $name
+ * @property string $description
+ *
+ * @property Contact[] $contacts
  * @property Region $region
  * @property DoctorClinic[] $doctorClinics
  * @property User[] $doctors
@@ -56,13 +59,11 @@ class Clinic extends BaseModel
         ];
     }
 
-    public function getNameAttribute(): string {
-        return LanguageHelper::getName($this);
+    public function typeName(): string
+    {
+        return self::clinicTypeList()[$this->type];
     }
 
-    public function getAddressAttribute(): string {
-        return LanguageHelper::getAddress($this);
-    }
 
     ########################################### Mutators
 
@@ -72,10 +73,20 @@ class Clinic extends BaseModel
         return LanguageHelper::getDescription($this);
     }
 
+    public function getAddressAttribute(): string
+    {
+        return LanguageHelper::getAddress($this);
+    }
+
     ###########################################
 
 
     ########################################### Relations
+
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class, 'clinic_id', 'id');
+    }
 
     public function region()
     {
