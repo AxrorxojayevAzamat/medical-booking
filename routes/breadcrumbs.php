@@ -123,9 +123,11 @@ Breadcrumbs::register('admin.clinic.main-photo', function (Crumbs $crumbs, Clini
     $crumbs->parent('admin.clinic.show', $clinic);
     $crumbs->push('Главное фото', route('admin.clinic.main-photo', $clinic));
 });
+
 Breadcrumbs::register('admin.clinic.photos', function (Crumbs $crumbs, Clinic $clinic) {
     $crumbs->parent('admin.clinic.show', $clinic);
     $crumbs->push('Добавление фотографий', route('admin.clinic.photos', $clinic));
+});
 // Clinic contacts
 Breadcrumbs::register('admin.clinics.contacts.create', function (Crumbs $crumbs, Clinic $clinic) {
     $crumbs->parent('admin.clinics.show', $clinic);
