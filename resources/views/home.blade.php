@@ -55,7 +55,7 @@
                 </div>
             </div>
         </div>
-        <p class="text-center"><a href="{{ route('book.index' ) }}" class="btn_1 medium">Find Doctor</a></p>
+        <p class="text-center"><a href="{{ route('doctors.index' ) }}" class="btn_1 medium">Find Doctor</a></p>
     </div>
 
     <div class="bg_color_1">

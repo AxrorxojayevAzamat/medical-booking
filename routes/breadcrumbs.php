@@ -25,6 +25,17 @@ Breadcrumbs::register('clinics.show', function (Crumbs $crumbs, Clinic $clinic) 
     $crumbs->push($clinic->name, route('clinics.show', $clinic));
 });
 
+// Doctors
+Breadcrumbs::register('doctors.index', function (Crumbs $crumbs) {
+    $crumbs->parent('home');
+    $crumbs->push('Докторы', route('doctors.index'));
+});
+
+Breadcrumbs::register('doctors.show', function (Crumbs $crumbs, User $doctor) {
+    $crumbs->parent('doctors.index');
+    $crumbs->push($doctor->profile->fullName, route('doctors.show', $doctor));
+});
+
 
 ///////////////////////////////// Admin
 

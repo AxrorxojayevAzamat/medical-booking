@@ -23,14 +23,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property User $updatedBy
  * @mixin Eloquent
  */
-class Specialization extends Model
-{
-    protected $table = 'specializations';
+class Specialization extends Model {
 
+    protected $table = 'specializations';
     protected $fillable = [
         'name_uz', 'name_ru',
     ];
-
 
     ########################################### Mutators
 
@@ -44,21 +42,17 @@ class Specialization extends Model
 
     ########################################### Relations
 
-    public function doctors()
-    {
+    public function doctors() {
         return $this->belongsToMany(User::class, 'doctor_specializations', 'specialization_id', 'doctor_id');
     }
 
-    public function createdBy()
-    {
+    public function createdBy() {
         return $this->belongsTo(User::class, 'created_by', 'id');
     }
 
-    public function updatedBy()
-    {
+    public function updatedBy() {
         return $this->belongsTo(User::class, 'updated_by', 'id');
     }
 
     ###########################################
-
 }
