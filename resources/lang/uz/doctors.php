@@ -12,6 +12,10 @@ return [
     'proff_statements' => 'Professional bayonot',
     'reviews' => 'Sharhlar',
     'specs' => 'Ixtisosliklar',
+    'average_rating' => 'O\'rtacha reyting:',
+    'total_num' => 'Ovozlar soni:',
+    'rate'=>'Ovoz bering',
+    'cancel_rate'=>'Ovozni bekor qilish'
 
 
 ];

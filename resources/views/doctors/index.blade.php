@@ -137,7 +137,7 @@
                         
                         <?php $average = number_format($doctorValue->profile->rate/($doctorValue->profile->num_of_rates?:1), 1, '.', ''); ?>
                             
-                        <span class="rating">Average rating: {{ $average }} <small>({{ $doctorValue->profile->num_of_rates }})</small></span>
+                        <span class="rating">{{trans('doctors.average_rating')}} {{ $average }} <small>({{ $doctorValue->profile->num_of_rates }})</small></span>
                         @if($average>4 && $average<=5)
                         <img src="{{URL::to('img/badges/badge_1.svg')}}" width="15" height="15" alt="">
                         @elseif($average>3 && $average<=4)

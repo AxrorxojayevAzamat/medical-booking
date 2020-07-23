@@ -24,23 +24,23 @@
                         @endforeach
                         <h1>{{$user->profile ? $user->profile->fullName : ''}}</h1>
 
-                        <h6>Average Doctor rating</h6>
+                        <h6>{{trans('doctors.average_rating')}} </h6>
                         <?php $average = number_format($user->profile->rate/($user->profile->num_of_rates?:1), 1, '.', ''); ?>
                         <h2 class="bold padding-bottom-7">{{ $average }} <small>/ 5.0</small></h2>
                         <ul class="statistic">
-                            <li>Total number: {{ $user->profile->num_of_rates }}</li>
+                            <li>{{trans('doctors.total_num')}} {{ $user->profile->num_of_rates }}</li>
                         </ul>
 
                         @if(!$ratecheck)
                         <div class="">
-                            <label>Rate:</label>
+                            <label>{{trans('doctors.rate')}}</label>
                             @for($i=0;$i<5;$i++)
                                 <a href="{{ route('doctors.rate',['doctor_id'=>$user->id,'rate'=>$i+1]) }}" class="icon_star" style="color: #e4e43f" aria-label="Left Align"> 
                             </a>
                             @endfor
                         </div>
                         @else
-                            <a href="{{ route('doctors.rateCancel',['doctor_id'=>$user->id]) }}" class="btn btn-danger btn-sm">Cancel Rate</a>
+                            <a href="{{ route('doctors.rateCancel',['doctor_id'=>$user->id]) }}" class="btn btn-danger btn-sm">{{trans('doctors.cancel_rate')}}</a>
                             <br>
                         @endif
                             <br>
@@ -132,7 +132,7 @@
                                                         @endfor
                                                     </div>
                                                     <br>
-                                                    <small>Based on {{$user->profile->num_of_rates}} reviews</small>
+                                                    <small>{{trans('doctors.total_num')}} {{$user->profile->num_of_rates}} </small>
                                                 </div>
                                             </div>
                                             <div class="col-lg-9">
