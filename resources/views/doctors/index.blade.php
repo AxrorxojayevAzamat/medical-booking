@@ -11,10 +11,10 @@
                     </div>
                     <div class="col-md-3">
                         <ul class="row">
-                            <li style="margin: auto 10px auto 30px;">
+                            <li class="{{ Request::is('doctors*') ? 'active' : '' }}" style="margin: auto 10px auto 30px;">
                                 <a href="{{ route('doctors.index') }}">Doctor</a>
                             </li>
-                            <li style="margin: auto 10px;">
+                            <li class="{{ Request::is('clinics*') ? 'active' : '' }}" style="margin: auto 10px;">
                                 <a href="{{ route('clinics.index') }}">Clinic</a>
 
                             </li>

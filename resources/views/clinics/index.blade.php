@@ -5,15 +5,15 @@
         <div id="results" style="padding: 0 0 20px 0;">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <h4>{!! trans('doctors.showing_results', ['current' => $countCurrent, 'all' => $countAll]) !!}</h4>
                     </div>
                     <div class="col-md-3">
                         <ul class="row">
-                            <li style="margin: auto 10px auto 30px;">
+                            <li class="{{ Request::is('doctors*') ? 'active' : '' }}" style="margin: auto 10px auto 30px;">
                                 <a href="{{ route('doctors.index') }}">Doctor</a>
                             </li>
-                            <li style="margin: auto 10px;">
+                            <li class="{{ Request::is('clinics*') ? 'active' : '' }}" style="margin: auto 10px;">
                                 <a href="{{ route('clinics.index') }}">Clinic</a>
                             </li>
                         </ul>
