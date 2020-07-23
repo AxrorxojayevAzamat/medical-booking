@@ -149,10 +149,6 @@
                         @elseif($average>0 && $average<=1)
                         <img src="{{URL::to('img/badges/badge_5.svg')}}" width="15" height="15" alt="">
                         @endif
-
-                        <h3><a href="{{ route('doctors.show',$doctorValue) }}">{{$doctorValue->profile ? $doctorValue->profile->fullName : ''}}</a></h3>
-                        <p>{{$doctorValue->profile ? substr($doctorValue->profile->about, 0, 120) . ' . . . ' : ''}}</p>
-
                         <ul>
                             @if(empty($doctorValue->clinics->pluck('location')->toArray()))
                             <li><a href="#0" onclick="initMap()" class="btn_listing"></a></li>
