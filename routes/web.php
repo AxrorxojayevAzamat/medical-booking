@@ -104,6 +104,8 @@ Route::group(['prefix' => 'contacts', 'as' => 'contacts.'], function () {
         Route::post('', 'ContactsController@contacts')->name('postContacts');
 });
 
+Route::get('/specializations', 'SpecializationsController@index')->name('specializations');
+
 Route::get("locale/{locale}", function ($locale) {
     Session::put('locale', $locale);
 
