@@ -67,6 +67,10 @@ class Clinic extends BaseModel
 
     ########################################### Mutators
 
+    public function getNameAttribute(): string
+    {
+        return LanguageHelper::getName($this);
+    }
 
     public function getDescriptionAttribute(): string
     {

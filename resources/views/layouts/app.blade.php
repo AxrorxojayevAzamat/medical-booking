@@ -48,7 +48,7 @@
 
             <div class="col-lg-3 col-6">
                 <div id="logo_home">
-                    <h1><a href="{{ url('/') }}" title="Findoctor">Findoctor</a></h1>
+                    <h1><a href="" title="Findoctor">Findoctor</a></h1>
                 </div>
             </div>
 
@@ -85,13 +85,13 @@
                 <div class="main-menu">
                     <ul>
                         <li class="submenu">
-                            <a href="?" class="show-submenu">Doctor List</a>
+                            <a href="{{ route('doctors.index') }}" class="show-submenu">Докторы</a>
                         </li>
                         <li class="submenu">
-                            <a href="#" class="show-submenu">Lang<i class="icon-down-open-mini"></i></a>
+                            <a href="#" class="show-submenu">Язык<i class="icon-down-open-mini"></i></a>
                             <ul>
                                 <li><a href="/locale/uz">Uz</a></li>
-                                <li><a href="/locale/ru">Ru</a></li>
+                                <li><a href="/locale/ru">Ру</a></li>
                             </ul>
                         </li>
 
@@ -115,28 +115,30 @@
         <div class="row">
             <div class="col-lg-3 col-md-12">
                 <p>
-                    <a href="index.html" title="Findoctor">
+                    <a href="" title="Findoctor">
                         <img src="img/logo.png" data-retina="true" alt="" width="163" height="36" class="img-fluid">
                     </a>
                 </p>
             </div>
             <div class="col-lg-3 col-md-4">
-                <h5>О нас</h5>
+                <h5>Компани</h5>
                 <ul class="links">
-                    <li><a href="#0">About us</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="#0">FAQ</a></li>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="register.html">Register</a></li>
+                    <li><a href="#0">О нас</a></li>
+                    <li><a href="blog.html">Блог</a></li>
+                    <li><a href="#0">ЧАВО</a></li>
+                    @if (Auth::guest())
+                        <li><a href="/login">Войти</a></li>
+                        <li><a href="/register">Регистрироваться</a></li>
+                    @endif
                 </ul>
             </div>
             <div class="col-lg-3 col-md-4">
                 <h5>Полезные ссылки</h5>
                 <ul class="links">
-                    <li><a href="#0">Докторы</a></li>
+                    <li><a href="{{ route('doctors.index') }}">Докторы</a></li>
                     <li><a href="{{ route('clinics.index') }}">Клиники</a></li>
-                    <li><a href="#0">Specialization</a></li>
-                    <li><a href="#0">Join as a Doctor</a></li>
+                    <li><a href="#0">Специализации</a></li>
+                    <li><a href="#0">Присоедиться как Доктор</a></li>
                 </ul>
             </div>
             <div class="col-lg-3 col-md-4">
@@ -161,8 +163,8 @@
         <div class="row">
             <div class="col-md-8">
                 <ul id="additional_links">
-                    <li><a href="#0">Terms and conditions</a></li>
-                    <li><a href="#0">Privacy</a></li>
+                    <li><a href="#0">Правила и условия</a></li>
+                    <li><a href="#0">Конфиденциальность</a></li>
                 </ul>
             </div>
             <div class="col-md-4">

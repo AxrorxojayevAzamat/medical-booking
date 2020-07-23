@@ -10,7 +10,7 @@
             <form method="GET" id="main-form">
                 <div id="custom-search-input">
                     <div class="input-group">
-                        <input type="text" name="" id="main-form-text" class="search-query" placeholder="Название, Имя ....">
+                        <input type="text" id="main-form-text" class="search-query" placeholder="Название, Имя ....">
                         <input type="submit" id="main-search-button" class="btn_search" value="Search">
                     </div>
                     <ul>
@@ -65,60 +65,27 @@
                 <p>Usu habeo equidem sanctus no. Suas summo id sed, erat erant oporteat cu pri.</p>
             </div>
 
-
-
             <div id="reccomended" class="owl-carousel owl-theme">
-                <div class="item">
-                    <a href="detail-page.html">
-                        <div class="views"><i class="icon-eye-7"></i>140</div>
-                        <div class="title">
-                            <h4>Dr. Julia Holmes<em>Pediatrician - Cardiologist</em></h4>
-                        </div>
-                        <img src="http://via.placeholder.com/350x500.jpg" alt="">
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="detail-page.html">
-                        <div class="views"><i class="icon-eye-7"></i>120</div>
-                        <div class="title">
-                            <h4>Dr. Julia Holmes<em>Pediatrician</em></h4>
-                        </div>
-                        <img src="http://via.placeholder.com/350x500.jpg" alt="">
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="detail-page.html">
-                        <div class="views"><i class="icon-eye-7"></i>115</div>
-                        <div class="title">
-                            <h4>Dr. Julia Holmes<em>Pediatrician</em></h4>
-                        </div>
-                        <img src="http://via.placeholder.com/350x500.jpg" alt="">
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="detail-page.html">
-                        <div class="views"><i class="icon-eye-7"></i>98</div>
-                        <div class="title">
-                            <h4>Dr. Julia Holmes<em>Pediatrician</em></h4>
-                        </div>
-                        <img src="http://via.placeholder.com/350x500.jpg" alt="">
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="detail-page.html">
-                        <div class="views"><i class="icon-eye-7"></i>98</div>
-                        <div class="title">
-                            <h4>Dr. Julia Holmes<em>Pediatrician</em></h4>
-                        </div>
-                        <img src="http://via.placeholder.com/350x500.jpg" alt="">
-                    </a>
-                </div>
+                @foreach($bestRatedDoctors as $doctor)
+                    <div class="item">
+                        <a href="{{ route('doctors.show', $doctor) }}">
+                            <div class="views"><i class="icon-eye-7"></i>140</div>
+                            <div class="title">
+                                <h4>{{ $doctor->profile->fullName }}
+                                    <em>
+                                        @foreach($doctor->specializations as $specialization)
+                                            {{ $specialization->name }}<br>
+                                        @endforeach
+                                    </em>
+                                </h4>
+                            </div>
+                            <img src="{{ $doctor->profile->avatar ? $doctor->profile->image : 'http://via.placeholder.com/350x500.jpg' }}" alt="">
+                        </a>
+                    </div>
+                @endforeach
             </div>
-            <!-- /carousel -->
         </div>
-        <!-- /container -->
     </div>
-    <!-- /white_bg -->
 
     <div class="container margin_120_95">
         <div class="main_title">
@@ -134,9 +101,9 @@
                     </div>
                     <ul>
                         @foreach($regions as $region)
-                            <li><a href="{{ route('clinics.index') . '?region=' . $region->id }}"><strong>23</strong>{{ $region->name }}</a></li>
+                            <li><a href="{{ route('doctors.index') . '?region=' . $region->id }}"><strong>23</strong>{{ $region->name }}</a></li>
                         @endforeach
-                        <li><a href="{{ route('book.index') }}">Больше...</a></li>
+                        <li><a href="{{ route('doctors.index') }}">Больше...</a></li>
                     </ul>
                 </div>
             </div>
@@ -148,17 +115,13 @@
                     </div>
                     <ul>
                         @foreach($specializations as $specialization)
-                            <li><a href="{{ route('book.index') . '?specialization=' . $specialization->id }}"><strong>23</strong>{{ $specialization->name }}</a></li>
+                            <li>
+                                <a href="{{ route('doctors.index') . '?specialization=' . $specialization->id }}">
+                                    <strong>{{ $specialization->doctors()->count() }}</strong>{{ $specialization->name }}
+                                </a>
+                            </li>
                         @endforeach
-{{--                        <li><a href="#0"><strong>23</strong>Cardiologist</a></li>--}}
-{{--                        <li><a href="#0"><strong>23</strong>Chiropractor</a></li>--}}
-{{--                        <li><a href="#0"><strong>23</strong>Dentist</a></li>--}}
-{{--                        <li><a href="#0"><strong>23</strong>Dermatologist</a></li>--}}
-{{--                        <li><a href="#0"><strong>23</strong>Gastroenterologist</a></li>--}}
-{{--                        <li><a href="#0"><strong>23</strong>Ophthalmologist</a></li>--}}
-{{--                        <li><a href="#0"><strong>23</strong>Optometrist</a></li>--}}
-{{--                        <li><a href="#0"><strong>23</strong>Pediatrician</a></li>--}}
-                        <li><a href="{{ route('book.index') }}">Больше....</a></li>
+                        <li><a href="{{ route('doctors.index') }}">Больше....</a></li>
                     </ul>
                 </div>
             </div>
@@ -214,7 +177,7 @@
                 if (doctorRadioSearch.is(':checked')) {
                     console.log('Doctor Button is pressed!!!');
                     mainFormText.attr('name', 'full_name')
-                    mainForm.attr('action', '{{ route('book.index') }}').submit();
+                    mainForm.attr('action', '{{ route('doctors.index') }}').submit();
                 } else {
                     console.log('Clinic Button is pressed!!!');
                     mainFormText.attr('name', 'name')

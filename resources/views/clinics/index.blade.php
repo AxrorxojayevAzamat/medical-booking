@@ -1,45 +1,48 @@
 @extends('layouts.app')
 
 @section('content')
-    <div id="results" style="padding: 0 0 20px 0;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h4>{!! trans('doctors.showing_results', ['current' => $countCurrent, 'all' => $countAll]) !!}</h4>
+    <form action="?" method="GET">
+        <div id="results" style="padding: 0 0 20px 0;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>{!! trans('doctors.showing_results', ['current' => $countCurrent, 'all' => $countAll]) !!}</h4>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="search_bar_list">
+                            <input type="text" class="form-control" name="name" placeholder="{{trans('doctors.search_placeholder')}}" aria-label="Search" value="{{ request('name') }}">
+                            <input type="submit" value="{{trans('adminlte.search')}}">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-            <div class="filters_listing">
-                <div class="container">
-                    <form action="?" method="GET">
-                        <ul class="clearfix row d-flex justify-content-center">
-                            <li class="first">
-                                <h6>Поиск по названии...</h6>
-                                <div class="form-group">
-                                    <input class="form-control" name="name" type="search" placeholder="Название" aria-label="Search" value="{{ request('name') }}">
-                                </div>
-                            </li>
-                            <li>
-                                <h6>Поиск по регионам...</h6>
-                                <select id="region_id" name="region">
-                                    <option value=""></option>
-                                    @foreach ($regions as $value => $label)
-                                        <option value="{{ $value }}"{{ $value == request('region') ? ' selected' : '' }}>{{ $label }}</option>
-                                    @endforeach
-                                </select>
-                            </li>
-                            <li>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-search">Искать</button>
-                                    <a href="?" class="btn btn-clear">Очистить</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </form>
-                </div>
+        <div class="filters_listing">
+            <div class="container">
+                <ul class="clearfix row d-flex justify-content-center">
+                    <li class="first">
+                    </li>
+                    <li>
+                        <h6>Поиск по регионам...</h6>
+                        <select id="region_id" name="region">
+                            <option value=""></option>
+                            @foreach ($regions as $value => $label)
+                                <option value="{{ $value }}"{{ $value == request('region') ? ' selected' : '' }}>{{ $label }}</option>
+                            @endforeach
+                        </select>
+                    </li>
+                    <li>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-search">Искать</button>
+                            <a href="?" class="btn btn-clear">Очистить</a>
+                        </div>
+                    </li>
+                </ul>
             </div>
+        </div>
+    </form>
 
     <div class="container margin_60_35">
         <div class="row">
