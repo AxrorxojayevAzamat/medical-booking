@@ -8,7 +8,16 @@
                     <div class="col-md-6">
                         <h4>{!! trans('doctors.showing_results', ['current' => $countCurrent, 'all' => $countAll]) !!}</h4>
                     </div>
-
+                    <div class="col-md-3">
+                        <ul class="row">
+                            <li style="margin: auto 10px auto 30px;">
+                                <a href="{{ route('doctors.index') }}">Doctor</a>
+                            </li>
+                            <li style="margin: auto 10px;">
+                                <a href="{{ route('clinics.index') }}">Clinic</a>
+                            </li>
+                        </ul>
+                    </div>
                     <div class="col-md-6">
                         <div class="search_bar_list">
                             <input type="text" class="form-control" name="name" placeholder="{{trans('doctors.search_placeholder')}}" aria-label="Search" value="{{ request('name') }}">
@@ -94,10 +103,6 @@
     <style>
 .filters_listing {
     background-color: #3f4079;
-}
-
-.filters_listing ul li.first:nth-child(1) {
-    display: block
 }
 
 .filters_listing ul li {

@@ -12,12 +12,11 @@
                     <div class="col-md-3">
                         <ul class="row">
                             <li style="margin: auto 10px auto 30px;">
-                                <input type="radio" id="doctor" name="radio_search" value="doctor" checked>
-                                <label for="doctor">Doctor</label>
+                                <a href="{{ route('doctors.index') }}">Doctor</a>
                             </li>
                             <li style="margin: auto 10px;">
-                                <input type="radio" id="clinic" name="radio_search" value="clinic">
-                                <label for="clinic">Clinic</label>
+                                <a href="{{ route('clinics.index') }}">Clinic</a>
+
                             </li>
                         </ul>
                     </div>
@@ -35,9 +34,7 @@
             <div class="container-fluid">
                 <ul class="clearfix row d-flex justify-content-center">
                     <li>
-                    </li>
-                    <li style="margin-right: 10px">
-                        <h6>Поиск по клиником...</h6>
+                        <h6>Поиск по клиникам...</h6>
                         <div class="form-group">
                             <select id="clinic_id" name="clinic">
                                 <option value=""></option>
@@ -46,8 +43,8 @@
                                 @endforeach
                             </select>
                         </div>
-                    </li >
-                    <li>
+                    </li>
+                    <li style="margin-right: 10px">
                         <h6>Поиск по регионам...</h6>
                         <select id="region_id" name="region">
                             <option value=""></option>
