@@ -1,11 +1,11 @@
 <?php
 
-
 namespace App\Entity\User;
 
 use Carbon\Carbon;
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
+use App\Helpers\LanguageHelper;
 
 /**
  * @property int $user_id
@@ -27,15 +27,12 @@ class Profile extends Model
     const FEMALE = 1;
     const MALE = 2;
 
-
     protected $table = 'profiles';
     protected $primaryKey = 'user_id';
     public $timestamps = false;
-
     protected $fillable = [
         'first_name', 'last_name', 'middle_name', 'birth_date', 'gender', 'about_uz', 'about_ru', 'main_photo_id',
     ];
-
     protected $casts = [
         'birth_date' => 'datetime',
     ];
@@ -61,6 +58,10 @@ class Profile extends Model
         return "$this->last_name $this->first_name";
     }
 
+    public function getAboutAttribute(): string
+    {
+        return LanguageHelper::getAbout($this);
+    }
 
     ########################################### Relations
 

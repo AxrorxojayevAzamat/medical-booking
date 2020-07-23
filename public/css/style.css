@@ -589,7 +589,7 @@ ul#top_access li#user figure img {
   width: 163px;
   height: 36px;
   display: block;
-  background: url(../img/logo.png) no-repeat 0 0;
+  background: url("../img/logo.png") no-repeat 0 0;
   background-size: 163px 36px;
   text-indent: -9999px;
 }
@@ -2952,7 +2952,7 @@ ul.legend li:last-child strong {
 
 ul.time_select.version_2 li {
   float: left;
-  width: 50%;
+  width: 100%;
 }
 ul.time_select li input[type="radio"] {
   display: none;
@@ -4753,6 +4753,7 @@ ul.bullets li:before {
 
 .add_top_20 {
   margin-top: 20px;
+  column-count: 2;
 }
 
 .add_top_30 {

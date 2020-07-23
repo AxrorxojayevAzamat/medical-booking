@@ -32,8 +32,8 @@
         <div class="form-group row">
             <label for="inputEmail3" class="col-sm-5 col-form-label">Адресс клиники(узбекское)</label>
             <div class="col-sm-6">
-                <textarea name="adress_uz" rows="3" type="text" class="form-control"
-                          placeholder="..." required>{{ old('adress_uz')?? $clinics->adress_uz ??''}}</textarea>
+                <textarea name="address_uz" rows="3" type="text" class="form-control"
+                          placeholder="..." required>{{ old('address_uz')?? $clinics->address_uz ??''}}</textarea>
 
             </div>
         </div>
@@ -41,8 +41,8 @@
         <div class="form-group row">
             <label for="inputEmail3" class=" col-sm-5 col-form-label">Адресс клиники(русское) </label>
             <div class="col-sm-6 ">
-                <textarea name="adress_ru" rows="3" type="text" class="form-control"
-                          placeholder="..." required>{{ old('adress_ru')?? $clinics->adress_ru ??''}}</textarea>
+                <textarea name="address_ru" rows="3" type="text" class="form-control"
+                          placeholder="..." required>{{ old('address_ru')?? $clinics->address_ru ??''}}</textarea>
             </div>
         </div>
 

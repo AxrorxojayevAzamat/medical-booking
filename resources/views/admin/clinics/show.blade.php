@@ -65,7 +65,7 @@
                     <div class="form-group row">
                         <label for="inputEmail3" class="col-sm-5 col-form-label">Адресс клиники(uz)</label>
                         <div class="col-sm-6 form-control">
-                            {{$clinic->address_uz}}
+                            {{  $clinic->address_uz }}
                         </div>
                     </div>
 
