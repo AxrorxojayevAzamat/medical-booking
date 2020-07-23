@@ -11,9 +11,25 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 
     Route::resource('users', 'UserController');
     Route::resource('specializations', 'SpecializationController');
-    Route::resource('clinic', 'ClinicController');
     Route::resource('celebration', 'CelebrationController');
     Route::resource('partners', 'PartnerController');
+
+    Route::resource('clinics', 'Clinic\ClinicController');
+    Route::group(['prefix' => 'clinics/{clinic}', 'namespace' => 'Clinic', 'as' => 'clinics.'], function () {
+        Route::resource('contacts', 'ContactController')->except('index');
+        //MainPhoto
+        Route::get('main-photo', 'ClinicController@mainPhoto')->name('main-photo');
+        Route::post('add-main-photo', 'ClinicController@addMainPhoto')->name('add-main-photo');
+        Route::post('remove-main-photo', 'ClinicController@removeMainPhoto')->name('remove-main-photo');
+        //Photos
+        Route::get('photos', 'ClinicController@photos')->name('photos');
+        Route::post('add-photo', 'ClinicController@addPhoto')->name('add-photo');
+        Route::post('remove-photo/{photo}', 'ClinicController@removePhoto')->name('remove-photo');
+        //Sorting
+        Route::get('move-photo-up/{photo}', 'ClinicController@movePhotoUp')->name('move-photo-up');
+        Route::get('remove-photo/{photo}', 'ClinicController@removePhoto')->name('delete-photo');
+        Route::get('move-photo-down/{photo}', 'ClinicController@movePhotoDown')->name('move-photo-down');
+    });
 
     Route::group(
         ['prefix' => 'users/{user}', 'as' => 'users.'],
@@ -41,21 +57,6 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('/regions', 'RegionController');
     Route::group(['prefix' => 'region', 'as' => 'region.'], function () {
         Route::get('findCity/{id}', 'RegionController@findCity');
-    });
-
-
-    Route::group(['prefix' => 'clinic/{clinic}', 'as' => 'clinic.'], function () {
-        Route::get('main-photo', 'ClinicController@mainPhoto')->name('main-photo');
-        Route::post('add-main-photo', 'ClinicController@addMainPhoto')->name('add-main-photo');
-        Route::post('remove-main-photo', 'ClinicController@removeMainPhoto')->name('remove-main-photo');
-        //Photos
-        Route::get('photos', 'ClinicController@photos')->name('photos');
-        Route::post('add-photo', 'ClinicController@addPhoto')->name('add-photo');
-        Route::post('remove-photo/{photo}', 'ClinicController@removePhoto')->name('remove-photo');
-        //Sorting
-        Route::get('move-photo-up/{photo}', 'ClinicController@movePhotoUp')->name('move-photo-up');
-        Route::get('remove-photo/{photo}', 'ClinicController@removePhoto')->name('delete-photo');
-        Route::get('move-photo-down/{photo}', 'ClinicController@movePhotoDown')->name('move-photo-down');
     });
 
     Route::group(

@@ -36,6 +36,19 @@ class Photo extends BaseModel
     ];
 
 
+    ########################################### Accessors
+    public function getFileThumbnailAttribute(): string
+    {
+        return '/storage/images/' . ImageHelper::FOLDER_CLINICS . '/' . $this->clinic_id . '/' . ImageHelper::TYPE_THUMBNAIL . '/' . $this->filename;
+    }
+
+    public function getFileOriginalAttribute(): string
+    {
+        return '/storage/images/' . ImageHelper::FOLDER_CLINICS . '/' . $this->clinic_id . '/' . ImageHelper::TYPE_ORIGINAL . '/' . $this->filename;
+    }
+    ###########################################
+
+
     ########################################### Relations
 
     public function clinic()
@@ -60,18 +73,6 @@ class Photo extends BaseModel
     public function isIdEqualTo($id): bool
     {
         return $this->id == $id;
-    }
-    ###########################################
-
-    ########################################### Accessors
-    public function getFileThumbnailAttribute(): string
-    {
-        return '/storage/images/' . ImageHelper::FOLDER_CLINICS . '/' . $this->clinic_id . '/' . ImageHelper::TYPE_THUMBNAIL . '/' . $this->filename;
-    }
-
-    public function getFileOriginalAttribute(): string
-    {
-        return '/storage/images/' . ImageHelper::FOLDER_CLINICS . '/' . $this->clinic_id . '/' . ImageHelper::TYPE_ORIGINAL . '/' . $this->filename;
     }
     ###########################################
 }

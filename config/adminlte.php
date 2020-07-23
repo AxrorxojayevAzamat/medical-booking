@@ -208,8 +208,8 @@ return [
         ],
         [
             'text' => 'Клиники',
-            'icon' => 'fas fa-fw fa-clinic-medical',
-            'url' => 'admin/clinic',
+            'icon' => 'fas fa-fw fa-share',
+            'url' => 'admin/clinics',
         ],
         [
             'text' => 'CallCenter',

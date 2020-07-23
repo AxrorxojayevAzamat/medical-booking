@@ -42,8 +42,8 @@
                     <div class="card-body">
                         <table class="table {{--table-bordered--}} table-striped projects">
                             <tbody>
-                            <tr><th>Добавил</th><td>{{ $news->createdBy->name }}</td></tr>
-                            <tr><th>Редактировал</th><td>{{ $news->updatedBy->name }}</td></tr>
+                            <tr><th>Добавил</th><td>{{ $news->createdBy->email }}</td></tr>
+                            <tr><th>Редактировал</th><td>{{ $news->updatedBy->email }}</td></tr>
                             <tr><th>Добавлено</th><td>{{ $news->created_at }}</td></tr>
                             <tr><th>Редактировано</th><td>{{ $news->updated_at }}</td></tr>
                             </tbody>

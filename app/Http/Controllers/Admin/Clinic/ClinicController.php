@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Clinic;
 
 use App\Entity\Region;
 use App\Entity\Clinic\Photo;
@@ -16,9 +16,10 @@ class ClinicController extends Controller
 
     public function __construct(ClinicService $service)
     {
+        $this->middleware('can:manage-clinics');
         $this->service = $service;
     }
-   
+
     public function index(Request $request)
     {
         $query = Clinic::orderBy('id');
@@ -49,17 +50,30 @@ class ClinicController extends Controller
     {
         try {
             $clinics = $this->service->create($request);
-            return redirect()->route('admin.clinic.index')->with('success', 'Успешно!');
+            return redirect()->route('admin.clinics.index')->with('success', 'Успешно!');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
+        $clinics = new Clinic();
+        $clinics->name_uz = $request->name_uz;
+        $clinics->name_ru = $request->name_ru;
+        $clinics->region_id = $request->region_id;
+        $clinics->type = $request->type;
+        $clinics->description_uz = $request->description_uz;
+        $clinics->description_ru = $request->description_ru;
+        $clinics->address_uz = $request->adress_uz;
+        $clinics->address_ru = $request->adress_ru;
+        $clinics->work_time_start = $request->work_time_start;
+        $clinics->work_time_end = $request->work_time_end;
+        $clinics->location = $request->location;
+
+        $clinics->save();
     }
 
     public function show(Clinic $clinic)
     {
-        $clinic = Clinic::find($clinic->id);
-        $regions = Region::all();
-        return view('admin.clinics.show', compact('clinic', 'regions'));
+        $contacts = $clinic->contacts()->orderBy('type')->get();
+        return view('admin.clinics.show', compact('clinic', 'contacts'));
     }
 
     public function edit(Clinic $clinic)
@@ -71,22 +85,31 @@ class ClinicController extends Controller
 
     public function update(ClinicRequest $request, $id)
     {
-        try {
-            $clinic = $this->service->update($id, $request);
-            return redirect()->route('admin.clinic.show', $clinic)->with('success', 'Успешно!');
-        } catch (\Exception $e) {
-            return back()->with('error', $e->getMessage());
-        }
+        $clinics = Clinic::find($id);
+
+        $clinics->name_uz = $request->name_uz;
+        $clinics->name_ru = $request->name_ru;
+        $clinics->region_id = $request->region_id;
+        $clinics->type = $request->type;
+        $clinics->description_uz = $request->description_uz;
+        $clinics->description_ru = $request->description_ru;
+        $clinics->address_uz = $request->address_uz;
+        $clinics->address_ru = $request->address_ru;
+        $clinics->work_time_start = $request->work_time_start;
+        $clinics->work_time_end = $request->work_time_end;
+        $clinics->location = $request->location;
+
+        $clinics->update();
+        $id = $clinics->id;
+
+        return redirect()->route('admin.clinics.index', compact('id'))->with('success', 'Отредактировано!');
     }
 
     public function destroy(Clinic $clinic)
     {
-        $clinic = Clinic::findorFail($clinic->id);
-        $photo = $this->service->multiplePhotoDelete($clinic);
-        if ($photo==true) {
-            $clinic->delete();
-        }
-        return redirect()->route('admin.clinic.index')->with('success', 'Удалено!');
+        $clinics = Clinic::find($clinic->id);
+        $clinics->delete();
+        return redirect()->back();
     }
 
     public function mainPhoto(Clinic $clinic)
@@ -109,7 +132,7 @@ class ClinicController extends Controller
             $this->validate($request, ['photo' => 'required|image|mimes:jpg,jpeg,png']);
             $this->service->addMainPhoto($clinic->id, $request->photo);
 
-            return redirect()->route('admin.clinic.show', $clinic)->with('success', 'Успешно сохранено!');
+            return redirect()->route('admin.clinics.show', $clinic)->with('success', 'Успешно сохранено!');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
