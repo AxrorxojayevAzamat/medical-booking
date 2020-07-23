@@ -61,6 +61,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->isAdmin();
         });
 
+        Gate::define('manage-clinics', function (User $user) {
+            return $user->isAdmin();
+        });
+
 
     }
 }

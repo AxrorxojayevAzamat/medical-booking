@@ -16,12 +16,12 @@
             <input type="submit" class="btn_search" value="Search">
           </div>
           <ul>
-            <li>
+            {{-- <li>
               <input type="radio" id="all" name="radio_search" value="all" checked>
               <label for="all">All</label>
-            </li>
+            </li> --}}
             <li>
-              <input type="radio" id="doctor" name="radio_search" value="doctor">
+              <input type="radio" id="doctor" name="radio_search" value="doctor" checked>
               <label for="doctor">Doctor</label>
             </li>
             <li>

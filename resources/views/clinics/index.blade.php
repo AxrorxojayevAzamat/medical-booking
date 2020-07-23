@@ -24,7 +24,7 @@
                 <div class="container">
                     <form action="?" method="GET">
                         <ul class="clearfix row d-flex justify-content-center">
-                            <li>
+                            <li class="first">
                                 <h6>Поиск по названии...</h6>
                                 <div class="form-group">
                                     <input class="form-control" name="name" type="search" placeholder="Название" aria-label="Search" value="{{ request('name') }}">
@@ -104,6 +104,13 @@
     background-color: #3f4079;
 }
 
+<<<<<<< HEAD
+=======
+.filters_listing ul li.first:nth-child(1) {
+    display: block
+}
+
+>>>>>>> c09b9d50fe8a785dd561197d12c256e7cda7df8b
 .filters_listing ul li {
     margin-right: 10px;
 }

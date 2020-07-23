@@ -19,9 +19,8 @@ class CreateClinicsTable extends Migration
             $table->string('name_ru');
             $table->tinyInteger('region_id');
             $table->tinyInteger('type')->nullable();
-            $table->string('description_uz')->nullable();
-            $table->string('description_ru')->nullable();
-            $table->string('phone_numbers')->nullable();
+            $table->text('description_uz')->nullable();
+            $table->text('description_ru')->nullable();
             $table->string('address_uz')->nullable();
             $table->string('address_ru')->nullable();
             $table->string('work_time_start')->nullable();
@@ -32,6 +31,7 @@ class CreateClinicsTable extends Migration
 
             $table->timestamps();
         });
+
         Schema::table('clinics', function (Blueprint $table) {
             $table->foreign('region_id')->references('id')->on('regions')->onDelete('restrict');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('restrict');
