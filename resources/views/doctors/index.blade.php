@@ -13,12 +13,15 @@
                     <div class="col-md-3">
                         <ul class="row">
                             <li style="margin: auto 10px auto 30px;">
-                                <input type="radio" id="doctor" name="radio_search" value="doctor" checked>
-                                <label for="doctor">Doctor</label>
+                                {{-- <input type="radio" id="doctor" name="radio_search" value="doctor" checked>
+                                <label for="doctor"></label> --}}
+                                <a href="/doctors">Doctor</a>
                             </li>
                             <li style="margin: auto 10px;">
-                                <input type="radio" id="clinic" name="radio_search" value="clinic">
-                                <label for="clinic">Clinic</label>
+                                {{-- <input type="radio" id="clinic" name="radio_search" value="clinic">
+                                <label for="clinic">Clinic</label> --}}
+                                <a href="/clinics">Clinic</a>
+
                             </li>
                         </ul>
                     </div>
@@ -44,13 +47,13 @@
                                 <a href="list-map.html"><i class="icon-map-1"></i></a>
                             </div>
                         </li> --}}
-                        <li>
+                        {{-- <li>
                             <h6>Поиск по имени...</h6>
                             <div class="form-group">
                                 <input class="form-control" name="full_name" type="search" placeholder="ФИО" aria-label="Search" value="{{ request('full_name') }}">
                             </div>
-                        </li>
-                        <li style="margin-right: 10px">
+                        </li> --}}
+                        <li>
                             <h6>Поиск по клиником...</h6>
                             <div class="form-group">
                                 <select id="clinic_id" name="clinic">
@@ -61,7 +64,7 @@
                                 </select>
                             </div>
                         </li >
-                        <li>
+                        <li style="margin-right: 10px">
                             <h6>Поиск по регионам...</h6>
                             <select id="region_id" name="region">
                                 <option value=""></option>
