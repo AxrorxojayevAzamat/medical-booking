@@ -14,9 +14,13 @@
 		@foreach($specializations as $specialization)
 		    <p>
 		    	@if($lang=='name_uz')
-					<a href="">{{ $specialization->name_uz}}</a>
+					<a href="{{route('book.index', ['specialization' => $specialization->id])}}">
+						{{ $specialization->name_uz}}
+					</a>
 		    	@else
-		      		<a href="">{{ $specialization->name_ru}}</a>
+		      		<a href="{{route('book.index', ['specialization' => $specialization->id])}}">
+						{{ $specialization->name_ru}}
+					</a>
 		      	@endif
 		    </p>
 		@endforeach
