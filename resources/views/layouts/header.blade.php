@@ -157,7 +157,12 @@
                                         <li><a href="/locale/ru">Ru</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="{{route('contacts.contacts')}}">Contact Us</a></li>
+                                <li>
+                                    <a href="{{route('specializations')}}">Specializations</a>
+                                </li>
+                                <li>
+                                    <a href="{{route('contacts.contacts')}}">Contact Us</a>
+                                </li>
                             </ul>
                         </div>
                         <!-- /main-menu -->

@@ -15,16 +15,17 @@
 		    <p>
 		    	@if($lang=='name_uz')
 					<a href="{{route('book.index', ['specialization' => $specialization->id])}}">
-						{{ $specialization->name_uz}}
+						{{ $specialization->name_uz }}
 					</a>
 		    	@else
 		      		<a href="{{route('book.index', ['specialization' => $specialization->id])}}">
-						{{ $specialization->name_ru}}
+						{{ $specialization->name_ru }}
 					</a>
 		      	@endif
 		    </p>
 		@endforeach
 	</div>
+	<div style="height: 15vh"></div>
 </div>
 </main>
 
