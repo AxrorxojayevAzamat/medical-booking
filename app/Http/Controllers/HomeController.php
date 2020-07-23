@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Entity\Clinic\Specialization;
+use App\Entity\Region;
 use App\Entity\User\User;
+use App\Helpers\LanguageHelper;
 use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
@@ -16,6 +19,12 @@ class HomeController extends Controller
 //            ->limit(5)
 //            ->get();
 
-        return view('home', compact('bestRatedDoctors'));
+        $regions = Region::where('parent_id', null)
+            ->orderBy('name_' . LanguageHelper::getCurrentLanguagePrefix())
+            ->limit(9)->get();
+
+        $specializations = Specialization::orderBy('name_' . LanguageHelper::getCurrentLanguagePrefix())->limit(9)->get();
+
+        return view('home', compact('bestRatedDoctors', 'regions', 'specializations'));
     }
 }

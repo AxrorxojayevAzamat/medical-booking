@@ -3,6 +3,7 @@
 namespace App\Entity\Clinic;
 
 use App\Entity\User\User;
+use App\Helpers\LanguageHelper;
 use Carbon\Carbon;
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
@@ -16,6 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  *
+ * @property string $name
+ *
  * @property User $createdBy
  * @property User $updatedBy
  * @mixin Eloquent
@@ -27,6 +30,16 @@ class Specialization extends Model
     protected $fillable = [
         'name_uz', 'name_ru',
     ];
+
+
+    ########################################### Mutators
+
+    public function getNameAttribute(): string
+    {
+        return LanguageHelper::getName($this);
+    }
+
+    ###########################################
 
 
     ########################################### Relations
