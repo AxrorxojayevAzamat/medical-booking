@@ -151,7 +151,7 @@
                     <li><a href="mailto:info@findoctor.com"><i class="icon_mail_alt"></i> help@findoctor.com</a></li>
                 </ul>
                 <div class="follow_us">
-                    <h5>Follow us</h5>
+                    <h5>Подписывайтесь</h5>
                     <ul>
                         <li><a href="#0"><i class="social_facebook"></i></a></li>
                         <li><a href="#0"><i class="social_twitter"></i></a></li>

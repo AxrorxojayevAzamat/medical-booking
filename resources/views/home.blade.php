@@ -79,7 +79,7 @@
                                     </em>
                                 </h4>
                             </div>
-                            <img src="{{ $doctor->profile->avatar ? $doctor->profile->image : 'http://via.placeholder.com/350x500.jpg' }}" alt="">
+                            <img src="{{ $doctor->profile->avatar ? $doctor->profile->image : 'img/no-avatar.jpg' }}" alt="">
                         </a>
                     </div>
                 @endforeach
