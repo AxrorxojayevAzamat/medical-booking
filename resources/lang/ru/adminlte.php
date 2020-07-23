@@ -18,6 +18,14 @@ return [
     'password_reset_message'      => 'Восстановление пароля',
     'reset_password'              => 'Восстановление пароля',
     'send_password_reset_link'    => 'Отправить ссылку для восстановления пароля',
+    'search'    => 'Поиск',
+    
+    'user' => [
+        'first_name' => 'Имя',
+        'last_name'  => 'Фамилия',
+        'middle_name'=> 'Отчество',
+        'phone'  => 'Телефон',
+    ],   
 
     'draft' => 'Черновик',
     'published' => 'Опубликованный',

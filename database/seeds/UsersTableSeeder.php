@@ -37,10 +37,10 @@ class UsersTableSeeder extends Seeder {
             'last_name' => 'Testerov',
             'middle_name' => 'Testerovich',
             'birth_date' => '1989-07-03 09:34:03',
-            'gender' => 1,
+            'gender' => Profile::FEMALE,
             'about_uz' => 'ABOUT_RU',
             'about_ru' => 'ABOUT_RU',
-            'avatar' => 'https://lorempixel.com/640/480/?84833',
+            'avatar' => '/img/avatar2.jpg',
         ]);
         Profile::create([
             'user_id' => $doctor->id,
@@ -48,11 +48,12 @@ class UsersTableSeeder extends Seeder {
             'last_name' => 'Doctorov',
             'middle_name' => 'Doctorovich',
             'birth_date' => '1989-07-03 09:34:03',
-            'gender' => 1,
+            'gender' => Profile::MALE,
             'about_uz' => 'ABOUT_RU',
             'about_ru' => 'ABOUT_RU',
-            'avatar' => 'https://lorempixel.com/640/480/?84833',
+            'avatar' => '/img/avatar1.jpg',
         ]);
+        
     }
 
 }

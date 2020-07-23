@@ -55,7 +55,7 @@
                 </ul>
             </div>
             <div class="col-md-4">
-                <div id="copy">© 2017 Findoctor</div>
+                <div id="copy">© 2020 Findoctor</div>
             </div>
         </div>
     </div>

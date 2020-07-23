@@ -23,6 +23,14 @@ return [
     'verify_check_your_email'     => 'Before proceeding, please check your email for a verification link.',
     'verify_if_not_recieved'      => 'If you did not receive the email',
     'verify_request_another'      => 'click here to request another',
+    'search'    => 'Qidirish',
+    
+    'user' => [
+        'first_name' => 'Ism',
+        'last_name'  => 'Familiya',
+        'middle_name'=> 'Otasining ismi',
+        'phone'  => 'Telefon',
+    ],   
 
     'draft' => 'Qoralama',
     'published' => 'Chop etilgan',
