@@ -224,9 +224,11 @@
                                         </div>
                                     </div>
                                     <!-- End review-box -->
-                                <!-- End review-container -->
+                       <!-- End review-container -->
                                 </div>
                                      <!-- End review-container -->
+                                    
+                              
                                 <hr>
                                 <div class="text-right"><a href="{{ route('book.reviews') }}" class="btn_1 add_bottom_15">Submit review</a></div>
 
@@ -234,11 +236,9 @@
                             <!-- /tab_3 -->
                         </div>
                         <!-- /tab-content -->
-                    </div>
-                    <!-- /tabs_styled -->
-                    <link rel="stylesheet" type="text/css" href="css/gallery.css">
-                    <link rel="stylesheet" type="text/css" href="css/lightbox.gallery.min.css">
-                
+                        <link rel="stylesheet" type="text/css" href="/css/gallery.css">
+                                <link rel="stylesheet" type="text/css" href="/css/lightbox.gallery.min.css">
+                                <script type="text/javascript" src="/js/lightbox-plus-jquery.min.js"></script>
                    <div class="box" id="gallery" role="gallery" aria-labelledby="gallery">
                         <div class="gallery">
                               <a href="/img/Doctor1.jpg" data-lightbox="mygallery"><img src="/img/Doctor1.jpg"></a>
@@ -248,7 +248,8 @@
                               <a href="/img/Doctor5.jpg" data-lightbox="mygallery"><img src="/img/Doctor5.jpg"></a>
                         </div>
                    </div>
-
+                    </div>
+                    <!-- /tabs_styled -->
                 </div>
                 <!-- /col -->
             </div>
