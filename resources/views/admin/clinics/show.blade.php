@@ -25,9 +25,9 @@
     <div class=" card col-md-10 offset-md-1">
         <div class="card-header ">
             <div class="d-flex flex-row mb-3">
-                <a href="{{route('admin.clinic.photos', $clinic)}}" class="btn btn-info mr-1">Фотографии</a>
                 <a href="{{ route('admin.clinics.edit', $clinic) }}" class="btn btn-primary mr-1">Редактировать</a>
                 <a href="{{ route('admin.clinics.main-photo', $clinic) }}" class="btn btn-dark mr-1">Добавить главное фото</a>
+                <a href="{{route('admin.clinics.photos', $clinic)}}" class="btn btn-info mr-1">Фотографии</a>
                 <a href="{{ route('admin.clinics.contacts.create', $clinic) }}" class="btn btn-dark mr-1">Добавить контакт</a>
                 <form action="{{ route('admin.clinics.destroy', $clinic) }}" method="post">
                   @csrf

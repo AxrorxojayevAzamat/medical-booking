@@ -115,18 +115,13 @@ Breadcrumbs::register('admin.clinics.edit', function (Crumbs $crumbs, Clinic $cl
 });
 
 Breadcrumbs::register('admin.clinics.main-photo', function (Crumbs $crumbs, Clinic $clinic) {
-    $crumbs->parent('admin.clinics.index');
-    $crumbs->push($clinic->name_ru, route('admin.clinics.main-photo', $clinic));
+    $crumbs->parent('admin.clinics.show', $clinic);
+    $crumbs->push('Главное фото', route('admin.clinics.main-photo', $clinic));
 });
 
-Breadcrumbs::register('admin.clinic.main-photo', function (Crumbs $crumbs, Clinic $clinic) {
-    $crumbs->parent('admin.clinic.show', $clinic);
-    $crumbs->push('Главное фото', route('admin.clinic.main-photo', $clinic));
-});
-
-Breadcrumbs::register('admin.clinic.photos', function (Crumbs $crumbs, Clinic $clinic) {
-    $crumbs->parent('admin.clinic.show', $clinic);
-    $crumbs->push('Добавление фотографий', route('admin.clinic.photos', $clinic));
+Breadcrumbs::register('admin.clinics.photos', function (Crumbs $crumbs, Clinic $clinic) {
+    $crumbs->parent('admin.clinics.show', $clinic);
+    $crumbs->push('Добавление фотографий', route('admin.clinics.photos', $clinic));
 });
 // Clinic contacts
 Breadcrumbs::register('admin.clinics.contacts.create', function (Crumbs $crumbs, Clinic $clinic) {

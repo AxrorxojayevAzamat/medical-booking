@@ -3,7 +3,11 @@
 namespace App\Services;
 
 use App\Entity\User\User;
+use App\Entity\User\Profile;
+use App\Helpers\ImageHelper;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class UserService
 {
@@ -122,5 +126,77 @@ class UserService
             DB::rollBack();
             return back()->with('error', $e->getMessage());
         }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    public function addMainPhoto(int $id, UploadedFile $image)
+    {
+        $this->addPhoto($id, $image, true);
+    }
+    
+    public function addPhoto(int $id, UploadedFile $image, bool $main = false): void
+    {
+        $profile = Profile::find($id);
+        $imageName = ImageHelper::getRandomName($image);
+        
+        DB::beginTransaction();
+        try {
+            if (!$main) {
+                $photo = $profile->photos()->create([
+                    'user_id' => $profile->user_id,
+                    'filename' => $imageName,
+                    'sort' => 100,
+                ]);
+            // $this->sortPhotos($profile);
+            } else {
+                $photo = $profile->mainPhoto()->create([
+                    'user_id' => $profile->user_id,
+                    'filename' => $imageName,
+                    'sort' => 1,
+                    ]);
+                $profile->update([
+                    'main_photo_id' => $photo->id
+                    ]);
+            }
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e);
+            throw $e;
+        }
+        ImageHelper::uploadResizedImage($profile->user_id, ImageHelper::FOLDER_USERS, $image, $imageName);
+    }
+    private function sortPhotos(Profile $profile): void
+    {
+        foreach ($profile->photos as $i => $photo) {
+            $photo->setSort($i + 2);
+            $photo->saveOrFail();
+        }
+    }
+    public function removeMainPhoto(int $id): bool
+    {
+        $profile = Profile::findOrFail($id);
+        $this->deletePhotos($profile->user_id, $profile->mainPhoto->filename);
+        DB::beginTransaction();
+        try {
+            $profile->update(['main_photo_id' => null]);
+            $profile->mainPhoto()->delete();
+            $this->sortPhotos($profile);
+            
+            DB::commit();
+
+            return true;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+    private function deletePhotos(int $userId, string $filename)
+    {
+        Storage::disk('public')->delete('/images/' . ImageHelper::FOLDER_USERS . '/' . $userId . '/' . ImageHelper::TYPE_ORIGINAL . '/' . $filename);
+        Storage::disk('public')->delete('/images/' . ImageHelper::FOLDER_USERS . '/' . $userId . '/' . ImageHelper::TYPE_THUMBNAIL . '/' . $filename);
+        
+        Storage::disk('public')->deleteDirectory('/images/' . ImageHelper::FOLDER_USERS . '/' . $userId);
     }
 }

@@ -27,7 +27,7 @@ class Photo extends BaseModel
     protected $table = 'user_photos';
 
     protected $fillable = [
-        'clinic_id', 'filename', 'sort',
+        'user_id', 'filename', 'sort',
     ];
 
 
@@ -61,12 +61,12 @@ class Photo extends BaseModel
     ########################################### Accessors
     public function getFileThumbnailAttribute(): string
     {
-        return '/storage/images/' . ImageHelper::FOLDER_CLINICS . '/' . $this->clinic_id . '/' . ImageHelper::TYPE_THUMBNAIL . '/' . $this->filename;
+        return '/storage/images/' . ImageHelper::FOLDER_USERS . '/' . $this->user_id . '/' . ImageHelper::TYPE_THUMBNAIL . '/' . $this->filename;
     }
 
     public function getFileOriginalAttribute(): string
     {
-        return '/storage/images/' . ImageHelper::FOLDER_CLINICS . '/' . $this->clinic_id . '/' . ImageHelper::TYPE_ORIGINAL . '/' . $this->filename;
+        return '/storage/images/' . ImageHelper::FOLDER_USERS . '/' . $this->user_id . '/' . ImageHelper::TYPE_ORIGINAL . '/' . $this->filename;
     }
     ###########################################
 }

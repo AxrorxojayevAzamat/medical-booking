@@ -15,7 +15,7 @@
 
 <div class="card" id="photos">
     <div class="card-body">
-        <form method="POST" action="{{ route('admin.clinic.add-main-photo', $clinic) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.clinics.add-main-photo', $clinic) }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <div class="file-loading">

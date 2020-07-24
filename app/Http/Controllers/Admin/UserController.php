@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Entity\User\User;
+use App\Entity\User\Photo;
 use Illuminate\Support\Str;
 use App\Entity\User\Profile;
 use Illuminate\Http\Request;
@@ -121,6 +122,74 @@ class UserController extends Controller
 
     public function mainPhoto(User $user)
     {
-        return view('admin.users.add-main-photo', compact('user'));
+        $profile = Profile::find($user->id);
+        return view('admin.users.add-main-photo', compact('profile'));
     }
+    public function addMainPhoto(User $user, Request $request)
+    {
+        try {
+            $this->validate($request, ['photo' => 'required|image|mimes:jpg,jpeg,png']);
+            $this->service->addMainPhoto($user->id, $request->photo);
+
+            return redirect()->route('admin.users.show', $user)->with('success', 'Успешно сохранено!');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+    public function removeMainPhoto(User $user)
+    {
+        try {
+            $this->service->removeMainPhoto($user->id);
+            return response()->json('The main photo is successfully deleted!');
+        } catch (\Exception $e) {
+            return response()->json('The main photo is not deleted!', 400);
+        }
+    }
+    public function photos(User $user)
+    {
+        $profile = Profile::findorFail($user->id);
+        return view('admin.users.add-photo', compact('profile'));
+    }
+    public function addPhoto(User $user, Request $request)
+    {
+        $profile = Profile::findorFail($user->id);
+        try {
+            $this->validate($request, ['photo' => 'required|image|mimes:jpg,jpeg,png']);
+            $this->service->addPhoto($profile->user_id, $request->photo);
+            session()->flash('message', 'asd');
+            return back();
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    // public function removePhoto(User $user, Photo $photo)
+    // {
+    //     try {
+    //         $this->service->removePhoto($clinic->id, $photo->id);
+    //         return redirect()->route('admin.clinic.photos', $clinic)->with('success', 'Успешно удалено!');
+    //     } catch (\Exception $e) {
+    //         return back()->with('error', $e->getMessage());
+    //     }
+    // }
+
+    // public function movePhotoUp(User $user, Photo $photo)
+    // {
+    //     try {
+    //         $this->service->movePhotoUp($clinic->id, $photo->id);
+    //         return back();
+    //     } catch (\Exception $e) {
+    //         return back()->with('error', $e->getMessage());
+    //     }
+    // }
+
+    // public function movePhotoDown(User $user, Photo $photo)
+    // {
+    //     try {
+    //         $this->service->movePhotoDown($clinic->id, $photo->id);
+    //         return back();
+    //     } catch (\Exception $e) {
+    //         return back()->with('error', $e->getMessage());
+    //     }
+    // }
 }

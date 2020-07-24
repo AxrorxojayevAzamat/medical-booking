@@ -15,16 +15,16 @@
     <div class="card-header border">{{ trans('') }}</div>
     <div class="card-body">
         <div class="row">
-            @foreach($user->photos as $photo)
+            @foreach($profile->photos as $photo)
                 <div class="col-md-2 col-xs-3" style="text-align: center">
                     <div class="btn-group">
-                        <a href="{{ route('admin.clinic.move-photo-up', ['clinic' => $user , 'photo' => $photo]) }}" id="{{ $user ->id }}" photo_id="{{ $photo->id }}" class="btn btn-default">
+                        <a href="{{ route('admin.users.move-photo-up', ['profile' => $profile , 'photo' => $photo]) }}" id="{{ $profile ->id }}" photo_id="{{ $photo->id }}" class="btn btn-default">
                             <span class="glyphicon glyphicon-arrow-left"></span>
                         </a>
-                        <a href="{{ route('admin.clinic.delete-photo', ['clinic' => $user , 'photo' => $photo]) }}" id="{{ $user ->id }}" photo_id="{{ $photo->id }}" class="btn btn-default" onclick="return confirm('{{ trans('Действительно хотите удалить?') }}')">
+                        <a href="{{ route('admin.users.delete-photo', ['profile' => $profile , 'photo' => $photo]) }}" id="{{ $profile ->id }}" photo_id="{{ $photo->id }}" class="btn btn-default" onclick="return confirm('{{ trans('Действительно хотите удалить?') }}')">
                             <span class="glyphicon glyphicon-remove"></span>
                         </a>
-                        <a href="{{ route('admin.clinic.move-photo-down', ['clinic' => $user , 'photo' => $photo]) }}" id="{{ $user ->id }}" photo_id="{{ $photo->id }}" class="btn btn-default">
+                        <a href="{{ route('admin.users.move-photo-down', ['profile' => $profile , 'photo' => $photo]) }}" id="{{ $profile ->id }}" photo_id="{{ $photo->id }}" class="btn btn-default">
                             <span class="glyphicon glyphicon-arrow-right"></span>
                         </a>
                     </div>
@@ -40,7 +40,7 @@
 <div class="card">
     <div class="card-header border">{{ trans('') }}</div>
     <div class="card-body">
-        <form method="POST" action="{{ route('admin.clinic.add-photo', $user ) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.users.add-photo', $profile->user_id) }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <div class="file-loading">

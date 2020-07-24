@@ -120,6 +120,8 @@ class ClinicService
     {
         Storage::disk('public')->delete('/images/' . ImageHelper::FOLDER_CLINICS . '/' . $clinicId . '/' . ImageHelper::TYPE_ORIGINAL . '/' . $filename);
         Storage::disk('public')->delete('/images/' . ImageHelper::FOLDER_CLINICS . '/' . $clinicId . '/' . ImageHelper::TYPE_THUMBNAIL . '/' . $filename);
+
+        Storage::disk('public')->deleteDirectory('/images/' . ImageHelper::FOLDER_CLINICS . '/' . $clinicId);
     }
 
     private function sortPhotos(Clinic $clinic): void

@@ -96,8 +96,6 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 });
 
 Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
-
-
     Route::get('/review', 'BookController@review')->name('reviews');
 
     Route::post('paycom/create', 'PaycomController@createOrder');

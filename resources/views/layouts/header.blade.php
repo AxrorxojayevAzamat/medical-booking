@@ -62,8 +62,8 @@
                                 <li><a href="{{ url('admin') }}"><i class="pe-7s-user"></i></a></li>
                                 @elseif(Auth::user()->isPatient())
                                 <li><a href="{{ url('patient')  }}"><i class="pe-7s-user"></i></a></li>
-                                    @elseif(Auth::user()->isDoctor())
-                                        <li><a href="{{ url('doctor/profile')  }}"><i class="pe-7s-user"></i></a></li>
+                                @elseif(Auth::user()->isDoctor())
+                                <li><a href="{{ url('doctor/profile')  }}"><i class="pe-7s-user"></i></a></li>
 
 
                                 @endif
