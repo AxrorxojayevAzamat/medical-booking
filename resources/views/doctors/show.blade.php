@@ -236,21 +236,19 @@
                         <!-- /tab-content -->
                     </div>
                     <!-- /tabs_styled -->
-                    <link rel="stylesheet" type="text/css" href="/css/gallery.css">
-                <link rel="stylesheet" type="text/css" href="/css/lightbox.gallery.min.css">
-                                <script type="text/javascript" src="/js/lightbox-plus-jquery.min.js">
-                                </script>
-                                </head>
-                                <body>
-                                <h1>Doctor`s Gallery</h1>
-                     <div class="gallery">
+                    <link rel="stylesheet" type="text/css" href="css/gallery.css">
+                    <link rel="stylesheet" type="text/css" href="css/lightbox.gallery.min.css">
+                
+                   <div class="box" id="gallery" role="gallery" aria-labelledby="gallery">
+                        <div class="gallery">
+                              <a href="/img/Doctor1.jpg" data-lightbox="mygallery"><img src="/img/Doctor1.jpg"></a>
+                              <a href="/img/Doctor2.jpg" data-lightbox="mygallery"><img src="/img/Doctor2.jpg"></a>
+                              <a href="/img/Doctor3.jpg" data-lightbox="mygallery"><img src="/img/Doctor3.jpg"></a>
+                              <a href="/img/Doctor4.jpg" data-lightbox="mygallery"><img src="/img/Doctor4.jpg"></a>
+                              <a href="/img/Doctor5.jpg" data-lightbox="mygallery"><img src="/img/Doctor5.jpg"></a>
+                        </div>
+                   </div>
 
-            <a href="/img/Doctor1.jpg" data-lightbox="mygallery" data-title="This is First Picture"> <img src="/img/Doctor1.jpg"></a>
-            <a href="/img/Doctor2.jpg" data-lightbox="mygallery" data-title="This is Second Picture"> <img src="/img/Doctor2.jpg"></a>
-            <a href="/img/Doctor3.jpg" data-lightbox="mygallery" data-title="This is Third Picture"> <img src="/img/Doctor3.jpg"></a>
-            <a href="/img/Doctor4.jpg" data-lightbox="mygallery" data-title="This is Fourth Picture"> <img src="/img/Doctor4.jpg"></a>
-            <a href="/img/Doctor5.jpg" data-lightbox="mygallery" data-title="This is Fifth Picture"> <img src="/img/Doctor5.jpg"></a>
-                               </div>
                 </div>
                 <!-- /col -->
             </div>
