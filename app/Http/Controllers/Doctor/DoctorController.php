@@ -16,6 +16,9 @@ use App\Entity\Clinic\Clinic;
 use App\Entity\Clinic\Timetable;
 use App\Entity\Celebration;
 use App\Services\BookService;
+use App\Entity\Rate;
+use App\Entity\User\Profile;
+
 
 class DoctorController extends Controller
 {
@@ -144,7 +147,12 @@ class DoctorController extends Controller
 
         $holidays = $this->service->celebrationDays($celebrationDays);
 
-        return view('doctors.show', compact('user', 'clinics', 'specs', 'doctorTimetables', 'doctorBooks', 'holidays'));
+        $ratecheck = Rate::where(['user_id'=>Auth::id(),'doctor_id'=>$user->id])->first();
+        $rates = array();
+        for ($i=5; $i > 0 ; $i--) { 
+            array_push($rates, Rate::where(['doctor_id'=>$user->id,'rate'=>$i])->count());
+        }
+        return view('doctors.show', compact('user', 'clinics', 'specs', 'doctorTimetables', 'doctorBooks', 'holidays','ratecheck','rates'));
     }
 
 }

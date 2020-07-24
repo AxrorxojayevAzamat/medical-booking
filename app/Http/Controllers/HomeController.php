@@ -18,7 +18,7 @@ class HomeController extends Controller
             ->join('doctor_specializations as ds', 'users.id', '=', 'ds.doctor_id')
             ->doctor()
             ->groupBy(['users.id', 'pr.user_id'])
-//            ->orderByDesc('pr.rate')
+            ->orderByDesc('pr.rate')
             ->limit(5)
             ->get();
 

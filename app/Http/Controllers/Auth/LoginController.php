@@ -16,6 +16,7 @@ class LoginController extends Controller
 
     public function __construct()
     {
+        session(['url.intended' => url()->previous()]);
         $this->middleware('guest')->except('logout');
     }
 
@@ -33,13 +34,16 @@ class LoginController extends Controller
         if ($this->attemptLogin($request)) {
             if (Auth::check()){
                 if(Auth::user()->isAdmin()) {
+                    session(['url.intended' => route('admin.home') ]);
                     $this->redirectTo = route('admin.home');
                 }
                 if(Auth::user()->isPatient()) {
-                    $this->redirectTo = route('patient.profile');
+                    $this->redirectTo = session()->get('url.intended');
+                    //$this->redirectTo = route('patient.profile');
                 }
                 if(Auth::user()->isDoctor()) {
-                    $this->redirectTo = route('doctor.profile');
+                    $this->redirectTo = session()->get('url.intended');
+                    //$this->redirectTo = route('doctor.profile');
                 }
             }
 
