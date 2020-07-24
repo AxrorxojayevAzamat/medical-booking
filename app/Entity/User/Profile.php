@@ -30,9 +30,11 @@ class Profile extends Model
     protected $table = 'profiles';
     protected $primaryKey = 'user_id';
     public $timestamps = false;
+
     protected $fillable = [
-        'first_name', 'last_name', 'middle_name', 'birth_date', 'gender', 'about_uz', 'about_ru', 'main_photo_id',
+        'first_name', 'last_name', 'middle_name', 'birth_date', 'gender', 'about_uz', 'about_ru', 'avatar', 'rate', 'num_of_rates', 'main_photo_id'
     ];
+
     protected $casts = [
         'birth_date' => 'datetime',
     ];
@@ -76,6 +78,11 @@ class Profile extends Model
     public function mainPhoto()
     {
         return $this->belongsTo(Photo::class, 'main_photo_id', 'id');
+    }
+
+    public function rate()
+    {
+        return $this->belongsTo(Rate::class, 'user_id', 'id');
     }
 
     ###########################################

@@ -86,6 +86,12 @@
                                 <li class="submenu">
                                     <a href="{{ route('doctors.index')}}" class="show-submenu">Doctor List</a>
                                 </li>
+                                <li>
+                                    <a href="{{route('specializations')}}">Specializations</a>
+                                </li>
+                                <li>
+                                    <a href="{{route('contacts.contacts')}}">Contact Us</a>
+                                </li>
                                 <li class="submenu">
                                     <a href="#" class="show-submenu">Lang<i class="icon-down-open-mini"></i></a>
                                     <ul>

@@ -236,6 +236,11 @@ return [
             'icon' => 'fas fa-fw fa-envelope',
             'url' => 'admin/news',
         ],
+        [
+            'text' => 'Обратный связь',
+            'icon' => 'fas fa-fw fa-share',
+            'url' => 'admin/contactslist',
+        ],
     ],
     /*
       |--------------------------------------------------------------------------

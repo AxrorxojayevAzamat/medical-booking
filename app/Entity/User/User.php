@@ -47,7 +47,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public const ROLE_DOCTOR = 'doctor';
 
     protected $fillable = [
-        'name', 'phone', 'email', 'password', 'role', 'status',
+        'name', 'phone', 'email', 'password', 'role', 'status'
     ];
     protected $hidden = [
         'password', 'remember_token',
@@ -59,11 +59,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public static function new($email, $phone, $password, $role): self
     {
         return static::create([
-                    'email' => $email,
-                    'phone' => $phone,
-                    'password' => bcrypt($password),
-                    'role' => $role,
-                    'status' => self::STATUS_ACTIVE,
+            'email' => $email,
+            'phone' => $phone,
+            'password' => bcrypt($password),
+            'role' => $role,
+            'status' => self::STATUS_ACTIVE,
         ]);
     }
 
