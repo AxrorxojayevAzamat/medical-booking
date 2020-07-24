@@ -48,7 +48,7 @@
 
             <div class="col-lg-3 col-6">
                 <div id="logo_home">
-                    <h1><a href="" title="Findoctor">Findoctor</a></h1>
+                    <h1><a href="/" title="Findoctor">Findoctor</a></h1>
                 </div>
             </div>
 
@@ -88,6 +88,9 @@
                             <a href="{{ route('doctors.index') }}" class="show-submenu">Докторы</a>
                         </li>
                         <li class="submenu">
+                            <a href="{{ route('clinics.index') }}" class="show-submenu">Клиники</a>
+                        </li>
+                        <li class="submenu">
                             <a href="#" class="show-submenu">Язык<i class="icon-down-open-mini"></i></a>
                             <ul>
                                 <li><a href="/locale/uz">Uz</a></li>
@@ -115,7 +118,7 @@
         <div class="row">
             <div class="col-lg-3 col-md-12">
                 <p>
-                    <a href="" title="Findoctor">
+                    <a href="/" title="Findoctor">
                         <img src="img/logo.png" data-retina="true" alt="" width="163" height="36" class="img-fluid">
                     </a>
                 </p>
@@ -148,7 +151,7 @@
                     <li><a href="mailto:info@findoctor.com"><i class="icon_mail_alt"></i> help@findoctor.com</a></li>
                 </ul>
                 <div class="follow_us">
-                    <h5>Follow us</h5>
+                    <h5>Подписывайтесь</h5>
                     <ul>
                         <li><a href="#0"><i class="social_facebook"></i></a></li>
                         <li><a href="#0"><i class="social_twitter"></i></a></li>

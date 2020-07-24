@@ -48,7 +48,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public const ROLE_DOCTOR = 'doctor';
 
     protected $fillable = [
-        'name', 'phone', 'email', 'password', 'role', 'status',
+        'name', 'phone', 'email', 'password', 'role', 'status'
     ];
     protected $hidden = [
         'password', 'remember_token',

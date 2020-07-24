@@ -26,6 +26,8 @@ class CreateProfilesTable extends Migration
             $table->text('about_uz')->nullable();
             $table->text('about_ru')->nullable();
             $table->string('avatar')->nullable();
+            $table->integer('rate')->default('0');
+            $table->integer('num_of_rates')->default('0');
         });
 
         Schema::table('profiles', function (Blueprint $table) {

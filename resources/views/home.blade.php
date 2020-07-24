@@ -69,7 +69,7 @@
                 @foreach($bestRatedDoctors as $doctor)
                     <div class="item">
                         <a href="{{ route('doctors.show', $doctor) }}">
-                            <div class="views"><i class="icon-eye-7"></i>140</div>
+                            <div class="views"><i class="icon-eye-7"></i>{{ $doctor->profile->rate }}</div>
                             <div class="title">
                                 <h4>{{ $doctor->profile->fullName }}
                                     <em>
@@ -79,7 +79,7 @@
                                     </em>
                                 </h4>
                             </div>
-                            <img src="{{ $doctor->profile->avatar ? $doctor->profile->image : 'http://via.placeholder.com/350x500.jpg' }}" alt="">
+                            <img src="{{ $doctor->profile->avatar ? $doctor->profile->image : 'img/no-avatar.jpg' }}" alt="">
                         </a>
                     </div>
                 @endforeach
