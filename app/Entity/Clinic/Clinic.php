@@ -45,7 +45,7 @@ class Clinic extends BaseModel
     public const CLINIC_TYPE_GOVERNMENT = 2;
 
 
-    protected $fillable = ['name_uz', 'name_ru', 'region_id', 'type', 'description_uz', 'description_ru', 'phone_numbers',
+    protected $fillable = ['name_uz', 'name_ru', 'region_id', 'type', 'description_uz', 'description_ru',
         'address_uz', 'address_ru', 'work_time_start', 'work_time_end', 'location', 'main_photo_id',
     ];
 

@@ -73,7 +73,7 @@ class Profile extends Model
     }
     public function photos()
     {
-        return $this->hasMany(Photo::class, 'user_id', 'id')->whereKeyNot($this->main_photo_id)->orderBy('sort');
+        return $this->hasMany(Photo::class, 'user_id', 'user_id')->whereKeyNot($this->main_photo_id)->orderBy('sort');
     }
     public function mainPhoto()
     {

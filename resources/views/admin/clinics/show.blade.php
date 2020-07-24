@@ -26,7 +26,7 @@
         <div class="card-header ">
             <div class="d-flex flex-row mb-3">
                 <a href="{{ route('admin.clinics.edit', $clinic) }}" class="btn btn-primary mr-1">Редактировать</a>
-                <a href="{{ route('admin.clinics.main-photo', $clinic) }}" class="btn btn-dark mr-1">Добавить главное фото</a>
+                <a href="{{ route('admin.clinics.main-photo', $clinic) }}" class="btn btn-warning mr-1">Добавить главное фото</a>
                 <a href="{{route('admin.clinics.photos', $clinic)}}" class="btn btn-info mr-1">Фотографии</a>
                 <a href="{{ route('admin.clinics.contacts.create', $clinic) }}" class="btn btn-dark mr-1">Добавить контакт</a>
                 <form action="{{ route('admin.clinics.destroy', $clinic) }}" method="post">
@@ -96,20 +96,11 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="inputEmail3" class=" col-sm-5 col-form-label ">Описание клиники(ru)
-                            клиники(русское) </label>
+                        <label for="inputEmail3" class=" col-sm-5 col-form-label ">Описание клиники(ru)</label>
                         <div class="col-sm-6 form-control">
                             {{  $clinic->description_ru }}
                         </div>
                     </div>
-
-                    <div class="form-group row">
-                        <label for="inputEmail3" class=" col-sm-5 col-form-label ">Телефон клиники </label>
-                        <div class="col-sm-6 form-control">
-                            {{  $clinic->phone_numbers }}
-                        </div>
-                    </div>
-
 
                     <div class="form-group row">
                         <label for="inputEmail3" class=" col-sm-5 col-form-label ">Начало работы клиники </label>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Contacts;
+use App\Entity\Contacts;
 use App\Rules\Captcha;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Email;
@@ -41,11 +41,11 @@ class ContactsController extends Controller
                 $request->input('email'),
                 $request->input('phone'),
                 $request->input('message')
-            ));
+            )
+        );
 
         return redirect()->route('contacts.contacts')->with([
             'info' => 'Successfully sent!'
         ]);
     }
-
 }

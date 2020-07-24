@@ -144,11 +144,11 @@ class UserService
         try {
             if (!$main) {
                 $photo = $profile->photos()->create([
-                    'user_id' => $profile->user_id,
+                    'user_id' => $profile->filename,
                     'filename' => $imageName,
                     'sort' => 100,
                 ]);
-            // $this->sortPhotos($profile);
+                $this->sortPhotos($profile);
             } else {
                 $photo = $profile->mainPhoto()->create([
                     'user_id' => $profile->user_id,
@@ -198,5 +198,86 @@ class UserService
         Storage::disk('public')->delete('/images/' . ImageHelper::FOLDER_USERS . '/' . $userId . '/' . ImageHelper::TYPE_THUMBNAIL . '/' . $filename);
         
         Storage::disk('public')->deleteDirectory('/images/' . ImageHelper::FOLDER_USERS . '/' . $userId);
+    }
+
+    public function removePhoto(int $id, int $photoId): bool
+    {
+        $profile = Profile::findOrFail($id);
+
+        if ($profile->main_photo_id === $photoId) {
+            throw new \Exception('Cannot delete main photo.');
+        }
+
+        $photo = $profile->photos()->findOrFail($photoId);
+        $this->deletePhotos($profile->user_id, $photo->filename);
+
+        DB::beginTransaction();
+        try {
+            $photo->delete();
+            $this->sortPhotos($profile);
+
+            DB::commit();
+
+            return true;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+    public function movePhotoUp(int $id, int $photoId): void
+    {
+        $profile = Profile::findOrFail($id);
+        $photos = $profile->photos;
+        foreach ($photos as $i => $photo) {
+            if ($photo->isIdEqualTo($photoId)) {
+                if (!isset($photos[$i - 1])) {
+                    $previous = $photos->last();
+                    $photos[count($photos) - 1] = $photo;
+                    $photos[$i] = $previous;
+                } else {
+                    $previous = $photos[$i - 1];
+                    $photos[$i - 1] = $photo;
+                    $photos[$i] = $previous;
+                }
+                $profile->photos = $photos;
+                DB::beginTransaction();
+                try {
+                    $this->sortPhotos($profile);
+                    DB::commit();
+                } catch (\Exception $e) {
+                    DB::rollBack();
+                    throw $e;
+                }
+                return;
+            }
+        }
+    }
+    public function movePhotoDown(int $id, int $photoId): void
+    {
+        $profile = Profile::findOrFail($id);
+        $photos = $profile->photos;
+        foreach ($photos as $i => $photo) {
+            if ($photo->isIdEqualTo($photoId)) {
+                if (!isset($photos[$i + 1])) {
+                    $next = $photos->first();
+                    $photos[0] = $photo;
+                    $photos[$i] = $next;
+                } else {
+                    $next = $photos[$i + 1];
+                    $photos[$i + 1] = $photo;
+                    $photos[$i] = $next;
+                }
+                $profile->photos = $photos;
+                DB::beginTransaction();
+                try {
+                    $this->sortPhotos($profile);
+                    DB::commit();
+                } catch (\Exception $e) {
+                    DB::rollBack();
+                    throw $e;
+                }
+                return;
+            }
+        }
     }
 }

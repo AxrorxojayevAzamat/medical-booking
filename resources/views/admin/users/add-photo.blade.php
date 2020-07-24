@@ -18,13 +18,13 @@
             @foreach($profile->photos as $photo)
                 <div class="col-md-2 col-xs-3" style="text-align: center">
                     <div class="btn-group">
-                        <a href="{{ route('admin.users.move-photo-up', ['profile' => $profile , 'photo' => $photo]) }}" id="{{ $profile ->id }}" photo_id="{{ $photo->id }}" class="btn btn-default">
+                        <a href="{{ route('admin.users.move-photo-up', ['user' => $profile->user_id , 'photo' => $photo]) }}" id="{{ $profile ->user_id }}" photo_id="{{ $photo->id }}" class="btn btn-default">
                             <span class="glyphicon glyphicon-arrow-left"></span>
                         </a>
-                        <a href="{{ route('admin.users.delete-photo', ['profile' => $profile , 'photo' => $photo]) }}" id="{{ $profile ->id }}" photo_id="{{ $photo->id }}" class="btn btn-default" onclick="return confirm('{{ trans('Действительно хотите удалить?') }}')">
+                        <a href="{{ route('admin.users.delete-photo', ['user' =>  $profile->user_id , 'photo' => $photo]) }}" id="{{ $profile ->user_id }}" photo_id="{{ $photo->id }}" class="btn btn-default" onclick="return confirm('{{ trans('Действительно хотите удалить?') }}')">
                             <span class="glyphicon glyphicon-remove"></span>
                         </a>
-                        <a href="{{ route('admin.users.move-photo-down', ['profile' => $profile , 'photo' => $photo]) }}" id="{{ $profile ->id }}" photo_id="{{ $photo->id }}" class="btn btn-default">
+                        <a href="{{ route('admin.users.move-photo-down', ['user' =>  $profile->user_id , 'photo' => $photo]) }}" id="{{ $profile ->user_id }}" photo_id="{{ $photo->id }}" class="btn btn-default">
                             <span class="glyphicon glyphicon-arrow-right"></span>
                         </a>
                     </div>

@@ -54,20 +54,6 @@ class ClinicController extends Controller
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
-        $clinics = new Clinic();
-        $clinics->name_uz = $request->name_uz;
-        $clinics->name_ru = $request->name_ru;
-        $clinics->region_id = $request->region_id;
-        $clinics->type = $request->type;
-        $clinics->description_uz = $request->description_uz;
-        $clinics->description_ru = $request->description_ru;
-        $clinics->address_uz = $request->adress_uz;
-        $clinics->address_ru = $request->adress_ru;
-        $clinics->work_time_start = $request->work_time_start;
-        $clinics->work_time_end = $request->work_time_end;
-        $clinics->location = $request->location;
-
-        $clinics->save();
     }
 
     public function show(Clinic $clinic)
@@ -85,29 +71,21 @@ class ClinicController extends Controller
 
     public function update(ClinicRequest $request, $id)
     {
-        $clinics = Clinic::find($id);
-
-        $clinics->name_uz = $request->name_uz;
-        $clinics->name_ru = $request->name_ru;
-        $clinics->region_id = $request->region_id;
-        $clinics->type = $request->type;
-        $clinics->description_uz = $request->description_uz;
-        $clinics->description_ru = $request->description_ru;
-        $clinics->address_uz = $request->address_uz;
-        $clinics->address_ru = $request->address_ru;
-        $clinics->work_time_start = $request->work_time_start;
-        $clinics->work_time_end = $request->work_time_end;
-        $clinics->location = $request->location;
-
-        $clinics->update();
-        $id = $clinics->id;
-
-        return redirect()->route('admin.clinics.index', compact('id'))->with('success', 'Отредактировано!');
+        try {
+            $clinic = $this->service->update($id, $request);
+            return redirect()->route('admin.clinic.show', $clinic)->with('success', 'Успешно!');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 
     public function destroy(Clinic $clinic)
     {
         $clinics = Clinic::find($clinic->id);
+        $photo = $this->service->multiplePhotoDelete($clinic);
+        if ($photo==true) {
+            $clinic->delete();
+        }
         $clinics->delete();
         return redirect()->back();
     }

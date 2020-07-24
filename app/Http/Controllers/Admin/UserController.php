@@ -163,33 +163,48 @@ class UserController extends Controller
         }
     }
 
-    // public function removePhoto(User $user, Photo $photo)
-    // {
-    //     try {
-    //         $this->service->removePhoto($clinic->id, $photo->id);
-    //         return redirect()->route('admin.clinic.photos', $clinic)->with('success', 'Успешно удалено!');
-    //     } catch (\Exception $e) {
-    //         return back()->with('error', $e->getMessage());
-    //     }
-    // }
+    public function removePhoto(User $user, Photo $photo)
+    {
+        $profile = Profile::findorFail($user->id);
+        try {
+            $this->service->removePhoto($profile->user_id, $photo->id);
+            return redirect()->route('admin.users.photos', $profile)->with('success', 'Успешно удалено!');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
 
-    // public function movePhotoUp(User $user, Photo $photo)
-    // {
-    //     try {
-    //         $this->service->movePhotoUp($clinic->id, $photo->id);
-    //         return back();
-    //     } catch (\Exception $e) {
-    //         return back()->with('error', $e->getMessage());
-    //     }
-    // }
+    public function movePhotoUp(User $user, Photo $photo)
+    {
+        $profile = Profile::findorFail($user->id);
+        try {
+            $this->service->movePhotoUp($profile->user_id, $photo->id);
+            return back();
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
 
-    // public function movePhotoDown(User $user, Photo $photo)
-    // {
-    //     try {
-    //         $this->service->movePhotoDown($clinic->id, $photo->id);
-    //         return back();
-    //     } catch (\Exception $e) {
-    //         return back()->with('error', $e->getMessage());
-    //     }
-    // }
+    public function movePhotoDown(User $user, Photo $photo)
+    {
+        $profile = Profile::findorFail($user->id);
+        try {
+            $this->service->movePhotoDown($profile->user_id, $photo->id);
+            return back();
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+    public function multiplePhotoDelete($clinic)
+    {
+        $photos = $clinic->photos;
+        try {
+            foreach ($photos as $i => $photo) {
+                $this->removePhoto($clinic->id, $photo->id);
+            }
+            return true;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
 }
