@@ -22,7 +22,8 @@ use App\Helpers\LanguageHelper;
  * @property User $user
  * @mixin Eloquent
  */
-class Profile extends Model {
+class Profile extends Model
+{
 
     const FEMALE = 1;
     const MALE = 2;
@@ -31,14 +32,17 @@ class Profile extends Model {
     protected $table = 'profiles';
     protected $primaryKey = 'user_id';
     public $timestamps = false;
+
     protected $fillable = [
-        'first_name', 'last_name', 'middle_name', 'birth_date', 'gender', 'about_uz', 'about_ru', 'avatar',
+        'first_name', 'last_name', 'middle_name', 'birth_date', 'gender', 'about_uz', 'about_ru', 'avatar', 'rate', 'num_of_rates'
     ];
+
     protected $casts = [
         'birth_date' => 'datetime',
     ];
 
-    public function edit($firstName, $lastName, $birthDate, $gender, $middleName = null, $aboutUz = null, $aboutRu = null) {
+    public function edit($firstName, $lastName, $birthDate, $gender, $middleName = null, $aboutUz = null, $aboutRu = null)
+    {
         $this->first_name = $firstName;
         $this->last_name = $lastName;
         $this->middle_name = $middleName ?? $this->middle_name;
@@ -48,22 +52,31 @@ class Profile extends Model {
         $this->about_ru = $aboutRu ?? $this->about_ru;
     }
 
-    public function getImageAttribute(): string {
+    public function getImageAttribute(): string
+    {
         return $this->avatar;
     }
 
-    public function getFullNameAttribute(): string {
+    public function getFullNameAttribute(): string
+    {
         return "$this->last_name $this->first_name";
     }
 
-    public function getAboutAttribute(): string {
+    public function getAboutAttribute(): string
+    {
         return LanguageHelper::getAbout($this);
     }
 
     ########################################### Relations
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function rate()
+    {
+        return $this->belongsTo(Rate::class, 'user_id', 'id');
     }
 
     ###########################################

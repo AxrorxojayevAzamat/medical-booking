@@ -14,6 +14,13 @@
                 <li class="breadcrumb-item active">Add listing</li>
             </ol>
             <div class="box_general padding_bottom">
+
+                <div class="header_box version_2">
+                    <h2><i class="fa fa-user"></i>Your rating:</h2>
+                    <?php $average = number_format($bookings->profile->rate/($bookings->profile->num_of_rates?:1), 1, '.', ''); ?>
+                    <h2 class="bold">{{ $average }} / 5.0 </h2>
+                </div>
+                
                 <div class="header_box version_2">
                     <h2><i class="fa fa-user"></i>Profile details</h2>
                 </div>

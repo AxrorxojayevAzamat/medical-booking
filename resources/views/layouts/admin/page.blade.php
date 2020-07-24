@@ -107,6 +107,7 @@
                         @if(config('adminlte.usermenu_enabled'))
                         <li class="nav-item dropdown user-menu">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span>
                                 @if(config('adminlte.usermenu_image'))
                                 <img src="{{ Auth::user()->adminlte_image() }}" class="user-image img-circle elevation-2" alt="{{ Auth::user()->name }}">
                                 @endif

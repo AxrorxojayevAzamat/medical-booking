@@ -6,6 +6,7 @@ use App\Entity\Clinic\Contact;
 use App\Entity\News;
 use App\Entity\User\User;
 use App\Entity\Region;
+use App\Entity\Contacts;
 use App\Entity\Clinic\Specialization;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Crumbs;
@@ -23,6 +24,17 @@ Breadcrumbs::register('clinics.index', function (Crumbs $crumbs) {
 Breadcrumbs::register('clinics.show', function (Crumbs $crumbs, Clinic $clinic) {
     $crumbs->parent('clinics.index');
     $crumbs->push($clinic->name, route('clinics.show', $clinic));
+});
+
+// Doctors
+Breadcrumbs::register('doctors.index', function (Crumbs $crumbs) {
+    $crumbs->parent('home');
+    $crumbs->push('Докторы', route('doctors.index'));
+});
+
+Breadcrumbs::register('doctors.show', function (Crumbs $crumbs, User $doctor) {
+    $crumbs->parent('doctors.index');
+    $crumbs->push($doctor->profile->fullName, route('doctors.show', $doctor));
 });
 
 
@@ -217,4 +229,10 @@ Breadcrumbs::register('admin.news.show', function (Crumbs $crumbs, News $news) {
 Breadcrumbs::register('admin.news.edit', function (Crumbs $crumbs, News $news) {
     $crumbs->parent('admin.news.index');
     $crumbs->push('Редактировать новость', route('admin.news.edit', $news));
+});
+
+// Contact us
+Breadcrumbs::register('admin.contactlist', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push('Обратный связь', route('admin.contactlist'));
 });
