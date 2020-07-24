@@ -209,7 +209,6 @@ $(".confirm-payme").click(function(e) {
                                                     console.log("Finish: ");
                                                     console.log(data);
                                                     $(".success").css("display","block");
-                                                    // document.getElementsByClassName("success").innerHTML = "<h2>" + data.data.book_id + "</h2>";
                                                     $(".success").html("<h2> Your queue number: " + data.data.book_id + "</h2>");
 
                                                 },

@@ -101,6 +101,9 @@
 @endsection
 @section('css')
     <style>
+#region_id {
+    width: 300px !important;
+}
 .filters_listing {
     background-color: #3f4079;
 }
@@ -135,7 +138,7 @@
     line-height: 40px;
 }
 .filters_listing .select2-container--default .select2-selection--single {
-    border-radius: 0
+    border-radius: 3px 0 0 3px;
 }
 
 .filters_listing li .select2-selection {
@@ -147,7 +150,9 @@
 }
 
 .filters_listing li .form-group span.select2-container--default {
-    width: 100%;
+    width: 270px!important;
+    border-radius: 3px 0 0 3px;
+
 }
 .filters_listing ul li:nth-child(3) .btn-search {
     min-height: 40px;
