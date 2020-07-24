@@ -39,7 +39,7 @@ class ClinicController extends Controller
         if (!empty($value = $request->get('typeClinic'))) {
             $query->where('type', $value);
         }
-        $clinics = $query->paginate(1000);
+        $clinics = $query->paginate(10);
         return view('admin.clinics.index', compact('clinics'));
     }
 
@@ -52,23 +52,25 @@ class ClinicController extends Controller
     public function store(ClinicRequest $request)
     {
         try {
-            $clinics = $this->service->create($request);
-            return redirect()->route('admin.clinics.index')->with('success', 'Успешно!');
+            $clinics = Clinic::create([
+                'name_uz' => $request->name_uz,
+                'name_ru' => $request->name_ru,
+                'region_id' => $request->region_id,
+                'type' => $request->clinic_type,
+                'description_uz' => $request->description_uz,
+                'description_ru' => $request->description_ru,
+                'phone_numbers' => $request->phone_numbers,
+                'address_uz' => $request->adress_uz,
+                'address_ru' => $request->adress_ru,
+                'work_time_start' => $request->work_time_start,
+                'work_time_end' => $request->work_time_end,
+                'location' => $request->location,
+            ]);
+            return redirect()->route('admin.clinics.index', $clinics);
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
-        $clinics = new Clinic();
-        $clinics->name_uz = $request->name_uz;
-        $clinics->name_ru = $request->name_ru;
-        $clinics->region_id = $request->region_id;
-        $clinics->type = $request->type;
-        $clinics->description_uz = $request->description_uz;
-        $clinics->description_ru = $request->description_ru;
-        $clinics->address_uz = $request->adress_uz;
-        $clinics->address_ru = $request->adress_ru;
-        $clinics->work_time_start = $request->work_time_start;
-        $clinics->work_time_end = $request->work_time_end;
-        $clinics->location = $request->location;
+        
 
         // $folder = Clinic::CLINIC_PROFILE;
         // $photos = $request->file('images');
@@ -82,7 +84,6 @@ class ClinicController extends Controller
         //     }
         // }
         // $clinics->photo = json_encode($data);
-        $clinics->save();
     }
 
     public function show(Clinic $clinic)
@@ -154,13 +155,14 @@ class ClinicController extends Controller
         // }
         $clinics->delete();
         return redirect()->back();
-        // return redirect()->route('admin.clinics.index')->with('success', 'Удалено!');
+        // return redirect()->route('admin.clinic.index')->with('success', 'Удалено!');
     }
 
     public function mainPhoto(Clinic $clinic)
     {
         return view('admin.clinics.add-main-photo', compact('clinic'));
     }
+
     public function removeMainPhoto(Clinic $clinic)
     {
         try {

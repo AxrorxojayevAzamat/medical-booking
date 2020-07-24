@@ -240,4 +240,17 @@ class UserController extends Controller
         $clinics = Clinic::orderBy('name_ru')->pluck('name_ru', 'id');
         return view('admin.users.clinics', compact('user', 'clinics'));
     }
+    
+    public function storeAdminClinics(Request $request, User $user)
+    {
+        $user->adminsClinics()->sync($request['clinicAdmin']);
+
+        return redirect()->route('admin.users.show', $user);
+    }
+
+    public function adminClinics(User $user)
+    {
+        $clinics = Clinic::orderBy('name_ru')->pluck('name_ru', 'id');
+        return view('admin.users.admin-clinics', compact('user', 'clinics'));
+    }
 }

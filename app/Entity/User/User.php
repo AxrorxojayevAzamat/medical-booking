@@ -5,6 +5,7 @@ namespace App\Entity\User;
 use App\Entity\Book\Book;
 use App\Entity\Clinic\Clinic;
 use App\Entity\Clinic\DoctorClinic;
+use App\Entity\Clinic\AdminClinic;
 use App\Entity\Clinic\Specialization;
 use App\Entity\Clinic\DoctorSpecialization;
 use Carbon\Carbon;
@@ -30,6 +31,7 @@ use App\Notifications\ResetPassword as ResetPasswordNotification;
  * @property DoctorSpecialization[] $doctorSpecializations
  * @property Specialization[] $specializations
  * @property DoctorClinic[] $doctorClinics
+ * @property AdminClinic[] $adminClinics
  * @property Clinic[] $clinics
  *
  * @mixin Eloquent
@@ -60,11 +62,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public static function new($email, $phone, $password, $role): self
     {
         return static::create([
-            'email' => $email,
-            'phone' => $phone,
-            'password' => bcrypt($password),
-            'role' => $role,
-            'status' => self::STATUS_ACTIVE,
+                    'email' => $email,
+                    'phone' => $phone,
+                    'password' => bcrypt($password),
+                    'role' => $role,
+                    'status' => self::STATUS_ACTIVE,
         ]);
     }
 
@@ -205,6 +207,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function clinics()
     {
         return $this->belongsToMany(Clinic::class, 'doctor_clinics', 'doctor_id', 'clinic_id');
+    }
+
+    public function adminClinics()
+    {
+        return $this->hasMany(AdminClinic::class, 'admin_id', 'id');
+    }
+
+    public function adminsClinics()
+    {
+        return $this->belongsToMany(Clinic::class, 'admin_clinics', 'admin_id', 'clinic_id');
     }
 
 }

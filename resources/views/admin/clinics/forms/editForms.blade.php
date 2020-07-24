@@ -32,8 +32,8 @@
         <div class="form-group row">
             <label for="inputEmail3" class="col-sm-5 col-form-label">Адресс клиники(узбекское)</label>
             <div class="col-sm-6">
-                <textarea name="adress_uz" rows="3" type="text" class="form-control"
-                          placeholder="..." required>{{ old('adress_uz')?? $clinics->adress_uz ??''}}</textarea>
+                <textarea name="address_uz" rows="3" type="text" class="form-control"
+                          placeholder="..." required>{{ old('address_uz')?? $clinics->adress_uz ??''}}</textarea>
 
             </div>
         </div>
@@ -41,15 +41,15 @@
         <div class="form-group row">
             <label for="inputEmail3" class=" col-sm-5 col-form-label">Адресс клиники(русское) </label>
             <div class="col-sm-6 ">
-                <textarea name="adress_ru" rows="3" type="text" class="form-control"
-                          placeholder="..." required>{{ old('adress_ru')?? $clinics->adress_ru ??''}}</textarea>
+                <textarea name="address_ru" rows="3" type="text" class="form-control"
+                          placeholder="..." required>{{ old('address_ru')?? $clinics->adress_ru ??''}}</textarea>
             </div>
         </div>
 
         <div class="form-group row">
             <label for="inputEmail3" class=" col-sm-5 col-form-label ">Выберете тип клиники </label>
             <div class="col-sm-6 ">
-                <select class="form-control" name="type" id="type" required>
+                <select class="form-control" name="clinic_type" id="clinic_type" required>
                     <option hidden></option>
                     <option value="1" @if ($clinics->type == '1') selected="selected" @endif>Частная клиника</option>
                     <option value="2" @if ($clinics->type == '2') selected="selected" @endif>Государственная поликлиника</option>

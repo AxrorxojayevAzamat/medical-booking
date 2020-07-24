@@ -31,6 +31,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 
             Route::post('{user}/store-clinics', 'UserController@storeClinics')->name('store-clinics');
             Route::get('{user}/user-clinics', 'UserController@userClinics')->name('user-clinics');
+            Route::post('{user}/store-admin-clinics', 'UserController@storeAdminClinics')->name('store-admin-clinics');
+            Route::get('{user}/admin-clinics', 'UserController@adminClinics')->name('admin-clinics');
         }
     );
 

@@ -170,8 +170,8 @@
         <div class="card card-secondary card-outline" id="doctor-clinic">
            
                 @foreach($doctor->clinics as $clinic)
-                <div class="card-header">{{ __('Клиника ') }} <a href='{{ route('admin.clinic.show', $clinic) }}'><strong> {{$clinic->name_ru}}</strong></a> 
-                    <form action="{{ route('admin.clinic.destroy',$clinic) }}" method="post">
+                <div class="card-header">{{ __('Клиника ') }} <a href='{{ route('admin.clinics.show', $clinic) }}'><strong> {{$clinic->name_ru}}</strong></a> 
+                    <form action="{{ route('admin.clinics.destroy',$clinic) }}" method="post">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger float-right" onclick="return confirm('При удалени клиники удаляются все расписании и брони Хотите удалить клинику {{$clinic->name_ru}}?')" >Удалить клинику</button>

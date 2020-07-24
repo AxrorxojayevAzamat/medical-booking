@@ -7,7 +7,9 @@
         <a class="btn btn-secondary mr-1 p-2 bd-highlight" href="{{ route('admin.users.user-clinics',$user)}}">{{ trans('Добавить клинику') }}</a>
         <a class="btn btn-info mr-1 p-2 bd-highlight" href="{{ route('admin.users.specializations', $user)}}">{{ trans('Добавить специализацию') }}</a>
         @endif
-        {{-- <a class="btn btn-success mr-1 p-2 bd-highlight" href="{{ route('admin.users.edit',$user)}}">{{ trans('Забронировать') }}</a> --}}
+        @if($user->isClinic())
+        <a class="btn btn-secondary mr-1 p-2 bd-highlight" href="{{ route('admin.users.admin-clinics',$user)}}">{{ trans('Добавить админу клиники') }}</a>
+        @endif
 
             <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}" class="ml-auto mr-1">
                 @csrf
@@ -71,6 +73,18 @@
                             </tr>
                                 @endif
                             @endif
+                            @if($user->isClinic())
+                            @if(!$user->adminsClinics->isEmpty())
+                            <tr>
+                                <th>{{'Клиники админа'}}</th>
+                                <th>
+                                    @foreach($user->adminsClinics as $admin_clinic)
+                                    <a href='{{ route('admin.clinics.show', $admin_clinic->id) }}'><strong>{{$admin_clinic->name}}</strong></a><br>
+                                    @endforeach
+                                </th>
+                            </tr>
+                                @endif
+                            @endif
                                 {{-- <tr>
                                 <th>
                                         <div class="col-md-3">
@@ -95,8 +109,8 @@
         <div class="card card-secondary card-outline" id="doctor-clinic">
 
                 @foreach($doctor->clinics as $clinic)
-                <div class="card-header">{{ __('Клиника ') }} <a href='{{ route('admin.clinic.show', $clinic) }}'><strong> {{$clinic->name_ru}}</strong></a>
-                    <form action="{{ route('admin.clinic.destroy',$clinic) }}" method="post">
+                <div class="card-header">{{ __('Клиника ') }} <a href='{{ route('admin.clinics.show', $clinic) }}'><strong> {{$clinic->name_ru}}</strong></a>
+                    <form action="{{ route('admin.clinics.destroy',$clinic) }}" method="post">
                         @csrf
                         @method('DELETE')
                         <div>

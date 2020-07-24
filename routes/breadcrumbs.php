@@ -75,6 +75,11 @@ Breadcrumbs::register('admin.users.user-clinics', function (Crumbs $crumbs, User
     $crumbs->push(trans('Клиники врача'), route('admin.users.user-clinics', $user));
 });
 
+Breadcrumbs::register('admin.users.admin-clinics', function (Crumbs $crumbs, User $user) {
+    $crumbs->parent('admin.users.show', $user);
+    $crumbs->push(trans('Клиники админа'), route('admin.users.admin-clinics', $user));
+});
+
 
 //regions
 Breadcrumbs::register('admin.regions.index', function (Crumbs $crumbs) {

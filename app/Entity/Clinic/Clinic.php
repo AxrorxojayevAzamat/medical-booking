@@ -33,6 +33,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property Region $region
  * @property DoctorClinic[] $doctorClinics
  * @property User[] $doctors
+ * @property AdminClinic[] $adminClinics
+ * @property User[] $admins
  * @property Photo[] $photos
  * @property Photo $mainPhoto
  * @property User $createdBy
@@ -105,6 +107,16 @@ class Clinic extends BaseModel
     public function doctors()
     {
         return $this->belongsToMany(User::class, 'doctor_clinics', 'clinic_id', 'doctor_id');
+    }
+    
+    public function adminClinics()
+    {
+        return $this->hasMany(DoctorClinic::class, 'clinic_id', 'id');
+    }
+
+    public function admins()
+    {
+        return $this->belongsToMany(User::class, 'admin_clinics', 'clinic_id', 'admin_id');
     }
 
     public function photos()
