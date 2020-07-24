@@ -154,6 +154,38 @@
 
                 <aside class="col-lg-5" id="sidebar">
                     <div id="map_listing" class="normal_list">
+                    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <style>
+        #map { height: 500px; width: 600px; }
+    </style>
+
+    <body>
+    <div id="map"></div>
+    <script>
+        var map = L.map('map').setView([41.311081, 69.240562], 12);
+        L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=Xfgr995Ff02GXMwQcwYP',{
+            attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+        }).addTo(map);
+        
+        var greenIcon = L.icon({
+    iconUrl: '/img/icons/clinic.png',
+    iconSize:     [50, 50], // size of the icon
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+    L.marker([41.311081, 69.240562],{icon:greenIcon}).addTo(map).bindPopup('CLINIC N1 Phone:+998*******');
+    L.marker([41.274290, 69.204554],{icon:greenIcon}).addTo(map).bindPopup('CLINIC N2 Phone:+998*******');
+    //L.marker([41.274290, 69.204554],{icon:greenIcon}).addTo(map).bindPopup('CLINIC N3 Phone:+998*******');
+
+/* var polygon = L.polygon([
+    [51.509, -0.08],
+    [51.503, -0.06],
+    [51.51, -0.047]
+]).addTo(map);
+*/
+    </script>
+    </body>
                     </div>
                 </aside>
                 <!-- /aside -->
