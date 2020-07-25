@@ -104,7 +104,7 @@ class ClinicService
         DB::beginTransaction();
         try {
             $clinic->update(['main_photo_id' => null]);
-            $clinic->mainPhoto()->delete();
+            $clinic->mainPhoto->delete();
             $this->sortPhotos($clinic);
             
             DB::commit();
@@ -115,21 +115,7 @@ class ClinicService
             throw $e;
         }
     }
-    private function deletePhotos(int $clinicId, string $filename)
-    {
-        Storage::disk('public')->delete('/images/' . ImageHelper::FOLDER_CLINICS . '/' . $clinicId . '/' . ImageHelper::TYPE_ORIGINAL . '/' . $filename);
-        Storage::disk('public')->delete('/images/' . ImageHelper::FOLDER_CLINICS . '/' . $clinicId . '/' . ImageHelper::TYPE_THUMBNAIL . '/' . $filename);
 
-        Storage::disk('public')->deleteDirectory('/images/' . ImageHelper::FOLDER_CLINICS . '/' . $clinicId);
-    }
-
-    private function sortPhotos(Clinic $clinic): void
-    {
-        foreach ($clinic->photos as $i => $photo) {
-            $photo->setSort($i + 2);
-            $photo->saveOrFail();
-        }
-    }
     public function removePhoto(int $id, int $photoId): bool
     {
         $clinic = Clinic::findOrFail($id);
@@ -154,19 +140,41 @@ class ClinicService
             throw $e;
         }
     }
-    public function multiplePhotoDelete($clinic)
+    
+    public function deleteAllPhotos($clinic)
     {
-        $photos = $clinic->photos;
+        $clinic = Clinic::findOrFail($clinic->id);
+        $photos = $clinic->allPhotos;
         try {
             foreach ($photos as $i => $photo) {
-                $this->removePhoto($clinic->id, $photo->id);
+                $this->deletePhotos($clinic->id, $photo->filename);
             }
+            $this->deleteDirectory($clinic->id);
             return true;
         } catch (\Exception $e) {
             throw $e;
         }
     }
 
+
+    private function deletePhotos(int $clinicId, string $filename)
+    {
+        Storage::disk('public')->delete('/images/' . ImageHelper::FOLDER_CLINICS . '/' . $clinicId . '/' . ImageHelper::TYPE_ORIGINAL . '/' . $filename);
+        Storage::disk('public')->delete('/images/' . ImageHelper::FOLDER_CLINICS . '/' . $clinicId . '/' . ImageHelper::TYPE_THUMBNAIL . '/' . $filename);
+    }
+    private function deleteDirectory($clinicId)
+    {
+        Storage::disk('public')->deleteDirectory('/images/' . ImageHelper::FOLDER_CLINICS . '/' . $clinicId);
+    }
+
+    private function sortPhotos(Clinic $clinic): void
+    {
+        foreach ($clinic->photos as $i => $photo) {
+            $photo->setSort($i + 2);
+            $photo->saveOrFail();
+        }
+    }
+   
     public function movePhotoUp(int $id, int $photoId): void
     {
         $clinic = Clinic::findOrFail($id);

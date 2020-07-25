@@ -71,13 +71,18 @@ class Profile extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+    public function mainPhoto()
+    {
+        return $this->belongsTo(Photo::class, 'main_photo_id', 'id');
+    }
     public function photos()
     {
         return $this->hasMany(Photo::class, 'user_id', 'user_id')->whereKeyNot($this->main_photo_id)->orderBy('sort');
     }
-    public function mainPhoto()
+
+    public function allPhotos()
     {
-        return $this->belongsTo(Photo::class, 'main_photo_id', 'id');
+        return $this->hasMany(Photo::class, 'user_id', 'user_id');
     }
 
     public function rate()

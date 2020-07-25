@@ -36,7 +36,7 @@ class ClinicController extends Controller
         if (!empty($value = $request->get('typeClinic'))) {
             $query->where('type', $value);
         }
-        $clinics = $query->paginate(1000);
+        $clinics = $query->paginate(30);
         return view('admin.clinics.index', compact('clinics'));
     }
 
@@ -81,13 +81,15 @@ class ClinicController extends Controller
 
     public function destroy(Clinic $clinic)
     {
-        $clinics = Clinic::find($clinic->id);
-        $photo = $this->service->multiplePhotoDelete($clinic);
-        if ($photo==true) {
+        $clinic = Clinic::find($clinic->id);
+        
+        $photos = $this->service->deleteAllPhotos($clinic);
+        if ($photos==true) {
+            $clinic->delete();
+        } else {
             $clinic->delete();
         }
-        $clinics->delete();
-        return redirect()->back();
+        return redirect()->route('admin.clinics.index')->with('success', 'Успешно удалено!');
     }
 
     public function mainPhoto(Clinic $clinic)

@@ -25,10 +25,10 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
-                            @if( $profile && !empty($profile->avatar))
+                            @if( $profile && !empty($profile->mainPhoto))
                                 <div class="card-body box-profile">
                                     <div class="text-center">
-                                        <img class="profile-user-img img-fluid img-circle" src="/uploads/avatars/{{ $profile->avatar }}../../dist/img/user4-128x128.jpg" alt="Фотография пользователя">
+                                    <img class="profile-user-img img-fluid img-circle" src="{{$profile->mainPhoto->fileOriginal}}" alt="Фотография пользователя">
                                     </div>
                                 </div>
                             @endif

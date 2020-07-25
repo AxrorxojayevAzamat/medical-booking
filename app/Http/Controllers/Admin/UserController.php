@@ -87,7 +87,11 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        $user->delete();
+        $photos = $this->service->deleteAllPhotos($user);
+        if ($photos==true) {
+            $user->delete();
+        }
+
         
         return redirect()->route('admin.users.index');
     }

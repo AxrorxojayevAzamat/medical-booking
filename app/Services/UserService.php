@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Entity\User\User;
+use App\Entity\User\Photo;
 use App\Entity\User\Profile;
 use App\Helpers\ImageHelper;
 use Illuminate\Http\UploadedFile;
@@ -128,7 +129,7 @@ class UserService
         }
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
 
     public function addMainPhoto(int $id, UploadedFile $image)
     {
@@ -178,10 +179,11 @@ class UserService
     {
         $profile = Profile::findOrFail($id);
         $this->deletePhotos($profile->user_id, $profile->mainPhoto->filename);
+        
         DB::beginTransaction();
         try {
             $profile->update(['main_photo_id' => null]);
-            $profile->mainPhoto()->delete();
+            $profile->mainPhoto->delete();
             $this->sortPhotos($profile);
             
             DB::commit();
@@ -192,14 +194,7 @@ class UserService
             throw $e;
         }
     }
-    private function deletePhotos(int $userId, string $filename)
-    {
-        Storage::disk('public')->delete('/images/' . ImageHelper::FOLDER_USERS . '/' . $userId . '/' . ImageHelper::TYPE_ORIGINAL . '/' . $filename);
-        Storage::disk('public')->delete('/images/' . ImageHelper::FOLDER_USERS . '/' . $userId . '/' . ImageHelper::TYPE_THUMBNAIL . '/' . $filename);
-        
-        Storage::disk('public')->deleteDirectory('/images/' . ImageHelper::FOLDER_USERS . '/' . $userId);
-    }
-
+   
     public function removePhoto(int $id, int $photoId): bool
     {
         $profile = Profile::findOrFail($id);
@@ -224,6 +219,33 @@ class UserService
             throw $e;
         }
     }
+
+    public function deleteAllPhotos(User $user)
+    {
+        $profile = Profile::findOrFail($user->id);
+        $photos = $profile->allPhotos;
+        try {
+            foreach ($photos as $i => $photo) {
+                $this->deletePhotos($user->id, $photo->filename);
+            }
+            $this->deleteDirectory($profile->user_id);
+            return true;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    private function deletePhotos(int $userId, string $filename)
+    {
+        Storage::disk('public')->delete('/images/' . ImageHelper::FOLDER_USERS . '/' . $userId . '/' . ImageHelper::TYPE_ORIGINAL . '/' . $filename);
+        Storage::disk('public')->delete('/images/' . ImageHelper::FOLDER_USERS . '/' . $userId . '/' . ImageHelper::TYPE_THUMBNAIL . '/' . $filename);
+    }
+
+    private function deleteDirectory(int $userId)
+    {
+        Storage::disk('public')->deleteDirectory('/images/' . ImageHelper::FOLDER_USERS . '/' . $userId);
+    }
+    
     public function movePhotoUp(int $id, int $photoId): void
     {
         $profile = Profile::findOrFail($id);

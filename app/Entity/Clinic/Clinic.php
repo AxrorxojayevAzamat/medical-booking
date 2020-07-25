@@ -104,14 +104,20 @@ class Clinic extends BaseModel
     {
         return $this->belongsToMany(User::class, 'doctor_clinics', 'clinic_id', 'doctor_id');
     }
+    
+    public function mainPhoto()
+    {
+        return $this->belongsTo(Photo::class, 'main_photo_id', 'id');
+    }
 
     public function photos()
     {
         return $this->hasMany(Photo::class, 'clinic_id', 'id')->whereKeyNot($this->main_photo_id)->orderBy('sort');
     }
-    public function mainPhoto()
+
+    public function allPhotos()
     {
-        return $this->belongsTo(Photo::class, 'main_photo_id', 'id');
+        return $this->hasMany(Photo::class, 'clinic_id', 'id');
     }
 
     public function createdBy()
@@ -123,6 +129,7 @@ class Clinic extends BaseModel
     {
         return $this->belongsTo(User::class, 'updated_by', 'id');
     }
+    
 
     ###########################################
 }

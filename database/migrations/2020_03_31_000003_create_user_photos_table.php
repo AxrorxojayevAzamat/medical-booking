@@ -23,7 +23,7 @@ class CreateUserPhotosTable extends Migration
             $table->timestamps();
         });
         Schema::table('user_photos', function (Blueprint $table) {
-            $table->foreign('user_id')->references('user_id')->on('profiles')->onDelete('restrict');
+            $table->foreign('user_id')->references('user_id')->on('profiles')->onDelete('cascade');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('restrict');
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('restrict');
         });
