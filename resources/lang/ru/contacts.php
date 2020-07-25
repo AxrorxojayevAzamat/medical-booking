@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Обратная связь',
-    'sub_title' => 'We will contact with you soon',
+    'sub_title' => 'Мы скоро с вами свяжемся',
     'name' => 'Имя',
     'lastname' => 'Фамилия',
     'email' => 'Почта',

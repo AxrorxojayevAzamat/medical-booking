@@ -37,6 +37,17 @@ Breadcrumbs::register('doctors.show', function (Crumbs $crumbs, User $doctor) {
     $crumbs->push($doctor->profile->fullName, route('doctors.show', $doctor));
 });
 
+//contacts
+Breadcrumbs::register('contacts.contacts', function (Crumbs $crumbs) {
+    $crumbs->parent('home');
+    $crumbs->push('Обратный связь', route('contacts.contacts'));
+});
+
+//specialization
+Breadcrumbs::register('specializations', function (Crumbs $crumbs) {
+    $crumbs->parent('home');
+    $crumbs->push('Cпециализация', route('specializations'));
+});
 
 ///////////////////////////////// Admin
 

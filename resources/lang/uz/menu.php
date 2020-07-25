@@ -16,4 +16,8 @@ return [
     'important'                     => 'Important',
     'warning'                       => 'Warning',
     'information'                   => 'Information',
+    'specialization'                => 'Shifokor turlari',
+    'doctors'                       => 'Shifokorlar',
+    'clinics'                       => 'Klinikalar',
+    'language'                      => 'Til',
 ];
