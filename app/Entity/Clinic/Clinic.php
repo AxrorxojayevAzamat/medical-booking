@@ -8,6 +8,8 @@ use App\Entity\User\User;
 use App\Helpers\LanguageHelper;
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
+use App\Entity\Clinic\AdminClinic;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @property int $id
@@ -40,6 +42,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property User $createdBy
  * @property User $updatedBy
  * @mixin Eloquent
+ * @method Builder forUser(User $user)
  */
 class Clinic extends BaseModel
 {
@@ -65,7 +68,18 @@ class Clinic extends BaseModel
     {
         return self::clinicTypeList()[$this->type];
     }
+    
+    ######################################################################################### Scopes
 
+    public function scopeForUser(Builder $query, User $user)
+    {
+        $adminClinics = AdminClinic::where('admin_id', $user->id)->pluck('clinic_id')->toArray();
+        
+        return $query->whereIn('id', $adminClinics);
+        
+    }
+
+    #########################################################################################
 
     ########################################### Mutators
 

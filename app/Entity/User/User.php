@@ -33,6 +33,7 @@ use App\Notifications\ResetPassword as ResetPasswordNotification;
  * @property DoctorClinic[] $doctorClinics
  * @property AdminClinic[] $adminClinics
  * @property Clinic[] $clinics
+ * @method Builder forUser(User $user)
  *
  * @mixin Eloquent
  */
@@ -172,6 +173,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function scopeDoctor($query)
     {
         return $query->where('role', self::ROLE_DOCTOR);
+    }
+   
+    public function scopeForUser(Builder $query)
+    {
+        $adminClinics = AdminClinic::where('admin_id', $this->id)->pluck('clinic_id')->toArray();
+        $adminClinicsDoctors = DoctorClinic::WhereIn('clinic_id', $adminClinics)->pluck('doctor_id')->toArray();
+               
+        return $query->whereIn('id', $adminClinicsDoctors);
+
     }
 
     #########################################################################################

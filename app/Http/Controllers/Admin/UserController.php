@@ -23,14 +23,24 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware('can:manage-users');
+
     }
 
     public function index(Request $request)
     {
+//                $this->authorize('manage-users');
+        $this->authorize('manage-own-doctors');    
+        $user = Auth::user();
+
+        if ($user->isClinic()) {
+            $query = User::forUser(Auth::user());
+        }
+        
         $query = User::select(['users.*', 'pr.*'])
             ->leftJoin('profiles as pr', 'users.id', '=', 'pr.user_id')
             ->orderByDesc('created_at');
+        
+
 
         if (!empty($value = $request->get('id'))) {
             $query->where('id', $value);

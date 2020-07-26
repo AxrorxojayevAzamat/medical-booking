@@ -194,7 +194,7 @@ return [
             'text' => 'Пользователи',
             'icon' => 'fas fa-fw fa-user',
             'url' => 'admin/users',
-            'can' => 'manage-users',
+            'can' => ['manage-users','admin-clinic-panel'],
         ],
         [
             'text' => 'Регионы',

@@ -7,6 +7,8 @@ use App\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Entity\Clinic\AdminClinic;
+
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -36,6 +38,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('manage-users', function (User $user) {
             return $user->isAdmin();
         });
+        
+        Gate::define('manage-own-doctors', function (User $user) {
+        return $user->isClinic() || $user->isAdmin();
+        });
 
         Gate::define('manage-own-profile', function (User $user, User $profile) {
             return $user->isAdmin() || $user->id === $profile->id;
@@ -46,7 +52,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('admin-panel', function (User $user) {
-            return $user->isAdmin();
+            return $user->isAdmin() || $user->isClinic();;
         });
 
         Gate::define('patient-panel', function (User $user) {
@@ -63,6 +69,14 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('manage-clinics', function (User $user) {
             return $user->isAdmin();
+        });
+        
+        Gate::define('admin-clinic-panel', function (User $user) {
+            return $user->isClinic() || $user->isAdmin();
+        });
+        
+        Gate::define('manage-own-clinics', function (User $user, AdminClinic $adminClinic) {
+            return $user->isClinic() || $user->id === $adminClinic->admin_id;
         });
 
 

@@ -10,22 +10,34 @@ use App\Services\ClinicService;
 use Illuminate\Http\Request;
 use App\Traits\UploadTrait;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use App\Entity\Clinic\AdminClinic;
 
 class ClinicController extends Controller
 {
+
     use UploadTrait;
 
     private $service;
 
     public function __construct(ClinicService $service)
     {
-        $this->middleware('can:manage-clinics');
+//        $this->middleware('can:manage-clinics');
+        $this->middleware('can:admin-clinic-panel');
         $this->service = $service;
     }
 
     public function index(Request $request)
     {
+        
+        
         $query = Clinic::orderBy('id');
+        $user = Auth::user();
+//        dd($user->isClinic());
+        if ($user->isClinic()) {
+            $query = Clinic::forUser(Auth::user());
+        }
 
         $this->validate($request, [
             'id' => ['integer', 'nullable'],
@@ -45,6 +57,12 @@ class ClinicController extends Controller
 
     public function create()
     {
+        $user = Auth::user();
+        $adminClinic = AdminClinic::where('admin_id',$user->id)->first();
+//        dd($adminClinic);
+        if (!Gate::allows('manage-own-clinics', $adminClinic)) {
+            abort(403);
+        }
         $regions = Region::all();
         return view('admin.clinics.create', compact('regions'));
     }
@@ -53,24 +71,24 @@ class ClinicController extends Controller
     {
         try {
             $clinics = Clinic::create([
-                'name_uz' => $request->name_uz,
-                'name_ru' => $request->name_ru,
-                'region_id' => $request->region_id,
-                'type' => $request->clinic_type,
-                'description_uz' => $request->description_uz,
-                'description_ru' => $request->description_ru,
-                'phone_numbers' => $request->phone_numbers,
-                'address_uz' => $request->adress_uz,
-                'address_ru' => $request->adress_ru,
-                'work_time_start' => $request->work_time_start,
-                'work_time_end' => $request->work_time_end,
-                'location' => $request->location,
+                        'name_uz' => $request->name_uz,
+                        'name_ru' => $request->name_ru,
+                        'region_id' => $request->region_id,
+                        'type' => $request->clinic_type,
+                        'description_uz' => $request->description_uz,
+                        'description_ru' => $request->description_ru,
+                        'phone_numbers' => $request->phone_numbers,
+                        'address_uz' => $request->adress_uz,
+                        'address_ru' => $request->adress_ru,
+                        'work_time_start' => $request->work_time_start,
+                        'work_time_end' => $request->work_time_end,
+                        'location' => $request->location,
             ]);
             return redirect()->route('admin.clinics.index', $clinics);
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
-        
+
 
         // $folder = Clinic::CLINIC_PROFILE;
         // $photos = $request->file('images');
@@ -185,4 +203,5 @@ class ClinicController extends Controller
             return back()->with('error', $e->getMessage());
         }
     }
+
 }
