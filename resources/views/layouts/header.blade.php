@@ -55,8 +55,38 @@
                     <nav class="col-lg-9 col-6">
                         <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="#0"><span>Menu mobile</span></a>
                         <ul id="top_access">
+                            <div class="dropdown">
+                                @if (Route::has('login'))
+                                @auth
+                                    <button class="btn auth_btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{Auth::user()->profile->first_name}}
+                                    </button>
+                                    <div class="dropdown-menu auth_menu" aria-labelledby="dropdownMenuButton">
+                                        @if(Auth::user()->isAdmin())
+                                        <a class="dropdown-item auth_item" href="{{ url('admin') }}">{{trans('auth.profile')}}</a>
+                                        @elseif(Auth::user()->isPatient())
+                                        <a class="dropdown-item auth_item" href="{{ url('patient')  }}">{{trans('auth.profile')}}</a>
+                                        @elseif(Auth::user()->isDoctor())
+                                        <a class="dropdown-item auth_item" href="{{ url('doctor/profile')  }}">{{trans('auth.profile')}}</a>
+                                        @endif
+        
+                                        <a class="dropdown-item auth_item" href="{{ url('log out')  }}">{{trans('auth.log_out')}}</a>
+                                    </div>
+                                @else
+        
+                                    <button class="btn auth_btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{trans('auth.log_in')}} / {{trans('auth.sign_up')}}
+                                    </button>
+                                    <div class="dropdown-menu auth_menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item auth_item" href="{{ route('login') }}">{{trans('auth.log_in')}}</a>
+                                        <a class="dropdown-item auth_item" href="{{ route('register') }}">{{trans('auth.sign_up')}}</a>
+                                    </div>
+                                    @endauth
+                                @endif
+                                </div>
+
                             @if (Route::has('login'))
-                            <div class="top-right links">
+                            <div class="top-right links" style="display: none">
                                 @auth
                                 @if(Auth::user()->isAdmin())
                                 <li><a href="{{ url('admin') }}"><i class="pe-7s-user"></i></a></li>

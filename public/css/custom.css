@@ -338,3 +338,49 @@
         color: #fff;
         height: 40px;
       }
+
+
+      .header_sticky .dropdown .auth_btn {
+        background: #fff;
+        border-radius: 0;
+        box-shadow: 0 0 25px 0 #3f407925;
+        color: #3f4079;
+        transition: .7s all;
+      }
+
+      .header_sticky .dropdown .auth_btn:focus {
+        background: #3f4079;
+        color: #fff;
+      }
+
+      .header_sticky .dropdown .auth_btn::after {
+        transition: .7s transform;
+        -moz-transition: .7s transform;
+      }
+
+      .header_sticky .dropdown .auth_btn:focus::after {
+        transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+      }
+
+      .header_sticky .dropdown .auth_menu {
+        background: #fff;
+        border-radius: 0;
+        border: 0;
+        box-shadow: 0 15px 25px 0 #3f407925;
+        color: #3f4079;
+        transition: .7s all;
+        width: -moz-available;
+        width: available;
+        width: -webkit-fill-available;
+        padding: 0;
+        transition: .7s display;
+      }
+
+      .header_sticky .dropdown .auth_item {
+        padding: .75em 1.5em;
+      }
+
+      .header_sticky .dropdown .auth_item:hover {
+        padding-left: 2em;
+      }
