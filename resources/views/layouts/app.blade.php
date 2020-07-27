@@ -70,7 +70,14 @@
                                 <a class="dropdown-item auth_item" href="{{ url('doctor/profile')  }}">{{trans('auth.profile')}}</a>
                                 @endif
 
-                                <a class="dropdown-item auth_item" href="{{ url('log out')  }}">{{trans('auth.log_out')}}</a>
+                                {{-- <a class="dropdown-item auth_item"  href="{{ route('logout') }}" method="POST">{{trans('auth.log_out')}}</a> --}}
+
+                                <a class="dropdown-item auth_item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{trans('auth.log_out')}}</a>
+                        
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+
                             </div>
                         @else
 
