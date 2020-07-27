@@ -98,8 +98,16 @@ class DoctorController extends Controller
         $regions = Region::where('parent_id', null)->pluck('name_' . LanguageHelper::getCurrentLanguagePrefix(), 'id');
         $clinics = Clinic::pluck('name_' . LanguageHelper::getCurrentLanguagePrefix(), 'id');
         $specializations = Specialization::pluck('name_' . LanguageHelper::getCurrentLanguagePrefix(), 'id');
-
-        return view('doctors.index', compact('doctors', 'regions', 'clinics', 'specializations', 'countAll', 'countCurrent'));
+        
+        $clinicLocations = array();
+        foreach ($doctors as $key => $value) {
+            
+           $clinicLocations[] = [   'doctorId' => $value->id,
+                                    'locations' => $value->clinics()->pluck('location')->toArray()
+                                ];
+        }
+        $clinicLocationsJson = json_encode($clinicLocations);
+        return view('doctors.index', compact('doctors', 'regions', 'clinics', 'specializations', 'countAll', 'countCurrent','clinicLocationsJson'));
     }
 
     private function getRegionIds($regionId): array
