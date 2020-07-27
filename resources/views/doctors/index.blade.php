@@ -197,7 +197,10 @@
     </main>
     <!-- /main -->
 
-
+<label>
+    
+{{ $clinicLocationsJson  }}
+</label>
 </div>
 @endsection
 
