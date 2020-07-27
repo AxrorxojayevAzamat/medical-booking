@@ -27,18 +27,7 @@
                                 </div>
                                 <div class="col-sm-2">
                                     <div class="form-group">
-                                        <label for="name" class="col-form-label">{{ trans('Имя пользователя') }}</label>
-                                        <input id="name" class="form-control" name="name" value="{{ request('name') }}">
-                                        @if ($errors->has('name'))
-                                            <div class="invalid-feedback">
-                                                <strong>{{ $errors->first('name') }}</strong>
-                                            </div>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label for="first_name" class="col-form-label">{{ trans('Имя') }}</label>
+                                        <label for="first_name" class="col-form-label">{{ trans('Имя пользователя') }}</label>
                                         <input id="first_name" class="form-control" name="first_name" value="{{ request('first_name') }}">
                                         @if ($errors->has('first_name'))
                                             <div class="invalid-feedback">

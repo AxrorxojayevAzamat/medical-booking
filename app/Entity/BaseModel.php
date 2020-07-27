@@ -3,7 +3,6 @@
 
 namespace App\Entity;
 
-
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -31,5 +30,4 @@ class BaseModel extends Model
             });
         }
     }
-
 }

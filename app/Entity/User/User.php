@@ -36,7 +36,6 @@ use App\Notifications\ResetPassword as ResetPasswordNotification;
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
-
     use Notifiable;
 
     public const STATUS_ACTIVE = 10;
@@ -207,4 +206,5 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Clinic::class, 'doctor_clinics', 'doctor_id', 'clinic_id');
     }
 
+    
 }

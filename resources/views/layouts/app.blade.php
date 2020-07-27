@@ -115,13 +115,19 @@
                 <div class="main-menu">
                     <ul>
                         <li class="submenu">
-                            <a href="{{ route('doctors.index') }}" class="show-submenu">Докторы</a>
+                            <a href="{{ route('doctors.index') }}" class="show-submenu">{{ trans('menu.doctors') }}</a>
                         </li>
                         <li class="submenu">
-                            <a href="{{ route('clinics.index') }}" class="show-submenu">Клиники</a>
+                            <a href="{{ route('clinics.index') }}" class="show-submenu">{{ trans('menu.clinics') }}</a>
+                        </li>
+                        <li>
+                            <a href="{{route('specializations')}}">{{ trans('menu.specialization') }}</a>
+                        </li>
+                        <li>
+                            <a href="{{route('contacts.contacts')}}">{{ trans('contacts.title') }}</a>
                         </li>
                         <li class="submenu">
-                            <a href="#" class="show-submenu">Язык<i class="icon-down-open-mini"></i></a>
+                            <a href="#" class="show-submenu">{{ trans('menu.language') }}<i class="icon-down-open-mini"></i></a>
                             <ul>
                                 <li><a href="/locale/uz">Uz</a></li>
                                 <li><a href="/locale/ru">Ру</a></li>

@@ -26,7 +26,7 @@
         <div class="  card-header " align="center"><h3>Редактирование Клиники</h3></div>
         <div class=" card-header">
             <div  align='center'>
-                <form action="{{ route('admin.clinics.update',$clinics->id) }}" method="post" enctype="multipart/form-data" id="upload">
+                <form action="{{ route('admin.clinics.update',$clinic->id) }}" method="post" enctype="multipart/form-data" id="upload">
                     @csrf
                     @method('PATCH')
                     @include('admin.clinics.forms.editForms')
