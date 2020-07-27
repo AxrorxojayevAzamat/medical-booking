@@ -53,7 +53,6 @@ class TimetableService
 
     public function update($id, TimeTableRequest $request)
     {
-        //dd($id, $request);
         $timetable = Timetable::find($id);
         try {
             $timetable->update([

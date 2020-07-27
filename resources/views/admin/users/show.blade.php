@@ -6,6 +6,8 @@
         @if($user->isDoctor())
         <a class="btn btn-secondary mr-1 p-2 bd-highlight" href="{{ route('admin.users.user-clinics',$user)}}">{{ trans('Добавить клинику') }}</a>
         <a class="btn btn-info mr-1 p-2 bd-highlight" href="{{ route('admin.users.specializations', $user)}}">{{ trans('Добавить специализацию') }}</a>
+        <a class="btn btn-dark mr-1" href="{{ route('admin.users.main-photo', $user)}}">Главное фото</a>
+        <a class="btn btn-warning mr-1" href="{{ route('admin.users.photos', $user)}}">Фотографии</a>
         @endif
         @if($user->isClinic())
         <a class="btn btn-secondary mr-1 p-2 bd-highlight" href="{{ route('admin.users.admin-clinics',$user)}}">{{ trans('Добавить админу клиники') }}</a>
@@ -25,10 +27,10 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
-                            @if( $profile && !empty($profile->avatar))
+                            @if( $profile && !empty($profile->mainPhoto))
                                 <div class="card-body box-profile">
                                     <div class="text-center">
-                                        <img class="profile-user-img img-fluid img-circle" src="/uploads/avatars/{{ $profile->avatar }}../../dist/img/user4-128x128.jpg" alt="Фотография пользователя">
+                                    <img class="profile-user-img img-fluid img-circle" src="{{$profile->mainPhoto->fileOriginal}}" alt="Фотография пользователя">
                                     </div>
                                 </div>
                             @endif
@@ -38,7 +40,7 @@
                     <table class="table table-striped projects">
                         <tbody>
                             <tr><th>{{ trans('ID') }}</th><td>{{ $user->id }}</td></tr>
-                            <tr><th>{{ trans('Логин') }}</th><td>{{ $user->name }}</td></tr>
+                            {{-- <tr><th>{{ trans('Логин') }}</th><td>{{ $user->name }}</td></tr> --}}
                             <tr><th>{{ trans('Адрес электронной почты') }}</th><td>{{ $user->email }}</td></tr>
                             <tr><th>{{ trans('Телефон') }}</th><td>{{ $user->phone }}</td></tr>
                             <tr><th>{{ trans('Роль пользователя') }}</th><td>{{ $user->roleName() }}</td></tr>

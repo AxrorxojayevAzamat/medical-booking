@@ -40,6 +40,15 @@ class UsersTableSeeder extends Seeder {
                     'role' => User::ROLE_CLINIC,
         ]);
 
+        $admin_center = User::create([
+                    'email' => 'center@center.com',
+                    'email_verified_at' => '2020-06-30 13:00:00',
+                    'password' => bcrypt('12'),
+                    'phone' => '+13172130030',
+                    'status' => User::STATUS_ACTIVE,
+                    'role' => User::ROLE_CALL_CENTER,
+        ]);
+
         Profile::create([
             'user_id' => $patient->id,
             'first_name' => 'Test',
@@ -72,6 +81,17 @@ class UsersTableSeeder extends Seeder {
             'about_uz' => 'ABOUT_RU',
             'about_ru' => 'ABOUT_RU',
             'avatar' => '/img/avatar3.jpg',
+        ]);
+        Profile::create([
+            'user_id' => $admin_center->id,
+            'first_name' => 'AdminCenter',
+            'last_name' => 'AdminCenterov',
+            'middle_name' => 'AdminCentervich',
+            'birth_date' => '1989-07-03 09:34:03',
+            'gender' => Profile::MALE,
+            'about_uz' => 'ABOUT_RU',
+            'about_ru' => 'ABOUT_RU',
+            'avatar' => '/img/avatar4.jpg',
         ]);
         
     }

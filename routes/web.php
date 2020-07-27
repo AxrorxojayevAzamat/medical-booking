@@ -12,34 +12,53 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('users', 'UserController');
     Route::resource('specializations', 'SpecializationController');
     Route::resource('celebration', 'CelebrationController');
+    Route::resource('partners', 'PartnerController');
 
     Route::get('/contactslist', 'DashboardController@contactsList')->name('contactlist');
 
     Route::resource('clinics', 'Clinic\ClinicController');
     Route::group(['prefix' => 'clinics/{clinic}', 'namespace' => 'Clinic', 'as' => 'clinics.'], function () {
         Route::resource('contacts', 'ContactController')->except('index');
+        //MainPhoto
         Route::get('main-photo', 'ClinicController@mainPhoto')->name('main-photo');
         Route::post('add-main-photo', 'ClinicController@addMainPhoto')->name('add-main-photo');
         Route::post('remove-main-photo', 'ClinicController@removeMainPhoto')->name('remove-main-photo');
+        //Photos
+        Route::get('photos', 'ClinicController@photos')->name('photos');
+        Route::post('add-photo', 'ClinicController@addPhoto')->name('add-photo');
+        Route::post('remove-photo/{photo}', 'ClinicController@removePhoto')->name('remove-photo');
+        //Sorting
+        Route::get('move-photo-up/{photo}', 'ClinicController@movePhotoUp')->name('move-photo-up');
+        Route::get('remove-photo/{photo}', 'ClinicController@removePhoto')->name('delete-photo');
+        Route::get('move-photo-down/{photo}', 'ClinicController@movePhotoDown')->name('move-photo-down');
     });
 
     Route::group(
-        ['prefix' => 'users', 'as' => 'users.'],
+        ['prefix' => 'users/{user}', 'as' => 'users.'],
         function () {
-            Route::post('{user}/store-specializations', 'UserController@storeSpecializations')->name('store-specializations');
-            Route::get('{user}/specializations', 'UserController@specializations')->name('specializations');
+            Route::post('store-specializations', 'UserController@storeSpecializations')->name('store-specializations');
+            Route::get('specializations', 'UserController@specializations')->name('specializations');
 
-            Route::post('{user}/store-clinics', 'UserController@storeClinics')->name('store-clinics');
-            Route::get('{user}/user-clinics', 'UserController@userClinics')->name('user-clinics');
-            Route::post('{user}/store-admin-clinics', 'UserController@storeAdminClinics')->name('store-admin-clinics');
-            Route::get('{user}/admin-clinics', 'UserController@adminClinics')->name('admin-clinics');
+            Route::post('store-clinics', 'UserController@storeClinics')->name('store-clinics');
+            Route::get('user-clinics', 'UserController@userClinics')->name('user-clinics');
+            //MainPhoto
+            Route::get('main-photo', 'UserController@mainPhoto')->name('main-photo');
+            Route::post('add-main-photo', 'UserController@addMainPhoto')->name('add-main-photo');
+            Route::post('remove-main-photo', 'UserController@removeMainPhoto')->name('remove-main-photo');
+            //Photos
+            Route::get('photos', 'UserController@photos')->name('photos');
+            Route::post('add-photo', 'UserController@addPhoto')->name('add-photo');
+            Route::post('remove-photo/{photo}', 'UserController@removePhoto')->name('remove-photo');
+            //Sorting
+            Route::get('move-photo-up/{photo}', 'UserController@movePhotoUp')->name('move-photo-up');
+            Route::get('remove-photo/{photo}', 'UserController@removePhoto')->name('delete-photo');
+            Route::get('move-photo-down/{photo}', 'UserController@movePhotoDown')->name('move-photo-down');
         }
     );
 
     Route::resource('/regions', 'RegionController');
     Route::group(['prefix' => 'region', 'as' => 'region.'], function () {
         Route::get('findCity/{id}', 'RegionController@findCity');
-
     });
 
     Route::group(
@@ -68,6 +87,13 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         Route::post('/booking-doctor', 'CallCenterController@bookingDoctor')->name('booking-doctor');
     });
 
+    Route::group(['prefix' => 'partners/{partner}', 'as' => 'partners.'], function () {
+        Route::post('delete-photo', 'PartnerController@deletePhoto')->name('delete-photo');
+        Route::post('first', 'PartnerController@first')->name('first');
+        Route::post('up', 'PartnerController@up')->name('up');
+        Route::post('down', 'PartnerController@down')->name('down');
+        Route::post('last', 'PartnerController@last')->name('last');
+    });
     Route::resource('news', 'NewsController');
 });
 

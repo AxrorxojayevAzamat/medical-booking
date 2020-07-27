@@ -15,7 +15,7 @@
 
 <div class="card" id="photos">
     <div class="card-body">
-        <form method="POST" action="{{ route('admin.clinics.add-main-photo', $clinic) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.users.add-main-photo', $profile->user_id) }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <div class="file-loading">
@@ -36,7 +36,7 @@
 @section('js')
 <script>
     let fileInput = $("#file-input");
-    let logoUrl = '{{ $clinic ? ($clinic->main_photo_id ? $clinic->mainPhoto->fileOriginal : null) : null }}';
+    let logoUrl = '{{ $profile ? ($profile->main_photo_id ? $profile->mainPhoto->fileOriginal : null) : null }}';
 
     if (logoUrl) {
         let send = XMLHttpRequest.prototype.send, token = $('meta[name="csrf-token"]').attr('content');

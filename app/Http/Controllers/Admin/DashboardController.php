@@ -4,7 +4,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Contacts;
+use App\Entity\Contacts;
 
 class DashboardController extends Controller
 {
@@ -15,7 +15,7 @@ class DashboardController extends Controller
 
     public function contactsList()
     {
-   		return view('admin.contact.index', ['lists' => Contacts::orderBy('created_at','desc')->get()
-   	 	]);
+        return view('admin.contact.index', ['lists' => Contacts::orderBy('created_at', 'desc')->get()
+        ]);
     }
 }

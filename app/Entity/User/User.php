@@ -39,7 +39,6 @@ use App\Notifications\ResetPassword as ResetPasswordNotification;
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
-
     use Notifiable;
 
     public const STATUS_ACTIVE = 10;
