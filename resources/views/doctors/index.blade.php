@@ -177,8 +177,9 @@
                                 popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
                                     });
 
-                            L.marker([41.311081, 69.240562],{icon:greenIcon}).addTo(map).bindPopup('<h1>Clinica</h1><p>some informatiopn about clinic</p><img src="./img/icons/img/clinic1.jpg" weidth="200" height="100" /><a href="https://www.youtube.com/" target="_blank">********here</a>');
-                            L.marker([41.274290, 69.204554],{icon:greenIcon}).addTo(map).bindPopup('<h1>Clinica</h1><p>some informatiopn about clinic</p><img src="./img/icons/img/clinic2.jpg" weidth="200" height="100" /><a href="https://www.youtube.com/" target="_blank">********here</a>');
+                            L.marker([41.2704736, 69.2134647],{icon:greenIcon}).addTo(map).bindPopup('<h1>Clinica</h1><p>some informatiopn about clinic</p><img src="./img/icons/img/clinic1.jpg" weidth="200" height="100" /><a href="https://www.youtube.com/" target="_blank">********here</a>');
+                            L.marker([41.3191884, 69.2382324],{icon:greenIcon}).addTo(map).bindPopup('<h1>Clinica</h1><p>some informatiopn about clinic</p><img src="./img/icons/img/clinic2.jpg" weidth="200" height="100" /><a href="https://www.youtube.com/" target="_blank">********here</a>');
+                            L.marker([41.2981861, 69.2120876],{icon:greenIcon}).addTo(map).bindPopup('<h1>Clinica</h1><p>some informatiopn about clinic</p><img src="./img/icons/img/clinic3.gif" weidth="200" height="100" /><a href="https://www.youtube.com/" target="_blank">********here</a>');
                     </script>
                 </body>
                     </div>
