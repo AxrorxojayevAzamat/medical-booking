@@ -15,4 +15,5 @@ return [
     'booking_time' => "Vaqt:",
     'name_of_doctor' => "Doktor nomi:",
     'booking_cost' => "Buyurtma narxi",
+    'book_and_pay' => "Buyurtma va to'lov",
 ];
