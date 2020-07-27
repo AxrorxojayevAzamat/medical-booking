@@ -25,12 +25,12 @@
         <div class="col-12 ">
             <div class="card">
                 <div class="card-header">
-                        <div class="card-tools">
+                        <div class="card-tools mt-2 mr-2">
                             <div class="input-group input-group "  >
                                 <a href="{{ route('admin.clinics.create') }}" class="btn btn-success btn-sm ml-1">Добавить</a>
                             </div>
                         </div>
-                        <form class="form-inline " action="?">
+                        <form class="form-inline justify-content-center" action="?">
 
                             <input class="form-control " name="searchclinic" type="search"
                                     placeholder="Поиск по имени..."
