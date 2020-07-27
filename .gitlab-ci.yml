@@ -7,7 +7,7 @@ deploy_development:
   - cd /var/www/dev.medbron.uz/
   - php artisan migrate
 #  - composer update --no-dev
-  - composer update
+  - composer install
   environment:
     name: development
     url: https://dev.medbron.uz
