@@ -51,10 +51,11 @@
             <input class="btn_1 medium cancel-payme" type="submit" value="Cancel" style="margin: 22px 20px">
     </div> --}}
 
-    <div class="error-container">
-    </div>
+    
 
 </form>
+<div class="error-container" style="color: #e74e84">
+</div>
 <form id="sms-payme" class="sms-payme">
     @csrf
     <div class="row d-flex justify-content-center">

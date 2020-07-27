@@ -61,7 +61,7 @@ function countDownPayme(secs, elem){
 
 }
 function errorPayme(err_container, err) {
-    $(err_container).html('<p class="error-message">'+err+'</p>');
+    $(err_container).html('<p class="error-message" style="text-align: center">'+err+'</p>');
 }
 
 $('.payme-choose').submit(function(e) {

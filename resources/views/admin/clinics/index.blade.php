@@ -25,7 +25,7 @@
         <div class="col-12 ">
             <div class="card">
                 <div class="card-header">
-                        <div class="card-tools mt-2 mr-2">
+                        <div class="card-tools mt-2 float-left">
                             <div class="input-group input-group "  >
                                 <a href="{{ route('admin.clinics.create') }}" class="btn btn-success btn-sm ml-1">Добавить</a>
                             </div>
@@ -43,7 +43,7 @@
                                     <option value="2">Государственная поликлиника</option>
                                 </select>
                             </div>
-                            <div class="input-group-append">
+                            <div class="input-group-append mx-2">
                                 <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i>
                                 </button>
                             </div>
