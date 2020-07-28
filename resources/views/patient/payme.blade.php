@@ -1,11 +1,8 @@
 <form class="payme">
     @csrf
-<p class="row d-flex justify-content-center">{{trans('msg.payme_msg_1')}}<span style="color: #fff">a</span> <span style="background: #e74e84;
-        height: 20px;
-        width: 16px;
-        text-align: center;
-        border-radius: 50%;
-        color: #fff;">?</span></p>
+<p class="row d-flex justify-content-center">{{trans('msg.payme_msg_1')}}<span style="color: #fff; font-size: 6px;">" "</span> 
+                                    <span class="tt">?<span class="tt-text">{{trans('msg.payme_tooltype')}}
+                                                <a href="https://payme.uz/home/main">Payme</a></span></span></p>
     <div class="row d-flex justify-content-center">
         <div class="col-md-7 col-sm-7 col-11">
             <div class="form-group">
@@ -73,3 +70,53 @@
     </div>
 </form>
 <div class="success container"></div>
+@section('css')
+    <style>
+        
+
+.payme .tt {
+  position: relative;
+  display: inline;
+  /* border-bottom: 1px dotted black; */
+  background: #e74e84;
+        height: 20px;
+        width: 16px;
+        text-align: center;
+        border-radius: 50%;
+        color: #fff;
+}
+
+.payme .tt .tt-text {
+  visibility: hidden;
+  width: 200px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: -200%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.payme .tt .tt-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.payme .tt:hover .tt-text {
+  visibility: visible;
+  opacity: 1;
+}
+    </style>
+@endsection

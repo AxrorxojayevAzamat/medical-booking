@@ -143,27 +143,27 @@
                         @if (Route::has('login'))
                         @auth
                                 @if(Auth::user()->isAdmin())
-                                <li class="submenu">
+                                <li class="submenu ext_auth">
                                     <a class="dropdown-item  auth-menu-item" href="{{ url('admin') }}">{{trans('auth.profile')}}</a>
                                 </li>
                                 @elseif(Auth::user()->isPatient())
-                                <li class="submenu">
+                                <li class="submenu ext_auth">
                                     <a class="dropdown-item  auth-menu-item" href="{{ url('patient')  }}">{{trans('auth.profile')}}</a>
                                 </li>
                                 @elseif(Auth::user()->isDoctor())
-                                <li class="submenu">
+                                <li class="submenu ext_auth">
                                     <a class="dropdown-item  auth-menu-item" href="{{ url('doctor/profile')  }}">{{trans('auth.profile')}}</a>
                                 </li>
                                 @endif
                                 
-                                <li class="submenu">
+                                <li class="submenu ext_auth">
                                     <a class="dropdown-item  auth-menu-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{trans('auth.log_out')}}</a>
                                 </li>
                         @else
-                            <li class="submenu">
+                            <li class="submenu ext_auth">
                                 <a class="dropdown-item  auth-menu-item" href="{{ route('login') }}">{{trans('auth.log_in')}}</a>
                             </li>
-                            <li class="submenu">
+                            <li class="submenu ext_auth">
                                 <a class="dropdown-item  auth-menu-item" href="{{ route('register') }}">{{trans('auth.sign_up')}}</a>
                             </li>
                             

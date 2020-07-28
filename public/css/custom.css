@@ -173,6 +173,9 @@
     #top_access .dropdown {
       display: none;
     }
+    .header_sticky .main-menu .ext_auth {
+      display: block!important;
+    }
 }
 /* .filters_listing ul li .select2-results__options li.select2-results__option--highlighted {
     background-color: #e74e84; select2-selection--single
@@ -394,8 +397,9 @@
         width:  170px!important;
       }
 
-      /* .header_sticky .main-menu .auth-menu-item {
-        color: #3f4079;
+      .header_sticky .main-menu .ext_auth {
+        display: none;
+        /* color: #3f4079;
         font-size: 19px;
-        background-color: #3f407925;
-      } */
+        background-color: #3f407925; */
+      }
