@@ -18,6 +18,7 @@ use App\Entity\Celebration;
 use App\Services\BookService;
 use App\Entity\Rate;
 use App\Entity\User\Profile;
+use Illuminate\Support\Facades\Gate;
 
 
 class DoctorController extends Controller
@@ -149,10 +150,24 @@ class DoctorController extends Controller
 
         $ratecheck = Rate::where(['user_id'=>Auth::id(),'doctor_id'=>$user->id])->first();
         $rates = array();
-        for ($i=5; $i > 0 ; $i--) { 
+        for ($i=5; $i > 0 ; $i--) {
             array_push($rates, Rate::where(['doctor_id'=>$user->id,'rate'=>$i])->count());
         }
         return view('doctors.show', compact('user', 'clinics', 'specs', 'doctorTimetables', 'doctorBooks', 'holidays','ratecheck','rates'));
     }
 
+    public function book(Request $request, User $doctor, Clinic $clinic)
+    {
+        if (!Gate::allows('patient-panel')) {
+            return abort(401);
+        }
+
+        $calendar = $request['calendar'];
+        $radioTime = $request['radio_time'];
+        $price = config('booking_price.booking_price');
+        $currency = config('booking_price.default_currency');
+
+        $patient = User::find(Auth::user()->id);
+        return view('doctors.book', compact('patient', 'doctor', 'clinic', 'calendar', 'radioTime', 'price', 'currency'));
+    }
 }

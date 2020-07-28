@@ -35,7 +35,7 @@
                         <div class="">
                             <label>{{trans('doctors.rate')}}</label>
                             @for($i=0;$i<5;$i++)
-                                <a href="{{ route('doctors.rate',['doctor_id'=>$user->id,'rate'=>$i+1]) }}" class="icon_star" style="color: #e4e43f" aria-label="Left Align"> 
+                                <a href="{{ route('doctors.rate',['doctor_id'=>$user->id,'rate'=>$i+1]) }}" class="icon_star" style="color: #e4e43f" aria-label="Left Align">
                             </a>
                             @endfor
                         </div>
@@ -61,7 +61,7 @@
                 <div class="col-xl-9 col-lg-8">
                     @foreach($clinics as $key => $clinic)
 
-                    <form method="GET" action="{{ route('patient.booking', [$user, $clinic]) }}" >
+                    <form method="GET" action="{{ route('doctors.book', ['doctor' => $user, 'clinic' => $clinic]) }}" >
                         <div class="box_general_2 add_bottom_45">
                             <div class="main_title_4">
                                 <h3><i class="icon_circle-slelected"></i>{{ trans('book.book_calendar') }}</h3>
@@ -147,7 +147,7 @@
                                                     <div class="col-lg-2 col-3"><small><strong>{{$i--}} stars</strong></small></div>
                                                 </div>
                                                 @endforeach
-                                                
+
                                             </div>
                                         </div>
                                         <!-- /row -->
