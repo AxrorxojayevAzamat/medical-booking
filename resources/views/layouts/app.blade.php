@@ -59,7 +59,8 @@
                         @if (Route::has('login'))
                         @auth
                             <button class="btn auth_btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{Auth::user()->profile->first_name}}
+                                @php($user = Auth::user())
+                                {{ $user && $user->profile ? $user->profile->first_name : $user->email }}
                             </button>
                             <div class="dropdown-menu auth_menu" aria-labelledby="dropdownMenuButton">
                                 @if(Auth::user()->isAdmin())
@@ -73,7 +74,7 @@
                                 {{-- <a class="dropdown-item auth_item"  href="{{ route('logout') }}" method="POST">{{trans('auth.log_out')}}</a> --}}
 
                                 <a class="dropdown-item auth_item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{trans('auth.log_out')}}</a>
-                        
+
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     {{ csrf_field() }}
                                 </form>
@@ -155,7 +156,7 @@
                                     <a class="dropdown-item  auth-menu-item" href="{{ url('doctor/profile')  }}">{{trans('auth.profile')}}</a>
                                 </li>
                                 @endif
-                                
+
                                 <li class="submenu ext_auth">
                                     <a class="dropdown-item  auth-menu-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{trans('auth.log_out')}}</a>
                                 </li>
@@ -166,7 +167,7 @@
                             <li class="submenu ext_auth">
                                 <a class="dropdown-item  auth-menu-item" href="{{ route('register') }}">{{trans('auth.sign_up')}}</a>
                             </li>
-                            
+
                             @endauth
                         @endif
                     </ul>

@@ -16,7 +16,7 @@ Breadcrumbs::register('home', function (Crumbs $crumbs) {
     $crumbs->push(trans('Главная'), route('home'));
 });
 
-// clinics
+// Clinics
 Breadcrumbs::register('clinics.index', function (Crumbs $crumbs) {
     $crumbs->parent('home');
     $crumbs->push('Клиники', route('clinics.index'));
@@ -33,17 +33,22 @@ Breadcrumbs::register('doctors.index', function (Crumbs $crumbs) {
     $crumbs->push('Докторы', route('doctors.index'));
 });
 
-Breadcrumbs::register('doctors.show', function (Crumbs $crumbs, User $user) {
+Breadcrumbs::register('doctors.show', function (Crumbs $crumbs, User $doctor) {
     $crumbs->parent('doctors.index');
-    $crumbs->push($user->profile->fullName, route('doctors.show', $user));
+    $crumbs->push($doctor->profile->fullName, route('doctors.show', $doctor));
 });
+
+Breadcrumbs::register('doctors.book', function (Crumbs $crumbs, User $doctor, Clinic $clinic) {
+    $crumbs->parent('doctors.show', $doctor);
+    $crumbs->push('Забронировать', route('doctors.book', ['doctor' => $doctor, 'clinic' => $clinic]));
+});
+
 
 // booking
 Breadcrumbs::register('patient.booking', function (Crumbs $crumbs, User $user, Clinic $clinic) {
     $crumbs->parent('doctors.show', $user);
     $crumbs->push(trans('book.book_and_pay'), route('patient.booking', ['user' => $user, 'clinic' => $clinic]));
 });
-
 
 //contacts
 Breadcrumbs::register('contacts.contacts', function (Crumbs $crumbs) {
