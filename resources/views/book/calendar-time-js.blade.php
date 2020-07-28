@@ -29,6 +29,8 @@
     // }
 
     // books.unshift(newbook);
+    // $(".warning_day" + event.target.id).css("display","none");
+    // $(".warning_time" + event.target.id).css("display","none");
 
     var timeStart = [];
     var timeEnd = [];
@@ -43,11 +45,10 @@
 
     function checkDay(event) {
         if($(".time_checkbox" + event.target.id).prop("checked")) {
-            $(".warning_day" + event.target.id).empty();
-            // $(".warning_day" + event.target.id).html('<p style="color: #e74e84">Choose day for booking!</p>');
-            $(".warning_time" + event.target.id).html('<p style="color: #e74e84">Choose time for booking!</p>');
+            $(".warning_day" + event.target.id).css("display","none");
+            $(".warning_time" + event.target.id).css("display","block");
         } else {
-            $(".warning_day" + event.target.id).html('<p style="color: #e74e84">Choose day for booking!</p>');
+            $(".warning_day" + event.target.id).css("display","block");
         }
     }
 
@@ -172,6 +173,8 @@
     // timetable[1].tuesday_end = null;
 
     for (var i = 0; i < timetable.length; i++) {
+        $(".warning_day" + i).css("display","none");
+        $(".warning_time" + i).css("display","none");
 
         setDaysOff(i);
 

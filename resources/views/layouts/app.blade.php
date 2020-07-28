@@ -55,8 +55,46 @@
             <nav class="col-lg-9 col-6">
                 <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="#0"><span>Menu mobile</span></a>
                 <ul id="top_access">
-                    @if (Route::has('login'))
-                        <div class="top-right links">
+                    <div class="dropdown">
+                        @if (Route::has('login'))
+                        @auth
+                            <button class="btn auth_btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @php($user = Auth::user())
+                                {{ $user && $user->profile ? $user->profile->first_name : $user->email }}
+                            </button>
+                            <div class="dropdown-menu auth_menu" aria-labelledby="dropdownMenuButton">
+                                @if(Auth::user()->isAdmin())
+                                <a class="dropdown-item auth_item" href="{{ url('admin') }}">{{trans('auth.profile')}}</a>
+                                @elseif(Auth::user()->isPatient())
+                                <a class="dropdown-item auth_item" href="{{ url('patient')  }}">{{trans('auth.profile')}}</a>
+                                @elseif(Auth::user()->isDoctor())
+                                <a class="dropdown-item auth_item" href="{{ url('doctor/profile')  }}">{{trans('auth.profile')}}</a>
+                                @endif
+
+                                {{-- <a class="dropdown-item auth_item"  href="{{ route('logout') }}" method="POST">{{trans('auth.log_out')}}</a> --}}
+
+                                <a class="dropdown-item auth_item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{trans('auth.log_out')}}</a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+
+                            </div>
+                        @else
+
+                            <button class="btn auth_btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{trans('auth.log_in')}} / {{trans('auth.sign_up')}}
+                            </button>
+                            <div class="dropdown-menu auth_menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item auth_item" href="{{ route('login') }}">{{trans('auth.log_in')}}</a>
+                                <a class="dropdown-item auth_item" href="{{ route('register') }}">{{trans('auth.sign_up')}}</a>
+                            </div>
+                            @endauth
+                        @endif
+                        </div>
+
+                          @if (Route::has('login'))
+                        <div class="top-right links"  style="display: none">
                             @auth
                                 @if(Auth::user()->isAdmin())
                                     <li><a href="{{ url('admin') }}"><i class="pe-7s-user"></i></a></li>
@@ -103,7 +141,35 @@
                                 <li><a href="/locale/ru">Ру</a></li>
                             </ul>
                         </li>
+                        @if (Route::has('login'))
+                        @auth
+                                @if(Auth::user()->isAdmin())
+                                <li class="submenu ext_auth">
+                                    <a class="dropdown-item  auth-menu-item" href="{{ url('admin') }}">{{trans('auth.profile')}}</a>
+                                </li>
+                                @elseif(Auth::user()->isPatient())
+                                <li class="submenu ext_auth">
+                                    <a class="dropdown-item  auth-menu-item" href="{{ url('patient')  }}">{{trans('auth.profile')}}</a>
+                                </li>
+                                @elseif(Auth::user()->isDoctor())
+                                <li class="submenu ext_auth">
+                                    <a class="dropdown-item  auth-menu-item" href="{{ url('doctor/profile')  }}">{{trans('auth.profile')}}</a>
+                                </li>
+                                @endif
 
+                                <li class="submenu ext_auth">
+                                    <a class="dropdown-item  auth-menu-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{trans('auth.log_out')}}</a>
+                                </li>
+                        @else
+                            <li class="submenu ext_auth">
+                                <a class="dropdown-item  auth-menu-item" href="{{ route('login') }}">{{trans('auth.log_in')}}</a>
+                            </li>
+                            <li class="submenu ext_auth">
+                                <a class="dropdown-item  auth-menu-item" href="{{ route('register') }}">{{trans('auth.sign_up')}}</a>
+                            </li>
+
+                            @endauth
+                        @endif
                     </ul>
                 </div>
             </nav>
