@@ -152,7 +152,6 @@ class DoctorController extends Controller
         for ($i=5; $i > 0 ; $i--) { 
             array_push($rates, Rate::where(['doctor_id'=>$user->id,'rate'=>$i])->count());
         }
-        dd($clinics);
         return view('doctors.show', compact('user', 'clinics', 'specs', 'doctorTimetables', 'doctorBooks', 'holidays','ratecheck','rates'));
     }
 

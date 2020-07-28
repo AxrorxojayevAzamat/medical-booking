@@ -83,21 +83,22 @@ class AuthServiceProvider extends ServiceProvider
             return $user->isAdmin();
         });
 
-        Gate::define('patient-panel', function (User $user) {
-            return $user->isPatient();
+        Gate::define('admin-clinic-panel', function (User $user) {
+            return $user->isClinic();
+        });
+
+        Gate::define('admin-call-center-panel', function (User $user) {
+            return $user->isCallCenter();
         });
 
         Gate::define('doctor-panel', function (User $user) {
             return $user->isDoctor();
         });
 
-        Gate::define('admin-clinic-panel', function (User $user) {
-            return $user->isClinic();
+        Gate::define('patient-panel', function (User $user) {
+            return $user->isPatient();
         });
         
-        Gate::define('admin-call-center-panel', function (User $user) {
-            return $user->isCallCenter();
-        });
         //--------------------END-OF-ADMIN-PANEL-------
             
                 
