@@ -105,9 +105,9 @@
 .filters_listing ul li:nth-child(6) .btn-clear {
     min-height: 40px;
     font-weight: 600;
-    color: #fff;
-    border: 2px solid #e74e84;
-    background-color: #e74e84;
+    color: #3f4079;
+    border: 2px solid #3f4079;
+    background-color: #fff;
     font-weight: 600;
     transition: all 0.3s ease-in-out;
     border-radius: 0 3px 3px 0;

@@ -39,9 +39,9 @@
         <div class="layer"></div>
         <!-- Mobile menu overlay mask -->
 
-        <div id="preloader">
+        {{-- <div id="preloader">
             <div data-loader="circle-side"></div>
-        </div>
+        </div> --}}
         <!-- End Preload -->
 
         <header class="header_sticky">
