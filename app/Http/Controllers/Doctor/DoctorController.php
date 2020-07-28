@@ -92,7 +92,7 @@ class DoctorController extends Controller
             if ($value == 'alphabet') {
                 $query->orderBy('pr.last_name')->orderBy('pr.first_name')->orderBy('pr.middle_name');
             } elseif ($value == 'best_rated') {
-                $query->orderByDesc('pr.rating');
+                $query->orderByDesc('pr.rate');
             }
         }
         $query->orderByDesc('users.created_at');
