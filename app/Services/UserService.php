@@ -9,6 +9,8 @@ use App\Helpers\ImageHelper;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use \Illuminate\Support\Facades\Auth;
+use \Illuminate\Support\Facades\Gate;
 
 class UserService
 {
@@ -17,6 +19,15 @@ class UserService
         $query = User::select(['users.*', 'pr.*'])
         ->leftJoin('profiles as pr', 'users.id', '=', 'pr.user_id')
         ->orderByDesc('created_at');
+        
+        $userAuth = Auth::user();
+        if (Gate::allows('admin-clinic-panel')) {
+            $query = User::forUser($userAuth);
+        }
+        
+        if (Gate::allows('admin-call-center-panel')) {
+            $query = User::doctor();
+        }
 
         if (!empty($value = $request->get('id'))) {
             $query->where('id', $value);

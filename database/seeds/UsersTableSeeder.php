@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder {
         });
 
         $patient = User::create([
-                    'email' => 'xurshid@xurshid.com',
+                    'email' => 'user@user.com',
                     'email_verified_at' => '2020-06-25 00:00:00',
                     'password' => bcrypt('12'),
                     'phone' => '+13172130030',
@@ -32,7 +32,7 @@ class UsersTableSeeder extends Seeder {
         ]);
 
         $admin_clinic = User::create([
-                    'email' => 'clinic@clinic.com',
+                    'email' => 'clinic@admin.com',
                     'email_verified_at' => '2020-06-30 13:00:00',
                     'password' => bcrypt('12'),
                     'phone' => '+13172130030',
@@ -41,7 +41,7 @@ class UsersTableSeeder extends Seeder {
         ]);
 
         $admin_center = User::create([
-                    'email' => 'center@center.com',
+                    'email' => 'center@admin.com',
                     'email_verified_at' => '2020-06-30 13:00:00',
                     'password' => bcrypt('12'),
                     'phone' => '+13172130030',

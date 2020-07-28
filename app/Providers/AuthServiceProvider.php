@@ -3,11 +3,10 @@
 namespace App\Providers;
 
 use App\Entity\User\User;
-use App\Post;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use App\Entity\Clinic\AdminClinic;
+use App\Entity\Clinic\Clinic;
+use App\Entity\Clinic\DoctorClinic;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -35,24 +34,53 @@ class AuthServiceProvider extends ServiceProvider
 
     public function registerPostPolicies()
     {
+        //--------------------ADMIN---------------
         Gate::define('manage-users', function (User $user) {
             return $user->isAdmin();
         });
         
-        Gate::define('manage-own-doctors', function (User $user) {
-        return $user->isClinic() || $user->isAdmin();
+        Gate::define('manage-regions', function (User $user) {
+            return $user->isAdmin();
         });
 
-        Gate::define('manage-own-profile', function (User $user, User $profile) {
-            return $user->isAdmin() || $user->id === $profile->id;
+        Gate::define('manage-specializations', function (User $user) {
+            return $user->isAdmin();
+        });
+        
+        Gate::define('manage-clinics', function (User $user) {
+            return $user->isAdmin();
         });
 
-        Gate::define('manage-doctor', function (User $user) {
-            return $user->isAdmin() || $user->isDoctor();
+        Gate::define('manage-call-center', function (User $user) {
+            return $user->isAdmin() || $user->isCallCenter();
         });
 
+        Gate::define('manage-bookings-list', function (User $user) {
+            return $user->isAdmin() || $user->isCallCenter();
+        });
+        
+        Gate::define('manage-celebrations', function (User $user) {
+            return $user->isAdmin();
+        });
+
+        Gate::define('manage-partners', function (User $user) {
+            return $user->isAdmin();
+        });
+
+        Gate::define('manage-news', function (User $user) {
+            return $user->isAdmin();
+        });
+        
+        Gate::define('manage-callback', function (User $user) {
+            return $user->isAdmin();
+        });
+        
+        //--------------------END-OF-ADMIN--------
+
+
+        //--------------------ADMIN-PANELS---------------
         Gate::define('admin-panel', function (User $user) {
-            return $user->isAdmin() || $user->isClinic();;
+            return $user->isAdmin();
         });
 
         Gate::define('patient-panel', function (User $user) {
@@ -63,22 +91,47 @@ class AuthServiceProvider extends ServiceProvider
             return $user->isDoctor();
         });
 
-        Gate::define('manage-news', function (User $user) {
-            return $user->isAdmin();
-        });
-
-        Gate::define('manage-clinics', function (User $user) {
-            return $user->isAdmin();
-        });
-        
         Gate::define('admin-clinic-panel', function (User $user) {
-            return $user->isClinic() || $user->isAdmin();
+            return $user->isClinic();
         });
         
-        Gate::define('manage-own-clinics', function (User $user, AdminClinic $adminClinic) {
-            return $user->isClinic() || $user->id === $adminClinic->admin_id;
+        Gate::define('admin-call-center-panel', function (User $user) {
+            return $user->isCallCenter();
+        });
+        //--------------------END-OF-ADMIN-PANEL-------
+            
+                
+        Gate::define('manage-own-clinics', function (User $auth_user, Clinic $clinic) {
+            $adminClinics = $auth_user->adminClinics()->pluck('clinic_id')->toArray();
+            
+            return $auth_user->isAdmin() || ($auth_user->isClinic() && in_array($clinic->id, $adminClinics)) || $auth_user->isCallCenter();
+        });
+        
+        Gate::define('manage-own-doctors-clinics', function (User $auth_user, User $user, Clinic $clinic) {
+            $adminClinics = $auth_user->adminClinics()->pluck('clinic_id')->toArray();
+            $adminClinicsDoctors = DoctorClinic::whereIn('clinic_id', $adminClinics)->pluck('doctor_id')->toArray();
+            return $auth_user->isAdmin() || ($auth_user->isClinic() && in_array($user->id, $adminClinicsDoctors) && in_array($clinic->id, $adminClinics));
+        });
+        
+        Gate::define('manage-doctors', function (User $auth_user, User $user) {
+            $adminClinics = $auth_user->adminClinics()->pluck('clinic_id')->toArray();
+            $adminClinicsDoctors = DoctorClinic::whereIn('clinic_id', $adminClinics)->pluck('doctor_id')->toArray();
+            
+            return $auth_user->isAdmin() || ($auth_user->isClinic() && in_array($user->id, $adminClinicsDoctors)) || ($auth_user->isCallCenter() && ($user->isDoctor() || $user->isPatient() ));
         });
 
+        Gate::define('manage-admin-clinics', function (User $auth_user, User $user) {
+            
+            return $auth_user->isAdmin() && $user->isClinic();
+        });
+        
+        Gate::define('manage-doctor-timetable', function (User $auth_user, User $user) {
+            $adminClinics = $auth_user->adminClinics()->pluck('clinic_id')->toArray();
+            $adminClinicsDoctors = DoctorClinic::whereIn('clinic_id', $adminClinics)->pluck('doctor_id')->toArray();
+            
+            return ($auth_user->isAdmin() && $user->isDoctor()) || ($auth_user->isClinic() && in_array($user->id, $adminClinicsDoctors)) ;
+        });
+        
 
     }
 }

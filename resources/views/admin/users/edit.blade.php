@@ -148,7 +148,7 @@
             <button type="submit" class="btn btn-success">{{ trans('Сохранить') }}</button>
         </div>
     </form>
-    @can('manage-doctor')
+    @can('manage-doctor-timetable',$user)
         <div class="card card-secondary card-outline" id="doctor-clinic">
            
                 @foreach($doctor->clinics as $clinic)

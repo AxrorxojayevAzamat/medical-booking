@@ -14,6 +14,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPassword as ResetPasswordNotification;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @property int $id
@@ -34,6 +35,7 @@ use App\Notifications\ResetPassword as ResetPasswordNotification;
  * @property AdminClinic[] $adminClinics
  * @property Clinic[] $clinics
  * @method Builder forUser(User $user)
+ * @method Builder doctor()
  *
  * @mixin Eloquent
  */
@@ -174,9 +176,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $query->where('role', self::ROLE_DOCTOR);
     }
    
-    public function scopeForUser(Builder $query)
+    public function scopeForUser(Builder $query, User $user)
     {
-        $adminClinics = AdminClinic::where('admin_id', $this->id)->pluck('clinic_id')->toArray();
+        $adminClinics = AdminClinic::where('admin_id', $user->id)->pluck('clinic_id')->toArray();
         $adminClinicsDoctors = DoctorClinic::WhereIn('clinic_id', $adminClinics)->pluck('doctor_id')->toArray();
                
         return $query->whereIn('id', $adminClinicsDoctors);

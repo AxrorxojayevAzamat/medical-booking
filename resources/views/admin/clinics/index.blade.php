@@ -30,7 +30,7 @@
                         <div class="row">
                             <div class="card-tools "style="width:200px" >
                             <div class="input-group input-group "  >
-                                <a href="{{ route('admin.clinics.create') }}" class="btn btn-success btn-sm ml-1">Добавить</a>
+                                @if(Auth::user()->isAdmin())<a href="{{ route('admin.clinics.create') }}" class="btn btn-success btn-sm ml-1">Добавить</a>@endif
                             </div>
                         </div>
                         <form class="form-inline " action="?">

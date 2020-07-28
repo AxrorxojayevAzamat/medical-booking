@@ -8,7 +8,11 @@ use \App\Entity\Book\Book;
 
 class BookController extends Controller
 {
-
+    public function __construct()
+    {
+        $this->middleware('can:manage-call-center');
+    }
+    
     public function index(Request $request)
     {
         $query = Book::select(['books.*', 'us.*', 'pr.*'])
