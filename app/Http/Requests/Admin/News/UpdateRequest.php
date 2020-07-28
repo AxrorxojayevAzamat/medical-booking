@@ -16,6 +16,7 @@ use Illuminate\Validation\Rule;
  * @property string $content_uz
  * @property string $content_ru
  * @property int $status
+ * @property \Illuminate\Http\UploadedFile $image
  *
  * @property News $news
  */
@@ -30,15 +31,16 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'menu_title_uz' => 'required|string|max:255',
-            'menu_title_ru' => 'required|string|max:255',
             'title_uz' => 'required|string|max:255',
             'title_ru' => 'required|string|max:255',
+            'menu_title_uz' => 'required|string|max:255',
+            'menu_title_ru' => 'required|string|max:255',
             'description_uz' => 'nullable|string',
             'description_ru' => 'nullable|string',
             'content_uz' => 'nullable|string',
             'content_ru' => 'nullable|string',
             'status' => ['required', 'numeric', Rule::in(array_keys(News::getStatusList()))],
+            'image' => 'nullable|image|mimes:jpg,jpeg,png',
         ];
     }
 }

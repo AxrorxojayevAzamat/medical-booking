@@ -14,10 +14,11 @@ class ImageHelper
     const FOLDER_CLINICS = 'clinics';
     const FOLDER_PARTNERS = 'partners';
     const FOLDER_USERS = 'users';
-    
+    const FOLDER_NEWS = 'news';
+
     const TYPE_THUMBNAIL = 'thumbs';
     const TYPE_ORIGINAL = 'original';
-    
+
     public static function getRandomName(UploadedFile $image): string
     {
         return Str::random(40) . '.' . $image->getClientOriginalExtension();
@@ -40,7 +41,7 @@ class ImageHelper
         self::makeDirectory($destinationPath);
 
         $resizeImage = Image::make($image->getRealPath());
-        $resizeImage->resize(256, 192, function (Constraint $constraint) {
+        $resizeImage->resize($width, $height, function (Constraint $constraint) {
             $constraint->aspectRatio();
         })->save($destinationPath . '/' . $imageName);
     }
@@ -68,5 +69,13 @@ class ImageHelper
     public static function getStoragePath(int $id, string $folderName, string $imageType): string
     {
         return storage_path('app/public/images/' . $folderName . '/' . $id . '/' . $imageType);
+    }
+
+    public static function getThumbnailName(string $imageName, int $width, int $height): string
+    {
+        $names = explode('.', $imageName);
+        $extension = end($names);
+        array_pop($names);
+        return implode('.', $names) . '-' . $width . 'x' . $height . '.' . $extension;
     }
 }

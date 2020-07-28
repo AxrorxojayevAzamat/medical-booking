@@ -452,7 +452,7 @@ return [
                 [
                     'type' => 'js',
                     'asset' => true,
-                    'location' => '/vendor/bootstrap-fileinput/js/fileinput.js',
+                    'location' => '/vendor/bootstrap-fileinput/js/fileinput.min.js',
                 ],
                 [
                     'type' => 'js',
