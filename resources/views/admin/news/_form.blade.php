@@ -100,6 +100,24 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-primary card-outline">
+            <div class="card-header"><h3 class="card-title">Изображение</h3></div>
+            <div class="card-body">
+                <div class="form-group">
+                    <div class="file-loading">
+                        <input id="file-input" class="file" type="file" name="logo">
+                    </div>
+                    @if ($errors->has('logo'))
+                        <span class="invalid-feedback"><strong>{{ $errors->first('logo') }}</strong></span>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="form-group">
     <button type="submit" class="btn btn-primary">{{ $news ? 'Редактировать' : 'Добавить' }}</button>
 </div>
