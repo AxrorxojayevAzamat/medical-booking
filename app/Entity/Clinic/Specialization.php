@@ -3,10 +3,10 @@
 namespace App\Entity\Clinic;
 
 use App\Entity\User\User;
+use App\Helpers\LanguageHelper;
 use Carbon\Carbon;
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
-use App\Helpers\LanguageHelper;
 
 /**
  * @property int $id
@@ -17,32 +17,44 @@ use App\Helpers\LanguageHelper;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  *
+ * @property string $name
+ *
  * @property User $createdBy
  * @property User $updatedBy
  * @mixin Eloquent
  */
-class Specialization extends Model {
+class Specialization extends Model
+{
 
     protected $table = 'specializations';
     protected $fillable = [
         'name_uz', 'name_ru',
     ];
 
-    public function getNameAttribute(): string {
+    ########################################### Mutators
+
+    public function getNameAttribute(): string
+    {
         return LanguageHelper::getName($this);
     }
 
+    ###########################################
+
+
     ########################################### Relations
 
-    public function doctors() {
+    public function doctors()
+    {
         return $this->belongsToMany(User::class, 'doctor_specializations', 'specialization_id', 'doctor_id');
     }
 
-    public function createdBy() {
+    public function createdBy()
+    {
         return $this->belongsTo(User::class, 'created_by', 'id');
     }
 
-    public function updatedBy() {
+    public function updatedBy()
+    {
         return $this->belongsTo(User::class, 'updated_by', 'id');
     }
 

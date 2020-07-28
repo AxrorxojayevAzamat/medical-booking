@@ -57,7 +57,7 @@ class PatientController extends Controller
         $booking = Book::new($userId, $doctorId, $clinicId, $bookingDate, $timeStart, null, $description);
 
 
-        return redirect()->route('book.index');
+        return redirect()->route('doctors.index');
     }
 
 }

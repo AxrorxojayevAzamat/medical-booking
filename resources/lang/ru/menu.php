@@ -15,4 +15,8 @@ return [
     'important'                     => 'Важно',
     'warning'                       => 'Внимание',
     'information'                   => 'Информация',
+    'specialization'                => 'Cпециализация',
+    'doctors'                       => 'Докторы',
+    'clinics'                       => 'Клиники',
+    'language'                      => 'Язык',
 ];

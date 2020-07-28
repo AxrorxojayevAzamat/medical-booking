@@ -13,22 +13,22 @@
             <div class="card-body p-0">
                 <table id="laravel_datatable" class="table table-bordered table-striped">
                     <thead>
-                        <tr>
-                            <th>{{ __('ID') }}</th>
-                            <td>{{ __('') }}</td>
-                            <td>{{ __('') }}</td>
-                            <th style="width: 15%"></th>
+                        <tr align="center">
+                            <th>ID</th>
+                            <td>Название(uz)</td>
+                            <td>Название(ru)</td>
+                            <td>Управление</td>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($specializations as $specialization)
                         <tr>
                             <td>{{$specialization->id}}</td>
-                            <td>{{$specialization->name_ru}}</td>
+                            <td><a href="{{ route('admin.specializations.show', $specialization) }}">{{$specialization->name_ru}}</td>
                             <td>{{$specialization->name_uz}}</td>
-                            <td class="project-actions text-right">
+                            <td class="text-center py-1 ">
                                 <div class="btn-group">
-                                    <a class="btn btn-primary btn-sm" href="{{ route('admin.specializations.show',$specialization->id)}}">
+                                    <a class="btn btn-primary btn-sm" href="{{ route('admin.specializations.show',$specialization)}}">
                                         <i class="fas fa-eye">
                                         </i>
 

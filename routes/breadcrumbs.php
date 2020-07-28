@@ -6,7 +6,9 @@ use App\Entity\Clinic\Contact;
 use App\Entity\News;
 use App\Entity\User\User;
 use App\Entity\Region;
+use App\Entity\Contacts;
 use App\Entity\Clinic\Specialization;
+use App\Entity\Partner;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Crumbs;
 
@@ -25,6 +27,28 @@ Breadcrumbs::register('clinics.show', function (Crumbs $crumbs, Clinic $clinic) 
     $crumbs->push($clinic->name, route('clinics.show', $clinic));
 });
 
+// Doctors
+Breadcrumbs::register('doctors.index', function (Crumbs $crumbs) {
+    $crumbs->parent('home');
+    $crumbs->push('Докторы', route('doctors.index'));
+});
+
+Breadcrumbs::register('doctors.show', function (Crumbs $crumbs, User $doctor) {
+    $crumbs->parent('doctors.index');
+    $crumbs->push($doctor->profile->fullName, route('doctors.show', $doctor));
+});
+
+//contacts
+Breadcrumbs::register('contacts.contacts', function (Crumbs $crumbs) {
+    $crumbs->parent('home');
+    $crumbs->push('Обратный связь', route('contacts.contacts'));
+});
+
+//specialization
+Breadcrumbs::register('specializations', function (Crumbs $crumbs) {
+    $crumbs->parent('home');
+    $crumbs->push('Cпециализация', route('specializations'));
+});
 
 ///////////////////////////////// Admin
 
@@ -61,6 +85,14 @@ Breadcrumbs::register('admin.users.specializations', function (Crumbs $crumbs, U
 Breadcrumbs::register('admin.users.user-clinics', function (Crumbs $crumbs, User $user) {
     $crumbs->parent('admin.users.show', $user);
     $crumbs->push(trans('Клиники врача'), route('admin.users.user-clinics', $user));
+});
+Breadcrumbs::register('admin.users.main-photo', function (Crumbs $crumbs, User $user) {
+    $crumbs->parent('admin.users.show', $user);
+    $crumbs->push(trans('Главное фото'), route('admin.users.main-photo', $user));
+});
+Breadcrumbs::register('admin.users.photos', function (Crumbs $crumbs, User $user) {
+    $crumbs->parent('admin.users.show', $user);
+    $crumbs->push(trans('Фотографии'), route('admin.users.photos', $user));
 });
 
 
@@ -106,10 +138,14 @@ Breadcrumbs::register('admin.clinics.edit', function (Crumbs $crumbs, Clinic $cl
 });
 
 Breadcrumbs::register('admin.clinics.main-photo', function (Crumbs $crumbs, Clinic $clinic) {
-    $crumbs->parent('admin.clinics.index');
-    $crumbs->push($clinic->name_ru, route('admin.clinics.main-photo', $clinic));
+    $crumbs->parent('admin.clinics.show', $clinic);
+    $crumbs->push('Главное фото', route('admin.clinics.main-photo', $clinic));
 });
 
+Breadcrumbs::register('admin.clinics.photos', function (Crumbs $crumbs, Clinic $clinic) {
+    $crumbs->parent('admin.clinics.show', $clinic);
+    $crumbs->push('Добавление фотографий', route('admin.clinics.photos', $clinic));
+});
 // Clinic contacts
 Breadcrumbs::register('admin.clinics.contacts.create', function (Crumbs $crumbs, Clinic $clinic) {
     $crumbs->parent('admin.clinics.show', $clinic);
@@ -161,6 +197,23 @@ Breadcrumbs::register('admin.celebration.edit', function (Crumbs $crumbs, Celebr
     $crumbs->push('Создать праздничный день', route('admin.celebration.edit', $celebration));
 });
 
+//partners
+Breadcrumbs::register('admin.partners.index', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push('Партнеры', route('admin.partners.index'));
+});
+Breadcrumbs::register('admin.partners.create', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.partners.index');
+    $crumbs->push('Добавление нового партнера', route('admin.partners.create'));
+});
+Breadcrumbs::register('admin.partners.show', function (Crumbs $crumbs, Partner $partner) {
+    $crumbs->parent('admin.partners.index');
+    $crumbs->push($partner->name, route('admin.partners.show', $partner));
+});
+Breadcrumbs::register('admin.partners.edit', function (Crumbs $crumbs, Partner $partner) {
+    $crumbs->parent('admin.partners.index');
+    $crumbs->push($partner->name, route('admin.partners.edit', $partner));
+});
 //timetables
 Breadcrumbs::register('admin.timetables.create', function (Crumbs $crumbs) {
     //$crumbs->parent('admin.users.edit', $user);
@@ -217,4 +270,10 @@ Breadcrumbs::register('admin.news.show', function (Crumbs $crumbs, News $news) {
 Breadcrumbs::register('admin.news.edit', function (Crumbs $crumbs, News $news) {
     $crumbs->parent('admin.news.index');
     $crumbs->push('Редактировать новость', route('admin.news.edit', $news));
+});
+
+// Contact us
+Breadcrumbs::register('admin.contactlist', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push('Обратный связь', route('admin.contactlist'));
 });

@@ -8,11 +8,12 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.2",
         "ext-json": "*",
         "davejamesmiller/laravel-breadcrumbs": "5.x",
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
+        "google/recaptcha": "~1.1",
         "guzzlehttp/guzzle": "^7.0",
         "intervention/image": "^2.5",
         "jeroennoten/laravel-adminlte": "^3.1",

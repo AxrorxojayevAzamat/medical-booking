@@ -41,13 +41,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Clinic extends BaseModel
 {
-    public const CLINIC_PROFILE = '/uploads/photo_clinics/';
-
     public const CLINIC_TYPE_PRIVATE = 1;
     public const CLINIC_TYPE_GOVERNMENT = 2;
 
 
-    protected $fillable = ['name_uz', 'name_ru', 'region_id', 'type', 'description_uz', 'description_ru', 'phone_numbers',
+    protected $fillable = ['name_uz', 'name_ru', 'region_id', 'type', 'description_uz', 'description_ru',
         'address_uz', 'address_ru', 'work_time_start', 'work_time_end', 'location', 'main_photo_id',
     ];
 
@@ -67,6 +65,10 @@ class Clinic extends BaseModel
 
     ########################################### Mutators
 
+    public function getNameAttribute(): string
+    {
+        return LanguageHelper::getName($this);
+    }
 
     public function getDescriptionAttribute(): string
     {
@@ -102,14 +104,20 @@ class Clinic extends BaseModel
     {
         return $this->belongsToMany(User::class, 'doctor_clinics', 'clinic_id', 'doctor_id');
     }
+    
+    public function mainPhoto()
+    {
+        return $this->belongsTo(Photo::class, 'main_photo_id', 'id');
+    }
 
     public function photos()
     {
         return $this->hasMany(Photo::class, 'clinic_id', 'id')->whereKeyNot($this->main_photo_id)->orderBy('sort');
     }
-    public function mainPhoto()
+
+    public function allPhotos()
     {
-        return $this->belongsTo(Photo::class, 'main_photo_id', 'id');
+        return $this->hasMany(Photo::class, 'clinic_id', 'id');
     }
 
     public function createdBy()
@@ -121,6 +129,7 @@ class Clinic extends BaseModel
     {
         return $this->belongsTo(User::class, 'updated_by', 'id');
     }
+    
 
     ###########################################
 }
