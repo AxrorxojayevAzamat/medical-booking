@@ -6,6 +6,9 @@ return [
     'wlcm' => 'Doktor toping!',
     'validation_day' => 'Band qilish uchun kunni tanlang!',
     'validation_time' => 'Vaqtni ham tanlang!',
+    
+    'doctors' => 'Doktorlar',
+    'clinics' => 'Klinikalar',
 
     'payme_msg_1' => 'Bank kartangiz tafsilotlarini kiriting',
     'payme_msg_2' => '"Davom etish" tugmasini bosish orqali siz',

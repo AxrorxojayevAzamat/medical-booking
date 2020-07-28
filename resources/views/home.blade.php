@@ -16,11 +16,11 @@
                     <ul>
                         <li>
                             <input type="radio" id="doctor-radio" name="radio_search" value="doctor" checked>
-                            <label for="doctor-radio">Докторы</label>
+                        <label for="doctor-radio">{{trans('msg.doctors')}}</label>
                         </li>
                         <li>
                             <input type="radio" id="clinic-radio" name="radio_search" value="clinic">
-                            <label for="clinic-radio">Клиники</label>
+                            <label for="clinic-radio">{{trans('msg.clinics')}}</label>
                         </li>
                     </ul>
                 </div>
