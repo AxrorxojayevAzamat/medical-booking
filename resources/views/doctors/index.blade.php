@@ -134,6 +134,12 @@
                             <li><a href="{{ route('doctors.show', $doctorValue) }}">{{ trans('doctors.booking') }}</a></li>
                         </ul>
                     </div>
+                    <ul>
+                        @foreach($doctorValue->clinics as $clinic)
+                        <li><a href="{{ route('clinics.show', $clinic) }}">{{'clinic_name: '.$clinic->name }}</a></li>
+                        <img src="{{asset($clinic->mainPhoto ? $clinic->mainPhoto->fileThumbnail : '/img/565x565.jpg')}}" width="50" height="50" alt="">
+                        @endforeach
+                    </ul>
                     @endforeach
                     <!-- /strip_list -->
 
