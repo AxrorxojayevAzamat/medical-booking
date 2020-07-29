@@ -20,6 +20,12 @@
                     @endif                
                 </a>
             </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookings">
+                <a class="nav-link" href="{{ route('doctor.timetable') }}">
+                    <i class="fa fa-fw fa-calendar-check-o"></i>
+                    <span class="nav-link-text">{{trans('menu.my_records')}}
+                </a>
+            </li>
         </ul>
         
         <ul class="navbar-nav ml-auto">

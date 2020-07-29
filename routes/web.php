@@ -137,6 +137,7 @@ Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 
         Route::post('remove-photo/{photo}', 'ImagesController@removePhoto')->name('remove-photo');
     });
     Route::get('/{doctor_id}/bookings', 'DoctorController@books')->name('doctorbookings');
+    Route::get('/timetable', 'DoctorController@timetable')->name('timetable');
 });
 
 Route::group(['prefix' => 'contacts', 'as' => 'contacts.'], function () {

@@ -36,7 +36,7 @@ class PatientController extends Controller
         if($request->oldpass){
             if(Hash::check($request->oldpass, $user->password))
                 if($request->newpass == $request->confpass)
-                    $request->newpass?$user->password=$request->newpass:'';  
+                    $request->newpass?$user->password=bcrypt($request->newpass):'';  
                 else
                     return redirect()->back()->with('newpass', 'false');  
             else

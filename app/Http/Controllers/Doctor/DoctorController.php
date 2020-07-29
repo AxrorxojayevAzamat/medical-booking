@@ -54,7 +54,7 @@ class DoctorController extends Controller
         if($request->oldpass){
             if(Hash::check($request->oldpass, $user->password))
                 if($request->newpass == $request->confpass)
-                    $request->newpass?$user->password=$request->newpass:'';  
+                    $request->newpass?$user->password=bcrypt($request->newpass):'';  
                 else
                     return redirect()->back()->with('newpass', 'false');  
             else
@@ -68,6 +68,16 @@ class DoctorController extends Controller
     }
 
     public function books($doctor_id)
+    {
+        $bookings = Book::where('doctor_id', $doctor_id)->get();
+        $bookings = $bookings->sortBy(['booking_date','time_start']);
+        $user = User::find(Auth::user()->id);
+        $book_num = count(Book::where('doctor_id', $user->id)->get());
+        
+        return view('doctor.doctor_bookings', compact('bookings','user','book_num'));
+    }
+
+    public function timetable()
     {
         $bookings = Book::where('doctor_id', $doctor_id)->get();
         $bookings = $bookings->sortBy(['booking_date','time_start']);
