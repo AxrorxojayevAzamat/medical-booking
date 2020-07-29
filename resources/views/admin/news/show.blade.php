@@ -18,10 +18,10 @@
                     <table class="table {{--table-bordered--}} table-striped projects">
                         <tbody>
                         <tr><th>ID</th><td>{{ $news->id }}</td></tr>
-                        <tr><th>Название (узбекское)</th><td>{{ $news->name_uz }}</td></tr>
-                        <tr><th>Название (русское)</th><td>{{ $news->name_ru }}</td></tr>
-                        <tr><th>Название меню (узбекское)</th><td>{{ $news->name_uz }}</td></tr>
-                        <tr><th>Название меню (русское)</th><td>{{ $news->name_ru }}</td></tr>
+                        <tr><th>Название (узбекское)</th><td>{{ $news->title_uz }}</td></tr>
+                        <tr><th>Название (русское)</th><td>{{ $news->title_ru }}</td></tr>
+                        <tr><th>Название меню (узбекское)</th><td>{{ $news->menu_title_uz ?: $news->title_uz }}</td></tr>
+                        <tr><th>Название меню (русское)</th><td>{{ $news->menu_title_ru ?: $news->title_ru }}</td></tr>
                         <tr><th>Описание (узбекское)</th><td>{!! $news->description_uz !!}</td></tr>
                         <tr><th>Описание (русское)</th><td>{!! $news->description_ru !!}</td></tr>
                         <tr><th>Содержание (узбекское)</th><td>{!! $news->content_uz !!}</td></tr>
@@ -29,6 +29,19 @@
                         <tr><th>Статус</th><td>{!! $news->getStatusLabel() !!}</td></tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-gray card-outline">
+                <div class="card-header"><h3 class="card-title">Изображение</h3></div>
+                <div class="card-body">
+                    @if ($news->image)
+                        <a href="{{ $news->imageOriginal }}" target="_blank"><img src="{{ $news->imageThumbnail }}"></a>
+                    @endif
                 </div>
             </div>
         </div>

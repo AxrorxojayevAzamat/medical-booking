@@ -24,6 +24,7 @@ class CreateNewsTable extends Migration
             $table->mediumText('content_uz');
             $table->mediumText('content_ru');
             $table->tinyInteger('status');
+            $table->string('image')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
             $table->timestamps();

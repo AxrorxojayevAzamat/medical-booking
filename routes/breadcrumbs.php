@@ -50,6 +50,17 @@ Breadcrumbs::register('specializations', function (Crumbs $crumbs) {
     $crumbs->push('Cпециализация', route('specializations'));
 });
 
+// News
+Breadcrumbs::register('news.index', function (Crumbs $crumbs) {
+    $crumbs->parent('home');
+    $crumbs->push('Новости', route('news.index'));
+});
+
+Breadcrumbs::register('news.show', function (Crumbs $crumbs, News $news) {
+    $crumbs->parent('news.index');
+    $crumbs->push($news->title, route('news.show', $news));
+});
+
 ///////////////////////////////// Admin
 
 Breadcrumbs::register('admin.home', function (Crumbs $crumbs) {

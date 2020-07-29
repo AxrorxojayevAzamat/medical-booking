@@ -16,6 +16,7 @@ use Illuminate\Validation\Rule;
  * @property string $content_uz
  * @property string $content_ru
  * @property int $status
+ * @property \Illuminate\Http\UploadedFile $image
  */
 class CreateRequest extends FormRequest
 {
@@ -37,6 +38,7 @@ class CreateRequest extends FormRequest
             'content_uz' => 'nullable|string',
             'content_ru' => 'nullable|string',
             'status' => ['required', 'numeric', Rule::in(array_keys(News::getStatusList()))],
+            'image' => 'required|image|mimes:jpg,jpeg,png',
         ];
     }
 }
