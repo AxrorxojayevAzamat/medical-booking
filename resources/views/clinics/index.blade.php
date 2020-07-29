@@ -175,7 +175,7 @@
     min-height: 40px;
     font-weight: 600;
     color: #3f4079;
-    border: 2px solid #3f4079;
+    border: 2px solid #fff;
     background-color: #fff;
     font-weight: 600;
     transition: all 0.3s ease-in-out;

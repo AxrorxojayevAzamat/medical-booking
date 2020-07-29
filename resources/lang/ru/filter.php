@@ -7,4 +7,8 @@ return [
     'search_specializations' => 'Поиск по специализациям...',
     'filter_by' => 'Сортировка по...',
     'clear' => 'Очистить',
+    'male' => 'Мужчина',
+    'female' => 'Женщина',
+    'alphabet' => 'Алфавиту',
+    'rating' => 'Рейтингу',
 ];

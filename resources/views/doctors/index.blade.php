@@ -57,8 +57,8 @@
                         <h6>{{trans('filter.sex')}}</h6>
                         <select name="gender" class="selectbox">
                             <option value=""></option>
-                            <option value="{{ \App\Entity\User\Profile::MALE }}"{{ \App\Entity\User\Profile::MALE == request('gender') ? ' selected' : '' }}>Мужчина</option>
-                            <option value="{{ \App\Entity\User\Profile::FEMALE }}"{{ \App\Entity\User\Profile::FEMALE == request('gender') ? ' selected' : '' }}>Женщина</option>
+                            <option value="{{ \App\Entity\User\Profile::MALE }}"{{ \App\Entity\User\Profile::MALE == request('gender') ? ' selected' : '' }}>{{ trans('filter.male') }}</option>
+                            <option value="{{ \App\Entity\User\Profile::FEMALE }}"{{ \App\Entity\User\Profile::FEMALE == request('gender') ? ' selected' : '' }}>{{ trans('filter.female') }}</option>
                         </select>
                     </li>
                     <li>
@@ -74,8 +74,8 @@
                         <h6>{{trans('filter.filter_by')}}</h6>
                         <select name="order_by" class="selectbox" multiple>
                             <option value=""></option>
-                            <option value="alphabet"{{ 'alphabet' == request('order_by') ? ' selected' : '' }}>Алфавиту</option>
-                            <option value="best_rated"{{ 'best_rated' == request('order_by') ? ' selected' : '' }}>Рейтингу</option>
+                            <option value="alphabet"{{ 'alphabet' == request('order_by') ? ' selected' : '' }}>{{trans('filter.alphabet')}}</option>
+                            <option value="best_rated"{{ 'best_rated' == request('order_by') ? ' selected' : '' }}>{{trans('filter.rating')}}</option>
                         </select>
                     </li>
                     <li>
