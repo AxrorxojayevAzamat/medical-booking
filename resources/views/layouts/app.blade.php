@@ -38,9 +38,9 @@
 
 <div class="layer"></div>
 
-<div id="preloader">
+{{-- <div id="preloader">
     <div data-loader="circle-side"></div>
-</div>
+</div> --}}
 
 <header class="header_sticky">
     <div class="container">
@@ -140,8 +140,8 @@
                         <li class="submenu">
                             <a href="#" class="show-submenu">{{ trans('menu.language') }}<i class="icon-down-open-mini"></i></a>
                             <ul>
-                                <li><a href="/locale/uz">Uz</a></li>
-                                <li><a href="/locale/ru">Ру</a></li>
+                                <li><a href="/locale/uz" style="font-size: 0.75rem; padding-left: 30px!important">O'zbek tili</a></li>
+                                <li><a href="/locale/ru" style="font-size: 0.75rem; padding-left: 30px!important">Русский</a></li>
                             </ul>
                         </li>
                         @if (Route::has('login'))
@@ -199,34 +199,34 @@
                 </p>
             </div>
             <div class="col-lg-3 col-md-4">
-                <h5>Компани</h5>
+            <h5>{{trans('footer.about')}}</h5>
                 <ul class="links">
-                    <li><a href="#0">О нас</a></li>
-                    <li><a href="blog.html">Блог</a></li>
-                    <li><a href="#0">ЧАВО</a></li>
+                    <li><a href="#0">{{trans('footer.about')}}</a></li>
+                    <li><a href="blog.html">{{trans('footer.blog')}}</a></li>
+                    <li><a href="#0">{{trans('footer.faq')}}</a></li>
                     @if (Auth::guest())
-                        <li><a href="/login">Войти</a></li>
-                        <li><a href="/register">Регистрироваться</a></li>
+                        <li><a href="/login">{{trans('auth.log_in')}}</a></li>
+                        <li><a href="/register">{{trans('auth.sign_up')}}</a></li>
                     @endif
                 </ul>
             </div>
             <div class="col-lg-3 col-md-4">
-                <h5>Полезные ссылки</h5>
+                <h5>{{trans('footer.possible_links')}}</h5>
                 <ul class="links">
-                    <li><a href="{{ route('doctors.index') }}">Докторы</a></li>
-                    <li><a href="{{ route('clinics.index') }}">Клиники</a></li>
-                    <li><a href="#0">Специализации</a></li>
-                    <li><a href="#0">Присоедиться как Доктор</a></li>
+                    <li><a href="{{ route('doctors.index') }}">{{trans('menu.doctors')}}</a></li>
+                    <li><a href="{{ route('clinics.index') }}">{{trans('menu.clinics')}}</a></li>
+                    <li><a href="#0">{{trans('menu.specialization')}}</a></li>
+                    <li><a href="#0">{{trans('footer.join_us_doctor')}}</a></li>
                 </ul>
             </div>
             <div class="col-lg-3 col-md-4">
-                <h5>Свяжитесь с нами</h5>
+                <h5>{{trans('footer.contant_with_us')}}</h5>
                 <ul class="contacts">
                     <li><a href="tel://61280932400"><i class="icon_mobile"></i> + 61 23 8093 3400</a></li>
                     <li><a href="mailto:info@findoctor.com"><i class="icon_mail_alt"></i> help@findoctor.com</a></li>
                 </ul>
                 <div class="follow_us">
-                    <h5>Подписывайтесь</h5>
+                    <h5>{{trans('footer.follow_us')}}</h5>
                     <ul>
                         <li><a href="#0"><i class="social_facebook"></i></a></li>
                         <li><a href="#0"><i class="social_twitter"></i></a></li>
@@ -241,8 +241,8 @@
         <div class="row">
             <div class="col-md-8">
                 <ul id="additional_links">
-                    <li><a href="#0">Правила и условия</a></li>
-                    <li><a href="#0">Конфиденциальность</a></li>
+                    <li><a href="#0">{{trans('footer.terms_and_conditions')}}</a></li>
+                    <li><a href="#0">{{trans('footer.privacy')}}</a></li>
                 </ul>
             </div>
             <div class="col-md-4">

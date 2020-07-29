@@ -34,7 +34,7 @@
                     <li class="first">
                     </li>
                     <li>
-                        <h6>Поиск по регионам...</h6>
+                        <h6>{{trans('filter.search_regions')}}</h6>
                         <select id="region_id" name="region">
                             <option value=""></option>
                             @foreach ($regions as $value => $label)
@@ -44,8 +44,8 @@
                     </li>
                     <li>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-search">Искать</button>
-                            <a href="?" class="btn btn-clear">Очистить</a>
+                            {{-- <button type="submit" class="btn btn-search">Искать</button> --}}
+                            <a href="?" class="btn btn-clear">{{trans('filter.clear')}}</a>
                         </div>
                     </li>
                 </ul>
@@ -73,8 +73,8 @@
                         <p>{{ $clinic->description }}</p>
                         <ul>
                             {{-- <li><a href="#0" onclick="onHtmlClick('Doctors', {{ $key }})" class="btn_listing">View on Map</a></li> --}}
-                            <li><a href="#0" onclick="initMap(41.2646, 69.2163)" class="btn_listing">Показать на карте</a></li>
-                            <li><a href="{{ route('clinics.show', $clinic) }}">Подробно</a></li>
+                        <li><a href="#0" onclick="initMap(41.2646, 69.2163)" class="btn_listing">{{trans('doctors.view_on_map')}}</a></li>
+                            <li><a href="{{ route('clinics.show', $clinic) }}">{{trans('doctors.in_detail')}}</a></li>
                         </ul>
                     </div>
                 @endforeach
@@ -174,9 +174,9 @@
 .filters_listing ul li:nth-child(3) .btn-clear {
     min-height: 40px;
     font-weight: 600;
-    color: #fff;
-    border: 2px solid #e74e84;
-    background-color: #e74e84;
+    color: #3f4079;
+    border: 2px solid #fff;
+    background-color: #fff;
     font-weight: 600;
     transition: all 0.3s ease-in-out;
     border-radius: 0 3px 3px 0;

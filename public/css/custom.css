@@ -105,9 +105,9 @@
 .filters_listing ul li:nth-child(6) .btn-clear {
     min-height: 40px;
     font-weight: 600;
-    color: #fff;
-    border: 2px solid #e74e84;
-    background-color: #e74e84;
+    color: #3f4079;
+    border: 2px solid #fff;
+    background-color: #fff;
     font-weight: 600;
     transition: all 0.3s ease-in-out;
     border-radius: 0 3px 3px 0;
@@ -121,6 +121,10 @@
 
 .select2-container--default .select2-selection--single {
     border-radius: 0;
+}
+
+.select2-results__option {
+  min-height: 30px;
 }
 
 @media screen and (max-width: 767px) {
@@ -380,12 +384,12 @@
         width: -moz-available;
         width: available;
         width: -webkit-fill-available;
-        padding: 0;
+        padding: 0 0 .75em 0;
         transition: .7s display;
       }
 
       .header_sticky .dropdown .auth_item {
-        padding: .75em 1.25em;
+        padding: .75em 1.25em 0 1.25em;
         font-size: 15px;
       }
 

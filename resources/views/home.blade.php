@@ -10,17 +10,17 @@
             <form method="GET" id="main-form">
                 <div id="custom-search-input">
                     <div class="input-group">
-                        <input type="text" id="main-form-text" class="search-query" placeholder="Название, Имя ....">
-                        <input type="submit" id="main-search-button" class="btn_search" value="Search">
+                        <input type="text" id="main-form-text" class="search-query" placeholder="{{ trans('home.name_name' ) }}">
+                    <input type="submit" id="main-search-button" class="btn_search" value="{{trans('msg.search')}}">
                     </div>
                     <ul>
                         <li>
                             <input type="radio" id="doctor-radio" name="radio_search" value="doctor" checked>
-                        <label for="doctor-radio">{{trans('msg.doctors')}}</label>
+                        <label for="doctor-radio">{{trans('menu.doctors')}}</label>
                         </li>
                         <li>
                             <input type="radio" id="clinic-radio" name="radio_search" value="clinic">
-                            <label for="clinic-radio">{{trans('msg.clinics')}}</label>
+                            <label for="clinic-radio">{{trans('menu.clinics')}}</label>
                         </li>
                     </ul>
                 </div>
@@ -30,38 +30,38 @@
 
     <div class="container margin_120_95">
         <div class="main_title">
-            <h2>Discover the <strong>online</strong> appointment!</h2>
+            <h2>{{ trans('home.discover_the_appointment' ) }}</h2>
             <p>Usu habeo equidem sanctus no. Suas summo id sed, erat erant oporteat cu pri. In eum omnes molestie. Sed ad debet scaevola, ne mel.</p>
         </div>
         <div class="row add_bottom_30">
             <div class="col-lg-4">
                 <div class="box_feat" id="icon_1">
                     <span></span>
-                    <h3>Find a Doctor</h3>
+                    <h3>{{ trans('home.find_doctor' ) }}</h3>
                     <p>Usu habeo equidem sanctus no. Suas summo id sed, erat erant oporteat cu pri. In eum omnes molestie.</p>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="box_feat" id="icon_2">
                     <span></span>
-                    <h3>View profile</h3>
+                    <h3>{{ trans('home.view_profile' ) }}</h3>
                     <p>Usu habeo equidem sanctus no. Suas summo id sed, erat erant oporteat cu pri. In eum omnes molestie.</p>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="box_feat" id="icon_3">
-                    <h3>Book a visit</h3>
+                    <h3>{{ trans('home.book_visit' ) }}</h3>
                     <p>Usu habeo equidem sanctus no. Suas summo id sed, erat erant oporteat cu pri. In eum omnes molestie.</p>
                 </div>
             </div>
         </div>
-        <p class="text-center"><a href="{{ route('doctors.index' ) }}" class="btn_1 medium">Find Doctor</a></p>
+        <p class="text-center"><a href="{{ route('doctors.index' ) }}" class="btn_1 medium">{{ trans('home.find_doctor' ) }}</a></p>
     </div>
 
     <div class="bg_color_1">
         <div class="container margin_120_95">
             <div class="main_title">
-                <h2>Докторы с высшим рейтингом</h2>
+                <h2>{{ trans('home.top_rate_doctors' ) }}</h2>
                 <p>Usu habeo equidem sanctus no. Suas summo id sed, erat erant oporteat cu pri.</p>
             </div>
 
@@ -89,7 +89,7 @@
 
     <div class="container margin_120_95">
         <div class="main_title">
-            <h2>Найти доктора или клинику</h2>
+            <h2>{{ trans('home.find_doctors_or_clinics' ) }}</h2>
             <p>Nec graeci sadipscing disputationi ne, mea ea nonumes percipitur. Nonumy ponderum oporteat cu mel, pro movet cetero at.</p>
         </div>
         <div class="row justify-content-center">
@@ -97,13 +97,13 @@
                 <div class="list_home">
                     <div class="list_title">
                         <i class="icon_pin_alt"></i>
-                        <h3>Искать по региону</h3>
+                        <h3>{{ trans('home.search_by_region' ) }}</h3>
                     </div>
                     <ul>
                         @foreach($regions as $region)
                             <li><a href="{{ route('doctors.index') . '?region=' . $region->id }}"><strong>23</strong>{{ $region->name }}</a></li>
                         @endforeach
-                        <li><a href="{{ route('doctors.index') }}">Больше...</a></li>
+                        <li><a href="{{ route('doctors.index') }}">{{ trans('home.more' ) }}...</a></li>
                     </ul>
                 </div>
             </div>
@@ -111,7 +111,7 @@
                 <div class="list_home">
                     <div class="list_title">
                         <i class="icon_archive_alt"></i>
-                        <h3>Искать по специализации</h3>
+                        <h3>{{ trans('home.search_by_specialization' ) }}</h3>
                     </div>
                     <ul>
                         @foreach($specializations as $specialization)
@@ -121,7 +121,7 @@
                                 </a>
                             </li>
                         @endforeach
-                        <li><a href="{{ route('doctors.index') }}">Больше....</a></li>
+                        <li><a href="{{ route('doctors.index') }}">{{ trans('home.more' ) }}...</a></li>
                     </ul>
                 </div>
             </div>

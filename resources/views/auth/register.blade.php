@@ -26,14 +26,14 @@
         <div class="bg_color_2">
             <div class="container margin_60_35">
                 <div id="register">
-                    <h1>Please register to Findoctor!</h1>
+                    <h1>{{trans('auth.please_to_findoctor')}}</h1>
                     <div class="row justify-content-center">
                         <div class="col-md-5">
                             <form action="{{ $register_url }}" method="post">
                                 {{ csrf_field() }}
                                 <div class="box_form">
                                     <div class="form-group">
-                                        <input type="text" name="name" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" value="{{ old('name') }}" placeholder="{{ __('Имя') }}" autofocus>
+                                        <input type="text" name="name" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" value="{{ old('name') }}" placeholder="{{ trans('adminlte.user.first_name') }}" autofocus>
                                         @if ($errors->has('name'))
                                             <div class="invalid-feedback">
                                                 <strong>{{ $errors->first('name') }}</strong>
@@ -41,7 +41,7 @@
                                         @endif
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="lastname" class="form-control {{ $errors->has('lastname') ? 'is-invalid' : '' }}" value="{{ old('lastname') }}" placeholder="{{ __('Фамилия') }}" autofocus>
+                                        <input type="text" name="lastname" class="form-control {{ $errors->has('lastname') ? 'is-invalid' : '' }}" value="{{ old('lastname') }}" placeholder="{{ trans('adminlte.user.last_name') }}" autofocus>
 
                                         @if ($errors->has('lastname'))
                                             <div class="invalid-feedback">
@@ -51,7 +51,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <input type="text" name="patronymic" class="form-control {{ $errors->has('patronymic') ? 'is-invalid' : '' }}" value="{{ old('patronymic') }}" placeholder="{{ __('Отчество') }}" autofocus>
+                                        <input type="text" name="patronymic" class="form-control {{ $errors->has('patronymic') ? 'is-invalid' : '' }}" value="{{ old('patronymic') }}" placeholder="{{ trans('adminlte.user.middle_name') }}" autofocus>
 
                                         @if ($errors->has('patronymic'))
                                             <div class="invalid-feedback">
@@ -60,8 +60,7 @@
                                         @endif
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="phone" class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}" data-inputmask="&quot;mask&quot;: &quot;(999) 99 999-9999&quot;" data-mask value="{{ old('phone') }}" placeholder="{{ __('Телефон') }}" autofocus>
-
+                                        <input type="text" name="phone" class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}" data-inputmask="&quot;mask&quot;: &quot;(999) 99 999-9999&quot;" data-mask value="{{ old('phone') }}" placeholder="{{ trans('adminlte.user.phone') }}" autofocus>
                                         @if ($errors->has('phone'))
                                             <div class="invalid-feedback">
                                                 <strong>{{ $errors->first('phone') }}</strong>
@@ -79,9 +78,9 @@
                                     <div class="form-group">
                                     <!--<input type="number" name="gender" min="0" max="1" class="form-control {{ $errors->has('gender') ? 'is-invalid' : '' }}" value="{{ old('gender') }}" placeholder="{{ __('Пол') }}" autofocus>-->
                                         <select id="gender" class="form-control {{ $errors->has('gender') ? 'is-invalid' : '' }}" name="gender" value="{{ old('gender') }}" required autocomplete="gender" autofocus>
-                                            <option value="" selected="">{{ __('Пол') }}</option>>
-                                            <option value="0" @if (old('gender') == '0') selected="selected" @endif>Женский</option>>
-                                            <option value="1"@if (old('gender') == '1') selected="selected" @endif>Мужской</option>>
+                                            <option value="" selected="">{{ trans('filter.sex') }}</option>>
+                                            <option value="0" @if (old('gender') == '0') selected="selected" @endif>{{ trans('filter.female') }}</option>>
+                                            <option value="1"@if (old('gender') == '1') selected="selected" @endif>{{ trans('filter.male') }}</option>>
                                         </select>
 
                                         @if ($errors->has('gender'))
@@ -91,7 +90,7 @@
                                         @endif
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{ __('Адрес электронной почты') }}">
+                                        <input type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{ trans('auth.address_email') }}">
 
                                         @if ($errors->has('email'))
                                             <div class="invalid-feedback">
@@ -100,7 +99,7 @@
                                         @endif
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" name="email_confirmation" class="form-control {{ $errors->has('email_confirmation') ? 'is-invalid' : '' }}" value="{{ old('email_confirmation') }}" placeholder="{{ __('Подтвердите адрес электронной почты') }}">
+                                        <input type="email" name="email_confirmation" class="form-control {{ $errors->has('email_confirmation') ? 'is-invalid' : '' }}" value="{{ old('email_confirmation') }}" placeholder="{{ trans('auth.confirm_address_email') }}">
                                         @if ($errors->has('email'))
                                             <div class="invalid-feedback">
                                                 <strong>{{ $errors->first('email') }}</strong>
@@ -108,7 +107,7 @@
                                         @endif
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" placeholder="{{ __('Пароль') }}">
+                                        <input type="password" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" placeholder="{{trans('adminlte.password') }}">
 
                                         @if ($errors->has('password'))
                                             <div class="invalid-feedback">
@@ -117,7 +116,7 @@
                                         @endif
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" name="password_confirmation" class="form-control {{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}" placeholder="{{ __('Подтвердите пароль') }}">
+                                        <input type="password" name="password_confirmation" class="form-control {{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}" placeholder="{{ trans('adminlte.retype_password') }}">
 
                                         @if ($errors->has('password_confirmation'))
                                             <div class="invalid-feedback">
@@ -127,7 +126,7 @@
                                     </div>
 
                                     <div class="form-group text-center add_top_30">
-                                        <button type="submit" class="btn btn-primary btn-block btn-flat"> {{ __('Зарегистрироваться') }} </button>
+                                        <button type="submit" class="btn btn-primary btn-block btn-flat"> {{ trans('adminlte.register') }} </button>
                                     </div>
                                 </div>
                             </form>

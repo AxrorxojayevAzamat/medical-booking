@@ -35,16 +35,12 @@
 
             <div class="container margin_60_35">
                 <div id="login">
-                    <h1>Please login to Findoctor!</h1>
+                <h1>{{trans('auth.please_to_findoctor')}}</h1>
                     <div class="box_form">
                         <form  action="{{ $login_url}}" method="post">
                             {{ csrf_field() }}
-                            <a href="#0" class="social_bt facebook">Login with Facebook</a>
-                            <a href="#0" class="social_bt google">Login with Google</a>
-                            <a href="#0" class="social_bt linkedin">Login with Linkedin</a>
-                            <div class="divider"><span>Or</span></div>
                             <div class="form-group">
-                                <input type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}" autofocus>
+                                <input type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{ trans('adminlte.email') }}" autofocus>
                                 @if ($errors->has('email'))
                                     <div class="invalid-feedback">
                                         {{ $errors->first('email') }}
@@ -53,21 +49,21 @@
                             </div>
 
                             <div class="form-group">
-                                <input type="password" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" placeholder="{{ __('adminlte::adminlte.password') }}">
+                                <input type="password" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" placeholder="{{ trans('adminlte.password') }}">
                                 @if ($errors->has('password'))
                                     <div class="invalid-feedback">
                                         {{ $errors->first('password') }}
                                     </div>
                                 @endif
                             </div>
-                            <a href="{{ $password_reset_url}}">{{ __('adminlte::adminlte.i_forgot_my_password') }}</a>
+                            <a href="{{ $password_reset_url}}">{{ trans('adminlte.i_forgot_my_password') }}</a>
                             <div class="form-group text-center add_top_20">
-                                <input class="btn_1 medium" type="submit" value="{{ __('adminlte::adminlte.sign_in') }}">
+                                <input class="btn_1 medium" type="submit" value="{{ trans('adminlte.sign_in') }}">
                             </div>
                         </form>
                     </div>
                     <p class="text-center link_bright"><a href="{{ $register_url }}">
-                            {{ __('adminlte::adminlte.register_a_new_membership') }}
+                            {{ trans('adminlte.register_a_new_membership') }}
                         </a></p>
                 </div>
                 <!-- /login -->

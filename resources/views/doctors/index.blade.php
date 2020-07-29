@@ -34,7 +34,7 @@
             <div class="container-fluid">
                 <ul class="clearfix row d-flex justify-content-center">
                     <li>
-                        <h6>Поиск по клиникам...</h6>
+                        <h6>{{trans('filter.search_clinics')}}</h6>
                         <div class="form-group">
                             <select id="clinic_id" name="clinic">
                                 <option value=""></option>
@@ -45,7 +45,7 @@
                         </div>
                     </li>
                     <li style="margin-right: 10px">
-                        <h6>Поиск по регионам...</h6>
+                        <h6>{{trans('filter.search_regions')}}</h6>
                         <select id="region_id" name="region">
                             <option value=""></option>
                             @foreach ($regions as $value => $label)
@@ -54,15 +54,15 @@
                         </select>
                     </li>
                     <li>
-                        <h6>Пол</h6>
+                        <h6>{{trans('filter.sex')}}</h6>
                         <select name="gender" class="selectbox">
                             <option value=""></option>
-                            <option value="{{ \App\Entity\User\Profile::MALE }}"{{ \App\Entity\User\Profile::MALE == request('gender') ? ' selected' : '' }}>Мужчина</option>
-                            <option value="{{ \App\Entity\User\Profile::FEMALE }}"{{ \App\Entity\User\Profile::FEMALE == request('gender') ? ' selected' : '' }}>Женщина</option>
+                            <option value="{{ \App\Entity\User\Profile::MALE }}"{{ \App\Entity\User\Profile::MALE == request('gender') ? ' selected' : '' }}>{{ trans('filter.male') }}</option>
+                            <option value="{{ \App\Entity\User\Profile::FEMALE }}"{{ \App\Entity\User\Profile::FEMALE == request('gender') ? ' selected' : '' }}>{{ trans('filter.female') }}</option>
                         </select>
                     </li>
                     <li>
-                        <h6>Поиск по специализациям...</h6>
+                        <h6>{{trans('filter.search_specializations')}}</h6>
                         <select id="specialization_id" name="specialization">
                             <option value=""></option>
                             @foreach ($specializations as $value => $label)
@@ -71,17 +71,17 @@
                         </select>
                     </li>
                     <li>
-                        <h6>Сортировка по</h6>
+                        <h6>{{trans('filter.filter_by')}}</h6>
                         <select name="order_by" class="selectbox" multiple>
                             <option value=""></option>
-                            <option value="alphabet"{{ 'alphabet' == request('order_by') ? ' selected' : '' }}>Алфавиту</option>
-                            <option value="best_rated"{{ 'best_rated' == request('order_by') ? ' selected' : '' }}>Рейтингу</option>
+                            <option value="alphabet"{{ 'alphabet' == request('order_by') ? ' selected' : '' }}>{{trans('filter.alphabet')}}</option>
+                            <option value="best_rated"{{ 'best_rated' == request('order_by') ? ' selected' : '' }}>{{trans('filter.rating')}}</option>
                         </select>
                     </li>
                     <li>
                         <div class="form-group" style="margin: auto 0;">
-                            <button type="submit" class="btn btn-primary btn-search">Искать</button>
-                            <a href="?" class="btn btn-outline-secondary btn-clear">Очистить</a>
+                            {{-- <button type="submit" class="btn btn-primary btn-search">Искать</button> --}}
+                            <a href="?" class="btn btn-outline-secondary btn-clear">{{trans('filter.clear')}}</a>
                         </div>
                     </li>
                 </ul>
