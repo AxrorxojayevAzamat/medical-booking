@@ -1,13 +1,24 @@
 @extends('layouts.admin.page')
 
 @section('content')
+    @if($errors->any())
+    @foreach($errors->all() as $error)
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ $error }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endforeach
+    @endif
     <div class="d-flex bd-highlight mb-3">
         @if($user->isDoctor())  
         <a class="btn btn-secondary mr-1 p-2 bd-highlight" href="{{ route('admin.users.user-clinics',$user)}}">{{ trans('Добавить клинику') }}</a>
         <a class="btn btn-info mr-1 p-2 bd-highlight" href="{{ route('admin.users.specializations', $user)}}">{{ trans('Добавить специализацию') }}</a>
+        <a class="btn btn-dark mr-1" href="{{ route('admin.users.main-photo', $user)}}">Главное фото</a>
+        <a class="btn btn-warning mr-1" href="{{ route('admin.users.photos', $user)}}">Фотографии</a>
         @endif
-        <a href="" class="btn btn-dark mr-1">Главное фото</a>
-        <a href="" class="btn btn-warning mr-1">Фотографии</a>
+       
 
             <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="ml-auto mr-1">
                 @csrf
@@ -37,7 +48,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                 </div>
-                                <input id="phone" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" data-inputmask="&quot;mask&quot;: &quot;(999) 99 999-9999&quot;" data-mask="" im-insert="true" name="phone" value="{{ old('phone', $user ? $user->phone : '') }}" required autocomplete="phone" autofocus>
+                                <input id="phone" type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;999999999&quot;" data-mask="" im-insert="true" name="phone" required value="{{ old('phone', $user ? $user->phone : '') }}">
                             </div>
                             @error('phone')
                             <span class="invalid-feedback"><strong>{{ $errors->first('phone') }}</strong></span>
@@ -46,7 +57,7 @@
 
                         <div class="form-group">
                             <label for="password" class="col-form-label text-md-left">{{ trans('Пароль') }}</label>
-                            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" autocomplete="new-password">
+                            <input id="password" type="text" class="form-control" name="password">
                             @error('password')
                                 <span class="invalid-feedback"><strong>{{ $errors->first('password') }}</strong></span>
                             @enderror
@@ -109,17 +120,13 @@
                                 <span class="invalid-feedback"><strong>{{ $errors->first('middle_name') }}</strong></span>
                             @enderror
                         </div>
+
                         <div class="form-group">
-                            <label for="birth_date" class="col-form-label text-md-left">{{ trans('Дата рождения') }}</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                </div>
-                                <input id="birth_date "type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="birth_date" value="{{ old('birth_date', $profile ? $profile->birth_date : '') }}">
-                            </div>
-                            @error('birth_date')
-                                <span class="invalid-feedback"><strong>{{ $errors->first('birth_date') }}</strong></span>
-                            @enderror
+                            <label for="inputDate">Дата рождения:</label>
+                            <input type="date" id="birth_date" name="birth_date" class="form-control" value="{{ old('birth_date', $profile ? $profile->birth_date->format('Y-m-d') : '') }}">
+                                @error('birth_date')
+                                    <span class="invalid-feedback"><strong>{{ $errors->first('birth_date') }}</strong></span>
+                                @enderror
                         </div>
                         <div class="form-group">
                             <label for="gender" class="col-form-label text-md-left">{{ trans('Пол') }}</label>
@@ -140,7 +147,6 @@
                             @endif
                         </div>
                     </div>
-                    <div class="card-footer"></div>
                 </div>
             </div>
         </div> 
@@ -151,8 +157,8 @@
     @can('manage-doctor')
         @foreach($doctor->clinics as $clinic)
             <div class="card card-secondary card-outline" id="doctor-clinic">
-                    <div class="card-header">{{ __('Клиника ') }} <a href='{{ route('admin.clinic.show', $clinic) }}'><strong> {{$clinic->name_ru}}</strong></a> 
-                        <form action="{{ route('admin.clinic.destroy',$clinic) }}" method="post">
+                    <div class="card-header">{{ __('Клиника ') }} <a href='{{ route('admin.clinics.show', $clinic) }}'><strong> {{$clinic->name_ru}}</strong></a> 
+                        <form action="{{ route('admin.clinics.destroy',$clinic) }}" method="post">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger float-right" onclick="return confirm('При удалени клиники удаляются все расписании и брони Хотите удалить клинику {{$clinic->name_ru}}?')" >Удалить клинику</button>
