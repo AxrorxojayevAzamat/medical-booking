@@ -26,7 +26,7 @@
         <div class="bg_color_2">
             <div class="container margin_60_35">
                 <div id="register">
-                    <h1>Please register to Findoctor!</h1>
+                    <h1>{{trans('auth.please_to_findoctor')}}</h1>
                     <div class="row justify-content-center">
                         <div class="col-md-5">
                             <form action="{{ $register_url }}" method="post">

@@ -134,8 +134,8 @@
                                 <li class="submenu">
                                     <a href="#" class="show-submenu">{{ trans('menu.language') }}<i class="icon-down-open-mini"></i></a>
                                     <ul>
-                                        <li><a href="/locale/uz">Uz</a></li>
-                                        <li><a href="/locale/ru">Ру</a></li>
+                                        <li><a href="/locale/uz" style="font-size: 0.75rem; padding-left: 30px!important">O'zbek tili</a></li>
+                                        <li><a href="/locale/ru" style="font-size: 0.75rem; padding-left: 30px!important">Русский</a></li>
                                     </ul>
                                 </li>
                                 @if (Route::has('login'))
