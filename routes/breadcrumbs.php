@@ -65,7 +65,7 @@ Breadcrumbs::register('specializations', function (Crumbs $crumbs) {
 // News
 Breadcrumbs::register('news.index', function (Crumbs $crumbs) {
     $crumbs->parent('home');
-    $crumbs->push('Новости', route('news.index'));
+    $crumbs->push(trans('breadcrumbs.news'), route('news.index'));
 });
 
 Breadcrumbs::register('news.show', function (Crumbs $crumbs, News $news) {
@@ -227,7 +227,7 @@ Breadcrumbs::register('admin.partners.index', function (Crumbs $crumbs) {
 });
 Breadcrumbs::register('admin.partners.create', function (Crumbs $crumbs) {
     $crumbs->parent('admin.partners.index');
-    $crumbs->push('Добавление нового партнера', route('admin.partners.create'));
+    $crumbs->push(trans('breadcrumbs.add_new_partner'), route('admin.partners.create'));
 });
 Breadcrumbs::register('admin.partners.show', function (Crumbs $crumbs, Partner $partner) {
     $crumbs->parent('admin.partners.index');

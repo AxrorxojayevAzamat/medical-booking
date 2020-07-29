@@ -44,22 +44,23 @@
         </div> --}}
         <!-- End Preload -->
 
-        <header class="header_sticky">
+        <header class="header_sticky" style='font-family: "Poppins", Helvetica, sans-serif; font-size: 14px'>
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-2 col-6">
                         <div id="logo_home">
                             <h1><a href="{{ url('/') }}" title="Findoctor">Findoctor</a></h1>
                         </div>
                     </div>
-                    <nav class="col-lg-9 col-6">
+                    <nav class="col-lg-10 col-6">
                         <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="#0"><span>Menu mobile</span></a>
                         <ul id="top_access">
                             <div class="dropdown">
                                 @if (Route::has('login'))
                                 @auth
                                     <button class="btn auth_btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        {{Auth::user()->profile->first_name}}
+                                        @php($user = Auth::user())
+                                        {{ $user && $user->profile ? $user->profile->first_name : $user->email }}
                                     </button>
                                     <div class="dropdown-menu auth_menu" aria-labelledby="dropdownMenuButton">
                                         @if(Auth::user()->isAdmin())
@@ -130,6 +131,9 @@
                                 </li>
                                 <li>
                                     <a href="{{route('contacts.contacts')}}">{{ trans('contacts.title') }}</a>
+                                </li>
+                                <li>
+                                    <a href="{{route('news.index')}}">{{ trans('breadcrumbs.news') }}</a>
                                 </li>
                                 <li class="submenu">
                                     <a href="#" class="show-submenu">{{ trans('menu.language') }}<i class="icon-down-open-mini"></i></a>

@@ -46,13 +46,13 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-2 col-6">
                 <div id="logo_home">
                     <h1><a href="/" title="Findoctor">Findoctor</a></h1>
                 </div>
             </div>
 
-            <nav class="col-lg-9 col-6">
+            <nav class="col-lg-10 col-6">
                 <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="#0"><span>Menu mobile</span></a>
                 <ul id="top_access">
                     <div class="dropdown">
@@ -135,7 +135,7 @@
                             <a href="{{route('contacts.contacts')}}">{{ trans('contacts.title') }}</a>
                         </li>
                         <li>
-                            <a href="{{route('news.index')}}">Новости</a>
+                            <a href="{{route('news.index')}}">{{ trans('breadcrumbs.news') }}</a>
                         </li>
                         <li class="submenu">
                             <a href="#" class="show-submenu">{{ trans('menu.language') }}<i class="icon-down-open-mini"></i></a>
