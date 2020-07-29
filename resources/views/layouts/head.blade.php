@@ -4,7 +4,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Ansonika">
-    <title>Patient profile</title>
+    <title>
+    @if(Auth::user()->isDoctor()) 
+        Doctor profile
+    @elseif(Auth::user()->isPatient())
+        User profile
+    @endif
+    </title>
 
     <!-- Favicons-->
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">

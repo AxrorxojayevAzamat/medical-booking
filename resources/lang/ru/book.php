@@ -15,5 +15,12 @@ return [
     'booking_time' => "Время:",
     'name_of_doctor' => "Имя доктора:",
     'booking_cost' => "Стоимость бронирования",
+    'patient'=>'Пациент',
+    'orderId'=>'Номер заказа',
+    'start_time'=>'Начальное время',
+    'finish_time'=>'Время окончания',
+    'payment'=>'Тип платежа',
+    'payment_status'=>'Статус платежа',
+    'doctor' => 'Доктор',
     
 ];

@@ -15,4 +15,13 @@ return [
     'booking_time' => "Vaqt:",
     'name_of_doctor' => "Doktor nomi:",
     'booking_cost' => "Buyurtma narxi",
+    'booking_cost' => "Buyurtma narxi",
+    'patient'=>'Bemor',
+    'orderId'=>'Buyurtma raqami',
+    'start_time'=>'Boshlanish vaqti',
+    'finish_time'=>'Tugash vaqti',
+    'payment'=>'To\'lov turi',
+    'payment_status'=>'To\'lov holati',
+    'doctor' => 'Doktor',
+
 ];

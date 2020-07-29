@@ -42,17 +42,17 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
             Route::post('store-clinics', 'UserController@storeClinics')->name('store-clinics');
             Route::get('user-clinics', 'UserController@userClinics')->name('user-clinics');
             //MainPhoto
-            Route::get('main-photo', 'UserController@mainPhoto')->name('main-photo');
-            Route::post('add-main-photo', 'UserController@addMainPhoto')->name('add-main-photo');
-            Route::post('remove-main-photo', 'UserController@removeMainPhoto')->name('remove-main-photo');
+            Route::get('main-photo', 'ImagesController@mainPhoto')->name('main-photo');
+            Route::post('add-main-photo', 'ImagesController@addMainPhoto')->name('add-main-photo');
+            Route::post('remove-main-photo', 'ImagesController@removeMainPhoto')->name('remove-main-photo');
             //Photos
-            Route::get('photos', 'UserController@photos')->name('photos');
-            Route::post('add-photo', 'UserController@addPhoto')->name('add-photo');
-            Route::post('remove-photo/{photo}', 'UserController@removePhoto')->name('remove-photo');
+            Route::get('photos', 'ImagesController@photos')->name('photos');
+            Route::post('add-photo', 'ImagesController@addPhoto')->name('add-photo');
+            Route::post('remove-photo/{photo}', 'ImagesController@removePhoto')->name('remove-photo');
             //Sorting
-            Route::get('move-photo-up/{photo}', 'UserController@movePhotoUp')->name('move-photo-up');
-            Route::get('remove-photo/{photo}', 'UserController@removePhoto')->name('delete-photo');
-            Route::get('move-photo-down/{photo}', 'UserController@movePhotoDown')->name('move-photo-down');
+            Route::get('move-photo-up/{photo}', 'ImagesController@movePhotoUp')->name('move-photo-up');
+            Route::get('remove-photo/{photo}', 'ImagesController@removePhoto')->name('delete-photo');
+            Route::get('move-photo-down/{photo}', 'ImagesController@movePhotoDown')->name('move-photo-down');
         }
     );
 
@@ -110,13 +110,28 @@ Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], funct
 
 Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function () {
     Route::get('', 'PatientController@profileShow')->name('profile');
+    Route::get('/edit', 'PatientController@profileEdit')->name('profileEdit');
+    Route::post('/edit', 'PatientController@profileEditSave')->name('profileEditSave');
     Route::get('/booking/{user}/{clinic}', 'PatientController@booking')->name('booking');
     Route::post('/booking-doctor/', 'PatientController@bookingDoctor')->name('booking-doctor');
     Route::get('/{user_id}/bookings', 'PatientController@myBookings')->name('mybookings');
 });
 
 Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 'middleware' => ['auth', 'can:doctor-panel']], function () {
+    
     Route::get('/profile', 'DoctorController@profileShow')->name('profile');
+    Route::get('/edit', 'DoctorController@profileEdit')->name('profileEdit');
+    Route::post('/edit', 'DoctorController@profileEditSave')->name('profileEditSave');
+    Route::group(['namespace' => '\App\Http\Controllers\Admin'], function(){
+        //image
+        Route::get('main-photo', 'ImagesController@mainPhoto')->name('main-photo');
+        Route::post('add-main-photo', 'ImagesController@addMainPhoto')->name('add-main-photo');
+        Route::post('remove-main-photo', 'ImagesController@removeMainPhoto')->name('remove-main-photo');
+        //Photos
+        Route::get('photos', 'ImagesController@photos')->name('photos');
+        Route::post('add-photo', 'ImagesController@addPhoto')->name('add-photo');
+        Route::post('remove-photo/{photo}', 'ImagesController@removePhoto')->name('remove-photo');
+    });
     Route::get('/{doctor_id}/bookings', 'DoctorController@books')->name('doctorbookings');
 });
 

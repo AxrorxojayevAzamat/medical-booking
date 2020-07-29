@@ -50,6 +50,12 @@ Breadcrumbs::register('specializations', function (Crumbs $crumbs) {
     $crumbs->push('Cпециализация', route('specializations'));
 });
 
+//user profile
+// Breadcrumbs::register('patient.mybookings', function (Crumbs $crumbs) {
+//     $crumbs->parent('home');
+//     $crumbs->push('Bookings', route('patient.mybookings',Auth::id()));
+// });
+
 ///////////////////////////////// Admin
 
 Breadcrumbs::register('admin.home', function (Crumbs $crumbs) {

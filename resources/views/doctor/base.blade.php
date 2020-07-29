@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-    @include('doctor.head')
+    @include('layouts.head')
 
 <body>
     @include('doctor.header')

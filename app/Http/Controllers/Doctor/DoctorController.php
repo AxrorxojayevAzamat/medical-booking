@@ -18,6 +18,7 @@ use App\Entity\Celebration;
 use App\Services\BookService;
 use App\Entity\Rate;
 use App\Entity\User\Profile;
+use Hash;
 
 
 class DoctorController extends Controller
@@ -32,17 +33,48 @@ class DoctorController extends Controller
 
     public function profileShow()
     {
-        $bookings = User::find(Auth::user()->id);
-        return view('doctor.profile', compact('bookings'));
+        $user = User::find(Auth::user()->id);
+        $book_num = count(Book::where('doctor_id', $user->id)->get());
+
+        return view('doctor.profile.index', compact('user','book_num'));
+    }
+    public function profileEdit(User $user)
+    {
+        $user = User::find(Auth::user()->id);
+        $book_num = count(Book::where('doctor_id', $user->id)->get());
+        return view('doctor.profile.edit', compact('user','book_num'));
+    }
+    public function profileEditSave(Request $request)
+    {
+        $this->validate($request, [
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'phone' => ['required', 'string', 'regex:/^[+]?\d{9,18}$/'],
+        ]);
+        $user = User::find(Auth::id());
+        if($request->oldpass){
+            if(Hash::check($request->oldpass, $user->password))
+                if($request->newpass == $request->confpass)
+                    $request->newpass?$user->password=$request->newpass:'';  
+                else
+                    return redirect()->back()->with('newpass', 'false');  
+            else
+                return redirect()->back()->with('oldpass', 'false');      
+        }   
+        $request->phone?$user->phone = $request->phone:'';
+        $request->email?$user->email = $request->email:'';
+        $user->save();
+
+        return redirect()->back()->with('success', 'Successfully Edited');   
     }
 
     public function books($doctor_id)
     {
 
         $bookings = Book::where('doctor_id', $doctor_id)->get();
-
-
-        return view('doctor.doctor_bookings', compact('bookings'));
+        $user = User::find(Auth::user()->id);
+        $book_num = count(Book::where('doctor_id', $user->id)->get());
+        
+        return view('doctor.doctor_bookings', compact('bookings','user','book_num'));
     }
 
     public function index(Request $request)
