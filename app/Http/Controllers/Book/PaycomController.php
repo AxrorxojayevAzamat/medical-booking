@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers\Book;
 
 use App\Entity\Book\Payment\PaycomOrder;
@@ -17,17 +16,21 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use RuntimeException;
+use App\Services\BookSmsService;
 
 class PaycomController extends Controller
 {
+
     private $service;
+    private $bookService;
     private $validator;
 
-    public function __construct(PaycomService $service, PaycomValidator $validator)
+    public function __construct(PaycomService $service, PaycomValidator $validator, BookSmsService $bookService)
     {
         require_once __DIR__ . '/../../../Helpers/helpers.php';
 
         $this->service = $service;
+        $this->bookService = $bookService;
         $this->validator = $validator;
     }
 
@@ -52,6 +55,13 @@ class PaycomController extends Controller
             $user = Auth::user();
 
             $order = $this->service->createBookOrder($user->id, $request->doctor_id, $request->clinic_id, $request->booking_date, $request->time_start, $request->amount, $request->description);
+
+            if ($user->phone) {
+                $this->bookService->toSms($user->id, $request->doctor_id, $request->clinic_id, $request->booking_date, $request->time_start);
+            }
+
+            $this->bookService->toMail($user->id, $request->doctor_id, $request->clinic_id, $request->booking_date, $request->time_start);
+
             return $this->successResponse('Paycom order is created.', ['order_id' => $order->id]);
         } catch (ValidationException $e) {
             return $this->response(ResponseHelper::CODE_VALIDATION_ERROR, trans('validation.error'), $e->errorBag);
@@ -76,7 +86,7 @@ class PaycomController extends Controller
             return $this->successResponse('Payment is successfully performed.', ['book_id' => $order->book_id]);
         } catch (ValidationException $e) {
             return $this->response(ResponseHelper::CODE_VALIDATION_ERROR, trans('validation.error'), $e->errorBag);
-        } catch (RuntimeException|Exception $e) {
+        } catch (RuntimeException | Exception $e) {
             return $this->response(ResponseHelper::CODE_ERROR, $e->getMessage());
         }
     }
@@ -89,8 +99,9 @@ class PaycomController extends Controller
     private function response(int $code, string $message, $data = []): JsonResponse
     {
         return response()->json([
-            'message' => $message,
-            'data' => $data,
-        ], $code);
+                    'message' => $message,
+                    'data' => $data,
+                        ], $code);
     }
+
 }

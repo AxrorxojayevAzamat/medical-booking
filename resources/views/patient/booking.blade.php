@@ -56,7 +56,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>{{ trans('book.description') }}</label>
-                                        <textarea class="form-control" name="description" rows="3"></textarea>
+                                        <textarea class="form-control" name="description"  id="description" rows="3" required></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -87,6 +87,7 @@
                                     <li>{{ trans('book.booking_date') }} <strong class="float-right">{{$calendar}}</strong></li>
                                     <li>{{ trans('book.booking_time') }} <strong class="float-right">{{$radioTime}}</strong></li>
                                     <li>{{ trans('book.name_of_doctor') }} <strong class="float-right">{{$user->profile ? $user->profile->fullName : ''}}</strong></li>
+                                    <li>{{ trans('book.name_of_clinic') }} <strong class="float-right">{{$clinic->name}}</strong></li>
                                 </ul>
                             </div>
                             <ul class="treatments checkout clearfix">
@@ -98,7 +99,7 @@
                                 </li>
                             </ul>
                             {{-- <hr> --}}
-
+    
                             {{-- <button type="submit" class="btn_1 full-width">{{ trans('Confirm and pay')}}</button> --}}
                         </form>
                     </div>

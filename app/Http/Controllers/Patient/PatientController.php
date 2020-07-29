@@ -37,8 +37,8 @@ class PatientController extends Controller
 
         $calendar = $request['calendar'];
         $radioTime = $request['radio_time'];
-        $price = config('booking_price.booking_price');
-        $currency = config('booking_price.default_currency');
+        $price = config('book.booking_price');
+        $currency = config('book.default_currency');
 
         $patient = User::find(Auth::user()->id);
         return view('patient.booking', compact('patient', 'user', 'clinic', 'calendar', 'radioTime', 'price', 'currency'));

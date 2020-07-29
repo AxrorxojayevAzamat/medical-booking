@@ -13,15 +13,18 @@ use App\Entity\Celebration;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Services\BookService;
+use App\Services\BookSmsService;
 
 class CallCenterController extends Controller
 {
-    private $service;
 
-    public function __construct(BookService $service)
+    private $service;
+    private $bookService;
+
+    public function __construct(BookService $service, BookSmsService $bookService)
     {
         $this->service = $service;
-//        $this->middleware('can:manage-adverts');
+        $this->bookService = $bookService;
     }
 
     public function findDoctorByRegion(Request $request)
@@ -98,13 +101,13 @@ class CallCenterController extends Controller
     public function storePatient(Request $request)
     {
         $user = User::newGuest(
-            $request['email'],
-            $request['phone'],
-            $request['first_name'],
-            $request['last_name'],
-            $request['middle_name'],
-            $request['birth_date'],
-            $request['gender']
+                        $request['email'],
+                        $request['phone'],
+                        $request['first_name'],
+                        $request['last_name'],
+                        $request['middle_name'],
+                        $request['birth_date'],
+                        $request['gender']
         );
         return redirect()->route('admin.call-center.index');
     }
@@ -172,7 +175,7 @@ class CallCenterController extends Controller
         $clinics = Clinic::whereIn('id', $clinicsId)
                 ->orderByDesc('id')
                 ->get();
-        
+
         $specs = $doctor->specializations;
         $doctorTimetables = Timetable::where('doctor_id', $doctor->id)
                 ->whereIn('clinic_id', $clinicsId)
@@ -187,7 +190,7 @@ class CallCenterController extends Controller
                 ->get();
 
         $holidays = $this->service->celebrationDays($celebrationDays);
-        
+
         return view('admin.call-center.show-doctor', compact('user', 'doctor', 'clinics', 'specs', 'doctorTimetables', 'doctorBooks', 'holidays'));
     }
 
@@ -198,10 +201,17 @@ class CallCenterController extends Controller
         $clinicId = $request['clinic_id'];
         $bookingDate = $request['calendar'];
         $timeStart = $request['radio_time'];
-        $description = null;
+        $description = $request['description'];
 
-        $booking = Book::new($userId, $doctorId, $clinicId, $bookingDate, $timeStart, null, $description);
+        $booking = Book::new($userId, $doctorId, $clinicId, $bookingDate, $timeStart, null, $description, Book::PAYME);
+        $user = User::find($userId);
+
+        if ($user->phone) {
+            $this->bookService->toSms($userId, $doctorId, $clinicId, $bookingDate, $timeStart);
+        }
+            $this->bookService->toMail($userId, $doctorId, $clinicId, $bookingDate, $timeStart);
 
         return redirect()->route('admin.books.index');
     }
+
 }

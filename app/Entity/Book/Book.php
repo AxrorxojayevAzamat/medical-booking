@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $user_id
  * @property int $doctor_id
  * @property int $clinic_id
+ * @property Carbon $booking_date
  * @property int $price_id
  * @property Carbon $time_start
  * @property Carbon $time_finish

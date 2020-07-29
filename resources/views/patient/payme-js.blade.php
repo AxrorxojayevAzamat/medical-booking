@@ -88,8 +88,8 @@ $('.payme-choose').submit(function(e) {
     clientInfo.amount = 15000;
     clientInfo.booking_date = bookTime;
     clientInfo.time_start = $('#time_start').val();
-    clientInfo.description = "something";
-
+    clientInfo.description = $('#description').val();
+    
     $.ajax({
         url: '/book/paycom/create',
         method: "POST",

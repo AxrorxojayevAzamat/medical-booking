@@ -38,6 +38,12 @@ Breadcrumbs::register('doctors.show', function (Crumbs $crumbs, User $doctor) {
     $crumbs->push($doctor->profile->fullName, route('doctors.show', $doctor));
 });
 
+//booking
+Breadcrumbs::register('patient.booking', function (Crumbs $crumbs, User $doctor, Clinic $clinic) {
+    $crumbs->parent('home');
+    $crumbs->push('Booking', route('patient.booking',[$doctor, $clinic]));
+});
+
 //contacts
 Breadcrumbs::register('contacts.contacts', function (Crumbs $crumbs) {
     $crumbs->parent('home');
