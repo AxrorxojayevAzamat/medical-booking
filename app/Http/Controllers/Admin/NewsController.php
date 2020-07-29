@@ -6,13 +6,17 @@ use App\Entity\News;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\News\CreateRequest;
 use App\Http\Requests\Admin\News\UpdateRequest;
+use App\Services\Manage\NewsService;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
-    public function __construct()
+    private $service;
+
+    public function __construct(NewsService $service)
     {
         $this->middleware('can:manage-news');
+        $this->service = $service;
     }
 
     public function index(Request $request)
@@ -44,17 +48,7 @@ class NewsController extends Controller
     public function store(CreateRequest $request)
     {
         try {
-            $news = News::create([
-                'title_uz' => $request->title_uz,
-                'title_ru' => $request->title_ru,
-                'menu_title_uz' => $request->menu_title_uz,
-                'menu_title_ru' => $request->menu_title_ru,
-                'description_uz' => $request->description_uz,
-                'description_ru' => $request->description_ru,
-                'content_uz' => $request->content_uz,
-                'content_ru' => $request->content_ru,
-                'status' => $request->status,
-            ]);
+            $news = $this->service->create($request);
 
             return redirect()->route('admin.news.show', $news);
         } catch (\Exception $e) {
@@ -75,17 +69,7 @@ class NewsController extends Controller
     public function update(UpdateRequest $request, News $news)
     {
         try {
-            $news->update([
-                'title_uz' => $request->title_uz,
-                'title_ru' => $request->title_ru,
-                'menu_title_uz' => $request->menu_title_uz,
-                'menu_title_ru' => $request->menu_title_ru,
-                'description_uz' => $request->description_uz,
-                'description_ru' => $request->description_ru,
-                'content_uz' => $request->content_uz,
-                'content_ru' => $request->content_ru,
-                'status' => $request->status,
-            ]);
+            $news = $this->service->update($news->id, $request);
 
             return redirect()->route('admin.news.show', $news);
         } catch (\Exception $e) {
@@ -95,8 +79,17 @@ class NewsController extends Controller
 
     public function destroy(News $news)
     {
+        $this->service->removeImage($news->id);
         $news->delete();
 
         return redirect()->route('admin.news.index');
+    }
+
+    public function removeImage(News $news)
+    {
+        if ($this->service->removeImage($news->id)) {
+            return response()->json('The image is successfully deleted!');
+        }
+        return response()->json('The image is not deleted!', 400);
     }
 }

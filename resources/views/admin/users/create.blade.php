@@ -34,7 +34,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-phone"></i></span>
                             </div>
-                            <input id="phone" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" data-inputmask="&quot;mask&quot;: &quot;(999) 99 999-9999&quot;" data-mask="" im-insert="true" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
+                            <input id="phone" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" data-inputmask="&quot;mask&quot;: &quot;999999999&quot;" data-mask="" im-insert="true" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
                         </div>
                         @error('phone')
                             <span class="invalid-feedback"><strong>{{ $errors->first('phone') }}</strong></span>
@@ -43,7 +43,7 @@
 
                     <div class="form-group">
                         <label for="password" class="col-form-label text-md-left">{{ trans('Пароль') }}</label>
-                        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" autocomplete="new-password">
+                        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required autocomplete="new-password">
                         @error('password')
                             <span class="invalid-feedback"><strong>{{ $errors->first('password') }}</strong></span>
                         @enderror
@@ -100,7 +100,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                             </div>
-                            <input id="birth_date "type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd" data-mask name="birth_date" value="{{ old('birth_date') }}" required>
+                            <input id="birth_date "type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask name="birth_date" value="{{ old('birth_date') }}" required>
                         </div>
                         @error('birth_date')
                             <span class="invalid-feedback"><strong>{{ $errors->first('birth_date') }}</strong></span>
@@ -124,7 +124,7 @@
     </div>
 
     <div class="form-group">
-        <button type="submit" class="btn btn-success">{{ trans('Сохранять') }}</button>
+        <button type="submit" class="btn btn-success">{{ trans('Сохранить') }}</button>
         <a class="btn btn-secondary" href="{{ route("admin.users.index") }}">{{ trans('Отменить') }}</a>
     </div>
 </form>
