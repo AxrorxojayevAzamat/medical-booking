@@ -79,6 +79,10 @@ class AuthServiceProvider extends ServiceProvider
 
 
         //--------------------ADMIN-PANELS---------------
+        Gate::define('dashboard-panel', function (User $user) {
+            return $user->isAdmin() || $user->isClinic() || $user->isCallCenter();
+        });
+        
         Gate::define('admin-panel', function (User $user) {
             return $user->isAdmin();
         });

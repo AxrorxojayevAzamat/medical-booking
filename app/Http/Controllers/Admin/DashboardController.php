@@ -10,7 +10,7 @@ class DashboardController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['can:admin-panel','can:admin-clinic-panel','can:admin-call-center-panel']);
+        $this->middleware('can:dashboard-panel');
     }
 
     public function index()
