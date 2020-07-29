@@ -157,18 +157,18 @@
                       <head>
                        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"/>
                              <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
-                             <link rel="stylesheet" type="text/css" href="/css/map_box.css">
+                       
                        <style>
                            #map { height: 550px; width: 599px; }
                        </style>
                       </head>
                  <body>
                        <div id="map"></div>
+                       
                     <script>
                             var map = L.map('map').setView([41.311081, 69.240562], 12);
-                             L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=Xfgr995Ff02GXMwQcwYP',{
-                        attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
-                         }).addTo(map);
+                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar', attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'})
+                            .addTo(map);
         
                             var greenIcon = L.icon({
                                 iconUrl: 'img/icons/clinic.png',
@@ -177,9 +177,11 @@
                                 popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
                                     });
 
-                            L.marker([41.2704736, 69.2134647],{icon:greenIcon}).addTo(map).bindPopup('<h1>Clinica</h1><p>some informatiopn about clinic</p><img src="./img/icons/img/clinic1.jpg" weidth="200" height="100" /><a href="https://www.youtube.com/" target="_blank">********here</a>');
-                            L.marker([41.3191884, 69.2382324],{icon:greenIcon}).addTo(map).bindPopup('<h1>Clinica</h1><p>some informatiopn about clinic</p><img src="./img/icons/img/clinic2.jpg" weidth="200" height="100" /><a href="https://www.youtube.com/" target="_blank">********here</a>');
-                            L.marker([41.2981861, 69.2120876],{icon:greenIcon}).addTo(map).bindPopup('<h1>Clinica</h1><p>some informatiopn about clinic</p><img src="./img/icons/img/clinic3.gif" weidth="200" height="100" /><a href="https://www.youtube.com/" target="_blank">********here</a>');
+                            L.marker([41.2704736, 69.2134647],{icon:greenIcon}).addTo(map).bindPopup('<li><a href=""</a>000</li>');
+
+
+                            //L.marker([41.3191884, 69.2382324],{icon:greenIcon}).addTo(map).bindPopup(' <li><a href="#0" onclick="initMap(41.2646, 69.2163)" class="btn_listing">Показать на карте</a></li>');
+                            //L.marker([41.2981861, 69.2120876],{icon:greenIcon}).addTo(map).bindPopup(' <li><a href="#0" onclick="initMap(41.2646, 69.2163)" class="btn_listing">Показать на карте</a></li>');*/
                     </script>
                 </body>
                     </div>
@@ -202,8 +204,18 @@
 
 @section('scripts')
 <script>
-    $('#region_id').select2();
-    $('#clinic_id').select2();
-    $('#specialization_id').select2();
+  var mymap = L.map('map').setView([41.311081, 69.240562], 12);
+L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=Xfgr995Ff02GXMwQcwYP',{
+    attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+}).addTo(mymap);
+var layerGroup = L.layerGroup().addTo(mymap);
+
+
+
+function testFunction1(){
+    layerGroup.clearLayers();
+    mymap.closePopup();
+    marker = L.marker([41.2704736, 69.2134647]).addTo(layerGroup);
+    marker.bindPopup("Clinica1").openPopup();
+}
 </script>
-@endsection
