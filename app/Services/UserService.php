@@ -26,7 +26,7 @@ class UserService
         }
         
         if (Gate::allows('admin-call-center-panel')) {
-            $query = User::doctor();
+            $query = User::doctorOrUser();
         }
 
         if (!empty($value = $request->get('id'))) {

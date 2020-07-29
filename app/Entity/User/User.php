@@ -36,6 +36,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @property Clinic[] $clinics
  * @method Builder forUser(User $user)
  * @method Builder doctor()
+ * @method Builder doctorOrUser()
  *
  * @mixin Eloquent
  */
@@ -174,6 +175,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function scopeDoctor($query)
     {
         return $query->where('role', self::ROLE_DOCTOR);
+    }
+
+    public function scopeDoctorOrUser($query)
+    {
+        return $query->where('role', self::ROLE_DOCTOR)->orWhere('role', self::ROLE_USER);
     }
    
     public function scopeForUser(Builder $query, User $user)
