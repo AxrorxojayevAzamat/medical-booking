@@ -16,6 +16,9 @@ use App\Entity\Clinic\Clinic;
 use App\Entity\Clinic\Timetable;
 use App\Entity\Celebration;
 use App\Services\BookService;
+use App\Entity\Rate;
+use App\Entity\User\Profile;
+
 
 class DoctorController extends Controller
 {
@@ -46,13 +49,17 @@ class DoctorController extends Controller
     {
         $doctorIds = [];
         $query = User::select(['users.*', 'pr.*'])
-                ->leftJoin('profiles as pr', 'users.id', '=', 'pr.user_id')
-                ->doctor();
+            ->leftJoin('profiles as pr', 'users.id', '=', 'pr.user_id')
+            ->join('timetables as ts', 'users.id', '=', 'ts.doctor_id')
+            ->join('doctor_clinics as dc', 'users.id', '=', 'dc.doctor_id')
+            ->join('doctor_specializations as ds', 'users.id', '=', 'ds.doctor_id')
+            ->groupBy(['users.id', 'pr.user_id'])
+            ->doctor();
 
         if (!empty($value = $request->get('full_name'))) {
             $query->where(function ($query) use ($value) {
-                $query->whereRaw("concat(pr.last_name, ' ', pr.first_name, ' ', pr.middle_name) like '%$value%'")
-                        ->orWhereRaw("concat(pr.first_name, ' ', pr.middle_name, ' ', pr.last_name) like '%$value%'");
+                $query->whereRaw("concat(pr.last_name, ' ', pr.first_name, ' ', pr.middle_name) ilike '%$value%'")
+                    ->orWhereRaw("concat(pr.first_name, ' ', pr.middle_name, ' ', pr.last_name) ilike '%$value%'");
             });
         }
 
@@ -68,8 +75,8 @@ class DoctorController extends Controller
             $regionIds = $this->getRegionIds($value);
 
             $doctorIds = array_merge($doctorIds, DoctorClinic::select('doctor_clinics.doctor_id')
-                            ->leftJoin('clinics as c', 'doctor_clinics.clinic_id', '=', 'c.id')
-                            ->whereIn('c.region_id', $regionIds)->pluck('doctor_clinics.doctor_id')->toArray());
+                ->leftJoin('clinics as c', 'doctor_clinics.clinic_id', '=', 'c.id')
+                ->whereIn('c.region_id', $regionIds)->pluck('doctor_clinics.doctor_id')->toArray());
         }
 
         if (!empty($doctorIds)) {
@@ -148,7 +155,12 @@ class DoctorController extends Controller
 
         $holidays = $this->service->celebrationDays($celebrationDays);
 
-        return view('doctors.show', compact('user', 'clinics', 'specs', 'doctorTimetables', 'doctorBooks', 'holidays'));
+        $ratecheck = Rate::where(['user_id'=>Auth::id(),'doctor_id'=>$user->id])->first();
+        $rates = array();
+        for ($i=5; $i > 0 ; $i--) { 
+            array_push($rates, Rate::where(['doctor_id'=>$user->id,'rate'=>$i])->count());
+        }
+        return view('doctors.show', compact('user', 'clinics', 'specs', 'doctorTimetables', 'doctorBooks', 'holidays','ratecheck','rates'));
     }
 
 }

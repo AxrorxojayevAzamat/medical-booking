@@ -95,7 +95,7 @@ return [
     'not_regex' => 'The :attribute format is invalid.',
     'numeric' => 'Поле :attribute должен быть числом.',
     'present' => 'The :attribute field must be present.',
-    'regex' => 'The :attribute format is invalid.',
+    'regex' => 'Указанные :attribute данные неверны.',
     'required' => 'Поле ":attribute" обязательно к заполнению.',
     'required_if' => 'The :attribute field is required when :other is :value.',
     'required_unless' => 'The :attribute field is required unless :other is in :values.',
@@ -151,7 +151,10 @@ return [
         'region_uz'=>"Название региона(узбекское)",
         'date'=>"Дата",
         'celebration_name'=>"Название праздника",
-        'quantity'=>"Количество дней"
+        'quantity'=>"Количество дней",
+        'phone'=>"телефон номер формат",
+        'g-recaptcha-response'=>'Пожалуйста, заполните форму, чтобы отправить форму.
+'
     ],
 
 ];

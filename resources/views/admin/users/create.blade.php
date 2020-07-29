@@ -1,6 +1,17 @@
 @extends('layouts.admin.page')
 @section('breadcrumbs', '')
 @section('content')
+
+@if($errors->any())
+@foreach($errors->all() as $error)
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ $error }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endforeach
+@endif
 <form method="POST" action="{{ route("admin.users.store") }}" enctype="multipart/form-data">
     @csrf
 
@@ -112,27 +123,9 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card card-primary card-outline">
-                <div class="card-header"><h3 class="card-title">{{ trans('Фото') }}</h3></div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" id="avatar" class="custom-file-input" name="avatar" >
-                                <label class="custom-file-label" for="avatar">{{ trans('Выберите файл') }}</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="form-group">
-        <a class="btn btn-secondary" href="{{ route("admin.users.index") }}">{{ trans('Отменить') }}</a>
         <button type="submit" class="btn btn-success">{{ trans('Сохранять') }}</button>
+        <a class="btn btn-secondary" href="{{ route("admin.users.index") }}">{{ trans('Отменить') }}</a>
     </div>
 </form>
 @endsection

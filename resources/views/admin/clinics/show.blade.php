@@ -2,7 +2,7 @@
 
 @section('content')
 
-    @if($errors->any())
+    @if($errors->count() > 0)
         @foreach($errors->all() as $error)
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{ $error }}
@@ -22,13 +22,12 @@
 
     @endif
 
-
-
     <div class=" card col-md-10 offset-md-1">
         <div class="card-header ">
             <div class="d-flex flex-row mb-3">
                 <a href="{{ route('admin.clinics.edit', $clinic) }}" class="btn btn-primary mr-1">Редактировать</a>
-                <a href="{{ route('admin.clinics.main-photo', $clinic) }}" class="btn btn-dark mr-1">Добавить главное фото</a>
+                <a href="{{ route('admin.clinics.main-photo', $clinic) }}" class="btn btn-warning mr-1">Главное фото</a>
+                <a href="{{route('admin.clinics.photos', $clinic)}}" class="btn btn-info mr-1">Фотографии</a>
                 <a href="{{ route('admin.clinics.contacts.create', $clinic) }}" class="btn btn-dark mr-1">Добавить контакт</a>
                 <form action="{{ route('admin.clinics.destroy', $clinic) }}" method="post">
                   @csrf
@@ -64,14 +63,14 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-5 col-form-label">Адресс клиники(узбекское)</label>
+                        <label for="inputEmail3" class="col-sm-5 col-form-label">Адресс клиники(uz)</label>
                         <div class="col-sm-6 form-control">
                             {{  $clinic->address_uz }}
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="inputEmail3" class=" col-sm-5 col-form-label">Адресс клиники(русское) </label>
+                        <label for="inputEmail3" class=" col-sm-5 col-form-label">Адресс клиники(ru) </label>
                         <div class="col-sm-6 form-control">
                             {{ $clinic->address_ru}}
                         </div>
@@ -90,27 +89,18 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-5 col-form-label">Описание клиники(узбекское)</label>
+                        <label for="inputEmail3" class="col-sm-5 col-form-label">Описание клиники(uz)</label>
                         <div class="col-sm-6 form-control">
                             {{ $clinic->description_uz }}
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="inputEmail3" class=" col-sm-5 col-form-label ">Описание
-                            клиники(русское) </label>
+                        <label for="inputEmail3" class=" col-sm-5 col-form-label ">Описание клиники(ru)</label>
                         <div class="col-sm-6 form-control">
                             {{  $clinic->description_ru }}
                         </div>
                     </div>
-
-                    <div class="form-group row">
-                        <label for="inputEmail3" class=" col-sm-5 col-form-label ">Телефон клиники </label>
-                        <div class="col-sm-6 form-control">
-                            {{  $clinic->phone_numbers }}
-                        </div>
-                    </div>
-
 
                     <div class="form-group row">
                         <label for="inputEmail3" class=" col-sm-5 col-form-label ">Начало работы клиники </label>
@@ -133,14 +123,14 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label for="inputEmail3" class=" col-sm-5 col-form-label ">Главное фото клиники </label>
                         @if($clinic->mainPhoto)
                             <div class="text-center">
                                     <img src="/storage/images/clinics/{{$clinic->id}}/thumbs/{{$clinic->mainPhoto->filename}}">
                             </div>
                         @endif
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

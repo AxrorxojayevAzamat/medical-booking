@@ -24,7 +24,7 @@ class CreateClinicPhotos extends Migration
         });
 
         Schema::table('clinic_photos', function (Blueprint $table) {
-            $table->foreign('clinic_id')->references('id')->on('clinics')->onDelete('restrict');
+            $table->foreign('clinic_id')->references('id')->on('clinics')->onDelete('cascade');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('restrict');
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('restrict');
         });

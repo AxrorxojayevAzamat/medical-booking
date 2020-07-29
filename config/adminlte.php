@@ -198,7 +198,7 @@ return [
         ],
         [
             'text' => 'Регионы',
-            'icon' => 'fas fa-fw fa-share',
+            'icon' => 'fas fa-fw fa-map-marker',
             'url' => 'admin/regions/',
         ],
         [
@@ -213,23 +213,33 @@ return [
         ],
         [
             'text' => 'CallCenter',
-            'icon' => 'fas fa-fw fa-share',
+            'icon' => 'fas fa-fw fa-headphones',
             'url' => 'admin/call-center',
         ],
         [
             'text' => 'Bookings list',
-            'icon' => 'fas fa-fw fa-share',
+            'icon' => 'fas fa-fw fa-calendar-alt',
             'url' => 'admin/books',
         ],
         [
             'text' => 'Праздничные дни',
-            'icon' => 'fas fa-fw fa-share',
+            'icon' => 'fas fa-fw fa-birthday-cake',
             'url' => 'admin/celebration',
+        ],
+        [
+            'text' => 'Партнеры',
+            'icon' => 'fas fa-fw fa-globe',
+            'url' => 'admin/partners',
         ],
         [
             'text' => 'Новости',
             'icon' => 'fas fa-fw fa-envelope',
             'url' => 'admin/news',
+        ],
+        [
+            'text' => 'Обратный связь',
+            'icon' => 'fas fa-fw fa-share',
+            'url' => 'admin/contactslist',
         ],
     ],
     /*
@@ -443,6 +453,11 @@ return [
                     'type' => 'js',
                     'asset' => true,
                     'location' => '/vendor/kartik-v/bootstrap-fileinput/js/fileinput.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/vendor/kartik-v/bootstrap-fileinput/js/locales/ru.js',
                 ],
                 [
                     'type' => 'js',

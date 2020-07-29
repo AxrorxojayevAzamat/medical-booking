@@ -12,6 +12,8 @@ class ImageHelper
     const THUMBNAIL_NAME = 'thumbs';
 
     const FOLDER_CLINICS = 'clinics';
+    const FOLDER_PARTNERS = 'partners';
+    const FOLDER_USERS = 'users';
     
     const TYPE_THUMBNAIL = 'thumbs';
     const TYPE_ORIGINAL = 'original';

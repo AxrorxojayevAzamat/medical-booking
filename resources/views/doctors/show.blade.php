@@ -23,16 +23,28 @@
                         </small>
                         @endforeach
                         <h1>{{$user->profile ? $user->profile->fullName : ''}}</h1>
-                        <span class="rating">
-                            <i class="icon_star voted"></i>
-                            <i class="icon_star voted"></i>
-                            <i class="icon_star voted"></i>
-                            <i class="icon_star voted"></i>
-                            <i class="icon_star"></i>
-                            <small>(145)</small>
-                            <a href="badges.html" data-toggle="tooltip" data-placement="top" data-original-title="Badge Level" class="badge_list_1"><img src="{{asset('img/badges/badge_1.svg')}}" width="15" height="15" alt=""></a>
-                        </span>
-                        @foreach($user->clinics as $clinic)
+
+                        <h6>{{trans('doctors.average_rating')}} </h6>
+                        <?php $average = number_format($user->profile->rate/($user->profile->num_of_rates?:1), 1, '.', ''); ?>
+                        <h2 class="bold padding-bottom-7">{{ $average }} <small>/ 5.0</small></h2>
+                        <ul class="statistic">
+                            <li>{{trans('doctors.total_num')}} {{ $user->profile->num_of_rates }}</li>
+                        </ul>
+
+                        @if(!$ratecheck)
+                        <div class="">
+                            <label>{{trans('doctors.rate')}}</label>
+                            @for($i=0;$i<5;$i++)
+                                <a href="{{ route('doctors.rate',['doctor_id'=>$user->id,'rate'=>$i+1]) }}" class="icon_star" style="color: #e4e43f" aria-label="Left Align"> 
+                            </a>
+                            @endfor
+                        </div>
+                        @else
+                            <a href="{{ route('doctors.rateCancel',['doctor_id'=>$user->id]) }}" class="btn btn-danger btn-sm">{{trans('doctors.cancel_rate')}}</a>
+                            <br>
+                        @endif
+                            <br>
+                        @foreach($clinics as $clinic)
                         <ul class="contacts">
                             <li><h6>{{ trans('doctors.clinic_name') }}</h6>{{$clinic->name}}</li>
                             <li><h6>{{ trans('doctors.clinic_address') }}</h6>{{$clinic->address}}</li>
@@ -105,133 +117,39 @@
                             <!-- /tab_2 -->
 
                             <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                                <div class="reviews-container">
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div id="review_summary">
-                                                <strong>4.7</strong>
-                                                <div class="rating">
-                                                    <i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
+                                    <div class="reviews-container">
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <div id="review_summary">
+                                                    <strong>{{$average}}</strong>
+                                                    <div class="rating">
+                                                        @for($i=0;$i<5;$i++)
+                                                            @if($i<$average)
+                                                            <i class="icon_star voted"></i>
+                                                            @else
+                                                            <i class="icon_star"></i>
+                                                            @endif
+                                                        @endfor
+                                                    </div>
+                                                    <br>
+                                                    <small>{{trans('doctors.total_num')}} {{$user->profile->num_of_rates}} </small>
                                                 </div>
-                                                <small>Based on 4 reviews</small>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <?php $i=5 ?>
+                                                @foreach($rates as $rate)
+                                                <div class="row">
+                                                    <div class="col-lg-10 col-9">
+                                                        <div class="progress">
+                                                            <div class="progress-bar" role="progressbar" style="width:{{$rate*100/($user->profile->num_of_rates?:1)}}%" aria-valuenow="{{$rate*20}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2 col-3"><small><strong>{{$i--}} stars</strong></small></div>
+                                                </div>
+                                                @endforeach
+                                                
                                             </div>
                                         </div>
-                                        <div class="col-lg-9">
-                                            <div class="row">
-                                                <div class="col-lg-10 col-9">
-                                                    <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2 col-3"><small><strong>5 stars</strong></small></div>
-                                            </div>
-                                            <!-- /row -->
-                                            <div class="row">
-                                                <div class="col-lg-10 col-9">
-                                                    <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2 col-3"><small><strong>4 stars</strong></small></div>
-                                            </div>
-                                            <!-- /row -->
-                                            <div class="row">
-                                                <div class="col-lg-10 col-9">
-                                                    <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2 col-3"><small><strong>3 stars</strong></small></div>
-                                            </div>
-                                            <!-- /row -->
-                                            <div class="row">
-                                                <div class="col-lg-10 col-9">
-                                                    <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2 col-3"><small><strong>2 stars</strong></small></div>
-                                            </div>
-                                            <!-- /row -->
-                                            <div class="row">
-                                                <div class="col-lg-10 col-9">
-                                                    <div class="progress">
-                                                        <div class="progress-bar" role="progressbar" style="width: 0" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2 col-3"><small><strong>1 stars</strong></small></div>
-                                            </div>
-                                            <!-- /row -->
-                                        </div>
-                                    </div>
-                                    <!-- /row -->
-
-                                    <hr>
-
-                                    <div class="review-box clearfix">
-                                        <figure class="rev-thumb"><img src="http://via.placeholder.com/150x150.jpg" alt="">
-                                        </figure>
-                                        <div class="rev-content">
-                                            <div class="rating">
-                                                <i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
-                                            </div>
-                                            <div class="rev-info">
-                                                Admin – April 03, 2016:
-                                            </div>
-                                            <div class="rev-text">
-                                                <p>
-                                                    Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End review-box -->
-
-                                    <div class="review-box clearfix">
-                                        <figure class="rev-thumb"><img src="http://via.placeholder.com/150x150.jpg" alt="">
-                                        </figure>
-                                        <div class="rev-content">
-                                            <div class="rating">
-                                                <i class="icon-star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
-                                            </div>
-                                            <div class="rev-info">
-                                                Ahsan – April 01, 2016
-                                            </div>
-                                            <div class="rev-text">
-                                                <p>
-                                                    Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End review-box -->
-
-                                    <div class="review-box clearfix">
-                                        <figure class="rev-thumb"><img src="http://via.placeholder.com/150x150.jpg" alt="">
-                                        </figure>
-                                        <div class="rev-content">
-                                            <div class="rating">
-                                                <i class="icon-star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
-                                            </div>
-                                            <div class="rev-info">
-                                                Sara – March 31, 2016
-                                            </div>
-                                            <div class="rev-text">
-                                                <p>
-                                                    Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End review-box -->
-                       <!-- End review-container -->
-                                </div>
-                                     <!-- End review-container -->
-                                    
-                              
-                                <hr>
-                                <div class="text-right"><a href="{{ route('book.reviews') }}" class="btn_1 add_bottom_15">Submit review</a></div>
-
                               </div>
                             <!-- /tab_3 -->
                         </div>
