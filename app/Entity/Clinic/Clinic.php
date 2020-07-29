@@ -33,6 +33,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property Region $region
  * @property DoctorClinic[] $doctorClinics
  * @property User[] $doctors
+ * @property ClinicService[] $clinicServices
+ * @property Service[] $services
  * @property Photo[] $photos
  * @property Photo $mainPhoto
  * @property User $createdBy
@@ -104,7 +106,17 @@ class Clinic extends BaseModel
     {
         return $this->belongsToMany(User::class, 'doctor_clinics', 'clinic_id', 'doctor_id');
     }
-    
+
+    public function clinicServices()
+    {
+        return $this->hasMany(ClinicService::class, 'clinic_id', 'id')->orderBy('sort');
+    }
+
+    public function services()
+    {
+        return $this->belongsToMany(Service::class, 'clinic_services', 'clinic_id', 'service_id');
+    }
+
     public function mainPhoto()
     {
         return $this->belongsTo(Photo::class, 'main_photo_id', 'id');
@@ -129,7 +141,7 @@ class Clinic extends BaseModel
     {
         return $this->belongsTo(User::class, 'updated_by', 'id');
     }
-    
+
 
     ###########################################
 }
