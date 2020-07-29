@@ -144,7 +144,7 @@
                             <li><a href="{{ route('doctors.show',$doctorValue) }}">{{trans('doctors.booking')}}</a></li
                         </ul>
                     </div>
-                    
+
                     @endforeach
                     <!-- /strip_list -->
 
@@ -155,7 +155,7 @@
 
                 <aside class="col-lg-5" id="sidebar">
                     <div id="map_listing" class="normal_list">
-                      <head>
+                 <!--     /<head> 
                        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"/>
                              <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
                        
@@ -178,15 +178,15 @@
                                 popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
                                     });
 
-                            L.marker([41.2704736, 69.2134647],{icon:greenIcon}).addTo(map).bindPopup('<li><a href=""</a>000</li>');
+                            L.marker([41.2704736, 69.2134647],{icon:greenIcon}).addTo(map).bindPopup("<li><a href='{{ route('doctors.show',$doctorValue) }}'>{{trans('doctors.booking')}}>mnm </a></li>");
 
 
                             //L.marker([41.3191884, 69.2382324],{icon:greenIcon}).addTo(map).bindPopup(' <li><a href="#0" onclick="initMap(41.2646, 69.2163)" class="btn_listing">Показать на карте</a></li>');
                             //L.marker([41.2981861, 69.2120876],{icon:greenIcon}).addTo(map).bindPopup(' <li><a href="#0" onclick="initMap(41.2646, 69.2163)" class="btn_listing">Показать на карте</a></li>');
                     </script>
-                </body>
+                </body> -->
                     </div>
-                </aside>
+                </aside> 
                 <!-- /aside -->
 
             </div>
