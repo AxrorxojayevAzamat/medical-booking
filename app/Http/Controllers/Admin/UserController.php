@@ -13,6 +13,8 @@ use App\Entity\Clinic\Timetable;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Entity\Clinic\Specialization;
+use App\Http\Requests\Admin\Users\CreateRequest;
+use App\Http\Requests\Admin\Users\UpdateRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -46,7 +48,7 @@ class UserController extends Controller
         return view('admin.users.create', compact('roles', 'statuses'));
     }
 
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
         try {
             $user = $this->service->create($request);
@@ -83,7 +85,7 @@ class UserController extends Controller
         return view('admin.users.edit', compact('user', 'profile', 'roles', 'specializations', 'doctor', 'statuses', 'clinics', 'timetable'));
     }
 
-    public function update(Request $request, User $user)
+    public function update(UpdateRequest $request, User $user)
     {
         try {
             $user = $this->service->update($request, $user);
