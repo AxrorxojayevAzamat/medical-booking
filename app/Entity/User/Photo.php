@@ -65,6 +65,11 @@ class Photo extends BaseModel
         return '/storage/images/' . ImageHelper::FOLDER_USERS . '/' . $this->user_id . '/' . ImageHelper::TYPE_THUMBNAIL . '/' . $this->filename;
     }
 
+    public function getFileThumbnail350_500Attribute(): string
+    {
+        return '/storage/images/' . ImageHelper::FOLDER_USERS . '/' . $this->user_id . '/' . ImageHelper::TYPE_THUMBNAIL_350_500 . '/' . $this->filename;
+    }
+
     public function getFileOriginalAttribute(): string
     {
         return '/storage/images/' . ImageHelper::FOLDER_USERS . '/' . $this->user_id . '/' . ImageHelper::TYPE_ORIGINAL . '/' . $this->filename;

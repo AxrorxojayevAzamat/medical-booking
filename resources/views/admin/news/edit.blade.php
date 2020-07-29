@@ -1,7 +1,7 @@
 @extends('layouts.admin.page')
 
 @section('content')
-    {!! Form::open(['url' => route('admin.news.update', $news), 'method' => 'POST']) !!}
+    {!! Form::open(['url' => route('admin.news.update', $news), 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
         @csrf
         @method('PUT')
 

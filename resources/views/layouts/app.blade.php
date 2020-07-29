@@ -10,11 +10,11 @@
     <title>Medical Booking</title>
 
     <!-- Favicons-->
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="img/apple-touch-icon-144x144-precomposed.png">
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="/img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="/img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="/img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="/img/apple-touch-icon-144x144-precomposed.png">
 
     <!-- GOOGLE WEB FONT -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800" rel="stylesheet">
@@ -134,6 +134,9 @@
                         <li>
                             <a href="{{route('contacts.contacts')}}">{{ trans('contacts.title') }}</a>
                         </li>
+                        <li>
+                            <a href="{{route('news.index')}}">Новости</a>
+                        </li>
                         <li class="submenu">
                             <a href="#" class="show-submenu">{{ trans('menu.language') }}<i class="icon-down-open-mini"></i></a>
                             <ul>
@@ -191,7 +194,7 @@
             <div class="col-lg-3 col-md-12">
                 <p>
                     <a href="/" title="Findoctor">
-                        <img src="img/logo.png" data-retina="true" alt="" width="163" height="36" class="img-fluid">
+                        <img src="/img/logo.png" data-retina="true" alt="" width="163" height="36" class="img-fluid">
                     </a>
                 </p>
             </div>
