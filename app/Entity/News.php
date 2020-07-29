@@ -113,6 +113,15 @@ class News extends BaseModel
         }
     }
 
+    ########################################### Scopes
+
+    public function scopePublished($query)
+    {
+        return $query->where('status', self::PUBLISHED);
+    }
+
+    ###########################################
+
 
     ########################################### Mutators
 

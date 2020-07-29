@@ -143,6 +143,11 @@ Route::group(['as' => 'clinics.', 'prefix' => 'clinics'], function () {
     Route::get('{clinic}', 'ClinicController@show')->name('show');
 });
 
+Route::group(['as' => 'news.', 'prefix' => 'news'], function () {
+    Route::get('', 'NewsController@index')->name('index');
+    Route::get('{news}', 'NewsController@show')->name('show');
+});
+
 Route::get("locale/{locale}", function ($locale) {
     Session::put('locale', $locale);
 
