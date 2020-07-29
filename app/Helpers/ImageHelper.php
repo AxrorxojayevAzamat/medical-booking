@@ -16,6 +16,7 @@ class ImageHelper
     const FOLDER_USERS = 'users';
     
     const TYPE_THUMBNAIL = 'thumbs';
+    const TYPE_THUMBNAIL_350_500 = 'thumbs350_500';
     const TYPE_ORIGINAL = 'original';
     
     public static function getRandomName(UploadedFile $image): string
@@ -28,6 +29,8 @@ class ImageHelper
         $imageName = $imageName ?: Str::random(40) . '.' . $image->getClientOriginalExtension();
 
         self::saveThumbnail($id, $folderName, $image, $imageName);
+        
+        self::saveThumbnail350_500($id, $folderName, $image, $imageName);
 
         self::saveOriginal($id, $folderName, $image, $imageName);
 
@@ -44,6 +47,17 @@ class ImageHelper
             $constraint->aspectRatio();
         })->save($destinationPath . '/' . $imageName);
     }
+    public static function saveThumbnail350_500(int $id, string $folderName, UploadedFile $image, string $imageName, int $width = 350, int $height = 500)
+    {
+        $destinationPath = self::getThumbnailPath350_500($id, $folderName);
+
+        self::makeDirectory($destinationPath);
+
+        $resizeImage = Image::make($image->getRealPath());
+        $resizeImage->resize(350, 500, function (Constraint $constraint) {
+            $constraint->aspectRatio();
+        })->save($destinationPath . '/' . $imageName);
+    }
 
     public static function saveOriginal(int $id, string $folderName, UploadedFile $image, string $imageName)
     {
@@ -53,6 +67,10 @@ class ImageHelper
     public static function getThumbnailPath(int $id, string $folderName)
     {
         return self::getStoragePath($id, $folderName, self::TYPE_THUMBNAIL);
+    }
+    public static function getThumbnailPath350_500(int $id, string $folderName)
+    {
+        return self::getStoragePath($id, $folderName, self::TYPE_THUMBNAIL_350_500);
     }
     public static function makeDirectory(string $path, int $permission = 0777, bool $recursive = true): bool
     {
