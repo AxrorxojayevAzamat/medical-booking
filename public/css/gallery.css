@@ -9,8 +9,8 @@
 .gallery img{
     transition: 1s;
     padding: 15px;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
 }
 .gallery img:hover{
     filter:grayscale(100%);
