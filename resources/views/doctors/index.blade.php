@@ -141,9 +141,10 @@
                             @else
                             <li><a href="#0" onclick="initMap({{$doctorValue->clinics->pluck('location')->first()}})" class="btn_listing">{{trans('doctors.view_on_map')}}</a></li>
                             @endif
-                            <li><a href="{{ route('doctors.show',$doctorValue) }}">{{trans('doctors.booking')}}</a></li>
+                            <li><a href="{{ route('doctors.show',$doctorValue) }}">{{trans('doctors.booking')}}</a></li
                         </ul>
                     </div>
+                    
                     @endforeach
                     <!-- /strip_list -->
 
@@ -172,8 +173,8 @@
         
                             var greenIcon = L.icon({
                                 iconUrl: 'img/icons/clinic.png',
-                                iconSize:     [50, 50], // size of the icon
                                 iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+                                iconSize:     [50, 50], // size of the icon
                                 popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
                                     });
 
@@ -181,7 +182,7 @@
 
 
                             //L.marker([41.3191884, 69.2382324],{icon:greenIcon}).addTo(map).bindPopup(' <li><a href="#0" onclick="initMap(41.2646, 69.2163)" class="btn_listing">Показать на карте</a></li>');
-                            //L.marker([41.2981861, 69.2120876],{icon:greenIcon}).addTo(map).bindPopup(' <li><a href="#0" onclick="initMap(41.2646, 69.2163)" class="btn_listing">Показать на карте</a></li>');*/
+                            //L.marker([41.2981861, 69.2120876],{icon:greenIcon}).addTo(map).bindPopup(' <li><a href="#0" onclick="initMap(41.2646, 69.2163)" class="btn_listing">Показать на карте</a></li>');
                     </script>
                 </body>
                     </div>
@@ -204,18 +205,8 @@
 
 @section('scripts')
 <script>
-  var mymap = L.map('map').setView([41.311081, 69.240562], 12);
-L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=Xfgr995Ff02GXMwQcwYP',{
-    attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
-}).addTo(mymap);
-var layerGroup = L.layerGroup().addTo(mymap);
-
-
-
-function testFunction1(){
-    layerGroup.clearLayers();
-    mymap.closePopup();
-    marker = L.marker([41.2704736, 69.2134647]).addTo(layerGroup);
-    marker.bindPopup("Clinica1").openPopup();
-}
+    $('#region_id').select2();
+    $('#clinic_id').select2();
+    $('#specialization_id').select2();
 </script>
+@endsection
