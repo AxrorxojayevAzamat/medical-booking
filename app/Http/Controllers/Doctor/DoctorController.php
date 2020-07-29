@@ -69,8 +69,8 @@ class DoctorController extends Controller
 
     public function books($doctor_id)
     {
-
         $bookings = Book::where('doctor_id', $doctor_id)->get();
+        $bookings = $bookings->sortBy(['booking_date','time_start']);
         $user = User::find(Auth::user()->id);
         $book_num = count(Book::where('doctor_id', $user->id)->get());
         
