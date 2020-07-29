@@ -24,7 +24,7 @@
 @section('body')
     <main>
         <div class="bg_color_2">
-            <div class="container margin_60_35">
+            <div class="container margin_10_35">
                 <div id="register">
                     <h1>{{trans('auth.please_to_findoctor')}}</h1>
                     <div class="row justify-content-center">
@@ -125,8 +125,8 @@
                                         @endif
                                     </div>
 
-                                    <div class="form-group text-center add_top_30">
-                                        <button type="submit" class="btn btn-primary btn-block btn-flat"> {{ trans('adminlte.register') }} </button>
+                                    <div class="form-group text-center add_top_24">
+                                        <button type="submit" class="btn_1 btn-primary medium"> {{ trans('adminlte.register') }} </button>
                                     </div>
                                 </div>
                             </form>

@@ -167,6 +167,9 @@
                                     
                                     @endauth
                                 @endif
+                                    <li class="float-right">
+                                        <a href="tel: 4411">&phone; 4411</a>
+                                    </li>
                             </ul>
                         </div>
                         <!-- /main-menu -->

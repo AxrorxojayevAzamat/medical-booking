@@ -56,8 +56,8 @@
                                     </div>
                                 @endif
                             </div>
-                            <a href="{{ $password_reset_url}}">{{ trans('adminlte.i_forgot_my_password') }}</a>
-                            <div class="form-group text-center add_top_20">
+                            <a href="{{ $password_reset_url}}" class="d-block text-center">{{ trans('adminlte.i_forgot_my_password') }}</a>
+                            <div class="form-group text-center add_top_20 d-flex justify-content-center">
                                 <input class="btn_1 medium" type="submit" value="{{ trans('adminlte.sign_in') }}">
                             </div>
                         </form>
