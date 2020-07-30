@@ -19,7 +19,7 @@ class BooksTableSeeder extends Seeder {
                 $count = random_int(0, 3);
                 for ($i = 0; $i < $count; $i++) {
                     $index = array_rand($tempKeys);
-                    $patient->book()->saveMany(factory(Book::class, 1)->make([
+                    $patient->userBooks()->saveMany(factory(Book::class, 1)->make([
                         'doctor_id' => $doctorClinics[$index]->doctor_id,
                         'clinic_id' => $doctorClinics[$index]->clinic_id,
                     ]));
