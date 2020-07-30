@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+    @section('css')
+    <link rel="stylesheet" type="text/css" href="/css/gallery.css">
+    <link rel="stylesheet" type="text/css" href="/css/lightbox.gallery.min.css">
+    @endsection
+    
     <div class="container margin_60">
         <div class="row">
             <div class="col-xl-8 col-lg-8">
@@ -76,8 +81,18 @@
                         <div class="wrapper_indent">
                             <p>{{ $clinic->description }}</p>
                         </div>
-                        <hr>
+                        
                     </div>
+                    <hr>
+                     <div class="box" id="gallery" role="gallery" aria-labelledby="gallery">
+                        <div class="gallery">
+                              <a href="/img/Doctor1.jpg" data-lightbox="mygallery"><img src="/img/Doctor1.jpg"></a>
+                              <a href="/img/Doctor2.jpg" data-lightbox="mygallery"><img src="/img/Doctor2.jpg"></a>
+                              <a href="/img/Doctor3.jpg" data-lightbox="mygallery"><img src="/img/Doctor3.jpg"></a>
+                              <a href="/img/Doctor4.jpg" data-lightbox="mygallery"><img src="/img/Doctor4.jpg"></a>
+                              <a href="/img/Doctor5.jpg" data-lightbox="mygallery"><img src="/img/Doctor5.jpg"></a>
+                        </div>
+                   </div>
                 </div>
             </div>
             <!-- /col -->
@@ -157,4 +172,7 @@
             </aside>
         </div>
     </div>
+@endsection
+@section('script')
+<script type="text/javascript" src="/js/lightbox-plus-jquery.min.js"></script>
 @endsection

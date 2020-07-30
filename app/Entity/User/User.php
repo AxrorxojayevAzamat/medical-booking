@@ -3,11 +3,13 @@
 namespace App\Entity\User;
 
 use App\Entity\Book\Book;
+use App\Entity\Book\Payment\PaycomOrder;
 use App\Entity\Clinic\Clinic;
 use App\Entity\Clinic\DoctorClinic;
 use App\Entity\Clinic\AdminClinic;
 use App\Entity\Clinic\Specialization;
 use App\Entity\Clinic\DoctorSpecialization;
+use App\Helpers\ClickHelper;
 use Carbon\Carbon;
 use Eloquent;
 use Illuminate\Notifications\Notifiable;
@@ -37,12 +39,17 @@ use Illuminate\Database\Eloquent\Builder;
  * @method Builder forUser(User $user)
  * @method Builder doctor()
  * @method Builder doctorOrUser()
+ * @property Book[] $userBooks
+ * @property Book[] $doctorBooks
+ * @property int|null $getNumberOfBookings
  *
  * @mixin Eloquent
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
+
+    private $numberOfBookings = 0;
 
     public const STATUS_ACTIVE = 10;
     public const STATUS_INACTIVE = 11;
@@ -165,6 +172,31 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
+    ######################################################################################### Attributes
+
+    public function getNumberOfBookingsAttribute(): ?int
+    {
+        if (!$this->isDoctor()) {
+            return null;
+        }
+
+        if ($this->numberOfBookings) {
+            return $this->numberOfBookings;
+        }
+
+        return $this->numberOfBookings = $this->doctorBooks()
+            ->leftJoin('paycom_orders as po', 'books.id', '=', 'po.book_id')
+            ->leftJoin('click_transactions as ct', 'books.id', '=', 'ct.book_id')
+            ->where(function ($query) {
+                $query->where('po.state', PaycomOrder::STATE_PAY_ACCEPTED)
+                    ->orWhere('ct.status', ClickHelper::CONFIRMED);
+            })
+            ->count();
+    }
+
+    #########################################################################################
+
+
     ######################################################################################### Scopes
 
     public function scopeActive($query)
@@ -201,9 +233,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Profile::class, 'user_id', 'id');
     }
 
-    public function book()
+    public function userBooks()
     {
-        return $this->hasOne(Book::class, 'user_id', 'id');
+        return $this->hasMany(Book::class, 'user_id', 'id');
+    }
+
+    public function doctorBooks()
+    {
+        return $this->hasMany(Book::class, 'doctor_id', 'id');
     }
 
     public function doctorSpecializations()

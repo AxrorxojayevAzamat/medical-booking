@@ -1,5 +1,8 @@
 @extends('layouts.app')
-
+@section('css')
+<link rel="stylesheet" type="text/css" href="/css/gallery.css">
+<link rel="stylesheet" type="text/css" href="/css/lightbox.gallery.min.css">
+@endsection
 @section('content')
 
 <div id="page">
@@ -35,7 +38,7 @@
                         <div class="">
                             <label>{{trans('doctors.rate')}}</label>
                             @for($i=0;$i<5;$i++)
-                                <a href="{{ route('doctors.rate',['doctor_id'=>$user->id,'rate'=>$i+1]) }}" class="icon_star" style="color: #e4e43f" aria-label="Left Align"> 
+                                <a href="{{ route('doctors.rate',['doctor_id'=>$user->id,'rate'=>$i+1]) }}" class="icon_star" style="color: #e4e43f" aria-label="Left Align">
                             </a>
                             @endfor
                         </div>
@@ -44,6 +47,7 @@
                             <br>
                         @endif
                             <br>
+                        <span class="rating">Бронирован: {{ $user->numberOfBookings }}</span>
                         @foreach($clinics as $clinic)
                         <ul class="contacts">
                             <li><h6>{{ trans('doctors.clinic_name') }}</h6>{{$clinic->name}}</li>
@@ -56,7 +60,6 @@
                         @endforeach
                     </div>
                 </aside>
-                <!-- /asdide -->
 
                 <div class="col-xl-9 col-lg-8">
                     @foreach($clinics as $key => $clinic)
@@ -75,7 +78,6 @@
                             <hr>
                             <div class="text-center"><button class="btn_1 medium" type="submit" id="{{$key}}" onclick="checkDay(event)">{{ trans('book.book_now') }}</button></div>
                         </div>
-                        <!-- /box_general -->
                     </form>
                     @endforeach
 
@@ -109,88 +111,67 @@
                                         </div>
 
                                     </div>
-                                    <!-- /row-->
                                 </div>
-                                <!-- /wrapper indent -->
-
                             </div>
-                            <!-- /tab_2 -->
 
                             <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                                    <div class="reviews-container">
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <div id="review_summary">
-                                                    <strong>{{$average}}</strong>
-                                                    <div class="rating">
-                                                        @for($i=0;$i<5;$i++)
-                                                            @if($i<$average)
-                                                            <i class="icon_star voted"></i>
-                                                            @else
-                                                            <i class="icon_star"></i>
-                                                            @endif
-                                                        @endfor
-                                                    </div>
-                                                    <br>
-                                                    <small>{{trans('doctors.total_num')}} {{$user->profile->num_of_rates}} </small>
+                                <div class="reviews-container">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div id="review_summary">
+                                                <strong>{{$average}}</strong>
+                                                <div class="rating">
+                                                    @for($i=0;$i<5;$i++)
+                                                        @if($i<$average)
+                                                        <i class="icon_star voted"></i>
+                                                        @else
+                                                        <i class="icon_star"></i>
+                                                        @endif
+                                                    @endfor
                                                 </div>
+                                                <br>
+                                                <small>{{trans('doctors.total_num')}} {{$user->profile->num_of_rates}} </small>
                                             </div>
-                                            <div class="col-lg-9">
-                                                <?php $i=5 ?>
-                                                @foreach($rates as $rate)
+                                        </div>
+                                        <div class="col-lg-9">
+                                            @php($i = 5)
+                                            @foreach($rates as $rate)
                                                 <div class="row">
                                                     <div class="col-lg-10 col-9">
                                                         <div class="progress">
-                                                            <div class="progress-bar" role="progressbar" style="width:{{$rate*100/($user->profile->num_of_rates?:1)}}%" aria-valuenow="{{$rate*20}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            <div class="progress-bar" role="progressbar" style="width:{{$rate*100/($user->profile->num_of_rates?:1)}}%" aria-valuenow="{{$rate * 20}}" aria-valuemin="0" aria-valuemax="100"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-3"><small><strong>{{$i--}} stars</strong></small></div>
                                                 </div>
-                                                @endforeach
-                                                
-                                            </div>
+                                            @endforeach
                                         </div>
-                                        <!-- /row -->
-                                <!-- End review-container -->
+                                    </div>
                                 </div>
-                                     <!-- End review-container -->
                               </div>
-                            <!-- /tab_3 -->
                         </div>
-                        <!-- /tab-content -->
+                            <hr>            
+                        <div class="box" id="gallery" role="gallery" aria-labelledby="gallery">
+                        <div class="gallery">
+                              <a href="/img/Doctor1.jpg" data-lightbox="mygallery"><img src="/img/Doctor1.jpg"></a>
+                              <a href="/img/Doctor2.jpg" data-lightbox="mygallery"><img src="/img/Doctor2.jpg"></a>
+                              <a href="/img/Doctor3.jpg" data-lightbox="mygallery"><img src="/img/Doctor3.jpg"></a>
+                              <a href="/img/Doctor4.jpg" data-lightbox="mygallery"><img src="/img/Doctor4.jpg"></a>
+                              <a href="/img/Doctor5.jpg" data-lightbox="mygallery"><img src="/img/Doctor5.jpg"></a>
+                        </div>
+                   </div>
                     </div>
-                    <!-- /tabs_styled -->
-                    <link rel="stylesheet" type="text/css" href="/css/gallery.css">
-                <link rel="stylesheet" type="text/css" href="/css/lightbox.gallery.min.css">
-                                <script type="text/javascript" src="/js/lightbox-plus-jquery.min.js">
-                                </script>
-                                </head>
-                                <body>
-                                <h1>Doctor`s Gallery</h1>
-                     <div class="gallery">
-
-            <a href="/img/Doctor1.jpg" data-lightbox="mygallery" data-title="This is First Picture"> <img src="/img/Doctor1.jpg"></a>
-            <a href="/img/Doctor2.jpg" data-lightbox="mygallery" data-title="This is Second Picture"> <img src="/img/Doctor2.jpg"></a>
-            <a href="/img/Doctor3.jpg" data-lightbox="mygallery" data-title="This is Third Picture"> <img src="/img/Doctor3.jpg"></a>
-            <a href="/img/Doctor4.jpg" data-lightbox="mygallery" data-title="This is Fourth Picture"> <img src="/img/Doctor4.jpg"></a>
-            <a href="/img/Doctor5.jpg" data-lightbox="mygallery" data-title="This is Fifth Picture"> <img src="/img/Doctor5.jpg"></a>
-                               </div>
                 </div>
-                <!-- /col -->
             </div>
-            <!-- /row -->
         </div>
-        <!-- /container -->
     </main>
-    <!-- /main -->
 </div>
-<!-- page -->
-
-<div id="toTop"></div>
-<!-- Back to top button -->
-
 
 @endsection
 @section('scripts')
+<script 
+type="text/javascript" src="/js/lightbox-plus-jquery.min.js">
+</script>
 @include('book.calendar-time-js')
 @endsection
+
