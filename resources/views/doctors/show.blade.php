@@ -38,7 +38,7 @@
                         <div class="">
                             <label>{{trans('doctors.rate')}}</label>
                             @for($i=0;$i<5;$i++)
-                                <a href="{{ route('doctors.rate',['doctor_id'=>$user->id,'rate'=>$i+1]) }}" class="icon_star" style="color: #e4e43f" aria-label="Left Align"> 
+                                <a href="{{ route('doctors.rate',['doctor_id'=>$user->id,'rate'=>$i+1]) }}" class="icon_star" style="color: #e4e43f" aria-label="Left Align">
                             </a>
                             @endfor
                         </div>
@@ -47,6 +47,7 @@
                             <br>
                         @endif
                             <br>
+                        <span class="rating">Бронирован: {{ $user->numberOfBookings }}</span>
                         @foreach($clinics as $clinic)
                         <ul class="contacts">
                             <li><h6>{{ trans('doctors.clinic_name') }}</h6>{{$clinic->name}}</li>
@@ -114,39 +115,39 @@
                             </div>
 
                             <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                                    <div class="reviews-container">
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <div id="review_summary">
-                                                    <strong>{{$average}}</strong>
-                                                    <div class="rating">
-                                                        @for($i=0;$i<5;$i++)
-                                                            @if($i<$average)
-                                                            <i class="icon_star voted"></i>
-                                                            @else
-                                                            <i class="icon_star"></i>
-                                                            @endif
-                                                        @endfor
-                                                    </div>
-                                                    <br>
-                                                    <small>{{trans('doctors.total_num')}} {{$user->profile->num_of_rates}} </small>
+                                <div class="reviews-container">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div id="review_summary">
+                                                <strong>{{$average}}</strong>
+                                                <div class="rating">
+                                                    @for($i=0;$i<5;$i++)
+                                                        @if($i<$average)
+                                                        <i class="icon_star voted"></i>
+                                                        @else
+                                                        <i class="icon_star"></i>
+                                                        @endif
+                                                    @endfor
                                                 </div>
+                                                <br>
+                                                <small>{{trans('doctors.total_num')}} {{$user->profile->num_of_rates}} </small>
                                             </div>
-                                            <div class="col-lg-9">
-                                                <?php $i=5 ?>
-                                                @foreach($rates as $rate)
+                                        </div>
+                                        <div class="col-lg-9">
+                                            @php($i = 5)
+                                            @foreach($rates as $rate)
                                                 <div class="row">
                                                     <div class="col-lg-10 col-9">
                                                         <div class="progress">
-                                                            <div class="progress-bar" role="progressbar" style="width:{{$rate*100/($user->profile->num_of_rates?:1)}}%" aria-valuenow="{{$rate*20}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            <div class="progress-bar" role="progressbar" style="width:{{$rate*100/($user->profile->num_of_rates?:1)}}%" aria-valuenow="{{$rate * 20}}" aria-valuemin="0" aria-valuemax="100"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-3"><small><strong>{{$i--}} stars</strong></small></div>
                                                 </div>
-                                                @endforeach
-                                                
-                                            </div>
-                                        </div>      
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
                               </div>
                         </div>
                             <hr>            

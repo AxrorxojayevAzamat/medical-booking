@@ -21,8 +21,8 @@
                 <div class="file-loading">
                     <input id="file-input" class="file" type="file" name="photo">
                 </div>
-                @if ($errors->has('logo'))
-                    <span class="invalid-feedback"><strong>{{ $errors->first('photos') }}</strong></span>
+                @if ($errors->has('photo'))
+                    <span class="invalid-feedback"><strong>{{ $errors->first('photo') }}</strong></span>
                 @endif
             </div>
             <div class="form-group">
@@ -46,7 +46,7 @@
             return send.apply(this, arguments);
         };
 
-        fileInput.fileinput({ 
+        fileInput.fileinput({
             language: "ru",
             initialPreview: [logoUrl],
             initialPreviewAsData: true,
