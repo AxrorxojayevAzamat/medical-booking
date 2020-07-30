@@ -421,48 +421,48 @@ return [
             ],
         ],
         [
-            'name' => 'kartik-v',
+            'name' => 'bootstrap-fileinput',
             'active' => true,
             'files' => [
                 [
                     'type' => 'css',
                     'asset' => true,
-                    'location' => '/vendor/kartik-v/bootstrap-fileinput/css/fileinput.css',
+                    'location' => '/vendor/bootstrap-fileinput/css/fileinput.css',
                 ],
                 [
                     'type' => 'css',
                     'asset' => true,
-                    'location' => '/vendor/kartik-v/bootstrap-fileinput/css/fileinput-rtl.css',
+                    'location' => '/vendor/bootstrap-fileinput/css/fileinput-rtl.css',
                 ],
                 [
                     'type' => 'js',
                     'asset' => true,
-                    'location' => '/vendor/kartik-v/bootstrap-fileinput/js/plugins/piexif.js',
+                    'location' => '/vendor/bootstrap-fileinput/js/plugins/piexif.js',
                 ],
                 [
                     'type' => 'js',
                     'asset' => true,
-                    'location' => '/vendor/kartik-v/bootstrap-fileinput/js/plugins/sortable.js',
+                    'location' => '/vendor/bootstrap-fileinput/js/plugins/sortable.js',
                 ],
                 [
                     'type' => 'js',
                     'asset' => true,
-                    'location' => '/vendor/kartik-v/bootstrap-fileinput/js/plugins/purify.js',
+                    'location' => '/vendor/bootstrap-fileinput/js/plugins/purify.js',
                 ],
                 [
                     'type' => 'js',
                     'asset' => true,
-                    'location' => '/vendor/kartik-v/bootstrap-fileinput/js/fileinput.js',
+                    'location' => '/vendor/bootstrap-fileinput/js/fileinput.min.js',
                 ],
                 [
                     'type' => 'js',
                     'asset' => true,
-                    'location' => '/vendor/kartik-v/bootstrap-fileinput/js/locales/ru.js',
+                    'location' => '/vendor/bootstrap-fileinput/js/locales/ru.js',
                 ],
                 [
                     'type' => 'js',
                     'asset' => true,
-                    'location' => '/vendor/kartik-v/bootstrap-fileinput/themes/fas/theme.js',
+                    'location' => '/vendor/bootstrap-fileinput/themes/fas/theme.js',
                 ],
             ],
         ],

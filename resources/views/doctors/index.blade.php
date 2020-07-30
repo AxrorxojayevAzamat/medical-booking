@@ -125,6 +125,10 @@
                             <img src="{{URL::to('img/badges/badge_5.svg')}}" width="15" height="15" alt="">
                         @endif
 
+                        <p>
+                            <span class="rating">Бронирован: {{ $doctorValue->numberOfBookings }}</span>
+                        </p>
+
                         <ul>
                             @if(empty($doctorValue->clinics->pluck('location')->toArray()))
                                 <li><a href="#0" onclick="initMap()" class="btn_listing"></a></li>
