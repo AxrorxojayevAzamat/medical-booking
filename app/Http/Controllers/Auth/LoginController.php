@@ -33,7 +33,7 @@ class LoginController extends Controller
 
         if ($this->attemptLogin($request)) {
             if (Auth::check()){
-                if(Auth::user()->isAdmin()) {
+                if(Auth::user()->isAdmin() || Auth::user()->isClinic() || Auth::user()->isCallCenter()) {
                     session(['url.intended' => route('admin.home') ]);
                     $this->redirectTo = route('admin.home');
                 }

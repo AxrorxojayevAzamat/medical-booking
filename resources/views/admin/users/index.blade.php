@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-footer">
-                    <a class="btn btn-success" href="{{ route("admin.users.create") }}">{{ trans('Добавить') }} </a>
+                    @if(Auth::user()->isAdmin())<a class="btn btn-success" href="{{ route("admin.users.create") }}">{{ trans('Добавить') }} </a>@endif
                 </div>
 
                 <div class="card-body">

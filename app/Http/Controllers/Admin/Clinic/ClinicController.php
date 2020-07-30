@@ -9,20 +9,28 @@ use App\Entity\Clinic\Clinic;
 use App\Services\ClinicService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClinicRequest;
+use Illuminate\Support\Facades\Auth;
+use App\Entity\Clinic\AdminClinic;
+use Illuminate\Support\Facades\Gate;
 
 class ClinicController extends Controller
 {
+
     private $service;
 
     public function __construct(ClinicService $service)
     {
-        $this->middleware('can:manage-clinics');
         $this->service = $service;
     }
 
     public function index(Request $request)
     {
+
         $query = Clinic::orderBy('id');
+        $userAuth = Auth::user();
+        if (Gate::allows('admin-clinic-panel')) {
+            $query = Clinic::forUser($userAuth);
+        }
 
         $this->validate($request, [
             'id' => ['integer', 'nullable'],
@@ -42,6 +50,7 @@ class ClinicController extends Controller
 
     public function create()
     {
+        $this->authorize('can:manage-clinics');
         $regions = Region::all();
         return view('admin.clinics.create', compact('regions'));
     }
@@ -49,8 +58,21 @@ class ClinicController extends Controller
     public function store(ClinicRequest $request)
     {
         try {
-            $clinics = $this->service->create($request);
-            return redirect()->route('admin.clinics.index')->with('success', 'Успешно!');
+            $clinics = Clinic::create([
+                        'name_uz' => $request->name_uz,
+                        'name_ru' => $request->name_ru,
+                        'region_id' => $request->region_id,
+                        'type' => $request->clinic_type,
+                        'description_uz' => $request->description_uz,
+                        'description_ru' => $request->description_ru,
+                        'phone_numbers' => $request->phone_numbers,
+                        'address_uz' => $request->adress_uz,
+                        'address_ru' => $request->adress_ru,
+                        'work_time_start' => $request->work_time_start,
+                        'work_time_end' => $request->work_time_end,
+                        'location' => $request->location,
+            ]);
+            return redirect()->route('admin.clinics.index', $clinics);
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
@@ -58,12 +80,14 @@ class ClinicController extends Controller
 
     public function show(Clinic $clinic)
     {
+        $this->checkAccess($clinic);
         $contacts = $clinic->contacts()->orderBy('type')->get();
         return view('admin.clinics.show', compact('clinic', 'contacts'));
     }
 
     public function edit(Clinic $clinic)
     {
+        $this->checkAccess($clinic);
         $clinic = Clinic::find($clinic->id);
         $regions = Region::all();
         return view('admin.clinics.edit', compact('clinic', 'regions'));
@@ -81,10 +105,11 @@ class ClinicController extends Controller
 
     public function destroy(Clinic $clinic)
     {
+        $this->checkAccess($clinic);
         $clinic = Clinic::find($clinic->id);
-        
+
         $photos = $this->service->deleteAllPhotos($clinic);
-        if ($photos==true) {
+        if ($photos == true) {
             $clinic->delete();
         } else {
             $clinic->delete();
@@ -94,10 +119,13 @@ class ClinicController extends Controller
 
     public function mainPhoto(Clinic $clinic)
     {
+        $this->checkAccess($clinic);
         return view('admin.clinics.add-main-photo', compact('clinic'));
     }
+
     public function removeMainPhoto(Clinic $clinic)
     {
+        $this->checkAccess($clinic);
         try {
             $this->service->removeMainPhoto($clinic->id);
             return response()->json('The main photo is successfully deleted!');
@@ -117,9 +145,10 @@ class ClinicController extends Controller
             return back()->with('error', $e->getMessage());
         }
     }
-    
+
     public function photos(Clinic $clinic)
     {
+        $this->checkAccess($clinic);
         return view('admin.clinics.add-photo', compact('clinic'));
     }
 
@@ -149,6 +178,7 @@ class ClinicController extends Controller
 
     public function movePhotoUp(Clinic $clinic, Photo $photo)
     {
+        $this->checkAccess($clinic);
         try {
             $this->service->movePhotoUp($clinic->id, $photo->id);
             return back();
@@ -159,6 +189,7 @@ class ClinicController extends Controller
 
     public function movePhotoDown(Clinic $clinic, Photo $photo)
     {
+        $this->checkAccess($clinic);
         try {
             $this->service->movePhotoDown($clinic->id, $photo->id);
             return back();
@@ -166,4 +197,12 @@ class ClinicController extends Controller
             return back()->with('error', $e->getMessage());
         }
     }
+
+    private function checkAccess(Clinic $clinic): void
+    {
+        if (!Gate::allows('manage-own-clinics', $clinic)) {
+            abort(403);
+        }
+    }
+
 }
