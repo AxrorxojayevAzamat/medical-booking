@@ -25,6 +25,7 @@ class CallCenterController extends Controller
     {
         $this->service = $service;
         $this->bookService = $bookService;
+        $this->middleware('can:manage-call-center');
     }
 
     public function findDoctorByRegion(Request $request)

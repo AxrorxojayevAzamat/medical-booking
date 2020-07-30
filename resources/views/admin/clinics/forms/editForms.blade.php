@@ -49,7 +49,7 @@
         <div class="form-group row">
             <label for="inputEmail3" class=" col-sm-5 col-form-label ">Выберете тип клиники </label>
             <div class="col-sm-6 ">
-                <select class="form-control" name="type" id="type" required>
+                <select class="form-control" name="clinic_type" id="clinic_type" required>
                     <option hidden></option>
                     <option value="1" @if ($clinic->type == '1') selected="selected" @endif>Частная клиника</option>
                     <option value="2" @if ($clinic->type == '2') selected="selected" @endif>Государственная поликлиника</option>

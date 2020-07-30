@@ -6,16 +6,14 @@ use App\Entity\Clinic\Clinic;
 use App\Entity\Clinic\Contact;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ClinicContactRequest;
+use Illuminate\Support\Facades\Gate;
 
 class ContactController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('can:manage-clinics');
-    }
 
     public function create(Clinic $clinic)
     {
+        $this->checkAccess($clinic);
         $types = Contact::getTypeList();
 
         return view('admin.clinics.contacts.create', compact('clinic', 'types'));
@@ -37,11 +35,13 @@ class ContactController extends Controller
 
     public function show(Clinic $clinic, Contact $contact)
     {
+        $this->checkAccess($clinic);
         return view('admin.clinics.contacts.show', compact('clinic', 'contact'));
     }
 
     public function edit(Clinic $clinic, Contact $contact)
     {
+        $this->checkAccess($clinic);
         $types = Contact::getTypeList();
 
         return view('admin.clinics.contacts.edit', compact('clinic', 'contact', 'types'));
@@ -63,8 +63,16 @@ class ContactController extends Controller
 
     public function destroy(Clinic $clinic, Contact $contact)
     {
+        $this->checkAccess($clinic);
         $contact->delete();
 
         return redirect()->route('admin.clinics.show', $clinic);
+    }
+    
+    private function checkAccess(Clinic $clinic): void
+    {
+        if (!Gate::allows('manage-own-clinics', $clinic)) {
+            abort(403);
+        }
     }
 }
