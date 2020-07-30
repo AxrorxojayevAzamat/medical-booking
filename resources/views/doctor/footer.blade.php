@@ -49,3 +49,6 @@
 <script src="{{asset('js/admin.js') }}"></script>
 <!-- Custom scripts for this page-->
 <script src="{{asset('js/dropzone.js') }}"></script>
+
+<script src="{{asset('vendor/select2/js/select2.full.min.js')}}"></script>
+<script src="{{asset('js/doctor-spes.js')}}"></script>
