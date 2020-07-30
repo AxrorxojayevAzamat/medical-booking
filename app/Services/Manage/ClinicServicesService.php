@@ -19,7 +19,7 @@ class ClinicServicesService
 
     public function create(CreateRequest $request): Service
     {
-        if (!$request->image) {
+        if (!$request->icon) {
             return Service::create([
                 'title_uz' => $request->name_uz,
                 'title_ru' => $request->name_ru,
@@ -28,11 +28,11 @@ class ClinicServicesService
             ]);
         }
 
-        $imageName = ImageHelper::getRandomName($request->image);
+        $imageName = ImageHelper::getRandomName($request->icon);
 
         $service = Service::add($this->getNextId(), $request, $imageName);
 
-        $this->uploadImage($this->getNextId(), $request->image, $imageName);
+        $this->uploadImage($this->getNextId(), $request->icon, $imageName);
 
         return $service;
     }
@@ -41,15 +41,15 @@ class ClinicServicesService
     {
         $service = Service::findOrFail($id);
 
-        if (!$request->image) {
+        if (!$request->icon) {
             $service->edit($request);
         } else {
             Storage::disk('public')->deleteDirectory('/images/' . ImageHelper::FOLDER_SERVICES . '/' . $service->id);
 
-            $imageName = ImageHelper::getRandomName($request->image);
+            $imageName = ImageHelper::getRandomName($request->icon);
             $service->edit($request, $imageName);
 
-            $this->uploadImage($service->id, $request->image, $imageName);
+            $this->uploadImage($service->id, $request->icon, $imageName);
         }
 
         return $service;

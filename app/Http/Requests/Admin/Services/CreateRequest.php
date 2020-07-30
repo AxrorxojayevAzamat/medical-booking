@@ -11,7 +11,7 @@ use Illuminate\Validation\Rule;
  * @property string $name_ru
  * @property string $description_uz
  * @property string $description_ru
- * @property \Illuminate\Http\UploadedFile $image
+ * @property \Illuminate\Http\UploadedFile $icon
  */
 class CreateRequest extends FormRequest
 {
@@ -28,7 +28,7 @@ class CreateRequest extends FormRequest
             'name_ru' => 'required|string|max:255',
             'description_uz' => 'nullable|string',
             'description_ru' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png',
+            'icon' => 'nullable|image|mimes:jpg,jpeg,png',
         ];
     }
 }
