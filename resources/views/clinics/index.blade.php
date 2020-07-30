@@ -11,10 +11,10 @@
                     <div class="col-md-3">
                         <ul class="row">
                             <li class="{{ Request::is('doctors*') ? 'active' : '' }}" style="margin: auto 10px auto 30px;">
-                                <a href="{{ route('doctors.index') }}">Doctor</a>
+                                <a href="{{ route('doctors.index') }}">{{ trans('menu.doctors') }}</a>
                             </li>
                             <li class="{{ Request::is('clinics*') ? 'active' : '' }}" style="margin: auto 10px;">
-                                <a href="{{ route('clinics.index') }}">Clinic</a>
+                                <a href="{{ route('clinics.index') }}">{{ trans('menu.clinics') }}</a>
                             </li>
                         </ul>
                     </div>
@@ -192,6 +192,10 @@
     margin-left: 10px;
     margin-top: 16px;
 }
-
+@media screen and (max-width: 767px) {
+    .filters_listing ul li:nth-child(3) .form-group {
+        margin-top: 0;
+    }
+}
     </style>
 @endsection

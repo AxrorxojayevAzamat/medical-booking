@@ -2011,6 +2011,7 @@ a.wish_bt:hover:after {
   .strip_list ul {
     /* For less than 767px */
     margin: 15px -15px -15px -90px;
+    height: 60px;
   }
 }
 .strip_list ul li {
