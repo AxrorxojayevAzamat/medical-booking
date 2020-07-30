@@ -14,6 +14,7 @@ use App\Helpers\LanguageHelper;
 use Illuminate\Http\Request;
 use App\Entity\Clinic\Clinic;
 use App\Entity\Clinic\Timetable;
+use App\Http\Requests\TimeTableRequest;
 use App\Entity\Celebration;
 use App\Services\BookService;
 use App\Entity\Rate;
@@ -33,16 +34,23 @@ class DoctorController extends Controller
 
     public function profileShow()
     {
-        $user = User::find(Auth::user()->id);
+        $user = User::find(Auth::id());
         $book_num = count(Book::where('doctor_id', $user->id)->get());
+        $doctor = User::find(Auth::id());
+        $timetable = Timetable::where('doctor_id', Auth::id())->get();
+        
+        
+        $specializations = DoctorSpecialization::where('doctor_id',$user->id)->get();
+        $clinics = Clinic::orderBy('name_ru')->pluck('name_ru', 'id');
 
-        return view('doctor.profile.index', compact('user','book_num'));
+        return view('doctor.profile.index', compact('user','book_num','doctor','timetable','specializations','clinics'));
     }
     public function profileEdit(User $user)
     {
         $user = User::find(Auth::user()->id);
+        $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
         $book_num = count(Book::where('doctor_id', $user->id)->get());
-        return view('doctor.profile.edit', compact('user','book_num'));
+        return view('doctor.profile.edit', compact('user','book_num','specializations'));
     }
     public function profileEditSave(Request $request)
     {
@@ -70,21 +78,75 @@ class DoctorController extends Controller
     public function books($doctor_id)
     {
         $bookings = Book::where('doctor_id', $doctor_id)->get();
-        $bookings = $bookings->sortBy(['booking_date','time_start']);
+        $bookings = $bookings->sortBy('booking_date');
         $user = User::find(Auth::user()->id);
         $book_num = count(Book::where('doctor_id', $user->id)->get());
-        
         return view('doctor.doctor_bookings', compact('bookings','user','book_num'));
+    }
+
+    public function storeSpecializations(Request $request, User $user)
+    {
+        $user->specializations()->sync($request['specializationUser']);
+        return redirect()->back()->with('success', 'Successfully Edited');
     }
 
     public function timetable()
     {
-        $bookings = Book::where('doctor_id', $doctor_id)->get();
-        $bookings = $bookings->sortBy(['booking_date','time_start']);
-        $user = User::find(Auth::user()->id);
+        $doctor = User::find(Auth::id());
+        $timetable = Timetable::where('doctor_id', Auth::id())->get();
+        $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
+        $clinics = Clinic::orderBy('name_ru')->pluck('name_ru', 'id');
+        $book_num = count(Book::where('doctor_id', Auth::id())->get());
+        
+        return view('doctor.timetable.index', compact('book_num', 'specializations', 'doctor', 'clinics', 'timetable'));
+    }
+
+    public function edit(Clinic $clinic)
+    {
+        $user=Auth::user();
+        $clinic = $clinic;
         $book_num = count(Book::where('doctor_id', $user->id)->get());
         
-        return view('doctor.doctor_bookings', compact('bookings','user','book_num'));
+        $timetable = Timetable::where('doctor_id', $user->id)->where('clinic_id', $clinic->id)->first();
+        return view('doctor.timetable.edit', compact('timetable', 'user', 'clinic','book_num'));
+    }
+
+    public function update(TimeTableRequest $request,User $user, Timetable $timetable)
+    {
+        if($timetable->odd_start){
+            $odd_start_check = Book::where(
+                'doctor_id', $user->id)
+        ->where('time_start','<',$request->odd_start)->first();
+            
+            $odd_finish_check = Book::where(
+                'doctor_id', $user->id)
+        ->where('time_finish','>',$request->odd_end)->first();
+            
+            if($odd_start_check || $odd_finish_check)
+                return redirect()->back()->with('error', 'true');
+            }
+
+            if($timetable->even_start){
+            $even_start_check = Book::where(
+                'doctor_id', $user->id)
+        ->where('time_start','<',$request->even_start)->first();
+
+            $even_finish_check = Book::where(
+                'doctor_id', $user->id)
+        ->where('time_finish','>',$request->even_end)->first();
+                
+            if($even_start_check || $even_finish_check)
+                return redirect()->back()->with('error', 'true');
+            }
+        try {
+            $bookings = Book::where('doctor_id', $doctor_id)->get();
+            
+            $timetable=$this->service->update($timetable->id, $request);
+
+            return redirect()->route('doctor.timetable.index', Auth::user())->with('success', 'Расписание обновлено');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 
     public function index(Request $request)

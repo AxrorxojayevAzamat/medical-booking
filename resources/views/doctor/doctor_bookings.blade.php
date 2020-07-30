@@ -6,7 +6,6 @@
         <div class="container-fluid" style="margin-top: 50px">
             <h1 align="center">{{trans('menu.my_records')}}</h1>
             <div class="box_general padding_bottom">
-            
               <table class="table">
                 <thead>
                   <tr>
@@ -30,7 +29,11 @@
                         {{ $booking->user->profile->first_name.' '.$booking->user->profile->last_name }}
                         @endif
                     </td>
-                    <td>{{ $booking->clinic->name_uz }}</td>
+                        @if(Session::get('locale')=='ru')
+                          <td>{{ $booking->clinic->name_ru }}</td>
+                        @else
+                          <td>{{ $booking->clinic->name_uz }}</td>
+                        @endif
                     <td>{{ $booking->booking_date }}</td>
                     <td>{{ $booking->time_start }}</td>
                     <td>{{ $booking->time_finish }}</td>
@@ -60,8 +63,6 @@
                 </tbody>
               </table>
               <br>
-            
-
         </div>
         <!-- /.container-fluid-->
     </div>

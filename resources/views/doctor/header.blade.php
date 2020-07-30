@@ -12,7 +12,7 @@
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookings">
-                <a class="nav-link" href="{{ route('doctor.doctorbookings', $user) }}">
+                <a class="nav-link" href="{{ route('doctor.doctorbookings', Auth::user()) }}">
                     <i class="fa fa-fw fa-calendar-check-o"></i>
                     <span class="nav-link-text">{{trans('menu.my_records')}} 
                     @if($book_num)
@@ -23,7 +23,7 @@
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookings">
                 <a class="nav-link" href="{{ route('doctor.timetable') }}">
                     <i class="fa fa-fw fa-calendar-check-o"></i>
-                    <span class="nav-link-text">{{trans('menu.my_records')}}
+                    <span class="nav-link-text">{{trans('menu.timetable')}}
                 </a>
             </li>
         </ul>

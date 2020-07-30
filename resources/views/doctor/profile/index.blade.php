@@ -49,7 +49,11 @@
                                     @endif
                                 </td>
                             </tr>
-
+                            <tr><th>{{ trans('specialization.type_of_doctor') }}</th><td>
+                            @foreach($specializations as $specialization)
+                                <span class="badge badge-secondary">{{$specialization->specialization->name_uz}}</span>
+                            @endforeach
+                            </td></tr>
                             <tr><th>{{ trans('contacts.name') }}</th><td>{{ $user->profile->first_name }}</td></tr>
                             <tr><th>{{ trans('contacts.lastname') }}</th><td>{{ $user->profile->last_name }}</td></tr>
                             <tr><th>{{ trans('contacts.patronymic') }}</th><td>{{ $user->profile->middle_name }}</td></tr>
@@ -57,6 +61,8 @@
                             <tr><th>{{ trans('contacts.gender') }}</th><td>{{ $user->profile->gender === 0 ? trans('contacts.woman') : trans('contacts.man')}}</td></tr>
                         </tbody>
                     </table>
+
+                    
                 </div>
             </div>
         </div>

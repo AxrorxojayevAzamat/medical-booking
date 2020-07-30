@@ -15,6 +15,7 @@ return [
     'old_password'                  => 'Eski parol',
     'new_password'                  => 'Yangi parol',
     'conf_password'                 => 'Tasdiqlash parol',
+    'cancel'                        => 'Bekor qilish',
     'new'                           => 'Yangi',
     'noactive'                      => 'Aktiv emas',
     'multilevel'                    => 'Multi Level',
@@ -36,4 +37,7 @@ return [
     'photo'                         => 'Sizning rasmingiz',
     'main_photo'                    => 'Asosiy rasm',
     'photos'                        => 'Rasmlar',
+    'leave'                         => 'Ketishga tayyormisiz?',
+    'leave_title'                         => 'Agar siz joriy seansni tugatishga tayyor bo\'lsangiz, quyida "Chiqish" ni tanlang',
+    'timetable'                     => 'Mening jadvalim',
 ];

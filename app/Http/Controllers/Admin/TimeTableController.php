@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Entity\User\User;
+use App\Entity\Book\Book;
 use App\Entity\Clinic\Timetable;
 use App\Entity\Clinic\Clinic;
 use Illuminate\Http\Request;
@@ -50,8 +51,36 @@ class TimeTableController extends Controller
 
     public function update(TimeTableRequest $request, User $user, Timetable $timetable)
     {
+            if($timetable->odd_start){
+            $odd_start_check = Book::where(
+                'doctor_id', $user->id)
+        ->where('time_start','<',$request->odd_start)->first();
+            
+            $odd_finish_check = Book::where(
+                'doctor_id', $user->id)
+        ->where('time_finish','>',$request->odd_end)->first();
+            
+            if($odd_start_check || $odd_finish_check)
+                return redirect()->back()->with('error', 'true');
+            }
+
+            if($timetable->even_start){
+            $even_start_check = Book::where(
+                'doctor_id', $user->id)
+        ->where('time_start','<',$request->even_start)->first();
+
+            $even_finish_check = Book::where(
+                'doctor_id', $user->id)
+        ->where('time_finish','>',$request->even_end)->first();
+                
+            if($even_start_check || $even_finish_check)
+                return redirect()->back()->with('error', 'true');
+            }
+
+              
         try {
-            $timetable=$this->service->update($timetable->id, $request);
+                $timetable=$this->service->update($timetable->id, $request);
+            
             return redirect()->route('admin.users.show', $user)->with('success', 'Расписание обновлено');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());

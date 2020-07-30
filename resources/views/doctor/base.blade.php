@@ -9,7 +9,7 @@
     @yield('content')
 
     @include('doctor.footer')
-
+    
 </body>
 
 </html>

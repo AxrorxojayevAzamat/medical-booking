@@ -8,7 +8,7 @@
 
     @yield('content')
 
-    @include('patient.footer')
+    @include('doctor.footer')
 
 </body>
 

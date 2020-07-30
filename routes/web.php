@@ -126,6 +126,7 @@ Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 
     Route::get('/profile', 'DoctorController@profileShow')->name('profile');
     Route::get('/edit', 'DoctorController@profileEdit')->name('profileEdit');
     Route::post('/edit', 'DoctorController@profileEditSave')->name('profileEditSave');
+    Route::post('store-specializations', 'DoctorController@storeSpecializations')->name('store-specializations');
     Route::group(['namespace' => '\App\Http\Controllers\Admin'], function(){
         //image
         Route::get('main-photo', 'ImagesController@mainPhoto')->name('main-photo');
@@ -138,6 +139,8 @@ Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 
     });
     Route::get('/{doctor_id}/bookings', 'DoctorController@books')->name('doctorbookings');
     Route::get('/timetable', 'DoctorController@timetable')->name('timetable');
+    Route::put('{user?}/{timetable?}/update', 'DoctorController@update')->name('update');
+    Route::get('{clinic?}/edit', 'DoctorController@edit')->name('edit');
 });
 
 Route::group(['prefix' => 'contacts', 'as' => 'contacts.'], function () {
