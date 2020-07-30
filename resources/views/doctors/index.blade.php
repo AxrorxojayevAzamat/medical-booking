@@ -162,18 +162,11 @@
                             <li><a href="{{ route('doctors.show',$doctorValue) }}">{{trans('doctors.booking')}}</a></li>
                         </ul>
                     </div>
-                    <ul>
-                        @foreach($doctorValue->clinics as $clinic)
-                        <li><a href="{{ route('clinics.show', $clinic) }}">{{'clinic_name: '.$clinic->name }}</a></li>
-                        <img src="{{asset($clinic->mainPhoto ? $clinic->mainPhoto->fileThumbnail : '/img/565x565.jpg')}}" width="50" height="50" alt="">
-                        @endforeach
-                    </ul>
+                    
 
                     @endforeach
-                    <!-- /strip_list -->
-
                     {{ $doctors->links() }}
-                    <!-- /pagination -->
+
                 </div>
                 <!-- /col -->
 
@@ -195,35 +188,15 @@
                             .addTo(map);
                          
                 L.marker([{"doctorId":53,"locations":["41.2704736,69.2134647","41.3191884,69.2382324"]},{"doctorId":42,"locations":["41.2704736,69.2134647"]},{"doctorId":39,"locations":["41.3191884,69.2382324","41.2704736,69.2134647","41.2704736,69.2134647"]},{"doctorId":4,"locations":["41.2981861,69.2120876"]},{"doctorId":44,"locations":["41.3191884,69.2382324","41.2704736,69.2134647"]}])
-    
-                          /*  var greenIcon = L.icon({
-                                iconUrl: 'img/icons/clinic.png',
-                                iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-                                iconSize:     [50, 50], // size of the icon
-                                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-                                    });
-                              L.marker([],{icon:greenIcon}).addTo(map).bindPopup("<li><a href='{{ route('clinics.show', $clinic) }}'>bu yerni bosing</a></li>");
 
-                       */
-                            //L.marker([41.3191884, 69.2382324],{icon:greenIcon}).addTo(map).bindPopup(' <li><a href="#0" onclick="initMap(41.2646, 69.2163)" class="btn_listing">Показать на карте</a></li>');
-                            //L.marker([41.2981861, 69.2120876],{icon:greenIcon}).addTo(map).bindPopup(' <li><a href="#0" onclick="initMap(41.2646, 69.2163)" class="btn_listing">Показать на карте</a></li>');
                     </script>
                 </body> 
                     </div>
                 </aside> 
-                <!-- /aside -->
-
             </div>
-            <!-- /row -->
         </div>
-        <!-- /container -->
     </main>
-    <!-- /main -->
 
-<label>
-    
-{{ $clinicLocationsJson  }}
-</label>
 </div>
 @endsection
 
