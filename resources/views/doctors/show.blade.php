@@ -1,5 +1,8 @@
 @extends('layouts.app')
-
+@section('css')
+<link rel="stylesheet" type="text/css" href="/css/gallery.css">
+<link rel="stylesheet" type="text/css" href="/css/lightbox.gallery.min.css">
+@endsection
 @section('content')
 
 <div id="page">
@@ -57,7 +60,6 @@
                         @endforeach
                     </div>
                 </aside>
-                <!-- /asdide -->
 
                 <div class="col-xl-9 col-lg-8">
                     @foreach($clinics as $key => $clinic)
@@ -76,7 +78,6 @@
                             <hr>
                             <div class="text-center"><button class="btn_1 medium" type="submit" id="{{$key}}" onclick="checkDay(event)">{{ trans('book.book_now') }}</button></div>
                         </div>
-                        <!-- /box_general -->
                     </form>
                     @endforeach
 
@@ -110,12 +111,8 @@
                                         </div>
 
                                     </div>
-                                    <!-- /row-->
                                 </div>
-                                <!-- /wrapper indent -->
-
                             </div>
-                            <!-- /tab_2 -->
 
                             <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
                                 <div class="reviews-container">
@@ -152,42 +149,29 @@
                                     </div>
                                 </div>
                               </div>
-                            <!-- /tab_3 -->
                         </div>
-                        <!-- /tab-content -->
+                            <hr>            
+                        <div class="box" id="gallery" role="gallery" aria-labelledby="gallery">
+                        <div class="gallery">
+                              <a href="/img/Doctor1.jpg" data-lightbox="mygallery"><img src="/img/Doctor1.jpg"></a>
+                              <a href="/img/Doctor2.jpg" data-lightbox="mygallery"><img src="/img/Doctor2.jpg"></a>
+                              <a href="/img/Doctor3.jpg" data-lightbox="mygallery"><img src="/img/Doctor3.jpg"></a>
+                              <a href="/img/Doctor4.jpg" data-lightbox="mygallery"><img src="/img/Doctor4.jpg"></a>
+                              <a href="/img/Doctor5.jpg" data-lightbox="mygallery"><img src="/img/Doctor5.jpg"></a>
+                        </div>
+                   </div>
                     </div>
-                    <!-- /tabs_styled -->
-                    <link rel="stylesheet" type="text/css" href="/css/gallery.css">
-                <link rel="stylesheet" type="text/css" href="/css/lightbox.gallery.min.css">
-                                <script type="text/javascript" src="/js/lightbox-plus-jquery.min.js">
-                                </script>
-                                </head>
-                                <body>
-                                <h1>Doctor`s Gallery</h1>
-                     <div class="gallery">
-
-            <a href="/img/Doctor1.jpg" data-lightbox="mygallery" data-title="This is First Picture"> <img src="/img/Doctor1.jpg"></a>
-            <a href="/img/Doctor2.jpg" data-lightbox="mygallery" data-title="This is Second Picture"> <img src="/img/Doctor2.jpg"></a>
-            <a href="/img/Doctor3.jpg" data-lightbox="mygallery" data-title="This is Third Picture"> <img src="/img/Doctor3.jpg"></a>
-            <a href="/img/Doctor4.jpg" data-lightbox="mygallery" data-title="This is Fourth Picture"> <img src="/img/Doctor4.jpg"></a>
-            <a href="/img/Doctor5.jpg" data-lightbox="mygallery" data-title="This is Fifth Picture"> <img src="/img/Doctor5.jpg"></a>
-                               </div>
                 </div>
-                <!-- /col -->
             </div>
-            <!-- /row -->
         </div>
-        <!-- /container -->
     </main>
-    <!-- /main -->
 </div>
-<!-- page -->
-
-<div id="toTop"></div>
-<!-- Back to top button -->
-
 
 @endsection
 @section('scripts')
+<script 
+type="text/javascript" src="/js/lightbox-plus-jquery.min.js">
+</script>
 @include('book.calendar-time-js')
 @endsection
+
