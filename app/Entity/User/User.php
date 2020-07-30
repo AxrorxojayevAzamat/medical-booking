@@ -6,6 +6,7 @@ use App\Entity\Book\Book;
 use App\Entity\Book\Payment\PaycomOrder;
 use App\Entity\Clinic\Clinic;
 use App\Entity\Clinic\DoctorClinic;
+use App\Entity\Clinic\AdminClinic;
 use App\Entity\Clinic\Specialization;
 use App\Entity\Clinic\DoctorSpecialization;
 use App\Helpers\ClickHelper;
@@ -15,6 +16,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPassword as ResetPasswordNotification;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @property int $id
@@ -32,7 +34,11 @@ use App\Notifications\ResetPassword as ResetPasswordNotification;
  * @property DoctorSpecialization[] $doctorSpecializations
  * @property Specialization[] $specializations
  * @property DoctorClinic[] $doctorClinics
+ * @property AdminClinic[] $adminClinics
  * @property Clinic[] $clinics
+ * @method Builder forUser(User $user)
+ * @method Builder doctor()
+ * @method Builder doctorOrUser()
  * @property Book[] $userBooks
  * @property Book[] $doctorBooks
  * @property int|null $getNumberOfBookings
@@ -66,11 +72,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public static function new($email, $phone, $password, $role): self
     {
         return static::create([
-            'email' => $email,
-            'phone' => $phone,
-            'password' => bcrypt($password),
-            'role' => $role,
-            'status' => self::STATUS_ACTIVE,
+                    'email' => $email,
+                    'phone' => $phone,
+                    'password' => bcrypt($password),
+                    'role' => $role,
+                    'status' => self::STATUS_ACTIVE,
         ]);
     }
 
@@ -203,6 +209,20 @@ class User extends Authenticatable implements MustVerifyEmail
         return $query->where('role', self::ROLE_DOCTOR);
     }
 
+    public function scopeDoctorOrUser($query)
+    {
+        return $query->where('role', self::ROLE_DOCTOR)->orWhere('role', self::ROLE_USER);
+    }
+   
+    public function scopeForUser(Builder $query, User $user)
+    {
+        $adminClinics = AdminClinic::where('admin_id', $user->id)->pluck('clinic_id')->toArray();
+        $adminClinicsDoctors = DoctorClinic::WhereIn('clinic_id', $adminClinics)->pluck('doctor_id')->toArray();
+               
+        return $query->whereIn('id', $adminClinicsDoctors);
+
+    }
+
     #########################################################################################
 
 
@@ -243,5 +263,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Clinic::class, 'doctor_clinics', 'doctor_id', 'clinic_id');
     }
 
+    public function adminClinics()
+    {
+        return $this->hasMany(AdminClinic::class, 'admin_id', 'id');
+    }
+
+    public function adminsClinics()
+    {
+        return $this->belongsToMany(Clinic::class, 'admin_clinics', 'admin_id', 'clinic_id');
+    }
 
 }

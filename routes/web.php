@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('', 'HomeController@index')->name('home');
 Auth::routes(['verify' => true]);
 
-Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'can:admin-panel']], function () {
+Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth', 'can:admin-panel', 'can:admin-clinic-panel', 'can:manage-own-clinics'], function () {
     Route::get('', 'DashboardController@index')->name('home');
 
     Route::resource('users', 'UserController');
@@ -38,6 +38,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         function () {
             Route::post('store-specializations', 'UserController@storeSpecializations')->name('store-specializations');
             Route::get('specializations', 'UserController@specializations')->name('specializations');
+            Route::post('store-admin-clinics', 'UserController@storeAdminClinics')->name('store-admin-clinics');
+            Route::get('admin-clinics', 'UserController@adminClinics')->name('admin-clinics');
 
             Route::post('store-clinics', 'UserController@storeClinics')->name('store-clinics');
             Route::get('user-clinics', 'UserController@userClinics')->name('user-clinics');

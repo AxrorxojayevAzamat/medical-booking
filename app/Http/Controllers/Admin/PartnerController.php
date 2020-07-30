@@ -16,6 +16,7 @@ class PartnerController extends Controller
     public function __construct(PartnerService $service)
     {
         $this->service = $service;
+        $this->middleware('can:manage-partners');
     }
     public function index()
     {

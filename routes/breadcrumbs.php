@@ -106,6 +106,11 @@ Breadcrumbs::register('admin.users.photos', function (Crumbs $crumbs, User $user
     $crumbs->push(trans('Фотографии'), route('admin.users.photos', $user));
 });
 
+Breadcrumbs::register('admin.users.admin-clinics', function (Crumbs $crumbs, User $user) {
+    $crumbs->parent('admin.users.show', $user);
+    $crumbs->push(trans('Клиники админа'), route('admin.users.admin-clinics', $user));
+});
+
 
 //regions
 Breadcrumbs::register('admin.regions.index', function (Crumbs $crumbs) {
