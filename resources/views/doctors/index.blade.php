@@ -141,9 +141,15 @@
                             @else
                             <li><a href="#0" onclick="initMap({{$doctorValue->clinics->pluck('location')->first()}})" class="btn_listing">{{trans('doctors.view_on_map')}}</a></li>
                             @endif
-                            <li><a href="{{ route('doctors.show',$doctorValue) }}">{{trans('doctors.booking')}}</a></li
+                            <li><a href="{{ route('doctors.show',$doctorValue) }}">{{trans('doctors.booking')}}</a></li>
                         </ul>
                     </div>
+                    <ul>
+                        @foreach($doctorValue->clinics as $clinic)
+                        <li><a href="{{ route('clinics.show', $clinic) }}">{{'clinic_name: '.$clinic->name }}</a></li>
+                        <img src="{{asset($clinic->mainPhoto ? $clinic->mainPhoto->fileThumbnail : '/img/565x565.jpg')}}" width="50" height="50" alt="">
+                        @endforeach
+                    </ul>
 
                     @endforeach
                     <!-- /strip_list -->
@@ -154,8 +160,7 @@
                 <!-- /col -->
 
                 <aside class="col-lg-5" id="sidebar">
-                    <div id="map_listing" class="normal_list">
-                 <!--     /<head> 
+                    <div id="map_listing" class="normal_list"> 
                        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"/>
                              <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
                        
@@ -170,21 +175,22 @@
                             var map = L.map('map').setView([41.311081, 69.240562], 12);
                             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar', attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'})
                             .addTo(map);
-        
-                            var greenIcon = L.icon({
+                         
+                L.marker([{"doctorId":53,"locations":["41.2704736,69.2134647","41.3191884,69.2382324"]},{"doctorId":42,"locations":["41.2704736,69.2134647"]},{"doctorId":39,"locations":["41.3191884,69.2382324","41.2704736,69.2134647","41.2704736,69.2134647"]},{"doctorId":4,"locations":["41.2981861,69.2120876"]},{"doctorId":44,"locations":["41.3191884,69.2382324","41.2704736,69.2134647"]}])
+    
+                          /*  var greenIcon = L.icon({
                                 iconUrl: 'img/icons/clinic.png',
                                 iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
                                 iconSize:     [50, 50], // size of the icon
                                 popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
                                     });
+                              L.marker([],{icon:greenIcon}).addTo(map).bindPopup("<li><a href='{{ route('clinics.show', $clinic) }}'>bu yerni bosing</a></li>");
 
-                            L.marker([41.2704736, 69.2134647],{icon:greenIcon}).addTo(map).bindPopup("<li><a href='{{ route('doctors.show',$doctorValue) }}'>{{trans('doctors.booking')}}>mnm </a></li>");
-
-
+                       */
                             //L.marker([41.3191884, 69.2382324],{icon:greenIcon}).addTo(map).bindPopup(' <li><a href="#0" onclick="initMap(41.2646, 69.2163)" class="btn_listing">Показать на карте</a></li>');
                             //L.marker([41.2981861, 69.2120876],{icon:greenIcon}).addTo(map).bindPopup(' <li><a href="#0" onclick="initMap(41.2646, 69.2163)" class="btn_listing">Показать на карте</a></li>');
                     </script>
-                </body> -->
+                </body> 
                     </div>
                 </aside> 
                 <!-- /aside -->
