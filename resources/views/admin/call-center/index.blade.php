@@ -64,10 +64,10 @@
                                     <input id="email" class="form-control" name="email" value="{{ request('email') }}">
                                 </div>
                             </div>
-                            <div class="col-sm-1">
+                            <div class="col-sm-2">
                                 <div class="form-group">
                                     <label class="col-form-label">&nbsp;</label><br />
-                                    <button type="submit" class="btn btn-primary">Поиск</button>
+                                    <button type="submit" class="btn btn-primary">{{ __('Поиск') }}</button>
                                     <a href="?" class="btn btn-outline-secondary">{{ __('Очистить') }}</a>
                                 </div>
                             </div>

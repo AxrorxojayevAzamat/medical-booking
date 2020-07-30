@@ -41,7 +41,7 @@ Breadcrumbs::register('doctors.show', function (Crumbs $crumbs, User $doctor) {
 //booking
 Breadcrumbs::register('patient.booking', function (Crumbs $crumbs, User $doctor, Clinic $clinic) {
     $crumbs->parent('home');
-    $crumbs->push('Booking', route('patient.booking',[$doctor, $clinic]));
+    $crumbs->push('Бронирование', route('patient.booking',[$doctor, $clinic]));
 });
 
 //contacts
