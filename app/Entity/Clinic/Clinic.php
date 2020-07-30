@@ -121,9 +121,9 @@ class Clinic extends BaseModel
         return $this->belongsToMany(User::class, 'doctor_clinics', 'clinic_id', 'doctor_id');
     }
     
-    public function adminClinics()
+    public function mainPhoto()
     {
-        return $this->hasMany(DoctorClinic::class, 'clinic_id', 'id');
+        return $this->belongsTo(Photo::class, 'main_photo_id', 'id');
     }
 
     public function admins()
