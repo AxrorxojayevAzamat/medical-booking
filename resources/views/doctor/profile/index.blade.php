@@ -15,6 +15,7 @@
                     <?php $average = number_format($user->profile->rate/($user->profile->num_of_rates?:1), 1, '.', ''); ?>
                     <h2 class="bold">{{ $average }} / 5.0 </h2>
                     <a class="btn btn-primary mr-1 p-2 bd-highlight" style="float: right;" href="{{ route('doctor.profileEdit')}}">{{ trans('menu.edit') }}</a>
+                    <a class="btn btn-primary mr-1 p-2 bd-highlight" style="float: right;" href="{{ route('doctor.editSpecialization')}}">{{ trans('menu.editSpecialization') }}</a>
                 </div>
                 <div class="col-md-12">
                     <div class="row">

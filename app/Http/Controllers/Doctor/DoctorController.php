@@ -90,6 +90,14 @@ class DoctorController extends Controller
         return redirect()->back()->with('success', 'Successfully Edited');
     }
 
+    public function specializations(User $user)
+    {
+        $user = User::find(Auth::user()->id);
+        $specializations = Specialization::orderBy('name_ru')->pluck('name_ru', 'id');
+        $book_num = count(Book::where('doctor_id', $user->id)->get());
+        return view('doctor.specializations', compact('user','specializations','book_num'));
+    }
+
     public function timetable()
     {
         $doctor = User::find(Auth::id());
