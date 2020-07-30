@@ -2,20 +2,22 @@
 
 @section('content')
     <div class="d-flex bd-highlight mb-3">
-        <a class="btn btn-primary mr-1 p-2 bd-highlight" href="{{ route('admin.users.edit',$user)}}">{{ trans('Редактировать') }}</a>
+        @can('manage-users')<a class="btn btn-primary mr-1 p-2 bd-highlight" href="{{ route('admin.users.edit',$user)}}">{{ trans('Редактировать') }}</a>@endcan
         @if($user->isDoctor())
         <a class="btn btn-secondary mr-1 p-2 bd-highlight" href="{{ route('admin.users.user-clinics',$user)}}">{{ trans('Добавить клинику') }}</a>
         <a class="btn btn-info mr-1 p-2 bd-highlight" href="{{ route('admin.users.specializations', $user)}}">{{ trans('Добавить специализацию') }}</a>
         <a class="btn btn-dark mr-1" href="{{ route('admin.users.main-photo', $user)}}">Главное фото</a>
         <a class="btn btn-warning mr-1" href="{{ route('admin.users.photos', $user)}}">Фотографии</a>
         @endif
-        {{-- <a class="btn btn-success mr-1 p-2 bd-highlight" href="{{ route('admin.users.edit',$user)}}">{{ trans('Забронировать') }}</a> --}}
-
+        @can('manage-admin-clinics',$user)
+        <a class="btn btn-secondary mr-1 p-2 bd-highlight" href="{{ route('admin.users.admin-clinics',$user)}}">{{ trans('Добавить админу клиники') }}</a>
+        @endcan
+    @can('manage-users')
             <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}" class="ml-auto mr-1">
                 @csrf
                 @method('DELETE')
                 <button class="btn btn-danger mr-1" onclick="return confirm('{{ 'Вы уверены?' }}')">{{ trans('Удалить') }}</button>
-            </form>
+            </form>@endcan
     </div>
 
 
@@ -73,6 +75,18 @@
                             </tr>
                                 @endif
                             @endif
+                            @if($user->isClinic())
+                            @if(!$user->adminsClinics->isEmpty())
+                            <tr>
+                                <th>{{'Клиники админа'}}</th>
+                                <th>
+                                    @foreach($user->adminsClinics as $admin_clinic)
+                                    <a href='{{ route('admin.clinics.show', $admin_clinic->id) }}'><strong>{{$admin_clinic->name}}</strong></a><br>
+                                    @endforeach
+                                </th>
+                            </tr>
+                                @endif
+                            @endif
                                 {{-- <tr>
                                 <th>
                                         <div class="col-md-3">
@@ -93,7 +107,7 @@
         </div>
     </div>
 
-    @can('manage-doctor')
+    @can('manage-doctor-timetable',$user)
         <div class="card card-secondary card-outline" id="doctor-clinic">
 
                 @foreach($doctor->clinics as $clinic)
