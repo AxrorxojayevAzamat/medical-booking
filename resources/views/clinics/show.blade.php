@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+    @section('css')
+    <link rel="stylesheet" type="text/css" href="/css/gallery.css">
+    <link rel="stylesheet" type="text/css" href="/css/lightbox.gallery.min.css">
+    @endsection
+    
     <div class="container margin_60">
         <div class="row">
             <div class="col-xl-8 col-lg-8">
@@ -170,8 +175,4 @@
 @endsection
 @section('script')
 <script type="text/javascript" src="/js/lightbox-plus-jquery.min.js"></script>
-@endsection
-@section('css')
-<link rel="stylesheet" type="text/css" href="/css/gallery.css">
-<link rel="stylesheet" type="text/css" href="/css/lightbox.gallery.min.css">
 @endsection

@@ -77,10 +77,6 @@
                             <li><a href="{{ route('clinics.show', $clinic) }}">Подробно</a></li>
                         </ul>
                     </div>
-                    <ul>
-                        <li><a href="{{ route('clinics.show', $clinic) }}">{{'clinic_name: '.$clinic->name }}</a></li>
-                        <img src="{{asset($clinic->mainPhoto ? $clinic->mainPhoto->fileThumbnail : '/img/565x565.jpg')}}" width="50" height="50" alt="">
-                    </ul>
                 @endforeach
 
                 <nav aria-label="" class="add_top_20">
