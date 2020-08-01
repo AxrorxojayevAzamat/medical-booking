@@ -462,6 +462,12 @@ a.btn_1:hover,
 .btn_1:hover {
   background: #74d1c6;
 }
+
+a.btn_1:focus,
+.btn_1:focus {
+  outline: none!important;
+}
+
 a.btn_1.outline,
 .btn_1.outline {
   background: transparent;

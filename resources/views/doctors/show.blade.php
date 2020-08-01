@@ -73,10 +73,11 @@
                             <h3>{{$clinic->name_ru }}</h3>
 
                             @include('book.calendar-time')
+                        <input type="checkbox" class="day_checkbox{{$key}}" style="display: none" required>
                         <input type="checkbox" class="time_checkbox{{$key}}" style="display: none" required>
 
                             <hr>
-                            <div class="text-center"><button class="btn_1 medium" type="submit" id="{{$key}}" onclick="checkDay(event)">{{ trans('book.book_now') }}</button></div>
+                            <div class="text-center"><button class="btn_1 medium" type="submit" id="{{$key}}" onclick="checkDay(event, document.getElementsByName('radio_time').value)">{{ trans('book.book_now') }}</button></div>
                         </div>
                     </form>
                     @endforeach
@@ -169,9 +170,6 @@
 
 @endsection
 @section('scripts')
-<script 
-type="text/javascript" src="/js/lightbox-plus-jquery.min.js">
-</script>
 @include('book.calendar-time-js')
 @endsection
 

@@ -225,7 +225,7 @@
             <div class="col-lg-3 col-md-4">
                 <h5>{{trans('footer.contant_with_us')}}</h5>
                 <ul class="contacts">
-                    <li><a href="tel://61280932400"><i class="icon_mobile"></i> + 61 23 8093 3400</a></li>
+                    <li><a href="tel: 4411"><i class="icon_mobile"></i> 4411</a></li>
                     <li><a href="mailto:info@findoctor.com"><i class="icon_mail_alt"></i> help@findoctor.com</a></li>
                 </ul>
                 <div class="follow_us">
@@ -269,6 +269,8 @@
 {{-- <script src="{{asset('js/map_listing.js')}}"></script> --}}
 <script src="{{asset('js/map.js')}}"></script>
 <script src="{{asset('js/infobox.js')}}"></script>
+{{-- <script src="{{asset('js/lightbox-plus-jquery.min.js')}}"></script> --}}
+
 @stack('scripts')
 @yield('scripts')
 
