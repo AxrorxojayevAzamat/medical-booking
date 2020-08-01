@@ -59,13 +59,4 @@
 		</div>
 	</div>
 </div>
-<script src="{{URL::to('vendor/select2/js/select2.full.min.js')}}"></script>
-<script src="{{URL::to('vendor/select2/css/select2.min.css')}}"></script>
-<script src="{{URL::to('vendor/bootstrap-fileinput/js/fileinput.min.js')}}"></script>
-<script src="{{URL::to('assets/vendor/bootstrap-fileinput/js/plugins/piexif.js')}}"></script>
-<link rel="stylesheet" href="{{URL::to('vendor/bootstrap-fileinput/css/fileinput-rtl.css')}}">
-<script src="{{URL::to('vendor/bootstrap-fileinput/js/plugins/sortable.js')}}"></script>
-<script src="{{URL::to('vendor/bootstrap-fileinput/js/plugins/purify.js')}}"></script>
-<script src="{{URL::to('vendor/bootstrap-fileinput/js/locales/ru.js')}}"></script>
-<script src="{{URL::to('vendor/bootstrap-fileinput/themes/fas/theme.js')}}"></script>
 @endsection

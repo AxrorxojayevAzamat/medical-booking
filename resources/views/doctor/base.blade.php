@@ -2,7 +2,7 @@
 <html>
 
     @include('layouts.head')
-
+	
 <body>
     @include('doctor.header')
 
@@ -11,5 +11,5 @@
     @include('doctor.footer')
     
 </body>
-
+	
 </html>
