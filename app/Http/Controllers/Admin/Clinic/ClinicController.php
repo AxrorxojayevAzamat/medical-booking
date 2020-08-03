@@ -50,7 +50,7 @@ class ClinicController extends Controller
 
     public function create()
     {
-        $this->authorize('can:manage-clinics');
+        $this->middleware('can:manage-clinics');
         $regions = Region::all();
         return view('admin.clinics.create', compact('regions'));
     }

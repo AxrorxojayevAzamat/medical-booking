@@ -42,7 +42,7 @@ class UserController extends Controller
 
     public function create()
     {
-        $this->authorize('can:manage-users');
+        $this->middleware('can:manage-users');
         $roles = User::rolesList();
         $statuses = User::statusList();
         return view('admin.users.create', compact('roles', 'statuses'));
