@@ -28,28 +28,6 @@ class CallCenterController extends Controller
         $this->middleware('can:manage-call-center');
     }
 
-    public function findDoctorByRegion(Request $request)
-    {
-        try {
-            return $this->service->findDoctorByRegion($request);
-        } catch (\DomainException $e) {
-            return back()->with('error', $e->getMessage());
-        }
-    }
-
-    public function findDoctorByType(Request $request)
-    {
-        try {
-            $region_id = $request->get('region');
-            $city_id = $request->get('city');
-            $type_id = $request->get('type');
-
-            return $this->service->findClinicByType($type_id, $city_id, $region_id);
-        } catch (\DomainException $e) {
-            return back()->with('error', $e->getMessage());
-        }
-    }
-
     public function index(Request $request)
     {
         $query = User::select(['users.*', 'pr.*'])

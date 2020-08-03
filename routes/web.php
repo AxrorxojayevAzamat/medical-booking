@@ -78,8 +78,6 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         Route::get('/', 'BookController@index')->name('index');
     });
     Route::group(['prefix' => 'call-center', 'namespace' => 'CallCenter','as' => 'call-center.'], function () {
-        Route::get('/findDoctorByRegion', 'CallCenterController@findDoctorByRegion');
-        Route::get('/findDoctorByType', 'CallCenterController@findDoctorByType');
 
         Route::get('/', 'CallCenterController@index')->name('index');
         Route::get('/create-patient', 'CallCenterController@create')->name('create-patient');
