@@ -14,6 +14,8 @@
         </div>
     @endforeach
 @endif
+<h1 align="center">{{trans('menu.photos')}} <a href="{{route('doctor.profileEdit')}}" style="float: right;">{{trans('menu.back')}}</a></h1>
+
 <div class="card" id="photos">
     <div class="card-header border">{{ trans('') }}</div>
     <div class="card-body">
@@ -43,7 +45,7 @@
 <div class="card">
     <div class="card-header border">{{ trans('') }}</div>
     <div class="card-body">
-        <form method="POST" action="{{ route('doctor.add-photo', $profile->user_id) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('doctor.add-photo', Auth::id()) }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <div class="file-loading">

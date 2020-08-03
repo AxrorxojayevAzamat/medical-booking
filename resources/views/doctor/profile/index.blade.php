@@ -30,13 +30,13 @@
                             <img style="width: 400px; margin:15px;" src="{{URL::to($user->profile->mainPhoto->getFileOriginalAttribute())}}" alt="">
                         </div>
                         @endif
-                        @if($user->profile->photos)
+                        {{-- @if($user->profile->photos)
                         @foreach($user->profile->photos as $photo)
                         <div class="col-md-4">        
                             <img style="width: 400px; margin:15px;" src="{{URL::to($photo->getFileOriginalAttribute())}}" alt="">
                         </div>
                         @endforeach
-                        @endif
+                        @endif --}}
                     </div>
                 </div>
 				<table class="table table-striped projects">

@@ -7,10 +7,19 @@ use App\Entity\User\Profile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Entity\Book\Book;
+use App\Services\UserService;
+use App\Entity\User\Photo;
 use Auth;
 
-class ImagesController extends Controller
+class UserImageController extends Controller
 {
+   private $service;
+
+    public function __construct(UserService $service)
+    {
+        $this->service = $service;
+    }
+
     public function mainPhoto(User $user)
     {
         
@@ -28,14 +37,14 @@ class ImagesController extends Controller
     {
         try {
             $this->validate($request, ['photo' => 'required|image|mimes:jpg,jpeg,png']);
-            $this->service->addMainPhoto($user->id, $request->photo);
             if(Auth::user()->isDoctor()){
+                $this->service->addMainPhoto(Auth::id(), $request->photo);
                 return redirect()->route('doctor.profile')->with('success', 'Успешно сохранено!');
             }
-            
+            $this->service->addMainPhoto($user->id, $request->photo);
             return redirect()->route('admin.users.show', $user)->with('success', 'Успешно сохранено!');
         } catch (\Exception $e) {
-            return back()->with('error', $e->getMessage());
+            return back()->with('error', dd($e->getMessage()));
         }
     }
     public function removeMainPhoto(User $user)
@@ -60,7 +69,11 @@ class ImagesController extends Controller
     }
     public function addPhoto(User $user, Request $request)
     {
-        $profile = Profile::findorFail($user->id);
+    	if(Auth::user()->isDoctor()){
+    		$profile = Profile::findorFail(Auth::id());
+    	}
+        else 
+        	$profile = Profile::findorFail($user->id);
         try {
             $this->validate($request, ['photo' => 'required|image|mimes:jpg,jpeg,png']);
             $this->service->addPhoto($profile->user_id, $request->photo);
@@ -73,7 +86,11 @@ class ImagesController extends Controller
 
     public function removePhoto(User $user, Photo $photo)
     {
-        $profile = Profile::findorFail($user->id);
+    	if(Auth::user()->isDoctor()){
+    		$profile = Profile::findorFail(Auth::id());
+    	}
+        else
+        	$profile = Profile::findorFail($user->id);
         try {
             $this->service->removePhoto($profile->user_id, $photo->id);
             return redirect()->route('admin.users.photos', $profile)->with('success', 'Успешно удалено!');
@@ -84,7 +101,11 @@ class ImagesController extends Controller
 
     public function movePhotoUp(User $user, Photo $photo)
     {
-        $profile = Profile::findorFail($user->id);
+    	if(Auth::user()->isDoctor()){
+    		$profile = Profile::findorFail(Auth::id());
+    	}
+        else
+        	$profile = Profile::findorFail($user->id);
         try {
             $this->service->movePhotoUp($profile->user_id, $photo->id);
             return back();
@@ -95,7 +116,11 @@ class ImagesController extends Controller
 
     public function movePhotoDown(User $user, Photo $photo)
     {
-        $profile = Profile::findorFail($user->id);
+    	if(Auth::user()->isDoctor()){
+    		$profile = Profile::findorFail(Auth::id());
+    	}
+        else
+        	$profile = Profile::findorFail($user->id);
         try {
             $this->service->movePhotoDown($profile->user_id, $photo->id);
             return back();
@@ -105,7 +130,11 @@ class ImagesController extends Controller
     }
     public function multiplePhotoDelete($clinic)
     {
-        $photos = $clinic->photos;
+    	if(Auth::user()->isDoctor()){
+    		$profile = Profile::findorFail(Auth::id());
+    	}
+        else
+        	$photos = $clinic->photos;
         try {
             foreach ($photos as $i => $photo) {
                 $this->removePhoto($clinic->id, $photo->id);

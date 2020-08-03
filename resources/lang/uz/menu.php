@@ -5,6 +5,7 @@ return [
     'main_navigation'               => 'MAIN NAVIGATION',
     'blog'                          => 'Blog',
     'book'                          => 'Bron qilish',
+    'back'                          => 'Orqaga',
     'edit'                          => 'O\'zgartirish',
     'my_records'                    => 'Mening qaydlarim',
     'pages'                         => 'Pages',
