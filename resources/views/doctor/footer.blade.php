@@ -40,7 +40,7 @@
 <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('js/jquery.easing.min.js')}}"></script>
 <script src="{{asset('js/Chart.min.js')}}"></script>
-<script src="{{asset('js/jquery.dataTables.js')}}"></script>
+{{-- <script src="{{asset('js/jquery.dataTables.js')}}"></script> --}}
 <script src="{{asset('js/dataTables.bootstrap4.js')}}"></script>
 <script src="{{asset('js/jquery.selectbox-0.2.js')}}"></script>
 <script src="{{asset('js/retina-replace.min.js')}}"></script>
@@ -52,3 +52,23 @@
 
 <script src="{{asset('vendor/select2/js/select2.full.min.js')}}"></script>
 <script src="{{asset('js/doctor-spes.js')}}"></script>
+<script src="{{asset('js/bootstrap-datepicker.js')}}"></script>
+{{-- <script src="{{asset('js/custom.js')}}"></script> --}}
+{{-- <script src="{{asset('js/functions.js')}}"></script> --}}
+<script src="{{asset('vendor/bootstrap-fileinput/js/fileinput.min.js')}}"></script>
+<script src="{{asset('vendor/bootstrap-switch/js/bootstrap-switch.min.js')}}"></script>
+<script src="{{asset('vendor/daterangepicker/daterangepicker.js')}}"></script>
+<script src="{{asset('vendor/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js')}}"></script>
+<script src="{{asset('vendor/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<script src="{{asset('vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')}}"></script>
+
+
+{{-- <script src="{{asset('vendor/bootstrap-fileinput/js/plugins/piexif.js')}}"></script>
+<script src="{{asset('vendor/bootstrap-fileinput/js/plugins/sortable.js')}}"></script>
+<script src="{{asset('vendor/bootstrap-fileinput/js/plugins/purify.js')}}"></script>
+<script src="{{asset('vendor/bootstrap-fileinput/js/locales/ru.js')}}"></script>
+<script src="{{asset('vendor/bootstrap-fileinput/themes/fas/theme.js')}}"></script>
+<script src="{{asset('vendor/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+<script src="{{asset('vendor/inputmask/min/jquery.inputmask.bundle.min.js')}}"></script>
+<script src="{{asset('vendor/moment/moment.min.js')}}"></script>
+<script src="{{asset('vendor/inputmask/min/jquery.inputmask.bundle.min.js')}}"></script> --}}
