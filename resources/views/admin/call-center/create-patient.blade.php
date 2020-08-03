@@ -16,7 +16,7 @@
                     <table class="table table-striped projects">
                         <tbody>
                             <tr><th>{{ trans('Адрес электронной почты') }}</th><td><input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email"></td></tr>
-                            <tr><th>{{ trans('Телефон') }}</th><td><input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" data-inputmask="&quot;mask&quot;: &quot;(999) 99 999-9999&quot;" data-mask="" im-insert="true" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus></td></tr>
+                            <tr><th>{{ trans('Телефон') }}</th><td><input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" data-inputmask="&quot;mask&quot;: &quot;999999999&quot;" data-mask="" im-insert="true" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus></td></tr>
                             <tr><th>{{ trans('Имя, Фамилия, Отчество') }}</th><td>
                                     <div class="row">
                                         <div class="col-3"><input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" required autocomplete="first_name" autofocus placeholder="Имя"></div>
@@ -30,13 +30,6 @@
                                         <option value="0">Женский</option>>
                                         <option value="1">Мужской</option>>
                                     </select></td></tr>
-                            
-                            <tr><th>{{ trans('Описание') }}</th>
-                                <td>
-                                    <div class="form-group">
-                                        <textarea class="form-control" name="description" rows="3"></textarea>
-                                    </div>
-                                </td></tr>
                         </tbody>
                     </table>
 

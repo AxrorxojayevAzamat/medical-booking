@@ -24,38 +24,16 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="name" class="col-form-label">{{ trans('Имя пользователя') }}</label>
-                                    <input id="name" class="form-control" name="name" value="{{ request('name') }}">
-                                    @if ($errors->has('name'))
-                                    <div class="invalid-feedback">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                            <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="name" class="col-form-label">{{ __('Имя,Фамилия') }}</label>
+                                        <input name="name" type="text" class="form-control"  value="{{ request('name') }}" placeholder="Имя,Фамилия">
                                     </div>
-                                    @endif
                                 </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="first_name" class="col-form-label">{{ trans('Имя') }}</label>
-                                    <input id="first_name" class="form-control" name="first_name" value="{{ request('first_name') }}">
-                                    @if ($errors->has('first_name'))
-                                    <div class="invalid-feedback">
-                                        <strong>{{ $errors->first('first_name') }}</strong>
-                                    </div>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="last_name" class="col-form-label">{{ trans('Фамилия') }}</label>
-                                    <input id="last_name" class="form-control" name="last_name" value="{{ request('last_name') }}">
-                                </div>
-                            </div>
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label for="name" class="col-form-label">{{ trans('Телефон') }}</label>
-                                    <input id="phone" type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;(999) 99 999-9999&quot;" data-mask="" im-insert="true" name="phone" value="{{ request('phone') }}">
+                                    <input id="phone" type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;999999999&quot;" data-mask="" im-insert="true" name="phone" value="{{ request('phone') }}">
                                 </div>
                             </div>
                             <div class="col-sm-2">

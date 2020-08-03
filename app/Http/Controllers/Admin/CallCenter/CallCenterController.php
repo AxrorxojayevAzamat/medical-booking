@@ -39,16 +39,11 @@ class CallCenterController extends Controller
             $query->where('id', $value);
         }
 
-        if (!empty($value = $request->get('name'))) {
-            $query->where('users.name', 'ilike', '%' . $value . '%');
-        }
-
-        if (!empty($value = $request->get('first_name'))) {
-            $query->where('pr.first_name', 'ilike', '%' . $value . '%');
-        }
-
-        if (!empty($value = $request->get('last_name'))) {
-            $query->where('pr.last_name', 'ilike', '%' . $value . '%');
+       if (!empty($value = $request->get('name'))) {
+            $query->where(function ($query) use ($value) {
+                $query->where('pr.first_name', 'ilike', '%' . $value . '%')
+                        ->orWhere('pr.last_name', 'ilike', '%' . $value . '%');
+            });
         }
 
         if (!empty($value = $request->get('phone'))) {
