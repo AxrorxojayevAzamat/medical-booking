@@ -1,5 +1,5 @@
 .box{
-    border: 1px rgb(214, 214, 214) solid;
+    border: 1px #e1e8ed solid;
     background-color:white;
     background: cover;
     
@@ -11,8 +11,8 @@
 .gallery img{
     transition: 1s;
     padding: 15px;
-    width: 90px;
-    height: 90px;
+    width: 150px;
+    height: 135px;
 }
 .gallery img:hover{
     filter:grayscale(100%);

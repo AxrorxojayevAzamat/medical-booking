@@ -2706,6 +2706,7 @@ a.wish_bt:hover:after {
   padding: 30px 30px 20px 30px;
   border: 1px solid #e1e8ed;
   border-top: none;
+  margin-bottom: 15px;
 }
 .tabs_styled_2 .tab-pane hr {
   margin: 30px -30px 30px -30px;

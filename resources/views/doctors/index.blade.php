@@ -190,13 +190,12 @@
 
 </div>
 @endsection
-
 @section('scripts')
 <script>
     $('#region_id').select2();
     $('#clinic_id').select2();
     $('#specialization_id').select2({
-    width: "170px" // need to override the changed default
-});
+        width: "170px" 
+    });
 </script>
 @endsection

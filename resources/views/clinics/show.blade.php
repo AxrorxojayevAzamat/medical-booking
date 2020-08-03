@@ -83,14 +83,15 @@
                         </div>
                         
                     </div>
-                    <hr>
                      <div class="box" id="gallery" role="gallery" aria-labelledby="gallery">
                         <div class="gallery">
-                              <a href="/img/Doctor1.jpg" data-lightbox="mygallery"><img src="/img/Doctor1.jpg"></a>
-                              <a href="/img/Doctor2.jpg" data-lightbox="mygallery"><img src="/img/Doctor2.jpg"></a>
-                              <a href="/img/Doctor3.jpg" data-lightbox="mygallery"><img src="/img/Doctor3.jpg"></a>
-                              <a href="/img/Doctor4.jpg" data-lightbox="mygallery"><img src="/img/Doctor4.jpg"></a>
-                              <a href="/img/Doctor5.jpg" data-lightbox="mygallery"><img src="/img/Doctor5.jpg"></a>
+                            <div class="row d-flex justify-content-center">
+                                <a href="/img/Doctor1.jpg" data-lightbox="mygallery"><img src="/img/Doctor1.jpg"></a>
+                                <a href="/img/Doctor2.jpg" data-lightbox="mygallery"><img src="/img/Doctor2.jpg"></a>
+                                <a href="/img/Doctor3.jpg" data-lightbox="mygallery"><img src="/img/Doctor3.jpg"></a>
+                                <a href="/img/Doctor4.jpg" data-lightbox="mygallery"><img src="/img/Doctor4.jpg"></a>
+                                <a href="/img/Doctor5.jpg" data-lightbox="mygallery"><img src="/img/Doctor5.jpg"></a>
+                            </div>
                         </div>
                    </div>
                 </div>
@@ -173,6 +174,15 @@
         </div>
     </div>
 @endsection
-@section('script')
+@section('scripts')
 {{-- <script type="text/javascript" src="/js/lightbox-plus-jquery.min.js"></script> --}}
+{{-- <script src="js/baguetteBox.js" async></script> --}}
+<script type="text/javascript">
+
+    baguetteBox.run('.gallery');
+</script>
+@endsection
+
+@section('css')
+{{-- <link rel="stylesheet" href="css/baguetteBox.css"> --}}
 @endsection

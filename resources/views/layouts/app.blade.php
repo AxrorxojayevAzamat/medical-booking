@@ -30,6 +30,8 @@
     <!-- YOUR CUSTOM CSS -->
     <link href="{{asset('css/date_picker.css')}}" rel="stylesheet">
     <link href="{{asset('css/custom.css')}}" rel="stylesheet">
+    <link href="{{asset('css/baguetteBox.min.css')}}" rel="stylesheet">
+
     @stack('css')
     @yield('css')
 </head>
@@ -269,6 +271,7 @@
 {{-- <script src="{{asset('js/map_listing.js')}}"></script> --}}
 <script src="{{asset('js/map.js')}}"></script>
 <script src="{{asset('js/infobox.js')}}"></script>
+<script src="{{asset('js/baguetteBox.min.js')}}"></script>
 {{-- <script src="{{asset('js/lightbox-plus-jquery.min.js')}}"></script> --}}
 
 @stack('scripts')
