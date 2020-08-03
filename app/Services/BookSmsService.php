@@ -9,7 +9,6 @@ use App\Entity\Clinic\Clinic;
 
 class BookSmsService
 {
-
     private $price;
     private $currency;
 
@@ -30,12 +29,13 @@ class BookSmsService
 
         $state = false;
         $from = "6100";
+        $to = '998' . $patient->phone;
         $url_array = array(
             'username' => 'wifi_auth',
             'password' => 'wifi_farruh',
             'smsc' => 'smsc1',
             'from' => $from,
-            'to' => $patient->phone,
+            'to' => $to,
             'charset' => 'utf-8',
             'coding' => 2,
             'text' => $text
@@ -50,6 +50,7 @@ class BookSmsService
             $output = curl_exec($handle);
             curl_close($handle);
         }
+        
         $res = response()->json([
             'success' => $state,
             'output' => $output,
@@ -65,15 +66,14 @@ class BookSmsService
         $clinic = Clinic::find($clinicId);
 
         Mail::to($patient->email)->send(
-                new BookEmail(
-                        $bookingDate,
-                        $timeStart,
-                        $doctor->profile->fullName,
-                        $clinic->name,
-                        $this->price,
-                        $this->currency
-                )
+            new BookEmail(
+                $bookingDate,
+                $timeStart,
+                $doctor->profile->fullName,
+                $clinic->name,
+                $this->price,
+                $this->currency
+            )
         );
     }
-
 }
