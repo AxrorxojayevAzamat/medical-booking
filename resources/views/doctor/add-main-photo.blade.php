@@ -18,7 +18,7 @@
 
 <div class="card" id="photos">
     <div class="card-body">
-        <form method="POST" action="{{ route('doctor.add-main-photo', $profile->user_id) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('doctor.add-main-photo', Auth::id()) }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <div class="file-loading">

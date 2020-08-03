@@ -86,8 +86,8 @@ class DoctorController extends Controller
 
     public function storeSpecializations(Request $request, User $user)
     {
-        $user->specializations()->sync($request['specializationUser']);
-        return redirect()->back()->with('success', 'Successfully Edited');
+        Auth::user()->specializations()->sync($request['specializationUser']);
+        return redirect()->route('doctor.profile')->with('success', 'Successfully Edited');
     }
 
     public function specializations(User $user)

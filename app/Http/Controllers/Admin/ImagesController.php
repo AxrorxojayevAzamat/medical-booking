@@ -26,9 +26,11 @@ class ImagesController extends Controller
     public function addMainPhoto(User $user, Request $request)
     {
         try {
+
             $this->validate($request, ['photo' => 'required|image|mimes:jpg,jpeg,png']);
             $this->service->addMainPhoto($user->id, $request->photo);
-
+            if(Auth::user()->isDoctor())
+                return redirect()->route('doctor.profile')->with('success', 'Успешно сохранено!');
             return redirect()->route('admin.users.show', $user)->with('success', 'Успешно сохранено!');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
@@ -45,6 +47,12 @@ class ImagesController extends Controller
     }
     public function photos(User $user)
     {
+        if(Auth::user()->isDoctor()){
+            $profile = Profile::findorFail(Auth::id());
+            $book_num = count(Book::where('doctor_id', $user->id)->get());
+            return view('doctor.add-photo', compact('profile','book_num'));
+        }
+
         $profile = Profile::findorFail($user->id);
         return view('admin.users.add-photo', compact('profile'));
     }

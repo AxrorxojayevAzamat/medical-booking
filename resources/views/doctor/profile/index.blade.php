@@ -5,9 +5,15 @@
 
 <div class="content-wrapper">
         <div class="container-fluid" style="margin-top: 60px">
+            @if(Session::has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>{{trans('validation.success')}}</strong>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+            @endif
             <div class="box_general padding_bottom">
-                
-                
                 <div class="header_box version_2">
                     <h2><i class="fa fa-user"></i>{{trans('menu.profile_details')}}</h2>
 
@@ -52,7 +58,11 @@
                             </tr>
                             <tr><th>{{ trans('specialization.type_of_doctor') }}</th><td>
                             @foreach($specializations as $specialization)
-                                <span class="badge badge-secondary">{{$specialization->specialization->name_uz}}</span>
+                                @if(Session::get('locale')=='uz')
+                                    <span class="badge badge-secondary">{{$specialization->specialization->name_uz}}</span>
+                                @else
+                                    <span class="badge badge-secondary">{{$specialization->specialization->name_ru}}</span>
+                                @endif
                             @endforeach
                             </td></tr>
                             <tr><th>{{ trans('contacts.name') }}</th><td>{{ $user->profile->first_name }}</td></tr>
