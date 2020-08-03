@@ -3,16 +3,20 @@
 namespace App\Entity\User;
 
 use App\Entity\Book\Book;
+use App\Entity\Book\Payment\PaycomOrder;
 use App\Entity\Clinic\Clinic;
 use App\Entity\Clinic\DoctorClinic;
+use App\Entity\Clinic\AdminClinic;
 use App\Entity\Clinic\Specialization;
 use App\Entity\Clinic\DoctorSpecialization;
+use App\Helpers\ClickHelper;
 use Carbon\Carbon;
 use Eloquent;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPassword as ResetPasswordNotification;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @property int $id
@@ -30,13 +34,22 @@ use App\Notifications\ResetPassword as ResetPasswordNotification;
  * @property DoctorSpecialization[] $doctorSpecializations
  * @property Specialization[] $specializations
  * @property DoctorClinic[] $doctorClinics
+ * @property AdminClinic[] $adminClinics
  * @property Clinic[] $clinics
+ * @method Builder forUser(User $user)
+ * @method Builder doctor()
+ * @method Builder doctorOrUser()
+ * @property Book[] $userBooks
+ * @property Book[] $doctorBooks
+ * @property int|null $getNumberOfBookings
  *
  * @mixin Eloquent
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
+
+    private $numberOfBookings = 0;
 
     public const STATUS_ACTIVE = 10;
     public const STATUS_INACTIVE = 11;
@@ -59,11 +72,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public static function new($email, $phone, $password, $role): self
     {
         return static::create([
-            'email' => $email,
-            'phone' => $phone,
-            'password' => bcrypt($password),
-            'role' => $role,
-            'status' => self::STATUS_ACTIVE,
+                    'email' => $email,
+                    'phone' => $phone,
+                    'password' => bcrypt($password),
+                    'role' => $role,
+                    'status' => self::STATUS_ACTIVE,
         ]);
     }
 
@@ -159,6 +172,31 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
+    ######################################################################################### Attributes
+
+    public function getNumberOfBookingsAttribute(): ?int
+    {
+        if (!$this->isDoctor()) {
+            return null;
+        }
+
+        if ($this->numberOfBookings) {
+            return $this->numberOfBookings;
+        }
+
+        return $this->numberOfBookings = $this->doctorBooks()
+            ->leftJoin('paycom_orders as po', 'books.id', '=', 'po.book_id')
+            ->leftJoin('click_transactions as ct', 'books.id', '=', 'ct.book_id')
+            ->where(function ($query) {
+                $query->where('po.state', PaycomOrder::STATE_PAY_ACCEPTED)
+                    ->orWhere('ct.status', ClickHelper::CONFIRMED);
+            })
+            ->count();
+    }
+
+    #########################################################################################
+
+
     ######################################################################################### Scopes
 
     public function scopeActive($query)
@@ -171,6 +209,20 @@ class User extends Authenticatable implements MustVerifyEmail
         return $query->where('role', self::ROLE_DOCTOR);
     }
 
+    public function scopeDoctorOrUser($query)
+    {
+        return $query->where('role', self::ROLE_DOCTOR)->orWhere('role', self::ROLE_USER);
+    }
+   
+    public function scopeForUser(Builder $query, User $user)
+    {
+        $adminClinics = AdminClinic::where('admin_id', $user->id)->pluck('clinic_id')->toArray();
+        $adminClinicsDoctors = DoctorClinic::WhereIn('clinic_id', $adminClinics)->pluck('doctor_id')->toArray();
+               
+        return $query->whereIn('id', $adminClinicsDoctors);
+
+    }
+
     #########################################################################################
 
 
@@ -181,9 +233,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Profile::class, 'user_id', 'id');
     }
 
-    public function book()
+    public function userBooks()
     {
-        return $this->hasOne(Book::class, 'user_id', 'id');
+        return $this->hasMany(Book::class, 'user_id', 'id');
+    }
+
+    public function doctorBooks()
+    {
+        return $this->hasMany(Book::class, 'doctor_id', 'id');
     }
 
     public function doctorSpecializations()
@@ -206,5 +263,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Clinic::class, 'doctor_clinics', 'doctor_id', 'clinic_id');
     }
 
-    
+    public function adminClinics()
+    {
+        return $this->hasMany(AdminClinic::class, 'admin_id', 'id');
+    }
+
+    public function adminsClinics()
+    {
+        return $this->belongsToMany(Clinic::class, 'admin_clinics', 'admin_id', 'clinic_id');
+    }
+
 }

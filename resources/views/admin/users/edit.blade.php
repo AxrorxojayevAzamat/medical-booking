@@ -154,7 +154,7 @@
             <button type="submit" class="btn btn-success">{{ trans('Сохранить') }}</button>
         </div>
     </form>
-    @can('manage-doctor')
+    @can('manage-doctor-timetable',$user)
         @foreach($doctor->clinics as $clinic)
             <div class="card card-secondary card-outline" id="doctor-clinic">
                     <div class="card-header">{{ __('Клиника ') }} <a href='{{ route('admin.clinics.show', $clinic) }}'><strong> {{$clinic->name_ru}}</strong></a> 

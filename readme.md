@@ -19,7 +19,7 @@ USERS
 admin #Superadmin
 
     email    :  admin@admin.com
-    password :  12
+    password :  1q2w3e4r5t
 
 user #Simple User
 
@@ -28,12 +28,12 @@ user #Simple User
 
 adminCallCenter #Admin Call Center
 
-    email    :  admin.call@admin.com
+    email    :  center@admin.com
     password :  12
 
 adminClinic #Admin Clinic
 
-    email    :  admin.clinic@admin.com
+    email    :  clinic@admin.com
     password :  12
 
 doctor #Doctor

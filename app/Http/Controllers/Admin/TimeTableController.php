@@ -13,6 +13,7 @@ use App\Http\Requests\TimeRequest;
 use App\Http\Requests\TimeTableRequest;
 use App\Services\TimetableService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class TimeTableController extends Controller
 {
@@ -42,6 +43,7 @@ class TimeTableController extends Controller
 
     public function edit(User $user, Clinic $clinic)
     {
+        $this->checkAccess($user, $clinic);
         $user=$user;
         $clinic = $clinic;
         
@@ -92,5 +94,12 @@ class TimeTableController extends Controller
     {
         $time->delete();
         return redirect()->route('admin.users.show', $time->doctor_id)->with('success', 'Расписание удалено!');
+    }
+    
+    private function checkAccess(User $user, Clinic $clinic): void
+    {
+        if (!Gate::allows('manage-own-doctors-clinics', [$user, $clinic])) {
+            abort(403);
+        }
     }
 }

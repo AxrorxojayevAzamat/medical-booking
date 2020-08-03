@@ -20,17 +20,19 @@ class ImagesController extends Controller
         	$book_num = count(Book::where('doctor_id', $user->id)->get());
         	return view('doctor.add-main-photo', compact('profile','user','book_num'));
         }
+
         $profile = Profile::find($user->id);
         return view('admin.users.add-main-photo', compact('profile'));
     }
     public function addMainPhoto(User $user, Request $request)
     {
         try {
-
             $this->validate($request, ['photo' => 'required|image|mimes:jpg,jpeg,png']);
             $this->service->addMainPhoto($user->id, $request->photo);
-            if(Auth::user()->isDoctor())
+            if(Auth::user()->isDoctor()){
                 return redirect()->route('doctor.profile')->with('success', 'Успешно сохранено!');
+            }
+            
             return redirect()->route('admin.users.show', $user)->with('success', 'Успешно сохранено!');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());

@@ -21,7 +21,7 @@ class CallCenterController extends Controller
     public function __construct(BookService $service)
     {
         $this->service = $service;
-//        $this->middleware('can:manage-adverts');
+        $this->middleware('can:manage-call-center');
     }
 
     public function findDoctorByRegion(Request $request)

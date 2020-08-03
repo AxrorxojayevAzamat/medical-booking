@@ -103,7 +103,37 @@
                 <ul class="navbar-nav ml-auto @if(config('adminlte.layout_topnav') || View::getSection('layout_topnav'))order-1 order-md-3 navbar-no-expand @endif">
                     @yield('content_top_nav_right')
                     @each('partials.admin.menu-item-top-nav-right', $adminlte->menu(), 'item')
+                   
                     @if(Auth::user())
+                    @php($count_today = Illuminate\Support\Facades\DB::table('books')->whereDate('booking_date', '=',Carbon\Carbon::today())->count())
+                    @php($count_today_and_future = Illuminate\Support\Facades\DB::table('books')->whereDate('booking_date', '>=', now())->count())
+                    {{-- @php($count_today_and_week = Illuminate\Support\Facades\DB::table('books')->whereDate('booking_date', '=',Carbon\Carbon::now()->weekOfYear())->count()) --}}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+                          <i class="far fa-bell"></i>
+                          <span class="badge badge-warning navbar-badge">{{$count_today}}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
+                          <span class="dropdown-item dropdown-header"></span>
+                          <div class="dropdown-divider"></div>
+                          <a href="{{route('admin.books.index')}}" class="dropdown-item">
+                            <i class="fas fa-envelope mr-2"></i> Брони за сегодняшний день
+                            <span class="float-right text-muted text-sm">{{$count_today}}</span>    
+                          </a>
+                          <div class="dropdown-divider"></div>
+                          <a href="{{route('admin.books.index')}}" class="dropdown-item">
+                            <i class="fas fa-users mr-2"></i> Активные заявки
+                          <span class="float-right text-muted text-sm">{{$count_today_and_future}}</span>
+                          </a>
+                          {{-- <div class="dropdown-divider"></div>
+                          <a href="#" class="dropdown-item">
+                            <i class="fas fa-file mr-2"></i> За неделю
+                            <span class="float-right text-muted text-sm">{{$count_today_and_week}}</span>
+                          </a>
+                          <div class="dropdown-divider"></div> --}}
+                          {{-- <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> --}}
+                        </div>
+                      </li>
                         @if(config('adminlte.usermenu_enabled'))
                         <li class="nav-item dropdown user-menu">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
@@ -137,7 +167,7 @@
                                 @endif
                                 <li class="user-footer">
                                     @if($profile_url)
-                                    <a href="{{ $profile_url }}" class="btn btn-default btn-flat">Profile</a>
+                                    <a href="{{route('admin.users.show', Auth::user()->id) }}" class="btn btn-default btn-flat">Профиль</a>
                                     @endif
 
                                     <a class="btn btn-default btn-flat float-right @if(!$profile_url)btn-block @endif" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
