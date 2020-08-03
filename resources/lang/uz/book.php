@@ -16,4 +16,6 @@ return [
     'name_of_doctor' => "Shifokor nomi:",
     'booking_cost' => "Buyurtma narxi",
     'book_and_pay' => "Buyurtma va to'lov",
+    'locale' => 'uz',
+
 ];

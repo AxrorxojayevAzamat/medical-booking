@@ -201,6 +201,7 @@
             daysOfWeekDisabled: disabledDays[i],
             weekStart: 1,
             format: "yyyy-mm-dd",
+            language: "{{trans('book.locale')}}",
             startDate: new Date(),
             datesDisabled: disabledDates[i].concat(holidays, daysOff[i]),
         }).on('changeDate', function (e) {
