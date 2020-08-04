@@ -7,8 +7,6 @@ use App\Entity\Region;
 use App\Entity\User\User;
 use App\Helpers\LanguageHelper;
 use Eloquent;
-use Illuminate\Database\Eloquent\Model;
-use App\Entity\Clinic\AdminClinic;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -35,6 +33,8 @@ use Illuminate\Database\Eloquent\Builder;
  * @property Region $region
  * @property DoctorClinic[] $doctorClinics
  * @property User[] $doctors
+ * @property ClinicService[] $clinicServices
+ * @property Service[] $services
  * @property AdminClinic[] $adminClinics
  * @property User[] $admins
  * @property Photo[] $photos
@@ -66,15 +66,20 @@ class Clinic extends BaseModel
     {
         return self::clinicTypeList()[$this->type];
     }
-    
+
+    public function servicesList(): array
+    {
+        return $this->clinicServices()->pluck('service_id')->toArray();
+    }
+
     ######################################################################################### Scopes
 
     public function scopeForUser(Builder $query, User $user)
     {
         $adminClinics = AdminClinic::where('admin_id', $user->id)->pluck('clinic_id')->toArray();
-        
+
         return $query->whereIn('id', $adminClinics);
-        
+
     }
 
     #########################################################################################
@@ -120,7 +125,17 @@ class Clinic extends BaseModel
     {
         return $this->belongsToMany(User::class, 'doctor_clinics', 'clinic_id', 'doctor_id');
     }
-    
+
+    public function clinicServices()
+    {
+        return $this->hasMany(ClinicService::class, 'clinic_id', 'id')->orderBy('sort');
+    }
+
+    public function services()
+    {
+        return $this->belongsToMany(Service::class, 'clinic_services', 'clinic_id', 'service_id');
+    }
+
     public function mainPhoto()
     {
         return $this->belongsTo(Photo::class, 'main_photo_id', 'id');
@@ -150,7 +165,7 @@ class Clinic extends BaseModel
     {
         return $this->belongsTo(User::class, 'updated_by', 'id');
     }
-    
+
 
     ###########################################
 }

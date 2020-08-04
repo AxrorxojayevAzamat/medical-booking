@@ -3,6 +3,7 @@
 use App\Entity\Celebration;
 use App\Entity\Clinic\Clinic;
 use App\Entity\Clinic\Contact;
+use App\Entity\Clinic\Service;
 use App\Entity\News;
 use App\Entity\User\User;
 use App\Entity\Region;
@@ -161,8 +162,8 @@ Breadcrumbs::register('admin.clinics.show', function (Crumbs $crumbs, Clinic $cl
     $crumbs->push($clinic->name_ru, route('admin.clinics.show', $clinic));
 });
 Breadcrumbs::register('admin.clinics.edit', function (Crumbs $crumbs, Clinic $clinic) {
-    $crumbs->parent('admin.clinics.index');
-    $crumbs->push($clinic->name_ru, route('admin.clinics.edit', $clinic));
+    $crumbs->parent('admin.clinics.show', $clinic);
+    $crumbs->push('Редактировать', route('admin.clinics.edit', $clinic));
 });
 
 Breadcrumbs::register('admin.clinics.main-photo', function (Crumbs $crumbs, Clinic $clinic) {
@@ -174,7 +175,28 @@ Breadcrumbs::register('admin.clinics.photos', function (Crumbs $crumbs, Clinic $
     $crumbs->parent('admin.clinics.show', $clinic);
     $crumbs->push(trans('breadcrumbs.add_photo'), route('admin.clinics.photos', $clinic));
 });
-// clinic contacts
+
+// Clinic services
+Breadcrumbs::register('admin.services.index', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push('Сервисы', route('admin.services.index'));
+});
+
+Breadcrumbs::register('admin.services.create', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.services.index');
+    $crumbs->push('Добавить', route('admin.services.create'));
+});
+
+Breadcrumbs::register('admin.services.show', function (Crumbs $crumbs, Service $service) {
+    $crumbs->parent('admin.services.index');
+    $crumbs->push($service->name_ru, route('admin.services.show', $service));
+});
+Breadcrumbs::register('admin.services.edit', function (Crumbs $crumbs, Service $service) {
+    $crumbs->parent('admin.services.show', $service);
+    $crumbs->push('Редактировать', route('admin.services.edit', $service));
+});
+
+// Clinic contacts
 Breadcrumbs::register('admin.clinics.contacts.create', function (Crumbs $crumbs, Clinic $clinic) {
     $crumbs->parent('admin.clinics.show', $clinic);
     $crumbs->push('Добавить контакт', route('admin.clinics.contacts.create', $clinic));
