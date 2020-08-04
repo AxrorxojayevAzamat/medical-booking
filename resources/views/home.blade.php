@@ -91,7 +91,7 @@
             @foreach($bestRatedDoctors as $doctor)
                 <div class="item">
                     <a href="{{ route('doctors.show', $doctor) }}">
-                        <div class="views"><i class="icon-eye-7"></i>{{ $doctor->profile->rate }}</div>
+                        <div class="views"><i class="icon-star-5"></i>{{ $doctor->profile->rate }}</div>
                         <div class="title">
                             <h4>{{ $doctor->profile->fullName }}
                                 <em>

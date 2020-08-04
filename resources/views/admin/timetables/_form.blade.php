@@ -12,15 +12,15 @@
 <div class="container">
     <div class="row">
       <div class="col">
-   
+
         <div class="radio">
             <label>
                 <input type="radio" name="schedule_type" id="schedule_type1" value="1" {{old ('schedule_type', $timetable && $timetable->schedule_type == '1' ? 'checked' : '' )}}>
                 Неделя
             </label>
         </div>
-            
-      
+
+
         <div class="bootstrap-timepicker">
             <div class="form-group">
                 <label>Понедельник</label>
@@ -128,9 +128,9 @@
                         </div>
                     </div>
                 </div>
-               
+
             </div>
-            
+
         </div>
         <div class="bootstrap-timepicker">
             <div class="form-group">
@@ -152,9 +152,9 @@
                         </div>
                     </div>
                 </div>
-               
+
             </div>
-           
+
         </div>
 
         <div class="bootstrap-timepicker">
@@ -180,9 +180,9 @@
             </div>
         </div>
       </div>
-      
-      
-      
+
+
+
        <div class="col">
                 <div class="radio">
                     <label>
@@ -268,7 +268,7 @@
                 </div>
             </div>
             <br><br><br>
-            
+
             <div class="form-group col">
                 <div class="form-group">
                     <label>Отпуск или нерабочие дни начало:</label>
@@ -282,9 +282,9 @@
                 </div>
             </div>
 
-            
-           
+
+
             <input type="submit" value="Отправить"  class="btn btn-primary float-right">
         </div>
     </div>
-    
+</div>
