@@ -20,16 +20,18 @@ use App\Services\BookService;
 use App\Entity\Rate;
 use App\Entity\User\Profile;
 use Hash;
+use App\Services\TimetableService;
 
 
 class DoctorController extends Controller
 {
 
     private $service;
-
-    public function __construct(BookService $service)
+    private $time_service;
+    public function __construct(BookService $service,TimetableService $time_service)
     {
         $this->service = $service;
+        $this->time_service = $time_service;
     }
 
     public function profileShow()
@@ -119,15 +121,16 @@ class DoctorController extends Controller
         return view('doctor.timetable.edit', compact('timetable', 'user', 'clinic','book_num'));
     }
 
-    public function update(TimeTableRequest $request,User $user, Timetable $timetable)
+    public function update(User $user, Timetable $timetable,TimeTableRequest $request)
     {
+        dd($request);
         if($timetable->odd_start){
             $odd_start_check = Book::where(
-                'doctor_id', $user->id)
+                'doctor_id', Auth::id())
         ->where('time_start','<',$request->odd_start)->first();
             
             $odd_finish_check = Book::where(
-                'doctor_id', $user->id)
+                'doctor_id', Auth::id())
         ->where('time_finish','>',$request->odd_end)->first();
             
             if($odd_start_check || $odd_finish_check)
@@ -136,24 +139,26 @@ class DoctorController extends Controller
 
             if($timetable->even_start){
             $even_start_check = Book::where(
-                'doctor_id', $user->id)
+                'doctor_id', Auth::id())
         ->where('time_start','<',$request->even_start)->first();
 
             $even_finish_check = Book::where(
-                'doctor_id', $user->id)
+                'doctor_id', Auth::id())
         ->where('time_finish','>',$request->even_end)->first();
                 
             if($even_start_check || $even_finish_check)
                 return redirect()->back()->with('error', 'true');
             }
-        try {
-            $bookings = Book::where('doctor_id', $doctor_id)->get();
-            
-            $timetable=$this->service->update($timetable->id, $request);
 
-            return redirect()->route('doctor.timetable.index', Auth::user())->with('success', 'Расписание обновлено');
+        try {
+            
+            $bookings = Book::where('doctor_id', Auth::id())->get();
+            
+            $timetable=$this->time_service->update($timetable->id, $request);
+
+            return redirect()->route('doctor.timetable', Auth::user())->with('success', 'Расписание обновлено');
         } catch (\Exception $e) {
-            return back()->with('error', $e->getMessage());
+            return back()->with('error', dd($e->getMessage()));
         }
     }
 
