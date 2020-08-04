@@ -215,6 +215,12 @@ return [
             'can' => ['manage-clinics','admin-clinic-panel','manage-call-center'],
         ],
         [
+            'text' => 'Сеервисы клиник',
+            'icon' => 'fas fa-fw fa-share',
+            'url' => 'admin/services',
+            'can' => ['manage-clinics','admin-clinic-panel','manage-call-center'],
+        ],
+        [
             'text' => 'CallCenter',
             'icon' => 'fas fa-fw fa-headphones',
             'url' => 'admin/call-center',

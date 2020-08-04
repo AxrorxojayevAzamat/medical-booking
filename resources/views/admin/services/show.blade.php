@@ -3,11 +3,13 @@
 @section('content')
     <div class="d-flex flex-row mb-3">
         <a href="{{ route('admin.services.edit', $service) }}" class="btn btn-primary mr-1">Редактировать</a>
-        <form method="POST" action="{{ route('admin.services.destroy', $service) }}" class="mr-1">
-            @csrf
-            @method('DELETE')
-            <button class="btn btn-danger" onclick="return confirm('Вы уверены?')">Удалить</button>
-        </form>
+        @can('admin-panel')
+            <form method="POST" action="{{ route('admin.services.destroy', $service) }}" class="mr-1">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger" onclick="return confirm('Вы уверены?')">Удалить</button>
+            </form>
+        @endcan
     </div>
 
     <div class="row">

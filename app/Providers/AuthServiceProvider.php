@@ -107,9 +107,9 @@ class AuthServiceProvider extends ServiceProvider
 
 
         Gate::define('manage-own-clinics', function (User $auth_user, Clinic $clinic) {
-            $adminClinics = $auth_user->adminClinics()->pluck('clinic_id')->toArray();
+            $isAdminClinic = $auth_user->adminClinics()->where('clinic_id', $clinic->id)->exists();
 
-            return $auth_user->isAdmin() || ($auth_user->isClinic() && in_array($clinic->id, $adminClinics)) || $auth_user->isCallCenter();
+            return $auth_user->isAdmin() || ($auth_user->isClinic() && $isAdminClinic) || $auth_user->isCallCenter();
         });
 
         Gate::define('manage-own-doctors-clinics', function (User $auth_user, User $user, Clinic $clinic) {

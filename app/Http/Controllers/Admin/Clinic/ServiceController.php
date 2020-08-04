@@ -11,6 +11,7 @@ use App\Http\Requests\Admin\Services\CreateRequest;
 use App\Http\Requests\Admin\Services\UpdateRequest;
 use App\Services\Manage\ClinicServicesService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ServiceController extends Controller
 {
@@ -18,7 +19,7 @@ class ServiceController extends Controller
 
     public function __construct(ClinicServicesService $service)
     {
-        $this->middleware('can:manage-services');
+        $this->middleware('can:dashboard-panel');
         $this->service = $service;
     }
 
@@ -78,6 +79,10 @@ class ServiceController extends Controller
 
     public function destroy(Service $service)
     {
+        if (!Gate::allows('admin-panel')) {
+            abort(403);
+        }
+
         $this->service->removeImage($service->id);
         $service->delete();
 
@@ -86,6 +91,10 @@ class ServiceController extends Controller
 
     public function removeImage(Service $service)
     {
+        if (!Gate::allows('admin-panel')) {
+            abort(403);
+        }
+
         if ($this->service->removeImage($service->id)) {
             return response()->json('The image is successfully deleted!');
         }

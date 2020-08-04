@@ -67,6 +67,11 @@ class Clinic extends BaseModel
         return self::clinicTypeList()[$this->type];
     }
 
+    public function servicesList(): array
+    {
+        return $this->clinicServices()->pluck('service_id')->toArray();
+    }
+
     ######################################################################################### Scopes
 
     public function scopeForUser(Builder $query, User $user)

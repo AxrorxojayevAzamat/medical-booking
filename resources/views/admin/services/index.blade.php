@@ -35,7 +35,7 @@
         @foreach ($services as $service)
             <tr>
                 <td><a href="{{ route('admin.services.show', $service) }}">{{ $service->name_ru }}</a></td>
-                <td>{{ $service->iconThumbnail() }}</td>
+                <td><a href="{{ $service->iconOriginal }}" target="_blank"><img src="{{ $service->iconThumbnail }}"></a></td>
             </tr>
         @endforeach
 

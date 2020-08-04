@@ -213,12 +213,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $query->where('role', self::ROLE_DOCTOR)->orWhere('role', self::ROLE_USER);
     }
-   
+
     public function scopeForUser(Builder $query, User $user)
     {
         $adminClinics = AdminClinic::where('admin_id', $user->id)->pluck('clinic_id')->toArray();
         $adminClinicsDoctors = DoctorClinic::WhereIn('clinic_id', $adminClinics)->pluck('doctor_id')->toArray();
-               
+
         return $query->whereIn('id', $adminClinicsDoctors);
 
     }
