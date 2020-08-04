@@ -38,6 +38,7 @@
                                 <input class="form-control" name="booking_date" type="date" value="{{ request('booking_date') }}">
                             </div>
                         </div>
+                       
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label for="name" class="col-form-label">{{ trans('Время бронирования') }}</label>
@@ -78,6 +79,8 @@
                             <th>{{ trans('Телефон пациента') }}</th>
                             <th>{{ trans('Полное имя доктора') }}</th>
                             <th>{{ trans('Название клиники') }}</th>
+                            <th>{{ trans('Статус заказа') }}</th>
+                            <th>{{ trans('Подробнее о заказе') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -120,7 +123,7 @@ $(function () {
         "paging": false,
         "lengthChange": false,
         "searching": false,
-        "ordering": true,
+        "ordering": false,
         "info": false,
         "autoWidth": false,
         "responsive": true,
