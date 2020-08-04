@@ -32,13 +32,19 @@
             <div class="container">
                 <ul class="clearfix row d-flex justify-content-center">
                     <li class="first">
-                    </li>
-                    <li>
                         <h6>Поиск по регионам...</h6>
                         <select id="region_id" name="region">
                             <option value=""></option>
                             @foreach ($regions as $value => $label)
                                 <option value="{{ $value }}"{{ $value == request('region') ? ' selected' : '' }}>{{ $label }}</option>
+                            @endforeach
+                        </select>
+                    </li>
+                    <li><h6>Поиск по сервисам...</h6>
+                        <select id="service_id" name="service">
+                            <option value=""></option>
+                            @foreach ($services as $value => $label)
+                                <option value="{{ $value }}"{{ $value == request('service') ? ' selected' : '' }}>{{ $label }}</option>
                             @endforeach
                         </select>
                     </li>
@@ -97,6 +103,7 @@
 @section('scripts')
     <script>
         $('#region_id').select2();
+        $('#service_id').select2();
     </script>
 @endsection
 @section('css')

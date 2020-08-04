@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Clinic;
 
+use App\Entity\Clinic\Service;
 use App\Entity\Region;
 use App\Entity\Clinic\Photo;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ClinicRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Entity\Clinic\AdminClinic;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 
 class ClinicController extends Controller
@@ -50,29 +52,20 @@ class ClinicController extends Controller
 
     public function create()
     {
-        $this->authorize('can:manage-clinics');
+        $this->authorize('manage-clinics');
         $regions = Region::all();
-        return view('admin.clinics.create', compact('regions'));
+        $services = Service::orderByDesc('name_ru')->pluck('name_ru', 'id')->toArray();
+
+        return view('admin.clinics.create', compact('regions', 'services'));
     }
 
     public function store(ClinicRequest $request)
     {
+        DB::beginTransaction();
         try {
-            $clinics = Clinic::create([
-                        'name_uz' => $request->name_uz,
-                        'name_ru' => $request->name_ru,
-                        'region_id' => $request->region_id,
-                        'type' => $request->clinic_type,
-                        'description_uz' => $request->description_uz,
-                        'description_ru' => $request->description_ru,
-                        'phone_numbers' => $request->phone_numbers,
-                        'address_uz' => $request->adress_uz,
-                        'address_ru' => $request->adress_ru,
-                        'work_time_start' => $request->work_time_start,
-                        'work_time_end' => $request->work_time_end,
-                        'location' => $request->location,
-            ]);
-            return redirect()->route('admin.clinics.index', $clinics);
+            $clinic = $this->service->create($request);
+
+            return redirect()->route('admin.clinics.index', $clinic);
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
@@ -88,9 +81,10 @@ class ClinicController extends Controller
     public function edit(Clinic $clinic)
     {
         $this->checkAccess($clinic);
-        $clinic = Clinic::find($clinic->id);
         $regions = Region::all();
-        return view('admin.clinics.edit', compact('clinic', 'regions'));
+        $services = Service::orderByDesc('name_ru')->pluck('name_ru', 'id')->toArray();
+
+        return view('admin.clinics.edit', compact('clinic', 'regions', 'services'));
     }
 
     public function update(ClinicRequest $request, $id)
@@ -106,7 +100,6 @@ class ClinicController extends Controller
     public function destroy(Clinic $clinic)
     {
         $this->checkAccess($clinic);
-        $clinic = Clinic::find($clinic->id);
 
         $photos = $this->service->deleteAllPhotos($clinic);
         if ($photos == true) {
@@ -204,5 +197,4 @@ class ClinicController extends Controller
             abort(403);
         }
     }
-
 }

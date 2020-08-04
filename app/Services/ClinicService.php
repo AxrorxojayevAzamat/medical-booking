@@ -13,31 +13,37 @@ class ClinicService
 {
     public function create(ClinicRequest $request)
     {
+        DB::beginTransaction();
         try {
-            $clinic = Clinic::make([
+            $clinic = Clinic::create([
+                'name_uz' => $request->name_uz,
+                'name_ru' => $request->name_ru,
+                'region_id' => $request->region_id,
+                'type' => $request->clinic_type,
+                'description_uz' => $request->description_uz,
+                'description_ru' => $request->description_ru,
+                'phone_numbers' => $request->phone_numbers,
+                'address_uz' => $request->address_uz,
+                'address_ru' => $request->address_ru,
+                'work_time_start' => $request->work_time_start,
+                'work_time_end' => $request->work_time_end,
+                'location' => $request->location,
+            ]);
 
-            'name_uz' => $request->name_uz,
-            'name_ru' => $request->name_ru,
-            'region_id' => $request->region_id,
-            'type' => $request->type,
-            'description_uz' => $request->description_uz,
-            'description_ru' => $request->description_ru,
-            'address_uz' => $request->adress_uz,
-            'address_ru' => $request->adress_ru,
-            'work_time_start' => $request->work_time_start,
-            'work_time_end' => $request->work_time_end,
-            'location' => $request->location,
-        
-        ]);
-            $clinic->save();
+            $this->addServices($clinic, $request->services);
+
+            DB::commit();
             return $clinic;
         } catch (\Exception $e) {
-            return back()->with('error', $e->getMessage());
+            DB::rollBack();
+            throw $e;
         }
     }
     public function update($id, ClinicRequest $request)
     {
         $clinic = Clinic::find($id);
+
+        DB::beginTransaction();
         try {
             $clinic->update([
                 'name_uz' => $request->name_uz,
@@ -53,18 +59,24 @@ class ClinicService
                 'work_time_end' => $request->work_time_end,
                 'location' => $request->location,
             ]);
-            $clinic->save();
+
+            $clinic->clinicServices()->delete();
+            $this->addServices($clinic, $request->services);
+
+            DB::commit();
+
             return $clinic;
         } catch (\Exception $e) {
-            return back()->with('error', $e->getMessage());
+            DB::rollBack();
+            throw $e;
         }
     }
-    
+
     public function addMainPhoto(int $id, UploadedFile $image)
     {
         $this->addPhoto($id, $image, true);
     }
-    
+
     public function addPhoto(int $id, UploadedFile $image, bool $main = false): void
     {
         $clinic = Clinic::findOrFail($id);
@@ -106,7 +118,7 @@ class ClinicService
             $clinic->update(['main_photo_id' => null]);
             $clinic->mainPhoto->delete();
             $this->sortPhotos($clinic);
-            
+
             DB::commit();
 
             return true;
@@ -140,7 +152,7 @@ class ClinicService
             throw $e;
         }
     }
-    
+
     public function deleteAllPhotos($clinic)
     {
         $clinic = Clinic::findOrFail($clinic->id);
@@ -156,6 +168,14 @@ class ClinicService
         }
     }
 
+
+    private function addServices(Clinic $clinic, array $services)
+    {
+        $services = array_unique($services);
+        foreach ($services as $i => $serviceId) {
+            $clinic->clinicServices()->create(['service_id' => $serviceId]);
+        }
+    }
 
     private function deletePhotos(int $clinicId, string $filename)
     {
@@ -174,7 +194,7 @@ class ClinicService
             $photo->saveOrFail();
         }
     }
-   
+
     public function movePhotoUp(int $id, int $photoId): void
     {
         $clinic = Clinic::findOrFail($id);

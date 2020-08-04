@@ -42,7 +42,7 @@ class UserController extends Controller
 
     public function create()
     {
-        $this->authorize('can:manage-users');
+        $this->authorize('manage-users');
         $roles = User::rolesList();
         $statuses = User::statusList();
         return view('admin.users.create', compact('roles', 'statuses'));
@@ -251,7 +251,7 @@ class UserController extends Controller
     {
 //        if (!Gate::allows('manage-own-doctors', $user)) {
 //            abort(403);
-//        } else 
+//        } else
             if (!Gate::allows('manage-doctors', $user)) {
             abort(403);
         }
