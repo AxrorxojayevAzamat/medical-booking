@@ -61,7 +61,7 @@ function countDownPayme(secs, elem){
 
 }
 function errorPayme(err_container, err) {
-    $(err_container).html('<p class="error-message">'+err+'</p>');
+    $(err_container).html('<p class="error-message" style="text-align: center">'+err+'</p>');
 }
 
 $('.payme-choose').submit(function(e) {
@@ -209,7 +209,6 @@ $(".confirm-payme").click(function(e) {
                                                     console.log("Finish: ");
                                                     console.log(data);
                                                     $(".success").css("display","block");
-                                                    // document.getElementsByClassName("success").innerHTML = "<h2>" + data.data.book_id + "</h2>";
                                                     $(".success").html("<h2> Your queue number: " + data.data.book_id + "</h2>");
 
                                                 },

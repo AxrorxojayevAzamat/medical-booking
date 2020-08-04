@@ -12,13 +12,12 @@
                     </div>
                     <div class="col-md-3">
                         <ul class="row">
-                            <li style="margin: auto 10px auto 30px;">
-                                <input type="radio" id="doctor" name="radio_search" value="doctor" checked>
-                                <label for="doctor">Doctor</label>
+                            <li class="{{ Request::is('doctors*') ? 'active' : '' }}" style="margin: auto 10px auto 30px;">
+                                <a href="{{ route('doctors.index') }}">{{ trans('menu.doctors') }}</a>
                             </li>
-                            <li style="margin: auto 10px;">
-                                <input type="radio" id="clinic" name="radio_search" value="clinic">
-                                <label for="clinic">Clinic</label>
+                            <li class="{{ Request::is('clinics*') ? 'active' : '' }}" style="margin: auto 10px;">
+                                <a href="{{ route('clinics.index') }}">{{ trans('menu.clinics') }}</a>
+
                             </li>
                         </ul>
                     </div>
@@ -44,73 +43,65 @@
                                 <a href="list-map.html"><i class="icon-map-1"></i></a>
                             </div>
                         </li> --}}
-                        <li>
+                        {{-- <li>
                             <h6>Поиск по имени...</h6>
                             <div class="form-group">
                                 <input class="form-control" name="full_name" type="search" placeholder="ФИО" aria-label="Search" value="{{ request('full_name') }}">
                             </div>
-                        </li>
-                        <li style="margin-right: 10px">
-                            <h6>Поиск по клиником...</h6>
+                        </li> --}}
+                        <li>
+                        <h6>{{trans('filter.search_clinics')}}</h6>
                             <div class="form-group">
-                                <select id="clinic_id" name="clinic">
-                                    <option value=""></option>
-                                    @foreach ($clinics as $value => $label)
+                            <select id="clinic_id" name="clinic">
+                                <option value=""></option>
+                                @foreach ($clinics as $value => $label)
                                     <option value="{{ $value }}"{{ $value == request('clinic') ? ' selected' : '' }}>{{ $label }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </li >
-                        <li>
-                            <h6>Поиск по регионам...</h6>
-                            <select id="region_id" name="region">
-                                <option value=""></option>
-                                @foreach ($regions as $value => $label)
+                    <li style="margin-right: 10px">
+                        <h6>{{trans('filter.search_regions')}}</h6>
+                        <select id="region_id" name="region">
+                            <option value=""></option>
+                            @foreach ($regions as $value => $label)
                                 <option value="{{ $value }}"{{ $value == request('region') ? ' selected' : '' }}>{{ $label }}</option>
-                                @endforeach
-                            </select>
-                        </li>
-                        <li>
-                            <h6>Пол</h6>
-                            <select name="gender" class="selectbox">
-                                <option value=""></option>
-                                <option value="{{ \App\Entity\User\Profile::MALE }}"{{ \App\Entity\User\Profile::MALE == request('gender') ? ' selected' : '' }}>Мужчина</option>
-                                <option value="{{ \App\Entity\User\Profile::FEMALE }}"{{ \App\Entity\User\Profile::FEMALE == request('gender') ? ' selected' : '' }}>Женщина</option>
-                            </select>
-                        </li>
-                        <li>
-                            <h6>Поиск по специализациям...</h6>
-                            <select id="specialization_id" name="specialization">
-                                <option value=""></option>
-                                @foreach ($specializations as $value => $label)
+                            @endforeach
+                        </select>
+                    </li>
+                    <li>
+                        <h6>{{trans('filter.sex')}}</h6>
+                        <select name="gender" class="selectbox">
+                            <option value=""></option>
+                            <option value="{{ \App\Entity\User\Profile::MALE }}"{{ \App\Entity\User\Profile::MALE == request('gender') ? ' selected' : '' }}>{{ trans('filter.male') }}</option>
+                            <option value="{{ \App\Entity\User\Profile::FEMALE }}"{{ \App\Entity\User\Profile::FEMALE == request('gender') ? ' selected' : '' }}>{{ trans('filter.female') }}</option>
+                        </select>
+                    </li>
+                    <li>
+                        <h6>{{trans('filter.search_specializations')}}</h6>
+                        <select id="specialization_id" name="specialization">
+                            <option value=""></option>
+                            @foreach ($specializations as $value => $label)
                                 <option value="{{ $value }}"{{ $value == request('specialization') ? ' selected' : '' }}>{{ $label }}</option>
-                                @endforeach
-                            </select>
-                        </li>
-                        <li>
-                            <h6>Сортировка по</h6>
-                            <select name="order_by" class="selectbox" multiple>
-                                <option value=""></option>
-                                <option value="alphabet"{{ 'alphabet' == request('order_by') ? ' selected' : '' }}>Алфавиту</option>
-                                <option value="best_rated"{{ 'best_rated' == request('order_by') ? ' selected' : '' }}>Рейтингу</option>
-                            </select>
-                        </li>
-                        <li>
-                            <div class="form-group" style="margin: auto 0;">
-                                <button type="submit" class="btn btn-primary btn-search">Искать</button>
-                                <a href="?" class="btn btn-outline-secondary btn-clear">Очистить</a>
-                            </div>
-                        </li>
-                        {{-- <li style="margin: auto 10px auto 30px;">
-                            <input type="radio" id="doctor" name="radio_search" value="doctor" checked>
-                            <label for="doctor">Doctor</label>
-                          </li>
-                          <li style="margin: auto 10px;">
-                            <input type="radio" id="clinic" name="radio_search" value="clinic">
-                            <label for="clinic">Clinic</label>
-                          </li> --}}
-                    </ul>
-                </form>
+                            @endforeach
+                        </select>
+                    </li>
+                    <li>
+                        <h6>{{trans('filter.filter_by')}}</h6>
+                        <select name="order_by" class="selectbox" multiple>
+                            <option value=""></option>
+                            <option value="alphabet"{{ 'alphabet' == request('order_by') ? ' selected' : '' }}>{{trans('filter.alphabet')}}</option>
+                            <option value="best_rated"{{ 'best_rated' == request('order_by') ? ' selected' : '' }}>{{trans('filter.rating')}}</option>
+                        </select>
+                    </li>
+                    <li>
+                        <div class="form-group" style="margin: auto 0;">
+                            {{-- <button type="submit" class="btn btn-primary btn-search">Искать</button> --}}
+                            <a href="?" class="btn btn-outline-secondary btn-clear">{{trans('filter.clear')}}</a>
+                        </div>
+                    </li>
+                </ul>
+            </form>
             </div>
         </div>
 
@@ -179,7 +170,7 @@
                            #map { height: 550px; width: 599px; }
                        </style>
                       </head>
-                 <body>
+                 {{-- <body> --}}
                        <div id="map"></div>
                        
                     <script>
@@ -190,7 +181,7 @@
                 L.marker([{"doctorId":53,"locations":["41.2704736,69.2134647","41.3191884,69.2382324"]},{"doctorId":42,"locations":["41.2704736,69.2134647"]},{"doctorId":39,"locations":["41.3191884,69.2382324","41.2704736,69.2134647","41.2704736,69.2134647"]},{"doctorId":4,"locations":["41.2981861,69.2120876"]},{"doctorId":44,"locations":["41.3191884,69.2382324","41.2704736,69.2134647"]}])
 
                     </script>
-                </body> 
+                {{-- </body>  --}}
                     </div>
                 </aside> 
             </div>
@@ -199,11 +190,12 @@
 
 </div>
 @endsection
-
 @section('scripts')
 <script>
     $('#region_id').select2();
     $('#clinic_id').select2();
-    $('#specialization_id').select2();
+    $('#specialization_id').select2({
+        width: "170px" 
+    });
 </script>
 @endsection

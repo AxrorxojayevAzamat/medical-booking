@@ -319,6 +319,11 @@ return [
                     'asset' => true,
                     'location' => '/vendor/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js',
                 ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/vendor/bootstrap/js/bootstrap.bundle.js',
+                ],
             ],
         ],
         [

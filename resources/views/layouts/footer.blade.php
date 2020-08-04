@@ -78,6 +78,8 @@
 {{-- <script src="{{asset('js/map_listing.js')}}"></script> --}}
 <script src="{{asset('js/map.js')}}"></script>
 <script src="{{asset('js/infobox.js')}}"></script>
+<script src="{{asset('js/lightbox-plus-jquery.min.js')}}"></script>
+
 @stack('scripts')
 @yield('scripts')
 

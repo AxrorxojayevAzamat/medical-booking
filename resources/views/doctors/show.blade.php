@@ -64,7 +64,7 @@
                 <div class="col-xl-9 col-lg-8">
                     @foreach($clinics as $key => $clinic)
 
-                    <form method="GET" action="{{ route('patient.booking', [$user, $clinic]) }}" >
+                    <form method="GET" action="{{ route('doctors.book', ['doctor' => $user, 'clinic' => $clinic]) }}" >
                         <div class="box_general_2 add_bottom_45">
                             <div class="main_title_4">
                                 <h3><i class="icon_circle-slelected"></i>{{ trans('book.book_calendar') }}</h3>
@@ -73,10 +73,11 @@
                             <h3>{{$clinic->name_ru }}</h3>
 
                             @include('book.calendar-time')
+                        <input type="checkbox" class="day_checkbox{{$key}}" style="display: none" required>
                         <input type="checkbox" class="time_checkbox{{$key}}" style="display: none" required>
 
                             <hr>
-                            <div class="text-center"><button class="btn_1 medium" type="submit" id="{{$key}}" onclick="checkDay(event)">{{ trans('book.book_now') }}</button></div>
+                            <div class="text-center"><button class="btn_1 medium" type="submit" id="{{$key}}" onclick="checkDay(event, document.getElementsByName('radio_time').value)">{{ trans('book.book_now') }}</button></div>
                         </div>
                     </form>
                     @endforeach
@@ -148,16 +149,17 @@
                                         </div>
                                     </div>
                                 </div>
-                              </div>
+                            </div>
                         </div>
-                            <hr>            
                         <div class="box" id="gallery" role="gallery" aria-labelledby="gallery">
                         <div class="gallery">
-                              <a href="/img/Doctor1.jpg" data-lightbox="mygallery"><img src="/img/Doctor1.jpg"></a>
-                              <a href="/img/Doctor2.jpg" data-lightbox="mygallery"><img src="/img/Doctor2.jpg"></a>
-                              <a href="/img/Doctor3.jpg" data-lightbox="mygallery"><img src="/img/Doctor3.jpg"></a>
-                              <a href="/img/Doctor4.jpg" data-lightbox="mygallery"><img src="/img/Doctor4.jpg"></a>
-                              <a href="/img/Doctor5.jpg" data-lightbox="mygallery"><img src="/img/Doctor5.jpg"></a>
+                            <div class="row d-flex justify-content-center">
+                                <a href="/img/Doctor1.jpg" data-lightbox="mygallery"><img src="/img/Doctor1.jpg"></a>
+                                <a href="/img/Doctor2.jpg" data-lightbox="mygallery"><img src="/img/Doctor2.jpg"></a>
+                                <a href="/img/Doctor3.jpg" data-lightbox="mygallery"><img src="/img/Doctor3.jpg"></a>
+                                <a href="/img/Doctor4.jpg" data-lightbox="mygallery"><img src="/img/Doctor4.jpg"></a>
+                                <a href="/img/Doctor5.jpg" data-lightbox="mygallery"><img src="/img/Doctor5.jpg"></a>
+                              </div>
                         </div>
                    </div>
                     </div>
@@ -169,9 +171,10 @@
 
 @endsection
 @section('scripts')
-<script 
-type="text/javascript" src="/js/lightbox-plus-jquery.min.js">
-</script>
 @include('book.calendar-time-js')
+<script>
+    baguetteBox.run('.gallery');
+
+</script>
 @endsection
 

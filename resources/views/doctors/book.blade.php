@@ -8,6 +8,8 @@
             <div class="row">
                 <div class="col-xl-8 col-lg-8">
                     <div class="box_general_3 cart">
+                        <div class="message">
+                        </div>
                         <div class="form_title">
                             <h3><strong>1</strong>{{ trans('book.your_data') }}</h3>
                         </div>
@@ -84,7 +86,7 @@
                                 <ul>
                                     <li>{{ trans('book.booking_date') }} <strong class="float-right">{{$calendar}}</strong></li>
                                     <li>{{ trans('book.booking_time') }} <strong class="float-right">{{$radioTime}}</strong></li>
-                                    <li>{{ trans('book.name_of_doctor') }} <strong class="float-right">{{$user->profile ? $user->profile->fullName : ''}}</strong></li>
+                                    <li>{{ trans('book.name_of_doctor') }} <strong class="float-right">{{$doctor->profile ? $doctor->profile->fullName : ''}}</strong></li>
                                 </ul>
                             </div>
                             <ul class="treatments checkout clearfix">

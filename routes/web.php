@@ -138,8 +138,8 @@ Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient
 });
 
 Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 'middleware' => ['auth', 'can:doctor-panel']], function () {
-    Route::get('/profile', 'DoctorController@profileShow')->name('profile');
-    Route::get('/{doctor_id}/bookings', 'DoctorController@books')->name('doctorbookings');
+    Route::get('profile', 'DoctorController@profileShow')->name('profile');
+    Route::get('{doctor_id}/bookings', 'DoctorController@books')->name('doctorbookings');
 });
 
 Route::group(['prefix' => 'contacts', 'as' => 'contacts.'], function () {
@@ -149,10 +149,12 @@ Route::group(['prefix' => 'contacts', 'as' => 'contacts.'], function () {
 });
 
 Route::group(['prefix' => 'doctors', 'as' => 'doctors.'], function () {
-    Route::get('/', 'Doctor\DoctorController@index')->name('index');
-    Route::get('/{user}', 'Doctor\DoctorController@show')->name('show');
-    Route::get('/{doctor_id}/rate/{rate}', 'RateController@rate')->name('rate');
-    Route::get('/{doctor_id}/ratecancel', 'RateController@rateCancel')->name('rateCancel');
+    Route::get('', 'Doctor\DoctorController@index')->name('index');
+    Route::get('{user}', 'Doctor\DoctorController@show')->name('show');
+    Route::get('{doctor_id}/rate/{rate}', 'RateController@rate')->name('rate');
+    Route::get('{doctor_id}/ratecancel', 'RateController@rateCancel')->name('rateCancel');
+    Route::get('{doctor}/clinics/{clinic}/book', 'Doctor\DoctorController@book')->name('book');
+
 });
 Route::get('/specializations', 'SpecializationsController@index')->name('specializations');
 
