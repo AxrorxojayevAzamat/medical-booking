@@ -19,4 +19,5 @@ return [
     'doctors'                       => 'Докторы',
     'clinics'                       => 'Клиники',
     'language'                      => 'Язык',
+    'service'                       => 'Сервисы',
 ];

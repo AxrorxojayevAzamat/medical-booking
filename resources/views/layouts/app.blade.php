@@ -136,12 +136,12 @@
                         <li class="submenu">
                             @php($name = 'name_' . \App\Helpers\LanguageHelper::getCurrentLanguagePrefix())
                             @php($serviceIds = \App\Entity\Clinic\Service::orderBy($name)->limit(10)->pluck($name, 'id'))
-                            <a href="#" class="show-submenu">Сервисы<i class="icon-down-open-mini"></i></a>
+                        <a href="#" class="show-submenu">{{trans('menu.service')}}<i class="icon-down-open-mini"></i></a>
                             <ul>
                                 @foreach($serviceIds as $value => $label)
                                     <li><a href="{{ route('clinics.index') . '?service=' .  $value }}">{{ $label }}</a></li>
                                 @endforeach
-                                <li><a href="{{ route('clinics.index') }}">Больше</a></li>
+                                <li><a href="{{ route('clinics.index') }}">{{trans('home.more')}}</a></li>
                             </ul>
                         </li>
                         <li>

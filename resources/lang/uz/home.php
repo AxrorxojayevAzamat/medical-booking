@@ -11,5 +11,5 @@ return [
     'view_profile' => "Profilni ko'rish",
     'book_visit' => 'Tashrif buyurish',
     'name_name' => 'Nom, Ism ....',
-
+    'search_by_route' => "Yo'nalish bo'yicha izlash",
 ];
