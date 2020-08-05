@@ -26,6 +26,10 @@
                     <li><a href="#0">Specialization</a></li>
                     <li><a href="#0">Join as a Doctor</a></li>
                     <li><a href="#0">Download App</a></li>
+                    @foreach(Session::get('pages') as $page)
+
+                        <li><a href="page/{{$page->slug}}">{{$page->slug}}</a></li>
+                    @endforeach
                 </ul>
             </div>
             <div class="col-lg-3 col-md-4">

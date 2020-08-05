@@ -7,6 +7,7 @@ return [
     'book'                          => 'Bron qilish',
     'back'                          => 'Orqaga',
     'edit'                          => 'O\'zgartirish',
+    'delete'                        => 'Profileni o\'chirish',
     'my_records'                    => 'Mening qaydlarim',
     'pages'                         => 'Pages',
     'account_settings'              => 'ACCOUNT SETTINGS',

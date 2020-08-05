@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Entity\Clinic\Specialization;
 use App\Entity\Region;
 use App\Entity\User\User;
+use App\Entity\Pages;
 use App\Helpers\LanguageHelper;
+use Session;
 
 class HomeController extends Controller
 {
@@ -27,6 +29,9 @@ class HomeController extends Controller
             ->limit(9)->get();
 
         $specializations = Specialization::orderBy('name_' . LanguageHelper::getCurrentLanguagePrefix())->limit(9)->get();
+
+        $pages = Pages::all();
+        Session::put('pages', $pages);
 
         return view('home', compact('bestRatedDoctors', 'regions', 'specializations'));
     }

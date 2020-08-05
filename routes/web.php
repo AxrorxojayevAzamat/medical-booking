@@ -99,6 +99,19 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::group(['prefix' => 'news/{news}', 'as' => 'news.'], function () {
         Route::post('delete-image', 'NewsController@removeImage')->name('delete-image');
     });
+    Route::group(['prefix' => 'pages', 'as' => 'pages.'], function () {
+        Route::get('','PagesController@index')->name('pages');
+        Route::get('/create','PagesController@create')->name('create');
+        Route::post('/create','PagesController@store')->name('store');
+        Route::get('/view/{id?}','PagesController@view')->name('view');
+        Route::get('/edit/{id?}','PagesController@edit')->name('edit');
+        Route::post('/edit','PagesController@editSave')->name('editSave');
+    });
+});
+
+Route::group([ 'namespace' => 'Admin'], function ()
+{
+    Route::get('page/{slug?}','PagesController@slug')->name('slug');
 });
 
 Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
@@ -119,6 +132,8 @@ Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient
     Route::get('/booking/{user}/{clinic}', 'PatientController@booking')->name('booking');
     Route::post('/booking-doctor/', 'PatientController@bookingDoctor')->name('booking-doctor');
     Route::get('/{user_id}/bookings', 'PatientController@myBookings')->name('mybookings');
+    Route::post('destroy','PatientController@destroy')->name('destroy');
+
 });
 
 Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 'middleware' => ['auth', 'can:doctor-panel']], function () {

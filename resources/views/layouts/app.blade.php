@@ -151,6 +151,15 @@
                     <li><a href="{{ route('clinics.index') }}">Клиники</a></li>
                     <li><a href="#0">Специализации</a></li>
                     <li><a href="#0">Присоедиться как Доктор</a></li>
+                    @foreach(Session::get('pages') as $page)
+                        <li><a href="page/{{$page->slug}}">
+                        @if(Session::get('locale')=='uz')
+                            {{$page->title_uz}}</a></li>
+                        @else
+                            {{$page->title_ru}}</a></li>
+                        @endif
+                    @endforeach
+
                 </ul>
             </div>
             <div class="col-lg-3 col-md-4">

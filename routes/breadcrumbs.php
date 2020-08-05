@@ -27,6 +27,11 @@ Breadcrumbs::register('clinics.show', function (Crumbs $crumbs, Clinic $clinic) 
     $crumbs->push($clinic->name, route('clinics.show', $clinic));
 });
 
+Breadcrumbs::register('slug', function (Crumbs $crumbs) {
+    $crumbs->parent('home');
+    $crumbs->push('Page', route('slug'));
+});
+
 // Doctors
 Breadcrumbs::register('doctors.index', function (Crumbs $crumbs) {
     $crumbs->parent('home');
@@ -299,4 +304,22 @@ Breadcrumbs::register('admin.news.edit', function (Crumbs $crumbs, News $news) {
 Breadcrumbs::register('admin.contactlist', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
     $crumbs->push('Обратный связь', route('admin.contactlist'));
+});
+
+//pages
+Breadcrumbs::register('admin.pages.pages', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push('Pages', route('admin.pages.pages'));
+});
+Breadcrumbs::register('admin.pages.create', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.pages.pages');
+    $crumbs->push('Create', route('admin.pages.create'));
+});
+Breadcrumbs::register('admin.pages.view', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.pages.pages');
+    $crumbs->push('View', route('admin.pages.view'));
+});
+Breadcrumbs::register('admin.pages.edit', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.pages.pages');
+    $crumbs->push('Edit', route('admin.pages.edit'));
 });

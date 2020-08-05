@@ -89,4 +89,8 @@ class PatientController extends Controller
         return redirect()->route('doctors.index');
     }
 
+    public function destroy(){
+        Auth::user()->delete();
+        return route('login');
+    }
 }
