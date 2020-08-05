@@ -192,7 +192,7 @@ class CallCenterController extends Controller
         }
         $this->bookService->toMail($userId, $doctorId, $clinicId, $bookingDate, $timeStart);
 
-        return redirect()->route('admin.books.index')->with('success', 'Успешно удалено!');
+        return redirect()->route('admin.books.index');
     }
 
 }

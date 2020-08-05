@@ -177,4 +177,49 @@
             </div>
         </div>
     @endif
+
+    <div class="card col-md-10 offset-md-1" id="services">
+        <div class="card-header card-green with-border">Сервисы</div>
+        <div class="card-body">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Иконка</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                @foreach ($clinic->clinicServices as $clinicService)
+                    @php($service = $clinicService->service)
+                    <tr>
+                        <td><a href="{{ route('admin.services.show', $service) }}">{{ $service->name_ru }}</a></td>
+                        <td><a href="{{ $service->iconOriginal }}" target="_blank"><img src="{{ $service->iconThumbnail }}"></a></td>
+                        <td>
+                            <div class="d-flex flex-row">
+                                <form method="POST" action="{{ route('admin.clinics.services.first', ['clinic' => $clinic, 'service' => $service]) }}" class="mr-1">
+                                    @csrf
+                                    <button class="btn btn-sm btn-outline-primary"><span class="fa fa-angle-double-up"></span></button>
+                                </form>
+                                <form method="POST" action="{{ route('admin.clinics.services.up', ['clinic' => $clinic, 'service' => $service]) }}" class="mr-1">
+                                    @csrf
+                                    <button class="btn btn-sm btn-outline-primary"><span class="fa fa-angle-up"></span></button>
+                                </form>
+                                <form method="POST" action="{{ route('admin.clinics.services.down', ['clinic' => $clinic, 'service' => $service]) }}" class="mr-1">
+                                    @csrf
+                                    <button class="btn btn-sm btn-outline-primary"><span class="fa fa-angle-down"></span></button>
+                                </form>
+                                <form method="POST" action="{{ route('admin.clinics.services.last', ['clinic' => $clinic, 'service' => $service]) }}" class="mr-1">
+                                    @csrf
+                                    <button class="btn btn-sm btn-outline-primary"><span class="fa fa-angle-double-down"></span></button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 @endsection

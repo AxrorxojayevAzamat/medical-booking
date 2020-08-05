@@ -6,7 +6,8 @@ use App\Entity\Clinic\Clinic;
 
 class ClinicsTableSeeder extends Seeder {
 
-    public function run() {
+    public function run(): void
+    {
         factory(Clinic::class, 10)->create()->each(function (Clinic $clinic) {
             $clinic->contacts()->saveMany(factory(Contact::class, rand(2, 6))->make());
         });
