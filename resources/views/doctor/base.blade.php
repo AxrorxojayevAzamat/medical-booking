@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 
-    @include('doctor.head')
+    @include('layouts.cabinet.head')
 
 <body>
     @include('doctor.header')
 
     @yield('content')
 
-    @include('doctor.footer')
+    @include('layouts.cabinet.footer')
 
     @yield('js')
     
