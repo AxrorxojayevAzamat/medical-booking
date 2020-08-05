@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+    <link href="{{ asset('css/clinics_filter.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
     <form action="?" method="GET">
         <div id="results" style="padding: 0 0 20px 0;">
@@ -11,10 +15,10 @@
                     <div class="col-md-3">
                         <ul class="row">
                             <li class="{{ Request::is('doctors*') ? 'active' : '' }}" style="margin: auto 10px auto 30px;">
-                                <a href="{{ route('doctors.index') }}">Doctor</a>
+                                <a href="{{ route('doctors.index') }}">{{ trans('menu.doctors') }}</a>
                             </li>
                             <li class="{{ Request::is('clinics*') ? 'active' : '' }}" style="margin: auto 10px;">
-                                <a href="{{ route('clinics.index') }}">Clinic</a>
+                                <a href="{{ route('clinics.index') }}">{{ trans('menu.clinics') }}</a>
                             </li>
                         </ul>
                     </div>
@@ -32,9 +36,7 @@
             <div class="container">
                 <ul class="clearfix row d-flex justify-content-center">
                     <li class="first">
-                    </li>
-                    <li>
-                        <h6>Поиск по регионам...</h6>
+                        <h6>{{trans('filter.search_regions')}}</h6>
                         <select id="region_id" name="region">
                             <option value=""></option>
                             @foreach ($regions as $value => $label)
@@ -42,10 +44,18 @@
                             @endforeach
                         </select>
                     </li>
+                    <li><h6>Поиск по сервисам...</h6>
+                        <select id="service_id" name="service">
+                            <option value=""></option>
+                            @foreach ($services as $value => $label)
+                                <option value="{{ $value }}"{{ $value == request('service') ? ' selected' : '' }}>{{ $label }}</option>
+                            @endforeach
+                        </select>
+                    </li>
                     <li>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-search">Искать</button>
-                            <a href="?" class="btn btn-clear">Очистить</a>
+                            {{-- <button type="submit" class="btn btn-search">Искать</button> --}}
+                            <a href="?" class="btn btn-clear">{{trans('filter.clear')}}</a>
                         </div>
                     </li>
                 </ul>
@@ -73,8 +83,8 @@
                         <p>{{ $clinic->description }}</p>
                         <ul>
                             {{-- <li><a href="#0" onclick="onHtmlClick('Doctors', {{ $key }})" class="btn_listing">View on Map</a></li> --}}
-                            <li><a href="#0" onclick="initMap(41.2646, 69.2163)" class="btn_listing">Показать на карте</a></li>
-                            <li><a href="{{ route('clinics.show', $clinic) }}">Подробно</a></li>
+                        <li><a href="#0" onclick="initMap(41.2646, 69.2163)" class="btn_listing">{{trans('doctors.view_on_map')}}</a></li>
+                            <li><a href="{{ route('clinics.show', $clinic) }}">{{trans('doctors.in_detail')}}</a></li>
                         </ul>
                     </div>
                 @endforeach
@@ -97,96 +107,6 @@
 @section('scripts')
     <script>
         $('#region_id').select2();
+        $('#service_id').select2();
     </script>
-@endsection
-@section('css')
-    <style>
-.filters_listing {
-    background-color: #3f4079;
-}
-
-.filters_listing ul li {
-    margin-right: 10px;
-}
-
-.filters_listing li .sbHolder {
-    min-height: 40px;
-    border-radius: 0;
-}
-
-.filters_listing ul li h6 {
-    color: #fff;
-    margin-bottom: 3px;
-}
-
-.filters_listing li .sbHolder .sbToggle {
-    line-height: 40px;
-}
-
-.filters_listing li .sbHolder .sbSelector {
-    line-height: 40px;
-}
-
-.filters_listing ul li .form-group .form-control {
-    border-radius: 3px 0 0 3px;
-}
-
-.filters_listing li .select2 .select2-selection__rendered {
-    line-height: 40px;
-}
-.filters_listing .select2-container--default .select2-selection--single {
-    border-radius: 0
-}
-
-.filters_listing li .select2-selection {
-    min-height: 40px;
-}
-
-.filters_listing li .select2-selection__arrow {
-    min-height: 40px;
-}
-
-.filters_listing li .form-group span.select2-container--default {
-    width: 100%;
-}
-.filters_listing ul li:nth-child(3) .btn-search {
-    min-height: 40px;
-    background-color: #74d1c6;
-    border-color: #74d1c6;
-    font-weight: 600;
-    transition: all 0.3s ease-in-out;
-    border-radius: 0;
-    color: #fff
-    /* margin-right: 7px; */
-
-}
-
-.filters_listing ul li:nth-child(3) .btn-search:hover {
-    background-color: #e74e84;
-    border-color: #e74e84;
-}
-
-.filters_listing ul li:nth-child(3) .btn-clear {
-    min-height: 40px;
-    font-weight: 600;
-    color: #fff;
-    border: 2px solid #e74e84;
-    background-color: #e74e84;
-    font-weight: 600;
-    transition: all 0.3s ease-in-out;
-    border-radius: 0 3px 3px 0;
-}
-
-.filters_listing ul li:nth-child(3) .btn-clear:hover {
-    color: #fff;
-    background-color: #74d1c6;
-    border-color: #74d1c6;
-}
-
-.filters_listing ul li:nth-child(3) .form-group {
-    margin-left: 10px;
-    margin-top: 16px;
-}
-
-    </style>
 @endsection

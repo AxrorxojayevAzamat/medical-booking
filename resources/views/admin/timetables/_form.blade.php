@@ -12,15 +12,15 @@
 <div class="container">
     <div class="row">
       <div class="col">
-   
+
         <div class="radio">
             <label>
                 <input type="radio" name="schedule_type" id="schedule_type1" value="1" {{old ('schedule_type', $timetable && $timetable->schedule_type == '1' ? 'checked' : '' )}}>
                 Неделя
             </label>
         </div>
-            
-      
+
+
         <div class="bootstrap-timepicker">
             <div class="form-group">
                 <label>Понедельник</label>
@@ -128,9 +128,9 @@
                         </div>
                     </div>
                 </div>
-               
+
             </div>
-            
+
         </div>
         <div class="bootstrap-timepicker">
             <div class="form-group">
@@ -152,9 +152,9 @@
                         </div>
                     </div>
                 </div>
-               
+
             </div>
-           
+
         </div>
 
         <div class="bootstrap-timepicker">
@@ -180,9 +180,9 @@
             </div>
         </div>
       </div>
-      
-      
-      
+
+
+
        <div class="col">
                 <div class="radio">
                     <label>
@@ -196,7 +196,7 @@
                     <label>Начало и конец рабочего дня для четных дней</label>
 
                     <div class="input-group date" id="timepicker14" data-target-input="nearest">
-                        <input type="time" name="even_start" class="form-control datetimepicker-input" data-target="#timepicker14" value="{{ old('even_start')}}">
+                        <input type="time" name="even_start" class="form-control datetimepicker-input" data-target="#timepicker14" value="{{ old('even_start', $timetable? $timetable->even_start :'')}}">
                         <div class="input-group-append" data-target="#timepicker14" data-toggle="datetimepicker">
                             <div class="input-group-text">
                                 <i class="far fa-clock"></i>
@@ -204,7 +204,7 @@
                         </div>
                     </div>
                     <div class="input-group date" id="timepicker15" data-target-input="nearest">
-                        <input type="time" name="even_end" class="form-control datetimepicker-input" data-target="#timepicker15" value="{{ old('even_end')}}">
+                        <input type="time" name="even_end" class="form-control datetimepicker-input" data-target="#timepicker15" value="{{ old('even_end', $timetable? $timetable->even_end :'')}}">
                         <div class="input-group-append" data-target="#timepicker15" data-toggle="datetimepicker">
                             <div class="input-group-text">
                                 <i class="far fa-clock"></i>
@@ -268,7 +268,7 @@
                 </div>
             </div>
             <br><br><br>
-            
+
             <div class="form-group col">
                 <div class="form-group">
                     <label>Отпуск или нерабочие дни начало:</label>
@@ -282,9 +282,9 @@
                 </div>
             </div>
 
-            
-           
+
+
             <input type="submit" value="Отправить"  class="btn btn-primary float-right">
         </div>
     </div>
-    
+</div>

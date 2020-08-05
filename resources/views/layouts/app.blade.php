@@ -30,6 +30,8 @@
     <!-- YOUR CUSTOM CSS -->
     <link href="{{asset('css/date_picker.css')}}" rel="stylesheet">
     <link href="{{asset('css/custom.css')}}" rel="stylesheet">
+    <link href="{{asset('css/baguetteBox.min.css')}}" rel="stylesheet">
+
     @stack('css')
     @yield('css')
 </head>
@@ -38,25 +40,63 @@
 
 <div class="layer"></div>
 
-<div id="preloader">
+{{-- <div id="preloader">
     <div data-loader="circle-side"></div>
-</div>
+</div> --}}
 
 <header class="header_sticky">
     <div class="container">
         <div class="row">
 
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-2 col-6">
                 <div id="logo_home">
                     <h1><a href="/" title="Findoctor">Findoctor</a></h1>
                 </div>
             </div>
 
-            <nav class="col-lg-9 col-6">
+            <nav class="col-lg-10 col-6">
                 <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="#0"><span>Menu mobile</span></a>
                 <ul id="top_access">
-                    @if (Route::has('login'))
-                        <div class="top-right links">
+                    <div class="dropdown">
+                        @if (Route::has('login'))
+                        @auth
+                            <button class="btn auth_btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @php($user = Auth::user())
+                                {{ $user && $user->profile ? $user->profile->first_name : $user->email }}
+                            </button>
+                            <div class="dropdown-menu auth_menu" aria-labelledby="dropdownMenuButton">
+                                @if(Auth::user()->isAdmin())
+                                <a class="dropdown-item auth_item" href="{{ url('admin') }}">{{trans('auth.profile')}}</a>
+                                @elseif(Auth::user()->isPatient())
+                                <a class="dropdown-item auth_item" href="{{ url('patient')  }}">{{trans('auth.profile')}}</a>
+                                @elseif(Auth::user()->isDoctor())
+                                <a class="dropdown-item auth_item" href="{{ url('doctor/profile')  }}">{{trans('auth.profile')}}</a>
+                                @endif
+
+                                {{-- <a class="dropdown-item auth_item"  href="{{ route('logout') }}" method="POST">{{trans('auth.log_out')}}</a> --}}
+
+                                <a class="dropdown-item auth_item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{trans('auth.log_out')}}</a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+
+                            </div>
+                        @else
+
+                            <button class="btn auth_btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{trans('auth.log_in')}} / {{trans('auth.sign_up')}}
+                            </button>
+                            <div class="dropdown-menu auth_menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item auth_item" href="{{ route('login') }}">{{trans('auth.log_in')}}</a>
+                                <a class="dropdown-item auth_item" href="{{ route('register') }}">{{trans('auth.sign_up')}}</a>
+                            </div>
+                            @endauth
+                        @endif
+                        </div>
+
+                          @if (Route::has('login'))
+                        <div class="top-right links"  style="display: none">
                             @auth
                                 @if(Auth::user()->isAdmin())
                                     <li><a href="{{ url('admin') }}"><i class="pe-7s-user"></i></a></li>
@@ -93,20 +133,62 @@
                         <li>
                             <a href="{{route('specializations')}}">{{ trans('menu.specialization') }}</a>
                         </li>
+                        <li class="submenu">
+                            @php($name = 'name_' . \App\Helpers\LanguageHelper::getCurrentLanguagePrefix())
+                            @php($serviceIds = \App\Entity\Clinic\Service::orderBy($name)->limit(10)->pluck($name, 'id'))
+                            <a href="#" class="show-submenu">Сервисы<i class="icon-down-open-mini"></i></a>
+                            <ul>
+                                @foreach($serviceIds as $value => $label)
+                                    <li><a href="{{ route('clinics.index') . '?service=' .  $value }}">{{ $label }}</a></li>
+                                @endforeach
+                                <li><a href="{{ route('clinics.index') }}">Больше</a></li>
+                            </ul>
+                        </li>
                         <li>
                             <a href="{{route('contacts.contacts')}}">{{ trans('contacts.title') }}</a>
                         </li>
                         <li>
-                            <a href="{{route('news.index')}}">Новости</a>
+                            <a href="{{route('news.index')}}">{{ trans('breadcrumbs.news') }}</a>
                         </li>
                         <li class="submenu">
                             <a href="#" class="show-submenu">{{ trans('menu.language') }}<i class="icon-down-open-mini"></i></a>
                             <ul>
-                                <li><a href="/locale/uz">Uz</a></li>
-                                <li><a href="/locale/ru">Ру</a></li>
+                                <li><a href="/locale/uz" style="font-size: 0.75rem; padding-left: 20px!important">O'zbek tili</a></li>
+                                <li><a href="/locale/ru" style="font-size: 0.75rem; padding-left: 20px!important">Русский</a></li>
                             </ul>
                         </li>
+                        @if (Route::has('login'))
+                        @auth
+                                @if(Auth::user()->isAdmin())
+                                <li class="submenu ext_auth">
+                                    <a class="dropdown-item  auth-menu-item" href="{{ url('admin') }}">{{trans('auth.profile')}}</a>
+                                </li>
+                                @elseif(Auth::user()->isPatient())
+                                <li class="submenu ext_auth">
+                                    <a class="dropdown-item  auth-menu-item" href="{{ url('patient')  }}">{{trans('auth.profile')}}</a>
+                                </li>
+                                @elseif(Auth::user()->isDoctor())
+                                <li class="submenu ext_auth">
+                                    <a class="dropdown-item  auth-menu-item" href="{{ url('doctor/profile')  }}">{{trans('auth.profile')}}</a>
+                                </li>
+                                @endif
 
+                                <li class="submenu ext_auth">
+                                    <a class="dropdown-item  auth-menu-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{trans('auth.log_out')}}</a>
+                                </li>
+                        @else
+                            <li class="submenu ext_auth">
+                                <a class="dropdown-item  auth-menu-item" href="{{ route('login') }}">{{trans('auth.log_in')}}</a>
+                            </li>
+                            <li class="submenu ext_auth">
+                                <a class="dropdown-item  auth-menu-item" href="{{ route('register') }}">{{trans('auth.sign_up')}}</a>
+                            </li>
+
+                            @endauth
+                        @endif
+                        <li class="float-right">
+                            <a href="tel: 4411">&phone; 4411</a>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -133,24 +215,24 @@
                 </p>
             </div>
             <div class="col-lg-3 col-md-4">
-                <h5>Компани</h5>
+            <h5>{{trans('footer.about')}}</h5>
                 <ul class="links">
-                    <li><a href="#0">О нас</a></li>
-                    <li><a href="blog.html">Блог</a></li>
-                    <li><a href="#0">ЧАВО</a></li>
+                    <li><a href="#0">{{trans('footer.about')}}</a></li>
+                    <li><a href="blog.html">{{trans('footer.blog')}}</a></li>
+                    <li><a href="#0">{{trans('footer.faq')}}</a></li>
                     @if (Auth::guest())
-                        <li><a href="/login">Войти</a></li>
-                        <li><a href="/register">Регистрироваться</a></li>
+                        <li><a href="/login">{{trans('auth.log_in')}}</a></li>
+                        <li><a href="/register">{{trans('auth.sign_up')}}</a></li>
                     @endif
                 </ul>
             </div>
             <div class="col-lg-3 col-md-4">
-                <h5>Полезные ссылки</h5>
+                <h5>{{trans('footer.possible_links')}}</h5>
                 <ul class="links">
                     <li><a href="{{ route('doctors.index') }}">Докторы</a></li>
                     <li><a href="{{ route('clinics.index') }}">Клиники</a></li>
-                    <li><a href="#0">Специализации</a></li>
-                    <li><a href="#0">Присоедиться как Доктор</a></li>
+                    <li><a href="#0">{{trans('menu.specialization')}}</a></li>
+                    <li><a href="#0">{{trans('footer.join_us_doctor')}}</a></li>
                     @foreach(Session::get('pages') as $page)
                         <li><a href="page/{{$page->slug}}">
                         @if(Session::get('locale')=='uz')
@@ -159,17 +241,16 @@
                             {{$page->title_ru}}</a></li>
                         @endif
                     @endforeach
-
                 </ul>
             </div>
             <div class="col-lg-3 col-md-4">
-                <h5>Свяжитесь с нами</h5>
+                <h5>{{trans('footer.contant_with_us')}}</h5>
                 <ul class="contacts">
-                    <li><a href="tel://61280932400"><i class="icon_mobile"></i> + 61 23 8093 3400</a></li>
+                    <li><a href="tel: 4411"><i class="icon_mobile"></i> 4411</a></li>
                     <li><a href="mailto:info@findoctor.com"><i class="icon_mail_alt"></i> help@findoctor.com</a></li>
                 </ul>
                 <div class="follow_us">
-                    <h5>Подписывайтесь</h5>
+                    <h5>{{trans('footer.follow_us')}}</h5>
                     <ul>
                         <li><a href="#0"><i class="social_facebook"></i></a></li>
                         <li><a href="#0"><i class="social_twitter"></i></a></li>
@@ -184,8 +265,8 @@
         <div class="row">
             <div class="col-md-8">
                 <ul id="additional_links">
-                    <li><a href="#0">Правила и условия</a></li>
-                    <li><a href="#0">Конфиденциальность</a></li>
+                    <li><a href="#0">{{trans('footer.terms_and_conditions')}}</a></li>
+                    <li><a href="#0">{{trans('footer.privacy')}}</a></li>
                 </ul>
             </div>
             <div class="col-md-4">
@@ -209,6 +290,9 @@
 {{-- <script src="{{asset('js/map_listing.js')}}"></script> --}}
 <script src="{{asset('js/map.js')}}"></script>
 <script src="{{asset('js/infobox.js')}}"></script>
+<script src="{{asset('js/baguetteBox.min.js')}}"></script>
+{{-- <script src="{{asset('js/lightbox-plus-jquery.min.js')}}"></script> --}}
+
 @stack('scripts')
 @yield('scripts')
 

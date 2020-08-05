@@ -27,13 +27,12 @@
         <div class="col-12 ">
             <div class="card">
                 <div class="card-header">
-                        <div class="row">
-                            <div class="card-tools "style="width:200px" >
+                        <div class="card-tools mt-2 float-left">
                             <div class="input-group input-group "  >
                                 @if(Auth::user()->isAdmin())<a href="{{ route('admin.clinics.create') }}" class="btn btn-success btn-sm ml-1">Добавить</a>@endif
                             </div>
                         </div>
-                        <form class="form-inline " action="?">
+                        <form class="form-inline justify-content-center" action="?">
 
                             <input class="form-control " name="searchclinic" type="search"
                                     placeholder="Поиск по имени..."
@@ -46,7 +45,7 @@
                                     <option value="2">Государственная поликлиника</option>
                                 </select>
                             </div>
-                            <div class="input-group-append">
+                            <div class="input-group-append mx-2">
                                 <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i>
                                 </button>
                             </div>

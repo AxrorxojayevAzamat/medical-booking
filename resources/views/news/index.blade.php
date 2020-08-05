@@ -7,7 +7,7 @@
 @section('content')
     <div class="container margin_60">
         <div class="main_title">
-            <h1>Новости</h1>
+            <h1>{{ trans('breadcrumbs.news') }}</h1>
         </div>
         <div class="row">
             <div class="col-lg-9">
@@ -18,7 +18,7 @@
                                 <figure>
                                     <a href="{{ route('news.show', $page) }}">
                                         <img src="{{ $page->image ? $page->imageListThumbnail : 'http://via.placeholder.com/800x533.jpg' }}" alt="">
-                                        <div class="preview"><span>Подробно</span></div>
+                                        <div class="preview"><span>{{ trans('doctors.in_detail') }}</span></div>
                                     </a>
                                 </figure>
                             </div>

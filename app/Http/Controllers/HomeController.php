@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entity\Clinic\Service;
 use App\Entity\Clinic\Specialization;
 use App\Entity\Region;
 use App\Entity\User\User;
@@ -28,11 +29,17 @@ class HomeController extends Controller
             ->orderBy('name_' . LanguageHelper::getCurrentLanguagePrefix())
             ->limit(9)->get();
 
-        $specializations = Specialization::orderBy('name_' . LanguageHelper::getCurrentLanguagePrefix())->limit(9)->get();
+        $name = 'name_' . LanguageHelper::getCurrentLanguagePrefix();
 
         $pages = Pages::all();
         Session::put('pages', $pages);
 
-        return view('home', compact('bestRatedDoctors', 'regions', 'specializations'));
+        $specializations = Specialization::orderBy($name)->limit(9)->get();
+        $services = Service::select(['services.*'])
+            ->withCount('serviceClinics')
+            ->orderByDesc('service_clinics_count')
+            ->orderBy($name)->limit(8)->get();
+
+        return view('home', compact('bestRatedDoctors', 'regions', 'specializations', 'services'));
     }
 }

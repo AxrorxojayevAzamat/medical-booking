@@ -180,4 +180,8 @@
 		}
 	});
 
+	// $(".auth_btn").click(function() {
+	// 	$('.auth_menu').fadeToggle(700);
+	// })
+
 })(window.jQuery);

@@ -22,5 +22,6 @@ return [
     'payment'=>'Тип платежа',
     'payment_status'=>'Статус платежа',
     'doctor' => 'Доктор',
-    
+    'book_and_pay' => "Бронирование и оплата",
+    'locale' => 'ru',
 ];

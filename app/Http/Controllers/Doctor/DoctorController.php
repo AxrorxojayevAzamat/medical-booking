@@ -21,7 +21,7 @@ use App\Entity\Rate;
 use App\Entity\User\Profile;
 use Hash;
 use App\Services\TimetableService;
-
+use Illuminate\Support\Facades\Gate;
 
 class DoctorController extends Controller
 {
@@ -123,32 +123,31 @@ class DoctorController extends Controller
 
     public function update(User $user, Timetable $timetable,TimeTableRequest $request)
     {
-        dd($request);
-        if($timetable->odd_start){
-            $odd_start_check = Book::where(
-                'doctor_id', Auth::id())
-        ->where('time_start','<',$request->odd_start)->first();
+        // if($timetable->odd_start){
+        //     $odd_start_check = Book::where(
+        //         'doctor_id', Auth::id())
+        // ->where('time_start','<',$request->odd_start)->first();
             
-            $odd_finish_check = Book::where(
-                'doctor_id', Auth::id())
-        ->where('time_finish','>',$request->odd_end)->first();
+        //     $odd_finish_check = Book::where(
+        //         'doctor_id', Auth::id())
+        // ->where('time_finish','>',$request->odd_end)->first();
             
-            if($odd_start_check || $odd_finish_check)
-                return redirect()->back()->with('error', 'true');
-            }
+        //     if($odd_start_check || $odd_finish_check)
+        //         return redirect()->back()->with('error', 'true');
+        //     }
 
-            if($timetable->even_start){
-            $even_start_check = Book::where(
-                'doctor_id', Auth::id())
-        ->where('time_start','<',$request->even_start)->first();
+        //     if($timetable->even_start){
+        //     $even_start_check = Book::where(
+        //         'doctor_id', Auth::id())
+        // ->where('time_start','<',$request->even_start)->first();
 
-            $even_finish_check = Book::where(
-                'doctor_id', Auth::id())
-        ->where('time_finish','>',$request->even_end)->first();
+        //     $even_finish_check = Book::where(
+        //         'doctor_id', Auth::id())
+        // ->where('time_finish','>',$request->even_end)->first();
                 
-            if($even_start_check || $even_finish_check)
-                return redirect()->back()->with('error', 'true');
-            }
+        //     if($even_start_check || $even_finish_check)
+        //         return redirect()->back()->with('error', 'true');
+        //     }
 
         try {
             
@@ -274,10 +273,24 @@ class DoctorController extends Controller
 
         $ratecheck = Rate::where(['user_id'=>Auth::id(),'doctor_id'=>$user->id])->first();
         $rates = array();
-        for ($i=5; $i > 0 ; $i--) { 
+        for ($i=5; $i > 0 ; $i--) {
             array_push($rates, Rate::where(['doctor_id'=>$user->id,'rate'=>$i])->count());
         }
         return view('doctors.show', compact('user', 'clinics', 'specs', 'doctorTimetables', 'doctorBooks', 'holidays','ratecheck','rates'));
     }
 
+    public function book(Request $request, User $doctor, Clinic $clinic)
+    {
+        if (!Gate::allows('patient-panel')) {
+            return abort(401);
+        }
+
+        $calendar = $request['calendar'];
+        $radioTime = $request['radio_time'];
+        $price = config('booking_price.booking_price');
+        $currency = config('booking_price.default_currency');
+
+        $patient = User::find(Auth::user()->id);
+        return view('doctors.book', compact('patient', 'doctor', 'clinic', 'calendar', 'radioTime', 'price', 'currency'));
+    }
 }
