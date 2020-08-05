@@ -16,6 +16,11 @@ Breadcrumbs::register('home', function (Crumbs $crumbs) {
     $crumbs->push(trans('Главная'), route('home'));
 });
 
+Breadcrumbs::register('password.request', function (Crumbs $crumbs) {
+    $crumbs->push(trans('Восстановление пароля'), route('password.request'));
+});
+
+
 // Clinics
 Breadcrumbs::register('clinics.index', function (Crumbs $crumbs) {
     $crumbs->parent('home');

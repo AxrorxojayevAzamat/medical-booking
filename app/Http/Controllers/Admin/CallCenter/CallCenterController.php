@@ -10,13 +10,19 @@ use App\Entity\Clinic\Clinic;
 use App\Entity\Clinic\Specialization;
 use App\Entity\Book\Book;
 use App\Entity\Celebration;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Services\BookService;
 use App\Services\BookSmsService;
+use Illuminate\Support\Facades\DB;
+use \Illuminate\Support\Str;
+use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
 
 class CallCenterController extends Controller
 {
+
+    use SendsPasswordResetEmails;
 
     private $service;
     private $bookService;
@@ -39,7 +45,7 @@ class CallCenterController extends Controller
             $query->where('id', $value);
         }
 
-       if (!empty($value = $request->get('name'))) {
+        if (!empty($value = $request->get('name'))) {
             $query->where(function ($query) use ($value) {
                 $query->where('pr.first_name', 'ilike', '%' . $value . '%')
                         ->orWhere('pr.last_name', 'ilike', '%' . $value . '%');
@@ -83,9 +89,10 @@ class CallCenterController extends Controller
                         $request['birth_date'],
                         $request['gender']
         );
+        $this->sendResetLinkEmail($request);
         return redirect()->route('admin.call-center.index');
     }
-
+   
     public function doctors(User $user, Request $request)
     {
         $region_id = $request->get('region');
@@ -183,9 +190,9 @@ class CallCenterController extends Controller
         if ($user->phone) {
             $this->bookService->toSms($userId, $doctorId, $clinicId, $bookingDate, $timeStart);
         }
-            $this->bookService->toMail($userId, $doctorId, $clinicId, $bookingDate, $timeStart);
+        $this->bookService->toMail($userId, $doctorId, $clinicId, $bookingDate, $timeStart);
 
-        return redirect()->route('admin.books.index');
+        return redirect()->route('admin.books.index')->with('success', 'Успешно удалено!');
     }
 
 }

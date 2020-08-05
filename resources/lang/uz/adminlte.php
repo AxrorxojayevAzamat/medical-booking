@@ -18,6 +18,7 @@ return [
     'password_reset_message'      => 'Parolni tiklash',
     'reset_password'              => 'Parolni tiklash',
     'send_password_reset_link'    => 'Parolni tiklash havolasini yubormoq',
+    'send_reset_link'             => 'Havola yuborish ',
     'verify_message'              => 'Your account needs a verification',
     'verify_email_sent'           => 'A fresh verification link has been sent to your email address.',
     'verify_check_your_email'     => 'Before proceeding, please check your email for a verification link.',
