@@ -44,13 +44,16 @@ class UserImageController extends Controller
             $this->service->addMainPhoto($user->id, $request->photo);
             return redirect()->route('admin.users.show', $user)->with('success', 'Успешно сохранено!');
         } catch (\Exception $e) {
-            return back()->with('error', dd($e->getMessage()));
+            return back()->with('error', $e->getMessage());
         }
     }
     public function removeMainPhoto(User $user)
     {
         try {
-            $this->service->removeMainPhoto($user->id);
+            if(Auth::user()->isDoctor())
+                $this->service->removeMainPhoto(Auth::id());
+            else
+                $this->service->removeMainPhoto($user->id);
             return response()->json('The main photo is successfully deleted!');
         } catch (\Exception $e) {
             return response()->json('The main photo is not deleted!', 400);
@@ -93,7 +96,10 @@ class UserImageController extends Controller
         	$profile = Profile::findorFail($user->id);
         try {
             $this->service->removePhoto($profile->user_id, $photo->id);
-            return redirect()->route('admin.users.photos', $profile)->with('success', 'Успешно удалено!');
+        if(Auth::user()->isDoctor())
+            return back()->with('success', 'true'); 
+        
+        return redirect()->route('admin.users.photos', $profile)->with('success', 'Успешно удалено!');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
