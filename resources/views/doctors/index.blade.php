@@ -2,36 +2,36 @@
 
 @section('content')
 
-    <div id="results">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <h4>{!! trans('doctors.showing_results', ['current' => $countCurrent, 'all' => $countAll]) !!}</h4>
-                </div>
-                <div class="col-md-3">
-                    <ul class="row">
-                        <li class="{{ Request::is('doctors*') ? 'active' : '' }}" style="margin: auto 10px auto 30px;">
-                            <a href="{{ route('doctors.index') }}">{{ trans('menu.doctors') }}</a>
-                        </li>
-                        <li class="{{ Request::is('clinics*') ? 'active' : '' }}" style="margin: auto 10px;">
-                            <a href="{{ route('clinics.index') }}">{{ trans('menu.clinics') }}</a>
+    <form action="?" method="GET">
+        <div id="results">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4>{!! trans('doctors.showing_results', ['current' => $countCurrent, 'all' => $countAll]) !!}</h4>
+                    </div>
+                    <div class="col-md-3">
+                        <ul class="row">
+                            <li class="{{ Request::is('doctors*') ? 'active' : '' }}" style="margin: auto 10px auto 30px;">
+                                <a href="{{ route('doctors.index') }}">{{ trans('menu.doctors') }}</a>
+                            </li>
+                            <li class="{{ Request::is('clinics*') ? 'active' : '' }}" style="margin: auto 10px;">
+                                <a href="{{ route('clinics.index') }}">{{ trans('menu.clinics') }}</a>
 
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-6">
-                    <div class="search_bar_list">
-                        <input type="text" class="form-control" placeholder="{{trans('doctors.search_placeholder')}}">
-                        <input type="submit" value="{{trans('adminlte.search')}}">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="search_bar_list">
+                            <input type="text" class="form-control" placeholder="{{trans('doctors.search_placeholder')}}">
+                            <input type="submit" value="{{trans('adminlte.search')}}">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="filters_listing">
-        <div class="container-fluid">
-            <form action="?" method="GET">
+        <div class="filters_listing">
+            <div class="container-fluid">
                 <ul class="clearfix row d-flex justify-content-center">
                     {{-- <li>
                         <h6>Layout</h6>
@@ -99,9 +99,9 @@
                         </div>
                     </li>
                 </ul>
-            </form>
+            </div>
         </div>
-    </div>
+    </form>
 
     <div class="container margin_60_35">
         <div class="row">
