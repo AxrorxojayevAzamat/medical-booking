@@ -15,7 +15,7 @@
     height: 135px;
 }
 .gallery img:hover{
-    filter:grayscale(100%);
+    /* filter:grayscale(100%); */
     transform: scale(1.1);
 
 }

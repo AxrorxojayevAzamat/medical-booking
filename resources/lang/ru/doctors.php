@@ -19,5 +19,6 @@ return [
 
     'view_on_map' => "Показать на карте",
     'in_detail' => 'Подробно',
+    'university' => 'Учреждений',
 
 ];

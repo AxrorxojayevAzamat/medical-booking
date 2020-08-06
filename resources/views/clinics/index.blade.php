@@ -44,7 +44,7 @@
                             @endforeach
                         </select>
                     </li>
-                    <li><h6>Поиск по сервисам...</h6>
+                    <li><h6>{{trans('filter.filter_by_service')}}</h6>
                         <select id="service_id" name="service">
                             <option value=""></option>
                             @foreach ($services as $value => $label)
