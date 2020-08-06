@@ -60,37 +60,37 @@ class TimeTableController extends Controller
                //1-monday
                switch ($weekday) {
                     case '1':
-                        if($request->monday_start>$clinet->start_time ||
+                        if($request->monday_start>$client->start_time ||
                            $request->monday_end<$clinet->finish_time)
                             return redirect()->back()->with('error', 'true');
                        break;
                     case '2':
-                        if($request->tuesday_start>$clinet->start_time ||
+                        if($request->tuesday_start>$client->start_time ||
                            $request->tuesday_end<$clinet->finish_time)
                             return redirect()->back()->with('error', 'true');
                        break;
                     case '3':
-                        if($request->wednesday_start>$clinet->start_time ||
+                        if($request->wednesday_start>$client->start_time ||
                            $request->wednesday_end<$clinet->finish_time)
                             return redirect()->back()->with('error', 'true');
                        break;
                     case '4':
-                        if($request->thursday_start>$clinet->start_time ||
+                        if($request->thursday_start>$client->start_time ||
                            $request->thursday_end<$clinet->finish_time)
                             return redirect()->back()->with('error', 'true');
                        break;
                     case '5':
-                        if($request->friday_start>$clinet->start_time ||
+                        if($request->friday_start>$client->start_time ||
                            $request->friday_end<$clinet->finish_time)
                             return redirect()->back()->with('error', 'true');
                        break;
                     case '6':
-                        if($request->saturday_start>$clinet->start_time ||
+                        if($request->saturday_start>$client->start_time ||
                            $request->saturday_end<$clinet->finish_time)
                             return redirect()->back()->with('error', 'true');
                        break;
                     case '7':
-                        if($request->sunday_start>$clinet->start_time ||
+                        if($request->sunday_start>$client->start_time ||
                            $request->sunday_end<$clinet->finish_time)
                             return redirect()->back()->with('error', 'true');
                        break;
@@ -127,9 +127,7 @@ class TimeTableController extends Controller
         }
               
         try {
-
                 $timetable=$this->service->update($timetable->id, $request);
-            
             return redirect()->route('admin.users.show', $user)->with('success', 'Расписание обновлено');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
