@@ -59,8 +59,9 @@ class BookController extends Controller
         if (!empty($value = $request->get('email'))) {
             $query->where('users.email', 'ilike', '%' . $value . '%');
         }
+        $statuses = Book::statusList();
         $bookingList = $query->paginate(30);
-        return view('admin.books.index', compact('bookingList'));
+        return view('admin.books.index', compact('bookingList', 'statuses'));
     }
     public function show(Book $book)
     {

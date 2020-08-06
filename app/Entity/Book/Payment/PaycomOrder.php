@@ -71,6 +71,11 @@ class PaycomOrder extends Model
             self::STATE_CANCELLED => 'Отменён',
         ];
     }
+    public function stateName(): string
+    {
+        return self::stateList()[$this->state];
+    }
+
 
     ######################################################################################### Relations
 

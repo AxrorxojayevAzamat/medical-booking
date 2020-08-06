@@ -76,10 +76,11 @@
                             <th>{{ trans('Полное имя пациента') }}</th>
                             <th>{{ trans('Дата бронирования') }}</th>
                             <th>{{ trans('Время бронирования') }}</th>
+                            <th>{{ trans('Конец времени') }}</th>
                             <th>{{ trans('Телефон пациента') }}</th>
                             <th>{{ trans('Полное имя доктора') }}</th>
                             <th>{{ trans('Название клиники') }}</th>
-                            <th>{{ trans('Статус заказа') }}</th>
+                            {{-- <th>{{ trans('Статус заказа') }}</th> --}}
                             <th>{{ trans('Подробнее о заказе') }}</th>
                         </tr>
                     </thead>
@@ -89,6 +90,7 @@
                             <td><a href="{{ route('admin.users.show', $book->user->id) }}">{{ $book->user->profile ? $book->user->profile->fullName : '' }}</a></td>
                             <td>{{$book->booking_date}}</td>
                             <td>{{$book->time_start ? \Carbon\Carbon::parse($book->time_start)->format('H:i') : ''}}</td>
+                            <td>{{$book->time_finish ? \Carbon\Carbon::parse($book->time_finish)->format('H:i') : ''}}</td>
                             <td>{{$book->user->phone}}</td>
                             <td><a href="{{ route('admin.users.show', $book->doctor->id) }}">{{ $book->doctor->profile ? $book->doctor->profile->fullName : '' }}</a></td>
                             <td><a href="{{ route('admin.clinics.show', $book->clinic->id) }}">{{ $book->clinic->name ? $book->clinic->name : '' }}</a></td>
@@ -99,7 +101,6 @@
                             @else
                                 <td>Оплачен (бесплатный номер)</td>
                             @endif --}}
-                            <td>{{$book->status}}</td>
                             <td><a href="{{ route('admin.books.show', $book) }}">Подробнее</a></td>
                         </tr>
 
