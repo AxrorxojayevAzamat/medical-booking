@@ -10,14 +10,10 @@ use App\Entity\Clinic\Clinic;
 use App\Entity\Clinic\Specialization;
 use App\Entity\Book\Book;
 use App\Entity\Celebration;
-use Carbon\Carbon;
 use App\Services\BookService;
 use App\Services\BookSmsService;
-use Illuminate\Support\Facades\DB;
-use \Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Password;
 
 class CallCenterController extends Controller
 {
@@ -90,9 +86,10 @@ class CallCenterController extends Controller
                         $request['gender']
         );
         $this->sendResetLinkEmail($request);
-        return redirect()->route('admin.call-center.index');
+        return redirect()->route('admin.call-center.index')->with('success', 'Письмо со ссылкой отправлено на почту ' . $request['email']);
+        ;
     }
-   
+
     public function doctors(User $user, Request $request)
     {
         $region_id = $request->get('region');
@@ -195,4 +192,4 @@ class CallCenterController extends Controller
         return redirect()->route('admin.books.index');
     }
 
-}
+    }
