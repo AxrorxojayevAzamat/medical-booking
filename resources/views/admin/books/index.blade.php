@@ -1,11 +1,11 @@
 @extends('layouts.admin.page')
 
 @if (!config('adminlte.enabled_laravel_mix'))
-    @php($cssSectionName = 'css')
-    @php($javaScriptSectionName = 'js')
+@php($cssSectionName = 'css')
+@php($javaScriptSectionName = 'js')
 @else
-    @php($cssSectionName = 'mix_adminlte_css')
-    @php($javaScriptSectionName = 'mix_adminlte_js')
+@php($cssSectionName = 'mix_adminlte_css')
+@php($javaScriptSectionName = 'mix_adminlte_js')
 @endif
 
 @section($cssSectionName)
@@ -15,6 +15,26 @@
 @stop
 
 @section('content')
+@if($errors->any())
+@foreach($errors->all() as $error)
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ $error }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endforeach
+@endif
+@if(session('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ session('success') }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+@endif
+
 <div class="row">
     <div class="col-12">
         <div class="card">

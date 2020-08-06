@@ -14,6 +14,7 @@ use App\Services\BookService;
 use App\Services\BookSmsService;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
+use App\Services\Book\Paycom\PaycomService;
 
 class CallCenterController extends Controller
 {
@@ -22,11 +23,13 @@ class CallCenterController extends Controller
 
     private $service;
     private $bookService;
+    private $paycomService;
 
-    public function __construct(BookService $service, BookSmsService $bookService)
+    public function __construct(BookService $service, BookSmsService $bookService, PaycomService $paycomService)
     {
         $this->service = $service;
         $this->bookService = $bookService;
+        $this->paycomService = $paycomService;
         $this->middleware('can:manage-call-center');
     }
 
@@ -174,22 +177,46 @@ class CallCenterController extends Controller
 
     public function bookingDoctor(Request $request)
     {
+
+        $paymentType = $request['payment_type'];
         $userId = $request['user_id'];
         $doctorId = $request['doctor_id'];
         $clinicId = $request['clinic_id'];
         $bookingDate = $request['calendar'];
         $timeStart = $request['radio_time'];
         $description = $request['description'];
-
-        $booking = Book::new($userId, $doctorId, $clinicId, $bookingDate, $timeStart, null, $description, Book::PAYME);
+        //$amount = config('booking_price.booking_price');
+        $amount = 1000;
         $user = User::find($userId);
 
-        if ($user->phone) {
-            $this->bookService->toSms($userId, $doctorId, $clinicId, $bookingDate, $timeStart);
+
+        if ($paymentType == Book::PAYME) {
+
+            $order = $this->paycomService->createBookOrder($userId, $doctorId, $clinicId, $bookingDate, $timeStart, $amount, $description);
         }
-        $this->bookService->toMail($userId, $doctorId, $clinicId, $bookingDate, $timeStart);
 
-        return redirect()->route('admin.books.index');
+        $this->bookService->toMailPayment($user->email, 'Оплата', 'Для оплаты перейдите по ссылке', 'Оператор колл центра', $this->generatePaymentLink($amount, $order, true));
+
+
+//        if ($user->phone) {
+//            $this->bookService->toSms($userId, $doctorId, $clinicId, $bookingDate, $timeStart);
+//        }
+////        $this->bookService->toMail($userId, $doctorId, $clinicId, $bookingDate, $timeStart);
+
+        return redirect()->route('admin.books.index')->with('success', 'Письмо для оплаты со ссылкой отправлено на почту ' . $user->email);
     }
 
+    private function generatePaymentLink($amount, $order, bool $isBase64)
+    {
+        $endPoint = 'https://checkout.test.paycom.uz';
+        $url_array = array(
+            'm' => config('paycom_config.merchant_id'),
+            'a' => $amount,
+            'l' => 'ru'
+        );
+        $url_array['ac.' . config('paycom_config.account')] = $order->id;
+
+        return $isBase64 ? $endPoint . '/' . base64_encode(http_build_query($url_array, '', ';')) : $endPoint . '/' . http_build_query($url_array, '', ';');
     }
+
+}
