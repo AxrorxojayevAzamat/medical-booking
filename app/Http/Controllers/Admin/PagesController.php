@@ -15,13 +15,14 @@ class PagesController extends Controller
 
     public function store(Request $request){
 
-    	$this->validate($request, [
+        $this->validate($request, [
             'slug' => 'required',
             'title_uz' => 'required',
             'title_ru' => 'required',
             'content_uz' => 'required',
             'content_ru' => 'required'
         ]);
+
 
         $contacts = Pages::create([
             'slug' => $request->input('slug'),

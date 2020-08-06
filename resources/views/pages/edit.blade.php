@@ -1,14 +1,22 @@
 @extends('layouts.admin.page')
 
 @section('content')
-
+@if($errors)
+@foreach($errors->all() as $error)
+	<div class="alert alert-danger alert-dismissible fade show" role="alert">
+	  <strong>{{$error}}</strong>
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    <span aria-hidden="true">&times;</span>
+	  </button>
+	</div>
+@endforeach
+@endif
 <h2>Изменить</h2>
-
 <form action="{{route('admin.pages.editSave')}}" method="post">
 	@csrf
 	<input type="hidden" name="id" value="{{$page->id}}">
-	<label class="control-label" for="singlepage-slug">Кличка</label>
-	<input type="text" id="singlepage-slug" class="form-control" name="slug" aria-required="true" aria-invalid="true" value="{{$page->slug}}">
+	<label class="control-label" for="singlepage-slug">Slug</label>
+	<input type="text" id="singlepage-slug" class="form-control" name="slug" aria-required="true" aria-invalid="true" value="{{old('slug', $page ? $page->slug : null)}}">
 
     <ul class="nav nav-tabs" role="tablist" style="margin-top: 5px">
         <li style="margin-right: 5px">
@@ -21,16 +29,16 @@
 
     <div class="form-group" id="toggle_ru">
 		<label class="control-label" for="singlepage-title_en">Название</label>
-		<input type="text" id="singlepage-title_en" class="form-control" name="title_ru" aria-required="true" aria-invalid="false" value="{{$page->title_ru}}">
+		<input type="text" id="singlepage-title_en" class="form-control" name="title_ru" aria-required="true" aria-invalid="false" value="{{old('title_ru', $page ? $page->title_ru : null)}}">
 		<label class="control-label" for="singlepage-title_en">Контент</label>
-		<textarea class="form-control" id="summary-ckeditor-ru" name="content_ru">{!!$page->content_ru!!}</textarea>
+		<textarea class="form-control" id="summary-ckeditor-ru" name="content_ru">{!!old('content_ru', $page ? $page->content_ru : null)!!}</textarea>
 	</div>
 
 	<div style="display: none" class="form-group" id="toggle_uz">
 		<label class="control-label" for="singlepage-title_en">Название</label>
-		<input type="text" id="singlepage-title_en" class="form-control" name="title_uz" aria-required="true" aria-invalid="false" value="{{$page->title_uz}}">
+		<input type="text" id="singlepage-title_en" class="form-control" name="title_uz" aria-required="true" aria-invalid="false" value="{{old('title_uz', $page ? $page->title_uz : null)}}">
 		<label class="control-label" for="singlepage-title_en">Контент</label>
-		<textarea class="form-control" id="summary-ckeditor-uz" name="content_uz">{!!$page->content_uz!!}</textarea>
+		<textarea class="form-control" id="summary-ckeditor-uz" name="content_uz">{!!old('content_uz', $page ? $page->content_uz : null)!!}</textarea>
 	</div>
 	<div class="form-group">
 	    <button type="submit" class="btn btn-success">Изменить</button>    

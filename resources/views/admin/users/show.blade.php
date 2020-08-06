@@ -182,7 +182,7 @@
                                         <tr>
                                             <td>Пятница</td>
                                             <td>{{ $time->friday_start}}</td>
-                                            <td>{{ $time->friday_start}}</td>
+                                            <td>{{ $time->friday_end}}</td>
                                         </tr>
                                     @endif
                                     @if ($time->saturday_start)
@@ -196,7 +196,7 @@
                                         <tr>
                                             <td>Воскресенье</td>
                                             <td>{{ $time->sunday_start}}</td>
-                                            <td>{{ $time->sunsday_end}}</td>
+                                            <td>{{ $time->sunday_end}}</td>
                                         </tr>
                                     @endif
                                     </tbody>

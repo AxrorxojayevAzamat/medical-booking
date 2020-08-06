@@ -19,7 +19,7 @@
 	<table class="table table-striped table-bordered">
 		<thead>
 		<tr>
-			<th>Кличка</th>
+			<th>Slug</th>
 			<th>Название</th>
 			<th>Обновлено</th>
 			<th class="action-column">&nbsp;</th>

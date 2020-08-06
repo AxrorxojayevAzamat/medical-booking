@@ -8,6 +8,7 @@ use App\Entity\News;
 use App\Entity\User\User;
 use App\Entity\Region;
 use App\Entity\Contacts;
+use App\Entity\Pages;
 use App\Entity\Clinic\Specialization;
 use App\Entity\Partner;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
@@ -28,9 +29,9 @@ Breadcrumbs::register('clinics.show', function (Crumbs $crumbs, Clinic $clinic) 
     $crumbs->push($clinic->name, route('clinics.show', $clinic));
 });
 
-Breadcrumbs::register('slug', function (Crumbs $crumbs) {
+Breadcrumbs::register('slug', function (Crumbs $crumbs, $slug) {
     $crumbs->parent('home');
-    $crumbs->push('Page', route('slug'));
+    $crumbs->push($slug, route('slug'));
 });
 
 // Doctors
