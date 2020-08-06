@@ -17,7 +17,7 @@
 @php( $dashboard_url = View::getSection('dashboard_url') ?? config('adminlte.dashboard_url', 'admin') )
 
 @if (config('adminlte.use_route_url', false))
-@php( $login_url = $login_url ? route($login_url) : '' )
+@php( $login_url = $login_url ? route('login') : '' )
 @php( $register_url = $register_url ? route($register_url) : '' )
 @php( $password_reset_url = $password_reset_url ? route($password_reset_url) : '' )
 
