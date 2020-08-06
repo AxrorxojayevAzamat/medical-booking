@@ -62,6 +62,16 @@ class PaycomOrder extends Model
         return false; // do not allow cancellation
     }
 
+    public static function stateList(): array
+    {
+        return [
+            self::STATE_AVAILABLE => 'Создан',
+            self::STATE_WAITING_PAY => 'В ожидании платежа',
+            self::STATE_PAY_ACCEPTED => 'Оплачен',
+            self::STATE_CANCELLED => 'Отменён',
+        ];
+    }
+
     ######################################################################################### Relations
 
     public function book()

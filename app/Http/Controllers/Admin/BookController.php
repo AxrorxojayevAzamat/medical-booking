@@ -28,6 +28,7 @@ class BookController extends Controller
             ->join('users as us', 'books.user_id', '=', 'us.id')
             ->join('profiles as pr', 'pr.user_id', '=', 'us.id')
             ->orderBy('booking_date', 'asc')
+            ->orderBy('time_start', 'asc')
             ->whereDate('books.booking_date', '>=', Carbon::today());
         }
 
@@ -60,5 +61,9 @@ class BookController extends Controller
         }
         $bookingList = $query->paginate(30);
         return view('admin.books.index', compact('bookingList'));
+    }
+    public function show(Book $book)
+    {
+        return view('admin.books.show', compact('book'));
     }
 }

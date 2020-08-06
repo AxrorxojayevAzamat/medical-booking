@@ -76,9 +76,9 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 
     Route::group(['prefix' => 'books', 'as' => 'books.'], function () {
         Route::get('/', 'BookController@index')->name('index');
+        Route::get('/{book}', 'BookController@show')->name('show');
     });
     Route::group(['prefix' => 'call-center', 'namespace' => 'CallCenter','as' => 'call-center.'], function () {
-
         Route::get('/', 'CallCenterController@index')->name('index');
         Route::get('/create-patient', 'CallCenterController@create')->name('create-patient');
         Route::post('/store-patient', 'CallCenterController@storePatient')->name('store-patient');
@@ -102,7 +102,6 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 });
 
 Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
-
     Route::post('paycom/create', 'PaycomController@createOrder');
     Route::post('paycom/perform', 'PaycomController@performOrder');
 
@@ -125,9 +124,9 @@ Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 
 });
 
 Route::group(['prefix' => 'contacts', 'as' => 'contacts.'], function () {
-        Route::resource('/contacts', 'ContactsController');
-        Route::get('', 'ContactsController@index')->name('contacts');
-        Route::post('', 'ContactsController@contacts')->name('postContacts');
+    Route::resource('/contacts', 'ContactsController');
+    Route::get('', 'ContactsController@index')->name('contacts');
+    Route::post('', 'ContactsController@contacts')->name('postContacts');
 });
 
 Route::group(['prefix' => 'doctors', 'as' => 'doctors.'], function () {
@@ -153,4 +152,3 @@ Route::get("locale/{locale}", function ($locale) {
 
     return redirect()->back();
 });
-

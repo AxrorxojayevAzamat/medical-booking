@@ -92,6 +92,15 @@
                             <td>{{$book->user->phone}}</td>
                             <td><a href="{{ route('admin.users.show', $book->doctor->id) }}">{{ $book->doctor->profile ? $book->doctor->profile->fullName : '' }}</a></td>
                             <td><a href="{{ route('admin.clinics.show', $book->clinic->id) }}">{{ $book->clinic->name ? $book->clinic->name : '' }}</a></td>
+                            {{-- @if ($book->type == \App\Entity\Book::PAYME)
+                            <td>{!! $book->payme->stateName() !!}</td>
+                            @elseif ($book->type == \App\Entity\Book::CLICK)
+                                <td>{!! $book->click->statusName() !!}</td>
+                            @else
+                                <td>Оплачен (бесплатный номер)</td>
+                            @endif --}}
+                            <td>{{$book->status}}</td>
+                            <td><a href="{{ route('admin.books.show', $book) }}">Подробнее</a></td>
                         </tr>
 
                         @endforeach
