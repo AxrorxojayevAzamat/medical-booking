@@ -15,6 +15,7 @@ class ImageHelper
     const FOLDER_PARTNERS = 'partners';
     const FOLDER_USERS = 'users';
     const FOLDER_NEWS = 'news';
+    const FOLDER_SERVICES = 'services';
 
     const TYPE_THUMBNAIL = 'thumbs';
     const TYPE_THUMBNAIL_350_500 = 'thumbs350_500';
@@ -30,7 +31,7 @@ class ImageHelper
         $imageName = $imageName ?: Str::random(40) . '.' . $image->getClientOriginalExtension();
 
         self::saveThumbnail($id, $folderName, $image, $imageName);
-        
+
         self::saveThumbnail350_500($id, $folderName, $image, $imageName);
 
         self::saveOriginal($id, $folderName, $image, $imageName);

@@ -135,6 +135,9 @@
                         </div>
                       </li>
                         @if(config('adminlte.usermenu_enabled'))
+                        <li class="d-flex align-items-center">
+                            <a href="tel: 4411">&phone; 4411</a>
+                        </li>
                         <li class="nav-item dropdown user-menu">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                                 <span class="glyphicon glyphicon-user"></span>

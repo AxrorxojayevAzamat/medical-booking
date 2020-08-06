@@ -1,3 +1,9 @@
+@if (!config('adminlte.enabled_laravel_mix'))
+    @php($javaScriptSectionName = 'js')
+@else
+    @php($javaScriptSectionName = 'mix_adminlte_js')
+@endif
+
 <div class="form-horizontal">
     <div class="card-body">
 
@@ -105,7 +111,22 @@
                        value="{{ old('location')?? $clinics->location ??''}}" required>
             </div>
         </div>
+
+        <div class="form-group row">
+            {!! Form::label('services', 'Сервисы', ['class' => 'col-sm-5 col-form-label']); !!}
+            <div class="col-sm-6 ">
+                {!! Form::select('services[]', $services, old('services'),
+                    ['multiple' => true, 'class'=>'form-control' . ($errors->has('services') ? ' is-invalid' : ''), 'id' => 'services', 'required' => true]) !!}
+            </div>
+            @if ($errors->has('services'))
+                <span class="invalid-feedback"><strong>{{ $errors->first('services') }}</strong></span>
+            @endif
+        </div>
     </div>
 </div>
 
-
+@section($javaScriptSectionName)
+    <script>
+        // $('#services').select2();
+    </script>
+@endsection

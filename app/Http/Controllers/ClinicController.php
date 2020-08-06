@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Entity\Clinic\Clinic;
+use App\Entity\Clinic\ClinicService;
 use App\Entity\Clinic\Contact;
+use App\Entity\Clinic\Service;
 use App\Entity\Region;
 use App\Entity\User\User;
 use App\Helpers\LanguageHelper;
@@ -24,6 +26,12 @@ class ClinicController extends Controller {
             });
         }
 
+        if (!empty($value = $request->get('service'))) {
+            $clinicIds = ClinicService::where('service_id', $value)->pluck('clinic_id')->toArray();
+
+            $query->whereIn('id', $clinicIds);
+        }
+
         if (!empty($value = $request->get('region'))) {
             $regionIds = $this->getRegionIds($value);
 
@@ -36,8 +44,9 @@ class ClinicController extends Controller {
         $countCurrent = count($clinics);
 
         $regions = Region::where('parent_id', null)->pluck('name_' . LanguageHelper::getCurrentLanguagePrefix(), 'id');
+        $services = Service::pluck('name_' . LanguageHelper::getCurrentLanguagePrefix(), 'id');
 
-        return view('clinics.index', compact('clinics', 'regions', 'countAll', 'countCurrent'));
+        return view('clinics.index', compact('clinics', 'regions', 'services', 'countAll', 'countCurrent'));
     }
 
     private function getRegionIds($regionId): array

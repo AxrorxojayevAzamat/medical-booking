@@ -251,7 +251,7 @@ class UserController extends Controller
     {
 //        if (!Gate::allows('manage-own-doctors', $user)) {
 //            abort(403);
-//        } else 
+//        } else
             if (!Gate::allows('manage-doctors', $user)) {
             abort(403);
         }

@@ -15,5 +15,15 @@ return [
 
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'log_in' => 'Войти',
+    'sign_up' => 'Регистрация',
+    'profile' => 'Профиль',
+    'log_out' => 'Выход',
+
+    'address_email' => "Адрес электронной почты",
+    'confirm_address_email' => "'Подтвердите адрес электронной почты",
+    'please_to_findoctor' => 'Добро пожаловать в систему медицинского бронирования!',
+
+
 
 ];

@@ -29,6 +29,8 @@
     // }
 
     // books.unshift(newbook);
+    // $(".warning_day" + event.target.id).css("display","none");
+    // $(".warning_time" + event.target.id).css("display","none");
 
     var timeStart = [];
     var timeEnd = [];
@@ -40,14 +42,19 @@
     var daysOff = [[], [], [], []];
     var checkedDays = [false, false, false, false];
 
-
     function checkDay(event) {
-        if($(".time_checkbox" + event.target.id).prop("checked")) {
-            $(".warning_day" + event.target.id).empty();
-            // $(".warning_day" + event.target.id).html('<p style="color: #e74e84">Choose day for booking!</p>');
-            $(".warning_time" + event.target.id).html('<p style="color: #e74e84">Choose time for booking!</p>');
+        if($(".day_checkbox" + event.target.id).prop("checked") && $(".time_checkbox" + event.target.id).prop("checked")) {
+            $(".warning_day" + event.target.id).css("display","none");
+            $(".warning_time" + event.target.id).css("display","none");
+        } else if ($(".time_checkbox" + event.target.id).prop("checked")) {
+            $(".warning_day" + event.target.id).css("display","block");
+            $(".warning_time" + event.target.id).css("display","none");  
+        } else if ($(".day_checkbox" + event.target.id).prop("checked")) {
+            $(".warning_day" + event.target.id).css("display","none");
+            $(".warning_time" + event.target.id).css("display","block");  
         } else {
-            $(".warning_day" + event.target.id).html('<p style="color: #e74e84">Choose day for booking!</p>');
+            $(".warning_day" + event.target.id).css("display","block");
+            $(".warning_time" + event.target.id).css("display","none");  
         }
     }
 
@@ -163,15 +170,20 @@
             if (equeled)
                 $("#radio_times" + index).append(
                         '<li><input type="radio" id="radio' + index + '-' + i + '" name="radio_time" value="' +
-                        time_slot[index][i] + '" required><label for="radio' + index + '-' + i + '">' + time_slot[index][i] + '</label></li>'
+                        time_slot[index][i] + '" onchange="clickTime(' + index + ')" required><label for="radio' + index + '-' + i + '" id = "radioTime' + index + '" >' + time_slot[index][i] + '</label></li>'
                         )
         }
     }
 
     // timetable[1].tuesday_start = null;
     // timetable[1].tuesday_end = null;
+    function clickTime(index) {
+        $(".time_checkbox" + index).prop("checked", true);
+    }
 
     for (var i = 0; i < timetable.length; i++) {
+        $(".warning_day" + i).css("display","none");
+        $(".warning_time" + i).css("display","none");
 
         setDaysOff(i);
 
@@ -189,6 +201,7 @@
             daysOfWeekDisabled: disabledDays[i],
             weekStart: 1,
             format: "yyyy-mm-dd",
+            language: "{{trans('book.locale')}}",
             startDate: new Date(),
             datesDisabled: disabledDates[i].concat(holidays, daysOff[i]),
         }).on('changeDate', function (e) {
@@ -200,7 +213,7 @@
             appendRadioButton(time_slots, books, e.format(), e.currentTarget.id.slice(-1));
             checkedDays[e.currentTarget.id.slice(-1)] = true;
             console.log(checkedDays);
-            $(".time_checkbox" + e.currentTarget.id.slice(-1)).prop("checked", true);
+            $(".day_checkbox" + e.currentTarget.id.slice(-1)).prop("checked", true);
         });
     }
 

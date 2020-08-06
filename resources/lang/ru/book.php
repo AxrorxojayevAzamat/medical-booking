@@ -16,5 +16,6 @@ return [
     'name_of_doctor' => 'Имя доктора:',
     'name_of_clinic' => 'Название клиники:',
     'booking_cost' => 'Стоимость бронирования',
-    
+    'book_and_pay' => 'Бронирование и оплата',
+    'locale' => 'ru',
 ];

@@ -1738,6 +1738,26 @@
 			today: "Today",
 			clear: "Clear",
 			titleFormat: "MM yyyy"
+		},
+		ru: {
+			days: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
+			daysShort: ["Вос", "Пон", "Вто", "Сре", "Чет", "Пят", "Суб"],
+			daysMin: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
+			months: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+			monthsShort: ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
+			today: "Cегодня	",
+			clear: "Убирать",
+			titleFormat: "MM yyyy"
+		},
+		uz: {
+			days: ["Yakshanba", "Dushanba", "Seshanba", "Chorshanba", "Payshanba", "Juma", "ShanbaS"],
+			daysShort: ["Yak", "Du", "Se", "Chor", "Pay", "Ju", "Shan"],
+			daysMin: ["Ya", "Du", "Se", "Cho", "Pa", "Ju", "Sha"],
+			months: ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"],
+			monthsShort: ["Yan", "Fev", "Mar", "Apr", "May", "Iyn", "Iyl", "Avg", "Sen", "Okt", "Noy", "Dek"],
+			today: "Bugun",
+			clear: "Tozalash",
+			titleFormat: "MM yyyy"
 		}
 	};
 

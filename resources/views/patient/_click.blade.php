@@ -3,7 +3,7 @@
     <div class="row  d-flex justify-content-center">
         <div class="col-md-7 col-11">
             <div class="form-group">
-                <label>Card number</label>
+                <label>{{trans('msg.card_num')}}</label>
                 <input type="text" id="c_card_number" name="card_number" class="form-control" placeholder="xxxx - xxxx - xxxx - xxxx">
             </div>
         </div>
@@ -11,7 +11,7 @@
 
     <div class="row d-flex justify-content-center">
         <div class="col-md-4 col-6">
-            <label>Expiration date</label>
+            <label>{{trans('msg.expire_date')}}</label>
             <div class="row">
                 <div class="col-md-6 col-6">
                     <div class="form-group">
@@ -35,7 +35,7 @@
 
     <div class="row d-flex justify-content-center">
         <div class="col-md-6 d-flex justify-content-center">
-            <input class="btn_1 medium confirm-click" id="tokenCreate" type="submit" value="Confirm" style="margin: 22px">
+            <input class="btn_1 medium confirm-click" id="tokenCreate" type="submit" value="{{trans('msg.next')}}" style="margin: 22px">
         </div>
     </div>
     <div class="error-container">
@@ -48,7 +48,7 @@
         <div class="col-md-6">
             <div class="timer" id="timerclickuz"></div>
             <div class="form-group">
-                <label>Click sms code <span id="countDown"></span></label>
+                <label>{{trans('msg.sms_code')}}<span id="countDown"></span></label>
                 <input type="text" id="sms_number" name="sms_number" class="form-control" placeholder="xxxxxx">
             </div>
         </div>

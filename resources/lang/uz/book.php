@@ -13,7 +13,10 @@ return [
     'your_booking' => 'Sizning buyurtmangiz',
     'booking_date' => 'Sana:',
     'booking_time' => 'Vaqt:',
-    'name_of_doctor' => 'Doktor nomi:',
+    'name_of_doctor' => 'Shifokor nomi:',
     'name_of_clinic' => 'Klinika nomi:',
     'booking_cost' => 'Buyurtma narxi',
+    'book_and_pay' => 'Buyurtma va to\'lov',
+    'locale' => 'uz',
+
 ];

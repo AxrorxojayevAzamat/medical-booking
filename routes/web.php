@@ -31,6 +31,13 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         Route::get('move-photo-up/{photo}', 'ClinicController@movePhotoUp')->name('move-photo-up');
         Route::get('remove-photo/{photo}', 'ClinicController@removePhoto')->name('delete-photo');
         Route::get('move-photo-down/{photo}', 'ClinicController@movePhotoDown')->name('move-photo-down');
+        // Services
+        Route::group(['prefix' => 'services/{service}', 'as' => 'services.'], function () {
+            Route::post('first', 'ServiceController@first')->name('first');
+            Route::post('up', 'ServiceController@up')->name('up');
+            Route::post('down', 'ServiceController@down')->name('down');
+            Route::post('last', 'ServiceController@last')->name('last');
+        });
     });
 
     Route::group(
@@ -95,6 +102,15 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         Route::post('last', 'PartnerController@last')->name('last');
     });
 
+    Route::resource('services', 'Clinic\ServiceController');
+    Route::group(['prefix' => 'services/{service}', 'as' => 'services.', 'namespace' => 'Clinic'], function () {
+        Route::post('delete-image', 'ServiceController@removeImage')->name('delete-image');
+        Route::post('characteristic/{characteristic}/first', 'ServiceController@first')->name('first');
+        Route::post('characteristic/{characteristic}/up', 'ServiceController@up')->name('up');
+        Route::post('characteristic/{characteristic}/down', 'ServiceController@down')->name('down');
+        Route::post('characteristic/{characteristic}/last', 'ServiceController@last')->name('last');
+    });
+
     Route::resource('news', 'NewsController');
     Route::group(['prefix' => 'news/{news}', 'as' => 'news.'], function () {
         Route::post('delete-image', 'NewsController@removeImage')->name('delete-image');
@@ -119,8 +135,8 @@ Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient
 });
 
 Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 'middleware' => ['auth', 'can:doctor-panel']], function () {
-    Route::get('/profile', 'DoctorController@profileShow')->name('profile');
-    Route::get('/{doctor_id}/bookings', 'DoctorController@books')->name('doctorbookings');
+    Route::get('profile', 'DoctorController@profileShow')->name('profile');
+    Route::get('{doctor_id}/bookings', 'DoctorController@books')->name('doctorbookings');
 });
 
 Route::group(['prefix' => 'contacts', 'as' => 'contacts.'], function () {
@@ -130,10 +146,12 @@ Route::group(['prefix' => 'contacts', 'as' => 'contacts.'], function () {
 });
 
 Route::group(['prefix' => 'doctors', 'as' => 'doctors.'], function () {
-    Route::get('/', 'Doctor\DoctorController@index')->name('index');
-    Route::get('/{user}', 'Doctor\DoctorController@show')->name('show');
-    Route::get('/{doctor_id}/rate/{rate}', 'RateController@rate')->name('rate');
-    Route::get('/{doctor_id}/ratecancel', 'RateController@rateCancel')->name('rateCancel');
+    Route::get('', 'Doctor\DoctorController@index')->name('index');
+    Route::get('{user}', 'Doctor\DoctorController@show')->name('show');
+    Route::get('{doctor_id}/rate/{rate}', 'RateController@rate')->name('rate');
+    Route::get('{doctor_id}/ratecancel', 'RateController@rateCancel')->name('rateCancel');
+    Route::get('{doctor}/clinics/{clinic}/book', 'Doctor\DoctorController@book')->name('book');
+
 });
 Route::get('/specializations', 'SpecializationsController@index')->name('specializations');
 

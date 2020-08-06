@@ -15,5 +15,13 @@ return [
 
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'log_in' => 'Kirish',
+    'sign_up' => 'Ro`yhatdan o`tish',
+    'profile' => 'Profil',
+    'log_out' => 'Chiqish',
+
+    'address_email' => "Elektron pochta manzili",
+    'confirm_address_email' => "Elektron pochta manzilini tasdiqlash",
+    'please_to_findoctor' => 'Tibbiyot bron qilish tizimiga xush kelibsiz!',
 
 ];
