@@ -38,20 +38,20 @@
                 <div class="box_feat" id="icon_1">
                     <span></span>
                     <h3>{{ trans('home.find_doctor' ) }}</h3>
-                    <p>Usu habeo equidem sanctus no. Suas summo id sed, erat erant oporteat cu pri. In eum omnes molestie.</p>
+                    <p>{{ trans('extra_info.extra1' ) }}</p>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="box_feat" id="icon_2">
                     <span></span>
                     <h3>{{ trans('home.view_profile' ) }}</h3>
-                    <p>Usu habeo equidem sanctus no. Suas summo id sed, erat erant oporteat cu pri. In eum omnes molestie.</p>
+                    <p>{{ trans('extra_info.extra2' ) }}</p>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="box_feat" id="icon_3">
                     <h3>{{ trans('home.book_visit' ) }}</h3>
-                    <p>Usu habeo equidem sanctus no. Suas summo id sed, erat erant oporteat cu pri. In eum omnes molestie.</p>
+                    <p>{{ trans('extra_info.extra3' ) }}</p>
                 </div>
             </div>
         </div>

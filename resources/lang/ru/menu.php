@@ -16,7 +16,7 @@ return [
     'warning'                       => 'Внимание',
     'information'                   => 'Информация',
     'specialization'                => 'Cпециализация',
-    'doctors'                       => 'Докторы',
+    'doctors'                       => 'Доктора',
     'clinics'                       => 'Клиники',
     'language'                      => 'Язык',
     'service'                       => 'Сервисы',

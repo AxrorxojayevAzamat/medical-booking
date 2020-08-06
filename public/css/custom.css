@@ -404,3 +404,34 @@
       .select2-container--open .select2-dropdown::-webkit-scrollbar {
         width: 5px;
       }
+
+
+/* DOCTOR RATE */
+
+      .box_profile a#star0 {
+        filter:grayscale(100%);
+        color: #e4e43f;
+
+      }
+
+      .box_profile a#star1 {
+        filter:grayscale(100%);
+        color: #e4e43f;
+      }
+
+      .box_profile a#star2 {
+        filter:grayscale(100%);
+        color: #e4e43f;
+      }
+
+      .box_profile a#star3 {
+        filter:grayscale(100%);
+        color: #e4e43f;
+      }
+
+      .box_profile a#star4 {
+        filter:grayscale(100%);
+        color: #e4e43f;
+      }
+
+      

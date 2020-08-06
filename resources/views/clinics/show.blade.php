@@ -86,11 +86,9 @@
                      <div class="box" id="gallery" role="gallery" aria-labelledby="gallery">
                         <div class="gallery">
                             <div class="row d-flex justify-content-center">
-                                <a href="/img/Doctor1.jpg" data-lightbox="mygallery"><img src="/img/Doctor1.jpg" style="width: 130px; height: 115px;"></a>
-                                <a href="/img/Doctor2.jpg" data-lightbox="mygallery"><img src="/img/Doctor2.jpg" style="width: 130px; height: 115px;"></a>
-                                <a href="/img/Doctor3.jpg" data-lightbox="mygallery"><img src="/img/Doctor3.jpg" style="width: 130px; height: 115px;"></a>
-                                <a href="/img/Doctor4.jpg" data-lightbox="mygallery"><img src="/img/Doctor4.jpg" style="width: 130px; height: 115px;"></a>
-                                <a href="/img/Doctor5.jpg" data-lightbox="mygallery"><img src="/img/Doctor5.jpg" style="width: 130px; height: 115px;"></a>
+                                @for($i = 1; $i <= 5; $i++)
+                                    <a href="/img/Doctor{{$i}}.jpg" data-lightbox="mygallery"><img src="/img/Doctor{{$i}}.jpg"  style="width: 130px; height: 115px;"></a>
+                                @endfor
                             </div>
                         </div>
                    </div>
@@ -114,7 +112,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Last Name" name="{{trans('clinic.last_name')}}" id="lastname_booking">
+                                    <input type="text" class="form-control" placeholder="{{trans('clinic.last_name')}}" name="last_name" id="lastname_booking">
                                 </div>
                             </div>
                         </div>
