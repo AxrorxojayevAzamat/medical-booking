@@ -65,7 +65,7 @@ class ClinicController extends Controller
         try {
             $clinic = $this->service->create($request);
 
-            return redirect()->route('admin.clinics.index', $clinic);
+            return redirect()->route('admin.clinics.show', $clinic);
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
