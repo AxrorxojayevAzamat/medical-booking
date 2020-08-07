@@ -37,8 +37,7 @@
                 <div class="col-lg-3 col-md-6">
                     <a href="{{ route('clinics.index') . '?service=' .  $service->id }}" class="box_cat_home">
                         <i class="icon-info-4"></i>
-{{--                        <img src="{{ $service->iconOriginal }}" width="60" height="60" alt="">--}}
-                        <img src="img/icon_cat_1.svg" width="60" height="60" alt="">
+                        <img src="{{ $service->icon ? $service->iconOriginal : 'img/icon_cat_1.svg' }}" width="60" height="60" alt="">
                         <h3>{{ $service->name }}</h3>
                         <ul class="clearfix" id="abcd">
                             <li><strong>{{ $service->serviceClinics()->count() }}</strong>{{trans('doctors.university')}}</li>
