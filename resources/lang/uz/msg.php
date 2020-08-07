@@ -18,5 +18,6 @@ return [
     'sms_code' => 'SMS kodi:',
     'payme_tooltype' => 'Sizning kartangizdagi ma`lumotlar ushbu xizmatga uzatilmaydi va xizmat xavfsiz hududda saqlanadi ',
     'search' => 'Izlash',
+    'payment_in' => "To'lov qayta ishlanmoqda",
 
 ];

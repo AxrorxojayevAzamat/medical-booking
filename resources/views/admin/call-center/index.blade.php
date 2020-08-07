@@ -12,8 +12,8 @@
             <div class="card-body">
                 <div class="card-body">
                     <form action="?" method="GET">
-                        <div class="row">
-                            <div class="col-sm-1">
+                        <div class="row d-flex justify-content-center">
+                            <div class="">
                                 <div class="form-group">
                                     <label for="id" class="col-form-label">{{ trans('Ид') }}</label>
                                     <input id="id" class="form-control" name="id" value="{{ request('id') }}">
@@ -24,7 +24,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="">
                                 <div class="form-group">
                                     <label for="name" class="col-form-label">{{ trans('Имя пользователя') }}</label>
                                     <input id="name" class="form-control" name="name" value="{{ request('name') }}">
@@ -35,7 +35,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="">
                                 <div class="form-group">
                                     <label for="first_name" class="col-form-label">{{ trans('Имя') }}</label>
                                     <input id="first_name" class="form-control" name="first_name" value="{{ request('first_name') }}">
@@ -46,26 +46,26 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="">
                                 <div class="form-group">
                                     <label for="last_name" class="col-form-label">{{ trans('Фамилия') }}</label>
                                     <input id="last_name" class="form-control" name="last_name" value="{{ request('last_name') }}">
                                 </div>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="">
                                 <div class="form-group">
                                     <label for="name" class="col-form-label">{{ trans('Телефон') }}</label>
                                     <input id="phone" type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;(999) 99 999-9999&quot;" data-mask="" im-insert="true" name="phone" value="{{ request('phone') }}">
                                 </div>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="">
                                 <div class="form-group">
                                     <label for="email" class="col-form-label">{{ trans('Email') }}</label>
                                     <input id="email" class="form-control" name="email" value="{{ request('email') }}">
                                 </div>
                             </div>
-                            <div class="col-sm-1">
-                                <div class="form-group">
+                            <div class="">
+                                <div class="form-group pl-1">
                                     <label class="col-form-label">&nbsp;</label><br />
                                     <button type="submit" class="btn btn-primary">Поиск</button>
                                     <a href="?" class="btn btn-outline-secondary">{{ __('Очистить') }}</a>

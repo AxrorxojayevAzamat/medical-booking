@@ -19,12 +19,12 @@
             <div class="row">
                 <div class="col-md-6 col-sm-6  col-6">
                     <div class="form-group">
-                        <input type="text" id="p_expire_month" name="expire_month" class="form-control" placeholder="MM">
+                        <input type="text" id="p_expire_month" name="expire_month" class="form-control" placeholder="{{trans('home.month')}}">
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6  col-6">
                     <div class="form-group">
-                        <input type="text" id="p_expire_year" name="expire_year" class="form-control" placeholder="Year">
+                        <input type="text" id="p_expire_year" name="expire_year" class="form-control" placeholder="{{trans('home.year')}}">
                     </div>
                 </div>
             </div>
@@ -72,51 +72,51 @@
 <div class="success container"></div>
 @section('css')
     <style>
-        
+                
 
-.payme .tt {
-  position: relative;
-  display: inline;
-  /* border-bottom: 1px dotted black; */
-  background: #e74e84;
-        height: 20px;
-        width: 16px;
-        text-align: center;
-        border-radius: 50%;
+        .payme .tt {
+        position: relative;
+        display: inline;
+        /* border-bottom: 1px dotted black; */
+        background: #e74e84;
+                height: 20px;
+                width: 16px;
+                text-align: center;
+                border-radius: 50%;
+                color: #fff;
+        }
+
+        .payme .tt .tt-text {
+        visibility: hidden;
+        width: 200px;
+        background-color: #555;
         color: #fff;
-}
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: -200%;
+        margin-left: -60px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        }
 
-.payme .tt .tt-text {
-  visibility: hidden;
-  width: 200px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: -200%;
-  margin-left: -60px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
+        .payme .tt .tt-text::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+        }
 
-.payme .tt .tt-text::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-}
-
-.payme .tt:hover .tt-text {
-  visibility: visible;
-  opacity: 1;
-}
+        .payme .tt:hover .tt-text {
+        visibility: visible;
+        opacity: 1;
+        }
     </style>
 @endsection
