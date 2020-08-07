@@ -46,12 +46,6 @@ Breadcrumbs::register('doctors.book', function (Crumbs $crumbs, User $doctor, Cl
 });
 
 
-// booking
-Breadcrumbs::register('patient.booking', function (Crumbs $crumbs, User $user, Clinic $clinic) {
-    $crumbs->parent('doctors.show', $user);
-    $crumbs->push(trans('book.book_and_pay'), route('patient.booking', ['user' => $user, 'clinic' => $clinic]));
-});
-
 //contacts
 Breadcrumbs::register('contacts.contacts', function (Crumbs $crumbs) {
     $crumbs->parent('home');
