@@ -153,8 +153,14 @@
                         <li class="submenu">
                             <a href="#" class="show-submenu">{{ trans('menu.language') }}<i class="icon-down-open-mini"></i></a>
                             <ul>
-                                <li><a href="/locale/uz" style="font-size: 0.75rem; padding-left: 20px!important">O'zbek tili</a></li>
-                                <li><a href="/locale/ru" style="font-size: 0.75rem; padding-left: 20px!important">Русский</a></li>
+                                @foreach(\Mcamara\LaravelLocalization\Facades\LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                    <li>
+                                        <a rel="alternate" hreflang="{{ $localeCode }}"
+                                           href="{{ \Mcamara\LaravelLocalization\Facades\LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                            {{ $properties['native'] }}
+                                        </a>
+                                    </li>
+                                @endforeach
                             </ul>
                         </li>
                         @if (Route::has('login'))
@@ -236,7 +242,7 @@
                     <li><a href="tel: 4411"><i class="icon_mobile"></i> 4411</a></li>
                     <li><a href="mailto:info@findoctor.com"><i class="icon_mail_alt"></i> help@findoctor.com</a></li>
                 </ul>
-                
+
             </div>
         </div>
         <hr>
