@@ -36,7 +36,7 @@
                         <div class="">
                             <label>{{trans('doctors.rate')}}</label>
                             @for($i=0;$i<5;$i++)
-                                <a href="{{ route('doctors.rate',['doctor_id'=>$user->id,'rate'=>$i+1]) }}" class="icon_star" style="color: #e4e43f" aria-label="Left Align">
+                        <a href="{{ route('doctors.rate',['doctor_id'=>$user->id,'rate'=>$i+1]) }}" class="icon_star" id="star{{$i}}" aria-label="Left Align">
                                 </a>
                             @endfor
                         </div>
@@ -45,7 +45,7 @@
                         <br>
                     @endif
                     <br>
-                    <span class="rating">Бронирован: {{ $user->numberOfBookings }}</span>
+                    <span class="rating">{{trans('book.booked')}}: {{ $user->numberOfBookings }}</span>
                     @foreach($clinics as $clinic)
                         <ul class="contacts">
                             <li><h6>{{ trans('doctors.clinic_name') }}</h6>{{$clinic->name}}</li>
@@ -152,11 +152,9 @@
                     <div class="box" id="gallery" role="gallery" aria-labelledby="gallery">
                         <div class="gallery">
                             <div class="row d-flex justify-content-center">
-                                <a href="/img/Doctor1.jpg" data-lightbox="mygallery"><img src="/img/Doctor1.jpg"></a>
-                                <a href="/img/Doctor2.jpg" data-lightbox="mygallery"><img src="/img/Doctor2.jpg"></a>
-                                <a href="/img/Doctor3.jpg" data-lightbox="mygallery"><img src="/img/Doctor3.jpg"></a>
-                                <a href="/img/Doctor4.jpg" data-lightbox="mygallery"><img src="/img/Doctor4.jpg"></a>
-                                <a href="/img/Doctor5.jpg" data-lightbox="mygallery"><img src="/img/Doctor5.jpg"></a>
+                                @for($i = 1; $i <= 5; $i++)
+                                    <a href="/img/Doctor{{$i}}.jpg" data-lightbox="mygallery"><img src="/img/Doctor{{$i}}.jpg"></a>
+                                @endfor
                             </div>
                         </div>
                     </div>
@@ -171,6 +169,24 @@
 <script>
     baguetteBox.run('.gallery');
 
+    //STAR HOVER
+    for(var i = 0; i < 5; i++) {
+        $("#star" + i).mouseover(function(event) {
+            var j = 0;
+            while(j <= event.target.id.slice(-1)) {
+                $("#star" + j).css({"transform":"scale(1.6)", "filter":"none"});
+                j++;
+            }
+        });
+        $("#star" + i).mouseout(function() {
+            var j = 0;
+            while(j <= event.target.id.slice(-1)) {
+                $("#star" + j).css({"transform":"scale(1)", "filter":"grayscale(100%)"});
+                j++;
+            }
+        }); 
+    }
+    
 </script>
 @endsection
 

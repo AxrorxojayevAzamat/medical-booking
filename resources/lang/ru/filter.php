@@ -11,4 +11,5 @@ return [
     'female' => 'Женщина',
     'alphabet' => 'Алфавиту',
     'rating' => 'Рейтингу',
+    'filter_by_service' => 'Поиск по сервисам...',
 ];

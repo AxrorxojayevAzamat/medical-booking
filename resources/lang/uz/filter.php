@@ -11,4 +11,6 @@ return [
     'female' => 'Ayol',
     'alphabet' => 'Alifbo',
     'rating' => 'Baho',
+    'filter_by_service' => "Xizmat bo'yicha izlash...",
+
 ];

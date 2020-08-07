@@ -14,10 +14,10 @@
                     </div>
                     <div class="col-md-3">
                         <ul class="row">
-                            <li class="{{ Request::is('doctors*') ? 'active' : '' }}" style="margin: auto 10px auto 30px;">
+                            <li class="{{ Request::is('*/doctors*') ? 'active' : '' }}" style="margin: auto 10px auto 30px;">
                                 <a href="{{ route('doctors.index') }}">{{ trans('menu.doctors') }}</a>
                             </li>
-                            <li class="{{ Request::is('clinics*') ? 'active' : '' }}" style="margin: auto 10px;">
+                            <li class="{{ Request::is('*/clinics*') ? 'active' : '' }}" style="margin: auto 10px;">
                                 <a href="{{ route('clinics.index') }}">{{ trans('menu.clinics') }}</a>
                             </li>
                         </ul>
@@ -44,7 +44,7 @@
                             @endforeach
                         </select>
                     </li>
-                    <li><h6>Поиск по сервисам...</h6>
+                    <li><h6>{{trans('filter.filter_by_service')}}</h6>
                         <select id="service_id" name="service">
                             <option value=""></option>
                             @foreach ($services as $value => $label)

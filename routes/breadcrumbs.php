@@ -14,7 +14,7 @@ use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Crumbs;
 
 Breadcrumbs::register('home', function (Crumbs $crumbs) {
-    $crumbs->push(trans('breadcrumbs.main'), route('home'));
+    $crumbs->push(trans('breadcrumb_fe.main'), route('home'));
 });
 
 // Clinics
@@ -54,7 +54,7 @@ Breadcrumbs::register('patient.booking', function (Crumbs $crumbs, User $user, C
 //contacts
 Breadcrumbs::register('contacts.contacts', function (Crumbs $crumbs) {
     $crumbs->parent('home');
-    $crumbs->push(trans('breadcrumbs.recall'), route('contacts.contacts'));
+    $crumbs->push(trans('breadcrumb_fe.recall'), route('contacts.contacts'));
 });
 
 //specialization
@@ -66,7 +66,7 @@ Breadcrumbs::register('specializations', function (Crumbs $crumbs) {
 // News
 Breadcrumbs::register('news.index', function (Crumbs $crumbs) {
     $crumbs->parent('home');
-    $crumbs->push(trans('breadcrumbs.news'), route('news.index'));
+    $crumbs->push(trans('breadcrumb_fe.news'), route('news.index'));
 });
 
 Breadcrumbs::register('news.show', function (Crumbs $crumbs, News $news) {
