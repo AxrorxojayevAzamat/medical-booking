@@ -53,8 +53,8 @@ class TimeTableController extends Controller
 
     public function update(TimeTableRequest $request, User $user, Timetable $timetable)
     {
+        $clients = Book::where('doctor_id', $user->id)->get();
         if($request->schedule_type=='1'){
-            $clients = Book::where('doctor_id', $user->id)->get();
             foreach ($clients as $client) {
                $weekday=date('w', strtotime($client->booking_date));
                //1-monday
@@ -99,30 +99,49 @@ class TimeTableController extends Controller
                }
             }
         }else{
-            if($timetable->odd_start){
-            $odd_start_check = Book::where(
-                'doctor_id', $user->id)
-            ->where('time_start','<',$request->odd_start)->first();
-            
-            $odd_finish_check = Book::where(
-                'doctor_id', $user->id)
-            ->where('time_finish','>',$request->odd_end)->first();
-            
-            if($odd_start_check || $odd_finish_check)
-                return redirect()->back()->with('error', 'true');
+            if(($request->odd_start || $request->odd_end) &&
+                ($request->even_start || $request->even_end)){
+                    return redirect()->back()->with('error', 'odd_even');
             }
+            if($request->odd_start || $request->odd_end){
+                $this->validate($request, [
+                    'odd_start' => 'required',
+                    'odd_end' => 'required',
+                ]);
+                foreach ($clients as $client) {
+                    if(!(date('d', strtotime($client->booking_date))%2))
+                        return redirect()->back()->with('error', 'even');
+                }
 
-            if($timetable->even_start){
-            $even_start_check = Book::where(
-                'doctor_id', $user->id)
-            ->where('time_start','<',$request->even_start)->first();
-
-            $even_finish_check = Book::where(
-                'doctor_id', $user->id)
-            ->where('time_finish','>',$request->even_end)->first();
+                $odd_start_check = Book::where(
+                    'doctor_id', $user->id)
+                ->where('time_start','<',$request->odd_start)->first();
                 
-            if($even_start_check || $even_finish_check)
-                return redirect()->back()->with('error', 'true');
+                $odd_finish_check = Book::where(
+                    'doctor_id', $user->id)
+                ->where('time_finish','>',$request->odd_end)->first();
+            
+                if($odd_start_check || $odd_finish_check)
+                    return redirect()->back()->with('error', 'odd');
+            }
+            else{
+                $this->validate($request, [
+                    'even_start' => 'required',
+                    'even_end' => 'required',
+                ]);
+                foreach ($clients as $client) {
+                    if(date('d', strtotime($client->booking_date))%2)
+                        return redirect()->back()->with('error', 'odd');
+                }
+                $even_start_check = Book::where(
+                    'doctor_id', $user->id)
+                ->where('time_start','<',$request->even_start)->first();
+
+                $even_finish_check = Book::where(
+                    'doctor_id', $user->id)
+                ->where('time_finish','>',$request->even_end)->first();
+                if($even_start_check || $even_finish_check)
+                    return redirect()->back()->with('error', 'even');
             }
         }
               

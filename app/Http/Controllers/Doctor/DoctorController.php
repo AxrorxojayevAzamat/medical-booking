@@ -124,21 +124,8 @@ class DoctorController extends Controller
 
     public function update(User $user, Timetable $timetable,TimeTableRequest $request)
     {
-
+        $clients = Book::where('doctor_id', Auth::id())->get();
         if($request->schedule_type=='1'){
-            $this->validate($request, [
-            'monday_start' => 'required',
-            'monday_end' => 'required',
-            'tuesday_start' => 'required',
-            'tuesday_end' => 'required',
-            'wednesday_start' => 'required',
-            'wednesday_end' => 'required',
-            'thursday_start' => 'required',
-            'thursday_end' => 'required',
-            'friday_start' => 'required',
-            'friday_end' => 'required',
-            ]);
-            $clients = Book::where('doctor_id', Auth::id())->get();
             foreach ($clients as $client) {
                $weekday=date('w', strtotime($client->booking_date));
                //1-monday
@@ -192,6 +179,10 @@ class DoctorController extends Controller
                     'odd_start' => 'required',
                     'odd_end' => 'required',
                 ]);
+                foreach ($clients as $client) {
+                    if(!(date('d', strtotime($client->booking_date))%2))
+                        return redirect()->back()->with('error', 'even');
+                }
                 $odd_start_check = Book::where(
                     'doctor_id', Auth::id())
                 ->where('time_start','<',$request->odd_start)->first();
@@ -208,6 +199,10 @@ class DoctorController extends Controller
                     'even_start' => 'required',
                     'even_end' => 'required',
                 ]);
+                foreach ($clients as $client) {
+                    if(date('d', strtotime($client->booking_date))%2)
+                        return redirect()->back()->with('error', 'odd');
+                }
                 $even_start_check = Book::where(
                     'doctor_id', Auth::id())
                 ->where('time_start','<',$request->even_start)->first();

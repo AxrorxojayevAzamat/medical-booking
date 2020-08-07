@@ -9,7 +9,7 @@
     <div class="card card-secondary card-outline" id="doctor-clinic">
 
                 @foreach($doctor->clinics as $clinic)
-                <div class="card-header">{{ __('Клиника ') }} <a href='{{ route('admin.clinics.show', $clinic) }}'><strong> {{$clinic->name_ru}}</strong></a>
+                <div class="card-header">{{ __('Клиника ') }}<strong> {{$clinic->name_ru}}</strong>
                     <div class="card-body">
                         @php
                             $time = $timetable->where('clinic_id', $clinic->id);
