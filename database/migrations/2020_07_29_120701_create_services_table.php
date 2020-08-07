@@ -19,7 +19,7 @@ class CreateServicesTable extends Migration
             $table->string('name_ru');
             $table->text('description_uz');
             $table->text('description_ru');
-            $table->string('icon');
+            $table->string('icon')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
             $table->timestamps();
