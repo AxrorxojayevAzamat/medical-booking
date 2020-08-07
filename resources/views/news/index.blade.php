@@ -7,7 +7,7 @@
 @section('content')
     <div class="container margin_60">
         <div class="main_title">
-            <h1>{{ trans('breadcrumbs.news') }}</h1>
+            <h1>{{ trans('breadcrumb_fe.news') }}</h1>
         </div>
         <div class="row">
             <div class="col-lg-9">

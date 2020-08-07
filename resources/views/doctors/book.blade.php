@@ -5,8 +5,8 @@
         <div class="row">
             <div class="col-xl-8 col-lg-8">
                 <div class="box_general_3 cart">
-                    <div class="message">
-                    </div>
+                    {{-- <div class="message">
+                    </div> --}}
                     <div class="form_title">
                         <h3><strong>1</strong>{{ trans('book.your_data') }}</h3>
                     </div>
