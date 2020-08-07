@@ -69,6 +69,7 @@
                             <input type="hidden" name="user_id" value="{{$user->id}}">
                             <input type="hidden" name="doctor_id" value="{{$doctor->id}}">
                             <input type="hidden" name="clinic_id" value="{{$clinic->id}}">
+                            <input type="hidden" name="amount" value="{{$price}}">
                             <input type="checkbox" class="time_checkbox{{$key}}" style="display: none" required>
                             <div class="choose" >
                                 <div class="form-group">
