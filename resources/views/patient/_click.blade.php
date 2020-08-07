@@ -15,12 +15,12 @@
             <div class="row">
                 <div class="col-md-6 col-6">
                     <div class="form-group">
-                        <input type="text" id="c_expire_month" name="expire_month" class="form-control" placeholder="MM">
+                    <input type="text" id="c_expire_month" name="expire_month" class="form-control" placeholder="{{trans('home.month')}}">
                     </div>
                 </div>
                 <div class="col-md-6 col-6">
                     <div class="form-group">
-                        <input type="text" id="c_expire_year" name="expire_year" class="form-control" placeholder="Year">
+                        <input type="text" id="c_expire_year" name="expire_year" class="form-control" placeholder="{{trans('home.year')}}">
                     </div>
                 </div>
             </div>
@@ -38,10 +38,10 @@
             <input class="btn_1 medium confirm-click" id="tokenCreate" type="submit" value="{{trans('msg.next')}}" style="margin: 22px">
         </div>
     </div>
-    <div class="error-container">
-    </div>
-</div>
 
+</div>
+<div class="error-container" style="color: #e74e84">
+</div>
 <form id="sms-click" class="sms-click">
 
     <div class="row">
@@ -59,7 +59,4 @@
     <div class="error-container">
     </div>
 </form>
-
-<div class="successed">
-
-</div>
+<div class="successed container"></div>

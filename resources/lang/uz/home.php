@@ -12,4 +12,6 @@ return [
     'book_visit' => 'Tashrif buyurish',
     'name_name' => 'Nom, Ism ....',
     'search_by_route' => "Yo'nalish bo'yicha izlash",
+    'year' => 'Год',
+    'year' => 'Месяц',
 ];

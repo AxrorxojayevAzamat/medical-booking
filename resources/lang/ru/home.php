@@ -11,6 +11,7 @@ return [
     'view_profile' => "Просмотреть профиль",
     'book_visit' => 'Забронировать визит',
     'name_name' => 'Название, Имя ....',
-    'search_by_route' => "Поиск по направлению",
-
+    'search_by_route' => "Поиск по услугам",
+    'year' => 'Yil',
+    'year' => 'Oy',
 ];

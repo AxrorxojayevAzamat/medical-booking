@@ -37,7 +37,7 @@ class ClickService
     {
         $payment = $this->findByToken($request->transaction_id);
         if (!in_array($payment->status, [ClickHelper::INPUT, ClickHelper::REFUNDED])) {
-            return ['error_code' => -31300, 'error_note' => 'Payment in processing'];
+            return ['error_code' => -31300, 'error_note' => trans('msg.payment_in')];
         }
 
         $response = $this->apis->createInvoice([
@@ -63,7 +63,7 @@ class ClickService
     {
         $payment = $this->findByToken($request->transaction_id);
         if (!in_array($payment->status, [ClickHelper::INPUT, ClickHelper::REFUNDED])) {
-            throw new ClickException('Payment in processing', ResponseHelper::CODE_ERROR, ClickException::ERROR_PAYMENT_IN_PROCESSING);
+            throw new ClickException(trans('msg.payment_in'), ResponseHelper::CODE_ERROR, ClickException::ERROR_PAYMENT_IN_PROCESSING);
         }
 
         $response = $this->apis->createCardToken([
