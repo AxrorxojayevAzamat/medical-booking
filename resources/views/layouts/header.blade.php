@@ -44,7 +44,7 @@
     <div data-loader="circle-side"></div>
 </div> --}}
 
-<header class="header_sticky">
+<header class="header_sticky" style='-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"'>
     <div class="container">
         <div class="row">
 
@@ -201,3 +201,8 @@
         </div>
     </div>
 </header>
+<style>
+    body {
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"!important;
+    }
+</style>
