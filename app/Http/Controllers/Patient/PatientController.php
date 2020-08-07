@@ -28,36 +28,4 @@ class PatientController extends Controller
         return view('patient.patient_bookings', compact('bookings'));
     }
 
-    public function booking(User $user, Clinic $clinic, Request $request)
-    {
-
-        if (!Gate::allows('patient-panel')) {
-            return abort(401);
-        }
-
-        $calendar = $request['calendar'];
-        $radioTime = $request['radio_time'];
-        $price = config('book.booking_price');
-        $currency = config('book.default_currency');
-
-        $patient = User::find(Auth::user()->id);
-        return view('patient.booking', compact('patient', 'user', 'clinic', 'calendar', 'radioTime', 'price', 'currency'));
-    }
-
-    public function bookingDoctor(Request $request)
-    {
-        $userId = $request['patient_id'];
-        $doctorId = $request['doctor_id'];
-        $clinicId = $request['clinic_id'];
-        $bookingDate = $request['booking_date'];
-        $timeStart = $request['time_start'];
-        $description = $request['description'];
-
-
-        $booking = Book::new($userId, $doctorId, $clinicId, $bookingDate, $timeStart, null, $description);
-
-
-        return redirect()->route('doctors.index');
-    }
-
 }

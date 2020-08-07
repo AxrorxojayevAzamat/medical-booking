@@ -70,6 +70,28 @@
                             <input type="hidden" name="doctor_id" value="{{$doctor->id}}">
                             <input type="hidden" name="clinic_id" value="{{$clinic->id}}">
                             <input type="checkbox" class="time_checkbox{{$key}}" style="display: none" required>
+                            <div class="choose" >
+                                <div class="form-group">
+                                    <label>{{ trans('book.choose_one_of_them') }}</label>
+                                </div>
+
+                                <div class="row d-flex justify-content-center">
+
+                                    <div class="form-group">
+                                        <input type="radio" name="payment_type" value="{{\App\Entity\Book\Book::PAYME}}" checked="checked" />
+                                        <img src="{{asset('img/payme_01.svg')}}" class="img-payme-click choose-payme" width="200px" height=80px>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="radio" name="payment_type" value="{{\App\Entity\Book\Book::CLICK}}" />
+                                        <img src="{{asset('img/click_01.jpg')}}" class="img-payme-click choose-click" width="200px" height="80px">
+                                    </div>
+                                </div>
+                                <div class="error-container">
+                                </div>
+
+                            </div>
+
+                            <hr>
 
                             <div class="text-center"><button class="btn_1 medium" id="{{$key}}" onclick="checkDay(event)" type="submit">{{ __('Забронируйте сейчас') }}</button></div>
                         </div>

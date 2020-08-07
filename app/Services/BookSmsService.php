@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BookEmail;
+use App\Mail\PaymentEmail;
 use App\Entity\User\User;
 use App\Entity\Clinic\Clinic;
 
@@ -41,6 +42,7 @@ class BookSmsService
             'text' => $text
         );
         $url = 'http://185.74.5.117:13002/cgi-bin/sendsms?' . http_build_query($url_array);
+        dd(http_build_query($url_array));
         $output = "";
         $handle = curl_init();
         curl_setopt($handle, CURLOPT_URL, $url);
@@ -73,6 +75,17 @@ class BookSmsService
                 $clinic->name,
                 $this->price,
                 $this->currency
+            )
+        );
+    }
+    public function toMailPayment($email, $title, $context, $footer, $link)
+    {
+        Mail::to($email)->send(
+            new PaymentEmail(
+                $title,
+                $context,
+                $footer,
+                $link
             )
         );
     }
