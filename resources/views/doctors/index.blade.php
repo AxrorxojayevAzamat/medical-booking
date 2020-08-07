@@ -142,12 +142,12 @@
                             <span class="rating">Бронирован: {{ $doctorValue->numberOfBookings }}</span>
                         </p>
 
-                        <ul>
-                            @if(empty($doctorValue->clinics->pluck('location')->toArray()))
+                        <ul style="height: 4em;">
+                            {{-- @if(empty($doctorValue->clinics->pluck('location')->toArray()))
                                 <li><a href="#0" onclick="initMap()" class="btn_listing"></a></li>
                             @else
                                 <li><a href="#0" onclick="initMap({{$doctorValue->clinics->pluck('location')->first()}})" class="btn_listing">{{trans('doctors.view_on_map')}}</a></li>
-                            @endif
+                            @endif --}}
                             <li><a href="{{ route('doctors.show',$doctorValue) }}">{{trans('doctors.booking')}}</a></li>
                         </ul>
                     </div>
