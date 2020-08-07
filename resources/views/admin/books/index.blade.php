@@ -58,6 +58,7 @@
                                 <input class="form-control" name="booking_date" type="date" value="{{ request('booking_date') }}">
                             </div>
                         </div>
+                       
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label for="name" class="col-form-label">{{ trans('Время бронирования') }}</label>
@@ -95,9 +96,12 @@
                             <th>{{ trans('Полное имя пациента') }}</th>
                             <th>{{ trans('Дата бронирования') }}</th>
                             <th>{{ trans('Время бронирования') }}</th>
+                            <th>{{ trans('Конец времени') }}</th>
                             <th>{{ trans('Телефон пациента') }}</th>
                             <th>{{ trans('Полное имя доктора') }}</th>
                             <th>{{ trans('Название клиники') }}</th>
+                            {{-- <th>{{ trans('Статус заказа') }}</th> --}}
+                            <th>{{ trans('Подробнее о заказе') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -106,9 +110,18 @@
                             <td><a href="{{ route('admin.users.show', $book->user->id) }}">{{ $book->user->profile ? $book->user->profile->fullName : '' }}</a></td>
                             <td>{{$book->booking_date}}</td>
                             <td>{{$book->time_start ? \Carbon\Carbon::parse($book->time_start)->format('H:i') : ''}}</td>
+                            <td>{{$book->time_finish ? \Carbon\Carbon::parse($book->time_finish)->format('H:i') : ''}}</td>
                             <td>{{$book->user->phone}}</td>
                             <td><a href="{{ route('admin.users.show', $book->doctor->id) }}">{{ $book->doctor->profile ? $book->doctor->profile->fullName : '' }}</a></td>
                             <td><a href="{{ route('admin.clinics.show', $book->clinic->id) }}">{{ $book->clinic->name ? $book->clinic->name : '' }}</a></td>
+                            {{-- @if ($book->type == \App\Entity\Book::PAYME)
+                            <td>{!! $book->payme->stateName() !!}</td>
+                            @elseif ($book->type == \App\Entity\Book::CLICK)
+                                <td>{!! $book->click->statusName() !!}</td>
+                            @else
+                                <td>Оплачен (бесплатный номер)</td>
+                            @endif --}}
+                            <td><a href="{{ route('admin.books.show', $book) }}">Подробнее</a></td>
                         </tr>
 
                         @endforeach
@@ -140,7 +153,7 @@ $(function () {
         "paging": false,
         "lengthChange": false,
         "searching": false,
-        "ordering": true,
+        "ordering": false,
         "info": false,
         "autoWidth": false,
         "responsive": true,

@@ -2,6 +2,7 @@
 
 namespace App\Entity\Book;
 
+use App\Entity\Book\Payment\PaycomOrder;
 use App\Entity\Clinic\Clinic;
 use App\Entity\User\User;
 use Carbon\Carbon;
@@ -70,7 +71,21 @@ class Book extends Model
     {
         $this->status = self::STATUS_CANCELLED;
     }
-
+    
+    public static function statusList(): array
+    {
+        return [
+            self::STATUS_WAITING => 'Ожидание платежа',
+            self::STATUS_ACTIVE => 'Оплачен',
+            self::STATUS_CANCELLED =>'Отменен',
+            self::STATUS_POSTPONED =>'Отложен' ,
+            self::STATUS_COMPLETED => 'Выполнен',
+        ];
+    }
+    public function statusName(): string
+    {
+        return self::stateList()[$this->state];
+    }
     public static function typeList()
     {
         return [
@@ -78,6 +93,18 @@ class Book extends Model
             self::CLICK => 'Click',
         ];
     }
+    public function payme()
+    {
+        return $this->hasOne(PaycomOrder::class, 'book_id', 'id');
+    }
+
+    public function click()
+    {
+        return $this->hasOne(Click::class, 'book_id', 'id');
+    }
+
+
+
 
     public static function typeName($type): string
     {
@@ -108,5 +135,4 @@ class Book extends Model
     }
 
     ###########################################
-
 }

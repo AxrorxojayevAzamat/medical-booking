@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
 use \App\Entity\Book\Book;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class BookController extends Controller
 {
@@ -15,10 +16,21 @@ class BookController extends Controller
     
     public function index(Request $request)
     {
-        $query = Book::select(['books.*', 'us.*', 'pr.*'])
-                ->join('users as us', 'books.user_id', '=', 'us.id')
-                ->join('profiles as pr', 'pr.user_id', '=', 'us.id')
-                ->orderByDesc('books.created_at');
+        $search = $request->all();
+        
+        if (!empty($search)) {
+            $query = Book::select(['books.*', 'us.*', 'pr.*'])
+            ->join('users as us', 'books.user_id', '=', 'us.id')
+            ->join('profiles as pr', 'pr.user_id', '=', 'us.id')
+            ->orderBy('booking_date', 'asc');
+        } else {
+            $query = Book::select(['books.*', 'us.*', 'pr.*'])
+            ->join('users as us', 'books.user_id', '=', 'us.id')
+            ->join('profiles as pr', 'pr.user_id', '=', 'us.id')
+            ->orderBy('booking_date', 'asc')
+            ->orderBy('time_start', 'asc')
+            ->whereDate('books.booking_date', '>=', Carbon::today());
+        }
 
         if (!empty($value = $request->get('id'))) {
             $query->where('books.id', $value);
@@ -47,8 +59,12 @@ class BookController extends Controller
         if (!empty($value = $request->get('email'))) {
             $query->where('users.email', 'ilike', '%' . $value . '%');
         }
-        $bookingList = $query->paginate(10);
-        return view('admin.books.index', compact('bookingList'));
+        $statuses = Book::statusList();
+        $bookingList = $query->paginate(30);
+        return view('admin.books.index', compact('bookingList', 'statuses'));
     }
-
+    public function show(Book $book)
+    {
+        return view('admin.books.show', compact('book'));
+    }
 }
