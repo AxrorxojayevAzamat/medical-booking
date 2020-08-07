@@ -60,39 +60,39 @@ class TimeTableController extends Controller
                //1-monday
                switch ($weekday) {
                     case '1':
-                        if($request->monday_start>$client->start_time ||
-                           $request->monday_end<$clinet->finish_time)
-                            return redirect()->back()->with('error', 'true');
+                        if($request->monday_start>$client->time_start ||
+                           $request->monday_end<$clinet->time_finish)
+                            return redirect()->back()->with('error', '1');
                        break;
                     case '2':
-                        if($request->tuesday_start>$client->start_time ||
-                           $request->tuesday_end<$clinet->finish_time)
-                            return redirect()->back()->with('error', 'true');
+                        if($request->tuesday_start>$client->time_start ||
+                           $request->tuesday_end<$clinet->time_finish)
+                            return redirect()->back()->with('error', '2');
                        break;
                     case '3':
-                        if($request->wednesday_start>$client->start_time ||
-                           $request->wednesday_end<$clinet->finish_time)
-                            return redirect()->back()->with('error', 'true');
+                        if($request->wednesday_start>$client->time_start ||
+                           $request->wednesday_end<$clinet->time_finish)
+                            return redirect()->back()->with('error', '3');
                        break;
                     case '4':
-                        if($request->thursday_start>$client->start_time ||
-                           $request->thursday_end<$clinet->finish_time)
-                            return redirect()->back()->with('error', 'true');
+                        if($request->thursday_start>$client->time_start ||
+                           $request->thursday_end<$clinet->time_finish)
+                            return redirect()->back()->with('error', '4');
                        break;
                     case '5':
-                        if($request->friday_start>$client->start_time ||
-                           $request->friday_end<$clinet->finish_time)
-                            return redirect()->back()->with('error', 'true');
+                        if($request->friday_start>$client->time_start ||
+                           $request->friday_end<$clinet->time_finish)
+                            return redirect()->back()->with('error', '5');
                        break;
                     case '6':
-                        if($request->saturday_start>$client->start_time ||
-                           $request->saturday_end<$clinet->finish_time)
-                            return redirect()->back()->with('error', 'true');
+                        if($request->saturday_start>$client->time_start ||
+                           $request->saturday_end<$clinet->time_finish)
+                            return redirect()->back()->with('error', '6');
                        break;
                     case '7':
-                        if($request->sunday_start>$client->start_time ||
-                           $request->sunday_end<$clinet->finish_time)
-                            return redirect()->back()->with('error', 'true');
+                        if($request->sunday_start>$client->time_start ||
+                           $request->sunday_end<$clinet->time_finish)
+                            return redirect()->back()->with('error', '7');
                        break;
                    default:
                        break;

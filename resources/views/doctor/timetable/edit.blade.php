@@ -5,9 +5,9 @@
     <div class="container-fluid" style="margin-top: 60px">
         <div class="box_general padding_bottom">
 		<h1 align="center">{{trans('menu.timetable')}}</h1>
-		@if(Session::get('error'))
+		@if(Session::has('error'))
 		<div class="alert alert-danger alert-dismissible fade show" role="alert">
-		  <strong>У вас есть пациент, выберите другое время</strong>
+		  @include('partials.timetable.error')
 		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 		    <span aria-hidden="true">&times;</span>
 		  </button>

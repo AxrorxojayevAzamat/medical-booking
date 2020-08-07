@@ -22,6 +22,7 @@ use App\Entity\User\Profile;
 use Hash;
 use App\Services\TimetableService;
 use Illuminate\Support\Facades\Gate;
+use Validator;
 
 class DoctorController extends Controller
 {
@@ -123,66 +124,90 @@ class DoctorController extends Controller
 
     public function update(User $user, Timetable $timetable,TimeTableRequest $request)
     {
+
         if($request->schedule_type=='1'){
+            $this->validate($request, [
+            'monday_start' => 'required',
+            'monday_end' => 'required',
+            'tuesday_start' => 'required',
+            'tuesday_end' => 'required',
+            'wednesday_start' => 'required',
+            'wednesday_end' => 'required',
+            'thursday_start' => 'required',
+            'thursday_end' => 'required',
+            'friday_start' => 'required',
+            'friday_end' => 'required',
+            ]);
             $clients = Book::where('doctor_id', Auth::id())->get();
             foreach ($clients as $client) {
                $weekday=date('w', strtotime($client->booking_date));
                //1-monday
                switch ($weekday) {
                     case '1':
-                        if($request->monday_start>$client->start_time ||
-                           $request->monday_end<$client->finish_time)
-                            return redirect()->back()->with('error', 'true');
+                        if($request->monday_start>$client->time_start ||
+                           $request->monday_end<$client->time_finish)
+                            return redirect()->back()->with('error', '1');
                        break;
                     case '2':
-                        if($request->tuesday_start>$client->start_time ||
-                           $request->tuesday_end<$client->finish_time)
-                            return redirect()->back()->with('error', 'true');
+                        if($request->tuesday_start>$client->time_start ||
+                           $request->tuesday_end<$client->time_finish)
+                            return redirect()->back()->with('error', '2');
                        break;
                     case '3':
-                        if($request->wednesday_start>$client->start_time ||
-                           $request->wednesday_end<$client->finish_time)
-                            return redirect()->back()->with('error', 'true');
+                        if($request->wednesday_start>$client->time_start ||
+                           $request->wednesday_end<$client->time_finish)
+                            return redirect()->back()->with('error', '3');
                        break;
                     case '4':
-                        if($request->thursday_start>$client->start_time ||
-                           $request->thursday_end<$client->finish_time)
-                            return redirect()->back()->with('error', 'true');
+                        if($request->thursday_start>$client->time_start ||
+                           $request->thursday_end<$client->time_finish)
+                            return redirect()->back()->with('error', '4');
                        break;
                     case '5':
-                        if($request->friday_start>$client->start_time ||
-                           $request->friday_end<$client->finish_time)
-                            return redirect()->back()->with('error', 'true');
+                        if($request->friday_start>$client->time_start ||
+                           $request->friday_end<$client->time_finish)
+                            return redirect()->back()->with('errors', '5');
                        break;
                     case '6':
-                        if($request->saturday_start>$client->start_time ||
-                           $request->saturday_end<$client->finish_time)
-                            return redirect()->back()->with('error', 'true');
+                        if($request->saturday_start>$client->time_start ||
+                           $request->saturday_end<$client->time_finish)
+                            return redirect()->back()->with('error', '6');
                        break;
                     case '7':
-                        if($request->sunday_start>$client->start_time ||
-                           $request->sunday_end<$client->finish_time)
-                            return redirect()->back()->with('error', 'true');
+                        if($request->sunday_start>$client->time_start ||
+                           $request->sunday_end<$client->time_finish)
+                            return redirect()->back()->with('error', '7');
                        break;
                    default:
                        break;
                }
             }
         }else{
-            if($timetable->odd_start){
+            if(($request->odd_start || $request->odd_end) &&
+                ($request->even_start || $request->even_end)){
+                    return redirect()->back()->with('error', 'odd_even');
+            }
+            if($request->odd_start || $request->odd_end){
+                $this->validate($request, [
+                    'odd_start' => 'required',
+                    'odd_end' => 'required',
+                ]);
                 $odd_start_check = Book::where(
                     'doctor_id', Auth::id())
                 ->where('time_start','<',$request->odd_start)->first();
-                
+
                 $odd_finish_check = Book::where(
                     'doctor_id', Auth::id())
                 ->where('time_finish','>',$request->odd_end)->first();
                 
                 if($odd_start_check || $odd_finish_check)
-                    return redirect()->back()->with('error', 'true');
+                    return redirect()->back()->with('error', 'odd');
             }
-
-            if($timetable->even_start){
+            else{
+                $this->validate($request, [
+                    'even_start' => 'required',
+                    'even_end' => 'required',
+                ]);
                 $even_start_check = Book::where(
                     'doctor_id', Auth::id())
                 ->where('time_start','<',$request->even_start)->first();
@@ -190,11 +215,11 @@ class DoctorController extends Controller
                 $even_finish_check = Book::where(
                     'doctor_id', Auth::id())
                 ->where('time_finish','>',$request->even_end)->first();
-                    
                 if($even_start_check || $even_finish_check)
-                    return redirect()->back()->with('error', 'true');
+                    return redirect()->back()->with('error', 'even');
+                }
             }
-        }
+        
         try {
             
             $bookings = Book::where('doctor_id', Auth::id())->get();
