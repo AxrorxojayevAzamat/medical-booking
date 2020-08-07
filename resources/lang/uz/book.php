@@ -25,4 +25,5 @@ return [
     'doctor' => 'Doktor',
     'book_and_pay' => "Buyurtma va to'lov",
     'locale' => 'uz',
+    'booked' => 'Band qilingan',
 ];

@@ -170,7 +170,7 @@ body {
   font-size: 14px;
   font-size: 0.875rem;
   line-height: 1.4;
-  font-family: "Poppins", Helvetica, sans-serif;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   color: #555;
 }
 
@@ -2111,8 +2111,9 @@ a.wish_bt:hover:after {
   background-color: rgba(255, 255, 255, 0.9);
   position: relative;
   z-index: 99999;
-  font-family: "Poppins", Helvetica, sans-serif;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 }
+/* "Poppins", Helvetica, sans-serif */
 .marker_info figure {
   width: 60px;
   height: 60px;
@@ -5099,7 +5100,7 @@ ul.bullets li:before {
 }
 
 div.datedropper, .td-wrap {
-  font-family: "Poppins", Helvetica, sans-serif !important;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" !important;
 }
 
 div.datedropper .picker .pick-lg ul.pick-lg-b li.pick-v:hover {

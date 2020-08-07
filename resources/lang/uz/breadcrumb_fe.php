@@ -1,0 +1,32 @@
+<?php
+
+return [
+    'main' => "Asosiy",
+    'recall' => "Qayta aloqa",
+    'news' => "Yangiliklar",
+
+    // 'users' => "Foydalanuvchilar",
+    // 'craete_user' => "Foydalanuvchi yaratish",
+    // 'edit' => "Tahrirlash",
+    // 'doctors_clinics' => "Shifokor klinikalari",
+    // 'main_photo' => "Asosiy rasm",
+    // 'photos' => "Rasmlar",
+    // 'regions' => "Hududlar",
+    // 'create_regions' => "Hududlar yaratish",
+    // 'add_photo' => "Rasm qo'shish",
+    // 'add_contant' => "Kontakt qo'shish",
+    // 'create_specialization' => "Mutaxassislik yaratish",
+    // 'holidays' => "Bayram kunlari",
+    // 'create_holidays' => "Bayram kunlari yaratish",
+    // 'edit_holidays' => "Bayram kunlari tahrirlash",
+    // 'partners' => "Sheriklar",
+    // 'add_new_partner' => "Sheriklar qo'shish",
+    // 'create_timetable_doctor' => "Shifokor ish jadvalini tuzish",
+    // 'edit_timetable_doctor' => "Shifokor ish jadvalini tahrirlash",
+    // 'patients' => "Be'morlar",
+    // 'create_new_patient' => "Yangi be'mor yaratish",
+    // 'select_doctor' => "Shifokor tanlash",
+    // 'book_doctor' => "Shifokorni band qilish",
+    // 'add_news' => "Yangiliklar qo'shish",
+    // 'edit_news' => "Yangiliklarni tahrirlash",
+];

@@ -214,6 +214,7 @@
             checkedDays[e.currentTarget.id.slice(-1)] = true;
             console.log(checkedDays);
             $(".day_checkbox" + e.currentTarget.id.slice(-1)).prop("checked", true);
+            $(".time_checkbox" + e.currentTarget.id.slice(-1)).prop("checked", false);
         });
     }
 

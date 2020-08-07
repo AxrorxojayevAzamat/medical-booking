@@ -43,4 +43,5 @@ return [
     'leave_title'                         => 'Agar siz joriy seansni tugatishga tayyor bo\'lsangiz, quyida "Chiqish" ni tanlang',
     'timetable'                     => 'Mening jadvalim',
     'editSpecialization'            => 'Shifokor turini o\'zgartirish',
+    'service'                       => 'Xizmatlar',
 ];

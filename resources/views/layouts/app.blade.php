@@ -136,25 +136,31 @@
                         <li class="submenu">
                             @php($name = 'name_' . \App\Helpers\LanguageHelper::getCurrentLanguagePrefix())
                             @php($serviceIds = \App\Entity\Clinic\Service::orderBy($name)->limit(10)->pluck($name, 'id'))
-                            <a href="#" class="show-submenu">Сервисы<i class="icon-down-open-mini"></i></a>
+                        <a href="#" class="show-submenu">{{trans('menu.service')}}<i class="icon-down-open-mini"></i></a>
                             <ul>
                                 @foreach($serviceIds as $value => $label)
                                     <li><a href="{{ route('clinics.index') . '?service=' .  $value }}">{{ $label }}</a></li>
                                 @endforeach
-                                <li><a href="{{ route('clinics.index') }}">Больше</a></li>
+                                <li><a href="{{ route('clinics.index') }}">{{trans('home.more')}}</a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="{{route('contacts.contacts')}}">{{ trans('contacts.title') }}</a>
                         </li>
                         <li>
-                            <a href="{{route('news.index')}}">{{ trans('breadcrumbs.news') }}</a>
+                            <a href="{{route('news.index')}}">{{ trans('breadcrumb_fe.news') }}</a>
                         </li>
                         <li class="submenu">
                             <a href="#" class="show-submenu">{{ trans('menu.language') }}<i class="icon-down-open-mini"></i></a>
                             <ul>
-                                <li><a href="/locale/uz" style="font-size: 0.75rem; padding-left: 20px!important">O'zbek tili</a></li>
-                                <li><a href="/locale/ru" style="font-size: 0.75rem; padding-left: 20px!important">Русский</a></li>
+                                @foreach(\Mcamara\LaravelLocalization\Facades\LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                    <li>
+                                        <a rel="alternate" hreflang="{{ $localeCode }}"
+                                           href="{{ \Mcamara\LaravelLocalization\Facades\LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                            {{ $properties['native'] }}
+                                        </a>
+                                    </li>
+                                @endforeach
                             </ul>
                         </li>
                         @if (Route::has('login'))
@@ -187,7 +193,7 @@
                             @endauth
                         @endif
                         <li class="float-right">
-                            <a href="tel: 4411">&phone; 4411</a>
+                            <a href="tel: 4411"><i class="icon_phone"></i> 4411</a>
                         </li>
                     </ul>
                 </div>
@@ -207,41 +213,36 @@
 <footer>
     <div class="container margin_60_35">
         <div class="row">
-            <div class="col-lg-3 col-md-12">
-                <p>
-                    <a href="/" title="Findoctor">
-                        <img src="/img/logo.png" data-retina="true" alt="" width="163" height="36" class="img-fluid">
-                    </a>
-                </p>
+            <div class="col-lg-3 col-md-12 mb-4">
+                <div class="follow_us">
+                    <h5>{{trans('footer.follow_us')}}</h5>
+                    <ul>
+                        <li><a href="#0"><i class="social_facebook"></i></a></li>
+                        <li><a href="#0"><i class="social_instagram"></i></a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-lg-3 col-md-4">
-            <h5>{{trans('footer.about')}}</h5>
-                <ul class="links">
-                    <li><a href="#0">{{trans('footer.about')}}</a></li>
-                    <li><a href="blog.html">{{trans('footer.blog')}}</a></li>
-                    <li><a href="#0">{{trans('footer.faq')}}</a></li>
-                    @if (Auth::guest())
-                        <li><a href="/login">{{trans('auth.log_in')}}</a></li>
-                        <li><a href="/register">{{trans('auth.sign_up')}}</a></li>
-                    @endif
-                </ul>
-            </div>
-            <div class="col-lg-3 col-md-4">
+            <div class="col-lg-6 col-md-8">
                 <h5>{{trans('footer.possible_links')}}</h5>
-                <ul class="links">
-                    <li><a href="{{ route('doctors.index') }}">Докторы</a></li>
-                    <li><a href="{{ route('clinics.index') }}">Клиники</a></li>
-                    <li><a href="#0">{{trans('menu.specialization')}}</a></li>
-                    <li><a href="#0">{{trans('footer.join_us_doctor')}}</a></li>
-                    @foreach(Session::get('pages') as $page)
-                        <li><a href="page/{{$page->slug}}">
-                        @if(Session::get('locale')=='uz')
-                            {{$page->title_uz}}</a></li>
-                        @else
-                            {{$page->title_ru}}</a></li>
-                        @endif
-                    @endforeach
-                </ul>
+                <div class="row">
+                    <ul class="links col-lg-12 col-sm-12 col-12" style="column-count: 2">
+                        <li><a href="{{ route('doctors.index') }}">{{trans('menu.doctors')}}</a></li>
+                        <li><a href="{{ route('clinics.index') }}">{{trans('menu.clinics')}}</a></li>
+                        <li><a href="{{ route('specializations')}}">{{trans('menu.specialization')}}</a></li>
+                    {{-- </ul>
+                    <ul class="links col-lg-6 col-sm-12 col-12"> --}}
+                        <li><a href="{{route('contacts.contacts')}}">{{ trans('contacts.title') }}</a></li>
+                        <li><a href="{{route('news.index')}}">{{ trans('breadcrumb_fe.news') }}</a></li>
+                        @foreach(Session::get('pages') as $page)
+                            <li><a href="page/{{$page->slug}}">
+                            @if(Session::get('locale')=='uz')
+                                {{$page->title_uz}}</a></li>
+                            @else
+                                {{$page->title_ru}}</a></li>
+                            @endif
+                        @endforeach
+                    </ul>
+                </div>
             </div>
             <div class="col-lg-3 col-md-4">
                 <h5>{{trans('footer.contant_with_us')}}</h5>
@@ -249,15 +250,7 @@
                     <li><a href="tel: 4411"><i class="icon_mobile"></i> 4411</a></li>
                     <li><a href="mailto:info@findoctor.com"><i class="icon_mail_alt"></i> help@findoctor.com</a></li>
                 </ul>
-                <div class="follow_us">
-                    <h5>{{trans('footer.follow_us')}}</h5>
-                    <ul>
-                        <li><a href="#0"><i class="social_facebook"></i></a></li>
-                        <li><a href="#0"><i class="social_twitter"></i></a></li>
-                        <li><a href="#0"><i class="social_linkedin"></i></a></li>
-                        <li><a href="#0"><i class="social_instagram"></i></a></li>
-                    </ul>
-                </div>
+
             </div>
         </div>
         <hr>
@@ -270,7 +263,7 @@
                 </ul>
             </div>
             <div class="col-md-4">
-                <div id="copy">© 2020 Findoctor</div>
+                <div id="copy">© 2020 </div>
             </div>
         </div>
     </div>

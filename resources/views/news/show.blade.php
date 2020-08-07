@@ -14,7 +14,7 @@
                     <div class="postmeta">
                         <ul>
                             <li><a href="#"><i class="icon_clock_alt"></i> {{ $news->created_at->format('d/m/Y') }}</a></li>
-                            <li><a href="#"><i class="icon_pencil-edit"></i> Admin</a></li>
+                            <li><a href="#"><i class="icon_pencil-edit"></i> {{ $news->createdBy->profile->fullName }}</a></li>
                         </ul>
                     </div>
                     <div class="post-content">
