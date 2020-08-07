@@ -124,7 +124,7 @@
     <div id="app_section">
         <div class="container">
             <div class="row justify-content-around">
-                <div class="main_title">
+                <div class="main_title_5">
                     <h2>{{ trans('home.discover_the_appointment' ) }}</h2>
                     <p>{{ trans('extra_info.online_meeting' ) }}</p>
                 </div>
