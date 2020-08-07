@@ -11,7 +11,7 @@ $factory->define(Service::class, function (Faker $faker) {
         'name_ru' => $faker->unique()->name,
         'description_uz' => $faker->text(200),
         'description_ru' => $faker->text(200),
-        'icon' => $faker->imageUrl(),
+//        'icon' => $faker->imageUrl(),
         'created_by' => 1,
         'updated_by' => 1,
     ];
