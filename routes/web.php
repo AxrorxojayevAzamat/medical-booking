@@ -130,28 +130,7 @@ Route::group([ 'namespace' => 'Admin'], function ()
     Route::get('page/{slug?}','PagesController@slug')->name('slug');
 });
 
-Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function() {
-    Route::get('', 'HomeController@index')->name('home');
-
-    Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
-
-        Route::post('paycom/create', 'PaycomController@createOrder');
-        Route::post('paycom/perform', 'PaycomController@performOrder');
-
-
-Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function () {
-    Route::get('', 'PatientController@profileShow')->name('profile');
-    Route::get('/edit', 'PatientController@profileEdit')->name('profileEdit');
-    Route::post('/edit', 'PatientController@profileEditSave')->name('profileEditSave');
-    Route::get('/booking/{user}/{clinic}', 'PatientController@booking')->name('booking');
-    Route::post('/booking-doctor/', 'PatientController@bookingDoctor')->name('booking-doctor');
-    Route::get('/{user_id}/bookings', 'PatientController@myBookings')->name('mybookings');
-    Route::post('destroy','PatientController@destroy')->name('destroy');
-
-});
-
 Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 'middleware' => ['auth', 'can:doctor-panel']], function () {
-    
     Route::get('/profile', 'DoctorController@profileShow')->name('profile');
     Route::get('/edit', 'DoctorController@profileEdit')->name('profileEdit');
     Route::post('/edit', 'DoctorController@profileEditSave')->name('profileEditSave');
@@ -179,22 +158,29 @@ Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 
     Route::get('{doctor_id}/bookings', 'DoctorController@books')->name('doctorbookings');
 });
 
+Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function () {
+    Route::get('', 'PatientController@profileShow')->name('profile');
+    Route::get('/edit', 'PatientController@profileEdit')->name('profileEdit');
+    Route::post('/edit', 'PatientController@profileEditSave')->name('profileEditSave');
+    Route::get('/booking/{user}/{clinic}', 'PatientController@booking')->name('booking');
+    Route::post('/booking-doctor/', 'PatientController@bookingDoctor')->name('booking-doctor');
+    Route::get('/{user_id}/bookings', 'PatientController@myBookings')->name('mybookings');
+    Route::post('destroy','PatientController@destroy')->name('destroy');
+
+});
+
+
+Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function() {
+    Route::get('', 'HomeController@index')->name('home');
+
+    Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
+
+        Route::post('paycom/create', 'PaycomController@createOrder');
+        Route::post('paycom/perform', 'PaycomController@performOrder');
         Route::post('click/create', 'ClickController@createOrder');
         Route::post('click/create-token', 'ClickController@createToken');
         Route::post('click/verify-token', 'ClickController@verifyToken');
         Route::post('click/perform', 'ClickController@performOrder');
-    });
-
-    Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function () {
-        Route::get('', 'PatientController@profileShow')->name('profile');
-        Route::get('/booking/{user}/{clinic}', 'PatientController@booking')->name('booking');
-        Route::post('/booking-doctor/', 'PatientController@bookingDoctor')->name('booking-doctor');
-        Route::get('/{user_id}/bookings', 'PatientController@myBookings')->name('mybookings');
-    });
-
-    Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 'middleware' => ['auth', 'can:doctor-panel']], function () {
-        Route::get('profile', 'DoctorController@profileShow')->name('profile');
-        Route::get('{doctor_id}/bookings', 'DoctorController@books')->name('doctorbookings');
     });
 
     Route::group(['prefix' => 'contacts', 'as' => 'contacts.'], function () {
