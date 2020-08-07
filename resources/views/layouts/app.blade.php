@@ -148,7 +148,7 @@
                             <a href="{{route('contacts.contacts')}}">{{ trans('contacts.title') }}</a>
                         </li>
                         <li>
-                            <a href="{{route('news.index')}}">{{ trans('breadcrumbs.news') }}</a>
+                            <a href="{{route('news.index')}}">{{ trans('breadcrumb_fe.news') }}</a>
                         </li>
                         <li class="submenu">
                             <a href="#" class="show-submenu">{{ trans('menu.language') }}<i class="icon-down-open-mini"></i></a>
@@ -213,7 +213,7 @@
 <footer>
     <div class="container margin_60_35">
         <div class="row">
-            <div class="col-lg-3 col-md-12">
+            <div class="col-lg-3 col-md-12 mb-4">
                 <div class="follow_us">
                     <h5>{{trans('footer.follow_us')}}</h5>
                     <ul>
@@ -223,16 +223,16 @@
                 </div>
             </div>
             <div class="col-lg-6 col-md-8">
-                <div class="row"><h5>{{trans('footer.possible_links')}}</h5></div>
+                <h5>{{trans('footer.possible_links')}}</h5>
                 <div class="row">
-                    <ul class="links col-lg-6 col-sm-12 col-12 pl-0 ">
+                    <ul class="links col-lg-12 col-sm-12 col-12" style="column-count: 2">
                         <li><a href="{{ route('doctors.index') }}">{{trans('menu.doctors')}}</a></li>
                         <li><a href="{{ route('clinics.index') }}">{{trans('menu.clinics')}}</a></li>
                         <li><a href="{{ route('specializations')}}">{{trans('menu.specialization')}}</a></li>
-                    </ul>
-                    <ul class="links col-lg-6 col-sm-12 col-12">
+                    {{-- </ul>
+                    <ul class="links col-lg-6 col-sm-12 col-12"> --}}
                         <li><a href="{{route('contacts.contacts')}}">{{ trans('contacts.title') }}</a></li>
-                        <li><a href="{{route('news.index')}}">{{ trans('breadcrumbs.news') }}</a></li>
+                        <li><a href="{{route('news.index')}}">{{ trans('breadcrumb_fe.news') }}</a></li>
                     </ul>
                 </div>
             </div>
