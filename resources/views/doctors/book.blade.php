@@ -1,21 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container margin_60">
-    <div class="row">
-        <div class="col-xl-8 col-lg-8">
-            <div class="box_general_3 cart">
-                <div class="message">
-                </div>
-                <div class="form_title">
-                    <h3><strong>1</strong>{{ trans('book.your_data') }}</h3>
-                </div>
-                <div class="step">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6">
-                            <div class="form-group">
-                                <label>{{ trans('adminlte.user.first_name') }}</label>
-                                <input type="text" class="form-control" id="first_name" name="first_name" value="{{$patient->profile ? $patient->profile->first_name : ''}}" disabled>
+    <div class="container margin_60">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8">
+                <div class="box_general_3 cart">
+                    {{-- <div class="message">
+                    </div> --}}
+                    <div class="form_title">
+                        <h3><strong>1</strong>{{ trans('book.your_data') }}</h3>
+                    </div>
+                    <div class="step">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <label>{{ trans('adminlte.user.first_name') }}</label>
+                                    <input type="text" class="form-control" id="first_name" name="first_name" value="{{$patient->profile ? $patient->profile->first_name : ''}}" disabled>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6">
