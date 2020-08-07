@@ -91,8 +91,9 @@ class ClinicController extends Controller
     {
         try {
             $clinic = $this->service->update($id, $request);
-            return redirect()->route('admin.clinic.show', $clinic)->with('success', 'Успешно!');
+            return redirect()->route('admin.clinics.show', $clinic)->with('success', 'Успешно!');
         } catch (\Exception $e) {
+            dd($e->getMessage());
             return back()->with('error', $e->getMessage());
         }
     }
@@ -163,7 +164,7 @@ class ClinicController extends Controller
     {
         try {
             $this->service->removePhoto($clinic->id, $photo->id);
-            return redirect()->route('admin.clinic.photos', $clinic)->with('success', 'Успешно удалено!');
+            return redirect()->route('admin.clinics.photos', $clinic)->with('success', 'Успешно удалено!');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
