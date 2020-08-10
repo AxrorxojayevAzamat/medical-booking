@@ -16,6 +16,8 @@ use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
 use App\Services\Book\Paycom\PaycomService;
 use App\Services\Book\Click\ClickService;
+use App\Http\Requests\Admin\Users\CreatePatientRequest;
+use App\Http\Requests\BookRequest;
 
 class CallCenterController extends Controller
 {
@@ -80,7 +82,7 @@ class CallCenterController extends Controller
         return view('admin.call-center.create-patient');
     }
 
-    public function storePatient(Request $request)
+    public function storePatient(CreatePatientRequest $request)
     {
         $user = User::newGuest(
                         $request['email'],

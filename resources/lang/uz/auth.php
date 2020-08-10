@@ -20,8 +20,13 @@ return [
     'profile' => 'Profil',
     'log_out' => 'Chiqish',
 
-    'address_email' => "Elektron pochta manzili",
-    'confirm_address_email' => "Elektron pochta manzilini tasdiqlash",
+    'first_name' => 'Ism',
+    'last_name' => 'Familiya',
+    'middle_name' => 'Otasining ismi',
+    'phone' => 'Telefon raqam',
+    'birth_date' => 'Tug`ilgan kun',
+    'address_email' => 'Elektron pochta manzili',
+    'confirm_address_email' => 'Elektron pochta manzilini tasdiqlash',
     'please_to_findoctor' => 'Tibbiyot bron qilish tizimiga xush kelibsiz!',
 
 ];
