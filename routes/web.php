@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-Route::get('', 'HomeController@index')->name('home');
 Auth::routes(['verify' => true]);
 
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth', 'can:admin-panel', 'can:admin-clinic-panel', 'can:manage-own-clinics'], function () {
@@ -117,50 +117,55 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     });
 });
 
-Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
-    Route::post('paycom/create', 'PaycomController@createOrder');
-    Route::post('paycom/perform', 'PaycomController@performOrder');
+Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function() {
+    Route::get('', 'HomeController@index')->name('home');
 
-    Route::post('click/create', 'ClickController@createOrder');
-    Route::post('click/create-token', 'ClickController@createToken');
-    Route::post('click/verify-token', 'ClickController@verifyToken');
-    Route::post('click/perform', 'ClickController@performOrder');
-});
+    Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
 
-Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function () {
-    Route::get('', 'PatientController@profileShow')->name('profile');
-    Route::get('/{user_id}/bookings', 'PatientController@myBookings')->name('mybookings');
-});
+        Route::post('paycom/create', 'PaycomController@createOrder');
+        Route::post('paycom/perform', 'PaycomController@performOrder');
 
-Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 'middleware' => ['auth', 'can:doctor-panel']], function () {
-    Route::get('profile', 'DoctorController@profileShow')->name('profile');
-    Route::get('{doctor_id}/bookings', 'DoctorController@books')->name('doctorbookings');
-});
+        Route::post('click/create', 'ClickController@createOrder');
+        Route::post('click/create-token', 'ClickController@createToken');
+        Route::post('click/verify-token', 'ClickController@verifyToken');
+        Route::post('click/perform', 'ClickController@performOrder');
+    });
 
-Route::group(['prefix' => 'contacts', 'as' => 'contacts.'], function () {
-    Route::resource('/contacts', 'ContactsController');
-    Route::get('', 'ContactsController@index')->name('contacts');
-    Route::post('', 'ContactsController@contacts')->name('postContacts');
-});
+    Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function () {
+        Route::get('', 'PatientController@profileShow')->name('profile');
+        Route::get('/{user_id}/bookings', 'PatientController@myBookings')->name('mybookings');
+    });
 
-Route::group(['prefix' => 'doctors', 'as' => 'doctors.'], function () {
-    Route::get('', 'Doctor\DoctorController@index')->name('index');
-    Route::get('{user}', 'Doctor\DoctorController@show')->name('show');
-    Route::get('{doctor_id}/rate/{rate}', 'RateController@rate')->name('rate');
-    Route::get('{doctor_id}/ratecancel', 'RateController@rateCancel')->name('rateCancel');
-    Route::get('{doctor}/clinics/{clinic}/book', 'Doctor\DoctorController@book')->name('book')->middleware(['auth', 'can:patient-panel']);
+    Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 'middleware' => ['auth', 'can:doctor-panel']], function () {
+        Route::get('profile', 'DoctorController@profileShow')->name('profile');
+        Route::get('{doctor_id}/bookings', 'DoctorController@books')->name('doctorbookings');
+    });
 
-});
-Route::get('/specializations', 'SpecializationsController@index')->name('specializations');
+    Route::group(['prefix' => 'contacts', 'as' => 'contacts.'], function () {
+        Route::resource('/contacts', 'ContactsController');
+        Route::get('', 'ContactsController@index')->name('contacts');
+        Route::post('', 'ContactsController@contacts')->name('postContacts');
+    });
 
-Route::group(['as' => 'clinics.', 'prefix' => 'clinics'], function () {
-    Route::get('', 'ClinicController@index')->name('index');
-    Route::get('{clinic}', 'ClinicController@show')->name('show');
-});
+    Route::group(['prefix' => 'doctors', 'as' => 'doctors.'], function () {
+        Route::get('', 'Doctor\DoctorController@index')->name('index');
+        Route::get('{user}', 'Doctor\DoctorController@show')->name('show');
+        Route::get('{doctor_id}/rate/{rate}', 'RateController@rate')->name('rate');
+        Route::get('{doctor_id}/ratecancel', 'RateController@rateCancel')->name('rateCancel');
+        Route::get('{doctor}/clinics/{clinic}/book', 'Doctor\DoctorController@book')->name('book')->middleware(['auth', 'can:patient-panel']);
 
-Route::group(['as' => 'news.', 'prefix' => 'news'], function () {
-    Route::get('', 'NewsController@index')->name('index');
-    Route::get('{news}', 'NewsController@show')->name('show');
+    });
+    Route::get('/specializations', 'SpecializationsController@index')->name('specializations');
+
+    Route::group(['as' => 'clinics.', 'prefix' => 'clinics'], function () {
+        Route::get('', 'ClinicController@index')->name('index');
+        Route::get('{clinic}', 'ClinicController@show')->name('show');
+    });
+
+    Route::group(['as' => 'news.', 'prefix' => 'news'], function () {
+        Route::get('', 'NewsController@index')->name('index');
+        Route::get('{news}', 'NewsController@show')->name('show');
+    });
 });
 
 Route::get("locale/{locale}", function ($locale) {

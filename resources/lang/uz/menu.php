@@ -20,4 +20,5 @@ return [
     'doctors'                       => 'Shifokorlar',
     'clinics'                       => 'Klinikalar',
     'language'                      => 'Til',
+    'service'                       => 'Xizmatlar',
 ];

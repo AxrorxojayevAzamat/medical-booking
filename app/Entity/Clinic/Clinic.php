@@ -57,8 +57,8 @@ class Clinic extends BaseModel
     public static function clinicTypeList(): array
     {
         return [
-            self::CLINIC_TYPE_PRIVATE => 'Частная клиника',
-            self::CLINIC_TYPE_GOVERNMENT => 'Государственная поликлиника',
+            self::CLINIC_TYPE_PRIVATE => trans("clinic.private_clinic"),
+            self::CLINIC_TYPE_GOVERNMENT => trans("clinic.goverment_policlinic"),
         ];
     }
 

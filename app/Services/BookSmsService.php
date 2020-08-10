@@ -42,7 +42,6 @@ class BookSmsService
             'text' => $text
         );
         $url = 'http://185.74.5.117:13002/cgi-bin/sendsms?' . http_build_query($url_array);
-        dd(http_build_query($url_array));
         $output = "";
         $handle = curl_init();
         curl_setopt($handle, CURLOPT_URL, $url);

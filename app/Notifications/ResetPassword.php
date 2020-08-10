@@ -32,7 +32,9 @@ class ResetPassword extends Notification
                         ->subject(Lang::get('Восстановление пароля'))
                         ->line(Lang::get('Нажмите кнопку ниже, чтобы сбросить пароль'))
                         ->action(Lang::get('Сброс пароля.'), url(config('app.url') . route('password.reset', ['token' => $this->token, 'email' => $notifiable->getEmailForPasswordReset()], false)))
-                        ->line(Lang::get('Этот URL будет активен в течение :count min.', ['count' => config('auth.passwords.' . config('auth.defaults.passwords') . '.expire')]));
+                        ->line(Lang::get('Этот URL будет активен в течение :count min.', ['count' => config('auth.passwords.' . config('auth.defaults.passwords') . '.expire')]))
+                        ->line('С уважением,')
+                        ->salutation('Medical Booking');
     }
 
     

@@ -13,15 +13,20 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed' => 'Эти учетные данные не соответствуют нашим записям.',
+    'throttle' => 'Слишком много попыток входа в систему. Повторите попытку через несколько секунд.',
     'log_in' => 'Войти',
     'sign_up' => 'Регистрация',
     'profile' => 'Профиль',
     'log_out' => 'Выход',
 
-    'address_email' => "Адрес электронной почты",
-    'confirm_address_email' => "'Подтвердите адрес электронной почты",
+    'first_name' => 'Имя',
+    'last_name' => 'Фамилия',
+    'middle_name' => 'Отчество',
+    'phone' => 'Телефон',
+    'birth_date' => 'Дата рождения',
+    'address_email' => 'Адрес электронной почты',
+    'confirm_address_email' => 'Подтвердите адрес электронной почты',
     'please_to_findoctor' => 'Добро пожаловать в систему медицинского бронирования!',
 
 

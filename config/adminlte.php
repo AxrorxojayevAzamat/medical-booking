@@ -215,7 +215,7 @@ return [
             'can' => ['manage-clinics','admin-clinic-panel','manage-call-center'],
         ],
         [
-            'text' => 'Сеервисы клиник',
+            'text' => 'Сервисы клиник',
             'icon' => 'fas fa-fw fa-share',
             'url' => 'admin/services',
             'can' => ['manage-clinics','admin-clinic-panel','manage-call-center'],
@@ -251,7 +251,7 @@ return [
             'can' => ['manage-news'],
         ],
         [
-            'text' => 'Обратный связь',
+            'text' => 'Обратная связь',
             'icon' => 'fas fa-fw fa-share',
             'url' => 'admin/contactslist',
             'can' => ['manage-callback'],

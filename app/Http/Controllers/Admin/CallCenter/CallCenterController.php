@@ -16,6 +16,8 @@ use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
 use App\Services\Book\Paycom\PaycomService;
 use App\Services\Book\Click\ClickService;
+use App\Http\Requests\Admin\Users\CreatePatientRequest;
+use App\Http\Requests\BookRequest;
 
 class CallCenterController extends Controller
 {
@@ -80,7 +82,7 @@ class CallCenterController extends Controller
         return view('admin.call-center.create-patient');
     }
 
-    public function storePatient(Request $request)
+    public function storePatient(CreatePatientRequest $request)
     {
         $user = User::newGuest(
                         $request['email'],
@@ -181,39 +183,32 @@ class CallCenterController extends Controller
 
     public function bookingDoctor(Request $request)
     {
-            $paymentType = $request['payment_type'];
-            $userId = $request['user_id'];
-            $doctorId = $request['doctor_id'];
-            $clinicId = $request['clinic_id'];
-            $bookingDate = $request['calendar'];
-            $timeStart = $request['radio_time'];
-            $description = $request['description'];
-            $amount = $request['amount'] * 100; 
-            $user = User::find($userId);
-            $link = null;
-            
-
-            if ($paymentType == Book::PAYME) {
-
-                $order = $this->paycomService->createBookOrder($userId, $doctorId, $clinicId, $bookingDate, $timeStart, $amount, $description);
-                $cipher = 'm=' . config('paycom_config.merchant_id') . ';a=' . $amount . ';l=ru;ac.' . config('paycom_config.account') . '=' . $order->id;
-                $link = 'https://checkout.test.paycom.uz/' . base64_encode($cipher);
-            } else if ($paymentType == Book::CLICK) {
-                $order = $this->clickService->createOrder($userId, $doctorId, $clinicId, $bookingDate, $timeStart, $amount, $description);
-                $cipher = 'service_id=' . config('click.service_id') . '&merchant_id=' . config('click.merchant_id') . '&amount='.$amount.'&transaction_param='.$order->merchant_transaction_id;
-                $link = 'https://my.click.uz/services/pay?' . $cipher;
-            }
-
-            $this->bookService->toMailPayment($user->email, 'Оплата', 'Для оплаты перейдите по ссылке', 'Оператор колл центра', $link);
+        $paymentType = $request['payment_type'];
+        $userId = $request['user_id'];
+        $doctorId = $request['doctor_id'];
+        $clinicId = $request['clinic_id'];
+        $bookingDate = $request['calendar'];
+        $timeStart = $request['radio_time'];
+        $description = $request['description'];
+        $amount = $request['amount'];
+        $user = User::find($userId);
+        $link = null;
 
 
-//        if ($user->phone) {
-//            $this->bookService->toSms($userId, $doctorId, $clinicId, $bookingDate, $timeStart);
-//        }
-////        $this->bookService->toMail($userId, $doctorId, $clinicId, $bookingDate, $timeStart);
+        if ($paymentType == Book::PAYME) {
 
-            return redirect()->route('admin.books.index')->with('success', 'Письмо для оплаты со ссылкой отправлено на почту ' . $user->email);
+            $order = $this->paycomService->createBookOrder($userId, $doctorId, $clinicId, $bookingDate, $timeStart, $amount, $description);
+            $cipher = 'm=' . config('paycom_config.merchant_id') . ';a=' . $amount * 100 . ';l=ru;ac.' . config('paycom_config.account') . '=' . $order->id . ';c=' . config('app.url') . '/api/call-center/book/paycom';
+            $link = config('paycom_config.endpoint_check') . '/' . base64_encode($cipher);
+        } else if ($paymentType == Book::CLICK) {
 
+            $order = $this->clickService->createOrder($userId, $doctorId, $clinicId, $bookingDate, $timeStart, $amount, $description);
+            $cipher = 'service_id=' . config('click.service_id') . '&merchant_id=' . config('click.merchant_id') . '&amount=' . $amount . '&transaction_param=' . $order->merchant_transaction_id . '&return_url=' . config('app.url') . 'api/call-center/book/click';
+            $link = config('click.endpoint_check') . '/' . $cipher;
+        }
+        $this->bookService->toMailPayment($user->email, 'Оплата', 'Для оплаты перейдите по ссылке', 'Оператор колл центра', $link);
+
+        return redirect()->route('admin.books.index')->with('success', 'Письмо для оплаты со ссылкой отправлено на почту ' . $user->email);
     }
 
 }

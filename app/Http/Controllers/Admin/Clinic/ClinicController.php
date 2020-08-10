@@ -56,7 +56,7 @@ class ClinicController extends Controller
         $regions = Region::all();
         $services = Service::orderByDesc('name_ru')->pluck('name_ru', 'id')->toArray();
 
-        return view('admin.clinics.create', compact('regions', 'services'));
+        return view('admin.clinics.create', compact('regions', 'services', 'parentRegions'));
     }
 
     public function store(ClinicRequest $request)
@@ -65,7 +65,7 @@ class ClinicController extends Controller
         try {
             $clinic = $this->service->create($request);
 
-            return redirect()->route('admin.clinics.index', $clinic);
+            return redirect()->route('admin.clinics.show', $clinic);
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
@@ -82,16 +82,25 @@ class ClinicController extends Controller
     {
         $this->checkAccess($clinic);
         $regions = Region::all();
+
+        $parentRegions = [];
+        $parent = $clinic->region;
+        while ($parent) {
+            $parentRegions[] = $parent;
+            $parent = $parent->parent;
+        }
+        $parentRegions = array_reverse($parentRegions);
+
         $services = Service::orderByDesc('name_ru')->pluck('name_ru', 'id')->toArray();
 
-        return view('admin.clinics.edit', compact('clinic', 'regions', 'services'));
+        return view('admin.clinics.edit', compact('clinic', 'regions', 'services', 'parentRegions'));
     }
 
     public function update(ClinicRequest $request, $id)
     {
         try {
             $clinic = $this->service->update($id, $request);
-            return redirect()->route('admin.clinic.show', $clinic)->with('success', 'Успешно!');
+            return redirect()->route('admin.clinics.show', $clinic)->with('success', 'Успешно!');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
@@ -163,7 +172,7 @@ class ClinicController extends Controller
     {
         try {
             $this->service->removePhoto($clinic->id, $photo->id);
-            return redirect()->route('admin.clinic.photos', $clinic)->with('success', 'Успешно удалено!');
+            return redirect()->route('admin.clinics.photos', $clinic)->with('success', 'Успешно удалено!');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
