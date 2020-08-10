@@ -1,5 +1,5 @@
 @extends('layouts.admin.page')
-@section('breadcrumbs', '')
+{{-- @section('breadcrumbs', '') --}}
 @section('content')
 
 @if($errors->any())
@@ -125,7 +125,6 @@
 
     <div class="form-group">
         <button type="submit" class="btn btn-success">{{ trans('Сохранить') }}</button>
-        <a class="btn btn-secondary" href="{{ route("admin.users.index") }}">{{ trans('Отменить') }}</a>
     </div>
 </form>
 @endsection

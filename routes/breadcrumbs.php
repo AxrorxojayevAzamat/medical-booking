@@ -154,7 +154,7 @@ Breadcrumbs::register('admin.clinics.index', function (Crumbs $crumbs) {
 
 Breadcrumbs::register('admin.clinics.create', function (Crumbs $crumbs) {
     $crumbs->parent('admin.clinics.index');
-    $crumbs->push(trans('menu.clinics'), route('admin.clinics.create'));
+    $crumbs->push(trans('breadcrumbs.create_clinic'), route('admin.clinics.create'));
 });
 
 Breadcrumbs::register('admin.clinics.show', function (Crumbs $crumbs, Clinic $clinic) {
