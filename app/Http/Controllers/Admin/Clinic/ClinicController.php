@@ -52,8 +52,8 @@ class ClinicController extends Controller
 
     public function create()
     {
-        $this->middleware('can:manage-clinics');
-        $regions = Region::all();
+        $this->middleware('manage-clinics');
+        $parentRegions = Region::where('parent_id', null)->pluck('name_ru', 'id');
         $services = Service::orderByDesc('name_ru')->pluck('name_ru', 'id')->toArray();
 
         return view('admin.clinics.create', compact('regions', 'services', 'parentRegions'));
