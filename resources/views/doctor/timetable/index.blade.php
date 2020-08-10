@@ -147,8 +147,8 @@
                                     @if ($time->saturday_start)
                                         <tr>
                                             <td>Суббота</td>
-                                            <td>{{ $time->satursday_start}}</td>
-                                            <td>{{ $time->satursday_end}}</td>
+                                            <td>{{ $time->saturday_start}}</td>
+                                            <td>{{ $time->saturday_end}}</td>
                                         </tr>
                                     @endif
                                     @if ($time->sunday_start)
