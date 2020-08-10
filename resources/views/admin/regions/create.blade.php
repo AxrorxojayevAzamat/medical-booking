@@ -74,9 +74,9 @@
             </div>
         </div>
 
-        <div class="form-group" align='center'>
-            <button type="submit" class="btn btn-success btn-sm ml-1">Сохранить</button>
-            <a href="{{ route('admin.regions.index') }}" class="btn btn-default btn-sm ml-1">Назад</a>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Сохранить</button>
+            <a href="{{ route('admin.regions.index') }}" class="btn btn-default">Назад</a>
         </div>
     </form>
 @endsection

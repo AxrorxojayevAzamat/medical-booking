@@ -19,5 +19,5 @@ return [
 
     'view_on_map' => "Xaritada ko'rish",
     'in_detail' => 'Batafsil',
-
+    'university' => 'Institutlar',
 ];

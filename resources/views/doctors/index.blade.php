@@ -2,36 +2,36 @@
 
 @section('content')
 
-    <div id="results">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <h4>{!! trans('doctors.showing_results', ['current' => $countCurrent, 'all' => $countAll]) !!}</h4>
-                </div>
-                <div class="col-md-3">
-                    <ul class="row">
-                        <li class="{{ Request::is('doctors*') ? 'active' : '' }}" style="margin: auto 10px auto 30px;">
-                            <a href="{{ route('doctors.index') }}">{{ trans('menu.doctors') }}</a>
-                        </li>
-                        <li class="{{ Request::is('clinics*') ? 'active' : '' }}" style="margin: auto 10px;">
-                            <a href="{{ route('clinics.index') }}">{{ trans('menu.clinics') }}</a>
+    <form action="?" method="GET">
+        <div id="results">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4>{!! trans('doctors.showing_results', ['current' => $countCurrent, 'all' => $countAll]) !!}</h4>
+                    </div>
+                    <div class="col-md-3">
+                        <ul class="row">
+                            <li class="{{ Request::is('*/doctors*') ? 'active' : '' }}" style="margin: auto 10px auto 30px;">
+                                <a href="{{ route('doctors.index') }}">{{ trans('menu.doctors') }}</a>
+                            </li>
+                            <li class="{{ Request::is('*/clinics*') ? 'active' : '' }}" style="margin: auto 10px;">
+                                <a href="{{ route('clinics.index') }}">{{ trans('menu.clinics') }}</a>
 
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-6">
-                    <div class="search_bar_list">
-                        <input type="text" class="form-control" placeholder="{{trans('doctors.search_placeholder')}}">
-                        <input type="submit" value="{{trans('adminlte.search')}}">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="search_bar_list">
+                            <input type="text" name="full_name" class="form-control" placeholder="{{trans('doctors.search_placeholder')}}" aria-label="Search" value="{{ request('full_name') }}">
+                            <input type="submit" value="{{trans('adminlte.search')}}">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="filters_listing">
-        <div class="container-fluid">
-            <form action="?" method="GET">
+        <div class="filters_listing">
+            <div class="container-fluid">
                 <ul class="clearfix row d-flex justify-content-center">
                     {{-- <li>
                         <h6>Layout</h6>
@@ -69,7 +69,7 @@
                     </li>
                     <li>
                         <h6>{{trans('filter.sex')}}</h6>
-                        <select name="gender" class="selectbox">
+                        <select name="gender" id="sex_id">
                             <option value=""></option>
                             <option value="{{ \App\Entity\User\Profile::MALE }}"{{ \App\Entity\User\Profile::MALE == request('gender') ? ' selected' : '' }}>{{ trans('filter.male') }}</option>
                             <option value="{{ \App\Entity\User\Profile::FEMALE }}"{{ \App\Entity\User\Profile::FEMALE == request('gender') ? ' selected' : '' }}>{{ trans('filter.female') }}</option>
@@ -86,7 +86,7 @@
                     </li>
                     <li>
                         <h6>{{trans('filter.filter_by')}}</h6>
-                        <select name="order_by" class="selectbox" multiple>
+                        <select name="order_by" id="order_id">
                             <option value=""></option>
                             <option value="alphabet"{{ 'alphabet' == request('order_by') ? ' selected' : '' }}>{{trans('filter.alphabet')}}</option>
                             <option value="best_rated"{{ 'best_rated' == request('order_by') ? ' selected' : '' }}>{{trans('filter.rating')}}</option>
@@ -99,9 +99,9 @@
                         </div>
                     </li>
                 </ul>
-            </form>
+            </div>
         </div>
-    </div>
+    </form>
 
     <div class="container margin_60_35">
         <div class="row">
@@ -142,12 +142,12 @@
                             <span class="rating">Бронирован: {{ $doctorValue->numberOfBookings }}</span>
                         </p>
 
-                        <ul>
-                            @if(empty($doctorValue->clinics->pluck('location')->toArray()))
+                        <ul style="height: 4em;">
+                            {{-- @if(empty($doctorValue->clinics->pluck('location')->toArray()))
                                 <li><a href="#0" onclick="initMap()" class="btn_listing"></a></li>
                             @else
                                 <li><a href="#0" onclick="initMap({{$doctorValue->clinics->pluck('location')->first()}})" class="btn_listing">{{trans('doctors.view_on_map')}}</a></li>
-                            @endif
+                            @endif --}}
                             <li><a href="{{ route('doctors.show',$doctorValue) }}">{{trans('doctors.booking')}}</a></li>
                         </ul>
                     </div>
@@ -192,5 +192,13 @@
     $('#specialization_id').select2({
         width: "170px"
     });
+    $('#order_id').select2({
+        width: "150px",
+    });
+    $('#sex_id').select2({
+        width: "150px",
+    });
+
+
 </script>
 @endsection

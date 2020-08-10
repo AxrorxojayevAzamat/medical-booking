@@ -170,7 +170,7 @@ body {
   font-size: 14px;
   font-size: 0.875rem;
   line-height: 1.4;
-  font-family: "Poppins", Helvetica, sans-serif;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   color: #555;
 }
 
@@ -402,7 +402,66 @@ strong {
   top: 1px;
   margin-right: 5px;
 }
-
+.main_title_5 {
+  text-align: center;
+  margin-bottom: 45px;
+}
+@media (max-width: 767px) {
+  .main_title_5 {
+    /* For less than 767px */
+    margin-bottom: 15px;
+  }
+}
+.main_title_5 h2 {
+  color: #fff;
+  font-weight: 300;
+  letter-spacing: -1px;
+  font-size: 36px;
+  margin: 0;
+  text-transform: uppercase;
+}
+@media (max-width: 767px) {
+  .main_title_5 h2 {
+    /* For less than 767px */
+    font-size: 32px;
+    font-size: 2rem;
+  }
+}
+@media (max-width: 575px) {
+  .main_title_5 h2 {
+    /* For less than 575px */
+    font-size: 24px;
+    font-size: 1.5rem;
+  }
+}
+@media (max-width: 767px) {
+  .main_title_5 h1 {
+    /* For less than 767px */
+    font-size: 32px;
+    font-size: 2rem;
+  }
+}
+.main_title_5 p {
+  font-weight: 300;
+  font-size: 20px;
+  color: #ccc;
+  padding: 0 10%;
+}
+@media (max-width: 767px) {
+  .main_title_5 p {
+    /* For less than 767px */
+    font-size: 18px;
+    font-size: 1.125rem;
+    padding: 0;
+  }
+}
+@media (max-width: 575px) {
+  .main_title_5 p {
+    /* For less than 575px */
+    font-size: 16px;
+    font-size: 1rem;
+  }
+}
 /*-------- 1.2 Buttons --------*/
 /*General links color*/
 a {
@@ -1480,15 +1539,17 @@ a.box_cat_home ul li strong {
   opacity: 0.6;
 }
 #app_section h3 {
-  color: #fff;
-  font-size: 32px;
-  font-size: 2rem;
+  color: #e74e84;
+  font-size: 1.5rem;
 }
 #app_section h3 strong {
   color: #fff02a;
 }
-#app_section p {
+#app_section .box_feat p {
   margin-bottom: 60px;
+  color: #333;
+  font-size: 19px;
+
 }
 @media (max-width: 575px) {
   #app_section p {
@@ -2111,8 +2172,9 @@ a.wish_bt:hover:after {
   background-color: rgba(255, 255, 255, 0.9);
   position: relative;
   z-index: 99999;
-  font-family: "Poppins", Helvetica, sans-serif;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 }
+/* "Poppins", Helvetica, sans-serif */
 .marker_info figure {
   width: 60px;
   height: 60px;
@@ -5099,7 +5161,7 @@ ul.bullets li:before {
 }
 
 div.datedropper, .td-wrap {
-  font-family: "Poppins", Helvetica, sans-serif !important;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" !important;
 }
 
 div.datedropper .picker .pick-lg ul.pick-lg-b li.pick-v:hover {

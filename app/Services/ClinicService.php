@@ -13,16 +13,23 @@ class ClinicService
 {
     public function create(ClinicRequest $request)
     {
+        $regionId = null;
+        foreach (array_reverse($request->regions) as $parent) {
+            if ($parent) {
+                $regionId = $parent;
+                break;
+            }
+        }
+
         DB::beginTransaction();
         try {
             $clinic = Clinic::create([
                 'name_uz' => $request->name_uz,
                 'name_ru' => $request->name_ru,
-                'region_id' => $request->region_id,
-                'type' => $request->clinic_type,
+                'region_id' => $regionId,
+                'type' => $request->type,
                 'description_uz' => $request->description_uz,
                 'description_ru' => $request->description_ru,
-                'phone_numbers' => $request->phone_numbers,
                 'address_uz' => $request->address_uz,
                 'address_ru' => $request->address_ru,
                 'work_time_start' => $request->work_time_start,
@@ -31,6 +38,7 @@ class ClinicService
             ]);
 
             $this->addServices($clinic, $request->services);
+            $this->sortServices($clinic);
 
             DB::commit();
             return $clinic;
@@ -39,29 +47,38 @@ class ClinicService
             throw $e;
         }
     }
+
     public function update($id, ClinicRequest $request)
     {
         $clinic = Clinic::find($id);
+
+        $regionId = null;
+        foreach (array_reverse($request->regions) as $parent) {
+            if ($parent) {
+                $regionId = $parent;
+                break;
+            }
+        }
 
         DB::beginTransaction();
         try {
             $clinic->update([
                 'name_uz' => $request->name_uz,
                 'name_ru' => $request->name_ru,
-                'region_id' => $request->region_id,
+                'region_id' => $regionId,
                 'type' => $request->type,
                 'description_uz' => $request->description_uz,
                 'description_ru' => $request->description_ru,
-                'phone_numbers' => $request->phone_numbers,
                 'address_uz' => $request->address_uz,
                 'address_ru' => $request->address_ru,
                 'work_time_start' => $request->work_time_start,
                 'work_time_end' => $request->work_time_end,
                 'location' => $request->location,
             ]);
-
+            $serviceSorts = $clinic->clinicServices()->pluck('sort', 'service_id')->toArray();
             $clinic->clinicServices()->delete();
-            $this->addServices($clinic, $request->services);
+            $this->addServices($clinic, $request->services, $serviceSorts);
+            $this->sortServices($clinic);
 
             DB::commit();
 
@@ -169,11 +186,23 @@ class ClinicService
     }
 
 
-    private function addServices(Clinic $clinic, array $services)
+    private function addServices(Clinic $clinic, array $services, array $serviceSorts = [])
     {
         $services = array_unique($services);
         foreach ($services as $i => $serviceId) {
-            $clinic->clinicServices()->create(['service_id' => $serviceId]);
+            $sort = 1000;
+            if (!empty($serviceSorts) && array_key_exists($serviceId, $serviceSorts)) {
+                $sort = $serviceSorts[$serviceId];
+            }
+            $clinic->clinicServices()->create(['service_id' => $serviceId, 'sort' => $sort]);
+        }
+    }
+
+    private function sortServices(Clinic $clinic): void
+    {
+        foreach ($clinic->clinicServices as $i => $service) {
+            DB::table('clinic_services')->where('clinic_id', $service->clinic_id)
+                ->where('service_id', $service->service_id)->update(['sort' => ($i + 1)]);
         }
     }
 

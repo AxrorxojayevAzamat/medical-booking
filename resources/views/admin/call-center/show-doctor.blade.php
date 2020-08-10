@@ -62,7 +62,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ trans('book.description') }}</label>
-                                    <textarea class="form-control" name="description"  id="description" rows="3"></textarea>
+                                    <textarea class="form-control" name="description"  id="description"  required rows="3"></textarea>
                                 </div>
                             </div>
                             <hr>

@@ -13,8 +13,8 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed' => "Ushbu hisobga olish ma'lumotlari bizning yozuvlarimizga mos kelmaydi.",
+    'throttle' => "Kirish urinishlari juda ko'p. Iltimos, bir necha soniya ichida yana urinib ko'ring.",
     'log_in' => 'Kirish',
     'sign_up' => 'Ro`yhatdan o`tish',
     'profile' => 'Profil',
