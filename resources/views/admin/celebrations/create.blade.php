@@ -28,7 +28,7 @@
             <div class=" container" align='center'>
                 <form action="{{ route('admin.celebration.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
-                    @include('admin.celebrations.forms.Forms')
+                    @include('admin.celebrations._form')
                     <button type="submit" class="btn btn-success btn-sm ml-1">Сохранить</button>
                     <a href="{{ route('admin.celebration.index') }}" class="btn btn-default btn-sm ml-1">Назад</a>
                 </form>

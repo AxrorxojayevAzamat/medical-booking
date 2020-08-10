@@ -35,18 +35,20 @@
                         <table class=" table table-bordered table-hover ">
                             <thead>
                             <tr align="center">
+                                <th>Название праздника(uz)</th>
+                                <th>Название праздника(ru)</th>
                                 <th>Дата</th>
                                 <th>Дней</th>
-                                <th>Название праздника</th>
                                 <th>Действия</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($celebrations as $celebration)
                                 <tr>
+                                    <td class="text-center py-1 ">{{$celebration->name_uz}}</td>
+                                    <td class="text-center py-1 ">{{$celebration->name_ru}}</td>
                                     <td class="text-center py-1 ">{{$celebration->date}}</td>
                                     <td class="text-center py-1 ">{{$celebration->quantity}}</td>
-                                    <td class="text-center py-1 ">{{$celebration->name}}</td>
                                     <td class="text-center py-1 ">
                                         <div class="btn-group ml-2 ">
                                             <a href="{{ route('admin.celebration.edit', $celebration) }}"

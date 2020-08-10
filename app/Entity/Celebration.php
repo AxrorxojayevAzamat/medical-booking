@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Entity\User\User;
 use Carbon\Carbon;
 use Eloquent;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
@@ -35,6 +34,17 @@ class Celebration extends BaseModel
     protected $casts = [
         'date' => 'datetime',
     ];
+    
+    public static function new($name_uz, $name_ru, $date, $quantity, $status): self
+    {
+        return static::create([
+            'name_uz' => $name_uz,
+            'name_ru' => $name_ru,
+            'date' => $date,
+            'quantity' => $quantity,
+            'status' => $status,
+        ]);
+    }
 
     ########################################### Relations
 

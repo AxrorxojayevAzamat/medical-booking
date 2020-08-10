@@ -6,7 +6,7 @@ use App\Entity\User\User;
 use App\Helpers\LanguageHelper;
 use Carbon\Carbon;
 use Eloquent;
-use Illuminate\Database\Eloquent\Model;
+use App\Entity\BaseModel;
 
 /**
  * @property int $id
@@ -23,13 +23,21 @@ use Illuminate\Database\Eloquent\Model;
  * @property User $updatedBy
  * @mixin Eloquent
  */
-class Specialization extends Model
+class Specialization extends BaseModel
 {
 
     protected $table = 'specializations';
     protected $fillable = [
         'name_uz', 'name_ru',
     ];
+
+    public static function new($name_uz, $name_ru): self
+    {
+        return static::create([
+                    'name_uz' => $name_uz,
+                    'name_ru' => $name_ru,
+        ]);
+    }
 
     ########################################### Mutators
 
@@ -39,8 +47,6 @@ class Specialization extends Model
     }
 
     ###########################################
-
-
     ########################################### Relations
 
     public function doctors()
