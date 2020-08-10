@@ -7,11 +7,13 @@
 @section($javaScriptSectionName)
     <script src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
     <script>
-        // $('#services').select2();
-
-        let regions = $('#regions');
+ 
 
         $(document).ready(function () {
+            $('#services').select2();
+
+            let regions = $('#regions');
+            
             $('#regions').on('change', 'select', function (e) {
                 e.preventDefault();
 
