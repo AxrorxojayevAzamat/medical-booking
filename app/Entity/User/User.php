@@ -151,8 +151,8 @@ class User extends Authenticatable implements MustVerifyEmail
     public static function statusList(): array
     {
         return [
-            User::STATUS_ACTIVE => 'Aктивный',
-            User::STATUS_INACTIVE => 'Неактивный',
+            self::STATUS_ACTIVE => 'Aктивный',
+            self::STATUS_INACTIVE => 'Неактивный',
         ];
     }
 
@@ -221,7 +221,6 @@ class User extends Authenticatable implements MustVerifyEmail
         $adminClinicsDoctors = DoctorClinic::WhereIn('clinic_id', $adminClinics)->pluck('doctor_id')->toArray();
 
         return $query->whereIn('id', $adminClinicsDoctors);
-
     }
 
     #########################################################################################
@@ -273,5 +272,4 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(Clinic::class, 'admin_clinics', 'admin_id', 'clinic_id');
     }
-
 }

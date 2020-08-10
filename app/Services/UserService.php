@@ -14,7 +14,7 @@ use \Illuminate\Support\Facades\Gate;
 
 class UserService
 {
-    public function search($request=null)
+    public function search($request)
     {
         $query = User::select(['users.*', 'pr.*'])
         ->leftJoin('profiles as pr', 'users.id', '=', 'pr.user_id')
@@ -33,8 +33,9 @@ class UserService
             $query->where('id', $value);
         }
 
-        if (!empty($value = $request->get('name'))) {
-            $query->where('users.name', 'ilike', '%' . $value . '%');
+        if (!empty($value = $request->get('fio'))) {
+            $query->where('pr.first_name', 'ilike', '%' . $value . '%')
+                ->orWhere('pr.last_name', 'ilike', '%' . $value . '%');
         }
 
         if (!empty($value = $request->get('first_name'))) {
@@ -52,15 +53,14 @@ class UserService
         if (!empty($value = $request->get('email'))) {
             $query->where('users.email', 'ilike', '%' . $value . '%');
         }
-
+        
         if (!empty($value = $request->get('role'))) {
             $query->where('users.role', $value);
         }
-
         if (!empty($value = $request->get('status'))) {
             $query->where('users.status', $value);
         }
-        
+
         return $query;
     }
 
