@@ -18,11 +18,11 @@ return [
     'password_reset_message'      => 'Parolni tiklash',
     'reset_password'              => 'Parolni tiklash',
     'send_password_reset_link'    => 'Parolni tiklash havolasini yubormoq',
-    'verify_message'              => 'Your account needs a verification',
-    'verify_email_sent'           => 'A fresh verification link has been sent to your email address.',
-    'verify_check_your_email'     => 'Before proceeding, please check your email for a verification link.',
-    'verify_if_not_recieved'      => 'If you did not receive the email',
-    'verify_request_another'      => 'click here to request another',
+    'verify_message'              => 'Hisobingizni tasdiqlash kerak',
+    'verify_email_sent'           => 'Sizning e-pochta manzilingizga yangi tasdiqlash havolasi yuborildi.',
+    'verify_check_your_email'     => 'Davom etishdan oldin, tasdiq havolasini olish uchun elektron pochtangizni tekshiring.',
+    'verify_if_not_recieved'      => 'Agar siz elektron pochta xabarini olmagan bo\'lsangiz',
+    'verify_request_another'      => 'boshqasini so\'rash uchun shu yerni bosing',
     'search'    => 'Qidirish',
     
     'user' => [

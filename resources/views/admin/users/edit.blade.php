@@ -326,4 +326,6 @@
             </div> 
         @endforeach    
     @endcan
+    @include('doctor.add_style')
+
 @endsection

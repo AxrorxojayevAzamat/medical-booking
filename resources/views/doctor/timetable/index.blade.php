@@ -161,4 +161,5 @@
                 <br>
                 @endforeach
             </div></div></div>
+            @include('doctor.add_style')
 @endsection
