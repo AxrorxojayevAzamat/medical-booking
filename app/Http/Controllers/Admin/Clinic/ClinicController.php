@@ -53,10 +53,10 @@ class ClinicController extends Controller
     public function create()
     {
         $this->authorize('manage-clinics');
-        $regions = Region::all();
+        $parentRegions = Region::where('parent_id', null)->pluck('name_ru', 'id');
         $services = Service::orderByDesc('name_ru')->pluck('name_ru', 'id')->toArray();
 
-        return view('admin.clinics.create', compact('regions', 'services'));
+        return view('admin.clinics.create', compact('regions', 'services', 'parentRegions'));
     }
 
     public function store(ClinicRequest $request)
@@ -82,9 +82,18 @@ class ClinicController extends Controller
     {
         $this->checkAccess($clinic);
         $regions = Region::all();
+
+        $parentRegions = [];
+        $parent = $clinic->region;
+        while ($parent) {
+            $parentRegions[] = $parent;
+            $parent = $parent->parent;
+        }
+        $parentRegions = array_reverse($parentRegions);
+
         $services = Service::orderByDesc('name_ru')->pluck('name_ru', 'id')->toArray();
 
-        return view('admin.clinics.edit', compact('clinic', 'regions', 'services'));
+        return view('admin.clinics.edit', compact('clinic', 'regions', 'services', 'parentRegions'));
     }
 
     public function update(ClinicRequest $request, $id)
@@ -93,7 +102,6 @@ class ClinicController extends Controller
             $clinic = $this->service->update($id, $request);
             return redirect()->route('admin.clinics.show', $clinic)->with('success', 'Успешно!');
         } catch (\Exception $e) {
-            dd($e->getMessage());
             return back()->with('error', $e->getMessage());
         }
     }
