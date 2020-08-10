@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="search_bar_list">
-                            <input type="text" class="form-control" placeholder="{{trans('doctors.search_placeholder')}}" aria-label="Search" value="{{ request('full_name') }}">
+                            <input type="text" name="full_name" class="form-control" placeholder="{{trans('doctors.search_placeholder')}}" aria-label="Search" value="{{ request('full_name') }}">
                             <input type="submit" value="{{trans('adminlte.search')}}">
                         </div>
                     </div>
