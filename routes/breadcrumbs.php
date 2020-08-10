@@ -278,12 +278,12 @@ Breadcrumbs::register('admin.partners.edit', function (Crumbs $crumbs, Partner $
     $crumbs->push($partner->name, route('admin.partners.edit', $partner));
 });
 // timetables
-Breadcrumbs::register('admin.timetables.create', function (Crumbs $crumbs) {
-    //$crumbs->parent('admin.users.edit', $user);
+Breadcrumbs::register('admin.timetables.create', function (Crumbs $crumbs, User $user) {
+    $crumbs->parent('admin.users.edit', $user);
     $crumbs->push(trans('breadcrumbs.create_timetable_doctor'), route('admin.timetables.create'));
 });
-Breadcrumbs::register('admin.timetables.edit', function (Crumbs $crumbs) {
-    //$crumbs->parent('admin.users.edit', $user);
+Breadcrumbs::register('admin.timetables.edit', function (Crumbs $crumbs, User $user) {
+    $crumbs->parent('admin.users.edit', $user);
     $crumbs->push(trans('breadcrumbs.edit_timetable_doctor'), route('admin.timetables.edit'));
 });
 

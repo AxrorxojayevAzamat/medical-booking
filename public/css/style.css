@@ -2033,7 +2033,7 @@ a.wish_bt:hover:after {
   color: #e74e84;
 }
 .strip_list ul li:first-child:after {
-  content: '|';
+  content: '';
   font-weight: 400;
   margin-left: 8px;
   color: #ccc;
