@@ -81,10 +81,8 @@
             </div>
         </div>
 
-        <div class="form-group" align='center'>
-            <button type="submit" class="btn btn-success btn-sm ml-1">Сохранить</button>
-            <a href="{{ route('admin.regions.index') }}" class="btn btn-default btn-sm ml-1">Назад</a>
-        </div>
+        <button type="submit" class="btn btn-success">Редактировать</button>
+        <a href="{{ route('admin.regions.index') }}" class="btn btn-default">Назад</a>
     </form>
 @endsection
 

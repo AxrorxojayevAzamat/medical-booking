@@ -13,7 +13,7 @@ use Illuminate\Validation\Rule;
  * @property string $description_ru
  * @property string $address_uz
  * @property string $address_ru
- * @property int $region_id
+ * @property int[] $regions
  * @property int $type
  * @property string $work_time_start
  * @property string $work_time_end
@@ -38,7 +38,7 @@ class ClinicRequest extends FormRequest
             'address_ru'=>'required|min:2|max:200|string',
             'work_time_start' => 'required|string',
             'work_time_end' => 'required|string',
-            'region_id' => 'required|numeric|min:1|exists:regions,id',
+            'regions.*' => 'required|numeric|min:1|exists:regions,id',
             'type' => ['required', 'numeric', Rule::in(array_keys(Clinic::clinicTypeList()))],
             'location'=>'required|min:2|max:50|string',
             'services.*' => 'required|numeric|min:1|exists:services,id',
