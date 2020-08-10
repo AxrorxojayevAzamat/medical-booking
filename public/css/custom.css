@@ -164,8 +164,9 @@
   font-size: 0.75rem;
 }
 
-.select2-container--default .select2-search--dropdown .select2-search__field {
-  display: none;
+.select2-container--default .select2-search--dropdown .select2-search__field:focus {
+  outline: none;
+  border: 1px solid #e74e84;
 }
 
 @media screen and (max-width: 767px) {
@@ -434,4 +435,17 @@
         color: #e4e43f;
       }
 
-      
+      .select2-container--default .select2-selection--single .select2-selection__arrow b {
+        border-color: #3f4079 transparent transparent transparent;
+      }
+
+      .select2-container--default .select2-search--dropdown .select2-search__field[aria-controls="select2-order_id-results"]{
+        display: none;
+      }
+
+      .select2-container--default .select2-search--dropdown .select2-search__field[aria-controls="select2-sex_id-results"]{
+        display: none;
+      }
+      .select2-container--default .select2-selection--single .select2-selection__rendered {
+        font-size: 1rem;
+      }
