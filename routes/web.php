@@ -125,8 +125,6 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     });
 });
 
-
-
 Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function() {
     Route::get('', 'HomeController@index')->name('home');
 
@@ -134,7 +132,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     {
         Route::get('page/{slug?}','PagesController@slug')->name('slug');
     });
-    
+
     Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 'middleware' => ['auth', 'can:doctor-panel']], function () {
     Route::get('/profile', 'DoctorController@profileShow')->name('profile');
     Route::get('/edit', 'DoctorController@profileEdit')->name('profileEdit');
