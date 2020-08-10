@@ -9,4 +9,8 @@
     .card-header {
         margin-bottom: 1.5em;
     }
+
+    .card-header:nth-last-child(-n+2) {
+        margin-bottom: 0;
+    }
 </style>

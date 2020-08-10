@@ -4,10 +4,10 @@
     <div class="d-flex bd-highlight mb-3">
         @can('manage-users')<a class="btn btn-primary mr-1 p-2 bd-highlight" href="{{ route('admin.users.edit',$user)}}">{{ trans('Редактировать') }}</a>@endcan
         @if($user->isDoctor())
-        <a class="btn btn-secondary mr-1 p-2 bd-highlight" href="{{ route('admin.users.user-clinics',$user)}}">{{ trans('Добавить клинику') }}</a>
-        <a class="btn btn-info mr-1 p-2 bd-highlight" href="{{ route('admin.users.specializations', $user)}}">{{ trans('Добавить специализацию') }}</a>
-        <a class="btn btn-dark mr-1" href="{{ route('admin.users.main-photo', $user)}}">Главное фото</a>
-        <a class="btn btn-warning mr-1" href="{{ route('admin.users.photos', $user)}}">Фотографии</a>
+        <a class="btn btn-success mr-1 p-2 bd-highlight" href="{{ route('admin.users.user-clinics',$user)}}">{{ trans('Добавить клинику') }}</a>
+        <a class="btn btn-success mr-1 p-2 bd-highlight" href="{{ route('admin.users.specializations', $user)}}">{{ trans('Добавить специализацию') }}</a>
+        <a class="btn btn-info mr-1 p-2" href="{{ route('admin.users.main-photo', $user)}}">Главное фото</a>
+        <a class="btn btn-info mr-1 p-2" href="{{ route('admin.users.photos', $user)}}">Фотографии</a>
         @endif
         @can('manage-admin-clinics',$user)
         <a class="btn btn-secondary mr-1 p-2 bd-highlight" href="{{ route('admin.users.admin-clinics',$user)}}">{{ trans('Добавить админу клиники') }}</a>
@@ -112,13 +112,6 @@
 
                 @foreach($doctor->clinics as $clinic)
                 <div class="card-header">{{ __('Клиника ') }} <a href='{{ route('admin.clinics.show', $clinic) }}'><strong> {{$clinic->name_ru}}</strong></a>
-                    <form action="{{ route('admin.clinics.destroy',$clinic) }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <div>
-                        <button type="submit" class="btn btn-danger float-right btn-delete" onclick="return confirm('При удалени клиники удаляются все расписании и брони Хотите удалить клинику {{$clinic->name_ru}}?')"  >Удалить клинику</button>
-                    </div>
-                    </form>
                     <div class="card-body">
                                 @php
                                     $time = $timetable->where('clinic_id', $clinic->id);
@@ -130,18 +123,39 @@
 
                                 @if($time)
                                 @foreach($time as $time)
+                                <div class="row justify-content-between">
                                     <div class="row">
                                         <a class="btn btn-primary mr-1" role="button" href="{{ route('admin.timetables.edit', [$user, $clinic])}}">{{ trans('Редактировать расписание') }}</a>
 
                                         <form method="POST" action="{{ route('admin.timetables.destroy', $time)}}" >
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger" role="button" onclick="return confirm('{{ 'Вы уверены?' }}')">{{ trans('Удалить') }}</button>
-                                            </form>
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger" role="button" onclick="return confirm('{{ 'Вы уверены?' }}')">{{ trans('Удалить') }}</button>
+                                        </form>
                                     </div>
-
-                                @if($time->schedule_type == 1)
+                                    <div class="row">
+                                        <form action="{{ route('admin.clinics.destroy',$clinic) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <div>
+                                                <button type="submit" class="btn btn-danger float-right btn-delete" onclick="return confirm('При удалени клиники удаляются все расписании и брони Хотите удалить клинику {{$clinic->name_ru}}?')"  >Удалить клинику</button>
+                                            </div>
+                                        </form>
+                                    </div>    
+                                </div>
                                 <table class="table table-hover text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Начало</th>
+                                            <th>Конец</th>
+                                            {{-- <th>Начало приёма</th>
+                                            <th>Конец приёма</th> --}}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                @if($time->schedule_type == 1)
+                                {{-- <table class="table table-hover text-nowrap">
                                     <thead>
                                     <tr>
                                         <th></th>
@@ -149,7 +163,7 @@
                                         <th>Конец приёма</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody> --}}
                                     @if ($time->monday_start)
                                         <tr>
                                             <td>Понедельник</td>
@@ -199,10 +213,10 @@
                                             <td>{{ $time->sunday_end}}</td>
                                         </tr>
                                     @endif
-                                    </tbody>
-                                </table>
+                                    {{-- </tbody>
+                                </table> --}}
                                 @elseif ($time->schedule_type == 2 && $time->even_start || $time->even_end)
-                                    <table class="table table-hover text-nowrap">
+                                    {{-- <table class="table table-hover text-nowrap">
                                         <thead>
                                         <tr>
                                             <th></th>
@@ -210,36 +224,36 @@
                                             <th>Конец</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody> --}}
                                             <tr>
                                                 <td><strong>Четные дни месяца</strong></td>
                                                 <td>{{ $time->even_start}}</td>
                                                 <td>{{ $time->even_end}}</td>
                                             </tr>
-                                        </tbody>
-                                    </table>
+                                        {{-- </tbody>
+                                    </table> --}}
 
                                 @elseif ($time->schedule_type == 2 && $time->odd_start || $time->odd_end)
-                                <table class="table table-hover text-nowrap">
-                                    <thead>
-                                    <tr>
+                                {{-- <table class="table table-hover text-nowrap">
+                                    <thead> --}}
+                                    {{-- <tr>
                                         <th></th>
                                         <th>Начало</th>
                                         <th>Конец</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
+                                    </tr> --}}
+                                    {{-- </thead>
+                                    <tbody> --}}
                                         <tr>
                                             <td><strong>Нечетные дни месяца</strong></td>
                                             <td>{{ $time->odd_start}}</td>
                                             <td>{{ $time->odd_end}}</td>
                                         </tr>
-                                    </tbody>
-                                </table>
+                                    {{-- </tbody>
+                                </table> --}}
                                 @endif
 
                                 @if($time->lunch_start)
-                                <table class="table table-hover text-nowrap">
+                                {{-- <table class="table table-hover text-nowrap">
                                     <thead>
                                         <tr>
                                             <th></th>
@@ -247,18 +261,18 @@
                                             <th>Конец</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody> --}}
                                         <tr>
                                             <td><strong>Обеденный пеперыв</strong></td>
                                             <td>{{$time->lunch_start}}</td>
                                             <td>{{$time->lunch_end}}</td>
                                         </tr>
-                                    </tbody>
-                                </table>
+                                    {{-- </tbody>
+                                </table> --}}
                                 @endif
 
                                 @if($time->day_off_start)
-                                <table class="table table-hover text-nowrap">
+                                {{-- <table class="table table-hover text-nowrap">
                                     <thead>
                                         <tr>
                                             <th></th>
@@ -266,17 +280,19 @@
                                             <th>Конец</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody> --}}
                                         <tr>
                                             <td><strong>Отпуск или нерабочий день</strong></td>
                                             <td>{{$time->day_off_start}}</td>
                                             <td>{{$time->day_off_end}}</td>
                                         </tr>
+                                    {{-- </tbody>
+                                </table> --}}
+                                @endif
                                     </tbody>
                                 </table>
-                                @endif
-                                @endforeach
-                                @endif
+                            @endforeach
+                        @endif
                     </div>
                 </div>
                 @endforeach
