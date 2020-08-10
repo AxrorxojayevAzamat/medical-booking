@@ -125,12 +125,17 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     });
 });
 
-Route::group([ 'namespace' => 'Admin'], function ()
-{
-    Route::get('page/{slug?}','PagesController@slug')->name('slug');
-});
 
-Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 'middleware' => ['auth', 'can:doctor-panel']], function () {
+
+Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function() {
+    Route::get('', 'HomeController@index')->name('home');
+
+    Route::group([ 'namespace' => 'Admin'], function ()
+    {
+        Route::get('page/{slug?}','PagesController@slug')->name('slug');
+    });
+    
+    Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 'middleware' => ['auth', 'can:doctor-panel']], function () {
     Route::get('/profile', 'DoctorController@profileShow')->name('profile');
     Route::get('/edit', 'DoctorController@profileEdit')->name('profileEdit');
     Route::post('/edit', 'DoctorController@profileEditSave')->name('profileEditSave');
@@ -168,10 +173,6 @@ Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient
     Route::post('destroy','PatientController@destroy')->name('destroy');
 
 });
-
-
-Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function() {
-    Route::get('', 'HomeController@index')->name('home');
 
     Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
 

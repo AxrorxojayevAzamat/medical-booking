@@ -32,8 +32,14 @@
             <li class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">{{ trans('menu.language') }}</button>
                 <ul class="dropdown-menu">
-                    <li><a href="/locale/uz">Uz</a></li>
-                    <li><a href="/locale/ru">Ру</a></li>
+                    @foreach(\Mcamara\LaravelLocalization\Facades\LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                        <li>
+                            <a hreflang="{{ $localeCode }}"
+                               href="{{ \Mcamara\LaravelLocalization\Facades\LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                {{ $properties['native'] }}
+                            </a>
+                        </li>
+                    @endforeach
                 </ul>
             </li>
             <li style="color: white; margin-left: 5px">
