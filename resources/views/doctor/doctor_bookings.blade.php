@@ -18,6 +18,7 @@
                     <th>{{trans('book.description')}}</th>
                     <th>{{trans('book.payment')}}</th>
                     <th>{{trans('book.payment_status')}}</th>
+                    <th>{{trans('book.attendance')}}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -57,6 +58,15 @@
                       @elseif($booking->status=='10') 
                         <span class="badge badge-success">{{trans('payment.completed')}}</span>
                       @endif
+                    </td>
+                    <td>
+                        @if($booking->order_status==2)
+                          {{ trans('book.client') }}
+                        @elseif($booking->order_status==3)
+                          {{ trans('book.doctor') }}
+                        @else
+                          {{ trans('book.success') }}
+                        @endif
                     </td>
                   </tr>
             @endforeach

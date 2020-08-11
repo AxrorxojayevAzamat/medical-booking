@@ -15,7 +15,6 @@ return [
     'booking_time' => "Vaqt:",
     'name_of_doctor' => "Shifokor nomi:",
     'booking_cost' => "Buyurtma narxi",
-    'booking_cost' => "Buyurtma narxi",
     'patient'=>'Bemor',
     'orderId'=>'Buyurtma raqami',
     'start_time'=>'Boshlanish vaqti',
@@ -26,4 +25,8 @@ return [
     'book_and_pay' => "Buyurtma va to'lov",
     'locale' => 'uz',
     'booked' => 'Band qilingan',
+    'attendance'=>'Davomat',
+    'success'=>'Muvafaqqiyatli',
+    'client'=>'Be\'mor kelmadi',
+    'doctor'=>'Shifokor kelmadi',
 ];
