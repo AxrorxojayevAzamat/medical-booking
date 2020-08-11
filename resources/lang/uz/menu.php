@@ -44,4 +44,5 @@ return [
     'timetable'                     => 'Mening jadvalim',
     'editSpecialization'            => 'Shifokor turini o\'zgartirish',
     'service'                       => 'Xizmatlar',
+    'cabinet'                       => 'Shaxsiy kabinet',
 ];
