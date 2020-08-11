@@ -39,10 +39,14 @@ class Book extends Model
     const PAYME = 1;
     const CLICK = 2;
 
+    const SUCCESSFUL = 1;
+    const CLIENT = 2;
+    const DOCTOR = 3;
+
     protected $table = 'books';
 
     protected $fillable = [
-        'user_id', 'doctor_id', 'clinic_id', 'booking_date', 'time_start', 'time_finish', 'description', 'payment_type', 'status'
+        'user_id', 'doctor_id', 'clinic_id', 'booking_date', 'time_start', 'time_finish', 'description', 'payment_type', 'status' , 'order_status'
     ];
 
     public static function new($userId, $doctorId, $clinicId, $bookingDate, $timeStart, $finishTime, $description, $paymentType): self
@@ -57,6 +61,7 @@ class Book extends Model
             'description' => $description,
             'payment_type' => $paymentType,
             'status' => self::STATUS_WAITING,
+            'order_status' => self::SUCCESSFUL,
         ]);
     }
 
@@ -108,4 +113,18 @@ class Book extends Model
 
     ###########################################
 
+    public function Succesful()
+    {
+        $this->order_status = self::SUCCESSFUL;
+    }
+
+    public function ClientNotCome()
+    {
+        $this->order_status = self::CLIENT;
+    }
+
+    public function DoctorNotCome()
+    {
+        $this->order_status = self::DOCTOR;
+    }
 }

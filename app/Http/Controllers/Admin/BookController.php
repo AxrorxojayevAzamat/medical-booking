@@ -48,7 +48,14 @@ class BookController extends Controller
             $query->where('users.email', 'ilike', '%' . $value . '%');
         }
         $bookingList = $query->paginate(10);
-        return view('admin.books.index', compact('bookingList'));
+        return view('admin.books.index', compact('bookingList','a'));
+    }
+
+    public function order_status($id,$order_status){
+        $order=Book::find($id);
+        $order->order_status=$order_status;
+        $order->save();
+        return redirect()->back()->with('success', 'Successfully changed');
     }
 
 }
