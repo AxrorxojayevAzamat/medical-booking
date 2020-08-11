@@ -25,7 +25,7 @@ return [
     'book_and_pay' => "Бронирование и оплата",
     'locale' => 'ru',
     'booked' => 'Бронирован',
-    'attendance'=>'Осещаемость',
+    'attendance'=>'Явка',
     'success'=>'Успешный',
     'client'=>'Клиент не пришел',
     'doctor'=>'Доктор не пришел',

@@ -25,7 +25,7 @@ return [
     'book_and_pay' => "Buyurtma va to'lov",
     'locale' => 'uz',
     'booked' => 'Band qilingan',
-    'attendance'=>'Davomat',
+    'attendance'=>'Kelish',
     'success'=>'Muvafaqqiyatli',
     'client'=>'Be\'mor kelmadi',
     'doctor'=>'Shifokor kelmadi',

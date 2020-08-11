@@ -60,12 +60,12 @@
                       @endif
                     </td>
                     <td>
-                        @if($booking->order_status==2)
+                        @if($booking->order_status==1)
+                          {{ trans('book.success') }}
+                        @elseif($booking->order_status==2)
                           {{ trans('book.client') }}
                         @elseif($booking->order_status==3)
                           {{ trans('book.doctor') }}
-                        @else
-                          {{ trans('book.success') }}
                         @endif
                     </td>
                   </tr>
