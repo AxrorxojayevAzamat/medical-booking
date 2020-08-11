@@ -198,14 +198,21 @@ class CallCenterController extends Controller
         if ($paymentType == Book::PAYME) {
 
             $order = $this->paycomService->createBookOrder($userId, $doctorId, $clinicId, $bookingDate, $timeStart, $amount, $description);
-            $cipher = 'm=' . config('paycom_config.merchant_id') . ';a=' . $amount * 100 . ';l=ru;ac.' . config('paycom_config.account') . '=' . $order->id . ';c=' . config('app.url') . '/api/call-center/book/paycom';
+            $cipher = 'm=' . config('paycom_config.merchant_id') . ';a=' . $amount * 100 . ';l=ru;ac.' . config('paycom_config.account') . '=' . $order->id;
             $link = config('paycom_config.endpoint_check') . '/' . base64_encode($cipher);
         } else if ($paymentType == Book::CLICK) {
 
             $order = $this->clickService->createOrder($userId, $doctorId, $clinicId, $bookingDate, $timeStart, $amount, $description);
-            $cipher = 'service_id=' . config('click.service_id') . '&merchant_id=' . config('click.merchant_id') . '&amount=' . $amount . '&transaction_param=' . $order->merchant_transaction_id . '&return_url=' . config('app.url') . 'api/call-center/book/click';
+            $cipher = 'service_id=' . config('click.service_id') . '&merchant_id=' . config('click.merchant_id') . '&amount=' . $amount . '&transaction_param=' . $order->merchant_transaction_id;
             $link = config('click.endpoint_check') . '/' . $cipher;
         }
+
+        if ($user->phone) {
+            $this->bookService->toSms($userId, $doctorId, $clinicId, $bookingDate, $timeStart);
+        }
+        $this->bookService->toMail($userId, $doctorId, $clinicId, $bookingDate, $timeStart);
+
+        //send payment link
         $this->bookService->toMailPayment($user->email, 'Оплата', 'Для оплаты перейдите по ссылке', 'Оператор колл центра', $link);
 
         return redirect()->route('admin.books.index')->with('success', 'Письмо для оплаты со ссылкой отправлено на почту ' . $user->email);

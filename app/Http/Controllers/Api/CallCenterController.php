@@ -38,20 +38,4 @@ class CallCenterController extends Controller
         }
     }
 
-    public function paymeEndpoint(Request $request)
-    {
-//        if ($user->phone) {
-//            $this->bookService->toSms($userId, $doctorId, $clinicId, $bookingDate, $timeStart);
-//        }
-//        $this->bookService->toMail($userId, $doctorId, $clinicId, $bookingDate, $timeStart);
-    }
-
-    public function clickEndpoint(Request $request)
-    {
-//        if ($user->phone) {
-//            $this->bookService->toSms($userId, $doctorId, $clinicId, $bookingDate, $timeStart);
-//        }
-//        $this->bookService->toMail($userId, $doctorId, $clinicId, $bookingDate, $timeStart);
-    }
-
 }
