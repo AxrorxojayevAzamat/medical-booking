@@ -150,7 +150,7 @@
                         </div>
                     </div>
                 </div>
-                <p class="text-center"><a href="{{ route('doctors.index' ) }}" class="btn_1 medium">{{ trans('home.find_doctor' ) }}</a></p>
+                <p class="text-center"><a href="{{ route('doctors.index' ) }}" class="btn_11 medium">{{ trans('home.find_doctor' ) }}</a></p>
             </div>
         </div>
     </div>

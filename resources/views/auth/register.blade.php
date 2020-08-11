@@ -23,7 +23,7 @@
 @include('layouts.header')
 @section('body')
     <main>
-        <div class="bg_color_2">
+        <div class="bg_color_2 py-5">
             <div class="container margin_10_35">
                 <div id="register">
                     <h1>{{trans('auth.please_to_findoctor')}}</h1>

@@ -6,10 +6,10 @@
         <div id="results">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-lg-3 col-md-12 pb-3">
                         <h4>{!! trans('doctors.showing_results', ['current' => $countCurrent, 'all' => $countAll]) !!}</h4>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-lg-3 col-md-6">
                         <ul class="row">
                             <li class="{{ Request::is('*/doctors*') ? 'active' : '' }}" style="margin: auto 10px auto 30px;">
                                 <a href="{{ route('doctors.index') }}">{{ trans('menu.doctors') }}</a>

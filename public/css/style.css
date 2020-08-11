@@ -502,6 +502,28 @@ a.btn_1,
   border-radius: 25px;
   font-weight: 500;
 }
+a.btn_11,
+.btn_11 {
+  border: none;
+  color: #fff;
+  background: #74d1c6;
+  cursor: pointer;
+  padding: 7px 20px;
+  display: inline-block;
+  outline: none;
+  font-size: 14px;
+  font-size: 0.875rem;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  border-radius: 25px;
+  font-weight: 500;
+}
 a.btn_1.medium,
 .btn_1.medium {
   padding: 12px 45px;
@@ -517,9 +539,28 @@ a.btn_1.full-width,
   font-size: 1rem;
   width: 100%;
 }
+a.btn_11.medium,
+.btn_11.medium {
+  padding: 12px 45px;
+  font-size: 16px;
+  font-size: 1rem;
+}
+a.btn_11.full-width,
+.btn_11.full-width {
+  display: block;
+  text-align: center;
+  padding: 12px 45px;
+  font-size: 16px;
+  font-size: 1rem;
+  width: 100%;
+}
 a.btn_1:hover,
 .btn_1:hover {
   background: #74d1c6;
+}
+a.btn_11:hover,
+.btn_11:hover {
+  background: #e74e84;
 }
 
 a.btn_1:focus,
@@ -2094,7 +2135,7 @@ a.wish_bt:hover:after {
   color: #e74e84;
 }
 .strip_list ul li:first-child:after {
-  content: '|';
+  content: '';
   font-weight: 400;
   margin-left: 8px;
   color: #ccc;
@@ -2125,7 +2166,7 @@ a.wish_bt:hover:after {
 @media (max-width: 991px) {
   .strip_list ul li:first-child {
     /* For less than 991px */
-    display: none;
+    /* display: none; */
   }
 }
 
@@ -2376,7 +2417,7 @@ a.wish_bt:hover:after {
 @media (max-width: 767px) {
   .filters_listing ul li h6 {
     /* For less than 767px */
-    display: none;
+    /* display: none; */
   }
 }
 .filters_listing ul li:first-child {
