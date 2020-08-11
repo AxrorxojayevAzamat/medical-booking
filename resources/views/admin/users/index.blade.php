@@ -22,7 +22,7 @@
                                 </div>
                                 <div class="col-sm-2">
                                     <div class="form-group">
-                                        {!! Form::label('role', 'ФИО', ['class' => 'col-form-label']) !!}
+                                        {!! Form::label('fio', 'ФИО:', ['class' => 'col-form-label']) !!}
                                         {!! Form::text('fio', null, ['class'=>'form-control']) !!}
                                     </div>
                                 </div>
