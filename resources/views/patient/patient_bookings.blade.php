@@ -6,7 +6,7 @@
         <div class="container-fluid" style="margin-top: 50px">
             <h1 align="center">{{trans('menu.my_records')}}</h1>
             <div class="box_general padding_bottom">
-            
+            @foreach($bookings as $booking)
               <table class="table">
                 <thead>
                   <tr>
@@ -24,7 +24,6 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($bookings as $booking)
                   <tr>
                     <td>{{ $booking->id }}</td>
                     <td>{{ $booking->user->profile->first_name.' '.$booking->user->profile->last_name }}</td>
@@ -64,11 +63,10 @@
                         @endif
                     </td>
                   </tr>
-              @endforeach
                 </tbody>
               </table>
               <br>
-            
+            @endforeach
 
         </div>
         <!-- /.container-fluid-->
