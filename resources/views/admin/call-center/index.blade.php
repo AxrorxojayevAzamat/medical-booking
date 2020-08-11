@@ -12,7 +12,7 @@
             <div class="card-body">
                 <div class="card-body">
                     <form action="?" method="GET">
-                        <div class="row d-flex justify-content-center">
+                        <div class="row d-flex justify-content-between">
                             <div class="">
                                 <div class="form-group">
                                     <label for="id" class="col-form-label">{{ trans('Ид') }}</label>

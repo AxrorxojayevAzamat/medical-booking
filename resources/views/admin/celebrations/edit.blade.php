@@ -31,7 +31,7 @@
                     @method('PATCH')
                     @include('admin.celebrations.forms.Forms')
                     <button type="submit" class="btn btn-success btn-sm ml-1">Сохранить</button>
-                    <a href="{{ route('admin.celebration.index') }}" class="btn btn-default btn-sm ml-1">Назад</a>
+                    {{-- <a href="{{ route('admin.celebration.index') }}" class="btn btn-default btn-sm ml-1">Назад</a> --}}
                 </form>
             </div>
         </div>

@@ -4,13 +4,13 @@
     <div class="d-flex bd-highlight mb-3">
         @can('manage-users')<a class="btn btn-primary mr-1 p-2 bd-highlight" href="{{ route('admin.users.edit',$user)}}">{{ trans('Редактировать') }}</a>@endcan
         @if($user->isDoctor())
-        <a class="btn btn-secondary mr-1 p-2 bd-highlight" href="{{ route('admin.users.user-clinics',$user)}}">{{ trans('Добавить клинику') }}</a>
-        <a class="btn btn-info mr-1 p-2 bd-highlight" href="{{ route('admin.users.specializations', $user)}}">{{ trans('Добавить специализацию') }}</a>
-        <a class="btn btn-dark mr-1" href="{{ route('admin.users.main-photo', $user)}}">Главное фото</a>
-        <a class="btn btn-warning mr-1" href="{{ route('admin.users.photos', $user)}}">Фотографии</a>
+        <a class="btn btn-success mr-1 p-2 bd-highlight" href="{{ route('admin.users.user-clinics',$user)}}">{{ trans('Добавить клинику') }}</a>
+        <a class="btn btn-success mr-1 p-2 bd-highlight" href="{{ route('admin.users.specializations', $user)}}">{{ trans('Добавить специализацию') }}</a>
+        <a class="btn btn-info mr-1 p-2" href="{{ route('admin.users.main-photo', $user)}}">Главное фото</a>
+        <a class="btn btn-info mr-1 p-2" href="{{ route('admin.users.photos', $user)}}">Фотографии</a>
         @endif
         @can('manage-admin-clinics',$user)
-        <a class="btn btn-secondary mr-1 p-2 bd-highlight" href="{{ route('admin.users.admin-clinics',$user)}}">{{ trans('Добавить админу клиники') }}</a>
+        <a class="btn btn-success mr-1 p-2 bd-highlight" href="{{ route('admin.users.admin-clinics',$user)}}">{{ trans('Добавить админу клиники') }}</a>
         @endcan
     @can('manage-users')
             <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}" class="ml-auto mr-1">
