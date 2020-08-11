@@ -18,19 +18,12 @@ class BookController extends Controller
     {
         $search = $request->all();
         
-        if (!empty($search)) {
-            $query = Book::select(['books.*', 'us.*', 'pr.*'])
-            ->join('users as us', 'books.user_id', '=', 'us.id')
-            ->join('profiles as pr', 'pr.user_id', '=', 'us.id')
-            ->orderBy('booking_date', 'asc');
-        } else {
-            $query = Book::select(['books.*', 'us.*', 'pr.*'])
+        $query = Book::select(['books.*', 'us.*', 'pr.*'])
             ->join('users as us', 'books.user_id', '=', 'us.id')
             ->join('profiles as pr', 'pr.user_id', '=', 'us.id')
             ->orderBy('booking_date', 'asc')
             ->orderBy('time_start', 'asc')
             ->whereDate('books.booking_date', '>=', Carbon::today());
-        }
 
         if (!empty($value = $request->get('id'))) {
             $query->where('books.id', $value);
@@ -53,7 +46,7 @@ class BookController extends Controller
         }
 
         if (!empty($value = $request->get('phone'))) {
-            $query->where('users.phone', 'ilike', '%' . $value . '%');
+            $query->where('phone', 'ilike', '%' . $value . '%');
         }
 
         if (!empty($value = $request->get('email'))) {
