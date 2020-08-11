@@ -12,7 +12,7 @@
             <div class="card-body">
                 <div class="card-body">
                     <form action="?" method="GET">
-                        <div class="row d-flex justify-content-between">
+                        <div class="row d-flex justify-content-start">
                             <div class="">
                                 <div class="form-group">
                                     <label for="id" class="col-form-label">{{ trans('Ид') }}</label>
@@ -68,7 +68,7 @@
                                 <div class="form-group pl-1">
                                     <label class="col-form-label">&nbsp;</label><br />
                                     <button type="submit" class="btn btn-primary">Поиск</button>
-                                    <a href="?" class="btn btn-outline-secondary">{{ __('Очистить') }}</a>
+                                    <a href="?" class="btn btn-danger">{{ __('Очистить') }}</a>
                                 </div>
                             </div>
                         </div>

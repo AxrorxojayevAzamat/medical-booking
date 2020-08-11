@@ -6,12 +6,12 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-footer">
+                <div class="card-footer bg-transparent">
                     @if(Auth::user()->isAdmin())<a class="btn btn-success" href="{{ route("admin.users.create") }}">{{ trans('Добавить') }} </a>@endif
                 </div>
 
                 <div class="card-body">
-                    <div class="card-body">
+                    <div class="card-body pt-0">
                         <form action="?" method="GET">
                             <div class="row">
                                 <div class="col-sm-1">

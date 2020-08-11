@@ -168,7 +168,7 @@
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-success">Редактировать</button>
+            <button type="submit" class="btn btn-success">Сохранить</button>
             {{-- <a href="{{ route('admin.clinics.index') }}" class="btn btn-default">Назад</a> --}}
         </div>
     </form>
