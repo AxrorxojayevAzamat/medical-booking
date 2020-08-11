@@ -61,7 +61,7 @@
                        
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label for="name" class="col-form-label">{{ trans('Время бронирования') }}</label>
+                                <label for="time_start" class="col-form-label">{{ trans('Время бронирования') }}</label>
                                 <div class="input-group date" id="timepicker" data-target-input="nearest">
                                     <input type="time" name="time_start" class="form-control datetimepicker-input" data-target="#timepicker" value="{{ request('time_start')}}">
                                     <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
@@ -74,8 +74,8 @@
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label for="name" class="col-form-label">{{ trans('Телефон') }}</label>
-                                <input id="phone" type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;999999999&quot;" data-mask="" im-insert="true" name="phone" value="{{ request('phone') }}">
+                                <label for="phone" class="col-form-label">{{ trans('Телефон') }}</label>
+                                <input id="phone" class="form-control" name="phone" value="{{ request('phone') }}">
                             </div>
                         </div>
                         <div class="col-sm-2">
