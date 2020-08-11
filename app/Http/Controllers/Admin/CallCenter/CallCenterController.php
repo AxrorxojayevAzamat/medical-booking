@@ -193,6 +193,7 @@ class CallCenterController extends Controller
         $amount = $request['amount'];
         $user = User::find($userId);
         $link = null;
+        $order = null;
 
 
         if ($paymentType == Book::PAYME) {
@@ -207,13 +208,9 @@ class CallCenterController extends Controller
             $link = config('click.endpoint_check') . '/' . $cipher;
         }
 
-        if ($user->phone) {
-            $this->bookService->toSms($userId, $doctorId, $clinicId, $bookingDate, $timeStart);
-        }
-        $this->bookService->toMail($userId, $doctorId, $clinicId, $bookingDate, $timeStart);
+        $this->bookService->toSms($order->book_id, $link);
+        $this->bookService->toMail($order->book_id, $link);
 
-        //send payment link from Mail
-        $this->bookService->toMailPayment($user->email, 'Оплата', 'Для оплаты перейдите по ссылке', 'Оператор колл центра', $link);
 
         return redirect()->route('admin.books.index')->with('success', 'Письмо для оплаты со ссылкой отправлено на почту ' . $user->email);
     }

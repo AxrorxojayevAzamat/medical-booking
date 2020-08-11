@@ -4,12 +4,13 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BookEmail;
-use App\Mail\PaymentEmail;
 use App\Entity\User\User;
+use App\Entity\Book\Book;
 use App\Entity\Clinic\Clinic;
 
 class BookSmsService
 {
+
     private $price;
     private $currency;
 
@@ -19,14 +20,16 @@ class BookSmsService
         $this->currency = config('book.default_currency');
     }
 
-    public function toSms($userId, $doctorId, $clinicId, $bookingDate, $timeStart)
+    public function toSms($book_id, $link)
     {
-        $patient = User::find($userId);
-        $doctor = User::find($doctorId);
-        $clinic = Clinic::find($clinicId);
+        $book = Book::findOrFail($book_id);
+
+        $patient = User::findOrFail($book->user_id);
+        $doctor = User::findOrFail($book->doctor_id);
+        $clinic = Clinic::findOrFail($book->clinic_id);
 
 //        'Ваше бронирование: Дата: 2020-07-31, Время: 14:00, Имя доктора: Haag Joelle, Название клиники: Favian Durgan, Стоимость бронирования 1200 UZS';
-        $text = 'Ваше бронирование: Дата: ' . $bookingDate . ', Время: ' . $timeStart . ', Имя доктора: ' . $doctor->profile->fullName . ', Название клиники: ' . $clinic->name . ', Стоимость бронирования ' . $this->price . ' ' . $this->currency;
+        $text = 'Ваше бронирование: Дата: ' . $book->booking_date . ', Время: ' . $book->time_start . ', Имя доктора: ' . $doctor->profile->fullName . ', Название клиники: ' . $clinic->name . ', Стоимость бронирования ' . $this->price . ' ' . $this->currency . (empty($link) ? '' : ('Для активации бронирования оплатите по этой ссылке ' . $link));
 
         $state = false;
         $from = "6100";
@@ -51,7 +54,7 @@ class BookSmsService
             $output = curl_exec($handle);
             curl_close($handle);
         }
-        
+
         $res = response()->json([
             'success' => $state,
             'output' => $output,
@@ -60,32 +63,25 @@ class BookSmsService
         return $res;
     }
 
-    public function toMail($userId, $doctorId, $clinicId, $bookingDate, $timeStart)
+    public function toMail($book_id, $link)
     {
-        $patient = User::find($userId);
-        $doctor = User::find($doctorId);
-        $clinic = Clinic::find($clinicId);
+        $book = Book::findOrFail($book_id);
+
+        $patient = User::findOrFail($book->user_id);
+        $doctor = User::findOrFail($book->doctor_id);
+        $clinic = Clinic::findOrFail($book->clinic_id);
 
         Mail::to($patient->email)->send(
-            new BookEmail(
-                $bookingDate,
-                $timeStart,
-                $doctor->profile->fullName,
-                $clinic->name,
-                $this->price,
-                $this->currency
-            )
+                new BookEmail(
+                        $book->booking_date,
+                        $book->time_start,
+                        $doctor->profile->fullName,
+                        $clinic->name,
+                        $this->price,
+                        $this->currency,
+                        $link
+                )
         );
     }
-    public function toMailPayment($email, $title, $context, $footer, $link)
-    {
-        Mail::to($email)->send(
-            new PaymentEmail(
-                $title,
-                $context,
-                $footer,
-                $link
-            )
-        );
-    }
+
 }

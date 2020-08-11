@@ -19,5 +19,6 @@ return [
     'book_and_pay' => 'Buyurtma va to\'lov',
     'locale' => 'uz',
     'booked' => 'Band qilingan',
+    'payment_link' => 'Buyurtmani faollashtirish uchun ushbu havola yordamida to`lovni amalga oshiring'
 
 ];

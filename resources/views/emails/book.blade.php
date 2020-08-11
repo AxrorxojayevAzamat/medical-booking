@@ -14,3 +14,8 @@
 <p>
 	<b>{{ trans('book.booking_cost') }}</b> {{$price}} {{$currency}}
 </p>
+@if(!empty($link))
+<p>
+	<b>{{trans('book.payment_link') }}</b> {{$link}}
+</p>
+@endif

@@ -22,16 +22,16 @@ class PaycomController extends Controller
 {
 
     private $service;
-    private $bookService;
     private $validator;
+    private $bookService;
 
     public function __construct(PaycomService $service, PaycomValidator $validator, BookSmsService $bookService)
     {
         require_once __DIR__ . '/../../../Helpers/helpers.php';
 
         $this->service = $service;
-        $this->bookService = $bookService;
         $this->validator = $validator;
+        $this->bookService = $bookService;
     }
 
     public function test()
@@ -53,15 +53,7 @@ class PaycomController extends Controller
             $this->validator->authorizePaycom($request);
             $this->validator->validateAmount($request->amount);
             $user = Auth::user();
-
             $order = $this->service->createBookOrder($user->id, $request->doctor_id, $request->clinic_id, $request->booking_date, $request->time_start, $request->amount, $request->description);
-
-            if ($user->phone) {
-                $this->bookService->toSms($user->id, $request->doctor_id, $request->clinic_id, $request->booking_date, $request->time_start);
-            }
-
-            $this->bookService->toMail($user->id, $request->doctor_id, $request->clinic_id, $request->booking_date, $request->time_start);
-
             return $this->successResponse('Paycom order is created.', ['order_id' => $order->id]);
         } catch (ValidationException $e) {
             return $this->response(ResponseHelper::CODE_VALIDATION_ERROR, trans('validation.error'), $e->errorBag);
@@ -82,11 +74,14 @@ class PaycomController extends Controller
             $this->service->unlockOrder($order);
             $this->service->checkRequestReceiptsCreate($data);
             $data = $this->service->payReceipt($data->result->receipt->_id, $token);
+            //send book notify SMS and email 
+            $this->bookService->toSms($order->book_id, null);
+            $this->bookService->toMail($order->book_id, null);
 
             return $this->successResponse('Payment is successfully performed.', ['book_id' => $order->book_id]);
         } catch (ValidationException $e) {
             return $this->response(ResponseHelper::CODE_VALIDATION_ERROR, trans('validation.error'), $e->errorBag);
-        } catch (RuntimeException | Exception $e) {
+        } catch (RuntimeException|Exception $e) {
             return $this->response(ResponseHelper::CODE_ERROR, $e->getMessage());
         }
     }
@@ -103,5 +98,4 @@ class PaycomController extends Controller
                     'data' => $data,
                         ], $code);
     }
-
 }

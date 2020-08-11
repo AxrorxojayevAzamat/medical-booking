@@ -18,8 +18,9 @@ class BookEmail extends Mailable
     public $clinic;
     public $price;
     public $currency;
+    public $link;
 
-    public function __construct($date, $time, $doctor, $clinic, $price, $currency)
+    public function __construct($date, $time, $doctor, $clinic, $price, $currency,$link)
     {
         $this->date = $date;
         $this->time = $time;
@@ -27,6 +28,7 @@ class BookEmail extends Mailable
         $this->clinic = $clinic;
         $this->price = $price;
         $this->currency = $currency;
+        $this->link = $link;
     }
 
     public function build()
@@ -37,7 +39,8 @@ class BookEmail extends Mailable
                     'doctor' => $this->doctor,
                     'clinic' => $this->clinic,
                     'price' => $this->price,
-                    'currency' => $this->currency
+                    'currency' => $this->currency,
+                    'link' => $this->link
         ]);
     }
 

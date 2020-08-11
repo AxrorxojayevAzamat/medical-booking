@@ -12,17 +12,20 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use App\Services\BookSmsService;
 
 class ClickController extends Controller
 {
     private $service;
     private $accounts;
     private $validator;
+    private $bookService;
 
-    public function __construct(ClickService $service, ClickValidator $validator)
+    public function __construct(ClickService $service, ClickValidator $validator, BookSmsService $bookService)
     {
         $this->service = $service;
         $this->validator = $validator;
+        $this->bookService = $bookService;
     }
 
     ##################################################################################### Endpoints
@@ -70,13 +73,7 @@ class ClickController extends Controller
                     $user = Auth::user();
 
                     $order = $this->service->createOrder($user->id, $request->doctor_id, $request->clinic_id, $request->booking_date, $request->time_start, $request->amount, $request->description);
-
-                    if ($user->phone) {
-                        $this->bookService->toSms($user->id, $request->doctor_id, $request->clinic_id, $request->booking_date, $request->time_start);
-                    }
-
-                    $this->bookService->toMail($user->id, $request->doctor_id, $request->clinic_id, $request->booking_date, $request->time_start);
-
+                    
                     return $this->response(ResponseHelper::CODE_SUCCESS, 'Click order is created.', ['transaction_id' => $order->merchant_transaction_id]);
                 });
     }
@@ -92,7 +89,7 @@ class ClickController extends Controller
                 });
     }
 
-    public function zzverifyToken(Request $request)
+    public function verifyToken(Request $request)
     {
         return $this->baseClickAction($request, function (Request $request): JsonResponse {
                     $this->validator->validateAuth($request);
@@ -109,6 +106,10 @@ class ClickController extends Controller
                     $this->validator->validateAuth($request);
                     $this->validator->validatePerformPayment($request);
                     $click = $this->service->performPayment($request->card_token, $request->transaction_id);
+                    
+                    //send book notify SMS and email 
+                    $this->bookService->toSms($order->book_id, null);
+                    $this->bookService->toMail($order->book_id, null);
 
                     return $this->response(ResponseHelper::CODE_SUCCESS, trans('Payment is successfully performed.'), ['book_id' => $click->book_id]);
                 });
