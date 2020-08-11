@@ -40,8 +40,6 @@ class Book extends Model
     const CLICK = 2;
 
     const SUCCESSFUL = 1;
-    const CLIENT = 2;
-    const DOCTOR = 3;
 
     protected $table = 'books';
 
@@ -113,18 +111,4 @@ class Book extends Model
 
     ###########################################
 
-    public function Succesful()
-    {
-        $this->order_status = self::SUCCESSFUL;
-    }
-
-    public function ClientNotCome()
-    {
-        $this->order_status = self::CLIENT;
-    }
-
-    public function DoctorNotCome()
-    {
-        $this->order_status = self::DOCTOR;
-    }
 }
