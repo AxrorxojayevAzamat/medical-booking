@@ -212,7 +212,7 @@ class CallCenterController extends Controller
         }
         $this->bookService->toMail($userId, $doctorId, $clinicId, $bookingDate, $timeStart);
 
-        //send payment link
+        //send payment link from Mail
         $this->bookService->toMailPayment($user->email, 'Оплата', 'Для оплаты перейдите по ссылке', 'Оператор колл центра', $link);
 
         return redirect()->route('admin.books.index')->with('success', 'Письмо для оплаты со ссылкой отправлено на почту ' . $user->email);
