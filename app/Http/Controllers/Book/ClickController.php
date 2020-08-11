@@ -92,7 +92,7 @@ class ClickController extends Controller
                 });
     }
 
-    public function zzverifyToken(Request $request)
+    public function verifyToken(Request $request)
     {
         return $this->baseClickAction($request, function (Request $request): JsonResponse {
                     $this->validator->validateAuth($request);
