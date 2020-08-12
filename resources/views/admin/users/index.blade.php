@@ -45,14 +45,14 @@
                                         {!! Form::select('role', \App\Entity\User\User::rolesList(), request('role'), ['class'=>'form-control', 'placeholder' => '']) !!}
                                     </div>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-1">
                                     <div class="form-group">
                                         {!! Form::label('status', 'Статус:', ['class' => 'col-form-label']) !!}
                                         {!! Form::select('status', \App\Entity\User\User::statusList(), request('status'), ['class'=>'form-control', 'placeholder' => '']) !!}
                                      
                                     </div>
                                 </div>
-                                <div class="col-sm-1">
+                                <div class="col-sm-2">
                                     <div class="form-group">
                                         <label class="col-form-label">&nbsp;</label><br />
                                         <button type="submit" class="btn btn-primary">Поиск</button>
