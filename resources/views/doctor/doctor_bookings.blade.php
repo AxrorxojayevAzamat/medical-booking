@@ -5,7 +5,7 @@
 <div class="content-wrapper">
         <div class="container-fluid" style="margin-top: 50px">
             <h1 align="center">{{trans('menu.my_records')}}</h1>
-            <div class="box_general padding_bottom">
+            <div class="box_general padding_bottom booking overflow-auto">
               <table class="table">
                 <thead>
                   <tr>
@@ -67,5 +67,5 @@
         <!-- /.container-fluid-->
     </div>
   </div>
-
+@include('doctor.adaptation_style')
 @stop

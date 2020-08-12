@@ -24,8 +24,8 @@
                 <div class="header_box version_2">
                     <h2><i class="fa fa-user"></i>{{trans('menu.profile_details')}}</h2>
                     <button style="float: right" class="btn btn-success medium mr-1">{{trans('menu.save')}}</button>
-                    <a style="float: right" class="btn btn-dark mr-1" href="{{ route('doctor.main-photo', $user)}}">{{trans('menu.main_photo')}}</a>
-                    <a style="float: right" class="btn btn-warning mr-1" href="{{ route('doctor.photos')}}">{{trans('menu.photos')}}</a>
+                    <a style="float: right" class="btn btn-info mr-1" href="{{ route('doctor.main-photo', $user)}}">{{trans('menu.main_photo')}}</a>
+                    <a style="float: right" class="btn btn-info mr-1" href="{{ route('doctor.photos')}}">{{trans('menu.photos')}}</a>
                 </div>
                 <div class="row">
                     <div class="col-md-12 add_top_30">

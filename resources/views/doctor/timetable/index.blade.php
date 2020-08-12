@@ -9,15 +9,15 @@
     <div class="card card-secondary card-outline" id="doctor-clinic">
 
                 @foreach($doctor->clinics as $clinic)
-                <div class="card-header">{{ __('Клиника ') }}<strong> {{$clinic->name_ru}}</strong>
+                <div class="card-header mb-0">{{ __('Клиника ') }}<strong> {{$clinic->name_ru}}</strong>
                     <div class="card-body">
                         @php
                             $time = $timetable->where('clinic_id', $clinic->id);
                         @endphp
                         @if($time)
                         @foreach($time as $time)
-                            <div class="row">
-                                <a class="btn btn-primary mr-1" role="button" href="{{ route('doctor.edit', $clinic)}}">{{ trans('Редактировать расписание') }}</a>
+                            <div class="row my-2">
+                                <a class="btn btn-primary" role="button" href="{{ route('doctor.edit', $clinic)}}">{{ trans('Редактировать расписание') }}</a>
                             </div>
                         <table class="table table-hover text-nowrap">
                                     <thead>
@@ -25,21 +25,10 @@
                                             <th></th>
                                             <th>Начало</th>
                                             <th>Конец</th>
-                                            {{-- <th>Начало приёма</th>
-                                            <th>Конец приёма</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
                                 @if($time->schedule_type == 1)
-                                {{-- <table class="table table-hover text-nowrap">
-                                    <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Начало приёма</th>
-                                        <th>Конец приёма</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody> --}}
                                     @if ($time->monday_start)
                                         <tr>
                                             <td>Понедельник</td>
@@ -89,81 +78,42 @@
                                             <td>{{ $time->sunday_end}}</td>
                                         </tr>
                                     @endif
-                                    {{-- </tbody>
-                                </table> --}}
+
                                 @elseif ($time->schedule_type == 2 && $time->even_start || $time->even_end)
-                                    {{-- <table class="table table-hover text-nowrap">
-                                        <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Начало</th>
-                                            <th>Конец</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody> --}}
                                             <tr>
                                                 <td><strong>Четные дни месяца</strong></td>
                                                 <td>{{ $time->even_start}}</td>
                                                 <td>{{ $time->even_end}}</td>
                                             </tr>
-                                        {{-- </tbody>
-                                    </table> --}}
 
-                                @elseif ($time->schedule_type == 2 && $time->odd_start || $time->odd_end)
-                                {{-- <table class="table table-hover text-nowrap">
-                                    <thead> --}}
-                                    {{-- <tr>
-                                        <th></th>
-                                        <th>Начало</th>
-                                        <th>Конец</th>
-                                    </tr> --}}
-                                    {{-- </thead>
-                                    <tbody> --}}
+                                            @elseif ($time->schedule_type == 2 && $time->odd_start || $time->odd_end)
+
                                         <tr>
                                             <td><strong>Нечетные дни месяца</strong></td>
                                             <td>{{ $time->odd_start}}</td>
                                             <td>{{ $time->odd_end}}</td>
                                         </tr>
-                                    {{-- </tbody>
-                                </table> --}}
+
                                 @endif
 
                                 @if($time->lunch_start)
-                                {{-- <table class="table table-hover text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Начало</th>
-                                            <th>Конец</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody> --}}
+
                                         <tr>
                                             <td><strong>Обеденный пеперыв</strong></td>
                                             <td>{{$time->lunch_start}}</td>
                                             <td>{{$time->lunch_end}}</td>
                                         </tr>
-                                    {{-- </tbody>
-                                </table> --}}
+
                                 @endif
 
                                 @if($time->day_off_start)
-                                {{-- <table class="table table-hover text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Начало</th>
-                                            <th>Конец</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody> --}}
+
                                         <tr>
                                             <td><strong>Отпуск или нерабочий день</strong></td>
                                             <td>{{$time->day_off_start}}</td>
                                             <td>{{$time->day_off_end}}</td>
                                         </tr>
-                                    {{-- </tbody>
-                                </table> --}}
+
                                 @endif
                                     </tbody>
                                 </table>

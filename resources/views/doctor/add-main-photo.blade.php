@@ -23,7 +23,7 @@
             @csrf
             <div class="form-group">
                 <div class="file-loading">
-                    <input id="file-input" class="file" type="file" name="photo">
+                    <input id="file-input mb-2" class="file" type="file" name="photo">
                 </div>
                 @if ($errors->has('logo'))
                     <span class="invalid-feedback"><strong>{{ $errors->first('photos') }}</strong></span>

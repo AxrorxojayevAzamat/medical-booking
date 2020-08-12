@@ -15,13 +15,13 @@
             @endif
             <div class="box_general padding_bottom">
                 <div class="header_box version_2">
-                    <h2><i class="fa fa-user"></i>{{trans('menu.profile_details')}}</h2>
+                    <h2 style="margin-right: 20px;"><i class="fa fa-user"></i>{{trans('menu.profile_details')}}</h2>
 
-                    <h2 style="margin-left: 20px; "><i class="fa fa-user"></i>{{trans('menu.rate')}}</h2>
+                    <h2 style="margin-bottom: 20px;"><i class="fa fa-user"></i>{{trans('menu.rate')}}</h2>
                     <?php $average = number_format($user->profile->rate/($user->profile->num_of_rates?:1), 1, '.', ''); ?>
                     <h2 class="bold">{{ $average }} / 5.0 </h2>
-                    <a class="btn btn-primary mr-1 p-2 bd-highlight" style="float: right;" href="{{ route('doctor.profileEdit')}}">{{ trans('menu.edit') }}</a>
-                    <a class="btn btn-primary mr-1 p-2 bd-highlight" style="float: right;" href="{{ route('doctor.editSpecialization')}}">{{ trans('menu.editSpecialization') }}</a>
+                    <a class="btn btn-primary mr-1 mb-3 p-2 bd-highlight" style="float: right;" href="{{ route('doctor.profileEdit')}}">{{ trans('menu.edit') }}</a>
+                    <a class="btn btn-primary mr-1 mb-3 p-2 bd-highlight" style="float: right;" href="{{ route('doctor.editSpecialization')}}">{{ trans('menu.editSpecialization') }}</a>
                 </div>
                 <div class="col-md-12">
                     <div class="row">
@@ -77,5 +77,6 @@
                 </div>
             </div>
         </div>
+        @include('doctor.adaptation_style')
 
 @stop

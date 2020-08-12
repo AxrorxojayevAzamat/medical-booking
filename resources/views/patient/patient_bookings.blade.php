@@ -62,4 +62,6 @@
         <!-- /.container-fluid-->
     </div>
   </div>
+@include('doctor.adaptation_style')
+
 @stop
