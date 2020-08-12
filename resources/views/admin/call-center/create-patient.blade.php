@@ -63,8 +63,8 @@
                                 </td></tr>
                             <tr><th>{{ trans('Пол') }}</th><td><select id="gender" class="form-control @error('gender') is-invalid @enderror" name="gender" value="{{ old('gender') }}" autocomplete="gender" autofocus>
                                         <option value="" selected=""></option>>
-                                        <option value="0">Женский</option>>
                                         <option value="1">Мужской</option>>
+                                        <option value="0">Женский</option>>
                                     </select>
                                     @if ($errors->has('gender'))
                                     <div class="invalid-feedback">
