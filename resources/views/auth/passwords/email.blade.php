@@ -39,7 +39,7 @@
         <div class="container margin_60_35">
             <div id="login">
                 <h1>{{ __('adminlte.send_password_reset_link') }}</h1>
-                <div class="box_form">
+                <div class="box_form pb-4">
                     <form method="POST" action="{{ $password_email_url}}" >
                         {{ csrf_field() }}
                         <div class="form-group row">
@@ -59,7 +59,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn_1 btn-primary">
                                     {{ __('adminlte.send_reset_link') }}
                                 </button>
                             </div>
