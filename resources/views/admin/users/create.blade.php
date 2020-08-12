@@ -110,8 +110,8 @@
                         <label for="gender" class="col-form-label text-md-left">{{ trans('Пол') }}</label>
                         <select id="gender" class="form-control{{ $errors->has('gender') ? ' is-invalid' : '' }}" name="gender" required>
                             <option value="" selected=""></option>>
-                            <option value="0" {{ old('gender') == 0 ? 'selected' : '' }} >Женский</option>>
                             <option value="1" {{ old('gender') == 1 ? 'selected' : '' }} >Мужской</option>>
+                            <option value="0" {{ old('gender') == 0 ? 'selected' : '' }} >Женский</option>>
                         </select>
                         @error('gender')
                             <span class="invalid-feedback"><strong>{{ $errors->first('gender') }}</strong></span>
