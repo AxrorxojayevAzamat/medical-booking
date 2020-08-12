@@ -166,14 +166,10 @@ class DoctorController extends Controller
 
     public function book(Request $request, User $doctor, Clinic $clinic)
     {
-        if (!Gate::allows('patient-panel')) {
-            return abort(401);
-        }
-
         $calendar = $request['calendar'];
         $radioTime = $request['radio_time'];
-        $price = config('booking_price.booking_price');
-        $currency = config('booking_price.default_currency');
+        $price = config('book.booking_price');
+        $currency = config('book.default_currency');
 
         $patient = User::find(Auth::user()->id);
         return view('doctors.book', compact('patient', 'doctor', 'clinic', 'calendar', 'radioTime', 'price', 'currency'));

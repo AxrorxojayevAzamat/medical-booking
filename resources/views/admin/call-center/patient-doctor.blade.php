@@ -126,3 +126,5 @@
     </div>
     <!-- /.row -->
     @stop
+    
+    @include('admin.call-center._script')

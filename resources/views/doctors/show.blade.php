@@ -11,11 +11,7 @@
             <aside class="col-xl-3 col-lg-4" id="sidebar">
                 <div class="box_profile">
                     <figure>
-                        @if($user->profile->image)
-                            <img src="{{asset($user->profile->image)}}" alt="">
-                        @else
-                            <img src="{{asset('/img/565x565.jpg')}}" alt="">
-                        @endif
+                        <img src="{{ $user->profile->main_photo_id ? $user->profile->mainPhoto->fileThumbnail : 'http://via.placeholder.com/150x150.jpg' }}" alt="">
                     </figure>
                     @foreach($user->specializations as $value)
                         <small>
@@ -52,9 +48,9 @@
                             <li><h6>{{ trans('doctors.clinic_address') }}</h6>{{$clinic->address}}</li>
                             <li><h6>{{ trans('doctors.clinic_phone') }}</h6><a href="tel://{{$clinic->phone_numbers}}">{{$clinic->phone_numbers}}</a></li>
                         </ul>
-                        {{-- <div class="text-center"><a href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+%E2%80%93+H%C3%B4pitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361" class="btn_1 outline" target="_blank"><i class="icon_pin"></i> View on map</a></div> --}}
-                        <div class="text-center"><a href="https://www.google.com/maps/dir/{{$clinic->location}}/@.{{$clinic->location}},20.5z" class="btn_1 outline" target="_blank"><i class="icon_pin"></i>{{trans('doctors.view_on_map')}}</a></div>
-                        <br>
+                         <!-- <div id="map"><a href="https://www.openstreetmap.org/#map=12/41.3111/69.2406" class="btn_1 outline" target="_blank"><i class="icon_pin"></i> View on map</a></div> -->
+                            <div id="map"><a href="https://www.openstreetmap.org/#map=12/41.3111/69.2406/{{$clinic->location}}/@.{{$clinic->location}},20.5z" class="btn_1 outline" target="_blank"><i class="icon_pin"></i>{{trans('doctors.view_on_map')}}</a></div>
+                        <br> 
                     @endforeach
                 </div>
             </aside>
@@ -149,14 +145,17 @@
                             </div>
                         </div>
                     </div>
+                    @foreach($user->profile->photos as $photo)
                     <div class="box" id="gallery" role="gallery" aria-labelledby="gallery">
                         <div class="gallery">
                             <div class="row d-flex justify-content-center">
-                                @for($i = 1; $i <= 5; $i++)
+                                {{-- @for($i = 1; $i <= 5; $i++)
                                     <a href="/img/Doctor{{$i}}.jpg" data-lightbox="mygallery"><img src="/img/Doctor{{$i}}.jpg"></a>
-                                @endfor
+                                @endfor --}}
+                                <a href="{{ $photo->fileOriginal }}" data-lightbox="mygallery"><img src="{{ $photo->fileThumbnail }}"></a>
                             </div>
                         </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

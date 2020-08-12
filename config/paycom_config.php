@@ -5,4 +5,5 @@ return [
     'login'        => 'Paycom',
     'keyFile'      => __DIR__ . '/paycom_password',
     'account' => 'order_id',
+    'endpoint_check' => 'https://checkout.test.paycom.uz',
 ];

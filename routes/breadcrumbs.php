@@ -1,15 +1,16 @@
 <?php
 
+use App\Entity\News;
+use App\Entity\Region;
+use App\Entity\Partner;
+use App\Entity\Contacts;
+use App\Entity\Book\Book;
+use App\Entity\User\User;
 use App\Entity\Celebration;
 use App\Entity\Clinic\Clinic;
 use App\Entity\Clinic\Contact;
 use App\Entity\Clinic\Service;
-use App\Entity\News;
-use App\Entity\User\User;
-use App\Entity\Region;
-use App\Entity\Contacts;
 use App\Entity\Clinic\Specialization;
-use App\Entity\Partner;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Crumbs;
 
@@ -44,12 +45,6 @@ Breadcrumbs::register('doctors.book', function (Crumbs $crumbs, User $doctor, Cl
     $crumbs->push(trans('doctors.booking'), route('doctors.book', ['doctor' => $doctor, 'clinic' => $clinic]));
 });
 
-
-// booking
-Breadcrumbs::register('patient.booking', function (Crumbs $crumbs, User $user, Clinic $clinic) {
-    $crumbs->parent('doctors.show', $user);
-    $crumbs->push(trans('book.book_and_pay'), route('patient.booking', ['user' => $user, 'clinic' => $clinic]));
-});
 
 //contacts
 Breadcrumbs::register('contacts.contacts', function (Crumbs $crumbs) {
@@ -296,9 +291,14 @@ Breadcrumbs::register('admin.call-center.show-doctor', function (Crumbs $crumbs,
     $crumbs->push(trans('breadcrumbs.book_doctor'), route('admin.call-center.show-doctor', [$user,$doctor]));
 });
 
+//BookList
 Breadcrumbs::register('admin.books.index', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
     $crumbs->push(trans('Ваше бронирование'), route('admin.books.index')); 
+});
+Breadcrumbs::register('admin.books.show', function (Crumbs $crumbs, Book $book) {
+    $crumbs->parent('admin.books.index');
+    $crumbs->push('Заказ № '.$book->id, route('admin.books.show', [$book]));
 });
 
 
