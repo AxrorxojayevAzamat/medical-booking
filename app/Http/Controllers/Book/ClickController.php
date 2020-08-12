@@ -12,7 +12,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
-use App\Services\BookSmsService;
+use App\Services\BookService;
 
 class ClickController extends Controller
 {
@@ -21,7 +21,7 @@ class ClickController extends Controller
     private $validator;
     private $bookService;
 
-    public function __construct(ClickService $service, ClickValidator $validator, BookSmsService $bookService)
+    public function __construct(ClickService $service, ClickValidator $validator, BookService $bookService)
     {
         $this->service = $service;
         $this->validator = $validator;
@@ -72,7 +72,7 @@ class ClickController extends Controller
                     $this->validator->validateAmount($request->amount);
                     $user = Auth::user();
 
-                    $order = $this->service->createOrder($user->id, $request->doctor_id, $request->clinic_id, $request->booking_date, $request->time_start, $request->amount, $request->description);
+                    $order = $this->service->createOrder($user->id, $request->doctor_id, $request->clinic_id, $request->booking_date, $request->time_start, $this->bookService->getTimeFinish($request->doctor_id, $request->clinic_id, $request->time_start), $request->amount, $request->description);
                     
                     return $this->response(ResponseHelper::CODE_SUCCESS, 'Click order is created.', ['transaction_id' => $order->merchant_transaction_id]);
                 });
@@ -108,8 +108,8 @@ class ClickController extends Controller
                     $click = $this->service->performPayment($request->card_token, $request->transaction_id);
                     
                     //send book notify SMS and email 
-                    $this->bookService->toSms($order->book_id, null);
-                    $this->bookService->toMail($order->book_id, null);
+                    $this->bookService->toSms($click->book_id, null);
+                    $this->bookService->toMail($click->book_id, null);
 
                     return $this->response(ResponseHelper::CODE_SUCCESS, trans('Payment is successfully performed.'), ['book_id' => $click->book_id]);
                 });

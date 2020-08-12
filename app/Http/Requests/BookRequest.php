@@ -27,7 +27,7 @@ class BookRequest extends FormRequest
             'amount' => 'required|numeric|min:1',
             'booking_date' => 'required|date_format:"Y-m-d"',
             'time_start' => 'required|date_format:"H:i"',
-            'description' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
         ];
     }
 }
