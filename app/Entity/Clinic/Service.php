@@ -47,8 +47,8 @@ class Service extends BaseModel
     {
         return static::create([
             'id' => $id,
-            'title_uz' => $request->name_uz,
-            'title_ru' => $request->name_ru,
+            'name_uz' => $request->name_uz,
+            'name_ru' => $request->name_ru,
             'description_uz' => $request->description_uz,
             'description_ru' => $request->description_ru,
             'icon' => $imageName,
