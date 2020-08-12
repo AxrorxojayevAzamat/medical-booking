@@ -98,7 +98,7 @@ Breadcrumbs::register('admin.users.edit', function (Crumbs $crumbs, User $user) 
 
 Breadcrumbs::register('admin.users.specializations', function (Crumbs $crumbs, User $user) {
     $crumbs->parent('admin.users.show', $user);
-    $crumbs->push(trans('menu.specialization'), route('admin.users.specializations', $user));
+    $crumbs->push(trans('Cпециализация'), route('admin.users.specializations', $user)); 
 });
 
 Breadcrumbs::register('admin.users.user-clinics', function (Crumbs $crumbs, User $user) {
@@ -144,12 +144,12 @@ Breadcrumbs::register('admin.regions.edit', function (Crumbs $crumbs, Region $re
 // clinics
 Breadcrumbs::register('admin.clinics.index', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
-    $crumbs->push(trans('menu.clinics'), route('admin.clinics.index'));
+    $crumbs->push(trans('Клиники'), route('admin.clinics.index')); 
 });
 
 Breadcrumbs::register('admin.clinics.create', function (Crumbs $crumbs) {
     $crumbs->parent('admin.clinics.index');
-    $crumbs->push(trans('menu.clinics'), route('admin.clinics.create'));
+    $crumbs->push(trans('breadcrumbs.create_clinic'), route('admin.clinics.create'));
 });
 
 Breadcrumbs::register('admin.clinics.show', function (Crumbs $crumbs, Clinic $clinic) {
@@ -210,7 +210,7 @@ Breadcrumbs::register('admin.clinics.contacts.edit', function (Crumbs $crumbs, C
 
 Breadcrumbs::register('admin.specializations.index', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
-    $crumbs->push(trans('menu.specialization'), route('admin.specializations.index'));
+    $crumbs->push(trans('Специализации'), route('admin.specializations.index'));
 });
 
 Breadcrumbs::register('admin.specializations.create', function (Crumbs $crumbs) {
@@ -260,14 +260,15 @@ Breadcrumbs::register('admin.partners.edit', function (Crumbs $crumbs, Partner $
     $crumbs->push($partner->name, route('admin.partners.edit', $partner));
 });
 // timetables
-Breadcrumbs::register('admin.timetables.create', function (Crumbs $crumbs) {
-    //$crumbs->parent('admin.users.edit', $user);
+Breadcrumbs::register('admin.timetables.create', function (Crumbs $crumbs, User $user) {
+    $crumbs->parent('admin.users.edit', $user);
     $crumbs->push(trans('breadcrumbs.create_timetable_doctor'), route('admin.timetables.create'));
 });
-Breadcrumbs::register('admin.timetables.edit', function (Crumbs $crumbs) {
-    //$crumbs->parent('admin.users.edit', $user);
+Breadcrumbs::register('admin.timetables.edit', function (Crumbs $crumbs, User $user) {
+    $crumbs->parent('admin.users.edit', $user);
     $crumbs->push(trans('breadcrumbs.edit_timetable_doctor'), route('admin.timetables.edit'));
 });
+
 
 // booking
 Breadcrumbs::register('admin.call-center.index', function (Crumbs $crumbs) {
@@ -293,7 +294,7 @@ Breadcrumbs::register('admin.call-center.show-doctor', function (Crumbs $crumbs,
 //BookList
 Breadcrumbs::register('admin.books.index', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
-    $crumbs->push(trans('book.your_booking'), route('admin.books.index'));
+    $crumbs->push(trans('Ваше бронирование'), route('admin.books.index')); 
 });
 Breadcrumbs::register('admin.books.show', function (Crumbs $crumbs, Book $book) {
     $crumbs->parent('admin.books.index');

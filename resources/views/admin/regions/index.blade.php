@@ -15,7 +15,7 @@
                     <div class="col-sm-2">
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Искать</button>
-                            <a href="?" class="btn btn-outline-secondary">Очистить</a>
+                            <a href="?" class="btn btn-danger">Очистить</a>
                         </div>
                     </div>
                 </div>

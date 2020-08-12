@@ -192,8 +192,8 @@
 
                             @endauth
                         @endif
-                        <li class="float-right">
-                            <a href="tel: 4411"><i class="icon_phone"></i> 4411</a>
+                        <li class="call4411">
+                            <a href="tel: 4411"><i class="icon_phone float-left"></i> 4411</a>
                         </li>
                     </ul>
                 </div>

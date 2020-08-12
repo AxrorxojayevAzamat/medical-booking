@@ -13,7 +13,7 @@
                     <div class="container">
                         <ul class="clearfix">
                         <li><a href="#section_1" class="active">{{trans('clinic.main_info')}}</a></li>
-                            <li><a href="#section_1">{{trans('clinic.main_info')}}</a></li>
+                            {{-- <li><a href="#section_1">{{trans('clinic.main_info')}}</a></li> --}}
                         </ul>
                     </div>
                 </nav>
@@ -30,7 +30,8 @@
                                     <small>{{ $clinic->region->name }}</small>
                                     <h1>{{ $clinic->name }}</h1>
                                     <ul class="statistic">
-                                        <li>{{ $clinic->doctorClinics()->count() }} {{trans('clinic.doctors')}}</li>
+                                        <strong>{{trans('clinic.doctors')}}</strong>
+                                        <li style="min-width: 0"> {{ $clinic->doctorClinics()->count() }} </li>
                                     </ul>
                                     <ul class="contacts">
                                         <li>
@@ -118,38 +119,38 @@
                         <input type="hidden" value="Dr. Julia Jhones" name="doctor_name_booking" id="doctor_name_booking">
                         <div class="row">
                             <div class="col-md-6 ">
-                                <div class="form-group">
+                                <div class="form-group mb-3">
                                     <input type="text" class="form-control" placeholder="{{trans('clinic.name')}}" name="name_booking" id="name_booking">
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group mb-3">
                                     <input type="text" class="form-control" placeholder="{{trans('clinic.last_name')}}" name="last_name" id="lastname_booking">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="form-group">
+                                <div class="form-group mb-3">
                                     <input type="email" class="form-control" placeholder="Email Address" name="email_booking" id="email_booking">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <div class="form-group">
+                                <div class="form-group mb-3">
                                     <input class="form-control" type="text" id="booking_date" name="booking_date" data-lang="en" data-min-year="2017" data-max-year="2020" data-disabled-days="10/17/2017,11/18/2017">
                                 </div>
                             </div>
                             <div class="col-6">
-                                <div class="form-group">
+                                <div class="form-group mb-3">
                                     <input class="form-control" type="text" id="booking_time" name="booking_time">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="form-group">
+                                <div class="form-group mb-3">
                                     <select class="form-control" name="booking_visit" id="booking_visit">
                                         <option value="">{{trans('clinic.select.visit')}}</option>
                                         <option value="General visit">{{trans('clinic.select.common_visit')}}</option>
@@ -161,14 +162,14 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="form-group">
+                                <div class="form-group mb-3">
                                     <textarea rows="5" id="booking_message" name="booking_message" class="form-control" style="height:80px;" placeholder="{{trans('clinic.additional_message')}}"></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group">
+                                <div class="form-group mb-3">
                                     <input type="text" id="verify_booking" class="form-control" placeholder="{{trans('clinic.human_verify')}} 3 + 1 =?">
                                 </div>
                             </div>

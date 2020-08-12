@@ -6,12 +6,12 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-footer">
+                <div class="card-footer bg-transparent">
                     @if(Auth::user()->isAdmin())<a class="btn btn-success" href="{{ route("admin.users.create") }}">{{ trans('Добавить') }} </a>@endif
                 </div>
 
                 <div class="card-body">
-                    <div class="card-body">
+                    <div class="card-body pt-0">
                         <form action="?" method="GET">
                             <div class="row">
                                 <div class="col-sm-1">
@@ -45,18 +45,18 @@
                                         {!! Form::select('role', \App\Entity\User\User::rolesList(), request('role'), ['class'=>'form-control', 'placeholder' => '']) !!}
                                     </div>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-1">
                                     <div class="form-group">
                                         {!! Form::label('status', 'Статус:', ['class' => 'col-form-label']) !!}
                                         {!! Form::select('status', \App\Entity\User\User::statusList(), request('status'), ['class'=>'form-control', 'placeholder' => '']) !!}
                                      
                                     </div>
                                 </div>
-                                <div class="col-sm-1">
+                                <div class="col-sm-2">
                                     <div class="form-group">
                                         <label class="col-form-label">&nbsp;</label><br />
                                         <button type="submit" class="btn btn-primary">Поиск</button>
-                                        <a href="?" class="btn btn-outline-secondary">{{ __('Очистить') }}</a>
+                                        <a href="?" class="btn btn-danger">{{ __('Очистить') }}</a>
                                     </div>
                                 </div>
                                

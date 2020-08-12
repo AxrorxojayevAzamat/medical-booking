@@ -117,19 +117,19 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     });
 });
 
+Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
+
+    Route::post('paycom/create', 'PaycomController@createOrder');
+    Route::post('paycom/perform', 'PaycomController@performOrder');
+
+    Route::post('click/create', 'ClickController@createOrder');
+    Route::post('click/create-token', 'ClickController@createToken');
+    Route::post('click/verify-token', 'ClickController@verifyToken');
+    Route::post('click/perform', 'ClickController@performOrder');
+});
+
 Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function() {
     Route::get('', 'HomeController@index')->name('home');
-
-    Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
-
-        Route::post('paycom/create', 'PaycomController@createOrder');
-        Route::post('paycom/perform', 'PaycomController@performOrder');
-
-        Route::post('click/create', 'ClickController@createOrder');
-        Route::post('click/create-token', 'ClickController@createToken');
-        Route::post('click/verify-token', 'ClickController@verifyToken');
-        Route::post('click/perform', 'ClickController@performOrder');
-    });
 
     Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function () {
         Route::get('', 'PatientController@profileShow')->name('profile');

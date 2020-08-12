@@ -13,10 +13,10 @@
     @endif
     <div class="d-flex bd-highlight mb-3">
         @if($user->isDoctor())  
-        <a class="btn btn-secondary mr-1 p-2 bd-highlight" href="{{ route('admin.users.user-clinics',$user)}}">{{ trans('Добавить клинику') }}</a>
-        <a class="btn btn-info mr-1 p-2 bd-highlight" href="{{ route('admin.users.specializations', $user)}}">{{ trans('Добавить специализацию') }}</a>
-        <a class="btn btn-dark mr-1" href="{{ route('admin.users.main-photo', $user)}}">Главное фото</a>
-        <a class="btn btn-warning mr-1" href="{{ route('admin.users.photos', $user)}}">Фотографии</a>
+        <a class="btn btn-success mr-1 p-2 bd-highlight" href="{{ route('admin.users.user-clinics',$user)}}">{{ trans('Добавить клинику') }}</a>
+        <a class="btn btn-success mr-1 p-2 bd-highlight" href="{{ route('admin.users.specializations', $user)}}">{{ trans('Добавить специализацию') }}</a>
+        <a class="btn btn-info mr-1 p-2" href="{{ route('admin.users.main-photo', $user)}}">Главное фото</a>
+        <a class="btn btn-info mr-1 p-2" href="{{ route('admin.users.photos', $user)}}">Фотографии</a>
         @endif
        
 
@@ -132,8 +132,8 @@
                             <label for="gender" class="col-form-label text-md-left">{{ trans('Пол') }}</label>
                             <select id="gender" class="form-control{{ $errors->has('gender') ? ' is-invalid' : '' }}" name="gender">
                                 <option value="" selected=""></option>>
-                                <option value="0" {{ old('gender', $profile ? $profile->gender : null) == 0 ? 'selected' : '' }} >Женский</option>>
                                 <option value="1" {{ old('gender', $profile ? $profile->gender : null) == 1 ? 'selected' : '' }} >Мужской</option>>
+                                <option value="0" {{ old('gender', $profile ? $profile->gender : null) == 0 ? 'selected' : '' }} >Женский</option>>
                             </select>
                             @error('gender')
                                 <span class="invalid-feedback"><strong>{{ $errors->first('gender') }}</strong></span>
@@ -157,22 +157,22 @@
     @can('manage-doctor-timetable',$user)
         @foreach($doctor->clinics as $clinic)
             <div class="card card-secondary card-outline" id="doctor-clinic">
-                    <div class="card-header">{{ __('Клиника ') }} <a href='{{ route('admin.clinics.show', $clinic) }}'><strong> {{$clinic->name_ru}}</strong></a> 
-                        <form action="{{ route('admin.clinics.destroy',$clinic) }}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger float-right" onclick="return confirm('При удалени клиники удаляются все расписании и брони Хотите удалить клинику {{$clinic->name_ru}}?')" >Удалить клинику</button>
-                        </form>
-                        <div class="card-body">        
-                            @php 
-                                $time = $timetable->where('clinic_id', $clinic->id);
-                            @endphp
-                            
-                            @if($time->isEmpty())
-                            <p><a class="btn btn-secondary" href="{{ route('admin.timetables.create', [$user, $clinic])}}" disabled>{{ trans('Создать расписание') }}</a></p>
-                            @endif
+                <div class="card-header">{{ __('Клиника ') }} <a href='{{ route('admin.clinics.show', $clinic) }}'><strong> {{$clinic->name_ru}}</strong></a> 
+                    <form action="{{ route('admin.clinics.destroy',$clinic) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger float-right" onclick="return confirm('При удалени клиники удаляются все расписании и брони Хотите удалить клинику {{$clinic->name_ru}}?')" >Удалить клинику</button>
+                    </form>
+                    <div class="card-body">        
+                        @php 
+                            $time = $timetable->where('clinic_id', $clinic->id);
+                        @endphp
+                        
+                        @if($time->isEmpty())
+                        <p><a class="btn btn-secondary" href="{{ route('admin.timetables.create', [$user, $clinic])}}" disabled>{{ trans('Создать расписание') }}</a></p>
+                        @endif
 
-                            @if($time)
+                        @if($time)
                             @foreach($time as $time)
                                 <div class="row">
                                     <a class="btn btn-primary mr-1" role="button" href="{{ route('admin.timetables.edit', [$user, $clinic])}}">{{ trans('Редактировать расписание') }}</a>
@@ -183,147 +183,123 @@
                                             <button class="btn btn-danger" role="button" onclick="return confirm('{{ 'Вы уверены?' }}')">{{ trans('Удалить') }}</button>
                                         </form>
                                 </div>
-                            
-                            @if($time->schedule_type == 1)   
-                            <table class="table table-hover text-nowrap">
-                                <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Начало приёма</th>
-                                    <th>Конец приёма</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @if ($time->monday_start)
-                                    <tr>
-                                        <td>Понедельник</td>
-                                        <td>{{ $time->monday_start}}</td>
-                                        <td>{{ $time->monday_end}}</td>
-                                    </tr>
-                                @endif
-                                @if ($time->tuesday_start)
-                                    <tr>
-                                        <td>Вторник</td>
-                                        <td>{{ $time->tuesday_start}}</td>
-                                        <td>{{ $time->tuesday_end}}</td>
-                                    </tr>
-                                @endif
-                                @if ($time->wednesday_start)
-                                    <tr>
-                                        <td>Среда</td>
-                                        <td>{{ $time->wednesday_start}}</td>
-                                        <td>{{ $time->wednesday_end}}</td>
-                                    </tr>
-                                @endif
-                                @if ($time->thursday_start)
-                                    <tr>
-                                        <td>Четверг</td>
-                                        <td>{{ $time->thursday_start}}</td>
-                                        <td>{{ $time->thursday_end}}</td>
-                                    </tr>
-                                @endif
-                                @if ($time->friday_start)
-                                    <tr>
-                                        <td>Пятница</td>
-                                        <td>{{ $time->friday_start}}</td>
-                                        <td>{{ $time->friday_start}}</td>
-                                    </tr>
-                                @endif
-                                @if ($time->saturday_start)
-                                    <tr>
-                                        <td>Суббота</td>
-                                        <td>{{ $time->satursday_start}}</td>
-                                        <td>{{ $time->satursday_end}}</td>
-                                    </tr>
-                                @endif
-                                @if ($time->sunday_start)
-                                    <tr>
-                                        <td>Воскресенье</td>
-                                        <td>{{ $time->sunday_start}}</td>
-                                        <td>{{ $time->sunsday_end}}</td>
-                                    </tr>
-                                @endif
-                                </tbody>
-                            </table>
-                            @elseif ($time->schedule_type == 2 && $time->even_start || $time->even_end)
                                 <table class="table table-hover text-nowrap">
                                     <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Начало</th>
-                                        <th>Конец</th>
-                                    </tr>
+                                        <tr>
+                                            <th></th>
+                                            <th>Начало приёма</th>
+                                            <th>Конец приёма</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td><strong>Четные дни месяца</strong></td>
-                                            <td>{{ $time->even_start}}</td>
-                                            <td>{{ $time->even_end}}</td>
-                                        </tr>
+                                        @if($time->schedule_type == 1)   
+                                                 
+                                            @if ($time->monday_start)
+                                                <tr>
+                                                    <td>Понедельник</td>
+                                                    <td>{{ $time->monday_start}}</td>
+                                                    <td>{{ $time->monday_end}}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($time->tuesday_start)
+                                                <tr>
+                                                    <td>Вторник</td>
+                                                    <td>{{ $time->tuesday_start}}</td>
+                                                    <td>{{ $time->tuesday_end}}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($time->wednesday_start)
+                                                <tr>
+                                                    <td>Среда</td>
+                                                    <td>{{ $time->wednesday_start}}</td>
+                                                    <td>{{ $time->wednesday_end}}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($time->thursday_start)
+                                                <tr>
+                                                    <td>Четверг</td>
+                                                    <td>{{ $time->thursday_start}}</td>
+                                                    <td>{{ $time->thursday_end}}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($time->friday_start)
+                                                <tr>
+                                                    <td>Пятница</td>
+                                                    <td>{{ $time->friday_start}}</td>
+                                                    <td>{{ $time->friday_start}}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($time->saturday_start)
+                                                <tr>
+                                                    <td>Суббота</td>
+                                                    <td>{{ $time->satursday_start}}</td>
+                                                    <td>{{ $time->satursday_end}}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($time->sunday_start)
+                                                <tr>
+                                                    <td>Воскресенье</td>
+                                                    <td>{{ $time->sunday_start}}</td>
+                                                    <td>{{ $time->sunsday_end}}</td>
+                                                </tr>
+                                            @endif
+
+                                        @elseif ($time->schedule_type == 2 && $time->even_start || $time->even_end)
+                                                        <tr>
+                                                            <td><strong>Четные дни месяца</strong></td>
+                                                            <td>{{ $time->even_start}}</td>
+                                                            <td>{{ $time->even_end}}</td>
+                                                        </tr>
+
+                                        @elseif ($time->schedule_type == 2 && $time->odd_start || $time->odd_end)
+                                                    <tr>
+                                                        <td><strong>Нечетные дни месяца</strong></td>
+                                                        <td>{{ $time->odd_start}}</td>
+                                                        <td>{{ $time->odd_end}}</td>
+                                                    </tr>
+                                        @endif
+                                            
+                                        @if($time->lunch_start)
+                                                    <tr>
+                                                        <td><strong>Обеденный пеперыв</strong></td>
+                                                        <td>{{$time->lunch_start}}</td>
+                                                        <td>{{$time->lunch_end}}</td>
+                                                    </tr>
+
+                                        @endif
+                                            
+                                        @if($time->day_off_start)
+                                                    <tr>
+                                                        <td><strong>Отпуск или нерабочий день</strong></td>
+                                                        <td>{{$time->day_off_start}}</td>
+                                                        <td>{{$time->day_off_end}}</td>
+                                                    </tr>
+
+                                        @endif
                                     </tbody>
                                 </table>
-                                
-                            @elseif ($time->schedule_type == 2 && $time->odd_start || $time->odd_end)
-                            <table class="table table-hover text-nowrap">
-                                <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Начало</th>
-                                    <th>Конец</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><strong>Нечетные дни месяца</strong></td>
-                                        <td>{{ $time->odd_start}}</td>
-                                        <td>{{ $time->odd_end}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            @endif
-                            
-                            @if($time->lunch_start)
-                            <table class="table table-hover text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Начало</th>
-                                        <th>Конец</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><strong>Обеденный пеперыв</strong></td>
-                                        <td>{{$time->lunch_start}}</td>
-                                        <td>{{$time->lunch_end}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            @endif
-                            
-                            @if($time->day_off_start)
-                            <table class="table table-hover text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Начало</th>
-                                        <th>Конец</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><strong>Отпуск или нерабочий день</strong></td>
-                                        <td>{{$time->day_off_start}}</td>
-                                        <td>{{$time->day_off_end}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            @endif
                             @endforeach
-                            @endif
-                        </div>
-                    </div> 
+                        @endif
+                    </div>
+                </div> 
             </div> 
         @endforeach    
     @endcan
+    <style>
+    table thead tr th:nth-child(1), table tbody tr td:nth-child(1) {
+        width: 80%;
+    }
+    .card {
+        background-color: #f4f6f9;
+        border: none;
+    }
+    .card-header {
+        margin-bottom: 1.5em;
+    }
+
+    .card-header:nth-last-child(-n+2) {
+        margin-bottom: 0;
+    }
+
+    </style>
 @endsection

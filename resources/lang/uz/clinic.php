@@ -1,7 +1,7 @@
 <?php 
     return [
         "main_info" => "Asosiy ma'lumot",
-        "doctors" => "shifokorlar",
+        "doctors" => "Shifokorlar soni: ",
         "adres" => "Manzil:",
         "show_on_map" => "Xaritada ko'rsatish",
         "number_phone" => "Telefon nomeri:",
