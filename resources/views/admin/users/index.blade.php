@@ -56,7 +56,7 @@
                                     <div class="form-group">
                                         <label class="col-form-label">&nbsp;</label><br />
                                         <button type="submit" class="btn btn-primary">Поиск</button>
-                                        <a href="?" class="btn btn-outline-secondary">{{ __('Очистить') }}</a>
+                                        <a href="?" class="btn btn-danger">{{ __('Очистить') }}</a>
                                     </div>
                                 </div>
                                
