@@ -5,8 +5,6 @@
 
 <body>
     @include('doctor.header')
-    @section('breadcrumbs', Breadcrumbs::render())
-    {{-- @section('breadcrumbs', '') --}}
     
     @yield('content')
 

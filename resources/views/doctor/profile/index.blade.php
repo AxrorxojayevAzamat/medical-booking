@@ -4,7 +4,9 @@
 @section('content')
 
 <div class="content-wrapper">
+    
         <div class="container-fluid" style="margin-top: 60px">
+            @include('doctor.breadcrumbs')
             @if(Session::has('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                   <strong>{{trans('validation.success')}}</strong>

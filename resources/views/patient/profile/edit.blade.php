@@ -5,6 +5,8 @@
 
     <div class="content-wrapper">
         <div class="container-fluid" style="margin-top: 50px">
+           @include('doctor.breadcrumbs')
+
             @if(count($errors))
                 @foreach($errors as $error)
                     <h1>{{$error->get}}</h1>

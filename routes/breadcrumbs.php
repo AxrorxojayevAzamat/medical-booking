@@ -359,12 +359,60 @@ Breadcrumbs::register('admin.pages.edit', function (Crumbs $crumbs) {
     $crumbs->push('Edit', route('admin.pages.edit'));
 });
 
-// DOCTOR
+
+///////////// DOCTOR
+
 Breadcrumbs::register('doctor.profile', function (Crumbs $crumbs) {
-    $crumbs->push("Doctor", route('doctor.profile'));
+    $crumbs->push(trans('panel.doctor.doctor'), route('doctor.profile'));
+});
+
+Breadcrumbs::register('doctor.timetable', function (Crumbs $crumbs) {
+    $crumbs->parent('doctor.profile');
+    $crumbs->push(trans('panel.doctor.timetable'), route('doctor.timetable'));
+});
+
+Breadcrumbs::register('doctor.profileEdit', function (Crumbs $crumbs) {
+    $crumbs->parent('doctor.profile');
+    $crumbs->push(trans('panel.doctor.edit'), route('doctor.profileEdit'));
+});
+
+Breadcrumbs::register('doctor.editSpecialization', function (Crumbs $crumbs) {
+    $crumbs->parent('doctor.profile');
+    $crumbs->push(trans('panel.doctor.specialization'), route('doctor.editSpecialization'));
 });
 
 Breadcrumbs::register('doctor.doctorbookings', function (Crumbs $crumbs, User $doctor) {
-    $crumbs->parent('doctor');
-    $crumbs->push($doctor->name, route('doctor.doctorbookings', $doctor));
+    $crumbs->parent('doctor.profile');
+    $crumbs->push(trans('panel.doctor.timetable'), route('doctor.doctorbookings', $doctor->id));
+});
+
+Breadcrumbs::register('doctor.main-photo', function (Crumbs $crumbs) {
+    $crumbs->parent('doctor.profile');
+    $crumbs->push(trans('panel.doctor.mainphoto'), route('doctor.main-photo'));
+});
+
+Breadcrumbs::register('doctor.photos', function (Crumbs $crumbs) {
+    $crumbs->parent('doctor.profile');
+    $crumbs->push(trans('panel.doctor.photos'), route('doctor.photos'));
+});
+
+Breadcrumbs::register('doctor.edit', function (Crumbs $crumbs) {
+    $crumbs->parent('doctor.profile');
+    $crumbs->push(trans('panel.doctor.timetable'), route('doctor.edit'));
+});
+
+///////////// USER
+
+Breadcrumbs::register('patient.profile', function (Crumbs $crumbs) {
+    $crumbs->push(trans('panel.user.user'), route('patient.profile'));
+});
+
+Breadcrumbs::register('patient.mybookings', function (Crumbs $crumbs, User $doctor) {
+    $crumbs->parent('patient.profile');
+    $crumbs->push(trans('panel.doctor.timetable'), route('patient.mybookings', $doctor->id));
+});
+
+Breadcrumbs::register('patient.profileEdit', function (Crumbs $crumbs) {
+    $crumbs->parent('patient.profile');
+    $crumbs->push(trans('panel.doctor.edit'), route('patient.profileEdit'));
 });

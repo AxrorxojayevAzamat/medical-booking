@@ -5,6 +5,8 @@
 
 <div class="content-wrapper">
         <div class="container-fluid" style="margin-top: 60px">
+           @include('doctor.breadcrumbs')
+
         	<div class="d-flex bd-highlight mb-3">
     </div>
             <div class="box_general padding_bottom">

@@ -16,7 +16,7 @@
                     <i class="fa fa-fw fa-calendar-check-o"></i>
                     <span class="nav-link-text">{{trans('menu.my_records')}} 
                     @if($book_num)
-                        <span class="badge badge-pill badge-primary float-right">{{$book_num}} {{trans('menu.new')}} </span></span>
+                        <span class="badge badge-pill badge-primary float-right" style="margin-right: 20px;">{{$book_num}} {{trans('menu.new')}} </span></span>
                     @endif
                 </a>
             </li>

@@ -3,6 +3,8 @@
 @section('content')
 <div class="content-wrapper">
         <div class="container-fluid" style="margin-top: 60px">
+          @include('doctor.breadcrumbs')
+
             <div class="box_general padding_bottom">
 
 @if($errors->any())

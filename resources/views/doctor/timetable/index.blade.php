@@ -4,6 +4,8 @@
 
     <div class="content-wrapper">
         <div class="container-fluid" style="margin-top: 60px">
+            @include('doctor.breadcrumbs')
+
             <div class="box_general padding_bottom">
                 <h1 align="center">{{trans('menu.timetable')}}</h1>
                 <div class="card card-secondary card-outline" id="doctor-clinic">
