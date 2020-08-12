@@ -110,12 +110,7 @@
                 @foreach($doctors as $doctorKey => $doctorValue)
                     <div class="strip_list wow fadeIn">
                         <figure>
-                            @if($doctorValue->profile->image)
-                                <img src="{{asset($doctorValue->profile->image)}}" alt="">
-                            @else
-                                <img src="{{asset('/img/565x565.jpg')}}" alt="">
-                            @endif
-
+                            <a href="{{ route('doctors.show', $doctorValue) }}"><img src="{{ $doctorValue->main_photo_id ? $doctorValue->profile->mainPhoto->fileThumbnail : 'http://via.placeholder.com/565x565.jpg' }}" alt=""></a>
                         </figure>
                         @foreach($doctorValue->specializations as $spec)
                             <small>{{$spec->name}}</small>

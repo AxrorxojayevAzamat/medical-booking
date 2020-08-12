@@ -30,7 +30,7 @@
                             @if( $profile && !empty($profile->mainPhoto))
                                 <div class="card-body box-profile">
                                     <div class="text-center">
-                                    <img class="profile-user-img img-fluid img-circle" src="{{$profile->mainPhoto->fileOriginal}}" alt="Фотография пользователя">
+                                    <img class="profile-user-img img-fluid img-circle" src="{{$profile->mainPhoto->fileThumbnail}}" alt="Фотография пользователя">
                                     </div>
                                 </div>
                             @endif

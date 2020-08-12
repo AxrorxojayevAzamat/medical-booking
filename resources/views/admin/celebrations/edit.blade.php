@@ -26,10 +26,10 @@
         <div class="  card-header " align="center"><h3>Редактирование праздничного дня</h3></div>
         <div class="container card-header">
             <div class=" container" align='center'>
-                <form action="{{ route('admin.celebration.update', $celebrations) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('admin.celebration.update', $celebration) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
-                    @include('admin.celebrations.forms.Forms')
+                    @include('admin.celebrations._form')
                     <button type="submit" class="btn btn-success btn-sm ml-1">Сохранить</button>
                     <a href="{{ route('admin.celebration.index') }}" class="btn btn-default btn-sm ml-1">Назад</a>
                 </form>
