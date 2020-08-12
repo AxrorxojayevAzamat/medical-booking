@@ -358,3 +358,13 @@ Breadcrumbs::register('admin.pages.edit', function (Crumbs $crumbs) {
     $crumbs->parent('admin.pages.pages');
     $crumbs->push('Edit', route('admin.pages.edit'));
 });
+
+// DOCTOR
+Breadcrumbs::register('doctor.profile', function (Crumbs $crumbs) {
+    $crumbs->push("Doctor", route('doctor.profile'));
+});
+
+Breadcrumbs::register('doctor.doctorbookings', function (Crumbs $crumbs, User $doctor) {
+    $crumbs->parent('doctor');
+    $crumbs->push($doctor->name, route('doctor.doctorbookings', $doctor));
+});

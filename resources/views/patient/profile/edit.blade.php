@@ -10,10 +10,10 @@
                     <h1>{{$error->get}}</h1>
                 @endforeach
             @endif
-            <div class="box_general padding_bottom">
+            <div class="box_general padding_bottom mb-3">
                 <form action="{{route('patient.profileEditSave')}}" method="post">
                     @csrf
-                <div class="header_box version_2">
+                <div class="header_box version_2  mb-0 pb-0">
                     <h2><i class="fa fa-user"></i>{{trans('menu.profile_details')}}</h2>
                 </div>
                 <div class="row">

@@ -14,7 +14,7 @@
         </div>
     @endforeach
 @endif
-<h1 align="center">{{trans('menu.photos')}} <a href="{{route('doctor.profileEdit')}}" style="float: right;">{{trans('menu.back')}}</a></h1>
+<h1 align="center">{{trans('menu.photos')}} <a href="{{route('doctor.profile')}}" style="float: right;">{{trans('menu.back')}}</a></h1>
 
 <div class="card" id="photos">
     <div class="card-header border">{{ trans('') }}</div>

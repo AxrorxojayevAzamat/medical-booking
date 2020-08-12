@@ -5,7 +5,9 @@
 
 <body>
     @include('doctor.header')
-
+    @section('breadcrumbs', Breadcrumbs::render())
+    {{-- @section('breadcrumbs', '') --}}
+    
     @yield('content')
 
     @include('layouts.cabinet.footer')

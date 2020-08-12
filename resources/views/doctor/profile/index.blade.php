@@ -14,15 +14,26 @@
                 </div>
             @endif
             <div class="box_general padding_bottom">
-                <div class="header_box version_2">
-                    <h2 style="margin-right: 20px;"><i class="fa fa-user"></i>{{trans('menu.profile_details')}}</h2>
+                <h2 class="text-center" style="margin-right: 20px;">{{trans('menu.profile_details')}}</h2>
 
-                    <h2 style="margin-bottom: 20px;"><i class="fa fa-user"></i>{{trans('menu.rate')}}</h2>
-                    <?php $average = number_format($user->profile->rate/($user->profile->num_of_rates?:1), 1, '.', ''); ?>
-                    <h2 class="bold">{{ $average }} / 5.0 </h2>
-                    <a class="btn btn-primary mr-1 mb-3 p-2 bd-highlight" style="float: right;" href="{{ route('doctor.profileEdit')}}">{{ trans('menu.edit') }}</a>
-                    <a class="btn btn-primary mr-1 mb-3 p-2 bd-highlight" style="float: right;" href="{{ route('doctor.editSpecialization')}}">{{ trans('menu.editSpecialization') }}</a>
-                </div>
+                <div class="header_box version_2 row">
+
+                    <div class="col-xl-4 col-lg-5  col-md-12 col-sm-12">
+                        
+                        <h2 style="margin-bottom: 20px;"><i class="fa fa-user"></i>{{trans('menu.rate')}}</h2>
+                        <?php $average = number_format($user->profile->rate/($user->profile->num_of_rates?:1), 1, '.', ''); ?>
+                        <h2 class="bold">{{ $average }} / 5.0 </h2>
+                    </div>
+                    <div class="col-xl-8 col-lg-7 col-md-12 col-sm-12 row justify-content-end">
+                        <a class="btn btn-primary mr-1 mb-3 p-2 bd-highlight" href="{{ route('doctor.profileEdit')}}">{{ trans('menu.edit') }}</a>
+                        <a class="btn btn-primary mr-1 mb-3 p-2 bd-highlight" href="{{ route('doctor.editSpecialization')}}">{{ trans('menu.editSpecialization') }}</a>
+                        <a class="btn btn-info mr-1 mb-3 p-2 bd-highlight" href="{{ route('doctor.main-photo', $user)}}">{{trans('menu.main_photo')}}</a>
+                        <a class="btn btn-info mr-1 mb-3 p-2 bd-highlight" href="{{ route('doctor.photos')}}">{{trans('menu.photos')}}</a>
+                    </div>
+                    
+
+                    
+                     </div>
                 <div class="col-md-12">
                     <div class="row">
                         @if($user->profile->mainPhoto)
