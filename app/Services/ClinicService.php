@@ -13,12 +13,20 @@ class ClinicService
 {
     public function create(ClinicRequest $request)
     {
+        $regionId = null;
+        foreach (array_reverse($request->regions) as $parent) {
+            if ($parent) {
+                $regionId = $parent;
+                break;
+            }
+        }
+
         DB::beginTransaction();
         try {
             $clinic = Clinic::create([
                 'name_uz' => $request->name_uz,
                 'name_ru' => $request->name_ru,
-                'region_id' => $request->region_id,
+                'region_id' => $regionId,
                 'type' => $request->type,
                 'description_uz' => $request->description_uz,
                 'description_ru' => $request->description_ru,
@@ -44,12 +52,20 @@ class ClinicService
     {
         $clinic = Clinic::find($id);
 
+        $regionId = null;
+        foreach (array_reverse($request->regions) as $parent) {
+            if ($parent) {
+                $regionId = $parent;
+                break;
+            }
+        }
+
         DB::beginTransaction();
         try {
             $clinic->update([
                 'name_uz' => $request->name_uz,
                 'name_ru' => $request->name_ru,
-                'region_id' => $request->region_id,
+                'region_id' => $regionId,
                 'type' => $request->type,
                 'description_uz' => $request->description_uz,
                 'description_ru' => $request->description_ru,

@@ -6,12 +6,8 @@
     <meta name="author" content="Ansonika">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>
-    @if(Auth::user()->isDoctor()) 
-        Doctor profile
-    @elseif(Auth::user()->isPatient())
-        User profile
-    @endif
+    <title> 
+        {{trans('menu.cabinet')}}
     </title>
 
     <!-- Favicons-->

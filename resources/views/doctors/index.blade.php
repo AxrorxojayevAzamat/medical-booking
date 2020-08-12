@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="search_bar_list">
-                            <input type="text" class="form-control" placeholder="{{trans('doctors.search_placeholder')}}" aria-label="Search" value="{{ request('full_name') }}">
+                            <input type="text" name="full_name" class="form-control" placeholder="{{trans('doctors.search_placeholder')}}" aria-label="Search" value="{{ request('full_name') }}">
                             <input type="submit" value="{{trans('adminlte.search')}}">
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                     </li>
                     <li>
                         <h6>{{trans('filter.sex')}}</h6>
-                        <select name="gender" class="selectbox">
+                        <select name="gender" id="sex_id">
                             <option value=""></option>
                             <option value="{{ \App\Entity\User\Profile::MALE }}"{{ \App\Entity\User\Profile::MALE == request('gender') ? ' selected' : '' }}>{{ trans('filter.male') }}</option>
                             <option value="{{ \App\Entity\User\Profile::FEMALE }}"{{ \App\Entity\User\Profile::FEMALE == request('gender') ? ' selected' : '' }}>{{ trans('filter.female') }}</option>
@@ -86,7 +86,7 @@
                     </li>
                     <li>
                         <h6>{{trans('filter.filter_by')}}</h6>
-                        <select name="order_by" class="selectbox" multiple>
+                        <select name="order_by" id="order_id">
                             <option value=""></option>
                             <option value="alphabet"{{ 'alphabet' == request('order_by') ? ' selected' : '' }}>{{trans('filter.alphabet')}}</option>
                             <option value="best_rated"{{ 'best_rated' == request('order_by') ? ' selected' : '' }}>{{trans('filter.rating')}}</option>
@@ -192,5 +192,13 @@
     $('#specialization_id').select2({
         width: "170px"
     });
+    $('#order_id').select2({
+        width: "150px",
+    });
+    $('#sex_id').select2({
+        width: "150px",
+    });
+
+
 </script>
 @endsection

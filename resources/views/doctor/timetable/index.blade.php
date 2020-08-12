@@ -20,6 +20,75 @@
                                 <a class="btn btn-primary" role="button" href="{{ route('doctor.edit', $clinic)}}">{{ trans('Редактировать расписание') }}</a>
                             </div>
                         <table class="table table-hover text-nowrap">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Начало приёма</th>
+                                <th>Конец приёма</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @if ($time->monday_start)
+                                <tr>
+                                    <td>Понедельник</td>
+                                    <td>{{ $time->monday_start}}</td>
+                                    <td>{{ $time->monday_end}}</td>
+                                </tr>
+                            @endif
+                            @if ($time->tuesday_start)
+                                <tr>
+                                    <td>Вторник</td>
+                                    <td>{{ $time->tuesday_start}}</td>
+                                    <td>{{ $time->tuesday_end}}</td>
+                                </tr>
+                            @endif
+                            @if ($time->wednesday_start)
+                                <tr>
+                                    <td>Среда</td>
+                                    <td>{{ $time->wednesday_start}}</td>
+                                    <td>{{ $time->wednesday_end}}</td>
+                                </tr>
+                            @endif
+                            @if ($time->thursday_start)
+                                <tr>
+                                    <td>Четверг</td>
+                                    <td>{{ $time->thursday_start}}</td>
+                                    <td>{{ $time->thursday_end}}</td>
+                                </tr>
+                            @endif
+                            @if ($time->friday_start)
+                                <tr>
+                                    <td>Пятница</td>
+                                    <td>{{ $time->friday_start}}</td>
+                                    <td>{{ $time->friday_start}}</td>
+                                </tr>
+                            @endif
+                            @if ($time->saturday_start)
+                                <tr>
+                                    <td>Суббота</td>
+                                    <td>{{ $time->saturday_start}}</td>
+                                    <td>{{ $time->saturday_end}}</td>
+                                </tr>
+                            @endif
+                            @if ($time->sunday_start)
+                                <tr>
+                                    <td>Воскресенье</td>
+                                    <td>{{ $time->sunday_start}}</td>
+                                    <td>{{ $time->sunday_end}}</td>
+                                </tr>
+                            @endif
+                            </tbody>
+                        </table>
+                        @elseif ($time->schedule_type == 2 && $time->even_start || $time->even_end)
+                            <table class="table table-hover text-nowrap">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Начало</th>
+                                    <th>Конец</th>
+                                </tr>
+                                </thead>
+                                <tbody>
                                     <thead>
                                         <tr>
                                             <th></th>
@@ -67,8 +136,8 @@
                                     @if ($time->saturday_start)
                                         <tr>
                                             <td>Суббота</td>
-                                            <td>{{ $time->satursday_start}}</td>
-                                            <td>{{ $time->satursday_end}}</td>
+                                            <td>{{ $time->saturday_start}}</td>
+                                            <td>{{ $time->saturday_end}}</td>
                                         </tr>
                                     @endif
                                     @if ($time->sunday_start)

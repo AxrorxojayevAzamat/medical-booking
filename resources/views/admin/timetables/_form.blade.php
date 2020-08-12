@@ -239,7 +239,7 @@
                 <div class="form-group">
                     <label>Интервал</label>
                     <div class="input-group date" id="timepicker18" data-target-input="nearest">
-                        <input type="number" name="interval" class="form-control datetimepicker-input" data-target="#timepicker18" value="{{ old('interval',$timetable ? $timetable->interval : '')}}">
+                        <input type="number" name="interval" class="form-control" data-target="#timepicker18" value="{{ old('interval',$timetable ? $timetable->interval : '')}}" required>
 
                     </div>
                 </div>

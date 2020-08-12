@@ -81,6 +81,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 
     Route::group(['prefix' => 'books', 'as' => 'books.'], function () {
         Route::get('/', 'BookController@index')->name('index');
+        Route::get('/{id}{order_status})}', 'BookController@order_status')->name('orderStatus');
     });
     Route::group(['prefix' => 'call-center', 'namespace' => 'CallCenter','as' => 'call-center.'], function () {
         Route::get('/findDoctorByRegion', 'CallCenterController@findDoctorByRegion');
@@ -125,8 +126,6 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     });
 });
 
-
-
 Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function() {
     Route::get('', 'HomeController@index')->name('home');
 
@@ -134,7 +133,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     {
         Route::get('page/{slug?}','PagesController@slug')->name('slug');
     });
-    
+
     Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 'middleware' => ['auth', 'can:doctor-panel']], function () {
     Route::get('/profile', 'DoctorController@profileShow')->name('profile');
     Route::get('/edit', 'DoctorController@profileEdit')->name('profileEdit');

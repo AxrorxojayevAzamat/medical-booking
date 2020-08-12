@@ -5,13 +5,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+            <li class="nav-item">
                 <a class="nav-link" href="{{route('doctor.profile')}}">
                     <i class="fa fa-fw fa-dashboard"></i>
                     <span class="nav-link-text">{{trans('menu.profile')}}</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookings">
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('doctor.doctorbookings', Auth::user()) }}">
                     <i class="fa fa-fw fa-calendar-check-o"></i>
                     <span class="nav-link-text">{{trans('menu.my_records')}} 
@@ -20,7 +20,7 @@
                     @endif                
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookings">
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('doctor.timetable') }}">
                     <i class="fa fa-fw fa-calendar-check-o"></i>
                     <span class="nav-link-text">{{trans('menu.timetable')}}

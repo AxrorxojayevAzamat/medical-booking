@@ -15,7 +15,7 @@ class BookController extends Controller
     
     public function index(Request $request)
     {
-        $query = Book::select(['books.*', 'us.*', 'pr.*'])
+        $query = Book::select([ 'us.*', 'pr.*','books.*'])
                 ->join('users as us', 'books.user_id', '=', 'us.id')
                 ->join('profiles as pr', 'pr.user_id', '=', 'us.id')
                 ->orderByDesc('books.created_at');
@@ -49,6 +49,13 @@ class BookController extends Controller
         }
         $bookingList = $query->paginate(10);
         return view('admin.books.index', compact('bookingList'));
+    }
+
+    public function order_status($id,$order_status){
+        $order=Book::find($id);
+        $order->order_status=$order_status;
+        $order->save();
+        return redirect()->back()->with('success', 'Successfully changed');
     }
 
 }
