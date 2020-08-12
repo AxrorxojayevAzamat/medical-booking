@@ -3,9 +3,9 @@
 namespace App\Services;
 
 use App\Entity\User\User;
-use App\Entity\User\Photo;
 use App\Entity\User\Profile;
 use App\Helpers\ImageHelper;
+use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -14,17 +14,17 @@ use \Illuminate\Support\Facades\Gate;
 
 class UserService
 {
-    public function search($request=null)
+    public function search(Request $request)
     {
         $query = User::select(['users.*', 'pr.*'])
         ->leftJoin('profiles as pr', 'users.id', '=', 'pr.user_id')
         ->orderByDesc('created_at');
-        
+
         $userAuth = Auth::user();
         if (Gate::allows('admin-clinic-panel')) {
             $query = User::forUser($userAuth);
         }
-        
+
         if (Gate::allows('admin-call-center-panel')) {
             $query = User::doctorOrUser();
         }
@@ -33,8 +33,9 @@ class UserService
             $query->where('id', $value);
         }
 
-        if (!empty($value = $request->get('name'))) {
-            $query->where('users.name', 'ilike', '%' . $value . '%');
+        if (!empty($value = $request->get('fio'))) {
+            $query->where('pr.first_name', 'ilike', '%' . $value . '%')
+                ->orWhere('pr.last_name', 'ilike', '%' . $value . '%');
         }
 
         if (!empty($value = $request->get('first_name'))) {
@@ -56,11 +57,10 @@ class UserService
         if (!empty($value = $request->get('role'))) {
             $query->where('users.role', $value);
         }
-
         if (!empty($value = $request->get('status'))) {
             $query->where('users.status', $value);
         }
-        
+
         return $query;
     }
 
@@ -146,12 +146,12 @@ class UserService
     {
         $this->addPhoto($id, $image, true);
     }
-    
+
     public function addPhoto(int $id, UploadedFile $image, bool $main = false): void
     {
         $profile = Profile::find($id);
         $imageName = ImageHelper::getRandomName($image);
-        
+
         DB::beginTransaction();
         try {
             if (!$main) {
@@ -190,13 +190,13 @@ class UserService
     {
         $profile = Profile::findOrFail($id);
         $this->deletePhotos($profile->user_id, $profile->mainPhoto->filename);
-        
+
         DB::beginTransaction();
         try {
             $profile->update(['main_photo_id' => null]);
             $profile->mainPhoto->delete();
             $this->sortPhotos($profile);
-            
+
             DB::commit();
 
             return true;
@@ -205,7 +205,7 @@ class UserService
             throw $e;
         }
     }
-   
+
     public function removePhoto(int $id, int $photoId): bool
     {
         $profile = Profile::findOrFail($id);
@@ -256,7 +256,7 @@ class UserService
     {
         Storage::disk('public')->deleteDirectory('/images/' . ImageHelper::FOLDER_USERS . '/' . $userId);
     }
-    
+
     public function movePhotoUp(int $id, int $photoId): void
     {
         $profile = Profile::findOrFail($id);

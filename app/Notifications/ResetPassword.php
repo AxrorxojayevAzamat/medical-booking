@@ -6,74 +6,40 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Lang;
 
-class ResetPassword extends Notification {
+class ResetPassword extends Notification
+{
 
-    /**
-     * The password reset token.
-     *
-     * @var string
-     */
     public $token;
 
-    /**
-     * The callback that should be used to build the mail message.
-     *
-     * @var \Closure|null
-     */
+    
     public static $toMailCallback;
 
-    /**
-     * Create a notification instance.
-     *
-     * @param  string  $token
-     * @return void
-     */
+   
     public function __construct($token) {
         $this->token = $token;
     }
-
-    /**
-     * Get the notification's channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array|string
-     */
+   
     public function via($notifiable) {
         return ['mail'];
     }
 
-    /**
-     * Build the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable) {
+       public function toMail($notifiable) {
         if (static::$toMailCallback) {
             return call_user_func(static::$toMailCallback, $notifiable, $this->token);
         }
 
         return (new MailMessage)
-//                        ->subject(Lang::get('Reset Password Notification'))
-//                        ->line(Lang::get('You are receiving this email because we received a password reset request for your account.'))
-//                        ->action(Lang::get('Reset Password'), url(config('app.url') . route('password.reset', ['token' => $this->token, 'email' => $notifiable->getEmailForPasswordReset()], false)))
-//                        ->line(Lang::get('This password reset link will expire in :count minutes.', ['count' => config('auth.passwords.' . config('auth.defaults.passwords') . '.expire')]))
-//                        ->line(Lang::get('If you did not request a password reset, no further action is required.'))
-//      
-                        ->subject(Lang::get('Parolni qayta tiklash'))
-                        ->line(Lang::get('UZBEK TEXT!;) UZBEK TEXT!;) UZBEK TEXT!;)'))
-                        ->action(Lang::get('Parolni Tikla'), url(config('app.url') . route('password.reset', ['token' => $this->token, 'email' => $notifiable->getEmailForPasswordReset()], false)))
-                        ->line(Lang::get('UZBEK TEXT!;) UZBEK TEXT!;) UZBEK TEXT!;):count min.', ['count' => config('auth.passwords.' . config('auth.defaults.passwords') . '.expire')]))
-                        ->line(Lang::get('UZBEK TEXT!;) UZBEK TEXT!;) UZBEK TEXT!;)'));
+                        ->subject(Lang::get('Восстановление пароля'))
+                        ->line(Lang::get('Нажмите кнопку ниже, чтобы сбросить пароль'))
+                        ->action(Lang::get('Сброс пароля.'), url(config('app.url') . route('password.reset', ['token' => $this->token, 'email' => $notifiable->getEmailForPasswordReset()], false)))
+                        ->line(Lang::get('Этот URL будет активен в течение :count min.', ['count' => config('auth.passwords.' . config('auth.defaults.passwords') . '.expire')]))
+                        ->line('С уважением,')
+                        ->salutation('Medical Booking');
     }
 
-    /**
-     * Set a callback that should be used when building the notification mail message.
-     *
-     * @param  \Closure  $callback
-     * @return void
-     */
-    public static function toMailUsing($callback) {
+    
+    public static function toMailUsing($callback)
+    {
         static::$toMailCallback = $callback;
     }
 

@@ -83,11 +83,9 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 
     Route::group(['prefix' => 'books', 'as' => 'books.'], function () {
         Route::get('/', 'BookController@index')->name('index');
+        Route::get('/{book}', 'BookController@show')->name('show');
     });
     Route::group(['prefix' => 'call-center', 'namespace' => 'CallCenter','as' => 'call-center.'], function () {
-        Route::get('/findDoctorByRegion', 'CallCenterController@findDoctorByRegion');
-        Route::get('/findDoctorByType', 'CallCenterController@findDoctorByType');
-
         Route::get('/', 'CallCenterController@index')->name('index');
         Route::get('/create-patient', 'CallCenterController@create')->name('create-patient');
         Route::post('/store-patient', 'CallCenterController@storePatient')->name('store-patient');
@@ -119,24 +117,22 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     });
 });
 
+Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
+
+    Route::post('paycom/create', 'PaycomController@createOrder');
+    Route::post('paycom/perform', 'PaycomController@performOrder');
+
+    Route::post('click/create', 'ClickController@createOrder');
+    Route::post('click/create-token', 'ClickController@createToken');
+    Route::post('click/verify-token', 'ClickController@verifyToken');
+    Route::post('click/perform', 'ClickController@performOrder');
+});
+
 Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function() {
     Route::get('', 'HomeController@index')->name('home');
 
-    Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
-
-        Route::post('paycom/create', 'PaycomController@createOrder');
-        Route::post('paycom/perform', 'PaycomController@performOrder');
-
-        Route::post('click/create', 'ClickController@createOrder');
-        Route::post('click/create-token', 'ClickController@createToken');
-        Route::post('click/verify-token', 'ClickController@verifyToken');
-        Route::post('click/perform', 'ClickController@performOrder');
-    });
-
     Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function () {
         Route::get('', 'PatientController@profileShow')->name('profile');
-        Route::get('/booking/{user}/{clinic}', 'PatientController@booking')->name('booking');
-        Route::post('/booking-doctor/', 'PatientController@bookingDoctor')->name('booking-doctor');
         Route::get('/{user_id}/bookings', 'PatientController@myBookings')->name('mybookings');
     });
 
@@ -156,7 +152,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         Route::get('{user}', 'Doctor\DoctorController@show')->name('show');
         Route::get('{doctor_id}/rate/{rate}', 'RateController@rate')->name('rate');
         Route::get('{doctor_id}/ratecancel', 'RateController@rateCancel')->name('rateCancel');
-        Route::get('{doctor}/clinics/{clinic}/book', 'Doctor\DoctorController@book')->name('book');
+        Route::get('{doctor}/clinics/{clinic}/book', 'Doctor\DoctorController@book')->name('book')->middleware(['auth', 'can:patient-panel']);
 
     });
     Route::get('/specializations', 'SpecializationsController@index')->name('specializations');
@@ -177,4 +173,3 @@ Route::get("locale/{locale}", function ($locale) {
 
     return redirect()->back();
 });
-
