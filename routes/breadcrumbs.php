@@ -98,7 +98,7 @@ Breadcrumbs::register('admin.users.edit', function (Crumbs $crumbs, User $user) 
 
 Breadcrumbs::register('admin.users.specializations', function (Crumbs $crumbs, User $user) {
     $crumbs->parent('admin.users.show', $user);
-    $crumbs->push(trans('Cпециализация'), route('admin.users.specializations', $user)); 
+    $crumbs->push(trans('Cпециализация'), route('admin.users.specializations', $user));
 });
 
 Breadcrumbs::register('admin.users.user-clinics', function (Crumbs $crumbs, User $user) {
@@ -144,7 +144,7 @@ Breadcrumbs::register('admin.regions.edit', function (Crumbs $crumbs, Region $re
 // clinics
 Breadcrumbs::register('admin.clinics.index', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
-    $crumbs->push(trans('Клиники'), route('admin.clinics.index')); 
+    $crumbs->push(trans('Клиники'), route('admin.clinics.index'));
 });
 
 Breadcrumbs::register('admin.clinics.create', function (Crumbs $crumbs) {
@@ -294,7 +294,7 @@ Breadcrumbs::register('admin.call-center.show-doctor', function (Crumbs $crumbs,
 //BookList
 Breadcrumbs::register('admin.books.index', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
-    $crumbs->push(trans('Ваше бронирование'), route('admin.books.index')); 
+    $crumbs->push(trans('Ваше бронирование'), route('admin.books.index'));
 });
 Breadcrumbs::register('admin.books.show', function (Crumbs $crumbs, Book $book) {
     $crumbs->parent('admin.books.index');
@@ -327,4 +327,10 @@ Breadcrumbs::register('admin.news.edit', function (Crumbs $crumbs, News $news) {
 Breadcrumbs::register('admin.contactlist', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
     $crumbs->push(trans('breadcrumbs.recall'), route('admin.contactlist'));
+});
+
+// error 404
+Breadcrumbs::for('errors.404', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Page Not Found');
 });
