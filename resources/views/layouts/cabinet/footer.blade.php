@@ -77,6 +77,7 @@
 <script src="{{asset('vendor/bootstrap-fileinput/js/plugins/purify.js')}}"></script>
 <script src="{{asset('vendor/bootstrap-fileinput/js/fileinput.min.js')}}"></script>
 <script src="{{asset('vendor/bootstrap-fileinput/js/locales/ru.js')}}"></script>
+<script src="{{asset('vendor/bootstrap-fileinput/js/locales/uz.js')}}"></script>
 <script src="{{asset('vendor/bootstrap-fileinput/themes/fas/theme.js')}}"></script>
 <script src="{{asset('vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')}}"></script>
 <script src="{{asset('js/common_scripts.min.js')}}"></script>

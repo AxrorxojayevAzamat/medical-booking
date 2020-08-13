@@ -11,7 +11,6 @@
     </div>
             <div class="box_general padding_bottom pb-5">
                 <div class="header_box version_2">
-                    {{-- <h2><i class="fa fa-user"></i>{{trans('menu.profile_details')}}</h2> --}}
                     <form method="POST" style="float: right;" action="{{ route('patient.destroy') }}" class="ml-auto mr-1">
                         @csrf
                     </form>
@@ -20,7 +19,6 @@
 				<table class="table table-striped projects">
                         <tbody>
                             <tr><th>{{ trans('ID') }}</th><td>{{ $user->id }}</td></tr>
-                            {{-- <tr><th>{{ trans('Логин') }}</th><td>{{ $user->name }}</td></tr> --}}
                             <tr><th>{{ trans('contacts.email') }}</th><td>{{ $user->email }}</td></tr>
                             <tr><th>{{ trans('contacts.phone') }}</th><td>{{ $user->phone }}</td></tr>
                             <tr>

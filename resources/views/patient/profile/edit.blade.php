@@ -16,7 +16,6 @@
                 <form action="{{route('patient.profileEditSave')}}" method="post">
                     @csrf
                 <div class="header_box version_2  mb-0 pb-0">
-                    {{-- <h2><i class="fa fa-user"></i>{{trans('menu.profile_details')}}</h2> --}}
                 </div>
                 <div class="row">
                     <div class="col-md-12 add_top_30">
@@ -65,11 +64,9 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- /row-->
                     </div>
                 </div>
             </div>
-            <!-- /box_general-->
             <div class="row">
                 <div class="col-md-12">
                     <div class="box_general padding_bottom">
@@ -106,8 +103,6 @@
                 
                 </form>
             </div>
-            <!-- /row-->
         </div>
-        <!-- /.container-fluid-->
     </div>
 @stop

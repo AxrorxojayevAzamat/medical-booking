@@ -16,7 +16,7 @@
     <form action="{{route('doctor.update', [$user, $timetable])}}" method="post", enctype="multipart/form-data">
         @csrf
         @method('PUT')
-        @include('admin.timetables._form')
+        @include('doctor.timetable._form')
     </form>
 		</div>
 	</div>
