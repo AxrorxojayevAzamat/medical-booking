@@ -10,40 +10,32 @@ use App\Entity\Clinic\Clinic;
 use App\Entity\Clinic\Specialization;
 use App\Entity\Book\Book;
 use App\Entity\Celebration;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
 use App\Services\BookService;
+use App\Services\BookSmsService;
+use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Http\Request;
+use App\Services\Book\Paycom\PaycomService;
+use App\Services\Book\Click\ClickService;
+use App\Http\Requests\Admin\Users\CreatePatientRequest;
+use App\Http\Requests\BookRequest;
 
 class CallCenterController extends Controller
 {
-    private $service;
 
-    public function __construct(BookService $service)
+    use SendsPasswordResetEmails;
+
+    private $service;
+    private $bookService;
+    private $paycomService;
+    private $clickService;
+
+    public function __construct(BookService $service, BookSmsService $bookService, PaycomService $paycomService, ClickService $clickService)
     {
         $this->service = $service;
+        $this->bookService = $bookService;
+        $this->paycomService = $paycomService;
+        $this->clickService = $clickService;
         $this->middleware('can:manage-call-center');
-    }
-
-    public function findDoctorByRegion(Request $request)
-    {
-        try {
-            return $this->service->findDoctorByRegion($request);
-        } catch (\DomainException $e) {
-            return back()->with('error', $e->getMessage());
-        }
-    }
-
-    public function findDoctorByType(Request $request)
-    {
-        try {
-            $region_id = $request->get('region');
-            $city_id = $request->get('city');
-            $type_id = $request->get('type');
-
-            return $this->service->findClinicByType($type_id, $city_id, $region_id);
-        } catch (\DomainException $e) {
-            return back()->with('error', $e->getMessage());
-        }
     }
 
     public function index(Request $request)
@@ -58,15 +50,10 @@ class CallCenterController extends Controller
         }
 
         if (!empty($value = $request->get('name'))) {
-            $query->where('users.name', 'ilike', '%' . $value . '%');
-        }
-
-        if (!empty($value = $request->get('first_name'))) {
-            $query->where('pr.first_name', 'ilike', '%' . $value . '%');
-        }
-
-        if (!empty($value = $request->get('last_name'))) {
-            $query->where('pr.last_name', 'ilike', '%' . $value . '%');
+            $query->where(function ($query) use ($value) {
+                $query->where('pr.first_name', 'ilike', '%' . $value . '%')
+                        ->orWhere('pr.last_name', 'ilike', '%' . $value . '%');
+            });
         }
 
         if (!empty($value = $request->get('phone'))) {
@@ -95,18 +82,20 @@ class CallCenterController extends Controller
         return view('admin.call-center.create-patient');
     }
 
-    public function storePatient(Request $request)
+    public function storePatient(CreatePatientRequest $request)
     {
         $user = User::newGuest(
-            $request['email'],
-            $request['phone'],
-            $request['first_name'],
-            $request['last_name'],
-            $request['middle_name'],
-            $request['birth_date'],
-            $request['gender']
+                        $request['email'],
+                        $request['phone'],
+                        $request['first_name'],
+                        $request['last_name'],
+                        $request['middle_name'],
+                        $request['birth_date'],
+                        $request['gender']
         );
-        return redirect()->route('admin.call-center.index');
+        $this->sendResetLinkEmail($request);
+        return redirect()->route('admin.call-center.index')->with('success', 'Письмо со ссылкой отправлено на почту ' . $request['email']);
+        ;
     }
 
     public function doctors(User $user, Request $request)
@@ -172,7 +161,7 @@ class CallCenterController extends Controller
         $clinics = Clinic::whereIn('id', $clinicsId)
                 ->orderByDesc('id')
                 ->get();
-        
+
         $specs = $doctor->specializations;
         $doctorTimetables = Timetable::where('doctor_id', $doctor->id)
                 ->whereIn('clinic_id', $clinicsId)
@@ -187,21 +176,43 @@ class CallCenterController extends Controller
                 ->get();
 
         $holidays = $this->service->celebrationDays($celebrationDays);
-        
-        return view('admin.call-center.show-doctor', compact('user', 'doctor', 'clinics', 'specs', 'doctorTimetables', 'doctorBooks', 'holidays'));
+        $price = config('book.booking_price');
+
+        return view('admin.call-center.show-doctor', compact('user', 'doctor', 'clinics', 'specs', 'doctorTimetables', 'doctorBooks', 'holidays', 'price'));
     }
 
     public function bookingDoctor(Request $request)
     {
+        $paymentType = $request['payment_type'];
         $userId = $request['user_id'];
         $doctorId = $request['doctor_id'];
         $clinicId = $request['clinic_id'];
         $bookingDate = $request['calendar'];
         $timeStart = $request['radio_time'];
-        $description = null;
+        $description = $request['description'];
+        $amount = $request['amount'];
+        $user = User::find($userId);
+        $link = null;
+        $order = null;
 
-        $booking = Book::new($userId, $doctorId, $clinicId, $bookingDate, $timeStart, null, $description);
 
-        return redirect()->route('admin.books.index');
+        if ($paymentType == Book::PAYME) {
+
+            $order = $this->paycomService->createBookOrder($userId, $doctorId, $clinicId, $bookingDate, $timeStart, $amount, $description);
+            $cipher = 'm=' . config('paycom_config.merchant_id') . ';a=' . $amount * 100 . ';l=ru;ac.' . config('paycom_config.account') . '=' . $order->id;
+            $link = config('paycom_config.endpoint_check') . '/' . base64_encode($cipher);
+        } else if ($paymentType == Book::CLICK) {
+
+            $order = $this->clickService->createOrder($userId, $doctorId, $clinicId, $bookingDate, $timeStart, $amount, $description);
+            $cipher = 'service_id=' . config('click.service_id') . '&merchant_id=' . config('click.merchant_id') . '&amount=' . $amount . '&transaction_param=' . $order->merchant_transaction_id;
+            $link = config('click.endpoint_check') . '/' . $cipher;
+        }
+
+        $this->bookService->toSms($order->book_id, $link);
+        $this->bookService->toMail($order->book_id, $link);
+
+
+        return redirect()->route('admin.books.index')->with('success', 'Письмо для оплаты со ссылкой отправлено на почту ' . $user->email);
     }
+
 }

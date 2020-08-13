@@ -23,7 +23,7 @@
 @include('layouts.header')
 @section('body')
     <main>
-        <div class="bg_color_2">
+        <div class="bg_color_2 py-5">
             <div class="container margin_10_35">
                 <div id="register">
                     <h1>{{trans('auth.please_to_findoctor')}}</h1>
@@ -33,34 +33,35 @@
                                 {{ csrf_field() }}
                                 <div class="box_form">
                                     <div class="form-group">
-                                        <input type="text" name="name" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" value="{{ old('name') }}" placeholder="{{ trans('adminlte.user.first_name') }}" autofocus>
-                                        @if ($errors->has('name'))
+                                        <input type="text" name="first_name" class="form-control {{ $errors->has('first_name') ? 'is-invalid' : '' }}" value="{{ old('first_name') }}" placeholder="{{ __('auth.first_name') }}" autofocus>
+                                        @if ($errors->has('first_name'))
                                             <div class="invalid-feedback">
-                                                <strong>{{ $errors->first('name') }}</strong>
+                                                <strong>{{ $errors->first('first_name') }}</strong>
                                             </div>
                                         @endif
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="lastname" class="form-control {{ $errors->has('lastname') ? 'is-invalid' : '' }}" value="{{ old('lastname') }}" placeholder="{{ trans('adminlte.user.last_name') }}" autofocus>
+                                        <input type="text" name="last_name" class="form-control {{ $errors->has('last_name') ? 'is-invalid' : '' }}" value="{{ old('last_name') }}" placeholder="{{ __('auth.last_name') }}" autofocus>
 
-                                        @if ($errors->has('lastname'))
+                                        @if ($errors->has('last_name'))
                                             <div class="invalid-feedback">
-                                                <strong>{{ $errors->first('lastname') }}</strong>
+                                                <strong>{{ $errors->first('last_name') }}</strong>
                                             </div>
                                         @endif
                                     </div>
 
                                     <div class="form-group">
-                                        <input type="text" name="patronymic" class="form-control {{ $errors->has('patronymic') ? 'is-invalid' : '' }}" value="{{ old('patronymic') }}" placeholder="{{ trans('adminlte.user.middle_name') }}" autofocus>
+                                        <input type="text" name="middle_name" class="form-control {{ $errors->has('middle_name') ? 'is-invalid' : '' }}" value="{{ old('middle_name') }}" placeholder="{{ __('auth.middle_name') }}" autofocus>
 
-                                        @if ($errors->has('patronymic'))
+                                        @if ($errors->has('middle_name'))
                                             <div class="invalid-feedback">
-                                                <strong>{{ $errors->first('patronymic') }}</strong>
+                                                <strong>{{ $errors->first('middle_name') }}</strong>
                                             </div>
                                         @endif
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="phone" class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}" data-inputmask="&quot;mask&quot;: &quot;(999) 99 999-9999&quot;" data-mask value="{{ old('phone') }}" placeholder="{{ trans('adminlte.user.phone') }}" autofocus>
+                                        <input type="text" name="phone" class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}" data-inputmask="&quot;mask&quot;: &quot;999999999&quot;" data-mask value="{{ old('phone') }}" placeholder="{{ __('auth.phone') }}" autofocus>
+
                                         @if ($errors->has('phone'))
                                             <div class="invalid-feedback">
                                                 <strong>{{ $errors->first('phone') }}</strong>
@@ -68,7 +69,7 @@
                                         @endif
                                     </div>
                                     <div class="form-group">
-                                        <input type="date" name="birth_date" class="form-control {{ $errors->has('birth_date') ? 'is-invalid' : '' }}" value="{{ old('birth_date') }}" placeholder="{{ __('Дата рождения') }}" autofocus>
+                                        <input type="date" name="birth_date" class="form-control {{ $errors->has('birth_date') ? 'is-invalid' : '' }}" value="{{ old('birth_date') }}" placeholder="{{ __('auth.birth_date') }}" autofocus>
                                         @if ($errors->has('birth_date'))
                                             <div class="invalid-feedback">
                                                 <strong>{{ $errors->first('birth_date') }}</strong>
@@ -77,7 +78,7 @@
                                     </div>
                                     <div class="form-group">
                                     <!--<input type="number" name="gender" min="0" max="1" class="form-control {{ $errors->has('gender') ? 'is-invalid' : '' }}" value="{{ old('gender') }}" placeholder="{{ __('Пол') }}" autofocus>-->
-                                        <select id="gender" class="form-control {{ $errors->has('gender') ? 'is-invalid' : '' }}" name="gender" value="{{ old('gender') }}" required autocomplete="gender" autofocus>
+                                        <select id="gender" class="form-control {{ $errors->has('gender') ? 'is-invalid' : '' }}" name="gender" value="{{ old('gender') }}" autocomplete="gender" autofocus>
                                             <option value="" selected="">{{ trans('filter.sex') }}</option>>
                                             <option value="0" @if (old('gender') == '0') selected="selected" @endif>{{ trans('filter.female') }}</option>>
                                             <option value="1"@if (old('gender') == '1') selected="selected" @endif>{{ trans('filter.male') }}</option>>

@@ -82,11 +82,9 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::group(['prefix' => 'books', 'as' => 'books.'], function () {
         Route::get('/', 'BookController@index')->name('index');
         Route::get('/{id}{order_status})}', 'BookController@order_status')->name('orderStatus');
+        Route::get('/{book}', 'BookController@show')->name('show');
     });
     Route::group(['prefix' => 'call-center', 'namespace' => 'CallCenter','as' => 'call-center.'], function () {
-        Route::get('/findDoctorByRegion', 'CallCenterController@findDoctorByRegion');
-        Route::get('/findDoctorByType', 'CallCenterController@findDoctorByType');
-
         Route::get('/', 'CallCenterController@index')->name('index');
         Route::get('/create-patient', 'CallCenterController@create')->name('create-patient');
         Route::post('/store-patient', 'CallCenterController@storePatient')->name('store-patient');
@@ -125,6 +123,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         Route::post('/edit', 'PagesController@editSave')->name('editSave');
     });
 });
+
 
 Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
     Route::get('', 'HomeController@index')->name('home');
@@ -166,6 +165,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         Route::post('/edit', 'PatientController@profileEditSave')->name('profileEditSave');
         Route::get('/booking/{user}/{clinic}', 'PatientController@booking')->name('booking');
         Route::post('/booking-doctor/', 'PatientController@bookingDoctor')->name('booking-doctor');
+        Route::get('', 'PatientController@profileShow')->name('profile');
         Route::get('/{user_id}/bookings', 'PatientController@myBookings')->name('mybookings');
         Route::post('destroy', 'PatientController@destroy')->name('destroy');
     });
@@ -190,7 +190,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         Route::get('{user}', 'Doctor\DoctorController@show')->name('show');
         Route::get('{doctor_id}/rate/{rate}', 'RateController@rate')->name('rate');
         Route::get('{doctor_id}/ratecancel', 'RateController@rateCancel')->name('rateCancel');
-        Route::get('{doctor}/clinics/{clinic}/book', 'Doctor\DoctorController@book')->name('book');
+        Route::get('{doctor}/clinics/{clinic}/book', 'Doctor\DoctorController@book')->name('book')->middleware(['auth', 'can:patient-panel']);
     });
     Route::get('/specializations', 'SpecializationsController@index')->name('specializations');
 

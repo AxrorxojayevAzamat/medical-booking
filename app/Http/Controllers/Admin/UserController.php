@@ -38,12 +38,12 @@ class UserController extends Controller
 
         $statuses = User::statusList();
 
-        return view('admin.users.index', compact('users', 'roles', 'statuses'));
+        return view('admin.users.index', compact('users'));
     }
 
     public function create()
     {
-        $this->authorize('manage-users');
+        $this->middleware('can:manage-users');
         $roles = User::rolesList();
         $statuses = User::statusList();
         return view('admin.users.create', compact('roles', 'statuses'));

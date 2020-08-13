@@ -1,11 +1,11 @@
 @extends('layouts.admin.page')
 
 @if (!config('adminlte.enabled_laravel_mix'))
-    @php($cssSectionName = 'css')
-    @php($javaScriptSectionName = 'js')
+@php($cssSectionName = 'css')
+@php($javaScriptSectionName = 'js')
 @else
-    @php($cssSectionName = 'mix_adminlte_css')
-    @php($javaScriptSectionName = 'mix_adminlte_js')
+@php($cssSectionName = 'mix_adminlte_css')
+@php($javaScriptSectionName = 'mix_adminlte_js')
 @endif
 
 @section($cssSectionName)
@@ -15,6 +15,26 @@
 @stop
 
 @section('content')
+@if($errors->any())
+@foreach($errors->all() as $error)
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ $error }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endforeach
+@endif
+@if(session('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ session('success') }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+@endif
+
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -38,9 +58,10 @@
                                 <input class="form-control" name="booking_date" type="date" value="{{ request('booking_date') }}">
                             </div>
                         </div>
+                       
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label for="name" class="col-form-label">{{ trans('Время бронирования') }}</label>
+                                <label for="time_start" class="col-form-label">{{ trans('Время бронирования') }}</label>
                                 <div class="input-group date" id="timepicker" data-target-input="nearest">
                                     <input type="time" name="time_start" class="form-control datetimepicker-input" data-target="#timepicker" value="{{ request('time_start')}}">
                                     <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
@@ -53,15 +74,15 @@
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label for="name" class="col-form-label">{{ trans('Телефон') }}</label>
-                                <input id="phone" type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;(999) 99 999-9999&quot;" data-mask="" im-insert="true" name="phone" value="{{ request('phone') }}">
+                                <label for="phone" class="col-form-label">{{ trans('Телефон') }}</label>
+                                <input id="phone" class="form-control" name="phone" value="{{ request('phone') }}">
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label class="col-form-label">&nbsp;</label><br />
                                 <button type="submit" class="btn btn-primary">Поиск</button>
-                                <a href="?" class="btn btn-outline-secondary">{{ __('Очистить') }}</a>
+                                <a href="?" class="btn btn-danger">{{ __('Очистить') }}</a>
                             </div>
                         </div>
                     </div>
@@ -75,10 +96,12 @@
                             <th>{{ trans('Полное имя пациента') }}</th>
                             <th>{{ trans('Дата бронирования') }}</th>
                             <th>{{ trans('Время бронирования') }}</th>
+                            <th>{{ trans('Конец времени') }}</th>
                             <th>{{ trans('Телефон пациента') }}</th>
                             <th>{{ trans('Полное имя доктора') }}</th>
                             <th>{{ trans('Название клиники') }}</th>
                             <th>{{ trans('Статус заказа') }}</th>
+                            <th>{{ trans('Подробнее о заказе') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -87,6 +110,7 @@
                             <td><a href="{{ route('admin.users.show', $book->user->id) }}">{{ $book->user->profile ? $book->user->profile->fullName : '' }}</a></td>
                             <td>{{$book->booking_date}}</td>
                             <td>{{$book->time_start ? \Carbon\Carbon::parse($book->time_start)->format('H:i') : ''}}</td>
+                            <td>{{$book->time_finish ? \Carbon\Carbon::parse($book->time_finish)->format('H:i') : ''}}</td>
                             <td>{{$book->user->phone}}</td>
                             <td><a href="{{ route('admin.users.show', $book->doctor->id) }}">{{ $book->doctor->profile ? $book->doctor->profile->fullName : '' }}</a></td>
                             <td><a href="{{ route('admin.clinics.show', $book->clinic->id) }}">{{ $book->clinic->name ? $book->clinic->name : '' }}</a></td>
@@ -97,6 +121,14 @@
                                     <option value="{{route('admin.books.orderStatus',['id'=>$book->id,'order_status'=>3])}}" {{$book->order_status=='3'?'selected':''}}>Доктор не пришел</option>
                                 </select>
                             </td>
+                            {{-- @if ($book->type == \App\Entity\Book::PAYME)
+                            <td>{!! $book->payme->stateName() !!}</td>
+                            @elseif ($book->type == \App\Entity\Book::CLICK)
+                                <td>{!! $book->click->statusName() !!}</td>
+                            @else
+                                <td>Оплачен (бесплатный номер)</td>
+                            @endif --}}
+                            <td><a href="{{ route('admin.books.show', $book) }}">Подробнее</a></td>
                         </tr>
 
                         @endforeach
@@ -128,7 +160,7 @@ $(function () {
         "paging": false,
         "lengthChange": false,
         "searching": false,
-        "ordering": true,
+        "ordering": false,
         "info": false,
         "autoWidth": false,
         "responsive": true,

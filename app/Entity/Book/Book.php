@@ -2,6 +2,8 @@
 
 namespace App\Entity\Book;
 
+use App\Entity\Book\Payment\Click;
+use App\Entity\Book\Payment\PaycomOrder;
 use App\Entity\Clinic\Clinic;
 use App\Entity\User\User;
 use Carbon\Carbon;
@@ -13,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $user_id
  * @property int $doctor_id
  * @property int $clinic_id
+ * @property Carbon $booking_date
  * @property int $price_id
  * @property Carbon $time_start
  * @property Carbon $time_finish
@@ -26,6 +29,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property User $doctor
  * @property Clinic $clinic
  * @property Price $bookPrice
+ * @property PaycomOrder $payme
+ * @property Click $click
  * @mixin Eloquent
  */
 class Book extends Model
@@ -73,6 +78,22 @@ class Book extends Model
         $this->status = self::STATUS_CANCELLED;
     }
 
+    public static function statusList(): array
+    {
+        return [
+            self::STATUS_WAITING => 'Ожидание платежа',
+            self::STATUS_ACTIVE => 'Оплачен',
+            self::STATUS_CANCELLED =>'Отменен',
+            self::STATUS_POSTPONED =>'Отложен' ,
+            self::STATUS_COMPLETED => 'Выполнен',
+        ];
+    }
+
+    public function statusName(): string
+    {
+        return self::statusList()[$this->status];
+    }
+
     public static function typeList()
     {
         return [
@@ -109,6 +130,15 @@ class Book extends Model
         return $this->belongsTo(Price::class, 'price_id', 'id');
     }
 
-    ###########################################
+    public function payme()
+    {
+        return $this->hasOne(PaycomOrder::class, 'book_id', 'id');
+    }
 
+    public function click()
+    {
+        return $this->hasOne(Click::class, 'book_id', 'id');
+    }
+
+    ###########################################
 }

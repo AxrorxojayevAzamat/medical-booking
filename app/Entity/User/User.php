@@ -17,6 +17,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPassword as ResetPasswordNotification;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 /**
  * @property int $id
@@ -82,7 +83,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public static function newGuest($email, $phone, $firstName, $lastName, $middleName, $birthDate, $gender): self
     {
-        $password = 12; // this is for test must change
+        $password = Str::random(8);
         $role = self::ROLE_USER;
 
         $user = static::new($email, $phone, $password, $role);
@@ -150,8 +151,8 @@ class User extends Authenticatable implements MustVerifyEmail
     public static function statusList(): array
     {
         return [
-            User::STATUS_ACTIVE => 'Aктивный',
-            User::STATUS_INACTIVE => 'Неактивный',
+            self::STATUS_ACTIVE => 'Aктивный',
+            self::STATUS_INACTIVE => 'Неактивный',
         ];
     }
 
@@ -220,7 +221,6 @@ class User extends Authenticatable implements MustVerifyEmail
         $adminClinicsDoctors = DoctorClinic::WhereIn('clinic_id', $adminClinics)->pluck('doctor_id')->toArray();
 
         return $query->whereIn('id', $adminClinicsDoctors);
-
     }
 
     #########################################################################################
@@ -272,5 +272,4 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(Clinic::class, 'admin_clinics', 'admin_id', 'clinic_id');
     }
-
 }
