@@ -62,12 +62,14 @@
             }
         });
         let orderCreate = {};
+        var bookAr = $("#booking_date").val().split("/");
+        var bookTime = bookAr[2] + "-" + bookAr[0] + "-" + bookAr[1]
         orderCreate.doctor_id = $('#doctor_id').val();
         orderCreate.clinic_id = $('#clinic_id').val();
         orderCreate.amount = 15000;
-        orderCreate.booking_date = '2020-07-15';
+        orderCreate.booking_date = bookTime;
         orderCreate.time_start = $('#time_start').val();
-        orderCreate.description = "click order create";
+        orderCreate.description = " " + $('#description').val();
 
 
         $.ajax({
