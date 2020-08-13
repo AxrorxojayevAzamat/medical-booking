@@ -84,28 +84,17 @@
                         </div>
                         
                     </div>
-                     {{-- <div class="box" id="gallery" role="gallery" aria-labelledby="gallery">
-                        <div class="gallery">
-                            <div class="row d-flex justify-content-center">
-                                @for($i = 1; $i <= 5; $i++)
-                                    <a href="/img/Doctor{{$i}}.jpg" data-lightbox="mygallery"><img src="/img/Doctor{{$i}}.jpg"  style="width: 130px; height: 115px;"></a>
-                                @endfor
+                    @if(count($clinic->photos) != 0)
+                        <div class="box" id="gallery" role="gallery" aria-labelledby="gallery">
+                            <div class="gallery">
+                                <div class="row d-flex justify-content-center">
+                                    @foreach($clinic->photos as $photo)
+                                        <a href="{{ $photo->fileOriginal }}" data-lightbox="mygallery"><img src="{{ $photo->fileThumbnail }}" style="width: 130px; height: 115px;"></a>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
-                    </div> --}}
-
-                    @foreach($clinic->photos as $photo)
-                    <div class="box" id="gallery" role="gallery" aria-labelledby="gallery">
-                        <div class="gallery">
-                            <div class="row d-flex justify-content-center">
-                                {{-- @for($i = 1; $i <= 5; $i++)
-                                    <a href="/img/Doctor{{$i}}.jpg" data-lightbox="mygallery"><img src="/img/Doctor{{$i}}.jpg"></a>
-                                @endfor --}}
-                                <a href="{{ $photo->fileOriginal }}" data-lightbox="mygallery"><img src="{{ $photo->fileThumbnail }}"></a>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
+                    @endif    
                 </div>
             </div>
             <aside class="col-xl-4 col-lg-4" id="sidebar">
