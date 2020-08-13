@@ -99,7 +99,8 @@
                                     <div class="col-lg-6">
                                         <ul class="bullets">
                                             @foreach ($specs as $spec)
-                                                <li> {{$spec->name}}
+                                                <li>
+                                                    <a href="{{route('doctors.index', ['specialization' => $spec->id])}}">{{$spec->name}}</a> 
                                                 </li>
                                             @endforeach
                                         </ul>

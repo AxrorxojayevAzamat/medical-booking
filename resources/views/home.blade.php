@@ -157,26 +157,27 @@
 
     <div id="app_section">
         <div class="container">
-            <div class="row justify-content-around">
-                <div class="main_title_5">
-                    <h2>У нас широкий сервис!</h2>
-                </div>
+            <div class="main_title_5">
+            <h2>{{trans('home.service.title')}}</h2>
+            </div>
+            <div class="justify-content-around">
+
                 <div class="row add_bottom_30">
                     <div class="col-lg-4">
                         <div class="box_feat" id="icon_1">
-                            <h3>Поликлиники</h3>
+                            <h3>{{trans('home.service.polyclinics')}}</h3>
                             <p>{{ $polyclinicCount }}</p>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="box_feat" id="icon_2">
-                            <h3>Частные клиники</h3>
+                            <h3>{{trans('home.service.clinics')}}</h3>
                             <p>{{ $privateClinicCount }}</p>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="box_feat" id="icon_3">
-                            <h3>Врачи</h3>
+                            <h3>{{trans('home.service.doctors')}}</h3>
                             <p>{{ $doctorCount }}</p>
                         </div>
                     </div>
