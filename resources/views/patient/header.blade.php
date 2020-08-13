@@ -16,7 +16,7 @@
                     <i class="fa fa-fw fa-calendar-check-o"></i>
                     <span class="nav-link-text">{{trans('menu.my_records')}} 
                     @if($book_num)
-                        <span class="badge badge-pill badge-primary">{{$book_num}} {{trans('menu.new')}} </span></span>
+                        <span class="badge badge-pill badge-primary float-right" style="margin-right: 20px;">{{$book_num}} {{trans('menu.new')}} </span></span>
                     @endif
                 </a>
             </li>
@@ -33,7 +33,7 @@
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">{{ trans('menu.language') }}</button>
                 <ul class="dropdown-menu">
                     @foreach(\Mcamara\LaravelLocalization\Facades\LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                        <li>
+                        <li class="px-3 py-1">
                             <a hreflang="{{ $localeCode }}"
                                href="{{ \Mcamara\LaravelLocalization\Facades\LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                                 {{ $properties['native'] }}
@@ -48,3 +48,4 @@
         </ul>
     </div>
 </nav>
+@include('doctor.adaptation_style')

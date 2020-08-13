@@ -3,6 +3,8 @@
 @section('content')
 <div class="content-wrapper">
         <div class="container-fluid" style="margin-top: 60px">
+          @include('doctor.breadcrumbs')
+
             <div class="box_general padding_bottom">
 
 @if($errors->any())
@@ -15,7 +17,7 @@
         </div>
 @endforeach
 @endif
-<h1 align="center">{{trans('menu.main_photo')}} <a href="{{route('doctor.profileEdit')}}" style="float: right;">{{trans('menu.back')}}</a></h1>
+<h1 align="center">{{trans('menu.main_photo')}} <a href="{{route('doctor.profile')}}" style="float: right;">{{trans('menu.back')}}</a></h1>
 
 <div class="card" id="photos">
     <div class="card-body">
@@ -23,7 +25,7 @@
             @csrf
             <div class="form-group">
                 <div class="file-loading">
-                    <input id="file-input" class="file" type="file" name="photo">
+                    <input id="file-input mb-2" class="file" type="file" name="photo">
                 </div>
                 @if ($errors->has('logo'))
                     <span class="invalid-feedback"><strong>{{ $errors->first('photos') }}</strong></span>

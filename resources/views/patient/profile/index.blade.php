@@ -5,6 +5,8 @@
 
 <div class="content-wrapper">
         <div class="container-fluid" style="margin-top: 60px">
+           @include('doctor.breadcrumbs')
+
         	<div class="d-flex bd-highlight mb-3">
     </div>
             <div class="box_general padding_bottom">
@@ -14,7 +16,7 @@
                         @csrf
                         <button class="btn btn-danger mr-1 p-2" onclick="return confirm('{{ 'Вы уверены?' }}')">{{ trans('menu.delete') }}</button>
                     </form>
-                    <a class="btn btn-primary mr-1 p-2 bd-highlight" style="float: right;" href="{{ route('patient.profileEdit')}}">{{ trans('menu.edit') }}</a>
+                    <a class="btn btn-primary mr-1 mb-2 p-2 bd-highlight" style="float: right;" href="{{ route('patient.profileEdit')}}">{{ trans('menu.edit') }}</a>
                 </div>
 				<table class="table table-striped projects">
                         <tbody>

@@ -699,7 +699,7 @@ select.form-control:not([size]):not([multiple]) {
   padding-bottom: 10px;
 }
 .header_box.version_2 {
-  border-bottom: 1px solid #ededed;
+  /* border-bottom: 1px solid #ededed; */
   margin: 0 -30px;
   padding: 0 30px 10px 30px;
   margin-bottom: 15px;

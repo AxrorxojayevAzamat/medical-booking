@@ -5,6 +5,7 @@
 
     <div class="content-wrapper">
         <div class="container-fluid" style="margin-top: 50px">
+          @include('doctor.breadcrumbs')
             @if(count($errors))
                 @foreach($errors as $error)
                     <h1>{{$error->get}}</h1>
@@ -18,14 +19,11 @@
                   </button>
                 </div>
             @endif
-            <div class="box_general padding_bottom">
+            <div class="box_general padding_bottom mb-3">
                 <form action="{{route('doctor.profileEditSave')}}" method="post">
                     @csrf
-                <div class="header_box version_2">
+                <div class="header_box version_2 mb-0 pb-0">
                     <h2><i class="fa fa-user"></i>{{trans('menu.profile_details')}}</h2>
-                    <button style="float: right" class="btn btn-success medium mr-1">{{trans('menu.save')}}</button>
-                    <a style="float: right" class="btn btn-dark mr-1" href="{{ route('doctor.main-photo', $user)}}">{{trans('menu.main_photo')}}</a>
-                    <a style="float: right" class="btn btn-warning mr-1" href="{{ route('doctor.photos')}}">{{trans('menu.photos')}}</a>
                 </div>
                 <div class="row">
                     <div class="col-md-12 add_top_30">
@@ -80,14 +78,14 @@
             </div>
             <!-- /box_general-->
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="box_general padding_bottom">
                         <div class="header_box version_2">
                             <h2><i class="fa fa-lock"></i>{{trans('menu.change_password')}}</h2>
                         </div>
                         <div class="form-group">
                             <label>{{trans('menu.old_password')}}</label>
-                            <input class="form-control" type="password" name="oldpass">
+                            <input class="form-control col-md-6 col-12" type="password" name="oldpass">
                             @if (Session::has('oldpass'))
                                     <span class="invalid-feedback" style="display: block">
                                         <strong style="color: red;">{{ trans('validation.oldpass') }}</strong>
@@ -96,7 +94,7 @@
                         </div>
                         <div class="form-group">
                             <label>{{trans('menu.new_password')}}</label>
-                            <input class="form-control" type="password" name="newpass">
+                            <input class="form-control col-md-6 col-12" type="password" name="newpass">
                             @if ($errors->has('newpass'))
                                     <span class="invalid-feedback" style="display: block">
                                         <strong style="color: red;">{{ trans('validation.newpass') }}</strong>
@@ -105,7 +103,10 @@
                         </div>
                         <div class="form-group">
                             <label>{{trans('menu.conf_password')}}</label>
-                            <input class="form-control" type="password" name="confpass">
+                            <div class="row justify-content-between mx-0">
+                                <input class="form-control  col-md-6 col-12 mb-3" type="password" name="confpass">
+                                <button style="float: right" class="btn btn-success col-md-2 col-12 mb-3">{{trans('menu.save')}}</button>
+                            </div>
                         </div>
                     </div>
                 </div>

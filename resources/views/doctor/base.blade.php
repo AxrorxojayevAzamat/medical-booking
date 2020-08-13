@@ -5,7 +5,7 @@
 
 <body>
     @include('doctor.header')
-
+    
     @yield('content')
 
     @include('layouts.cabinet.footer')

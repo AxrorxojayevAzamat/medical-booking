@@ -3,6 +3,8 @@
 @section('content')
 <div class="content-wrapper">
         <div class="container-fluid" style="margin-top: 60px">
+          @include('doctor.breadcrumbs')
+
             <div class="box_general padding_bottom">
 @if($errors->count() > 0)
     @foreach($errors->all() as $error)
@@ -14,7 +16,7 @@
         </div>
     @endforeach
 @endif
-<h1 align="center">{{trans('menu.photos')}} <a href="{{route('doctor.profileEdit')}}" style="float: right;">{{trans('menu.back')}}</a></h1>
+<h1 align="center">{{trans('menu.photos')}} <a href="{{route('doctor.profile')}}" style="float: right;">{{trans('menu.back')}}</a></h1>
 
 <div class="card" id="photos">
     <div class="card-header border">{{ trans('') }}</div>

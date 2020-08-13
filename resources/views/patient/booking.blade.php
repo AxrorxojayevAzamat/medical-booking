@@ -5,6 +5,7 @@
 <div id="page">
     <main>
         <div class="container margin_60">
+
             <div class="row">
                 <div class="col-xl-8 col-lg-8">
                     <div class="box_general_3 cart">
