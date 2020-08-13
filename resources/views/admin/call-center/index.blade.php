@@ -44,25 +44,25 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="">
+                            <div class="col-2">
                                 <div class="form-group">
                                         <label for="name" class="col-form-label">{{ __('Имя,Фамилия') }}</label>
-                                        <input name="name" type="text" class="form-control"  value="{{ request('name') }}" placeholder="Имя,Фамилия">
+                                        <input name="name" type="text" class="form-control"  value="{{ request('name') }}">
                                     </div>
                                 </div>
-                            <div class="">
+                            <div class="col-2">
                                 <div class="form-group">
                                     <label for="name" class="col-form-label">{{ trans('Телефон') }}</label>
                                     <input id="phone" type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;999999999&quot;" data-mask="" im-insert="true" name="phone" value="{{ request('phone') }}">
                                 </div>
                             </div>
-                            <div class="">
+                            <div class="col-2">
                                 <div class="form-group">
                                     <label for="email" class="col-form-label">{{ trans('Email') }}</label>
                                     <input id="email" class="form-control" name="email" value="{{ request('email') }}">
                                 </div>
                             </div>
-                            <div class="">
+                            <div class="col-2">
                                 <div class="form-group pl-1">
                                     <label class="col-form-label">&nbsp;</label><br />
                                     <button type="submit" class="btn btn-primary">Поиск</button>
