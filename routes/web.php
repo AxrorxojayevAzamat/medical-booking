@@ -210,6 +210,9 @@ Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient
     });
 });
 
+Route::get('login/google', 'Auth\LoginController@redirectToProvider');
+Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback');
+
 Route::get("locale/{locale}", function ($locale) {
     Session::put('locale', $locale);
 
