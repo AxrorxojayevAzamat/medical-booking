@@ -61,7 +61,6 @@ class ClinicController extends Controller
 
     public function store(ClinicRequest $request)
     {
-        DB::beginTransaction();
         try {
             $clinic = $this->service->create($request);
 
