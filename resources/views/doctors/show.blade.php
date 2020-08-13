@@ -44,9 +44,15 @@
                     <span class="rating">{{trans('book.booked')}}: {{ $user->numberOfBookings }}</span>
                     @foreach($clinics as $clinic)
                         <ul class="contacts">
-                            <li><h6>{{ trans('doctors.clinic_name') }}</h6>{{$clinic->name}}</li>
-                            <li><h6>{{ trans('doctors.clinic_address') }}</h6>{{$clinic->address}}</li>
-                            <li><h6>{{ trans('doctors.clinic_phone') }}</h6><a href="tel://{{$clinic->phone_numbers}}">{{$clinic->phone_numbers}}</a></li>
+                          @if(!empty($clinic->name_ru))<li><h6>{{ trans('Название клиники') }}</h6>{{$clinic->name_ru}}</li>@endif
+                            @if(!empty($clinic->address))<li><h6>{{ trans('Адрес клиники') }}</h6>{{$clinic->address_ru}}</li>@endif
+                            @foreach($clinic->contacts as $contact)
+                            @if($contact->type ===  \App\Entity\Clinic\Contact::PHONE_NUMBER)
+                            <li><h6>{{ $contact->getTypeName() }}</h6>
+                                {{$contact->value}}
+                            </li>
+                            @endif
+                            @endforeach
                         </ul>
                          <!-- <div id="map"><a href="https://www.openstreetmap.org/#map=12/41.3111/69.2406" class="btn_1 outline" target="_blank"><i class="icon_pin"></i> View on map</a></div> -->
                             <div id="map"><a href="https://www.openstreetmap.org/#map=12/41.3111/69.2406/{{$clinic->location}}/@.{{$clinic->location}},20.5z" class="btn_1 outline" target="_blank"><i class="icon_pin"></i>{{trans('doctors.view_on_map')}}</a></div>
