@@ -363,7 +363,7 @@ Breadcrumbs::register('admin.pages.edit', function (Crumbs $crumbs) {
 // cabinet-doctor
 
 Breadcrumbs::register('doctor.profile', function (Crumbs $crumbs) {
-    $crumbs->push(trans('panel.doctor.doctor'), route('doctor.profile'));
+    $crumbs->push(trans('breadcrumb_fe.main'), route('doctor.profile'));
 });
 
 Breadcrumbs::register('doctor.timetable', function (Crumbs $crumbs) {
@@ -404,12 +404,12 @@ Breadcrumbs::register('doctor.edit', function (Crumbs $crumbs) {
 //cabinet-patient
 
 Breadcrumbs::register('patient.profile', function (Crumbs $crumbs) {
-    $crumbs->push(trans('panel.user.user'), route('patient.profile'));
+    $crumbs->push(trans('breadcrumb_fe.main'), route('patient.profile'));
 });
 
 Breadcrumbs::register('patient.mybookings', function (Crumbs $crumbs, $user) {
     $crumbs->parent('patient.profile');
-    $crumbs->push(trans('panel.doctor.timetable'), route('patient.mybookings', $user));
+    $crumbs->push(trans('menu.my_records'), route('patient.mybookings', $user));
 });
 
 Breadcrumbs::register('patient.profileEdit', function (Crumbs $crumbs) {

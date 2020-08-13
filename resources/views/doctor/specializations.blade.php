@@ -7,7 +7,7 @@
 			@include('doctor.breadcrumbs')
 			
             <div class="box_general padding_bottom">
-            	<h1 align="center">{{trans('menu.editSpecialization')}}</h1>
+            	{{-- <h1 align="center">{{trans('menu.editSpecialization')}}</h1> --}}
 			<div class="row">
 			    <div class="col-md-6">
 			        <div class="card primary">

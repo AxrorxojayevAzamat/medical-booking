@@ -16,7 +16,7 @@
                 </div>
             @endif
             <div class="box_general padding_bottom">
-                <h2 class="text-center" style="margin-right: 20px;">{{trans('menu.profile_details')}}</h2>
+                {{-- <h2 class="text-center" style="margin-right: 20px;">{{trans('menu.profile_details')}}</h2> --}}
 
                 <div class="header_box version_2 row">
 

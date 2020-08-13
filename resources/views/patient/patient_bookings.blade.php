@@ -3,10 +3,11 @@
 @section('content')
 
     <div class="content-wrapper">
-        <div class="container-fluid" style="margin-top: 50px">
-           @include('doctor.breadcrumbs')
-            <h1 align="center">{{trans('menu.my_records')}}</h1>
-            <div class="box_general padding_bottom">
+      <div class="container-fluid" style="margin-top: 50px">
+        @include('doctor.breadcrumbs')
+        {{-- <h1 align="center">{{trans('menu.my_records')}}</h1> --}}
+        @if(count($bookings) != 0)
+          <div class="box_general padding_bottom overflow-auto">
             @foreach($bookings as $booking)
               <table class="table">
                 <thead>
@@ -68,11 +69,10 @@
               </table>
               <br>
             @endforeach
-
-        </div>
+          </div>
+        @endif
         <!-- /.container-fluid-->
     </div>
-  </div>
 @include('doctor.adaptation_style')
 
 @stop

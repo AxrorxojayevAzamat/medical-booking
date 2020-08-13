@@ -30,6 +30,11 @@
         ul.navbar-nav.ml-auto .dropdown-menu.show a {
             color: #fff;
         }
+
+        .box_general.padding_bottom.overflow-auto table th, .box_general.padding_bottom.overflow-auto table td {
+            padding: 3px;
+            font-size: 7px;
+        }
     }
     @media screen and (max-width: 767px) {
         .box_general.padding_bottom {

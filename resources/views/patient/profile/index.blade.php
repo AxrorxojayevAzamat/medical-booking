@@ -9,12 +9,11 @@
 
         	<div class="d-flex bd-highlight mb-3">
     </div>
-            <div class="box_general padding_bottom">
+            <div class="box_general padding_bottom pb-5">
                 <div class="header_box version_2">
-                    <h2><i class="fa fa-user"></i>{{trans('menu.profile_details')}}</h2>
+                    {{-- <h2><i class="fa fa-user"></i>{{trans('menu.profile_details')}}</h2> --}}
                     <form method="POST" style="float: right;" action="{{ route('patient.destroy') }}" class="ml-auto mr-1">
                         @csrf
-                        <button class="btn btn-danger mr-1 p-2" onclick="return confirm('{{ 'Вы уверены?' }}')">{{ trans('menu.delete') }}</button>
                     </form>
                     <a class="btn btn-primary mr-1 mb-2 p-2 bd-highlight" style="float: right;" href="{{ route('patient.profileEdit')}}">{{ trans('menu.edit') }}</a>
                 </div>
@@ -43,6 +42,8 @@
                             <tr><th>{{ trans('contacts.gender') }}</th><td>{{ $user->profile->gender === 0 ? trans('contacts.woman') : trans('contacts.man')}}</td></tr>
                         </tbody>
                     </table>
+                    <button class="btn btn-danger mr-1 p-2 float-right" onclick="return confirm('{{trans('msg.are_you_sure')}}')">{{ trans('menu.delete') }}</button>
+
                 </div>
             </div>
         </div>

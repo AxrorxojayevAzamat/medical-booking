@@ -16,7 +16,7 @@
                 <form action="{{route('patient.profileEditSave')}}" method="post">
                     @csrf
                 <div class="header_box version_2  mb-0 pb-0">
-                    <h2><i class="fa fa-user"></i>{{trans('menu.profile_details')}}</h2>
+                    {{-- <h2><i class="fa fa-user"></i>{{trans('menu.profile_details')}}</h2> --}}
                 </div>
                 <div class="row">
                     <div class="col-md-12 add_top_30">
