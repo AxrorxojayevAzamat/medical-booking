@@ -91,14 +91,14 @@
                     <div class="form-group row">
                         <label for="inputEmail3" class="col-sm-5 col-form-label">Описание клиники(uz)</label>
                         <div class="col-sm-6 form-control">
-                            {{ $clinic->description_uz }}
+                            {!! $clinic->description_uz !!}
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="inputEmail3" class=" col-sm-5 col-form-label ">Описание клиники(ru)</label>
                         <div class="col-sm-6 form-control">
-                            {{  $clinic->description_ru }}
+                            {!! $clinic->description_ru !!}
                         </div>
                     </div>
 

@@ -30,93 +30,127 @@
 
     <div class="container margin_120_95">
         <div class="main_title">
-            <h2>{{ trans('home.search_by_route' ) }}</h2>
+            <h2>{{ trans('home.discover_the_appointment' ) }}</h2>
+            <p>{{ trans('extra_info.online_meeting' ) }}</p>
         </div>
         <div class="row add_bottom_30">
-            @foreach($services as $service)
-                <div class="col-lg-3 col-md-6">
-                    <a href="{{ route('clinics.index') . '?service=' .  $service->id }}" class="box_cat_home">
-                        <i class="icon-info-4"></i>
-                        <img src="{{ $service->icon ? $service->iconOriginal : 'img/icon_cat_1.svg' }}" width="60" height="60" alt="">
-                        <h3>{{ $service->name }}</h3>
-                        <ul class="clearfix" id="abcd">
-                            <li><strong>{{ $service->serviceClinics()->count() }}</strong>{{trans('doctors.university')}}</li>
-                        </ul>
-                    </a>
+            <div class="col-lg-4">
+                <div class="box_feat" id="icon_1">
+                    <span></span>
+                    <h3>{{ trans('home.find_doctor' ) }}</h3>
+                    <p>{{ trans('extra_info.extra1' ) }}</p>
                 </div>
-            @endforeach
+            </div>
+            <div class="col-lg-4">
+                <div class="box_feat" id="icon_2">
+                    <span></span>
+                    <h3>{{ trans('home.view_profile' ) }}</h3>
+                    <p>{{ trans('extra_info.extra2' ) }}</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="box_feat" id="icon_3">
+                    <h3>{{ trans('home.book_visit' ) }}</h3>
+                    <p>{{ trans('extra_info.extra3' ) }}</p>
+                </div>
+            </div>
         </div>
-        <p class="text-center"><a href="{{ route('clinics.index' ) }}" class="btn_1 medium">{{trans('home.more')}}</a></p>
+        <p class="text-center"><a href="{{ route('doctors.index' ) }}" class="btn_1 medium">{{ trans('home.find_doctor' ) }}</a></p>
     </div>
 
     <div class="bg_color_1">
         <div class="container margin_120_95">
             <div class="main_title">
-                <h2>{{ trans('home.top_rate_doctors' ) }}</h2>
-                <p>{{ trans('extra_info.rate_top_doctors' ) }}</p>
+                <h2>{{ trans('home.search_by_route' ) }}</h2>
             </div>
-
-            <div id="reccomended" class="owl-carousel owl-theme">
-                @foreach($bestRatedDoctors as $doctor)
-                    <div class="item">
-                        <a href="{{ route('doctors.show', $doctor) }}">
-                            <div class="views"><i class="icon-star-5"></i>{{ $doctor->profile->rate }}</div>
-                            <div class="title">
-                                <h4>{{ $doctor->profile->fullName }}
-                                    <em>
-                                        @foreach($doctor->specializations as $specialization)
-                                            {{ $specialization->name }}<br>
-                                        @endforeach
-                                    </em>
-                                </h4>
-                            </div>
-                            <img src="{{ $doctor->profile->avatar ? $doctor->profile->image : 'img/no-avatar.jpg' }}" alt="">
+            <div class="row add_bottom_30">
+                @foreach($services as $service)
+                    <div class="col-lg-3 col-md-6">
+                        <a href="{{ route('clinics.index') . '?service=' .  $service->id }}" class="box_cat_home">
+                            <i class="icon-info-4"></i>
+                            <img src="{{ $service->icon ? $service->iconOriginal : 'img/icon_cat_1.svg' }}" width="60" height="60" alt="">
+                            <h3>{{ $service->name }}</h3>
+                            <ul class="clearfix" id="abcd">
+                                <li><strong>{{ $service->serviceClinics()->count() }}</strong>{{trans('doctors.university')}}</li>
+                            </ul>
                         </a>
                     </div>
                 @endforeach
             </div>
+            <p class="text-center"><a href="{{ route('clinics.index' ) }}" class="btn_1 medium">{{trans('home.more')}}</a></p>
         </div>
     </div>
+
     <div class="container margin_120_95">
         <div class="main_title">
-            <h2>{{ trans('home.find_doctors_or_clinics' ) }}</h2>
-            <p>{{ trans('extra_info.doctor_or_clinic' ) }}</p>
+            <h2>{{ trans('home.top_rate_doctors' ) }}</h2>
+            <p>{{ trans('extra_info.rate_top_doctors' ) }}</p>
         </div>
-        <div class="row justify-content-center">
-            <div class="col-xl-4 col-lg-5 col-md-6">
-                <div class="list_home">
-                    <div class="list_title">
-                        <i class="icon_pin_alt"></i>
-                        <h3>{{ trans('home.search_by_region' ) }}</h3>
-                    </div>
-                    <ul>
-                        @foreach($regions as $region)
-                            <li><a href="{{ route('doctors.index') . '?region=' . $region->id }}"><strong>23</strong>{{ $region->name }}</a></li>
-                        @endforeach
-                        <li><a href="{{ route('doctors.index') }}">{{ trans('home.more' ) }}</a></li>
-                    </ul>
+
+        <div id="reccomended" class="owl-carousel owl-theme">
+            @foreach($bestRatedDoctors as $doctor)
+                <div class="item">
+                    <a href="{{ route('doctors.show', $doctor) }}">
+                        <div class="views"><i class="icon-star-5"></i>{{ $doctor->profile->rate }}</div>
+                        <div class="title">
+                            <h4>{{ $doctor->profile->fullName }}
+                                <em>
+                                    @foreach($doctor->specializations as $specialization)
+                                        {{ $specialization->name }}<br>
+                                    @endforeach
+                                </em>
+                            </h4>
+                        </div>
+                        <img src="{{ $doctor->profile->avatar ? $doctor->profile->image : 'img/no-avatar.jpg' }}" alt="">
+                    </a>
                 </div>
+            @endforeach
+        </div>
+    </div>
+
+    <div class="bg_color_1">
+        <div class="container margin_120_95">
+            <div class="main_title">
+                <h2>{{ trans('home.find_doctors_or_clinics' ) }}</h2>
+                <p>{{ trans('extra_info.doctor_or_clinic' ) }}</p>
             </div>
-            <div class="col-xl-4 col-lg-5 col-md-6">
-                <div class="list_home">
-                    <div class="list_title">
-                        <i class="icon_archive_alt"></i>
-                        <h3>{{ trans('home.search_by_specialization' ) }}</h3>
+            <div class="row justify-content-center">
+                <div class="col-xl-4 col-lg-5 col-md-6">
+                    <div class="list_home">
+                        <div class="list_title">
+                            <i class="icon_pin_alt"></i>
+                            <h3>{{ trans('home.search_by_region' ) }}</h3>
+                        </div>
+                        <ul>
+                            @foreach($regions as $region)
+                                <li><a href="{{ route('doctors.index') . '?region=' . $region->id }}"><strong>23</strong>{{ $region->name }}</a></li>
+                            @endforeach
+                            <li><a href="{{ route('doctors.index') }}">{{ trans('home.more' ) }}</a></li>
+                        </ul>
                     </div>
-                    <ul>
-                        @foreach($specializations as $specialization)
-                            <li>
-                                <a href="{{ route('doctors.index') . '?specialization=' . $specialization->id }}">
-                                    <strong>{{ $specialization->doctors()->count() }}</strong>{{ $specialization->name }}
-                                </a>
-                            </li>
-                        @endforeach
-                        <li><a href="{{ route('doctors.index') }}">{{ trans('home.more' ) }}</a></li>
-                    </ul>
+                </div>
+                <div class="col-xl-4 col-lg-5 col-md-6">
+                    <div class="list_home">
+                        <div class="list_title">
+                            <i class="icon_archive_alt"></i>
+                            <h3>{{ trans('home.search_by_specialization' ) }}</h3>
+                        </div>
+                        <ul>
+                            @foreach($specializations as $specialization)
+                                <li>
+                                    <a href="{{ route('doctors.index') . '?specialization=' . $specialization->id }}">
+                                        <strong>{{ $specialization->doctors()->count() }}</strong>{{ $specialization->name }}
+                                    </a>
+                                </li>
+                            @endforeach
+                            <li><a href="{{ route('doctors.index') }}">{{ trans('home.more' ) }}</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
 {{--    <div class="bg_color_1">--}}
 {{--        --}}
 {{--    </div>--}}
@@ -125,32 +159,28 @@
         <div class="container">
             <div class="row justify-content-around">
                 <div class="main_title_5">
-                    <h2>{{ trans('home.discover_the_appointment' ) }}</h2>
-                    <p>{{ trans('extra_info.online_meeting' ) }}</p>
+                    <h2>У нас широкий сервис!</h2>
                 </div>
                 <div class="row add_bottom_30">
                     <div class="col-lg-4">
                         <div class="box_feat" id="icon_1">
-                            <span></span>
-                            <h3>{{ trans('home.find_doctor' ) }}</h3>
-                            <p>{{ trans('extra_info.extra1' ) }}</p>
+                            <h3>Поликлиники</h3>
+                            <p>{{ $polyclinicCount }}</p>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="box_feat" id="icon_2">
-                            <span></span>
-                            <h3>{{ trans('home.view_profile' ) }}</h3>
-                            <p>{{ trans('extra_info.extra2' ) }}</p>
+                            <h3>Частные клиники</h3>
+                            <p>{{ $privateClinicCount }}</p>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="box_feat" id="icon_3">
-                            <h3>{{ trans('home.book_visit' ) }}</h3>
-                            <p>{{ trans('extra_info.extra3' ) }}</p>
+                            <h3>Врачи</h3>
+                            <p>{{ $doctorCount }}</p>
                         </div>
                     </div>
                 </div>
-                <p class="text-center"><a href="{{ route('doctors.index' ) }}" class="btn_11 medium">{{ trans('home.find_doctor' ) }}</a></p>
             </div>
         </div>
     </div>
