@@ -7,6 +7,7 @@
             "specialization" => "Cпециализация",
             "mainphoto" => "Основная картина",
             "photos" => "Картины",
+            "bookings" => "Мои записи"
 
         ],
         "user" => [

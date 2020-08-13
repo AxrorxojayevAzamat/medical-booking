@@ -42,7 +42,7 @@
                             <tr><th>{{ trans('contacts.gender') }}</th><td>{{ $user->profile->gender === 0 ? trans('contacts.woman') : trans('contacts.man')}}</td></tr>
                         </tbody>
                     </table>
-                    <button class="btn btn-danger mr-1 p-2 float-right" onclick="return confirm('{{trans('msg.are_you_sure')}}')">{{ trans('menu.delete') }}</button>
+                    <button class="btn btn-danger mr-1 p-2 float-right" onclick="return confirm('{{trans('msg.delete_profile')}}')">{{ trans('menu.delete') }}</button>
 
                 </div>
             </div>

@@ -5,7 +5,6 @@
 	<div class="container-fluid" style="margin-top: 60px">
 		@include('doctor.breadcrumbs')
         <div class="box_general padding_bottom">
-		<h1 align="center">{{trans('menu.timetable')}}</h1>
 		@if(Session::has('error'))
 		<div class="alert alert-danger alert-dismissible fade show" role="alert">
 		  @include('partials.timetable.error')

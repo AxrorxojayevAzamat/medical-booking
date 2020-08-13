@@ -7,14 +7,9 @@
 			@include('doctor.breadcrumbs')
 			
             <div class="box_general padding_bottom">
-            	{{-- <h1 align="center">{{trans('menu.editSpecialization')}}</h1> --}}
 			<div class="row">
-			    <div class="col-md-6">
+			    <div class="col-12">
 			        <div class="card primary">
-			            <div class="card-header">
-			                {{ __('Добавить специализации') }}
-			            </div>
-			            <!-- /.card-header -->
 			            <div class="card-body">
 			                <div class="col-sm-12">
 			                    <form method="POST" action="{{ route("doctor.store-specializations", $user) }}">
@@ -22,8 +17,6 @@
 			                        <div class="row">
 			                            <div class="col-sm-12">
 			                                <div class="form-group">
-
-			                                    <label for="specialization" class="col-form-label text-md-left">{{ __('Специализации') }}</label>
 			                                    <select class="select2 select2-hidden-accessible" name="specializationUser[]" multiple="multiple" data-placeholder="{{ __('Специализации') }}" style="width: 100%;">
 			                                        <option value=""></option>
 
@@ -47,17 +40,11 @@
 			                    </form>
 			                </div>
 			            </div>
-			            <!-- /.card-body -->
 			            <div class="card-footer">
 			            </div>
-			            <!-- /.card-footer -->
-
 			        </div>
-			        <!-- /.card primary-->
 			    </div>
-			    <!-- /.col-md -6.3 -->
 			</div>
-
 		</div>
 	</div>
 </div>

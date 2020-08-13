@@ -6,7 +6,7 @@ return [
     'blog'                          => 'Blog',
     'book'                          => 'Qa\'bulga yozilish',
     'back'                          => 'Orqaga',
-    'edit'                          => 'O\'zgartirish',
+    'edit'                          => 'Tahrirlash',
     'delete'                        => 'Profileni o\'chirish',
     'my_records'                    => 'Mening qaydlarim',
     'pages'                         => 'Pages',

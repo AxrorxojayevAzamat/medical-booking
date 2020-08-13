@@ -27,8 +27,8 @@
                         <h2 class="bold">{{ $average }} / 5.0 </h2>
                     </div>
                     <div class="col-xl-8 col-lg-7 col-md-12 col-sm-12 row justify-content-end">
-                        <a class="btn btn-primary mr-1 mb-3 p-2 bd-highlight" href="{{ route('doctor.profileEdit')}}">{{ trans('menu.edit') }}</a>
-                        <a class="btn btn-primary mr-1 mb-3 p-2 bd-highlight" href="{{ route('doctor.editSpecialization')}}">{{ trans('menu.editSpecialization') }}</a>
+                        <a class="btn btn-primary mr-1 mb-3 p-2 bd-highlight" href="{{ route('doctor.profileEdit')}}">{{ trans('panel.doctor.edit') }}</a>
+                        <a class="btn btn-primary mr-1 mb-3 p-2 bd-highlight" href="{{ route('doctor.editSpecialization')}}">{{ trans('doctors.specs') }}</a>
                         <a class="btn btn-info mr-1 mb-3 p-2 bd-highlight" href="{{ route('doctor.main-photo', $user)}}">{{trans('menu.main_photo')}}</a>
                         <a class="btn btn-info mr-1 mb-3 p-2 bd-highlight" href="{{ route('doctor.photos')}}">{{trans('menu.photos')}}</a>
                     </div>

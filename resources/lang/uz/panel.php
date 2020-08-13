@@ -7,6 +7,7 @@
             "specialization" => "Ixtisoslik",
             "mainphoto" => "Asosiy rasm",
             "photos" => "Rasmlar",
+            "bookings" => "Mening qaydlarim"
 
         ],
         "user" => [
