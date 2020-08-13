@@ -117,64 +117,60 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         Route::post('delete-image', 'NewsController@removeImage')->name('delete-image');
     });
     Route::group(['prefix' => 'pages', 'as' => 'pages.'], function () {
-        Route::get('','PagesController@index')->name('pages');
-        Route::get('/create','PagesController@create')->name('create');
-        Route::post('/create','PagesController@store')->name('store');
-        Route::get('/view/{id?}','PagesController@view')->name('view');
-        Route::get('/edit/{id?}','PagesController@edit')->name('edit');
-        Route::post('/edit','PagesController@editSave')->name('editSave');
+        Route::get('', 'PagesController@index')->name('pages');
+        Route::get('/create', 'PagesController@create')->name('create');
+        Route::post('/create', 'PagesController@store')->name('store');
+        Route::get('/view/{id?}', 'PagesController@view')->name('view');
+        Route::get('/edit/{id?}', 'PagesController@edit')->name('edit');
+        Route::post('/edit', 'PagesController@editSave')->name('editSave');
     });
 });
 
-Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function() {
+Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
     Route::get('', 'HomeController@index')->name('home');
 
-    Route::group([ 'namespace' => 'Admin'], function ()
-    {
-        Route::get('page/{slug?}','PagesController@slug')->name('slug');
+    Route::group([ 'namespace' => 'Admin'], function () {
+        Route::get('page/{slug?}', 'PagesController@slug')->name('slug');
     });
 
     Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 'middleware' => ['auth', 'can:doctor-panel']], function () {
-    Route::get('/profile', 'DoctorController@profileShow')->name('profile');
-    Route::get('/edit', 'DoctorController@profileEdit')->name('profileEdit');
-    Route::post('/edit', 'DoctorController@profileEditSave')->name('profileEditSave');
-    Route::post('store-specializations', 'DoctorController@storeSpecializations')->name('store-specializations');
-    Route::get('specializations', 'DoctorController@specializations')->name('editSpecialization');
+        Route::get('/profile', 'DoctorController@profileShow')->name('profile');
+        Route::get('/edit', 'DoctorController@profileEdit')->name('profileEdit');
+        Route::post('/edit', 'DoctorController@profileEditSave')->name('profileEditSave');
+        Route::post('store-specializations', 'DoctorController@storeSpecializations')->name('store-specializations');
+        Route::get('specializations', 'DoctorController@specializations')->name('editSpecialization');
 
-    Route::group(['namespace' => '\App\Http\Controllers\Admin'], function(){
-        //image
-        Route::get('main-photo', 'UserImageController@mainPhoto')->name('main-photo');
-        Route::post('add-main-photo', 'UserImageController@addMainPhoto')->name('add-main-photo');
-        Route::post('remove-main-photo', 'UserImageController@removeMainPhoto')->name('remove-main-photo');
-        //Photos
-        Route::get('photos', 'UserImageController@photos')->name('photos');
-        Route::post('add-photo', 'UserImageController@addPhoto')->name('add-photo');
-        Route::post('remove-photo/{photo}', 'UserImageController@removePhoto')->name('remove-photo');
-        //Sorting
-        Route::get('move-photo-up/{photo}', 'UserImageController@movePhotoUp')->name('move-photo-up');
-        Route::get('remove-photo/{photo}', 'UserImageController@removePhoto')->name('delete-photo');
-        Route::get('move-photo-down/{photo}', 'UserImageController@movePhotoDown')->name('move-photo-down');
+        Route::group(['namespace' => '\App\Http\Controllers\Admin'], function () {
+            //image
+            Route::get('main-photo', 'UserImageController@mainPhoto')->name('main-photo');
+            Route::post('add-main-photo', 'UserImageController@addMainPhoto')->name('add-main-photo');
+            Route::post('remove-main-photo', 'UserImageController@removeMainPhoto')->name('remove-main-photo');
+            //Photos
+            Route::get('photos', 'UserImageController@photos')->name('photos');
+            Route::post('add-photo', 'UserImageController@addPhoto')->name('add-photo');
+            Route::post('remove-photo/{photo}', 'UserImageController@removePhoto')->name('remove-photo');
+            //Sorting
+            Route::get('move-photo-up/{photo}', 'UserImageController@movePhotoUp')->name('move-photo-up');
+            Route::get('remove-photo/{photo}', 'UserImageController@removePhoto')->name('delete-photo');
+            Route::get('move-photo-down/{photo}', 'UserImageController@movePhotoDown')->name('move-photo-down');
+        });
+        Route::get('/timetable', 'DoctorController@timetable')->name('timetable');
+        Route::put('{user?}/{timetable?}/update', 'DoctorController@update')->name('update');
+        Route::get('{clinic?}/edit', 'DoctorController@edit')->name('edit');
+        Route::get('{doctor_id}/bookings', 'DoctorController@books')->name('doctorbookings');
     });
-    Route::get('/{doctor_id}/bookings', 'DoctorController@books')->name('doctorbookings');
-    Route::get('/timetable', 'DoctorController@timetable')->name('timetable');
-    Route::put('{user?}/{timetable?}/update', 'DoctorController@update')->name('update');
-    Route::get('{clinic?}/edit', 'DoctorController@edit')->name('edit');
-    Route::get('{doctor_id}/bookings', 'DoctorController@books')->name('doctorbookings');
-});
 
-Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function () {
-    Route::get('', 'PatientController@profileShow')->name('profile');
-    Route::get('/edit', 'PatientController@profileEdit')->name('profileEdit');
-    Route::post('/edit', 'PatientController@profileEditSave')->name('profileEditSave');
-    Route::get('/booking/{user}/{clinic}', 'PatientController@booking')->name('booking');
-    Route::post('/booking-doctor/', 'PatientController@bookingDoctor')->name('booking-doctor');
-    Route::get('/{user_id}/bookings', 'PatientController@myBookings')->name('mybookings');
-    Route::post('destroy','PatientController@destroy')->name('destroy');
-
-});
+    Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function () {
+        Route::get('', 'PatientController@profileShow')->name('profile');
+        Route::get('/edit', 'PatientController@profileEdit')->name('profileEdit');
+        Route::post('/edit', 'PatientController@profileEditSave')->name('profileEditSave');
+        Route::get('/booking/{user}/{clinic}', 'PatientController@booking')->name('booking');
+        Route::post('/booking-doctor/', 'PatientController@bookingDoctor')->name('booking-doctor');
+        Route::get('/{user_id}/bookings', 'PatientController@myBookings')->name('mybookings');
+        Route::post('destroy', 'PatientController@destroy')->name('destroy');
+    });
 
     Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
-
         Route::post('paycom/create', 'PaycomController@createOrder');
         Route::post('paycom/perform', 'PaycomController@performOrder');
         Route::post('click/create', 'ClickController@createOrder');
@@ -195,7 +191,6 @@ Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient
         Route::get('{doctor_id}/rate/{rate}', 'RateController@rate')->name('rate');
         Route::get('{doctor_id}/ratecancel', 'RateController@rateCancel')->name('rateCancel');
         Route::get('{doctor}/clinics/{clinic}/book', 'Doctor\DoctorController@book')->name('book');
-
     });
     Route::get('/specializations', 'SpecializationsController@index')->name('specializations');
 

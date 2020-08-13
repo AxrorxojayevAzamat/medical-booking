@@ -341,7 +341,7 @@ Breadcrumbs::register('admin.contactlist', function (Crumbs $crumbs) {
     $crumbs->push(trans('breadcrumbs.recall'), route('admin.contactlist'));
 });
 
-//pages
+// pages
 Breadcrumbs::register('admin.pages.pages', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
     $crumbs->push('Pages', route('admin.pages.pages'));
@@ -360,7 +360,7 @@ Breadcrumbs::register('admin.pages.edit', function (Crumbs $crumbs) {
 });
 
 
-///////////// DOCTOR
+// cabinet-doctor
 
 Breadcrumbs::register('doctor.profile', function (Crumbs $crumbs) {
     $crumbs->push(trans('panel.doctor.doctor'), route('doctor.profile'));
@@ -381,9 +381,9 @@ Breadcrumbs::register('doctor.editSpecialization', function (Crumbs $crumbs) {
     $crumbs->push(trans('panel.doctor.specialization'), route('doctor.editSpecialization'));
 });
 
-Breadcrumbs::register('doctor.doctorbookings', function (Crumbs $crumbs, User $doctor) {
+Breadcrumbs::register('doctor.doctorbookings', function (Crumbs $crumbs, $user) {
     $crumbs->parent('doctor.profile');
-    $crumbs->push(trans('panel.doctor.timetable'), route('doctor.doctorbookings', $doctor->id));
+    $crumbs->push(trans('panel.doctor.timetable'), route('doctor.doctorbookings', $user));
 });
 
 Breadcrumbs::register('doctor.main-photo', function (Crumbs $crumbs) {
@@ -401,15 +401,15 @@ Breadcrumbs::register('doctor.edit', function (Crumbs $crumbs) {
     $crumbs->push(trans('panel.doctor.timetable'), route('doctor.edit'));
 });
 
-///////////// USER
+//cabinet-patient
 
 Breadcrumbs::register('patient.profile', function (Crumbs $crumbs) {
     $crumbs->push(trans('panel.user.user'), route('patient.profile'));
 });
 
-Breadcrumbs::register('patient.mybookings', function (Crumbs $crumbs, User $doctor) {
+Breadcrumbs::register('patient.mybookings', function (Crumbs $crumbs, $user) {
     $crumbs->parent('patient.profile');
-    $crumbs->push(trans('panel.doctor.timetable'), route('patient.mybookings', $doctor->id));
+    $crumbs->push(trans('panel.doctor.timetable'), route('patient.mybookings', $user));
 });
 
 Breadcrumbs::register('patient.profileEdit', function (Crumbs $crumbs) {
