@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entity\Clinic\Clinic;
 use App\Entity\Clinic\Service;
 use App\Entity\Clinic\Specialization;
 use App\Entity\Region;
@@ -40,6 +41,11 @@ class HomeController extends Controller
             ->orderByDesc('service_clinics_count')
             ->orderBy($name)->limit(8)->get();
 
-        return view('home', compact('bestRatedDoctors', 'regions', 'specializations', 'services'));
+        $polyclinicCount = Clinic::where('type', Clinic::CLINIC_TYPE_GOVERNMENT)->count();
+        $privateClinicCount = Clinic::where('type', Clinic::CLINIC_TYPE_PRIVATE)->count();
+        $doctorCount = User::active()->doctor()->count();
+
+        return view('home', compact('bestRatedDoctors', 'regions', 'specializations', 'services',
+            'polyclinicCount', 'privateClinicCount', 'doctorCount'));
     }
 }

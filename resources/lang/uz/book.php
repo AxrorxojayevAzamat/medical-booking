@@ -29,4 +29,10 @@ return [
     'success'=>'Muvafaqqiyatli',
     'client'=>'Be\'mor kelmadi',
     'doctor'=>'Shifokor kelmadi',
+    'name_of_clinic' => 'Klinika nomi:',
+    'booking_cost' => 'Buyurtma narxi',
+    'book_and_pay' => 'Buyurtma va to\'lov',
+    'locale' => 'uz',
+    'booked' => 'Band qilingan',
+    'payment_link' => 'Buyurtmani faollashtirish uchun ushbu havola yordamida to`lovni amalga oshiring'
 ];

@@ -52,7 +52,7 @@ class ClinicController extends Controller
 
     public function create()
     {
-        $this->authorize('manage-clinics');
+        $this->middleware('manage-clinics');
         $parentRegions = Region::where('parent_id', null)->pluck('name_ru', 'id');
         $services = Service::orderByDesc('name_ru')->pluck('name_ru', 'id')->toArray();
 
@@ -61,7 +61,6 @@ class ClinicController extends Controller
 
     public function store(ClinicRequest $request)
     {
-        DB::beginTransaction();
         try {
             $clinic = $this->service->create($request);
 

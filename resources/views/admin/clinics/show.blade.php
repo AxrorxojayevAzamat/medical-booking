@@ -28,7 +28,7 @@
                 <a href="{{ route('admin.clinics.edit', $clinic) }}" class="btn btn-primary mr-1">Редактировать</a>
                 <a href="{{ route('admin.clinics.main-photo', $clinic) }}" class="btn btn-info mr-1">Главное фото</a>
                 <a href="{{route('admin.clinics.photos', $clinic)}}" class="btn btn-info mr-1">Фотографии</a>
-                <a href="{{ route('admin.clinics.contacts.create', $clinic) }}" class="btn btn-success mr-1">Добавить контакт</a>
+                <a href="{{ route('admin.clinics.contacts.create', $clinic) }}" class="btn btn-succes mr-1">Добавить контакт</a>
                 <form action="{{ route('admin.clinics.destroy', $clinic) }}" method="post">
                   @csrf
                   @method('DELETE')
@@ -91,14 +91,14 @@
                     <div class="form-group row">
                         <label for="inputEmail3" class="col-sm-5 col-form-label">Описание клиники(uz)</label>
                         <div class="col-sm-6 form-control">
-                            {{ $clinic->description_uz }}
+                            {!! $clinic->description_uz !!}
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="inputEmail3" class=" col-sm-5 col-form-label ">Описание клиники(ru)</label>
                         <div class="col-sm-6 form-control">
-                            {{  $clinic->description_ru }}
+                            {!! $clinic->description_ru !!}
                         </div>
                     </div>
 

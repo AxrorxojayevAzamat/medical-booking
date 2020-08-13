@@ -86,7 +86,7 @@
             {{-- <a href="{{ route('admin.regions.index') }}" class="btn btn-default btn-sm ml-1">Назад</a> --}}
         <div class="form-group">
             <button type="submit" class="btn btn-success">Редактировать</button>
-            <a href="{{ route('admin.regions.index') }}" class="btn btn-default">Назад</a>
+            {{-- <a href="{{ route('admin.regions.index') }}" class="btn btn-default">Назад</a> --}}
         </div>
     </form>
 @endsection

@@ -2,6 +2,26 @@
 
 @section('content')
 
+ @if($errors->any())
+        @foreach($errors->all() as $error)
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ $error }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endforeach
+    @endif
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+    @endif
+    
 <div class="row">
     <div class="col-md-12">
 
@@ -12,7 +32,7 @@
             <div class="card-body">
                 <div class="card-body">
                     <form action="?" method="GET">
-                        <div class="row d-flex justify-content-center">
+                        <div class="row d-flex justify-content-start">
                             <div class="">
                                 <div class="form-group">
                                     <label for="id" class="col-form-label">{{ trans('Ид') }}</label>
@@ -26,36 +46,14 @@
                             </div>
                             <div class="">
                                 <div class="form-group">
-                                    <label for="name" class="col-form-label">{{ trans('Имя пользователя') }}</label>
-                                    <input id="name" class="form-control" name="name" value="{{ request('name') }}">
-                                    @if ($errors->has('name'))
-                                    <div class="invalid-feedback">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <label for="name" class="col-form-label">{{ __('Имя,Фамилия') }}</label>
+                                        <input name="name" type="text" class="form-control"  value="{{ request('name') }}" placeholder="Имя,Фамилия">
                                     </div>
-                                    @endif
                                 </div>
-                            </div>
-                            <div class="">
-                                <div class="form-group">
-                                    <label for="first_name" class="col-form-label">{{ trans('Имя') }}</label>
-                                    <input id="first_name" class="form-control" name="first_name" value="{{ request('first_name') }}">
-                                    @if ($errors->has('first_name'))
-                                    <div class="invalid-feedback">
-                                        <strong>{{ $errors->first('first_name') }}</strong>
-                                    </div>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="">
-                                <div class="form-group">
-                                    <label for="last_name" class="col-form-label">{{ trans('Фамилия') }}</label>
-                                    <input id="last_name" class="form-control" name="last_name" value="{{ request('last_name') }}">
-                                </div>
-                            </div>
                             <div class="">
                                 <div class="form-group">
                                     <label for="name" class="col-form-label">{{ trans('Телефон') }}</label>
-                                    <input id="phone" type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;(999) 99 999-9999&quot;" data-mask="" im-insert="true" name="phone" value="{{ request('phone') }}">
+                                    <input id="phone" type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;999999999&quot;" data-mask="" im-insert="true" name="phone" value="{{ request('phone') }}">
                                 </div>
                             </div>
                             <div class="">
@@ -68,7 +66,7 @@
                                 <div class="form-group pl-1">
                                     <label class="col-form-label">&nbsp;</label><br />
                                     <button type="submit" class="btn btn-primary">Поиск</button>
-                                    <a href="?" class="btn btn-outline-secondary">{{ __('Очистить') }}</a>
+                                    <a href="?" class="btn btn-danger">{{ __('Очистить') }}</a>
                                 </div>
                             </div>
                         </div>

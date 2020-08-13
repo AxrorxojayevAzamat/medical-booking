@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Entity\User\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -13,8 +12,7 @@ class RegisterController extends Controller
 {
     use RegistersUsers;
 
-    //protected $redirectTo = '/home';
-    protected $redirectTo;
+    protected $redirectTo = '/';
 
     public function __construct()
     {
@@ -24,7 +22,7 @@ class RegisterController extends Controller
     protected function validator(array $data) {
         return Validator::make($data, [
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'confirmed'],
-            'phone' => ['required', 'string', 'max:18', 'unique:users'],
+            'phone' => ['required', 'string', 'unique:users','regex:/^\d{9}$/'],
             'password' => ['required', 'string', 'min:2', 'confirmed'],
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
@@ -49,7 +47,7 @@ class RegisterController extends Controller
             $profile = $user->profile()->create([
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
-                'patronymic' => $data['middle_name'],
+                'middle_name' => $data['middle_name'],
                 'birth_date' => $data['birth_date'],
                 'gender' => $data['gender'],
             ]);
@@ -60,8 +58,8 @@ class RegisterController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;
-        }
-
+    }
+    
     }
 
 }

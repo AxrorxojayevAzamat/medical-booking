@@ -1,5 +1,5 @@
 @extends('layouts.admin.page')
-@section('breadcrumbs', '')
+{{-- @section('breadcrumbs', '') --}}
 @section('content')
 
 @if($errors->any())
@@ -110,8 +110,8 @@
                         <label for="gender" class="col-form-label text-md-left">{{ trans('Пол') }}</label>
                         <select id="gender" class="form-control{{ $errors->has('gender') ? ' is-invalid' : '' }}" name="gender" required>
                             <option value="" selected=""></option>>
-                            <option value="0" {{ old('gender') == 0 ? 'selected' : '' }} >Женский</option>>
                             <option value="1" {{ old('gender') == 1 ? 'selected' : '' }} >Мужской</option>>
+                            <option value="0" {{ old('gender') == 0 ? 'selected' : '' }} >Женский</option>>
                         </select>
                         @error('gender')
                             <span class="invalid-feedback"><strong>{{ $errors->first('gender') }}</strong></span>
@@ -125,7 +125,6 @@
 
     <div class="form-group">
         <button type="submit" class="btn btn-success">{{ trans('Сохранить') }}</button>
-        <a class="btn btn-secondary" href="{{ route("admin.users.index") }}">{{ trans('Отменить') }}</a>
     </div>
 </form>
 @endsection

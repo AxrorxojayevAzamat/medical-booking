@@ -6,82 +6,60 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-footer">
+                <div class="card-footer bg-transparent">
                     @if(Auth::user()->isAdmin())<a class="btn btn-success" href="{{ route("admin.users.create") }}">{{ trans('Добавить') }} </a>@endif
                 </div>
 
                 <div class="card-body">
-                    <div class="card-body">
+                    <div class="card-body pt-0">
                         <form action="?" method="GET">
                             <div class="row">
                                 <div class="col-sm-1">
                                     <div class="form-group">
-                                        <label for="id" class="col-form-label">{{ trans('Ид') }}</label>
-                                        <input id="id" class="form-control" name="id" value="{{ request('id') }}">
-                                        @if ($errors->has('id'))
-                                            <div class="invalid-feedback">
-                                                <strong>{{ $errors->first('id') }}</strong>
-                                            </div>
-                                        @endif
+                                        {!! Form::label('id', 'ИД', ['class' => 'col-form-label']) !!}
+                                        {!! Form::text('id', null, ['class'=>'form-control']) !!}
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
                                     <div class="form-group">
-                                        <label for="first_name" class="col-form-label">{{ trans('Имя пользователя') }}</label>
-                                        <input id="first_name" class="form-control" name="first_name" value="{{ request('first_name') }}">
-                                        @if ($errors->has('first_name'))
-                                            <div class="invalid-feedback">
-                                                <strong>{{ $errors->first('first_name') }}</strong>
-                                            </div>
-                                        @endif
+                                        {!! Form::label('fio', 'ФИО:', ['class' => 'col-form-label']) !!}
+                                        {!! Form::text('fio', null, ['class'=>'form-control']) !!}
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
                                     <div class="form-group">
-                                        <label for="last_name" class="col-form-label">{{ trans('Фамилия') }}</label>
-                                        <input id="last_name" class="form-control" name="last_name" value="{{ request('last_name') }}">
+                                        {!! Form::label('phone', 'Телефон:', ['class' => 'col-form-label']) !!}
+                                        {!! Form::text('phone',null, ['class'=>'form-control']) !!}
                                     </div>
                                 </div>
+                               
                                 <div class="col-sm-2">
                                     <div class="form-group">
-                                        <label for="name" class="col-form-label">{{ trans('Телефон') }}</label>
-                                        <input id="phone" type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;(999) 99 999-9999&quot;" data-mask="" im-insert="true" name="phone" value="{{ request('phone') }}">
+                                        {!! Form::label('email', 'Email:', ['class' => 'col-form-label']) !!}
+                                        {!! Form::text('email',null, ['class'=>'form-control']) !!}
                                     </div>
-                                </div>
+                                </div>  
                                 <div class="col-sm-2">
                                     <div class="form-group">
-                                        <label for="email" class="col-form-label">{{ trans('Email') }}</label>
-                                        <input id="email" class="form-control" name="email" value="{{ request('email') }}">
+                                        {!! Form::label('role', 'Роль:', ['class' => 'col-form-label']) !!}
+                                        {!! Form::select('role', \App\Entity\User\User::rolesList(), request('role'), ['class'=>'form-control', 'placeholder' => '']) !!}
                                     </div>
                                 </div>
                                 <div class="col-sm-1">
                                     <div class="form-group">
-                                        <label for="role" class="col-form-label">{{ trans('Роль') }}</label>
-                                        <select id="role" class="form-control" name="role">
-                                            <option value=""></option>
-                                            @foreach ($roles as $value => $label)
-                                            <option value="{{ $value }}"{{ $value === request('role') ? ' selected' : '' }}>{{ $label }}</option>
-                                            @endforeach
-                                        </select>
+                                        {!! Form::label('status', 'Статус:', ['class' => 'col-form-label']) !!}
+                                        {!! Form::select('status', \App\Entity\User\User::statusList(), request('status'), ['class'=>'form-control', 'placeholder' => '']) !!}
+                                     
                                     </div>
                                 </div>
-                                <div class="col-sm-1">
-                                    <div class="form-group">
-                                        <label for="status" class="col-form-label">{{ trans('Статус') }}</label>
-                                        <select id="status" class="form-control" name="status">
-                                            <option value=""></option>
-                                            @foreach ($statuses as $value => $label)
-                                            <option value="{{ $value }}"{{ $value === request('status') ? ' selected' : '' }}>{{ $label }}</option>
-                                            @endforeach;
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-1">
+                                <div class="col-sm-2">
                                     <div class="form-group">
                                         <label class="col-form-label">&nbsp;</label><br />
                                         <button type="submit" class="btn btn-primary">Поиск</button>
+                                        <a href="?" class="btn btn-danger">{{ __('Очистить') }}</a>
                                     </div>
                                 </div>
+                               
                             </div>
                         </form>
                     </div>
@@ -101,7 +79,6 @@
                             @foreach ($users as $user)
                             <tr>
                                 <td>{{ $user->id }}</td>
-                                {{-- <td>{{ $user->profile ? $user->profile->fullName : '' }}</td> --}}
                                 <td><a href="{{ route('admin.users.show', $user->id) }}">{{ $user->profile ? $user->profile->fullName : '' }}</a></td>
                                 <td><a href="{{ route('admin.users.show', $user->id) }}">{{ $user->phone }}</a></td>
                                 <td><a href="{{ route('admin.users.show', $user->id) }}">{{ $user->email }}</a></td>
@@ -123,22 +100,5 @@
         </div>
     </div>
 
-    {{ $users->links() }}
+    {{$users->appends( Request::query() )->render()}}
 @endsection
-    @section('script')
-    $(function () {
-    $("#example1").DataTable({
-    "responsive": true,
-    "autoWidth": false,
-    });
-    $('#example2').DataTable({
-    "paging": true,
-    "lengthChange": false,
-    "searching": false,
-    "ordering": true,
-    "info": true,
-    "autoWidth": false,
-    "responsive": true,
-    });
-    });
-    @stop

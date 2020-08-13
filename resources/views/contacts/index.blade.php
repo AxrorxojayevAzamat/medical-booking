@@ -28,7 +28,7 @@
 							<form method="post" action="{{ route('contacts.postContacts') }}" id="contactform">
 								@csrf
 								<div class="row">
-									<div class="col-md-6 col-sm-6">
+									<div class="col-md-6 col-sm-6 py-2">
 										<div class="form-group">
 											<input type="text" class="form-control" id="name" name="name" value="{{old('name')}}" placeholder="{{ trans('contacts.name') }}" required>
 											@if ($errors->has('name'))
@@ -38,7 +38,7 @@
 	                                        @endif
 										</div>
 									</div>
-									<div class="col-md-6 col-sm-6">
+									<div class="col-md-6 col-sm-6 py-2">
 										<div class="form-group">
 											<input type="text" class="form-control" id="lastname" value="{{old('lastname')}}" name="lastname" placeholder="{{ trans('contacts.lastname') }}" required>
 											@if ($errors->has('lastname'))
@@ -50,7 +50,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-md-6 col-sm-6">
+									<div class="col-md-6 col-sm-6 py-2">
 										<div class="form-group">
 											<input type="email" id="email" name="email" class="form-control" value="{{old('email')}}" placeholder="someone@example.com" required>
 											@if ($errors->has('email'))
@@ -60,7 +60,7 @@
 	                                        @endif
 										</div>
 									</div>
-									<div class="col-md-6 col-sm-6">
+									<div class="col-md-6 col-sm-6 py-2">
 										<div class="form-group">
 											<input type="text" id="phone" name="phone" class="form-control" value="{{old('phone')}}" placeholder="9X-XXX-XX-XX" required>
 											@if ($errors->has('phone'))
@@ -72,7 +72,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-md-12">
+									<div class="col-md-12 py-2">
 										<div class="form-group">
 											<textarea rows="5" id="message" name="message" class="form-control" style="height:100px;" placeholder="{{ trans('contacts.message') }}" required>{{old('message')}}</textarea>
 											@if ($errors->has('message'))
@@ -85,7 +85,7 @@
 								</div>
 
 								<div class="row">
-									<div class="col-md-6">
+									<div class="col-md-6 py-2">
 										<div class="form-group">
 											<div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}">
 											</div>

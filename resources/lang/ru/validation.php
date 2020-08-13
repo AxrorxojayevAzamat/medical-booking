@@ -113,7 +113,7 @@ return [
     'starts_with' => 'The :attribute must start with one of the following: :values',
     'string' => 'Поле :attribute должен быть строкой.',
     'timezone' => 'The :attribute must be a valid zone.',
-    'unique' => 'The :attribute has already been taken.',
+    'unique' => 'Это :attribute уже занято. Попробуйте другое.',
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
@@ -161,6 +161,16 @@ return [
         'title_ru'=>'Название на русском',
         'content_uz'=>'Контент на узбекском языке',
         'content_ru'=>'Контент на русском',
+        'first_name'=>'Имя',
+        'last_name'=>'Фамилия',
+        'middle_name'=>'Отчество',
+        'birth_date'=>'Дата рождения',
+        'gender'=>'Пол',
+        'email'=>'Адрес электронной почты',
+        'password'=>'Пароль',
+        'phone'=>"Телефон",
+        'g-recaptcha-response'=>'Пожалуйста, заполните форму, чтобы отправить форму.
+'
     ],
 
 ];

@@ -47,8 +47,8 @@ class ServiceController extends Controller
 
     public function store(CreateRequest $request)
     {
+        $service = $this->service->create($request);
         try {
-            $service = $this->service->create($request);
 
             return redirect()->route('admin.services.show', $service);
         } catch (\Exception $e) {

@@ -18,6 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('regions/children/{parent_id}', 'Api\RegionController@children');
+Route::get('call-center/findDoctorByRegion', 'Api\CallCenterController@findDoctorByRegion');
+Route::get('call-center/findDoctorByType', 'Api\CallCenterController@findDoctorByType');
 
 Route::post('book/paycom', ['uses' => 'Book\PaycomController@endpoint']);
 Route::post('book/click/prepare', ['uses' => 'Book\ClickController@prepare']);

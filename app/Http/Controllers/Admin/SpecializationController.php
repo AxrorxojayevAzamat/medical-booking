@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Entity\Clinic\Specialization;
 use Illuminate\Http\Request;
+use App\Http\Requests\Admin\Specialization\CreateRequest;
+use App\Http\Requests\Admin\Specialization\UpdateRequest;
 
 class SpecializationController extends Controller
 {
@@ -16,8 +18,9 @@ class SpecializationController extends Controller
 
     public function index()
     {
+        $query = Specialization::orderByDesc('updated_at');
 
-        $specializations = Specialization::all();
+        $specializations = $query->paginate(20);
 
         return view('admin.specializations.index', compact('specializations'));
     }
@@ -27,9 +30,11 @@ class SpecializationController extends Controller
         return view('admin.specializations.create');
     }
 
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        Specialization::create($request->all());
+        $data = $request->all();
+        Specialization::new($data['name_uz'], $data['name_ru']);
+
         return redirect()->route('admin.specializations.index');
     }
 

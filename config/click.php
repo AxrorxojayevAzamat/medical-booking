@@ -6,4 +6,5 @@ return [
     'service_id' => '14009',
     'user_id' => '13337',
     'secret_key' => 'xBYX4MfzUN',
+    'endpoint_check' => 'https://my.click.uz/services/pay?',
 ];

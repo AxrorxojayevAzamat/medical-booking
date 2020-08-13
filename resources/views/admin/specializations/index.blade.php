@@ -58,11 +58,10 @@
                 </table>
             </div>
             <!-- /.card-body -->
-
+            {{ $specializations->links() }}
         </div>
         <!-- /.card -->
     </div>
     <!-- /.col -->
 </div>
-<!-- /.row -->
 @stop

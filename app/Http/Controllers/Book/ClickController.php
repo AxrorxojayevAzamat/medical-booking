@@ -12,19 +12,21 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use App\Services\BookSmsService;
 
 class ClickController extends Controller
 {
     private $service;
     private $accounts;
     private $validator;
+    private $bookService;
 
-    public function __construct(ClickService $service, ClickValidator $validator)
+    public function __construct(ClickService $service, ClickValidator $validator, BookSmsService $bookService)
     {
         $this->service = $service;
         $this->validator = $validator;
+        $this->bookService = $bookService;
     }
-
 
     ##################################################################################### Endpoints
 
@@ -67,57 +69,61 @@ class ClickController extends Controller
     {
         return $this->baseClickAction($request, function (BookRequest $request): JsonResponse {
 //            $this->validator->validateOrderCreate($request);
-            $this->validator->validateAmount($request->amount);
-            $user = Auth::user();
+                    $this->validator->validateAmount($request->amount);
+                    $user = Auth::user();
 
-            $order = $this->service->createOrder($user->id, $request->doctor_id, $request->clinic_id, $request->booking_date, $request->time_start, $request->amount, $request->description);
-
-            return $this->response(ResponseHelper::CODE_SUCCESS, 'Click order is created.', ['transaction_id' => $order->merchant_transaction_id]);
-        });
+                    $order = $this->service->createOrder($user->id, $request->doctor_id, $request->clinic_id, $request->booking_date, $request->time_start, $request->amount, $request->description);
+                    
+                    return $this->response(ResponseHelper::CODE_SUCCESS, 'Click order is created.', ['transaction_id' => $order->merchant_transaction_id]);
+                });
     }
 
     public function createToken(Request $request)
     {
         return $this->baseClickAction($request, function (Request $request): JsonResponse {
-            $this->validator->validateAuth($request);
-            $this->validator->validateCreateToken($request);
-            $click = $this->service->createCardToken($request);
+                    $this->validator->validateAuth($request);
+                    $this->validator->validateCreateToken($request);
+                    $click = $this->service->createCardToken($request);
 
-            return $this->response(ResponseHelper::CODE_SUCCESS, trans('Код смс отправляен на ваш телефон.'), ['card_token' => $click->card_token]);
-        });
+                    return $this->response(ResponseHelper::CODE_SUCCESS, trans('Код смс отправляен на ваш телефон.'), ['card_token' => $click->card_token]);
+                });
     }
 
-    public function zzverifyToken(Request $request)
+    public function verifyToken(Request $request)
     {
         return $this->baseClickAction($request, function (Request $request): JsonResponse {
-            $this->validator->validateAuth($request);
-            $this->validator->validateVerifyToken($request);
-            $click = $this->service->verifyCardToken($request);
+                    $this->validator->validateAuth($request);
+                    $this->validator->validateVerifyToken($request);
+                    $click = $this->service->verifyCardToken($request);
 
-            return $this->response(ResponseHelper::CODE_SUCCESS, trans('Card is successfully verified.'));
-        });
+                    return $this->response(ResponseHelper::CODE_SUCCESS, trans('Card is successfully verified.'));
+                });
     }
 
     public function performOrder(Request $request)
     {
         return $this->baseClickAction($request, function (Request $request): JsonResponse {
-            $this->validator->validateAuth($request);
-            $this->validator->validatePerformPayment($request);
-            $click = $this->service->performPayment($request->card_token, $request->transaction_id);
+                    $this->validator->validateAuth($request);
+                    $this->validator->validatePerformPayment($request);
+                    $click = $this->service->performPayment($request->card_token, $request->transaction_id);
+                    
+                    //send book notify SMS and email 
+                    $this->bookService->toSms($order->book_id, null);
+                    $this->bookService->toMail($order->book_id, null);
 
-            return $this->response(ResponseHelper::CODE_SUCCESS, trans('Payment is successfully performed.'), ['book_id' => $click->book_id]);
-        });
+                    return $this->response(ResponseHelper::CODE_SUCCESS, trans('Payment is successfully performed.'), ['book_id' => $click->book_id]);
+                });
     }
 
     public function checkPayment(Request $request)
     {
         return $this->baseClickAction($request, function (Request $request) {
-            $this->validator->validateAuth($request);
-            $this->validator->validateCheckPayment($request);
-            $click = $this->service->checkPayment($request);
+                    $this->validator->validateAuth($request);
+                    $this->validator->validateCheckPayment($request);
+                    $click = $this->service->checkPayment($request);
 
-            return $this->response(ResponseHelper::CODE_SUCCESS, trans('Payment is successfully performed.'), ['book_id' => $click->book_id]);
-        });
+                    return $this->response(ResponseHelper::CODE_SUCCESS, trans('Payment is successfully performed.'), ['book_id' => $click->book_id]);
+                });
     }
 
     #####################################################################################
@@ -139,9 +145,9 @@ class ClickController extends Controller
     protected function response(int $code, string $message, $data = []): JsonResponse
     {
         return response()->json([
-            'message' => $message,
-            'data' => $data,
-        ], $code);
+                    'message' => $message,
+                    'data' => $data,
+                        ], $code);
     }
 
 }
