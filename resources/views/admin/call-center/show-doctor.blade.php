@@ -58,7 +58,8 @@
                             <h3>{{$clinic->name_ru }}</h3>
 
                             @include('book.calendar-time')
-
+                            <input type="checkbox" class="day_checkbox{{$key}}" style="display: none" required>
+                            <input type="checkbox" class="time_checkbox{{$key}}" style="display: none" required>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ trans('book.description') }}</label>
@@ -79,12 +80,17 @@
                                 <div class="row d-flex justify-content-center">
 
                                     <div class="form-group">
-                                        <input type="radio" name="payment_type" value="{{\App\Entity\Book\Book::PAYME}}" checked="checked" />
-                                        <img src="{{asset('img/payme_01.svg')}}" class="img-payme-click choose-payme" width="200px" height=80px>
+                                        <input type="radio" name="payment_type" value="{{\App\Entity\Book\Book::PAYME}}" id="payme_label + {{$key}}"/>
+                                        <label class="payme_label" for="payme_label + {{$key}}">
+                                            <img src="{{asset('img/payme_01.svg')}}" class="img-payme-click choose-payme" width="200px" height=80px>
+                                        </label>
                                     </div>
                                     <div class="form-group">
-                                        <input type="radio" name="payment_type" value="{{\App\Entity\Book\Book::CLICK}}" />
-                                        <img src="{{asset('img/click_01.jpg')}}" class="img-payme-click choose-click" width="200px" height="80px">
+                                        <input type="radio" name="payment_type" value="{{\App\Entity\Book\Book::CLICK}}" id="click_label + {{$key}}"/>
+                                        <label class="click_label" for="click_label + {{$key}}">
+                                            <img src="{{asset('img/click_01.jpg')}}" class="img-payme-click choose-click" width="200px" height="80px">
+                                        </label>
+
                                     </div>
                                 </div>
                                 <div class="error-container">
@@ -283,7 +289,7 @@
 <!-- Back to top button -->
 
 
-
+@include('admin.call-center.payment_style')
 @endsection
 
 @section('js')
