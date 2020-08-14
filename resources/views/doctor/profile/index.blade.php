@@ -32,7 +32,7 @@
                     <div class="row">
                         @if($user->profile->mainPhoto)
                         <div class="col-md-4">        
-                            <img style="width: 150px; margin:15px;" src="{{URL::to($user->profile->mainPhoto->getFileOriginalAttribute())}}" alt="">
+                            <img class=".img-thumbnail" style="width: 150px; margin:15px;" src="{{URL::to($user->profile->mainPhoto->getFileOriginalAttribute())}}" alt="">
                         </div>
                         @endif
                     </div>
