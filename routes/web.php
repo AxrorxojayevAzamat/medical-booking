@@ -17,7 +17,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('/contactslist', 'DashboardController@contactsList')->name('contactlist');
 
     Route::resource('clinics', 'Clinic\ClinicController');
-    Route::group(['prefix' => 'clinics/{clinic}', 'namespace' => 'Clinic', 'as' => 'clinics.'], function () {
+    Route::group(['prefix' => 'clinics/{clinic}', 'namespace' => 'Clinic', 'as' => 'clinics.', 'where' => ['clinic' => '[0-9]+']], function () {
         Route::resource('contacts', 'ContactController')->except('index');
         //MainPhoto
         Route::get('main-photo', 'ClinicController@mainPhoto')->name('main-photo');
@@ -41,7 +41,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     });
 
     Route::group(
-        ['prefix' => 'users/{user}', 'as' => 'users.'],
+        ['prefix' => 'users/{user}', 'as' => 'users.', 'where' => ['user' => '[0-9]+']],
         function () {
             Route::post('store-specializations', 'UserController@storeSpecializations')->name('store-specializations');
             Route::get('specializations', 'UserController@specializations')->name('specializations');
@@ -67,7 +67,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 
     Route::resource('/regions', 'RegionController');
     Route::group(['prefix' => 'region', 'as' => 'region.'], function () {
-        Route::get('findCity/{id}', 'RegionController@findCity');
+        Route::get('findCity/{id}', 'RegionController@findCity')->where('id', '[0-9]+');
     });
 
     Route::group(
@@ -83,18 +83,18 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 
     Route::group(['prefix' => 'books', 'as' => 'books.'], function () {
         Route::get('/', 'BookController@index')->name('index');
-        Route::get('/{book}', 'BookController@show')->name('show');
+        Route::get('/{book}', 'BookController@show')->name('show')->where('book', '[0-9]+');
     });
     Route::group(['prefix' => 'call-center', 'namespace' => 'CallCenter','as' => 'call-center.'], function () {
         Route::get('/', 'CallCenterController@index')->name('index');
         Route::get('/create-patient', 'CallCenterController@create')->name('create-patient');
         Route::post('/store-patient', 'CallCenterController@storePatient')->name('store-patient');
-        Route::get('patient/{user}/doctor', 'CallCenterController@doctors')->name('patient-doctor');
-        Route::get('/patient/{user}/doctor/{doctor}', 'CallCenterController@show')->name('show-doctor');
+        Route::get('patient/{user}/doctor', 'CallCenterController@doctors')->name('patient-doctor')->where('user', '[0-9]+');
+        Route::get('/patient/{user}/doctor/{doctor}', 'CallCenterController@show')->name('show-doctor')->where('user', '[0-9]+');
         Route::post('/booking-doctor', 'CallCenterController@bookingDoctor')->name('booking-doctor');
     });
 
-    Route::group(['prefix' => 'partners/{partner}', 'as' => 'partners.'], function () {
+    Route::group(['prefix' => 'partners/{partner}', 'as' => 'partners.', 'where' => ['partner' => '[0-9]+']], function () {
         Route::post('delete-photo', 'PartnerController@deletePhoto')->name('delete-photo');
         Route::post('first', 'PartnerController@first')->name('first');
         Route::post('up', 'PartnerController@up')->name('up');
@@ -133,12 +133,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
     Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function () {
         Route::get('', 'PatientController@profileShow')->name('profile');
-        Route::get('/{user_id}/bookings', 'PatientController@myBookings')->name('mybookings');
+        Route::get('/{user_id}/bookings', 'PatientController@myBookings')->name('mybookings')->where('user_id', '[0-9]+');
     });
 
     Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 'middleware' => ['auth', 'can:doctor-panel']], function () {
         Route::get('profile', 'DoctorController@profileShow')->name('profile');
-        Route::get('{doctor_id}/bookings', 'DoctorController@books')->name('doctorbookings');
+        Route::get('{doctor_id}/bookings', 'DoctorController@books')->name('doctorbookings')->where('doctor_id', '[0-9]+');
     });
 
     Route::group(['prefix' => 'contacts', 'as' => 'contacts.'], function () {
@@ -149,22 +149,23 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
     Route::group(['prefix' => 'doctors', 'as' => 'doctors.'], function () {
         Route::get('', 'Doctor\DoctorController@index')->name('index');
-        Route::get('{user}', 'Doctor\DoctorController@show')->name('show');
-        Route::get('{doctor_id}/rate/{rate}', 'RateController@rate')->name('rate');
-        Route::get('{doctor_id}/ratecancel', 'RateController@rateCancel')->name('rateCancel');
-        Route::get('{doctor}/clinics/{clinic}/book', 'Doctor\DoctorController@book')->name('book')->middleware(['auth', 'can:patient-panel']);
+        Route::get('{user}', 'Doctor\DoctorController@show')->name('show')->where('user', '[0-9]+');
+        Route::get('{doctor_id}/rate/{rate}', 'RateController@rate')->name('rate')->where('doctor_id', '[0-9]+');
+        Route::get('{doctor_id}/ratecancel', 'RateController@rateCancel')->name('rateCancel')->where('doctor_id', '[0-9]+');
+        Route::get('{doctor}/clinics/{clinic}/book', 'Doctor\DoctorController@book')->name('book')
+            ->where('doctor', '[0-9]+')->middleware(['auth', 'can:patient-panel']);
 
     });
     Route::get('/specializations', 'SpecializationsController@index')->name('specializations');
 
     Route::group(['as' => 'clinics.', 'prefix' => 'clinics'], function () {
         Route::get('', 'ClinicController@index')->name('index');
-        Route::get('{clinic}', 'ClinicController@show')->name('show');
+        Route::get('{clinic}', 'ClinicController@show')->name('show')->where('clinic', '[0-9]+');
     });
 
     Route::group(['as' => 'news.', 'prefix' => 'news'], function () {
         Route::get('', 'NewsController@index')->name('index');
-        Route::get('{news}', 'NewsController@show')->name('show');
+        Route::get('{news}', 'NewsController@show')->name('show')->where('news', '[0-9]+');
     });
 });
 
