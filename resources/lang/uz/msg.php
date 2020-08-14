@@ -20,6 +20,7 @@ return [
     'search' => 'Izlash',
     'payment_in' => "To'lov amalga oshmoqda",
     'are_you_sure' => 'Aminmisiz?',
-    'delete_profile' => 'Profilingiz, hamda barcha ma\'lumotlari qo\'shib o\'chib ketadi. Aminmisiz?',
+    'delete_profile' => "Profilingiz, hamda barcha ma`lumotlari qo`shib o`chib ketadi. Aminmisiz?",
+    'deleted' => 'Profile o`chirildi!'
 
 ];
