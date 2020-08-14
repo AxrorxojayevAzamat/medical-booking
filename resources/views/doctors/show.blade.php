@@ -105,7 +105,8 @@
                                     <div class="col-lg-6">
                                         <ul class="bullets">
                                             @foreach ($specs as $spec)
-                                                <li> {{$spec->name}}
+                                                <li>
+                                                    <a href="{{route('doctors.index', ['specialization' => $spec->id])}}">{{$spec->name}}</a> 
                                                 </li>
                                             @endforeach
                                         </ul>
@@ -151,18 +152,17 @@
                             </div>
                         </div>
                     </div>
-                    @foreach($user->profile->photos as $photo)
-                    <div class="box" id="gallery" role="gallery" aria-labelledby="gallery">
-                        <div class="gallery">
-                            <div class="row d-flex justify-content-center">
-                                {{-- @for($i = 1; $i <= 5; $i++)
-                                    <a href="/img/Doctor{{$i}}.jpg" data-lightbox="mygallery"><img src="/img/Doctor{{$i}}.jpg"></a>
-                                @endfor --}}
-                                <a href="{{ $photo->fileOriginal }}" data-lightbox="mygallery"><img src="{{ $photo->fileThumbnail }}"></a>
+                    @if(count($user->profile->photos) != 0)
+                        <div class="box" id="gallery" role="gallery" aria-labelledby="gallery">
+                            <div class="gallery">
+                                <div class="row d-flex justify-content-center">
+                                    @foreach($user->profile->photos as $photo)
+                                        <a href="{{ $photo->fileOriginal }}" data-lightbox="mygallery"><img src="{{ $photo->fileThumbnail }}"></a>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
-                        @endforeach
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>

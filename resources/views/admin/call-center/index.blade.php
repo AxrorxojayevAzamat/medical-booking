@@ -34,7 +34,7 @@
                     <form action="?" method="GET">
                         <div class="row d-flex justify-content-start">
                             <div class="">
-                                <div class="form-group">
+                                <div class="form-group mr-2">
                                     <label for="id" class="col-form-label">{{ trans('Ид') }}</label>
                                     <input id="id" class="form-control" name="id" value="{{ request('id') }}">
                                     @if ($errors->has('id'))
@@ -44,20 +44,20 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-2">
-                                <div class="form-group">
+                            <div class="">
+                                <div class="form-group mr-2">
                                         <label for="name" class="col-form-label">{{ __('Имя,Фамилия') }}</label>
                                         <input name="name" type="text" class="form-control"  value="{{ request('name') }}">
                                     </div>
                                 </div>
-                            <div class="col-2">
-                                <div class="form-group">
+                            <div class="">
+                                <div class="form-group mr-2">
                                     <label for="name" class="col-form-label">{{ trans('Телефон') }}</label>
                                     <input id="phone" type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;999999999&quot;" data-mask="" im-insert="true" name="phone" value="{{ request('phone') }}">
                                 </div>
                             </div>
-                            <div class="col-2">
-                                <div class="form-group">
+                            <div class="">
+                                <div class="form-group mr-2">
                                     <label for="email" class="col-form-label">{{ trans('Email') }}</label>
                                     <input id="email" class="form-control" name="email" value="{{ request('email') }}">
                                 </div>

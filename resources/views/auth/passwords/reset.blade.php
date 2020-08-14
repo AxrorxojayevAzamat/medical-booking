@@ -38,10 +38,10 @@
 
         <div class="container margin_60_35">
             <div id="login">
-                <h1>
+                {{-- <h1>
                     <a href="{{ $dashboard_url }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
-                </h1>
-                <div class="box_form">
+                </h1> --}}
+                <div class="box_form pb-4">
                     <p class="login-box-msg">{{ trans('adminlte::adminlte.password_reset_message') }}</p>
                     <form action="{{ $password_reset_url }}" method="post">
                         {{ csrf_field() }}
@@ -86,7 +86,7 @@
                             </div>
                             @endif
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">
+                        <button type="submit" class="btn_1 btn-primary btn-block btn-flat">
                             {{ trans('adminlte::adminlte.reset_password') }}
                         </button>
 

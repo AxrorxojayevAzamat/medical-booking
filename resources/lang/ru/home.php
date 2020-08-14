@@ -14,4 +14,10 @@ return [
     'search_by_route' => "Поиск по услугам",
     'year' => 'Yil',
     'year' => 'Oy',
+    'service' => [
+        "title" => "У нас широкий сервис!",
+        "polyclinics" => "Поликлиники",
+        "clinics" => "Частные клиники",
+        "doctors" => "Врачи",
+    ]
 ];
