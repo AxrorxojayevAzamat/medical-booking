@@ -39,13 +39,13 @@
         <div class="container margin_60_35">
             <div id="login">
                 <h1>{{ __('adminlte.send_password_reset_link') }}</h1>
-                <div class="box_form">
+                <div class="box_form pb-4">
                     <form method="POST" action="{{ $password_email_url}}" >
                         {{ csrf_field() }}
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('adminlte.email') }}</label>
+                            <label for="email" class="col-md-3 col-form-label text-md-right">{{ __('adminlte.email') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-9">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
@@ -59,7 +59,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn_1 btn-primary">
                                     {{ __('adminlte.send_reset_link') }}
                                 </button>
                             </div>
