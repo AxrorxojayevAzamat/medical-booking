@@ -7,7 +7,7 @@ use App\Entity\Clinic\Service;
 use App\Entity\Clinic\Specialization;
 use App\Entity\Region;
 use App\Entity\User\User;
-use App\Entity\Pages;
+use App\Entity\Page;
 use App\Helpers\LanguageHelper;
 use Session;
 
@@ -32,7 +32,7 @@ class HomeController extends Controller
 
         $name = 'name_' . LanguageHelper::getCurrentLanguagePrefix();
 
-        $pages = Pages::all();
+        $pages = Page::all();
         Session::put('pages', $pages);
 
         $specializations = Specialization::orderBy($name)->limit(9)->get();

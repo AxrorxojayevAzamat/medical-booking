@@ -60,7 +60,7 @@
                             <tr><th>{{ trans('Имя') }}</th><td>{{ $profile ? $profile->first_name : '' }}</td></tr>
                             <tr><th>{{ trans('Фамилия') }}</th><td>{{ $profile ? $profile->last_name : '' }}</td></tr>
                             <tr><th>{{ trans('Отчество') }}</th><td>{{ $profile ? $profile->middle_name : '' }}</td></tr>
-                            <tr><th>{{ trans('Дата рождения') }}</th><td>{{ $profile ? $profile->birth_date->format('d-m-Y') : '' }}</td></tr>
+                            <tr><th>{{ trans('Дата рождения') }}</th><td>{{ $profile->birth_date ? $profile->birth_date->format('d-m-Y') : '' }}</td></tr>
                             <tr><th>{{ trans('Пол') }}</th><td>{{ $profile ? $profile->gender === 0 ? 'Женский' : 'Мужской' : ''}}</td></tr>
 
                             @if($user->isDoctor())

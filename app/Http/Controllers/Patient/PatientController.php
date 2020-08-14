@@ -26,7 +26,7 @@ class PatientController extends Controller
         $book_num = count(Book::where('user_id', $user->id)->get());
         return view('patient.profile.edit', compact('user','book_num'));
     }
-    public function profileEditSave(Request $request)
+    public function profileUpdate(Request $request)
     {
         $this->validate($request, [
             'email' => ['required', 'string', 'email', 'max:255'],
@@ -43,7 +43,9 @@ class PatientController extends Controller
                 return redirect()->back()->with('oldpass', 'false');      
         }   
         $request->phone?$user->phone = $request->phone:'';
+        $user->profile->gender = $request->gender;
         $request->email?$user->email = $request->email:'';
+        $user->profile->save();
         $user->save();
 
         return redirect()->back()->with('success', 'Successfully Edited');   
@@ -75,17 +77,7 @@ class PatientController extends Controller
 
     public function bookingDoctor(Request $request)
     {
-        $userId = $request['patient_id'];
-        $doctorId = $request['doctor_id'];
-        $clinicId = $request['clinic_id'];
-        $bookingDate = $request['booking_date'];
-        $timeStart = $request['time_start'];
-        $description = $request['description'];
-
-
-        $booking = Book::new($userId, $doctorId, $clinicId, $bookingDate, $timeStart, null, $description);
-
-
+        $booking = Book::new($request['patient_id'], $request['doctor_id'], $request['clinic_id'], $request['booking_date'], $request['time_start'], null, $request['description']);
         return redirect()->route('doctors.index');
     }
 

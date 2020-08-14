@@ -120,7 +120,7 @@ return [
     'oldpass'=>'Eski parol noto\'g\'ri',
     'newpass'=>'Yangi parol noto\'g\'ri',
     'success'=>'Ma\'lumotlaringiz muvaffaqqiyatli o\'zgartirildi',
-
+    'middle_name'=>'Otasining ismi',
 
     /*
     |--------------------------------------------------------------------------

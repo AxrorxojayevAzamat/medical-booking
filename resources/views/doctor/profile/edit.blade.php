@@ -49,7 +49,7 @@
                         </div>
                         <!-- /row-->
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>{{trans('contacts.phone')}}</label>
                                     <input type="text" class="form-control" placeholder="Your telephone number" name="phone" value="{{$user->phone}}">
@@ -60,7 +60,7 @@
                             @endif
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>{{trans('contacts.email')}}</label>
                                     <input type="email" class="form-control" placeholder="Your email" name="email" value="{{$user->email}}">
@@ -69,6 +69,18 @@
                                                 <strong style="color: red;">{{ $errors->first('email') }}</strong>
                                             </span>
                                     @endif
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                <label>{{ trans('contacts.gender') }}</label>
+                                <select id="gender" class="form-control{{ $errors->has('gender') ? ' is-invalid' : '' }}" name="gender">
+                                    <option value="1" {{ old('gender', $user->profile->gender ? $user->profile->gender : null) == 1 ? 'selected' : '' }} >Мужской</option>>
+                                    <option value="0" {{ old('gender', $user->profile->gender ? $user->profile->gender : null) == 0 ? 'selected' : '' }} >Женский</option>
+                                </select>
+                                @error('gender')
+                                    <span class="invalid-feedback"><strong>{{ $errors->first('gender') }}</strong></span>
+                                @enderror
                                 </div>
                             </div>
                         </div>
