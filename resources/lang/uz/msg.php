@@ -19,5 +19,6 @@ return [
     'payme_tooltype' => 'Sizning kartangizdagi ma`lumotlar ushbu xizmatga uzatilmaydi va xizmat xavfsiz hududda saqlanadi ',
     'search' => 'Izlash',
     'payment_in' => "To'lov amalga oshmoqda",
+    '404' => 'Siz izlagan sahifa topilmadi!',
 
 ];

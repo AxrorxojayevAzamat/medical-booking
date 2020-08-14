@@ -79,31 +79,31 @@
                     <input type="checkbox" class="time_checkbox{{$key}}" style="display: none" required>
                     <div class="choose" >
                         <div class="form-group">
-                            <label>{{ trans('book.choose_one_of_them') }}</label>
+                            <label class="choose_one{{$key}}">{{ trans('book.choose_one_of_them') }}!</label>
                         </div>
 
                         <div class="row d-flex justify-content-center">
 
                             <div class="form-group">
-                                <input type="radio" name="payment_type" value="{{\App\Entity\Book\Book::PAYME}}" id="payme_label + {{$key}}"/>
-                                <label class="payme_label" for="payme_label + {{$key}}">
+                                <input type="radio" name="payment_type" value="{{\App\Entity\Book\Book::PAYME}}" class="payme_click{{$key}}" id="payme_label{{$key}}" required/>
+                                <label class="payme_label" for="payme_label{{$key}}">
                                     <img src="{{asset('img/payme_01.svg')}}" class="img-payme-click choose-payme" width="200px" height=80px>
                                 </label>
                             </div>
                             <div class="form-group">
-                                <input type="radio" name="payment_type" value="{{\App\Entity\Book\Book::CLICK}}" id="click_label + {{$key}}"/>
-                                <label class="click_label" for="click_label + {{$key}}">
+                                <input type="radio" name="payment_type" value="{{\App\Entity\Book\Book::CLICK}}" class="payme_click{{$key}}" id="click_label{{$key}}" required/>
+                                <label class="click_label" for="click_label{{$key}}">
                                     <img src="{{asset('img/click_01.jpg')}}" class="img-payme-click choose-click" width="200px" height="80px">
                                 </label>
 
                             </div>
+                            <hr>
+                            
                         </div>
                         <div class="error-container">
                         </div>
 
                     </div>
-
-                    <hr>
 
                     <div class="text-center"><button class="btn_1 medium" id="{{$key}}" onclick="checkDay(event)" type="submit">{{ __('Забронируйте сейчас') }}</button></div>
                 </div>
@@ -122,7 +122,7 @@
                 </ul>
                 <!--/nav-tabs -->
                 <div class="tab-content">
-                    <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+                    <div class="tab-pane fade show active  bg-white p-5" id="general" role="tabpanel" aria-labelledby="general-tab">
                         <div class="indent_title_in">
                             <i class="pe-7s-user"></i>
                             <h3>{{ trans('Профессиональные заявления')}}</h3>

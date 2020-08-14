@@ -42,6 +42,15 @@
     var daysOff = [[], [], [], []];
     var checkedDays = [false, false, false, false];
 
+    function checkPayment(e) {
+        var payme_click = $(".payme_click" + e);
+        if(!payme_click[0].checked && !payme_click[1].checked) {
+            $(".choose_one" + e).css({"color":"#e74e84", "font-size":"20px","transition":".7s all"})
+        } else {
+            $(".choose_one" + e).css({"color":"#111", "font-size":"16px"})
+        }
+    }
+
     function checkDay(event) {
         if($(".day_checkbox" + event.target.id).prop("checked") && $(".time_checkbox" + event.target.id).prop("checked")) {
             $(".warning_day" + event.target.id).css("display","none");
@@ -56,6 +65,7 @@
             $(".warning_day" + event.target.id).css("display","block");
             $(".warning_time" + event.target.id).css("display","none");  
         }
+        checkPayment(event.target.id);
     }
 
     function setDaysOff(index) {
