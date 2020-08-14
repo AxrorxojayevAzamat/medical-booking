@@ -14,4 +14,10 @@ return [
     'search_by_route' => "Yo'nalish bo'yicha izlash",
     'year' => 'Год',
     'year' => 'Месяц',
+    'service' => [
+        "title" => "Bizda keng ko'lamli xizmat mavjud!",
+        "polyclinics" => "Poliklinikalar",
+        "clinics" => "Xususiy klinikalar",
+        "doctors" => "Shifokorlar",
+    ]
 ];
