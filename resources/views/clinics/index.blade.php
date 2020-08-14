@@ -79,8 +79,8 @@
                             <small>{{ $parentRegion->name }}</small>
                             @php($parentRegion = $parentRegion->parent)
                         @endwhile
-                        <h3>{{ $clinic->name }}</h3>
-                        <p>{{ $clinic->description }}</p>
+                        <h3><a href="{{ route('clinics.show', $clinic) }}">{{ $clinic->name }}</a> </h3>
+                        <p>{!! $clinic->description !!}</p>
                         <ul>
                             {{-- <li><a href="#0" onclick="onHtmlClick('Doctors', {{ $key }})" class="btn_listing">View on Map</a></li> --}}
                         <li><a href="#0" onclick="initMap(41.2646, 69.2163)" class="btn_listing">{{trans('doctors.view_on_map')}}</a></li>

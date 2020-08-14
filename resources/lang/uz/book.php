@@ -11,7 +11,7 @@ return [
     'choose_one_of_them' => "Ulardan birini tanlang",
     'your_data' => "Sizning ma'lumotlaringiz",
     'your_booking' => "Sizning buyurtmangiz",
-    'booking_date' => "Sana:",
+    'booking_date' => "Sana",
     'booking_time' => "Vaqt:",
     'name_of_doctor' => "Shifokor nomi:",
     'booking_cost' => "Buyurtma narxi",
@@ -34,5 +34,5 @@ return [
     'book_and_pay' => 'Buyurtma va to\'lov',
     'locale' => 'uz',
     'booked' => 'Band qilingan',
-    'payment_link' => 'Buyurtmani faollashtirish uchun ushbu havola yordamida to`lovni amalga oshiring'
+    'payment_link' => 'Buyurtmani faollashtirish uchun ushbu havola yordamida to\'lovni amalga oshiring'
 ];

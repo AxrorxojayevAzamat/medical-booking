@@ -11,7 +11,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{route('doctor.profile')}}">
                     <i class="fa fa-fw fa-dashboard"></i>
-                    <span class="nav-link-text">{{trans('menu.profile')}}</span>
+                    <span class="nav-link-text">{{trans('menu.profile_details')}}</span>
                 </a>
             </li>
             <li class="nav-item">

@@ -1,10 +1,11 @@
 <footer class="sticky-footer">
     <div class="container">
         <div class="text-center">
-            <small>Copyright © FinDoctor 2020</small>
+            {{-- <small>Copyright © FinDoctor 2020</small> --}}
         </div>
     </div>
 </footer>
+
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fa fa-angle-up"></i>
@@ -76,6 +77,7 @@
 <script src="{{asset('vendor/bootstrap-fileinput/js/plugins/purify.js')}}"></script>
 <script src="{{asset('vendor/bootstrap-fileinput/js/fileinput.min.js')}}"></script>
 <script src="{{asset('vendor/bootstrap-fileinput/js/locales/ru.js')}}"></script>
+<script src="{{asset('vendor/bootstrap-fileinput/js/locales/uz.js')}}"></script>
 <script src="{{asset('vendor/bootstrap-fileinput/themes/fas/theme.js')}}"></script>
 <script src="{{asset('vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')}}"></script>
 <script src="{{asset('js/common_scripts.min.js')}}"></script>

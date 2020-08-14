@@ -11,7 +11,7 @@ return [
     'choose_one_of_them' => "Выберите один из них",
     'your_data' => "Ваши данные",
     'your_booking' => "Ваше бронирование",
-    'booking_date' => "Дата:",
+    'booking_date' => "Дата",
     'booking_time' => "Время:",
     'name_of_doctor' => "Имя доктора:",
     'booking_cost' => "Стоимость бронирования",

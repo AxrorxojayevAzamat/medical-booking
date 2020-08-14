@@ -13,17 +13,16 @@
             @endif
             @if(Session::has('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                  <strong>{{trans('validation.success')}}</strong>
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+                    <strong>{{trans('validation.success')}}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             @endif
             <div class="box_general padding_bottom mb-3">
                 <form action="{{route('doctor.profileEditSave')}}" method="post">
                     @csrf
                 <div class="header_box version_2 mb-0 pb-0">
-                    <h2><i class="fa fa-user"></i>{{trans('menu.profile_details')}}</h2>
                 </div>
                 <div class="row">
                     <div class="col-md-12 add_top_30">
@@ -84,11 +83,9 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- /row-->
                     </div>
                 </div>
             </div>
-            <!-- /box_general-->
             <div class="row">
                 <div class="col-md-12">
                     <div class="box_general padding_bottom">
@@ -122,12 +119,9 @@
                         </div>
                     </div>
                 </div>
-                {{-- specialization --}}
                 </form>
             </div>
 
-            <!-- /row-->
         </div>
-        <!-- /.container-fluid-->
     </div>
 @stop
