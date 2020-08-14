@@ -43,10 +43,11 @@ use Illuminate\Support\Str;
  * @property Book[] $userBooks
  * @property Book[] $doctorBooks
  * @property int|null $getNumberOfBookings
+ * @property bool $verify()
  *
  * @mixin Eloquent
  */
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use Notifiable;
 
@@ -61,7 +62,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public const ROLE_DOCTOR = 'doctor';
 
     protected $fillable = [
-        'name', 'phone', 'email', 'password', 'role', 'status'
+        'name', 'phone', 'email', 'verify_token', 'password', 'role', 'status'
     ];
     protected $hidden = [
         'password', 'remember_token',
@@ -75,15 +76,32 @@ class User extends Authenticatable implements MustVerifyEmail
         return static::create([
                     'email' => $email,
                     'phone' => $phone,
+                    'verify_token' => Str::uuid(),
                     'password' => bcrypt($password),
                     'role' => $role,
-                    'status' => self::STATUS_ACTIVE,
+                    'status' => self::STATUS_INACTIVE,
         ]);
     }
 
     public static function newGuest($email, $phone, $firstName, $lastName, $middleName, $birthDate, $gender): self
     {
         $password = Str::random(8);
+        $role = self::ROLE_USER;
+
+        $user = static::new($email, $phone, $password, $role);
+
+        $profile = $user->profile()->create([
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'patronymic' => $middleName,
+            'birth_date' => $birthDate,
+            'gender' => $gender,
+        ]);
+        return $user;
+    }
+    
+    public static function register($email, $password, $phone, $firstName, $lastName, $middleName, $birthDate, $gender): self
+    {
         $role = self::ROLE_USER;
 
         $user = static::new($email, $phone, $password, $role);
@@ -146,6 +164,18 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isInactive(): bool
     {
         return $this->status === self::STATUS_INACTIVE;
+    }
+    
+     public function verify(): void
+    {
+        if (!$this->isInactive()) {
+            throw new \DomainException('Пользователь уже проверен.');
+        }
+
+        $this->update([
+            'status' => self::STATUS_ACTIVE,
+            'verify_token' => null,
+        ]);
     }
 
     public static function statusList(): array

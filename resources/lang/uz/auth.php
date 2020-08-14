@@ -28,5 +28,10 @@ return [
     'address_email' => 'Elektron pochta manzili',
     'confirm_address_email' => 'Elektron pochta manzilini tasdiqlash',
     'please_to_findoctor' => 'Tibbiyot bron qilish tizimiga xush kelibsiz!',
+    'confirm_email_title' => 'Elektron pochta manzilini tasdiqlash',
+    'confirm_email_nav' => 'Iltimos, ushbu havola orqali o`ting: ',
+    'confirm_email_button' => 'e-mail tasdiqlash',
+    'confirm_email_salulation_line' => 'Xurmat bilan, ',
+    'confirm_email_salulation' => 'Medical Booking',
 
 ];

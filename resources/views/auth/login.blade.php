@@ -30,46 +30,72 @@
 @endif
 @include('layouts.header')
 @section('body')
-    <main>
-        <div class="bg_color_2">
-
-            <div class="container margin_60_35">
-                <div id="login">
-                <h1>{{trans('auth.please_to_findoctor')}}</h1>
-                    <div class="box_form">
-                        <form  action="{{ $login_url}}" method="post">
-                            {{ csrf_field() }}
-                            <div class="form-group">
-                                <input type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{ trans('adminlte.email') }}" autofocus>
-                                @if ($errors->has('email'))
-                                    <div class="invalid-feedback">
-                                        {{ $errors->first('email') }}
-                                    </div>
-                                @endif
-                            </div>
-
-                            <div class="form-group">
-                                <input type="password" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" placeholder="{{ trans('adminlte.password') }}">
-                                @if ($errors->has('password'))
-                                    <div class="invalid-feedback">
-                                        {{ $errors->first('password') }}
-                                    </div>
-                                @endif
-                            </div>
-                            <a href="{{ $password_reset_url}}" class="d-block text-center">{{ trans('adminlte.i_forgot_my_password') }}</a>
-                            <div class="form-group text-center add_top_20 d-flex justify-content-center">
-                                <input class="btn_1 medium" type="submit" value="{{ trans('adminlte.sign_in') }}">
-                            </div>
-                        </form>
-                    </div>
-                    <p class="text-center link_bright"><a href="{{ $register_url }}">
-                            {{ trans('adminlte.register_a_new_membership') }}
-                        </a></p>
-                </div>
-                <!-- /login -->
-            </div>
+<main>
+    <div class="bg_color_2">
+        @if($errors->any())
+        @foreach($errors->all() as $error)
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ $error }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-    </main>
+        @endforeach
+        @endif
+        @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+        @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+
+        <div class="container margin_60_35">
+            <div id="login">
+                <h1>{{trans('auth.please_to_findoctor')}}</h1>
+                <div class="box_form">
+                    <form  action="{{ $login_url}}" method="post">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                            <input type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{ trans('adminlte.email') }}" autofocus>
+                            @if ($errors->has('email'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('email') }}
+                            </div>
+                            @endif
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" placeholder="{{ trans('adminlte.password') }}">
+                            @if ($errors->has('password'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('password') }}
+                            </div>
+                            @endif
+                        </div>
+                        <a href="{{ $password_reset_url}}" class="d-block text-center">{{ trans('adminlte.i_forgot_my_password') }}</a>
+                        <div class="form-group text-center add_top_20 d-flex justify-content-center">
+                            <input class="btn_1 medium" type="submit" value="{{ trans('adminlte.sign_in') }}">
+                        </div>
+                    </form>
+                </div>
+                <p class="text-center link_bright"><a href="{{ $register_url }}">
+                        {{ trans('adminlte.register_a_new_membership') }}
+                    </a></p>
+            </div>
+            <!-- /login -->
+        </div>
+    </div>
+</main>
 @stop
 
 @section('adminlte_js')

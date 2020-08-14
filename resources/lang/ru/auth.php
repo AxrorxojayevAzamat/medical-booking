@@ -28,6 +28,11 @@ return [
     'address_email' => 'Адрес электронной почты',
     'confirm_address_email' => 'Подтвердите адрес электронной почты',
     'please_to_findoctor' => 'Добро пожаловать в систему медицинского бронирования!',
+    'confirm_email_title' => 'Подтверждение электронной почты',
+    'confirm_email_nav' => 'Пожалуйста, перейдите по следующей ссылке: ',
+    'confirm_email_button' => 'Подтвердить e-mail',
+    'confirm_email_salulation_line' => 'С уважением, ',
+    'confirm_email_salulation' => 'Medical Booking',
 
 
 
