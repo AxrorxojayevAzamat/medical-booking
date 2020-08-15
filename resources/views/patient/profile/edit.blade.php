@@ -68,8 +68,8 @@
                                 <div class="form-group">
                                 <label>{{ trans('contacts.gender') }}</label>
                                 <select id="gender" class="form-control{{ $errors->has('gender') ? ' is-invalid' : '' }}" name="gender">
-                                    <option value="1" {{ old('gender', $user->profile->gender ? $user->profile->gender : null) == 1 ? 'selected' : '' }} >Мужской</option>>
-                                    <option value="0" {{ old('gender', $user->profile->gender ? $user->profile->gender : null) == 0 ? 'selected' : '' }} >Женский</option>
+                                    <option value="1" {{ old('gender', $user->profile->gender ? $user->profile->gender : null) == 1 ? 'selected' : '' }} >{{trans('contacts.man')}}</option>>
+                                    <option value="0" {{ old('gender', $user->profile->gender ? $user->profile->gender : null) == 0 ? 'selected' : '' }} >{{trans('contacts.woman')}}</option>
                                 </select>
                                 @error('gender')
                                     <span class="invalid-feedback"><strong>{{ $errors->first('gender') }}</strong></span>
