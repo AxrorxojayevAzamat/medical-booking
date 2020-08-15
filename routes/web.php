@@ -114,12 +114,12 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         Route::post('delete-image', 'NewsController@removeImage')->name('delete-image');
     });
     Route::group(['prefix' => 'pages', 'as' => 'pages.'], function () {
-        Route::get('', 'PagesController@index')->name('pages');
-        Route::get('/create', 'PagesController@create')->name('create');
-        Route::post('/create', 'PagesController@store')->name('store');
-        Route::get('/view/{id?}', 'PagesController@view')->name('view');
-        Route::get('/edit/{id?}', 'PagesController@edit')->name('edit');
-        Route::post('/edit', 'PagesController@editSave')->name('editSave');
+        Route::get('', 'PageController@index')->name('pages');
+        Route::get('/create', 'PageController@create')->name('create');
+        Route::post('/create', 'PageController@store')->name('store');
+        Route::get('/view/{id?}', 'PageController@view')->name('view');
+        Route::get('/edit/{id?}', 'PageController@edit')->name('edit');
+        Route::post('/edit', 'PageController@editSave')->name('editSave');
     });
 });
 
@@ -128,13 +128,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('', 'HomeController@index')->name('home');
 
     Route::group([ 'namespace' => 'Admin'], function () {
-        Route::get('page/{slug?}', 'PagesController@slug')->name('slug');
+        Route::get('page/{slug?}', 'PageController@slug')->name('slug');
     });
 
     Route::group(['as' => 'doctor.', 'prefix' => 'doctor', 'namespace' => 'Doctor', 'middleware' => ['auth', 'can:doctor-panel']], function () {
         Route::get('/profile', 'DoctorController@profileShow')->name('profile');
         Route::get('/edit', 'DoctorController@profileEdit')->name('profileEdit');
-        Route::post('/edit', 'DoctorController@profileEditSave')->name('profileEditSave');
+        Route::post('/edit', 'DoctorController@profileUpdate')->name('profileEditSave');
         Route::post('store-specializations', 'DoctorController@storeSpecializations')->name('store-specializations');
         Route::get('specializations', 'DoctorController@specializations')->name('editSpecialization');
 
@@ -160,6 +160,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
     Route::group(['as' => 'patient.', 'prefix' => 'patient', 'namespace' => 'Patient', 'middleware' => ['auth', 'can:patient-panel']], function () {
         Route::get('', 'PatientController@profileShow')->name('profile');
+        Route::get('/edit', 'PatientController@profileEdit')->name('profileEdit');
+        Route::post('/edit', 'PatientController@profileUpdate')->name('profileEditSave');
+        Route::get('/booking/{user}/{clinic}', 'PatientController@booking')->name('booking');
+        Route::post('/booking-doctor/', 'PatientController@bookingDoctor')->name('booking-doctor');
+        Route::get('', 'PatientController@profileShow')->name('profile');
+        Route::get('/{user_id}/bookings', 'PatientController@myBookings')->name('mybookings');
+        Route::post('destroy', 'PatientController@destroy')->name('destroy');
         Route::get('/{user_id}/bookings', 'PatientController@myBookings')->name('mybookings')->where('user_id', '[0-9]+');
     });
 
@@ -195,9 +202,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         Route::get('{news}', 'NewsController@show')->name('show')->where('news', '[0-9]+');
     });
 });
-
-Route::get('login/google', 'Auth\LoginController@redirectToProvider');
-Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback');
 
 Route::get("locale/{locale}", function ($locale) {
     Session::put('locale', $locale);

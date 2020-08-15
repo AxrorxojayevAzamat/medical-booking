@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Entity\Pages;
+use App\Entity\Page;
 
-class PagesController extends Controller
+class PageController extends Controller
 {
     public function index(){
-    	$pages = Pages::all();
+    	$pages = Page::all();
     	return view('pages.index',compact('pages'));
     } 
 
@@ -24,7 +24,7 @@ class PagesController extends Controller
         ]);
 
 
-        $contacts = Pages::create([
+        $contacts = Page::create([
             'slug' => $request->input('slug'),
             'title_uz' => $request->input('title_uz'),
             'title_ru' => $request->input('title_ru'),
@@ -41,12 +41,12 @@ class PagesController extends Controller
 
     public function view($id){
 
-    	$page = Pages::find($id);
+    	$page = Page::find($id);
     	return view('pages.view',compact('page'));
     }
 
     public function edit($id){
-    	$page = Pages::find($id);
+    	$page = Page::find($id);
     	return view('pages.edit',compact('page'));
     }
 
@@ -60,7 +60,7 @@ class PagesController extends Controller
             'content_ru' => 'required'
         ]);
 
-    	$page = Pages::find($request->input('id'));
+    	$page = Page::find($request->input('id'));
     	$page->slug = $request->input('slug');
         $page->title_uz = $request->input('title_uz');
         $page->title_ru = $request->input('title_ru');
@@ -72,7 +72,7 @@ class PagesController extends Controller
 
     public function slug($slug=null){
 
-	    $page = Pages::where('slug',$slug)->first(); 
+	    $page = Page::where('slug',$slug)->first(); 
 	    if($page){
 	    	return view('pages.template',compact('page'));	
 	    }

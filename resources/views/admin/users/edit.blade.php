@@ -123,7 +123,7 @@
 
                         <div class="form-group">
                             <label for="inputDate">Дата рождения:</label>
-                            <input type="date" id="birth_date" name="birth_date" class="form-control" value="{{ old('birth_date', $profile ? $profile->birth_date->format('Y-m-d') : '') }}">
+                            <input type="date" id="birth_date" name="birth_date" class="form-control" value="{{ old('birth_date', $profile->birth_date ? $profile->birth_date->format('Y-m-d') : '') }}">
                                 @error('birth_date')
                                     <span class="invalid-feedback"><strong>{{ $errors->first('birth_date') }}</strong></span>
                                 @enderror
@@ -131,9 +131,9 @@
                         <div class="form-group">
                             <label for="gender" class="col-form-label text-md-left">{{ trans('Пол') }}</label>
                             <select id="gender" class="form-control{{ $errors->has('gender') ? ' is-invalid' : '' }}" name="gender">
-                                <option value="" selected=""></option>>
-                                <option value="1" {{ old('gender', $profile ? $profile->gender : null) == 1 ? 'selected' : '' }} >Мужской</option>>
-                                <option value="0" {{ old('gender', $profile ? $profile->gender : null) == 0 ? 'selected' : '' }} >Женский</option>>
+                                <option value="" selected=""></option>
+                                <option value="1" {{ old('gender', $profile->gender ? $profile->gender : null) == 1 ? 'selected' : '' }} >Мужской</option>>
+                                <option value="0" {{ old('gender', $profile->gender ? $profile->gender : null) == 0 ? 'selected' : '' }} >Женский</option>>
                             </select>
                             @error('gender')
                                 <span class="invalid-feedback"><strong>{{ $errors->first('gender') }}</strong></span>

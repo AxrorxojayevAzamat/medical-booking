@@ -56,6 +56,7 @@
                                     </div>
                                 @endif
                             </div>
+                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
                             <a href="{{ $password_reset_url}}" class="d-block text-center">{{ trans('adminlte.i_forgot_my_password') }}</a>
                             <div class="form-group text-center add_top_20 d-flex justify-content-center">
                                 <input class="btn_1 medium" type="submit" value="{{ trans('adminlte.sign_in') }}">

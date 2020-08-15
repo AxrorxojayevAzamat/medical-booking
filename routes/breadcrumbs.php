@@ -10,7 +10,7 @@ use App\Entity\Celebration;
 use App\Entity\Clinic\Clinic;
 use App\Entity\Clinic\Contact;
 use App\Entity\Clinic\Service;
-use App\Entity\Pages;
+use App\Entity\Page;
 use App\Entity\Clinic\Specialization;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Crumbs;
@@ -345,7 +345,7 @@ Breadcrumbs::register('admin.contactlist', function (Crumbs $crumbs) {
 // pages
 Breadcrumbs::register('admin.pages.pages', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
-    $crumbs->push('Pages', route('admin.pages.pages'));
+    $crumbs->push('Page', route('admin.pages.pages'));
 });
 Breadcrumbs::register('admin.pages.create', function (Crumbs $crumbs) {
     $crumbs->parent('admin.pages.pages');
