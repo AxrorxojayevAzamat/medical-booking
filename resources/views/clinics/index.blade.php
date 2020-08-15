@@ -89,7 +89,7 @@
                     </div>
                 @endforeach
 
-                <nav aria-label="" class="add_top_20">
+                <nav aria-label="" class="add_top_22">
                     <ul class="pagination pagination-sm">
                         {{ $clinics->links() }}
                     </ul>
