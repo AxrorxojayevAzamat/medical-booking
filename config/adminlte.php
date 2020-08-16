@@ -256,6 +256,12 @@ return [
             'url' => 'admin/contactslist',
             'can' => ['manage-callback'],
         ],
+        [
+            'text' => 'Динамические страницы',
+            'icon' => 'fas fa-fw fa-share',
+            'url' => 'admin/pages',
+            
+        ],
     ],
     /*
       |--------------------------------------------------------------------------

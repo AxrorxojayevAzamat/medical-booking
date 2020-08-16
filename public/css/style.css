@@ -4868,6 +4868,10 @@ ul.bullets li:before {
   column-count: 2;
 }
 
+.add_top_22 {
+  margin-top: 20px;
+}
+
 .add_top_24 {
   margin-top: 24px;
   margin-bottom: 22px;

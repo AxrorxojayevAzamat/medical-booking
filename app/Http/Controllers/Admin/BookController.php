@@ -18,7 +18,7 @@ class BookController extends Controller
     {
         $search = $request->all();
         
-        $query = Book::select(['books.*', 'us.*', 'pr.*'])
+        $query = Book::select([ 'us.*', 'pr.*','books.*'])
             ->join('users as us', 'books.user_id', '=', 'us.id')
             ->join('profiles as pr', 'pr.user_id', '=', 'us.id')
             ->orderBy('booking_date', 'asc')
@@ -59,5 +59,12 @@ class BookController extends Controller
     public function show(Book $book)
     {
         return view('admin.books.show', compact('book'));
+    }
+
+    public function order_status($id,$order_status){
+        $order=Book::find($id);
+        $order->order_status=$order_status;
+        $order->save();
+        return redirect()->back()->with('success', 'Successfully changed');
     }
 }
