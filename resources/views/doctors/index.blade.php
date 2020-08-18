@@ -181,6 +181,7 @@
     </div>
 @endsection
 @section('scripts')
+<script src="{{asset('vendor/select2/js/select2.min.js')}}"></script>
 <script>
     $('#region_id').select2();
     $('#clinic_id').select2();

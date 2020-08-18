@@ -170,6 +170,8 @@
             </aside>
         </div>
     </div>
+<script src="{{asset('js/baguetteBox.min.js')}}"></script>
+
 @endsection
 @section('scripts')
 <script type="text/javascript">

@@ -20,11 +20,11 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800" rel="stylesheet">
 
     <!-- BASE CSS -->
-    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{asset('css/vendors.css')}}" rel="stylesheet">
     <link href="{{asset('css/icon_fonts/css/all_icons_min.css')}}" rel="stylesheet">
-    <link href="{{asset('vendor/select2/css/select2.min.css')}}" rel="stylesheet">
-    <link href="{{asset('css/baguetteBox.min.css')}}" rel="stylesheet">
+    {{-- <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet"> --}}
+    {{-- <link href="{{asset('css/vendors.css')}}" rel="stylesheet"> --}}
+    {{-- <link href="{{asset('css/baguetteBox.min.css')}}" rel="stylesheet"> --}}
+    {{-- <link href="{{asset('vendor/select2/css/select2.min.css')}}" rel="stylesheet"> --}}
     
     <link href="{{mix('css/app/app.css')}}" rel="stylesheet"> 
 
@@ -272,13 +272,6 @@
 
 <script src="{{asset('js/jquery-2.2.4.min.js')}}"></script>
 <script src="{{asset('js/common_scripts.min.js')}}"></script>
-<script src="{{asset('js/baguetteBox.min.js')}}"></script>
-<script src="{{asset('vendor/select2/js/select2.min.js')}}"></script>
-
-{{-- <script src="{{asset('js/functions.js')}}"></script> --}}
-<script src="{{asset('js/bootstrap-datepicker.js')}}"></script>
-{{-- <script src="{{asset('js/markerclusterer.js')}}"></script> --}}
-{{-- <script src="{{asset('js/infobox.js')}}"></script> --}}
 <script src="{{mix('js/app.js')}}"></script>
 
 @stack('scripts')
