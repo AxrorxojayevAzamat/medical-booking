@@ -8,6 +8,8 @@ deploy_development:
   - php artisan migrate
 #  - composer update --no-dev
   - composer install
+  - npm install
+  - npm run dev
   environment:
     name: development
     url: https://dev.medbron.uz
@@ -20,6 +22,8 @@ deploy_production:
   - cd /var/www/prod.medbron.uz/
   - php artisan migrate
   - composer install
+  - npm install
+  - npm run prod
   environment:
     name: production
     url: https://prod.medbron.uz/

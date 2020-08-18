@@ -1,8 +1,25 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+// // Fonts
+// @import url('https://fonts.googleapis.com/css?family=Nunito');
 
-// Variables
-@import 'variables';
+// // Variables
+// @import 'variables';
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// // Bootstrap
+// @import '~bootstrap/scss/bootstrap';
+
+// @import "bootstrapmin";
+@import 'style';
+@import 'menu';
+@import 'date_picker';
+@import 'custom';
+
+// <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+// <link href="{{asset('css/style.css')}}" rel="stylesheet">
+// <link href="{{asset('css/menu.css')}}" rel="stylesheet">
+// <link href="{{asset('css/vendors.css')}}" rel="stylesheet">
+// <link href="{{asset('css/icon_fonts/css/all_icons_min.css')}}" rel="stylesheet">
+
+// <link href="{{asset('vendor/select2/css/select2.min.css')}}" rel="stylesheet">
+// <link href="{{asset('css/date_picker.css')}}" rel="stylesheet">
+// <link href="{{asset('css/custom.css')}}" rel="stylesheet">
+// <link href="{{asset('css/baguetteBox.min.css')}}" rel="stylesheet">
