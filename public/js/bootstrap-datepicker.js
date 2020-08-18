@@ -1750,7 +1750,7 @@
 			titleFormat: "MM yyyy"
 		},
 		uz: {
-			days: ["Yakshanba", "Dushanba", "Seshanba", "Chorshanba", "Payshanba", "Juma", "ShanbaS"],
+			days: ["Yakshanba", "Dushanba", "Seshanba", "Chorshanba", "Payshanba", "Juma", "Shanba"],
 			daysShort: ["Yak", "Du", "Se", "Chor", "Pay", "Ju", "Shan"],
 			daysMin: ["Ya", "Du", "Se", "Cho", "Pa", "Ju", "Sha"],
 			months: ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"],

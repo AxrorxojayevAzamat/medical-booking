@@ -1,12 +1,5 @@
 /* YOUR CUSTOM CSS */
 
-.card .card-header .btn-delete {
-    position: absolute;
-    top: 1.25em;
-    right: 1.25em;
-}
-
-
 .card .card-body table .project-state {
     text-align: start;
 }
@@ -460,4 +453,22 @@
       }
       .select2-container--default .select2-selection--single .select2-selection__rendered {
         font-size: 1rem;
+      }
+
+      @media screen and (max-width: 992px) {
+        ul.time_select li label {
+          margin-left: 120px;
+        }
+      }
+
+      @media screen and (max-width: 768px) {
+        ul.time_select li label {
+          margin-left: 65px;
+        }
+      }
+
+      @media screen and (max-width: 576px) {
+        ul.time_select li label {
+          margin-left: 40px;
+        }
       }

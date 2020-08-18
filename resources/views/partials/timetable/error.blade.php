@@ -1,0 +1,21 @@
+@if(Session::get('error')=='1')
+	<strong>{{trans('timetable_edit.check.monday')}}</strong>
+@elseif(Session::get('error')=='2')
+	<strong>{{trans('timetable_edit.check.tuesday')}}</strong>
+@elseif(Session::get('error')=='3')
+	<strong>{{trans('timetable_edit.check.wednesday')}}</strong>
+@elseif(Session::get('error')=='4')
+	<strong>{{trans('timetable_edit.check.thursday')}}</strong>
+@elseif(Session::get('error')=='5')
+	<strong>{{trans('timetable_edit.check.friday')}}</strong>
+@elseif(Session::get('error')=='6')
+	<strong>{{trans('timetable_edit.check.saturday')}}</strong>
+@elseif(Session::get('error')=='7')
+	<strong>{{trans('timetable_edit.check.sunday')}}</strong>
+@elseif(Session::get('error')=='odd_even')
+		<strong>{{trans('timetable_edit.check.odd_even')}}</strong>
+@elseif(Session::get('error')=='odd')
+		<strong>{{trans('timetable_edit.check.odd')}}</strong>
+@elseif(Session::get('error')=='even')
+		<strong>{{trans('timetable_edit.check.even')}}</strong>
+@endif
