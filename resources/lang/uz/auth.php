@@ -16,7 +16,7 @@ return [
     'failed' => "Ushbu hisobga olish ma'lumotlari bizning yozuvlarimizga mos kelmaydi.",
     'throttle' => "Kirish urinishlari juda ko'p. Iltimos, bir necha soniya ichida yana urinib ko'ring.",
     'log_in' => 'Kirish',
-    'sign_up' => 'Ro`yhatdan o`tish',
+    'sign_up' => "Ro'yhatdan o'tish",
     'profile' => 'Profil',
     'log_out' => 'Chiqish',
 

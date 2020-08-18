@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Entity\User\User;
+use App\Entity\Book\Book;
 use App\Entity\Clinic\Timetable;
 use App\Entity\Clinic\Clinic;
 use Illuminate\Http\Request;
@@ -53,7 +54,8 @@ class TimeTableController extends Controller
     public function update(TimeTableRequest $request, User $user, Timetable $timetable)
     {
         try {
-            $timetable=$this->service->update($timetable->id, $request);
+                $this->service->validation($request,$user->id);
+                $timetable=$this->service->update($timetable->id, $request);
             return redirect()->route('admin.users.show', $user)->with('success', 'Расписание обновлено');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());

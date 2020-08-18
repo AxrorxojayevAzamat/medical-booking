@@ -15,11 +15,25 @@ return [
     'booking_start_time' => 'Boshlanish vaqti:',
     'booking_finish_time' => 'Tugash vaqti:',
     'name_of_doctor' => 'Shifokor nomi:',
+    'booking_cost' => 'Buyurtma narxi',
+    'patient'=>'Bemor',
+    'orderId'=>'Buyurtma raqami',
+    'start_time'=>'Boshlanish vaqti',
+    'finish_time'=>'Tugash vaqti',
+    'payment'=>'To\'lov turi',
+    'payment_status'=>'To\'lov holati',
+    'doctor' => 'Doktor',
+    'book_and_pay' => "Buyurtma va to'lov",
+    'locale' => 'uz',
+    'booked' => 'Band qilingan',
+    'attendance'=>'Kelish',
+    'success'=>'Muvafaqqiyatli',
+    'client'=>'Be\'mor kelmadi',
+    'doctor'=>'Shifokor kelmadi',
     'name_of_clinic' => 'Klinika nomi:',
     'booking_cost' => 'Buyurtma narxi',
     'book_and_pay' => 'Buyurtma va to\'lov',
     'locale' => 'uz',
     'booked' => 'Band qilingan',
-    'payment_link' => 'Buyurtmani faollashtirish uchun ushbu havola yordamida to`lovni amalga oshiring'
-
+    'payment_link' => 'Buyurtmani faollashtirish uchun ushbu havola yordamida to\'lovni amalga oshiring'
 ];

@@ -25,6 +25,7 @@ class CreateBooksTable extends Migration
             $table->text('description')->nullable();
             $table->tinyInteger('payment_type');
             $table->tinyInteger('status')->nullable();
+            $table->tinyInteger('order_status')->nullable();
 
             $table->timestamps();
 

@@ -100,7 +100,7 @@
                             <th>{{ trans('Телефон пациента') }}</th>
                             <th>{{ trans('Полное имя доктора') }}</th>
                             <th>{{ trans('Название клиники') }}</th>
-                            {{-- <th>{{ trans('Статус заказа') }}</th> --}}
+                            <th>{{ trans('Статус заказа') }}</th>
                             <th>{{ trans('Подробнее о заказе') }}</th>
                         </tr>
                     </thead>
@@ -114,6 +114,13 @@
                             <td>{{$book->user->phone}}</td>
                             <td><a href="{{ route('admin.users.show', $book->doctor->id) }}">{{ $book->doctor->profile ? $book->doctor->profile->fullName : '' }}</a></td>
                             <td><a href="{{ route('admin.clinics.show', $book->clinic->id) }}">{{ $book->clinic->name ? $book->clinic->name : '' }}</a></td>
+                            <td>
+                                <select name="order_status" onchange="location = this.value;" >
+                                    <option value="{{route('admin.books.orderStatus',['id'=>$book->id,'order_status'=>1])}}" {{$book->order_status=='1'?'selected':''}}>Успешный</option>
+                                    <option value="{{route('admin.books.orderStatus',['id'=>$book->id,'order_status'=>2])}}" {{$book->order_status=='2'?'selected':''}}>Клиент не пришел</option>
+                                    <option value="{{route('admin.books.orderStatus',['id'=>$book->id,'order_status'=>3])}}" {{$book->order_status=='3'?'selected':''}}>Доктор не пришел</option>
+                                </select>
+                            </td>
                             {{-- @if ($book->type == \App\Entity\Book::PAYME)
                             <td>{!! $book->payme->stateName() !!}</td>
                             @elseif ($book->type == \App\Entity\Book::CLICK)

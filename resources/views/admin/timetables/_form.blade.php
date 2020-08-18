@@ -186,7 +186,6 @@
                 <div class="bootstrap-timepicker">
                     <div class="form-group">
                         <label>Начало и конец рабочего дня для четных дней</label>
-
                         <div class="input-group date" id="timepicker14" data-target-input="nearest">
                             <input type="time" name="even_start" class="form-control datetimepicker-input" data-target="#timepicker14" value="{{ old('even_start', $timetable? $timetable->even_start :'')}}">
                             <div class="input-group-append" data-target="#timepicker14" data-toggle="datetimepicker">

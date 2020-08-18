@@ -233,6 +233,16 @@
                     <ul class="links col-lg-6 col-sm-12 col-12"> --}}
                         <li><a href="{{route('contacts.contacts')}}">{{ trans('contacts.title') }}</a></li>
                         <li><a href="{{route('news.index')}}">{{ trans('breadcrumb_fe.news') }}</a></li>
+                        @if(Session::has('pages'))
+                            @foreach(Session::get('pages') as $page)
+                                <li><a href="page/{{$page->slug}}">
+                                @if(Session::get('locale')=='uz')
+                                    {{$page->title_uz}}</a></li>
+                                @else
+                                    {{$page->title_ru}}</a></li>
+                                @endif
+                            @endforeach
+                        @endif
                     </ul>
                 </div>
             </div>

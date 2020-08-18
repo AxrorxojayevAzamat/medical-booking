@@ -117,6 +117,10 @@ return [
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
+    'oldpass'=>'Неверный старый пароль',
+    'newpass'=>'Неверный новый пароль',
+    'success'=>'Ваша информация была успешно изменена',
+    'middle_name'=>'Отчество',
 
     /*
     |--------------------------------------------------------------------------
@@ -152,6 +156,12 @@ return [
         'date'=>"Дата",
         'celebration_name'=>"Название праздника",
         'quantity'=>"Количество дней",
+        'phone'=>"телефон номер формат",
+        'g-recaptcha-response'=>'Пожалуйста, заполните форму, чтобы отправить форму.',
+        'title_uz'=>'Название на узбекском языке',
+        'title_ru'=>'Название на русском',
+        'content_uz'=>'Контент на узбекском языке',
+        'content_ru'=>'Контент на русском',
         'first_name'=>'Имя',
         'last_name'=>'Фамилия',
         'middle_name'=>'Отчество',

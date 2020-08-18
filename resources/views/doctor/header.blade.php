@@ -3,86 +3,54 @@
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+
+
+
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                <a class="nav-link" href="index.html">
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('doctor.profile')}}">
                     <i class="fa fa-fw fa-dashboard"></i>
-                    <span class="nav-link-text">Dashboard</span>
+                    <span class="nav-link-text">{{trans('menu.profile_details')}}</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
-                <a class="nav-link" href="messages.html">
-                    <i class="fa fa-fw fa-envelope-open"></i>
-                    <span class="nav-link-text">Messages</span>
-                </a>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookings">
-                <a class="nav-link" href="{{ route('doctor.doctorbookings', $bookings) }}">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('doctor.doctorbookings', Auth::user()) }}">
                     <i class="fa fa-fw fa-calendar-check-o"></i>
-                    <span class="nav-link-text">Мои записи <span class="badge badge-pill badge-primary">6 New</span></span>
+                    <span class="nav-link-text">{{trans('menu.my_records')}} 
+                    @if($book_num)
+                        <span class="badge badge-pill badge-primary float-right" style="margin-right: 20px;">{{$book_num}} {{trans('menu.new')}} </span></span>
+                    @endif                
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
-                <a class="nav-link" href="reviews.html">
-                    <i class="fa fa-fw fa-star"></i>
-                    <span class="nav-link-text">Reviews</span>
-                </a>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookmarks">
-                <a class="nav-link" href="bookmarks.html">
-                    <i class="fa fa-fw fa-heart"></i>
-                    <span class="nav-link-text">Bookmarks</span>
-                </a>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Add listing">
-                <a class="nav-link" href="add-listing.html">
-                    <i class="fa fa-fw fa-plus-circle"></i>
-                    <span class="nav-link-text">Add listing</span>
-                </a>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My profile">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseProfile" data-parent="#exampleAccordion">
-                    <i class="fa fa-fw fa-wrench"></i>
-                    <span class="nav-link-text">My profile</span>
-                </a>
-                <ul class="sidenav-second-level collapse" id="collapseProfile">
-                    <li>
-                        <a href="user-profile.html">User profile</a>
-                    </li>
-                    <li>
-                        <a href="doctor-profile.html">Doctor profile</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
-                    <i class="fa fa-fw fa-gear"></i>
-                    <span class="nav-link-text">Components</span>
-                </a>
-                <ul class="sidenav-second-level collapse" id="collapseComponents">
-                    <li>
-                        <a href="charts.html">Charts</a>
-                    </li>
-                    <li>
-                        <a href="tables.html">Tables</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-        <ul class="navbar-nav sidenav-toggler">
             <li class="nav-item">
-                <a class="nav-link text-center" id="sidenavToggler">
-                    <i class="fa fa-fw fa-angle-left"></i>
+                <a class="nav-link" href="{{ route('doctor.timetable') }}">
+                    <i class="fa fa-fw fa-calendar-check-o"></i>
+                    <span class="nav-link-text">{{trans('menu.timetable')}}
                 </a>
             </li>
         </ul>
+        
         <ul class="navbar-nav ml-auto">
-
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-                    <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+            <li class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">{{ trans('menu.language') }}</button>
+                <ul class="dropdown-menu">
+                    @foreach(\Mcamara\LaravelLocalization\Facades\LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                        <li class="py-1 px-3">
+                            <a hreflang="{{ $localeCode }}"
+                               href="{{ \Mcamara\LaravelLocalization\Facades\LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                {{ $properties['native'] }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </li>
+            <li style="color: white; margin-left: 5px">
+                <a class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">{{trans('menu.logout')}}</a>
             </li>
         </ul>
     </div>
 </nav>
+
+
+@include('doctor.adaptation_style')
