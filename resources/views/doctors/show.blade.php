@@ -168,8 +168,11 @@
         </div>
     </div>
 
+    <script src="{{asset('js/baguetteBox.min.js')}}"></script>
+
 @endsection
 @section('scripts')
+<script src="{{asset('js/bootstrap-datepicker.js')}}"></script>
 @include('book.calendar-time-js')
 <script>
     baguetteBox.run('.gallery');
