@@ -50,10 +50,14 @@ class Handler extends ExceptionHandler
         if ($exception instanceof AuthenticationException) {
             return redirect('/');
         }
-        if ($exception->getStatusCode() == 404) {
-            return response()->view('errors.' . '404', [], 404);
+
+        if ($this->isHttpException($exception)) {
+            if ($exception->getStatusCode() == 404) {
+                return response()->view('errors.' . '404', [], 404);
+            }
         }
 
         return parent::render($request, $exception);
     }
+
 }
