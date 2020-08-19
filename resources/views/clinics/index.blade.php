@@ -105,8 +105,9 @@
 @endsection
 
 @section('scripts')
-    <script>
-        $('#region_id').select2();
-        $('#service_id').select2();
-    </script>
+<script src="{{asset('vendor/select2/js/select2.min.js')}}"></script>
+<script>
+    $('#region_id').select2();
+    $('#service_id').select2();
+</script>
 @endsection

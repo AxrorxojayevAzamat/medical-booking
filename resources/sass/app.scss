@@ -1,8 +1,9 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
 
-// Variables
-@import 'variables';
-
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import "bootstrapmin";
+@import "vendors";
+@import "select2";
+@import "baguetteBox.scss";
+@import 'style';
+@import 'menu';
+@import 'date_picker';
+@import 'custom';

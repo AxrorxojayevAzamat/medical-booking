@@ -11,5 +11,18 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix.js([
+        'resources/js/functions.js',
+        'resources/js/bootstrap-datepicker.js',
+        'resources/js/markerclusterer.js',
+        ],
+         'public/js/app.js')
+   .js(['resources/js/jquery-2.2.4.min.js',
+        'resources/js/common_scripts.min.js',
+        'resources/js/baguetteBox.min.js',
+        'public/vendor/select2/js/select2.min.js',
+        ],
+         'public/js/main.js')
+    .sass(
+        'resources/sass/app.scss', 'public/css/app')
+    .version();
