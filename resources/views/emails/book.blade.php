@@ -3,7 +3,10 @@
 	<b>{{ trans('book.booking_date') }}</b> {{$date}}
 </p>
 <p>
-	<b>{{ trans('book.booking_time') }}</b> {{$time}}
+	<b>{{ trans('book.booking_start_time') }}</b> {{$start_time}}
+</p>
+<p>
+	<b>{{ trans('book.booking_finish_time') }}</b> {{$finish_time}}
 </p>
 <p>
 	<b>{{ trans('book.name_of_doctor') }}</b> {{ $doctor }}

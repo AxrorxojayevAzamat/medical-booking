@@ -140,11 +140,11 @@ class ClickService
         });
     }
 
-    public function createOrder(int $userId, int $doctorId, int $clinicId, string $bookingDate, string $timeStart, int $amount, string $description): Click
+    public function createOrder(int $userId, int $doctorId, int $clinicId, string $bookingDate, string $timeStart, string $timeFinish, int $amount, string $description = null): Click
     {
         DB::beginTransaction();
         try {
-            $book = Book::new($userId, $doctorId, $clinicId, $bookingDate, $timeStart, null, $description, Book::CLICK);
+            $book = Book::new($userId, $doctorId, $clinicId, $bookingDate, $timeStart, $timeFinish, $description, Book::CLICK);
 
             $order = Click::create([
                 'book_id' => $book->id,

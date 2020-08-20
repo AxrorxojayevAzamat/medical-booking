@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+
     use AuthenticatesUsers;
 
     protected $redirectTo = '/';
@@ -25,23 +26,23 @@ class LoginController extends Controller
         $this->validateLogin($request);
 
         if (method_exists($this, 'hasTooManyLoginAttempts') &&
-            $this->hasTooManyLoginAttempts($request)) {
+                $this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
 
             return $this->sendLockoutResponse($request);
         }
 
         if ($this->attemptLogin($request)) {
-            if (Auth::check()){
-                if(Auth::user()->isAdmin() || Auth::user()->isClinic() || Auth::user()->isCallCenter()) {
-                    session(['url.intended' => route('admin.home') ]);
+            if (Auth::check()) {
+                if (Auth::user()->isAdmin() || Auth::user()->isClinic() || Auth::user()->isCallCenter()) {
+                    session(['url.intended' => route('admin.home')]);
                     $this->redirectTo = route('admin.home');
                 }
-                if(Auth::user()->isPatient()) {
+                if (Auth::user()->isPatient()) {
                     $this->redirectTo = session()->get('url.intended');
                     //$this->redirectTo = route('patient.profile');
                 }
-                if(Auth::user()->isDoctor()) {
+                if (Auth::user()->isDoctor()) {
                     $this->redirectTo = session()->get('url.intended');
                     //$this->redirectTo = route('doctor.profile');
                 }
@@ -66,10 +67,11 @@ class LoginController extends Controller
         return $this->loggedOut($request) ?: redirect($this->redirectTo);
     }
 
-    public function authenticated(Request $request, $user) {
+    public function authenticated(Request $request, $user)
+    {
         if (!$user->isActive()) {
             $this->guard()->logout();
-            return back()->with('error', 'You need to confirm your account. Please check your email.');
+            return back()->with('error', 'Вам необходимо подтвердить свой аккаунт. Пожалуйста, проверьте свою электронную почту');
         }
         return redirect()->intended($this->redirectPath());
     }

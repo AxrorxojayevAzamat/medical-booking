@@ -16,7 +16,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use RuntimeException;
-use App\Services\BookSmsService;
+use App\Services\BookService;
 
 class PaycomController extends Controller
 {
@@ -25,7 +25,7 @@ class PaycomController extends Controller
     private $validator;
     private $bookService;
 
-    public function __construct(PaycomService $service, PaycomValidator $validator, BookSmsService $bookService)
+    public function __construct(PaycomService $service, PaycomValidator $validator, BookService $bookService)
     {
         require_once __DIR__ . '/../../../Helpers/helpers.php';
 
@@ -53,7 +53,7 @@ class PaycomController extends Controller
             $this->validator->authorizePaycom($request);
             $this->validator->validateAmount($request->amount);
             $user = Auth::user();
-            $order = $this->service->createBookOrder($user->id, $request->doctor_id, $request->clinic_id, $request->booking_date, $request->time_start, $request->amount, $request->description);
+            $order = $this->service->createBookOrder($user->id, $request->doctor_id, $request->clinic_id, $request->booking_date, $request->time_start, $this->bookService->getTimeFinish($request->doctor_id, $request->clinic_id, $request->time_start), $request->amount, $request->description);
             return $this->successResponse('Paycom order is created.', ['order_id' => $order->id]);
         } catch (ValidationException $e) {
             return $this->response(ResponseHelper::CODE_VALIDATION_ERROR, trans('validation.error'), $e->errorBag);

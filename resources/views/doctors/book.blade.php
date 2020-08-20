@@ -63,7 +63,8 @@
                     <div class="summary">
                         <ul>
                             <li>{{ trans('book.booking_date') }} <strong class="float-right">{{$calendar}}</strong></li>
-                            <li>{{ trans('book.booking_time') }} <strong class="float-right">{{$radioTime}}</strong></li>
+                            <li>{{ trans('book.booking_start_time') }} <strong class="float-right">{{$radioTime}}</strong></li>
+                            <li>{{ trans('book.booking_finish_time') }} <strong class="float-right">{{$finishTime}}</strong></li>
                             <li>{{ trans('book.name_of_doctor') }} <strong class="float-right">{{$doctor->profile ? $doctor->profile->fullName : ''}}</strong></li>
                             <li>{{ trans('book.name_of_clinic') }} <strong class="float-right">{{$clinic->name}}</strong></li>
                         </ul>

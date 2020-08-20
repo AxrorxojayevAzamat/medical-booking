@@ -33,11 +33,11 @@ class PaycomService
         ]);
     }
 
-    public function createBookOrder(int $userId, int $doctorId, int $clinicId, string $bookingDate, string $timeStart, int $amount, string $description): PaycomOrder
+    public function createBookOrder(int $userId, int $doctorId, int $clinicId, string $bookingDate, string $timeStart, string $timeFinish, int $amount, string $description = null): PaycomOrder
     {
         DB::beginTransaction();
         try {
-            $book = Book::new($userId, $doctorId, $clinicId, $bookingDate, $timeStart, null, $description, Book::PAYME);
+            $book = Book::new($userId, $doctorId, $clinicId, $bookingDate, $timeStart, $timeFinish, $description, Book::PAYME);
 
             $order = PaycomOrder::create([
                 'book_id' => $book->id,

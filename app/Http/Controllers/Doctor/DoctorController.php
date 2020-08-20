@@ -257,10 +257,11 @@ class DoctorController extends Controller
     {
         $calendar = $request['calendar'];
         $radioTime = $request['radio_time'];
+        $finishTime = $this->service->getTimeFinish($doctor->id, $clinic->id, $radioTime);
         $price = config('book.booking_price');
         $currency = config('book.default_currency');
 
         $patient = User::find(Auth::user()->id);
-        return view('doctors.book', compact('patient', 'doctor', 'clinic', 'calendar', 'radioTime', 'price', 'currency'));
+        return view('doctors.book', compact('patient', 'doctor', 'clinic', 'calendar', 'radioTime', 'price', 'currency', 'finishTime'));
     }
 }

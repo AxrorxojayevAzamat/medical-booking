@@ -80,8 +80,8 @@
                                     <!--<input type="number" name="gender" min="0" max="1" class="form-control {{ $errors->has('gender') ? 'is-invalid' : '' }}" value="{{ old('gender') }}" placeholder="{{ __('Пол') }}" autofocus>-->
                                         <select id="gender" class="form-control {{ $errors->has('gender') ? 'is-invalid' : '' }}" name="gender" value="{{ old('gender') }}" autocomplete="gender" autofocus>
                                             <option value="" selected="">{{ trans('filter.sex') }}</option>>
-                                            <option value="0" @if (old('gender') == '0') selected="selected" @endif>{{ trans('filter.female') }}</option>>
                                             <option value="1"@if (old('gender') == '1') selected="selected" @endif>{{ trans('filter.male') }}</option>>
+                                            <option value="0" @if (old('gender') == '0') selected="selected" @endif>{{ trans('filter.female') }}</option>>
                                         </select>
 
                                         @if ($errors->has('gender'))

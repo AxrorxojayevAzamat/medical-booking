@@ -11,13 +11,11 @@ use App\Entity\Clinic\Specialization;
 use App\Entity\Book\Book;
 use App\Entity\Celebration;
 use App\Services\BookService;
-use App\Services\BookSmsService;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
 use App\Services\Book\Paycom\PaycomService;
 use App\Services\Book\Click\ClickService;
 use App\Http\Requests\Admin\Users\CreatePatientRequest;
-use App\Http\Requests\BookRequest;
 
 class CallCenterController extends Controller
 {
@@ -29,7 +27,7 @@ class CallCenterController extends Controller
     private $paycomService;
     private $clickService;
 
-    public function __construct(BookService $service, BookSmsService $bookService, PaycomService $paycomService, ClickService $clickService)
+    public function __construct(BookService $service, BookService $bookService, PaycomService $paycomService, ClickService $clickService)
     {
         $this->service = $service;
         $this->bookService = $bookService;
@@ -192,18 +190,19 @@ class CallCenterController extends Controller
         $description = $request['description'];
         $amount = $request['amount'];
         $user = User::find($userId);
+        $timeFinish = $this->bookService->getTimeFinish($doctorId, $clinicId, $timeStart);
         $link = null;
         $order = null;
 
 
         if ($paymentType == Book::PAYME) {
 
-            $order = $this->paycomService->createBookOrder($userId, $doctorId, $clinicId, $bookingDate, $timeStart, $amount, $description);
+            $order = $this->paycomService->createBookOrder($userId, $doctorId, $clinicId, $bookingDate, $timeStart, $timeFinish, $amount, $description);
             $cipher = 'm=' . config('paycom_config.merchant_id') . ';a=' . $amount * 100 . ';l=ru;ac.' . config('paycom_config.account') . '=' . $order->id;
             $link = config('paycom_config.endpoint_check') . '/' . base64_encode($cipher);
         } else if ($paymentType == Book::CLICK) {
 
-            $order = $this->clickService->createOrder($userId, $doctorId, $clinicId, $bookingDate, $timeStart, $amount, $description);
+            $order = $this->clickService->createOrder($userId, $doctorId, $clinicId, $bookingDate, $timeStart, $timeFinish, $amount, $description);
             $cipher = 'service_id=' . config('click.service_id') . '&merchant_id=' . config('click.merchant_id') . '&amount=' . $amount . '&transaction_param=' . $order->merchant_transaction_id;
             $link = config('click.endpoint_check') . '/' . $cipher;
         }

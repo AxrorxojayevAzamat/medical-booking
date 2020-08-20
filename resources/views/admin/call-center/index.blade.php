@@ -47,7 +47,7 @@
                             <div class="">
                                 <div class="form-group mr-2">
                                         <label for="name" class="col-form-label">{{ __('Имя,Фамилия') }}</label>
-                                        <input name="name" type="text" class="form-control"  value="{{ request('name') }}" placeholder="Имя,Фамилия">
+                                        <input name="name" type="text" class="form-control"  value="{{ request('name') }}">
                                     </div>
                                 </div>
                             <div class="">
@@ -62,7 +62,7 @@
                                     <input id="email" class="form-control" name="email" value="{{ request('email') }}">
                                 </div>
                             </div>
-                            <div class="">
+                            <div class="col-2">
                                 <div class="form-group pl-1">
                                     <label class="col-form-label">&nbsp;</label><br />
                                     <button type="submit" class="btn btn-primary">Поиск</button>

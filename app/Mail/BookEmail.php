@@ -13,17 +13,19 @@ class BookEmail extends Mailable
         SerializesModels;
 
     public $date;
-    public $time;
+    public $start_time;
+    public $finish_time;
     public $doctor;
     public $clinic;
     public $price;
     public $currency;
     public $link;
 
-    public function __construct($date, $time, $doctor, $clinic, $price, $currency,$link)
+    public function __construct($date, $start_time, $finish_time, $doctor, $clinic, $price, $currency,$link)
     {
         $this->date = $date;
-        $this->time = $time;
+        $this->start_time = $start_time;
+        $this->finish_time = $finish_time;
         $this->doctor = $doctor;
         $this->clinic = $clinic;
         $this->price = $price;
@@ -35,7 +37,8 @@ class BookEmail extends Mailable
     {
         return $this->view('emails.book', [
                     'date' => $this->date,
-                    'time' => $this->time,
+                    'start_time' => $this->start_time,
+                    'finish_time' => $this->finish_time,
                     'doctor' => $this->doctor,
                     'clinic' => $this->clinic,
                     'price' => $this->price,

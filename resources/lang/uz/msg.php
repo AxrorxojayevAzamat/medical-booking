@@ -19,6 +19,7 @@ return [
     'payme_tooltype' => 'Sizning kartangizdagi ma\'lumotlar ushbu xizmatga uzatilmaydi va xizmat xavfsiz hududda saqlanadi ',
     'search' => 'Izlash',
     'payment_in' => "To'lov amalga oshmoqda",
+    '404' => 'Siz izlagan sahifa topilmadi!',
     'are_you_sure' => 'Aminmisiz?',
     'delete_profile' => "Profilingiz, hamda barcha ma`lumotlari qo`shib o`chib ketadi. Aminmisiz?",
     'deleted' => 'Profile o`chirildi!'

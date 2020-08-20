@@ -4,62 +4,51 @@ namespace App\Http\Controllers\Auth;
 
 use App\Entity\User\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Services\RegisterService;
+use App\Http\Requests\RegisterRequest;
 
 class RegisterController extends Controller
 {
-    use RegistersUsers;
 
-    protected $redirectTo = '/';
+    private $service;
 
-    public function __construct()
+    public function __construct(RegisterService $service)
     {
         $this->middleware('guest');
+        $this->service = $service;
     }
 
-    protected function validator(array $data) {
-        return Validator::make($data, [
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'confirmed'],
-            'phone' => ['required', 'string', 'unique:users','regex:/^\d{9}$/'],
-            'password' => ['required', 'string', 'min:2', 'confirmed'],
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'middle_name' => ['required', 'string', 'max:255'],
-            'birth_date' => ['required', 'date'],
-            'gender' => ['required', 'integer', 'min:0', 'max:1'],
-        ]);
-    }
-
-    protected function create(array $data)
+    public function showRegistrationForm()
     {
-        DB::beginTransaction();
-        try {
-            $user = User::create([
-                'email' => $data['email'],
-                'phone' => $data['phone'],
-                'password' => bcrypt($data['password']),
-                'status' => User::STATUS_ACTIVE,
-                'role' => User::ROLE_USER,
-            ]);
-
-            $profile = $user->profile()->create([
-                'first_name' => $data['first_name'],
-                'last_name' => $data['last_name'],
-                'middle_name' => $data['middle_name'],
-                'birth_date' => $data['birth_date'],
-                'gender' => $data['gender'],
-            ]);
-
-            DB::commit();
-
-            return $user;
-        } catch (\Exception $e) {
-            DB::rollBack();
-            throw $e;
+        return view('auth.register');
     }
-    
+
+    public function register(RegisterRequest $request)
+    {
+        try {
+            $this->service->register($request);
+
+            return redirect()->route('login')
+                            ->with('success', 'Проверьте свою электронную почту и нажмите ссылку, чтобы подтвердить.');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function verify($token)
+    {
+        if (!$user = User::where('verify_token', $token)->first()) {
+
+            return redirect()->route('login')
+                            ->with('error', 'Извините, ваша ссылка не может быть идентифицирована.');
+        }
+
+        try {
+            $this->service->verify($user->id);
+            return redirect()->route('login')->with('success', 'Ваш адрес электронной почты подтвержден. Теперь вы можете войти.');
+        } catch (\DomainException $e) {
+            return redirect()->route('login')->with('error', $e->getMessage());
+        }
     }
 
 }

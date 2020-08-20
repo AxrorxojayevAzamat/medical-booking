@@ -12,6 +12,12 @@
                             <div class="row">
                                 <div class="col-2">
                                     <div class="form-group">
+                                        <label for="name" class="col-form-label">{{ __('Имя,Фамилия') }}</label>
+                                        <input name="name" type="text" class="form-control"  value="{{ request('name') }}">
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
                                         <label for="region" class="col-form-label">{{ __('Регион') }}</label>
                                         <select class="form-control" name="region" id="region">
                                             <option ></option>
@@ -21,8 +27,6 @@
                                         </select>
                                     </div>
                                 </div>
-
-
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label for="city" class="col-form-label">{{ __('Город') }}</label>
@@ -48,7 +52,7 @@
                                 </div>
                                 <div class="col-2">
                                     <div class="form-group">
-                                        <label for="clinic" class="col-form-label">{{ __('Название') }}</label>
+                                        <label for="clinic" class="col-form-label">{{ __('Название клиники') }}</label>
                                         <select class="form-control" name="clinic" id="clinic">
                                             <option></option>
                                             @foreach ($clinicList as $value => $label)
@@ -68,12 +72,6 @@
                                             @endforeach;
                                         </select>
                                         <label></label>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="form-group">
-                                        <label for="name" class="col-form-label">{{ __('Имя,Фамилия') }}</label>
-                                        <input name="name" type="text" class="form-control"  value="{{ request('name') }}" placeholder="Имя,Фамилия">
                                     </div>
                                 </div>
 
@@ -126,5 +124,5 @@
     </div>
     <!-- /.row -->
     @stop
-    
+
     @include('admin.call-center._script')

@@ -342,6 +342,11 @@ Breadcrumbs::register('admin.contactlist', function (Crumbs $crumbs) {
     $crumbs->push(trans('breadcrumbs.recall'), route('admin.contactlist'));
 });
 
+// error 404
+Breadcrumbs::for('errors.404', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Page Not Found');
+});
 // pages
 Breadcrumbs::register('admin.pages.pages', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
