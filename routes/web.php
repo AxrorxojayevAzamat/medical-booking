@@ -14,7 +14,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 //verify email - custom
 Route::get('/verify/{token}', 'Auth\RegisterController@verify')->name('register.verify');
 
-Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'can:admin-panel']], function () {
+Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth', 'can:admin-panel', 'can:admin-clinic-panel', 'can:manage-own-clinics'], function () {
     Route::get('', 'DashboardController@index')->name('home');
 
     Route::resource('users', 'UserController');
@@ -56,6 +56,10 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 
             Route::post('store-clinics', 'UserController@storeClinics')->name('store-clinics');
             Route::get('user-clinics', 'UserController@userClinics')->name('user-clinics');
+
+            Route::post('store-admin-clinics', 'UserController@storeAdminClinics')->name('store-admin-clinics');
+            Route::get('admin-clinics', 'UserController@adminClinics')->name('admin-clinics');
+
             //MainPhoto
             Route::get('main-photo', 'UserImageController@mainPhoto')->name('main-photo');
             Route::post('add-main-photo', 'UserImageController@addMainPhoto')->name('add-main-photo');
@@ -89,7 +93,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 
     Route::group(['prefix' => 'books', 'as' => 'books.'], function () {
         Route::get('/', 'BookController@index')->name('index');
-        Route::get('/{book}', 'BookController@show')->name('show')->where('book', '[0-9]+');
+        Route::get('/{id}{order_status})}', 'BookController@order_status')->name('orderStatus');
+        Route::get('/{book}', 'BookController@show')->name('show');
     });
     Route::group(['prefix' => 'call-center', 'namespace' => 'CallCenter','as' => 'call-center.'], function () {
         Route::get('/', 'CallCenterController@index')->name('index');
@@ -131,6 +136,16 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     });
 });
 
+Route::group(['prefix' => 'book', 'namespace' => 'Book', 'as' => 'book.'], function () {
+
+    Route::post('paycom/create', 'PaycomController@createOrder');
+    Route::post('paycom/perform', 'PaycomController@performOrder');
+
+    Route::post('click/create', 'ClickController@createOrder');
+    Route::post('click/create-token', 'ClickController@createToken');
+    Route::post('click/verify-token', 'ClickController@verifyToken');
+    Route::post('click/perform', 'ClickController@performOrder');
+});
 
 Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
     Route::get('', 'HomeController@index')->name('home');

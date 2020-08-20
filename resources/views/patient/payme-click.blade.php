@@ -69,7 +69,7 @@
         orderCreate.amount = 15000;
         orderCreate.booking_date = bookTime;
         orderCreate.time_start = $('#time_start').val();
-        orderCreate.description = " " + $('#description').val();
+        orderCreate.description = $('#description').val();
 
 
         $.ajax({
