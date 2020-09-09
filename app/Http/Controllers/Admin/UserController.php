@@ -3,21 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Entity\User\User;
-use App\Entity\User\Photo;
-use Illuminate\Support\Str;
-use App\Entity\User\Profile;
 use Illuminate\Http\Request;
 use App\Entity\Clinic\Clinic;
 use App\Services\UserService;
 use App\Entity\Clinic\Timetable;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Entity\Clinic\Specialization;
 use App\Http\Requests\Admin\Users\CreateRequest;
 use App\Http\Requests\Admin\Users\UpdateRequest;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use App\Entity\Book\Book;
 
 class UserController extends Controller
 {

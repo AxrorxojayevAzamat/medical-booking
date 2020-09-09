@@ -238,7 +238,7 @@
             <div class="col-lg-6">
                 <div class="bootstrap-timepicker">
                     <div class="form-group">
-                        <label>Интервал</label>
+                        <label>Интервал (min)</label>
                         <div class="input-group date" id="timepicker18">
                             <input type="number" name="interval" class="form-control" data-target="#timepicker18" value="{{ old('interval',$timetable ? $timetable->interval : '')}}">
                         </div>

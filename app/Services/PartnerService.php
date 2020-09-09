@@ -17,7 +17,7 @@ class PartnerService
             $partner = Partner::create([
                 'name'=>$data['name'],
                 'site_url'=>$data['site_url'],
-                'sort'=>100,
+                'sort'=>$data['sort'],
                 'status'=>$data['status'],
     
             ]);
@@ -99,7 +99,6 @@ class PartnerService
     {
         ImageHelper::saveThumbnail($partnerId, ImageHelper::FOLDER_PARTNERS, $photo, $imageName);
         ImageHelper::saveOriginal($partnerId, ImageHelper::FOLDER_PARTNERS, $photo, $imageName);
-        dd($partnerId);
     }
 
     private function sortModifications(Partner $partner): void

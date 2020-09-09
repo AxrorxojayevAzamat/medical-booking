@@ -164,7 +164,8 @@ return [
         'email'=>'Elektron pochta manzili',
         'password'=>'Parol',
         'phone'=>"Telefon raqam formati",
-        'g-recaptcha-response'=>'Shaklni yuborish uchun iltimos, recaptcha-ni to\'ldiring.'
+        'g-recaptcha-response'=>'Shaklni yuborish uchun iltimos, recaptcha-ni to\'ldiring.',
+        'schedule_type'=>'тип расписания врача'
     ],
 
 ];
