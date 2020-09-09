@@ -13729,14 +13729,14 @@ ul#top_access li#user figure img {
   width: 163px;
   height: 36px;
   display: block;
-  background: url(/images/logo.png?89678aa2c24e6e7f8dba4e8f25d542ae) no-repeat 0 0;
+  background: url(/images/logo.png?e01013ca29de509ef01eb2009f1e5d17) no-repeat 0 0;
   background-size: 163px 36px;
   text-indent: -9999px;
 }
 
 @media only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
   #logo_home h1 a {
-    background-image: url(/images/logo_2x.png?05d2060f81f0d06ee1ba85d1d2101e4e);
+    background-image: url(/images/logo_2x.png?485e9d1f7e2a2b3f1091e6fb9b2b2df4);
     background-size: 163px 36px;
   }
 }

@@ -13,7 +13,6 @@ use App\Helpers\ClickHelper;
 use Carbon\Carbon;
 use Eloquent;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPassword as ResetPasswordNotification;
 use Illuminate\Database\Eloquent\Builder;
@@ -93,7 +92,7 @@ class User extends Authenticatable
         $profile = $user->profile()->create([
             'first_name' => $firstName,
             'last_name' => $lastName,
-            'patronymic' => $middleName,
+            'middle_name' => $middleName,
             'birth_date' => $birthDate,
             'gender' => $gender,
         ]);
@@ -109,7 +108,7 @@ class User extends Authenticatable
         $profile = $user->profile()->create([
             'first_name' => $firstName,
             'last_name' => $lastName,
-            'patronymic' => $middleName,
+            'middle_name' => $middleName,
             'birth_date' => $birthDate,
             'gender' => $gender,
         ]);

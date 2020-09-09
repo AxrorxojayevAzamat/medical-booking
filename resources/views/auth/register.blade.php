@@ -100,14 +100,6 @@
                                         @endif
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" name="email_confirmation" class="form-control {{ $errors->has('email_confirmation') ? 'is-invalid' : '' }}" value="{{ old('email_confirmation') }}" placeholder="{{ trans('auth.confirm_address_email') }}">
-                                        @if ($errors->has('email'))
-                                            <div class="invalid-feedback">
-                                                <strong>{{ $errors->first('email') }}</strong>
-                                            </div>
-                                        @endif
-                                    </div>
-                                    <div class="form-group">
                                         <input type="password" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" placeholder="{{trans('adminlte.password') }}">
 
                                         @if ($errors->has('password'))
