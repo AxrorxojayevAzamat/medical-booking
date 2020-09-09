@@ -50,6 +50,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('manage-clinics', function (User $user) {
             return $user->isAdmin();
         });
+        
+        Gate::define('manage-clinic-services', function (User $user) {
+            return $user->isAdmin();
+        });
 
         Gate::define('manage-call-center', function (User $user) {
             return $user->isAdmin() || $user->isCallCenter();
@@ -72,6 +76,10 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('manage-callback', function (User $user) {
+            return $user->isAdmin();
+        });
+        
+        Gate::define('manage-pages', function (User $user) {
             return $user->isAdmin();
         });
 

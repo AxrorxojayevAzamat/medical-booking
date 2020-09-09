@@ -218,7 +218,7 @@ return [
             'text' => 'Сервисы клиник',
             'icon' => 'fas fa-fw fa-share',
             'url' => 'admin/services',
-            'can' => ['manage-clinics','admin-clinic-panel','manage-call-center'],
+            'can' => ['manage-clinic-services'],
         ],
         [
             'text' => 'Колл-центр',
@@ -260,6 +260,7 @@ return [
             'text' => 'Динамические страницы',
             'icon' => 'fas fa-fw fa-share',
             'url' => 'admin/pages',
+            'can' => ['manage-pages'],
             
         ],
     ],

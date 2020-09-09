@@ -19,7 +19,7 @@ class ServiceController extends Controller
 
     public function __construct(ClinicServicesService $service)
     {
-        $this->middleware('can:dashboard-panel');
+        $this->middleware('can:manage-clinic-services');
         $this->service = $service;
     }
 
