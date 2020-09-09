@@ -221,13 +221,13 @@ return [
             'can' => ['manage-clinics','admin-clinic-panel','manage-call-center'],
         ],
         [
-            'text' => 'CallCenter',
+            'text' => 'Колл-центр',
             'icon' => 'fas fa-fw fa-headphones',
             'url' => 'admin/call-center',
             'can' => ['manage-call-center'],
         ],
         [
-            'text' => 'Bookings list',
+            'text' => 'Список бронирований',
             'icon' => 'fas fa-fw fa-calendar-alt',
             'url' => 'admin/books',
             'can' => ['manage-bookings-list'],

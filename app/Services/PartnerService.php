@@ -99,6 +99,7 @@ class PartnerService
     {
         ImageHelper::saveThumbnail($partnerId, ImageHelper::FOLDER_PARTNERS, $photo, $imageName);
         ImageHelper::saveOriginal($partnerId, ImageHelper::FOLDER_PARTNERS, $photo, $imageName);
+        dd($partnerId);
     }
 
     private function sortModifications(Partner $partner): void

@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Entity;
 use App\Entity\Partner;
-use Illuminate\Http\Request;
 use App\Services\PartnerService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PartnerRequest;

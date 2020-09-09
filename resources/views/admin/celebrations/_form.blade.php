@@ -11,7 +11,7 @@
 
 <div class="form-group col-5" align='center'>
         <div class="form-group">
-            <input name="date" type="date" class="form-control" value="{{ old('date')?? $celebration->date->format('Y-m-d') ??''}}" >
+            <input name="date" type="date" id="celeb_date" class="form-control" value="{{ old('date', $celebration->date ? $celebration->date->format('Y-m-d') : '') }}">
             <label>Введите дату:</label>
         </div>
 </div>

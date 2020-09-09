@@ -14,7 +14,7 @@ class CreatePartnersTable extends Migration
             $table->string('site_url');
             $table->integer('sort')->nullable()->default(100);
             $table->tinyInteger('status')->default(1);
-            $table->string('дўпў')->nullable();
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }
