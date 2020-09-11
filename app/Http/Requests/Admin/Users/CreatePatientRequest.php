@@ -20,7 +20,6 @@ class CreatePatientRequest extends FormRequest
             'middle_name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'regex:/^\d{9}$/', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:2', 'confirmed'],
             'birth_date' => ['required', 'date'],
             'gender' => ['required', 'integer', 'min:0', 'max:1']
         ];

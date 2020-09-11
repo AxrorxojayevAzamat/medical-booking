@@ -82,17 +82,21 @@ class CallCenterController extends Controller
 
     public function storePatient(CreatePatientRequest $request)
     {
-        $user = User::newGuest(
-                        $request['email'],
-                        $request['phone'],
-                        $request['first_name'],
-                        $request['last_name'],
-                        $request['middle_name'],
-                        $request['birth_date'],
-                        $request['gender']
-        );
-        $this->sendResetLinkEmail($request);
-        return redirect()->route('admin.call-center.index')->with('success', 'Письмо со ссылкой отправлено на почту ' . $request['email']);
+        try {
+            $user = User::newGuest(
+                            $request['email'],
+                            $request['phone'],
+                            $request['first_name'],
+                            $request['last_name'],
+                            $request['middle_name'],
+                            $request['birth_date'],
+                            $request['gender']
+            );
+            $this->sendResetLinkEmail($request);
+            return redirect()->route('admin.call-center.index')->with('success', 'Письмо со ссылкой отправлено на почту ' . $request['email']);
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
         ;
     }
 
