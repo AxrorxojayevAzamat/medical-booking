@@ -47,9 +47,12 @@ use ResetsPasswords;
 
         $user->setRememberToken(Str::random(60));
         $user->save();
-        $user->markEmailAsVerified();
-        $user->verify();
-
+        
+        if ($user->isInactive() && $user->email_verified_at == null) {
+            $user->markEmailAsVerified();
+            $user->verify();
+        }
+        
         event(new PasswordReset($user));
 
 //        $this->guard()->login($user);
