@@ -7,4 +7,5 @@
         "extra1" => "Respublika bo'yicha turli xil shifokorlarni aniqlash va ularning ish joylarini topish",
         "extra2" => "Shifokor yoki bemorlar o'zlariga qulay, shaxsiy profil ochishlari mumkin",
         "extra3" => "Bemorlar o'zlariga kerakli bo'lgan shifokorlarni band qilishi mumkin",
+        "description" =>"Shifokorni osonlik bilan toping va online ravishda qabulga yoziling",
     ];
