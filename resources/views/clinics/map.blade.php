@@ -1,4 +1,4 @@
- <!-- <h1>Test MAP</h1>
+ <!-- <h1>Test MAP</h1> -->
 <ul class="contacts">
     <li>{{$clinic->name}}</li>
     <li>{{$clinic->address}}</li>
@@ -25,7 +25,7 @@
                             .addTo(map);
 
                             var greenIcon = L.icon({
-                                iconUrl: 'img/icons/clinic.png',
+                                iconUrl: '/img/icons/clinic.png',
                                 iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
                                 iconSize:     [50, 50], // size of the icon
                                 popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
