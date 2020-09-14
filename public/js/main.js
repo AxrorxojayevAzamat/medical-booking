@@ -26293,10 +26293,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;function _type
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/sandra/laravel-dev/medical-booking/resources/js/jquery-2.2.4.min.js */"./resources/js/jquery-2.2.4.min.js");
-__webpack_require__(/*! /home/sandra/laravel-dev/medical-booking/resources/js/common_scripts.min.js */"./resources/js/common_scripts.min.js");
-__webpack_require__(/*! /home/sandra/laravel-dev/medical-booking/resources/js/baguetteBox.min.js */"./resources/js/baguetteBox.min.js");
-module.exports = __webpack_require__(/*! /home/sandra/laravel-dev/medical-booking/public/vendor/select2/js/select2.min.js */"./public/vendor/select2/js/select2.min.js");
+__webpack_require__(/*! /var/www/html/new/medical-booking/resources/js/jquery-2.2.4.min.js */"./resources/js/jquery-2.2.4.min.js");
+__webpack_require__(/*! /var/www/html/new/medical-booking/resources/js/common_scripts.min.js */"./resources/js/common_scripts.min.js");
+__webpack_require__(/*! /var/www/html/new/medical-booking/resources/js/baguetteBox.min.js */"./resources/js/baguetteBox.min.js");
+module.exports = __webpack_require__(/*! /var/www/html/new/medical-booking/public/vendor/select2/js/select2.min.js */"./public/vendor/select2/js/select2.min.js");
 
 
 /***/ })

@@ -13802,10 +13802,10 @@ ClusterIcon.prototype['onRemove'] = ClusterIcon.prototype.onRemove;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/sandra/laravel-dev/medical-booking/resources/js/functions.js */"./resources/js/functions.js");
-__webpack_require__(/*! /home/sandra/laravel-dev/medical-booking/resources/js/bootstrap-datepicker.js */"./resources/js/bootstrap-datepicker.js");
-__webpack_require__(/*! /home/sandra/laravel-dev/medical-booking/resources/js/markerclusterer.js */"./resources/js/markerclusterer.js");
-module.exports = __webpack_require__(/*! /home/sandra/laravel-dev/medical-booking/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /var/www/html/new/medical-booking/resources/js/functions.js */"./resources/js/functions.js");
+__webpack_require__(/*! /var/www/html/new/medical-booking/resources/js/bootstrap-datepicker.js */"./resources/js/bootstrap-datepicker.js");
+__webpack_require__(/*! /var/www/html/new/medical-booking/resources/js/markerclusterer.js */"./resources/js/markerclusterer.js");
+module.exports = __webpack_require__(/*! /var/www/html/new/medical-booking/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

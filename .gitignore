@@ -14,7 +14,10 @@ yarn-error.log
 /.idea
 storage/debugbar/
 /public/uploads/
-
+/public/js/main.js
+/public/js/app.js
+/public/css/app.css
+/public/mix-manifest.json
 # local template file
 /template
 package-lock.json
