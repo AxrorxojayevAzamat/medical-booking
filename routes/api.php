@@ -24,6 +24,7 @@ Route::get('call-center/findDoctorByType', 'Api\CallCenterController@findDoctorB
 Route::post('book/paycom', ['uses' => 'Book\PaycomController@endpoint']);
 Route::post('book/click/prepare', ['uses' => 'Book\ClickController@prepare']);
 Route::post('book/click/complete', ['uses' => 'Book\ClickController@complete']);
+Route::get('{clinic}/map', 'Api\ClinicController@map')->name('map');
 
 //Route::post('book/paycom/create', 'Book\PaycomController@createOrder');
 //Route::post('book/paycom/perform', 'Book\PaycomController@performOrder');

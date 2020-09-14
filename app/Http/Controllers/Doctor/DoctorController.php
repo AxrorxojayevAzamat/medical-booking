@@ -139,17 +139,17 @@ class DoctorController extends Controller
     {
         $doctorIds = [];
         $query = User::select(['users.*', 'pr.*'])
-            ->leftJoin('profiles as pr', 'users.id', '=', 'pr.user_id')
-            ->join('timetables as ts', 'users.id', '=', 'ts.doctor_id')
-            ->join('doctor_clinics as dc', 'users.id', '=', 'dc.doctor_id')
-            ->join('doctor_specializations as ds', 'users.id', '=', 'ds.doctor_id')
-            ->groupBy(['users.id', 'pr.user_id'])
-            ->doctor();
+                ->leftJoin('profiles as pr', 'users.id', '=', 'pr.user_id')
+                ->join('timetables as ts', 'users.id', '=', 'ts.doctor_id')
+                ->join('doctor_clinics as dc', 'users.id', '=', 'dc.doctor_id')
+                ->join('doctor_specializations as ds', 'users.id', '=', 'ds.doctor_id')
+                ->groupBy(['users.id', 'pr.user_id'])
+                ->doctor();
 
         if (!empty($value = $request->get('full_name'))) {
             $query->where(function ($query) use ($value) {
                 $query->whereRaw("concat(pr.last_name, ' ', pr.first_name, ' ', pr.middle_name) ilike '%$value%'")
-                    ->orWhereRaw("concat(pr.first_name, ' ', pr.middle_name, ' ', pr.last_name) ilike '%$value%'");
+                        ->orWhereRaw("concat(pr.first_name, ' ', pr.middle_name, ' ', pr.last_name) ilike '%$value%'");
             });
         }
 
@@ -165,8 +165,8 @@ class DoctorController extends Controller
             $regionIds = $this->getRegionIds($value);
 
             $doctorIds = array_merge($doctorIds, DoctorClinic::select('doctor_clinics.doctor_id')
-                ->leftJoin('clinics as c', 'doctor_clinics.clinic_id', '=', 'c.id')
-                ->whereIn('c.region_id', $regionIds)->pluck('doctor_clinics.doctor_id')->toArray());
+                            ->leftJoin('clinics as c', 'doctor_clinics.clinic_id', '=', 'c.id')
+                            ->whereIn('c.region_id', $regionIds)->pluck('doctor_clinics.doctor_id')->toArray());
         }
 
         if (!empty($doctorIds)) {
@@ -195,17 +195,33 @@ class DoctorController extends Controller
         $regions = Region::where('parent_id', null)->pluck('name_' . LanguageHelper::getCurrentLanguagePrefix(), 'id');
         $clinics = Clinic::pluck('name_' . LanguageHelper::getCurrentLanguagePrefix(), 'id');
         $specializations = Specialization::pluck('name_' . LanguageHelper::getCurrentLanguagePrefix(), 'id');
-        
+
         $clinicLocations = array();
+        $doctorClinics = array();
+        $doctorUniqueClinics = array();
+
         foreach ($doctors as $key => $value) {
-            
-           $clinicLocations[] = [   'doctorId' => $value->id,
-                                    'locations' => $value->clinics()->pluck('location')->toArray()
-                                ];
+            $tempos = $value->clinics()->pluck('id')->toArray();
+            foreach ($tempos as $tempo) {
+                $doctorClinics[] = $tempo;
+            }
         }
-        $clinicLocationsJson = json_encode($clinicLocations);
-        return view('doctors.index', compact('doctors', 'regions', 'clinics', 'specializations', 'countAll', 'countCurrent','clinicLocationsJson'));
+
+        $doctorUniqueClinics = Clinic::whereIn('id', array_values(array_unique($doctorClinics)))->get();
+
+        foreach ($doctorUniqueClinics as $key => $value) {
+
+            $clinicLocations[] = ['clinicId' => $value->id,
+                'clinicName' => $value->name_ . LanguageHelper::getCurrentLanguagePrefix(),
+                'location' => $value->location
+            ];
+        }
+
+        $doctorClinicsJson = json_encode($clinicLocations);
+
+        return view('doctors.index', compact('doctors', 'regions', 'clinics', 'specializations', 'countAll', 'countCurrent', 'doctorClinicsJson'));
     }
+
 
     private function getRegionIds($regionId): array
     {
@@ -245,12 +261,12 @@ class DoctorController extends Controller
 
         $holidays = $this->service->celebrationDays($celebrationDays);
 
-        $ratecheck = Rate::where(['user_id'=>Auth::id(),'doctor_id'=>$user->id])->first();
+        $ratecheck = Rate::where(['user_id' => Auth::id(), 'doctor_id' => $user->id])->first();
         $rates = array();
-        for ($i=5; $i > 0 ; $i--) {
-            array_push($rates, Rate::where(['doctor_id'=>$user->id,'rate'=>$i])->count());
+        for ($i = 5; $i > 0; $i--) {
+            array_push($rates, Rate::where(['doctor_id' => $user->id, 'rate' => $i])->count());
         }
-        return view('doctors.show', compact('user', 'clinics', 'specs', 'doctorTimetables', 'doctorBooks', 'holidays','ratecheck','rates'));
+        return view('doctors.show', compact('user', 'clinics', 'specs', 'doctorTimetables', 'doctorBooks', 'holidays', 'ratecheck', 'rates'));
     }
 
     public function book(Request $request, User $doctor, Clinic $clinic)
@@ -264,4 +280,5 @@ class DoctorController extends Controller
         $patient = User::find(Auth::user()->id);
         return view('doctors.book', compact('patient', 'doctor', 'clinic', 'calendar', 'radioTime', 'price', 'currency', 'finishTime'));
     }
+
 }

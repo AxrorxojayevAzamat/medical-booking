@@ -138,11 +138,11 @@
                         </p>
 
                         <ul style="height: 4em;">
-                            {{-- @if(empty($doctorValue->clinics->pluck('location')->toArray()))
-                                <li><a href="#0" onclick="initMap()" class="btn_listing"></a></li>
+                         @if(empty($doctorValue->clinics->pluck('location')->toArray()))
+                                <!-- <li><a href="" onclick="initMap({{$doctorValue->clinics->pluck('location')->first()}})" class="btn_listing" target="_blank"></a></li> -->
                             @else
-                                <li><a href="#0" onclick="initMap({{$doctorValue->clinics->pluck('location')->first()}})" class="btn_listing">{{trans('doctors.view_on_map')}}</a></li>
-                            @endif --}}
+                                <!-- <li><a href="" onclick="initMap({{$doctorValue->clinics->pluck('location')->first()}})" class="btn_listing" target="_blank">{{trans('doctors.view_on_map')}}</a></li> -->
+                            @endif
                             <li><a href="{{ route('doctors.show',$doctorValue) }}">{{trans('doctors.booking')}}</a></li>
                         </ul>
                     </div>
@@ -155,26 +155,71 @@
             <!-- /col -->
 
             <aside class="col-lg-5" id="sidebar">
-                <div id="map_listing" class="normal_list">
-                    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"/>
-                    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
-
-                    <style>
-                        #map { height: 550px; width: 599px; }
-                    </style>
-                    </head>
-                    {{-- <body> --}}
-                    <div id="map"></div>
-
+             <!-- <div id="map_listing" class="normal_list">   -->
+                       <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"/>
+                             <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+                       
+                       <style>
+                           #map { height: 550px; width: 599px; }
+                       </style>
+                 <body>
+                       <div id="map"></div>
+                       
                     <script>
-                        var map = L.map('map').setView([41.311081, 69.240562], 12);
-                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar', attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'})
+                            var map = L.map('map').setView([41.311081, 69.240562], 10);
+                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar', attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'})
                             .addTo(map);
+                                             
+                           
+                
+                                var greenIcon = L.icon({
+                                iconUrl: '/img/icons/clinic.png',
+                                iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+                                iconSize:     [50, 50], // size of the icon
+                                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+                                    });
+                                    var myObj = @json($doctorClinicsJson );                       
+                                    myObj = myObj.split('}');
+                                    console.log(myObj);
+                                    for(let i = 0; i < myObj.length; i++){
+                                        myObj[i] = myObj[i].slice(1)
+                                        if(myObj[i] != ''){
+                                            myObj[i] = myObj[i].concat('}')
+                                            
+                                        }
+                                       
+                                    }
+                                    removeElement(myObj, '');
+                                    for(let i = 0; i < myObj.length; i++){
+                                        myObj[i] = JSON.parse(myObj[i])
+                                      
+                                    }
+                                    for(var i = 0; i < myObj.length; i++){
+                                       
+                                        
+                                            let newArray = myObj[i].location.split(',');
+                                            for(let a = 0; a < newArray.length; a++){
+                                                newArray[a] = parseFloat(newArray[a]);
+                                            }
+                                           
+                                            myObj[i].location = newArray;
+                                            
+                                        
+                                     
+                                    }
+                                    for(var i = 0; i < myObj.length; i++){
+                                         
+                                           L.marker(myObj[i].location,{icon:greenIcon}).addTo(map).bindPopup(myObj[i].clinicName);   
+                                    }
 
-                        L.marker([{"doctorId":53,"locations":["41.2704736,69.2134647","41.3191884,69.2382324"]},{"doctorId":42,"locations":["41.2704736,69.2134647"]},{"doctorId":39,"locations":["41.3191884,69.2382324","41.2704736,69.2134647","41.2704736,69.2134647"]},{"doctorId":4,"locations":["41.2981861,69.2120876"]},{"doctorId":44,"locations":["41.3191884,69.2382324","41.2704736,69.2134647"]}])
-
+                                    function removeElement(array, elem) {
+                                        var index = array.indexOf(elem);
+                                        if (index > -1) {
+                                            array.splice(index, 1);
+                                        }
+                                    }
                     </script>
-                    {{-- </body>  --}}
+                </body> 
                 </div>
             </aside>
         </div>
