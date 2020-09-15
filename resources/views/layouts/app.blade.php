@@ -25,8 +25,8 @@
     {{-- <link href="{{asset('css/vendors.css')}}" rel="stylesheet"> --}}
     {{-- <link href="{{asset('css/baguetteBox.min.css')}}" rel="stylesheet"> --}}
     {{-- <link href="{{asset('vendor/select2/css/select2.min.css')}}" rel="stylesheet"> --}}
-    
-    <link href="{{mix('css/app/app.css')}}" rel="stylesheet"> 
+
+    <link href="{{mix('css/app/app.css')}}" rel="stylesheet">
 
 
     @stack('css')
@@ -150,7 +150,7 @@
                         <li class="submenu">
                             <a href="#" class="show-submenu">{{ trans('menu.language') }}<i class="icon-down-open-mini"></i></a>
                             <ul>
-                                @foreach(\Mcamara\LaravelLocalization\Facades\LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                @foreach(\Mcamara\LaravelLocalization\Facades\LaravelLocalization::getLocalesOrder() as $localeCode => $properties)
                                     <li>
                                         <a rel="alternate" hreflang="{{ $localeCode }}"
                                            href="{{ \Mcamara\LaravelLocalization\Facades\LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
