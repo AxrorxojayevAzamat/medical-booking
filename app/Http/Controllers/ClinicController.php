@@ -11,8 +11,8 @@ use App\Entity\User\User;
 use App\Helpers\LanguageHelper;
 use Illuminate\Http\Request;
 
-class ClinicController extends Controller {
-
+class ClinicController extends Controller
+{
 
     public function index(Request $request)
     {
@@ -22,7 +22,7 @@ class ClinicController extends Controller {
         if (!empty($value = $request->get('name'))) {
             $query->where(function ($query) use ($value) {
                 $query->where('name_uz', 'ilike', '%' . $value . '%')
-                    ->orWhere('name_ru', 'ilike', '%' . $value . '%');
+                        ->orWhere('name_ru', 'ilike', '%' . $value . '%');
             });
         }
 
@@ -45,8 +45,17 @@ class ClinicController extends Controller {
 
         $regions = Region::where('parent_id', null)->pluck('name_' . LanguageHelper::getCurrentLanguagePrefix(), 'id');
         $services = Service::pluck('name_' . LanguageHelper::getCurrentLanguagePrefix(), 'id');
+    
+        $clinicLocations = array();
+        foreach ($clinics as $key => $value) {
 
-        return view('clinics.index', compact('clinics', 'regions', 'services', 'countAll', 'countCurrent'));
+            $clinicLocations[] = ['clinicId' => $value->id,
+                'clinicName' => $value->name_ . LanguageHelper::getCurrentLanguagePrefix(),
+                'location' => $value->location
+            ];
+        }
+        $clinicsJson = json_encode($clinicLocations);
+        return view('clinics.index', compact('clinics', 'regions', 'countAll', 'countCurrent', 'clinicsJson', 'services'));
     }
 
     private function getRegionIds($regionId): array
@@ -74,4 +83,5 @@ class ClinicController extends Controller {
         $emails = $clinic->contacts()->where('type', Contact::EMAIL)->pluck('value');
         return view('clinics.show', compact('clinic', 'phoneNumbers', 'faxNumbers', 'emails'));
     }
+
 }

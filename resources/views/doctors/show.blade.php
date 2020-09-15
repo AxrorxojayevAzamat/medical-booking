@@ -55,7 +55,7 @@
                             @endforeach
                         </ul>
                          <!-- <div id="map"><a href="https://www.openstreetmap.org/#map=12/41.3111/69.2406" class="btn_1 outline" target="_blank"><i class="icon_pin"></i> View on map</a></div> -->
-                            <div id="map"><a href="https://www.openstreetmap.org/#map=12/41.3111/69.2406/{{$clinic->location}}/@.{{$clinic->location}},20.5z" class="btn_1 outline" target="_blank"><i class="icon_pin"></i>{{trans('doctors.view_on_map')}}</a></div>
+                            <div id="map"><a href="{{ route('map', $clinic) }}" class="btn_1 outline" target="_blank"><i class="icon_pin"></i>{{trans('doctors.view_on_map')}}</a></div>
                         <br> 
                     @endforeach
                 </div>

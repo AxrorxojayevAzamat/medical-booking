@@ -19,7 +19,7 @@ $factory->define(Clinic::class, function (Faker $faker) {
         'address_ru' => $faker->unique()->address,
         'work_time_start' => '09:00',
         'work_time_end' => '17:00',
-        'location' => $faker->randomElement(['41.3191884,69.2382324','41.2981861,69.2120876','41.2704736,69.2134647']),
+        'location' => $faker->latitude(41.150350, 41.350150) . ',' . $faker->latitude(69.170150, 69.250170),	
         'created_by' => 1,
         'updated_by' => 1,
     ];

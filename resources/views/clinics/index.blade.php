@@ -82,11 +82,13 @@
                         <h3><a href="{{ route('clinics.show', $clinic) }}">{{ $clinic->name }}</a> </h3>
                         <p>{!! $clinic->description !!}</p>
                         <ul>
-                            {{-- <li><a href="#0" onclick="onHtmlClick('Doctors', {{ $key }})" class="btn_listing">View on Map</a></li> --}}
-                        <li><a href="#0" onclick="initMap(41.2646, 69.2163)" class="btn_listing">{{trans('doctors.view_on_map')}}</a></li>
+                            {{-- <li><a href="https://www.openstreetmap.org/#map=12/41.3111/69.2406" onclick="onHtmlClick('Doctors', {{ $key }})" class="btn_listing" target="_blank">View on Map</a></li> --}}
+                            <li><a href="{{ route('map', $clinic) }}" class="btn_listing" target="_blank">{{trans('doctors.view_on_map')}}</a></li>
                             <li><a href="{{ route('clinics.show', $clinic) }}">{{trans('doctors.in_detail')}}</a></li>
                         </ul>
-                    </div>
+                   
+                    </div> 
+                      
                 @endforeach
 
                 <nav aria-label="" class="add_top_22">
@@ -98,6 +100,71 @@
 
             <aside class="col-lg-5" id="sidebar">
                 <div id="map_listing" class="normal_list">
+                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"/>
+                             <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+                       
+                       <style>
+                           #map { height: 550px; width: 599px; }
+                       </style>
+                        <body>
+                       <div id="map"></div>
+                       
+                    <script>
+                            var map = L.map('map').setView([41.311081, 69.240562], 10);
+                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar', attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'})
+                            .addTo(map);
+
+                            var greenIcon = L.icon({
+                                iconUrl: '/img/icons/clinic.png',
+                                iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+                                iconSize:     [50, 50], // size of the icon
+                                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+                                    });
+
+                                    var clinicsData = @json($clinicsJson);
+                                    clinicsData = clinicsData.split('}');
+                                    
+                                    for(let i = 0; i < clinicsData.length; i++){
+                                        clinicsData[i] = clinicsData[i].slice(1)
+                                        if(clinicsData[i] != ''){
+                                            clinicsData[i] = clinicsData[i].concat('}')
+                                            
+                                        }
+                                    
+                                        
+                                    }
+                                    removeElement(clinicsData, '');
+                                    for(let i = 0; i < clinicsData.length; i++){
+                                        clinicsData[i] = JSON.parse(clinicsData[i])
+                                        
+                                    }
+                                    for(var i = 0; i < clinicsData.length; i++){
+                                        
+                                        
+                                            let newArray = clinicsData[i].location.split(',');
+                                            for(let a = 0; a < newArray.length; a++){
+                                                newArray[a] = parseFloat(newArray[a]);
+                                            }
+                                           
+                                            clinicsData[i].location = newArray;
+                                            
+                                        
+                                     
+                                    }
+                                    for(var i = 0; i < clinicsData.length; i++){
+                                           
+                                            L.marker(clinicsData[i].location,{icon:greenIcon}).addTo(map).bindPopup(clinicsData[i].clinicName);   
+                                    }
+
+                                    function removeElement(array, elem) {
+                                        var index = array.indexOf(elem);
+                                        if (index > -1) {
+                                            array.splice(index, 1);
+                                        }
+                                    }
+                                  
+                            </script>
+                           </body>
                 </div>
             </aside>
         </div>

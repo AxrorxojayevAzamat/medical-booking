@@ -98,18 +98,49 @@
                 </div>
             </div>
             <aside class="col-xl-4 col-lg-4" id="sidebar">
-                <div class="box_general_3 booking">
-                    <div class="title">
-                        <h3>{{trans('clinic.book_visit')}}</h3>
-                        <small>{{trans('clinic.monday_to_friday')}} 09.00 - 18.00</small>
+                  <div id="map_listing" class="normal_list">
+                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"/>
+                             <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+                       
+                       <style>
+                           #map { height: 550px; width: 599px; }
+                       </style>
+                        <body>
+                       <div id="map"></div>
+                       
+                       
+                       <script>
+                            var map = L.map('map').setView([41.311081, 69.240562], 11);
+                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar', attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'})
+                            .addTo(map);
+
+                            var greenIcon = L.icon({
+                                iconUrl: '/img/icons/clinic.png',
+                                iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+                                iconSize:     [50, 50], // size of the icon
+                                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+                                    });
+
+                                    var clinics_data = @json($clinic);
+                                    console.log(clinics_data);
+                                   
+                                    let newArray = clinics_data.location.split(',');
+                                            for(let a = 0; a < newArray.length; a++){
+                                                newArray[a] = parseFloat(newArray[a]);
+                                            }
+                                            //console.log(newArray.length)
+                                            clinics_data.location = newArray;
+                                            
+                                            console.log(clinics_data.location)
+                                            L.marker(clinics_data.location,{icon:greenIcon}).addTo(map).bindPopup(clinics_data.name_ru);
+                                   
+                                            
+                            </script>
+            
                     </div>
-                    <div id="message-booking"></div>
-                    <form method="post" action="assets/booking.php" id="booking">
-                        <input type="hidden" value="Dr. Julia Jhones" name="doctor_name_booking" id="doctor_name_booking">
-                        <div class="row">
-                            <div class="col-md-6 ">
-                                <div class="form-group mb-3">
-                                    <input type="text" class="form-control" placeholder="{{trans('clinic.name')}}" name="name_booking" id="name_booking">
+                     
+                       
+                        
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -164,7 +195,7 @@
                             </div>
                         </div>
                         <hr>
-                        <div style="position:relative;"><input type="submit" class="btn_1 full-width" value="{{trans('clinic.book_now')}}" id="submit-booking"></div>
+           
                     </form>
                 </div>
             </aside>
