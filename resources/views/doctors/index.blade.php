@@ -173,9 +173,9 @@
                            
                 
                                 var greenIcon = L.icon({
-                                iconUrl: '/img/icons/clinic.png',
+                                iconUrl: '/img/icons/location.png',
                                 iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-                                iconSize:     [50, 50], // size of the icon
+                                iconSize:     [35, 35], // size of the icon
                                 popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
                                     });
                                     var myObj = @json($doctorClinicsJson );                       
